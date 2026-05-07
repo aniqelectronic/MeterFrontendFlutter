@@ -1,0 +1,1165 @@
+{
+  "@@locale": "en",
+  
+  "bilText": "BILL",
+  "otherText": "OTHERS",
+  "p2Title": "MULTIPLE OPTION",
+  "pbtText": "PBT",
+  "rentText": "RENT",
+  "backText": "BACK",
+
+  "comingsoonText": "COMING SOON",
+
+  "p3rentTitle": "RENT OPTIONS",
+  "p3rentSubtitle": "PLEASE SELECT YOUR OPTION",
+  "p3dewanButton": "HALL",
+  "p3geraiButton": "STALL",
+  "p3ruangniagaButton": "COMMERCIAL SPACES",
+
+  "p3othersTitle": "OTHERS OPTIONS",
+  "p3othersSubtitle": "PLEASE SELECT YOUR OPTION",
+  "p3aduanButton": "COMPLAINT",
+  "p3eksplorasiButton": "EXPLORATION",
+  "p3waktusolat": "PRAYER TIME",
+  "p3map": "MAP",
+
+  "pwaktusolattitle": "PRAYER TIME",
+  "textsolat1":"NEXT PRAYER : ",
+
+  "maptitle":"LOCATION MAP",
+  "mapsubtitle":"EXPLORE AND DISCOVER WHAT’S AROUND YOU",
+  
+  "p3Title": "PBT OPTIONS",
+  "p3Subtitle": "PLEASE SELECT YOUR OPTION",
+  "parkirButton" : "PARKING",
+  "compoundButton" : "COMPOUND",
+  "taxButton" : "TAX",
+  "compoundTitle": "COMPOUND",
+  "aduanTitle": "COMPLAINT",
+  "singlecompoundTitle": "SINGLE COMPOUND",
+  "multicompoundTitle": "MULTIPLE COMPOUND",
+  "compoundSubtitle": "CHOOSE SEARCH METHOD",
+  "singleCompoundButton": "COMPOUND NUMBER",
+  "multiCompoundButton": "PLATE NUMBER",
+  "licenseButton" : "LICENSE",
+  "inputPlateHint": "ENTER YOUR PLATE NUMBER",
+  "inputICHint": "ENTER YOUR IC NUMBER",
+  "inputCompoundHint": "ENTER COMPOUND NUMBER",
+
+  "pbil3Title": "BILL OPTIONS",
+  "pbil3Subtitle": "PLEASE SELECT YOUR OPTION",
+  "tnbButton": "TNB BILL",
+  "waterButton": "WATER BILL",
+  "tmButton": "TM BILL",
+  "telkoButton": "TELCO BILL",
+
+  "backButton": "BACK",
+  "continueButton": "CONTINUE",
+  "alertTitle": "Notice",
+  "alertEnterInfo": "Please enter information before proceeding.",
+  "alertEnterIC": "Please enter IC number.",
+  "alertNoTaxRecord": "No tax record found.",
+  "alertNoLicenseRecord": "No license record found.",
+  "alertEnterPlateNo": "Please enter vehicle registration number.",
+  "alertNoCompoundRecord": "No compound record found.",
+  "alertEnterCompoundNo": "Please enter compound number.",
+  "keyboardBackspace": "BACKSPACE",
+  "keyboardClearAll": "CLEAR ALL",
+  "buttonBack": "BACK",
+  "buttonContinue": "CONTINUE",
+
+  "p5parkingText1" : "CHOOSE PARKING DURATION",
+  "p5parkingText2" : "UNTIL", 
+  "p5parkingTitle": "SELECT PARKING DURATION",
+  "p5parkingTimeRange": "{startTime} UNTIL {endTime}",
+  "p5parkingRatePerHour": "RATE PER HOUR = RM {ratePerHour}",
+  "p5parkingTotalAmount": "TOTAL AMOUNT = RM {amount}",
+
+  "p5parkingNumberPlate" : "PLATE NUMBER",
+  "p5parkingTotal" : "TOTAL PAYMENT",
+  "p5parkingStart" : "START",
+  "p5timeparking" : "Parking Time:",
+  "p5parkingEnd": "END",
+  "p5tempoh" : "Parking Period:",
+  "p5Total" : "Total Payment:",
+  "newParkingEnd": "New Parking End Time",
+  "currentParkingEnd": "Current Parking End Time",
+
+
+  "time" : "HOUR",
+  "confirmDialogTitle": "PRESS OK IF CONFIRMED",
+  "plateNumberLabel": "Plate Number: {plate}",
+  "parkingDurationLabel": "PARKING FOR {hours} HOURS",
+  "timeRangeLabel": "FROM {startTime} TO {endTime}",
+  "totalAmountLabel": "TOTAL AMOUNT: RM {total}",
+  "cancelButton": "CANCEL",
+  "confirmButton": "OK",
+
+  "paymentTitle": "PAYMENT",
+  "paymentSubtitle": "PLEASE CHOOSE YOUR PAYMENT",
+  "totalAmountText": "TOTAL AMOUNT",
+  "cardButton": "PAY BY CARD",
+  "qrButton": "PAY WITH QR",
+  "weAcceptText": "We accept :",
+
+  "titleReceiptParking": "PARKING RECEIPT",
+  "titleReceiptLicense": "LICENSE RECEIPT",
+  "titleReceiptTax": "TAX RECEIPT",
+  "titleReceiptMultipleCompound": "MULTIPLE COMPOUND RECEIPT",
+  "titleReceiptSingleCompound": "SINGLE COMPOUND RECEIPT",
+  "homeButton": "HOME",
+  "receiptPlateLabel": "Plate No: {plate}",
+  "receiptDurationLabel": "Duration: {hours} Hours",
+  "receiptAmountLabel": "Total Payment: RM {amount}",
+  "receiptStartTimeLabel": "Start Time: {time}",
+  "receiptEndTimeLabel": "End Time: {time}",
+
+  "receiptPlateLabel2": "Plate No",
+  "receiptDurationLabel2": "Duration",
+  "receiptAmountLabel2": "Total Payment",
+  "receiptStartTimeLabel2": "Start Time",
+  "receiptEndTimeLabel2": "End Time",
+  "receiptScanQrText2": "Please Scan the QR Code for Full Receipt Details",
+  
+  "receiptScanQrText": "Please Scan the QR Code for Full Receipt Details",
+
+  "p5extendparkingTitle": "EXTEND YOUR PARKING TIME",
+  "p5extendparkingSubtitle": "PLEASE SELECT AN OPTION",
+  "plusTimeButton": "ADD\nTIME",
+  "receiptButton": "RECEIPT",
+  "parkingExpiredAfter6pm": "Parking end time has reached or passed 6:00 PM. Additional time is not allowed.",
+
+  "p6extendparkingTitle" : "ADD ON PARKING TIME",
+  "p6extendparkingSubtitle" : "END TIME TICKET:",
+  "extendTimeUntil": "EXTENDED TIME UNTIL {time}",
+
+  "p5TaxTitle": "TAX SELECTION",
+  "p5TaxSubtitle": "SELECT TAXES YOU WANT TO PAY",
+  "taxSelectAll": "SELECT ALL",
+  "taxUnselectAll": "UNSELECT ALL",
+  "taxBack": "BACK",
+  "taxProceed": "PROCEED",
+  "taxAlertTitle": "Notice",
+  "taxAlertSelectAtLeastOne": "Please select at least one tax",
+  "taxHeaderBillNo": "Bill No",
+  "taxHeaderProperty": "Property",
+  "taxHeaderDueDate": "Due Date",
+  "taxHeaderAmount": "Amount (RM)",
+
+  "p5LicenseTitle": "LICENSE SELECTION",
+  "p5LicenseSubtitle": "SELECT LICENSE(S) YOU WANT TO PAY",
+  "licenseSelectAll": "SELECT ALL",
+  "licenseUnselectAll": "UNSELECT ALL",
+  "licenseHeaderNo": "License No",
+  "licenseHeaderType": "License Type",
+  "licenseHeaderEndDate": "Expiry Date",
+  "licenseHeaderAmount": "Amount (RM)",
+  "licenseAlertTitle": "Notice",
+  "licenseAlertSelectAtLeastOne": "Please select at least one license",
+  "licenseBackButton": "BACK",
+  "licenseProceedButton": "PROCEED",
+  "licenseTotalAmount": "RM {amount}",
+
+  "p5MultiCompoundTitle": "COMPOUND SELECTION",
+  "p5MultiCompoundSubtitle": "SELECT COMPOUNDS YOU WANT TO PAY",
+  "multiCompoundAlertSelectAtLeastOne": "Please select at least one compound",
+  "multiCompoundHeaderNo": "Compound No.",
+  "multiCompoundHeaderOffense": "Offense",
+  "detailCompoundText" : "Detail Compound",
+  "perintah" : "Offense Type",
+  "masa": "Time",
+  "viewDetails": "View Details",
+  "detailCompoundText" : "Butiran Kompaun",
+  "multiCompoundHeaderDate": "Date",
+  "multiCompoundHeaderAmount": "Amount (RM)",
+  "multiCompoundSelectAll": "SELECT ALL",
+  "multiCompoundUnselectAll": "UNSELECT ALL",
+  "multiCompoundTotalAmount": "RM {amount}",
+
+  "p5SingleCompoundTitle": "COMPOUND INFORMATION",
+  "singleCompoundOffenderName": "Offender Name",
+  "singleCompoundNo": "Compound No.",
+  "singleCompoundPlateNo": "Plate No.",
+  "singleCompoundOffense": "Offense",
+  "singleCompoundDate": "Date",
+  "singleCompoundTime": "Time",
+  "singleCompoundKodHasil": "Revenue Code",
+  "singleCompoundAmount": "Amount (RM)",
+
+    "closetext" : "CLOSE",
+    "scantext" : "Imbas Untuk Mengemudi",
+
+  
+  "bentongExplorationTitle": "Bentong Exploration",
+  "copyright": "COPYRIGHT © 2025 ALL RIGHTS RESERVED.",
+
+  "jomKeBentongGallery": "BENTONG GALLERY",
+  "jomKeBentongDesc": "Historical place in Bentong",
+  "jomKeBentongFull": "Jom Ke Bentong Gallery is a cultural and historical gallery that introduces visitors to the heritage of Bentong. It showcases old photographs, traditional tools, and stories about the town’s development from a mining settlement into a modern district.",
+
+  "jandaBaikTitle": "JANDA BAIK, PAHANG",
+  "jandaBaikDesc": "Let’s explore the scenery in Janda Baik",
+  "jandaBaikFull": "Janda Baik is a peaceful eco-tourism village surrounded by rainforest, rivers, and waterfalls. It is popular for homestays, jungle trekking, and nature activities, offering visitors a calm escape from busy city life.",
+
+  "bentongWalkTitle": "BENTONG WALK",
+  "bentongWalkDesc": "Let’s take a walk at Bentong Walk",
+  "bentongWalkFull": "Bentong Walk is a modern public space with food stalls, cafes, and event areas. It is a popular gathering spot, especially during weekends and evenings.",
+
+  "lemangTokKiTitle": "LEMANG TOK KI",
+  "lemangTokKiDesc": "Famous lemang in Bentong",
+  "lemangTokKiFull": "Lemang Tok Ki is famous for traditional bamboo-cooked lemang made with glutinous rice and coconut milk. It is a must-visit food destination in Bentong.",
+
+
+  "alorsetarExplorationTitle": "Alor Setar Eksploration",
+
+  "muziumDirajaTitle": "Royal Kedah Museum",
+  "muziumDirajaDesc": "Former royal palace of Kedah.",
+  "muziumDirajaFull": "The Royal Kedah Museum was formerly a royal palace and now serves as a historical museum. It displays royal artifacts, historical documents, and information related to the Kedah Sultanate.",
+
+  "menaraAlorSetarTitle": "Alor Setar Tower",
+  "menaraAlorSetarDesc": "An iconic landmark of Kedah.",
+  "menaraAlorSetarFull": "Alor Setar Tower is a telecommunications tower and one of Kedah’s main tourist attractions. Visitors can enjoy panoramic views of Alor Setar city and the surrounding areas from the observation deck.",
+
+  "masjidZahirTitle": "Zahir Mosque",
+  "masjidZahirDesc": "One of the oldest and most beautiful mosques in Malaysia.",
+  "masjidZahirFull": "Zahir Mosque was built in 1912 and is renowned for its distinctive Moorish architecture. It serves as a major religious center and an important landmark in Kedah.",
+
+  "balaiBesarTitle": "Balai Besar",
+  "balaiBesarDesc": "Royal ceremonial hall of Kedah.",
+  "balaiBesarFull": "Balai Besar is used for royal ceremonies, official state events, and coronations. The building represents the rich royal heritage and history of the Kedah Sultanate.",
+
+  "mahathirHouseTitle": "Birthplace of Tun Dr. Mahathir",
+  "mahathirHouseDesc": "Birthplace of Malaysia’s 4th and 7th Prime Minister.",
+  "mahathirHouseFull": "This house is the birthplace of Tun Dr. Mahathir Mohamad and has been converted into a museum. It showcases his early life, personal background, and contributions to Malaysia’s development.",
+
+  "muziumPadiTitle": "Paddy Museum",
+  "muziumPadiDesc": "A unique museum showcasing the history of rice cultivation in Kedah.",
+  "muziumPadiFull": "The Paddy Museum highlights Kedah’s heritage as the Rice Bowl of Malaysia. It features interactive exhibits, historical artifacts, and a panoramic gallery that illustrates the evolution of rice farming from traditional methods to modern agricultural technology.",
+
+  "tamanJubliTitle": "Golden Jubilee Park",
+  "tamanJubliDesc": "A recreational park for families.",
+  "tamanJubliFull": "Golden Jubilee Park is a green recreational space suitable for leisure activities such as jogging, walking, and family outings. It is a popular relaxation spot among locals.",
+
+  "pekanRabuTitle": "Pekan Rabu",
+  "pekanRabuDesc": "A famous traditional market in Kedah.",
+  "pekanRabuFull": "Pekan Rabu offers a variety of local products including traditional food, clothing, and handicrafts. It is a must-visit destination for tourists seeking an authentic local market experience.",
+
+  "kualaKedahTitle": "Kuala Kedah Beach",
+  "kualaKedahDesc": "A well-known fishing village area.",
+  "kualaKedahFull": "Kuala Kedah Beach is famous for its coastal views and fresh seafood. The area is a popular destination for visitors who want to enjoy local seafood and seaside scenery.",
+
+  "royaleTitle": "Nasi Lemak Royale",
+  "royaleDesc": "A famous Kedah-style nasi lemak.",
+  "royaleFull": "Nasi Lemak Royale is well known for its fragrant rice served with rich curry gravy, fried chicken, and a variety of flavorful side dishes.",
+
+  "meeShamTitle": "Mee Sham Roti Doll",
+  "meeShamDesc": "A traditional noodle dish from Kedah.",
+  "meeShamFull": "Mee Sham is a traditional Kedah noodle dish served with a sweet and thick gravy, often enjoyed together with roti doll or fritters.",
+
+  "laksaTelukKechaiTitle": "Laksa Teluk Kechai",
+  "laksaTelukKechaiDesc": "A famous Kedah laksa with thick and tangy fish broth.",
+  "laksaTelukKechaiFull": "Laksa Teluk Kechai is a popular Kedah dish known for its thick fish-based broth with a tangy flavor from tamarind and local spices. It is a favorite among locals and represents the unique laksa heritage of Kedah.",
+
+  "yasmeenTitle": "Yasmeen Nasi Kandar",
+  "yasmeenDesc": "Popular Indian Muslim cuisine in Alor Setar.",
+  "yasmeenFull": "Yasmeen Nasi Kandar is well known for its wide selection of curries and flavorful dishes. It is a favorite dining spot for lovers of Indian Muslim food.",
+
+  "gulaiPanasTitle": "Gulai Panas Mak Teh",
+  "gulaiPanasDesc": "A famous traditional hot curry dish.",
+  "gulaiPanasFull": "Gulai Panas Mak Teh is renowned for its authentic taste and rich blend of local spices. It is a popular choice for visitors who want to experience traditional Kedah cuisine.",
+
+  "skydeckTitle": "Skydeck Alor Setar Tower",
+  "skydeckDesc": "A thrilling glass-floor observation deck.",
+  "skydeckFull": "Skydeck Alor Setar Tower offers a unique experience with its glass floor, allowing visitors to enjoy breathtaking views of Alor Setar city from above. It is one of the main attractions for those seeking adventure and scenic views.",
+
+
+
+
+
+
+  "nsExplorationTitle": "Explore Negeri Sembilan",
+
+  "nsIstanaTitle": "Istana Seri Menanti",
+  "nsIstanaDesc": "Traditional Minangkabau royal palace.",
+  "nsIstanaFull": "Istana Seri Menanti is the royal palace of Negeri Sembilan, built entirely without nails and showcasing Minangkabau architecture.",
+
+  "nsMuseumTitle": "Negeri Sembilan State Museum",
+  "nsMuseumDesc": "Cultural and historical museum.",
+  "nsMuseumFull": "The museum displays the history, culture and customs of Negeri Sembilan.",
+
+  "nsMasjidTitle": "Masjid Sri Sendayan",
+  "nsMasjidDesc": "Iconic modern mosque.",
+  "nsMasjidFull": "Masjid Sri Sendayan is one of the largest mosques in Negeri Sembilan with stunning architecture.",
+
+  "nsPortDicksonTitle": "Port Dickson Beach",
+  "nsPortDicksonDesc": "Famous beach destination.",
+  "nsPortDicksonFull": "Port Dickson is known for its beaches, resorts and seaside attractions.",
+
+  "nsGunungAngsiTitle": "Gunung Angsi",
+  "nsGunungAngsiDesc": "Popular hiking mountain.",
+  "nsGunungAngsiFull": "Gunung Angsi is a favourite hiking spot offering panoramic views.",
+
+  "nsJeramTitle": "Jeram Toi Eco Park",
+  "nsJeramDesc": "Nature and waterfall park.",
+  "nsJeramFull": "Jeram Toi is an eco-park with rivers, waterfalls and jungle trails.",
+
+  "nsKuwaahTitle": "Kuwaah Cafe",
+  "nsKuwaahDesc": "Modern cafe with local fusion food.",
+  "nsKuwaahFull": "Kuwaah Cafe offers a modern dining experience with local and western fusion dishes in a cozy atmosphere.",
+
+  "nsRimbaTitle": "The Rimba,Lavender Heights",
+  "nsRimbaDesc": "Nature-inspired dining experience.",
+  "nsRimbaFull": "The Rimba provides a unique dining environment surrounded by greenery, perfect for relaxing meals.",
+
+  "nsZamiraTitle": "Zamira Dapur Kayu",
+  "nsZamiraDesc": "Traditional Negeri Sembilan cuisine.",
+  "nsZamiraFull": "Zamira Dapur Kayu serves authentic traditional dishes cooked using classic recipes and flavors.",
+
+  "nsHayyanTitle": "Hayyan Huda Opah's Kitchen",
+  "nsHayyanDesc": "Home-style traditional cooking.",
+  "nsHayyanFull": "Hayyan Huda Opah's Kitchen offers home-cooked traditional meals inspired by grandmother’s recipes.",
+
+  "receiptAutoReturn": "Returning to home in {seconds} seconds",
+  "@receiptAutoReturn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+
+  "idleTitle": "Are you still using this service?",
+  "idleContinue": "Continue",
+  "idleGoHome": "Go to Home",
+  "idleMessage": "You will be returned to the main menu in {seconds} seconds.",
+  "@idleMessage": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+
+  "wildWestTitle": "Wild West Cowboy Indoor Theme Park",
+  "wildWestDesc": "Fun indoor cowboy themed amusement park for all ages.",
+  "wildWestFull": "Wild West Cowboy Indoor Theme Park is a unique indoor family amusement centre located in Dataran Segar, Port Dickson. It features colourful rides, interactive arcade games, thrilling 5D and 7D motion cinema experiences, escape rooms with themed puzzles, a variety of attractions such as Rodeo Bull rides and a game centre, as well as a cowboy café and souvenir shop — offering fun for both kids and adults throughout the year. Visitors can enjoy exciting attractions and immersive themes under one roof.",
+
+  "wetWorldTitle": "Wet World Resort Air Panas Pedas",
+  "wetWorldDesc": "Waterpark & natural hot springs destination with slides and relax pools.",
+  "wetWorldFull": "Wet World Resort Air Panas Pedas is a popular water theme park and hot spring attraction in Pedas, Negeri Sembilan. The park combines thrilling water rides and slides with soothing hot spring pools that are naturally heated and rich in mineral waters — believed to offer therapeutic benefits such as easing joint pains and relaxing muscles. The resort offers rides suitable for families as well as natural hot springs for visitors seeking relaxation and leisure.",
+
+  "tnKenaboiTitle": "Taman Negeri Kenaboi",
+  "tnKenaboiDesc": "State forest park with rich biodiversity and nature trails.",
+  "tnKenaboiFull": "Taman Negeri Kenaboi is a protected forest reserve known for its lush rainforest habitat, wildlife, and outdoor trails. Visitors can explore scenic walks, observe diverse plant and animal life, and enjoy nature photography.",
+
+  "eduEcoSungaiMenyalaTitle": "Pusat Edu-Ecotourism Sungai Menyala",
+  "eduEcoSungaiMenyalaDesc": "Educational eco-tourism centre by the river.",
+  "eduEcoSungaiMenyalaFull": "Pusat Edu-Ecotourism Sungai Menyala is an eco‑centric destination dedicated to conservation education along the Sungai Menyala river.",
+
+  "hutanRecTanjungTuanTitle": "Hutan Rekreasi Tanjung Tuan",
+  "hutanRecTanjungTuanDesc": "Coastal forest park known for bird watching and nature trails.",
+  "hutanRecTanjungTuanFull": "Hutan Rekreasi Tanjung Tuan is a scenic coastal forest park offering nature trails, headland views and seasonal bird migration observation — especially raptors that pass through on annual routes.",
+
+  "serembanHillParkTitle": "S2 Seremban Hill Park",
+  "serembanHillParkDesc": "Hill park with walking paths and scenic views.",
+  "serembanHillParkFull": "S2 Seremban Hill Park is a local recreational hill park featuring walking trails, lookout points with panoramic views of Seremban and surrounding valleys.",
+
+  "pIkanHiasanPDTitle": "Pusat Ikan Hiasan Port Dickson",
+  "pIkanHiasanPDDesc": "Aquarium showcasing marine ornamental species.",
+  "pIkanHiasanPDFull": "Pusat Ikan Hiasan Port Dickson showcases a variety of coastal and marine ornamental fish species in well‑maintained aquarium exhibits — ideal for families and educational visits.",
+
+  "airTerjunLataKijangTitle": "Air Terjun Lata Kijang",
+  "airTerjunLataKijangDesc": "Picturesque waterfall in a forest setting.",
+  "airTerjunLataKijangFull": "Air Terjun Lata Kijang is a natural waterfall set amid lush forest — a refreshing destination for hikers, picnics and nature lovers.",
+
+  "hutanLipurJeramTengkekTitle": "Hutan Lipur Jeram Tengkek",
+  "hutanLipurJeramTengkekDesc": "Natural recreational forest with rapids and greenery.",
+  "hutanLipurJeramTengkekFull": "Hutan Lipur Jeram Tengkek is a natural forest recreation area where visitors can enjoy shaded trails, river rapids and lush greenery, perfect for outdoor outings. ",
+
+  "puncakBukitBatuPutihTitle": "Puncak Bukit Batu Putih",
+  "puncakBukitBatuPutihDesc": "Hilltop destination with scenic views.",
+  "puncakBukitBatuPutihFull": "Puncak Bukit Batu Putih offers visitors a scenic hilltop vantage point, ideal for hiking, photography and panoramic views of the surrounding landscapes. ",
+
+  "muziumAstanaRajaMelawarTitle": "Muzium Replika Astana Raja Melawar",
+  "muziumAstanaRajaMelawarDesc": "Replica museum of a historic palace.",
+  "muziumAstanaRajaMelawarFull": "Muzium Replika Astana Raja Melawar is a cultural site featuring a detailed replica of the historic Astana Raja Melawar palace — offering insights into local heritage and architecture. ",
+
+  "hutanSimpanGunungTampinTitle": "Hutan Simpan Gunung Tampin",
+  "hutanSimpanGunungTampinDesc": "Forest reserve with nature trails.",
+  "hutanSimpanGunungTampinFull": "Hutan Simpan Gunung Tampin is a forest reserve known for nature walks, endemic flora and fauna, and tranquil hiking routes. ",
+
+  "primalandTitle": "Taman Tema Air PRIMALAND",
+  "primalandDesc": "Water theme park with slides and pools.",
+  "primalandFull": "Taman Tema Air PRIMALAND is a family water theme park featuring thrilling water slides, pools, and recreation areas — great for cooling off and family fun. ",
+
+  "rantauEcoParkTitle": "Rantau Eco Park",
+  "rantauEcoParkDesc": "Eco‑park with trails and nature activities.",
+  "rantauEcoParkFull": "Rantau Eco Park is a natural park where visitors can enjoy gentle trails, picnic spots, and eco‑activities that promote recreation in nature.",
+
+  "royalGalleryTitle": "Royal Gallery Tuanku Ja'afar",
+  "royalGalleryDesc": "A royal gallery showcasing the legacy of Negeri Sembilan's royal institution.",
+  "royalGalleryFull": "The Royal Gallery Tuanku Ja'afar in Seremban displays the history, royal regalia, personal collections, and achievements of Tuanku Ja'afar ibni Almarhum Tuanku Abdul Rahman. It serves as an important cultural landmark reflecting the monarchy and governance of Negeri Sembilan.",
+
+  "centipedeTempleTitle": "Centipede Temple",
+  "centipedeTempleDesc": "A historic Chinese temple famous for its giant centipede statue.",
+  "centipedeTempleFull": "Centipede Temple, located in Port Dickson, is a well-known Taoist temple featuring a massive centipede sculpture. Built as a symbol of protection and spiritual belief, it attracts devotees and tourists seeking blessings and cultural experiences.",
+
+  "armyMuseumPDTitle": "Army Museum Port Dickson",
+  "armyMuseumPDDesc": "Malaysia’s main army museum showcasing military history.",
+  "armyMuseumPDFull": "The Army Museum Port Dickson presents Malaysia’s military heritage through exhibitions of weapons, tanks, aircraft, uniforms, and historical documents. It plays an educational role in honoring the sacrifices of the Malaysian Armed Forces.",
+
+    "hayyanHudaTitle": "Hayyan Huda Opah’s Kitchen",
+  "hayyanHudaDesc": "Traditional Negeri Sembilan home-style cooking.",
+  "hayyanHudaFull": "Hayyan Huda Opah’s Kitchen is famous for authentic Negeri Sembilan dishes cooked using traditional recipes passed down through generations.",
+
+  "kafeIkhwanTitle": "Kafe Ikhwan Nasi Ayam Hainan",
+  "kafeIkhwanDesc": "Popular Hainanese chicken rice café.",
+  "kafeIkhwanFull": "Kafe Ikhwan is well known for its fragrant Hainanese chicken rice served with flavorful sauces.",
+
+  "meeHirisTitle": "Mee Hiris China Muslim",
+  "meeHirisDesc": "Hand-pulled halal Chinese noodles.",
+  "meeHirisFull": "Mee Hiris China Muslim offers freshly hand-pulled noodles with rich soup and halal Chinese flavors.",
+
+  "belqisTitle": "Restoran Belqis",
+  "belqisDesc": "Middle Eastern and local fusion cuisine.",
+  "belqisFull": "Restoran Belqis serves Middle Eastern dishes along with Malaysian favorites in a comfortable setting.",
+
+  "seleraNogoriTitle": "Restoran Selera Nogori",
+  "seleraNogoriDesc": "Authentic Negeri Sembilan spicy dishes.",
+  "seleraNogoriFull": "Restoran Selera Nogori is famous for its masak lemak cili api and traditional Negeri Sembilan cuisine.",
+
+  "kemangiTitle": "Restoren Kemangi",
+  "kemangiDesc": "Indonesian and Malay cuisine.",
+  "kemangiFull": "Restoren Kemangi offers Indonesian-inspired dishes with rich spices and aromatic flavors.",
+
+  "hajiShariffCendolTitle": "Haji Shariff’s Cendol",
+  "hajiShariffCendolDesc": "Classic Malaysian cendol dessert.",
+  "hajiShariffCendolFull": "Haji Shariff’s Cendol is a favorite dessert spot serving refreshing cendol with gula Melaka.",
+
+  "nasiArabDamsyikTitle": "Nasi Arab Damsyik",
+  "nasiArabDamsyikDesc": "Authentic Middle Eastern rice dishes.",
+  "nasiArabDamsyikFull": "Nasi Arab Damsyik is known for flavorful Middle Eastern rice served with tender meats.",
+
+  "restoranDPantaiTitle": "Restoran D’Pantai",
+  "restoranDPantaiDesc": "Seafood restaurant near the beach.",
+  "restoranDPantaiFull": "Restoran D’Pantai offers fresh seafood with a relaxing seaside atmosphere.",
+
+  "nasiLemakSenawangTitle": "Nasi Lemak Senawang",
+  "nasiLemakSenawangDesc": "Famous local nasi lemak spot.",
+  "nasiLemakSenawangFull": "Nasi Lemak Senawang is popular for its fragrant rice, sambal, and variety of side dishes.",
+
+"n9StickFactoryTitle": "N9 Stick Factory",
+"n9StickFactoryDesc": "A restaurant offering steamboat dining.",
+"n9StickFactoryFull": "N9 Stick Factory serves steamboat meals with a wide selection of fresh ingredients at affordable prices.",
+
+  "bayuVillageTitle": "Bayu Village Restaurant",
+  "bayuVillageDesc": "Resort-style dining experience.",
+  "bayuVillageFull": "Bayu Village Restaurant offers a relaxing dining experience with Malaysian and Western dishes.",
+
+  "pdFamousCendolTitle": "PD Famous Cendol Coconut Shake",
+  "pdFamousCendolDesc": "Cendol with coconut shake specialty.",
+  "pdFamousCendolFull": "PD Famous Cendol Coconut Shake is a must-try dessert combining creamy coconut shake with cendol.",
+
+
+
+
+
+  "beraExplorationTitle": "Explore Bera",
+
+  "guaGelanggiTitle": "Gua Kota Gelanggi",
+  "guaGelanggiDesc": "Ancient limestone cave complex",
+  "guaGelanggiFull": "Gua Kota Gelanggi is an ancient limestone cave system believed to be over 100 million years old and rich with legends.",
+
+  "beraSemelaiTitle": "Semelai Indigenous Village",
+  "beraSemelaiDesc": "Traditional Orang Asli settlement",
+  "beraSemelaiFull": "The Semelai people have lived around Tasik Bera for generations.",
+
+  "beraMasjidTitle": "Old Kuala Bera Mosque",
+  "beraMasjidDesc": "Early Islamic landmark in Bera",
+  "beraMasjidFull": "One of the earliest mosques serving the local Muslim community.",
+
+  "bukitBertanggaTitle": "Bukit Bertangga",
+  "bukitBertanggaDesc": "Hiking and nature view",
+  "bukitBertanggaFull": "A peaceful hill suitable for eco tourism.",
+
+  "bukitSenorangTitle": "Bukit Senorang",
+  "bukitSenorangDesc": "Natural hill area",
+  "bukitSenorangFull": "Known for its greenery and calm environment.",
+
+  "lamanLesungTitle": "Laman Lesung Kuala Bera",
+  "lamanLesungDesc": "Traditional recreation area",
+  "lamanLesungFull": "A traditional site featuring rice pounding activities and folk games.",
+
+  "warungPatinTitle": "Kedai Patin Tempoyak Mat Singah",
+  "warungPatinDesc": "Famous Patin Tempoyak",
+  "warungPatinFull": "Known for traditional Pahang fish dishes.",
+
+  "makanBaratTitle": "Makan Barat by Kitchen Syaidris",
+  "makanBaratDesc": "Western food restaurant",
+  "makanBaratFull": "Serves a variety of western dishes for visitors.",
+
+
+  
+
+  "melakaExplorationTitle": "Explore Melaka",
+  "tabHistorical": "Historical Place",
+  "tabInteresting": "Interesting",
+  "tabEating": "Eating",
+  "back": "Back",
+
+    "aFamosaDesc": "Explore the ruins of a 16th-century Portuguese fortress.",
+  "aFamosaFull": "A Famosa is a Portuguese fortress built in 1511. It is one of the oldest surviving European architectural remains in Asia.",
+
+  "perigiHangTuahDesc": "Discover the legendary well of the Malay warrior Hang Tuah.",
+  "perigiHangTuahFull": "Perigi Hang Tuah is believed to be the well used by the Malay warrior Hang Tuah and his companions.",
+
+  "istanaKesultananDesc": "Step inside a palace replica to see Melaka’s royal history.",
+  "istanaKesultananFull": "The museum is a replica of the Melaka Sultanate Palace, showcasing the history and culture of Melaka.",
+
+  "babaNyonyaDesc": "Experience the vibrant culture of the Peranakan community.",
+  "babaNyonyaFull": "Baba & Nyonya Heritage Museum exhibits the rich history, costumes, and artifacts of the Peranakan community in Melaka.",
+
+  "galeriWarisanDesc": "See traditional crafts and heritage of Melaka.",
+  "galeriWarisanFull": "Galeri Warisan Kota Melaka displays traditional tools, crafts, and cultural exhibits of Melaka.",
+
+  "chengHoDesc": "Learn about Admiral Cheng Ho and his epic voyages.",
+  "chengHoFull": "Cheng Ho Cultural Museum presents the life of the famous Chinese Admiral and his voyages to Melaka in the 15th century.",
+
+  "samuderaDesc": "Dive into Melaka’s maritime trade history.",
+  "samuderaFull": "Samudera Museum highlights Melaka's rich maritime trade history and colonial influence.",
+
+  "middelburgDesc": "Visit the remains of the Portuguese fortifications.",
+  "middelburgFull": "Middelburg Bastion is part of the remaining fortifications of the Portuguese fortress, built in the 16th century.",
+
+  "ethnoDesc": "Explore artifacts from Melaka’s diverse cultures.",
+  "ethnoFull": "The museum explores Melaka's ethnographic and historical artifacts, reflecting its diverse cultural heritage.",
+
+  "zeroKmDesc": "Snap a photo at Melaka’s historic 0 km marker.",
+  "zeroKmFull": "This monument marks the historic 0 km point of Melaka, a symbolic reference to the city center.",
+
+  "stPaulDesc": "Visit one of Melaka’s oldest colonial-era churches.",
+  "stPaulFull": "Church of Saint Paul was built in 1521 and is one of Melaka's oldest churches with rich colonial history.",
+
+  "hangJebatDesc": "Honor the legendary warrior Hang Jebat.",
+  "hangJebatFull": "Hang Jebat Mausoleum honors the Malay warrior Hang Jebat, renowned in Malay literature and history.",
+
+  "zooDesc": "See animals and enjoy family fun at Zoo Melaka.",
+  "zooFull": "Melaka Zoo houses various animals and provides educational and recreational activities for visitors.",
+
+  "riverDesc": "Relax on a scenic river cruise through Melaka town.",
+  "riverFull": "Enjoy scenic views of Melaka town while cruising along the historic Melaka River.",
+
+  "crocDesc": "Get up close with crocodiles and reptiles.",
+  "crocFull": "Taman Buaya & Rekreasi Melaka features crocodiles, reptiles, and fun recreational activities for the family.",
+
+  "magicDesc": "Take fun photos in a 3D optical illusion museum.",
+  "magicFull": "The museum features 3D paintings that allow visitors to take creative and interactive photos.",
+
+  "breakoutDesc": "Solve puzzles and escape the themed rooms.",
+  "breakoutFull": "Breakout Melaka is a fun escape room and spy game experience for children and families.",
+
+  "waterDesc": "Splash around in an exciting water theme park.",
+  "waterFull": "Enjoy water rides and entertainment at A'Famosa Water Theme Park, suitable for all ages.",
+
+  "mocityDesc": "Play mini-games and enjoy interactive fun.",
+  "mocityFull": "MoCity Fun Park offers mini-games, playgrounds, and interactive fun for children.",
+
+  "wonderlandDesc": "Enjoy rides, pools, and resort activities.",
+  "wonderlandFull": "A full theme park with rides, pools, and resort facilities for families.",
+
+  "wonderparkDesc": "Have a blast on thrilling rides for all ages.",
+  "wonderparkFull": "Wonderpark is an amusement park with exciting attractions and rides for all ages.",
+
+  "ukfunDesc": "Family-friendly park with rides, games, and entertainment.",
+  "ukfunFull": "A family-friendly fun park with rides, games, and entertainment.",
+
+  "safariDesc": "Meet exotic animals in a safari-themed park.",
+  "safariFull": "Safari Wonderland is a wildlife-themed park with safari animals and interactive experiences.",
+
+  "asahanDesc": "Slide, swim, and play in the water park.",
+  "asahanFull": "Asahan Water Theme Park offers water slides and pools for family fun.",
+
+  "bayouDesc": "Adventure rides and relaxing pools await you.",
+  "bayouFull": "Bayou Lagoon is a water park with adventure rides and relaxing pools.",
+
+  "babaKayaDesc": "Taste authentic Peranakan dishes here.",
+  "babaKayaFull": "Restoran Baba Kaya serves traditional Peranakan cuisine and delicacies.",
+
+  "asamSeleraDesc": "Enjoy spicy and tangy traditional Asam Pedas.",
+  "asamSeleraFull": "Specializing in Asam Pedas, a spicy and tangy fish dish popular in Melaka.",
+
+  "atlanticDesc": "Savor modern Nyonya flavors in heritage style.",
+  "atlanticFull": "Authentic Nyonya cuisine served in a modern heritage setting.",
+
+  "cendolDesc": "Cool off with classic Melaka dessert cendol.",
+  "cendolFull": "Traditional Melaka dessert with shaved ice, gula Melaka syrup, and coconut milk.",
+
+  "asamOrangDesc": "Homestyle Asam Pedas in a cozy atmosphere.",
+  "asamOrangFull": "Homestyle Asam Pedas dishes served in a cozy atmosphere.",
+
+  "atasDesc": "Dine riverside with local delicacies.",
+  "atasFull": "Fine dining restaurant overlooking Melaka River, serving local cuisine.",
+
+  "rooftopDesc": "Relax with city views and tasty meals.",
+  "rooftopFull": "Relaxing cafe with city views, offering local and Western meals.",
+
+  "chefWanDesc": "Peranakan dishes by a celebrity chef.",
+  "chefWanFull": "Celebrity chef-themed cafe offering Peranakan and Malaysian dishes.",
+
+  "calantheDesc": "Sip coffee and desserts in an artsy cafe.",
+  "calantheFull": "Popular cafe known for coffee and local desserts in a cozy art-inspired environment.",
+
+  "papayunDesc": "Enjoy traditional cuisine by the riverside.",
+  "papayunFull": "Traditional Melaka cuisine served along the riverbank in a serene setting.",
+
+
+  
+  "kamparExplorationTitle": "Kampar Exploration",
+
+  "kintaTinDesc": "Tin mining history museum in Kampar.",
+  "kintaTinFull": "Kinta Tin Mining Museum showcases the history of tin mining in the Kinta Valley. Visitors can see mining equipment, gravel pump technology, and historical records of the tin industry that built Kampar.",
+
+  "chimneyDesc": "Historic Japanese carbide chimney site.",
+  "chimneyFull": "Japanese Carbide Chimney is a remaining industrial structure from early mining operations. It represents Kampar’s industrial heritage during the mining boom period.",
+
+  "kellieDesc": "Famous unfinished colonial castle.",
+  "kellieFull": "Kellie's Castle is a historic unfinished mansion built by William Kellie Smith. It is one of Perak’s most famous heritage landmarks with unique architecture and mystery stories.",
+
+  "greenRidgeDesc": "World War II battle location.",
+  "greenRidgeFull": "Green Ridge marks the Battle of Kampar site during World War II. It was a strategic defensive line and remains an important military history landmark.",
+
+  "clockDesc": "Iconic Kampar town clock tower.",
+  "clockFull": "Menara Jam Kampar is a symbolic clock tower in Kampar town center and a popular meeting and photo spot.",
+
+  "gravelDesc": "Gravel pump mining heritage museum.",
+  "gravelFull": "The Gravel Pump Museum displays traditional gravel pump tin mining methods used widely in the Kinta Valley.",
+
+  "westLakeDesc": "Scenic lake recreation area.",
+  "westLakeFull": "West Lake Kampar is a popular recreational lake with jogging paths, sunset views, and relaxing scenery.",
+
+  "ilhamDesc": "Street mural art attraction.",
+  "ilhamFull": "Ilham Seni Kampar features colorful murals and street art celebrating local culture and history.",
+
+  "pipelineDesc": "Historic pipeline bridge in Gopeng.",
+  "pipelineFull": "Gopeng Pipeline Bridge is a historic pipeline structure and unique photography spot near Kampar.",
+
+  "tempurungDesc": "One of Malaysia’s longest caves.",
+  "tempurungFull": "Gua Tempurung is one of the longest limestone caves in Peninsular Malaysia with guided adventure tours.",
+
+  "heritageDesc": "Traditional heritage house.",
+  "heritageFull": "Gopeng Heritage House preserves classic Perak architecture and antiques from early settlements.",
+
+  "saluDesc": "Rainforest eco area.",
+  "saluFull": "Sungai Salu Rainforest offers jungle trekking, rivers, and eco tourism experiences.",
+
+  "kanduDesc": "Adventure limestone cave.",
+  "kanduFull": "Gua Kandu is a limestone cave area popular for caving, camping, and jungle exploration.",
+
+  "agaciaDesc": "Colorful European-style township.",
+  "agaciaFull": "Agacia Land is known for colorful European-style buildings and photo spots, sometimes called Disney Avenue by visitors.",
+
+  "gaharuDesc": "Gaharu tea plantation.",
+  "gaharuFull": "Gaharu Tea Valley is an agro tourism plantation producing gaharu tea with scenic hill views.",
+
+  "refarmDesc": "Family farm recreation park.",
+  "refarmFull": "Refarm Kampar offers farm animals, cycling, lakes, and family recreation activities.",
+
+  "sahomDesc": "Eco agro resort village.",
+  "sahomFull": "Sahom Valley Resort is an eco village resort with river, kampung scenery, and outdoor activities.",
+
+  "zaharaDesc": "Private garden attraction.",
+  "zaharaFull": "Zahara Garden is a landscaped garden area used for leisure visits and photography.",
+
+  "buncitDesc": "Cafe serving salai dishes & western.",
+  "buncitFull": "Buncit Cafe is known for Gulai Lemak Daging Salai and western food options.",
+
+  "lacottageDesc": "Cafe dining inside river.",
+  "lacottageFull": "La’cottage Cafe offers viral river dining experience with chalet facilities.",
+
+  "kelapaDesc": "Coconut dessert shop.",
+  "kelapaFull": "Kelapa Lelehhh serves coconut shakes and refreshing desserts.",
+
+  "nasi786Desc": "Popular nasi kandar.",
+  "nasi786Full": "Nasi Kandar Beratur 786 is known for rich curries and long queues.",
+
+  "adilyDesc": "Local Malaysian restaurant.",
+  "adilyFull": "Restoran Adily serves local Malay dishes and daily meals.",
+
+  "cousinDesc": "Modern cafe dining.",
+  "cousinFull": "Cousin'ss Cafe offers trendy cafe menu and drinks.",
+
+  "ahboyDesc": "Western diner style cafe.",
+  "ahboyFull": "Ah Boy Diner serves western comfort food.",
+
+  "iqaDesc": "Nasi wanggey specialist.",
+  "iqaFull": "Iqa Corner is popular for nasi wanggey style dishes.",
+
+  "jayneDesc": "Fried chicken nasi lemak.",
+  "jayneFull": "Jayne Kitchen specializes in golden fried chicken nasi lemak.",
+
+  "peladangDesc": "Classic chicken rice.",
+  "peladangFull": "Nasi Ayam Peladang serves traditional chicken rice.",
+
+
+
+  "rompinExplorationTitle": "Rompin,Pahang Exploration",
+
+  "tabHistorical": "Historical Places",
+  "tabInteresting": "Interesting Places",
+  "tabEating": "Food & Dining",
+
+  "back": "BACK",
+
+  "rompin0kmDesc": "The official starting point of Kuala Rompin town.",
+  "rompin0kmFull": "0 KM Kuala Rompin marks the symbolic center of the town. It is often visited by tourists for photography and as a landmark representing the beginning of Rompin’s journey.",
+
+  "seriMahkotaDesc": "A beautiful waterfall surrounded by nature.",
+  "seriMahkotaFull": "Seri Mahkota Waterfall is a peaceful nature destination perfect for picnics, photography, and relaxation. The sound of flowing water creates a calming atmosphere for visitors.",
+
+  "rompinTrailDesc": "A jungle trekking trail for adventure lovers.",
+  "rompinTrailFull": "Rompin Trail offers exciting jungle trekking experiences with rich biodiversity. Visitors can explore rainforest scenery and enjoy outdoor adventure activities.",
+
+  "pantaiHiburanDesc": "A relaxing beach for family recreation.",
+  "pantaiHiburanFull": "Pantai Hiburan is a popular beach in Rompin where families gather for picnics, fishing, and enjoying the sea breeze during evenings.",
+
+  "beachResortDesc": "A comfortable beachside accommodation.",
+  "beachResortFull": "Rompin Beach Resort provides comfortable lodging with beautiful sea views, suitable for family vacations and peaceful getaways.",
+
+  "tamanNegeriDesc": "A protected rainforest reserve.",
+  "tamanNegeriFull": "Taman Negeri Rompin Pahang is one of Malaysia’s natural treasures, offering untouched rainforest ecosystems, wildlife, and eco-tourism experiences.",
+
+  "rainforestLodgeDesc": "Nature stay in rainforest surroundings.",
+  "rainforestLodgeFull": "Rompin Rainforest Lodge allows visitors to experience staying close to nature with guided tours and eco-activities.",
+
+  "cemaraDesc": "A riverside chalet experience.",
+  "cemaraFull": "Cemara Riverview Chalet offers cozy accommodation beside the river, providing a relaxing and peaceful atmosphere.",
+
+  "jetiBernasDesc": "Public jetty for fishing and boat rides.",
+  "jetiBernasFull": "Jeti Awam Pantai Bernas is commonly used for fishing activities and boat departures, especially for sea adventures.",
+
+  "food1Desc": "Local Malaysian cuisine.",
+  "food1Full": "Restoran Rompin Baru serves a variety of traditional Malaysian dishes loved by locals and visitors.",
+
+  "food2Desc": "Famous for blue-claw freshwater prawns.",
+  "food2Full": "Gerai Makan Mak Ngah specializes in Udang Galah Sepit Biru, a local seafood delicacy in Rompin.",
+
+  "food3Desc": "Breakfast spot near the lake.",
+  "food3Full": "Sarap D' Tasek Kuala Rompin offers local breakfast dishes in a cozy lakeside setting.",
+
+  "food4Desc": "Affordable local dishes.",
+  "food4Full": "Kedai Makan Selera Serdang provides affordable and delicious local meals.",
+
+  "food5Desc": "Popular seafood stall.",
+  "food5Full": "Gerai Makan Azizah is known for its fresh seafood and authentic flavors.",
+
+  "food6Desc": "Well-known local restaurant.",
+  "food6Full": "Restoran Paip Biru is a favorite dining spot among locals for traditional dishes.",
+
+  "food7Desc": "Seafood by the river.",
+  "food7Full": "Restaurant Rompin River Seafood offers fresh seafood dishes with scenic river views.",
+
+  "food8Desc": "Traditional coffee shop.",
+  "food8Full": "Warong Kopi Johan serves local coffee and classic Malaysian breakfast favorites.",
+
+  "food9Desc": "Crispy fried seafood snacks.",
+  "food9Full": "Ikan Celup Tepung Qaseh Armani is famous for crispy fried seafood coated in light batter.",
+
+  "food10Desc": "Evening street food corner.",
+  "food10Full": "Warung Celup Tepung Embun Corner is popular for fried seafood and evening snacks.",
+
+  "food11Desc": "Homestyle cooking.",
+  "food11Full": "Gerai Makan Hajjah Rosminah offers home-style Malaysian dishes in a friendly atmosphere.",
+
+  "food12Desc": "Village-style food stall.",
+  "food12Full": "Kedai Makan Pokok Manggis serves traditional kampung-style dishes.",
+
+  "food13Desc": "Freshwater prawn specialty.",
+  "food13Full": "Mak Ngah Udang Galah Cawangan 2 continues serving its signature freshwater prawns.",
+
+  "food14Desc": "Modern café experience.",
+  "food14Full": "DYA ZARA CAFE Rompin offers a modern café environment with Western and local dishes.",
+
+  "food15Desc": "Family dining spot.",
+  "food15Full": "Meisha Corner provides comfortable family dining with affordable meals.",
+
+  "food16Desc": "Trendy street kitchen.",
+  "food16Full": "MS Street Kitchen offers trendy street food loved by young visitors.",
+
+  "food17Desc": "Simple village warung.",
+  "food17Full": "Warung Mokla serves simple yet satisfying traditional meals.",
+
+  "food18Desc": "Seafood specialist.",
+  "food18Full": "One's Seafood is popular for its wide range of fresh seafood dishes.",
+
+  "food19Desc": "Food court with variety.",
+  "food19Full": "Medan Selera Rompin offers multiple stalls serving diverse local cuisine.",
+
+  "food20Desc": "Sweet dessert treats.",
+  "food20Full": "MR CHURROS is known for its delicious churros and sweet snacks.",
+
+
+
+  "jerantutExplorationTitle": "Jerantut Exploration",
+  "matKilauDesc": "Historical gallery dedicated to Mat Kilau.",
+  "matKilauFull": "Kompleks Galeri Mat Kilau Pulau Tawar showcases the history of Mat Kilau, a Malay warrior who fought against British colonial forces in Pahang.",
+  "lamanMatKilauDesc": "Public square honoring Mat Kilau.",
+  "lamanMatKilauFull": "Laman Mat Kilau is a cultural landmark and gathering space that celebrates the bravery and legacy of Mat Kilau.",
+  "kualaTembelingDesc": "Old railway stop site.",
+  "kualaTembelingFull": "The former Kuala Tembeling railway stop reflects early transportation history in Jerantut.",
+  "lataMeraungDesc": "Beautiful natural waterfall.",
+  "lataMeraungFull": "Lata Meraung is a serene waterfall surrounded by lush rainforest, perfect for picnics and relaxation.",
+  "icityDesc": "Family recreational park.",
+  "icityFull": "Taman I-City Jerantut offers fun attractions and colorful light displays for families.",
+  "gelanggiDesc": "Famous limestone cave.",
+  "gelanggiFull": "Gua Kota Gelanggi is a historic limestone cave with fascinating rock formations and legends.",
+  "dpumaDesc": "Unique themed house attraction.",
+  "dpumaFull": "D’PUMA HOUSE is a creative tourism spot popular for photography and social visits.",
+  "rakitDesc": "Floating house experience.",
+  "rakitFull": "Rumah Rakit D'jongkei Kelola offers a peaceful floating accommodation experience by the river.",
+  "bukitMerahDesc": "Red-colored forest hill.",
+  "bukitMerahFull": "Bukit Merah is known for its unique red soil landscape and scenic hiking trails.",
+  "viaFerrataDesc": "Adventure climbing activity.",
+  "viaFerrataFull": "Via Ferrata Paya Gunung offers a thrilling climbing route with safety cables and panoramic views.",
+  "food1Desc": "Popular satay spot.",
+  "food1Full": "Sate Temeen Jerantut is famous for its tender grilled satay served with rich peanut sauce.",
+  "food2Desc": "Cozy garden cafe.",
+  "food2Full": "Gypsy Garden Jerantut Cafe provides a relaxing garden ambiance with delicious drinks and meals.",
+  "food3Desc": "Traditional Malay eatery.",
+  "food3Full": "Warong Gantong serves authentic Malay dishes loved by locals.",
+  "food4Desc": "Famous murtabak restaurant.",
+  "food4Full": "Murtabak Jerantut Ferry Restaurant is known for its flavorful and crispy murtabak.",
+  "food5Desc": "Local dining spot.",
+  "food5Full": "Kedai Makan Makan Di Jerantut offers affordable and tasty local dishes.",
+  "food6Desc": "Trendy coffee place.",
+  "food6Full": "Kopi Chantek is a favorite coffee stop among youth and tourists.",
+  "food7Desc": "Modern cafe.",
+  "food7Full": "Bojiocafe Jerantut Pahang offers stylish interiors and quality beverages.",
+  "food8Desc": "Classic kopitiam.",
+  "food8Full": "Kedai Kopi Puteh serves traditional Malaysian breakfast and coffee.",
+
+
+
+  
+  "tapahExplorationTitle": "Tapah, Perak Exploration",
+  "tabBusiness": "Business Area",
+  "tabInteresting": "Interesting Places",
+  "tabEating": "Food Places",
+
+  "memoryLaneDesc": "Famous Sunday flea market in Ipoh.",
+  "memoryLaneFull": "Memory Lane is a popular flea market operating every Sunday morning offering antiques, collectibles and vintage goods.",
+
+  "concubineLaneDesc": "Historic lane with cafes and souvenirs.",
+  "concubineLaneFull": "Concubine Lane is a vibrant heritage street filled with cafes, snacks and souvenir shops.",
+
+  "lorongSeniDesc": "Art street with murals.",
+  "lorongSeniFull": "Lorong Seni features beautiful murals and art installations perfect for photography.",
+
+  "gerbangMalamDesc": "Night market in Ipoh town.",
+  "gerbangMalamFull": "Gerbang Malam is a lively night market selling clothes, food and accessories.",
+
+  "pettingZooDesc": "Family friendly animal park.",
+  "pettingZooFull": "Petting Zoo at Gunung Lang offers interactive experiences with animals for children and families.",
+
+  "lightSoundDesc": "Night light show attraction.",
+  "lightSoundFull": "Light & Sound at Ipoh Padang is a colorful evening attraction with music and lighting effects.",
+
+  "ipohPadangDesc": "Historic field in Ipoh.",
+  "ipohPadangFull": "Ipoh Padang is a historical open field surrounded by colonial buildings.",
+
+  "sultanAzizDesc": "Popular recreational park.",
+  "sultanAzizFull": "Taman Rekreasi Sultan Abdul Aziz is ideal for jogging and outdoor activities.",
+
+  "gunungLangDesc": "Lake and limestone hill park.",
+  "gunungLangFull": "Gunung Lang Recreational Park features a lake, boat rides and limestone hills.",
+
+  "tamanJepunDesc": "Japanese garden park.",
+  "tamanJepunFull": "Taman Jepun is a peaceful garden inspired by Japanese landscaping.",
+
+  "drSeenivasagamDesc": "City recreational park.",
+  "drSeenivasagamFull": "A popular urban park for leisure and family activities.",
+
+  "guaTambunDesc": "Ancient cave paintings site.",
+  "guaTambunFull": "Gua Tambun is known for prehistoric cave paintings.",
+
+  "qinXingLingDesc": "Large cave temple.",
+  "qinXingLingFull": "Qin Xing Ling is a famous limestone cave temple in Ipoh.",
+
+  "guaMasooratDesc": "Natural limestone cave.",
+  "guaMasooratFull": "Gua Masoorat is a scenic limestone cave attraction.",
+
+  "tasekCerminDesc": "Hidden mirror lake.",
+  "tasekCerminFull": "Tasek Cermin is a hidden lake surrounded by limestone hills.",
+
+  "medanSagorDesc": "Local food court.",
+  "medanSagorFull": "Medan Selera Dato Sagor offers various local Malaysian dishes.",
+
+  "rojakDesc": "Famous rojak and cendol stall.",
+  "rojakFull": "Popular spot for refreshing cendol and delicious rojak.",
+
+  "planBDesc": "Modern cafe in Ipoh.",
+  "planBFull": "Plan B serves Western and fusion cuisine in a stylish setting.",
+
+  "stgDesc": "Coffee specialist cafe.",
+  "stgFull": "STG Ipoh Old Town is known for quality coffee and desserts.",
+
+  "durbarDesc": "Historic Indian restaurant.",
+  "durbarFull": "Durbar at FMS is one of the oldest Indian restaurants in Ipoh.",
+
+  "mikerDesc": "Popular pizza restaurant.",
+  "mikerFull": "Miker Pizza serves local-flavored and classic pizzas.",
+
+  "thumbsDesc": "Cozy cafe in Ipoh.",
+  "thumbsFull": "Thumb's Cafe offers pastries and specialty drinks.",
+
+  "tandoorDesc": "Authentic North Indian cuisine.",
+  "tandoorFull": "Tandoor Grill serves authentic North Indian dishes.",
+
+  "centralKitchenDesc": "Local Malaysian cuisine hub.",
+  "centralKitchenFull": "Ipoh Central Kitchen offers traditional and modern Malaysian dishes.",
+
+  "greentownDesc": "Famous dim sum restaurant.",
+  "greentownFull": "Greentown Dimsum Cafe is popular for its variety of dim sum.",
+
+
+
+
+"cameronExplorationTitle":"Explore Cameron Highlands",
+
+"keaFarmMarketDesc":"Morning market selling vegetables and local produce.",
+"keaFarmMarketFull":"Kea Farm Morning Market is a popular market selling fresh vegetables, fruits, and souvenirs from Cameron Highlands.",
+
+"farmersArcadeDesc":"Shopping arcade for local products.",
+"farmersArcadeFull":"Farmers Arcade offers a variety of fresh vegetables, fruits, flowers, and agricultural products from local farmers.",
+
+"bazarKeaFarmDesc":"Local bazaar with fruits and souvenirs.",
+"bazarKeaFarmFull":"Kea Farm Bazaar is a busy tourist market offering strawberries, vegetables, snacks, and souvenirs.",
+
+"agroMarketDesc":"Agricultural market selling local farm products.",
+"agroMarketFull":"Agro Market provides fresh produce from Cameron Highlands farms including vegetables and flowers.",
+
+"sCornerDesc":"Central market area for shopping.",
+"sCornerFull":"S'Corner Central Market offers a variety of local products and souvenirs for visitors.",
+
+"pasarRayaDesc":"Supermarket selling daily necessities.",
+"pasarRayaFull":"Pasar Raya Cameron Highland provides groceries, food items, and daily essentials.",
+
+"keaVegetableDesc":"Vegetable farm selling fresh produce.",
+"keaVegetableFull":"Kea Farm Vegetable Farm sells fresh vegetables grown in the cool climate of Cameron Highlands.",
+
+"kokLamDesc":"Vegetable farm and agriculture business.",
+"kokLamFull":"Kok Lam Farm is known for growing high quality vegetables in Cameron Highlands.",
+
+"cameronSquareDesc":"Shopping complex in Cameron Highlands.",
+"cameronSquareFull":"Cameron Square is a shopping mall offering restaurants, cafes, and retail stores.",
+
+"arkedPeladangDesc":"Farmers market selling agricultural goods.",
+"arkedPeladangFull":"Arked Peladang Cameron Highlands sells fresh farm produce and local agricultural products.",
+
+"brinchangNightDesc":"Night market with food and souvenirs.",
+"brinchangNightFull":"Brinchang Night Market is famous for street food, strawberries, vegetables, and souvenirs.",
+
+"avantChocolateDesc":"Chocolate shop and factory.",
+"avantChocolateFull":"Avant Chocolate Cameron Highlands produces and sells delicious homemade chocolates.",
+
+"cameronCentrumDesc":"Modern lifestyle attraction in Cameron Highlands.",
+"cameronCentrumFull":"Cameron Centrum is a new tourism hub with restaurants, cafes, and attractions.",
+
+"greenViewDesc":"Garden and strawberry attraction.",
+"greenViewFull":"Green View Garden features strawberry farms, gardens, and family attractions.",
+
+"lavenderGardenDesc":"Beautiful lavender themed garden.",
+"lavenderGardenFull":"Cameron Lavender Garden is famous for colorful flowers, lavender fields, and souvenirs.",
+
+"bohTeaDesc":"Famous tea plantation and cafe.",
+"bohTeaFull":"BOH Tea Centre at Sungei Palas offers scenic views of tea plantations and a tea tasting experience.",
+
+"freshCropDesc":"Local bazaar selling fresh crops.",
+"freshCropFull":"Cameron Fresh Crop Bazaar sells vegetables, fruits, and local products.",
+
+"sheepSanctuaryDesc":"Animal farm attraction.",
+"sheepSanctuaryFull":"The Sheep Sanctuary allows visitors to interact with sheep and feed them.",
+
+"ppkStrawberryDesc":"Strawberry farm attraction.",
+"ppkStrawberryFull":"PPK Strawberry Farm allows visitors to pick fresh strawberries.",
+
+"bigRedDesc":"Popular strawberry farm attraction.",
+"bigRedFull":"Big Red Strawberry Farm offers strawberry picking and a cafe.",
+
+"floraParkDesc":"Beautiful flower park attraction.",
+"floraParkFull":"Cameron Highlands Flora Park showcases many colorful flowers and gardens.",
+
+"rainbowGardenDesc":"Garden attraction with animals.",
+"rainbowGardenFull":"Rainbow Garden offers plants, flowers, and animal feeding activities.",
+
+"cactusPointDesc":"Large cactus garden attraction.",
+"cactusPointFull":"Cactus Point features thousands of cactus species and plants.",
+
+"apiaryFarmDesc":"Honey farm attraction.",
+"apiaryFarmFull":"Highlands Apiary Farm is known for honey production and bee farming.",
+
+"orGardenDesc":"Beautiful flower garden attraction.",
+"orGardenFull":"O&R Garden displays various flowers and ornamental plants.",
+
+"pertabalanDesc":"Public park in Tanah Rata.",
+"pertabalanFull":"Taman Pertabalan Tanah Rata is a relaxing park for visitors.",
+
+"zoomaniDesc":"Butterfly and insect farm attraction.",
+"zoomaniFull":"ZooMania Butterfly Farm houses butterflies and insects.",
+
+"mardiDesc":"Agricultural research park.",
+"mardiFull":"MARDI Agrotechnology Park showcases agricultural technology and gardens.",
+
+"timeTunnelDesc":"Historical museum of Cameron Highlands.",
+"timeTunnelFull":"Time Tunnel Museum displays historical artifacts and memories of Cameron Highlands.",
+
+"lataIskandarDesc":"Waterfall between Tapah and Cameron Highlands.",
+"lataIskandarFull":"Lata Iskandar is a popular roadside waterfall for tourists.",
+
+"robinsonDesc":"Hidden waterfall hiking attraction.",
+"robinsonFull":"Robinson Falls is a beautiful waterfall reached by jungle trekking.",
+
+"mossyForestDesc":"Unique high altitude forest.",
+"mossyForestFull":"Mossy Forest is a magical cloud forest with moss-covered trees.",
+
+"eeFengDesc":"Bee farm attraction.",
+"eeFengFull":"Ee Feng Gu Bee Farm produces honey and sells bee products.",
+
+"gunungIrauDesc":"Highest hiking mountain in Cameron Highlands.",
+"gunungIrauFull":"Gunung Irau is famous for its Mossy Forest hiking trail.",
+
+"cameronAdventureDesc":"Outdoor adventure activity.",
+"cameronAdventureFull":"Cameron Adventurous offers ATV rides and outdoor experiences.",
+
+"grapeFarmDesc":"Grape farm attraction.",
+"grapeFarmFull":"KC Kwang & Sons Grape Farm grows grapes and other fruits.",
+
+"camelliaDesc":"Flower garden attraction.",
+"camelliaFull":"Tan's Camellia Garden features beautiful camellia flowers.",
+
+"rajuHillDesc":"Strawberry farm and cafe.",
+"rajuHillFull":"Raju Hill Strawberry Farm allows visitors to pick strawberries.",
+
+"mahMeriDesc":"Art gallery attraction.",
+"mahMeriFull":"Mah Meri Art Gallery displays traditional Malaysian art.",
+
+"khmDesc":"Cafe serving strawberry desserts.",
+"khmFull":"KHM Strawberries & Jam offers desserts and strawberry products.",
+
+"yzAgroDesc":"Strawberry farm cafe.",
+"yzAgroFull":"YZ Agro Farm provides strawberry picking and cafe food.",
+
+"teaHouseDesc":"Tea house overlooking tea plantations.",
+"teaHouseFull":"Cameron Valley Tea House offers tea and scenic plantation views.",
+
+"teaKualaTerlaDesc":"Tea cafe in Kuala Terla.",
+"teaKualaTerlaFull":"Cameron Valley Tea House Kuala Terla serves tea with beautiful views.",
+
+"seedsCafeDesc":"Modern cafe in Cameron Highlands.",
+"seedsCafeFull":"200 Seeds Café offers coffee, desserts, and relaxing atmosphere.",
+
+"dragText" : "DRAG TO EXPLORE",
+"searchMap" : "Tap To Search Location",
+"errorMapSearch" : "No suggestion place found.",
+
+
+
+  "temerlohExplorationTitle": "Temerloh, Pahang Exploration",
+
+  "tabBusiness": "Business Places",
+  "tabInteresting": "Interesting Places",
+  "tabEating": "Food Places",
+  "back": "BACK",
+  "closetext": "CLOSE",
+
+  "temBusiness1Desc": "Weekly market with local products.",
+  "temBusiness1Full": "Pasar Sehari Temerloh is a popular weekly market selling fresh produce, clothing, household goods and local snacks.",
+
+  "temBusiness2Desc": "Main public square of Temerloh.",
+  "temBusiness2Full": "Dataran Patin is a landmark square named after Temerloh’s famous patin fish. Great for relaxing and events.",
+
+  "temBusiness3Desc": "Traditional wet and dry market.",
+  "temBusiness3Full": "Pasar Besar Temerloh offers seafood, vegetables, meat and many daily essentials for locals and visitors.",
+
+  "temBusiness4Desc": "Night flea market.",
+  "temBusiness4Full": "Pasar Karat Temerloh is known for second-hand goods, vintage items and bargain shopping at night.",
+
+  "temBusiness5Desc": "Local art and handmade items.",
+  "temBusiness5Full": "Pasar Seni Temerloh features crafts, paintings, handmade gifts and cultural products.",
+
+  "temBusiness6Desc": "Heritage themed market.",
+  "temBusiness6Full": "Pasar Warisan Temerloh promotes traditional food, classic goods and local heritage culture.",
+
+  "temBusiness7Desc": "Popular evening market.",
+  "temBusiness7Full": "Temerloh Night Market is filled with food stalls, drinks, clothing and affordable street shopping.",
+
+  "temBusiness8Desc": "Local community market.",
+  "temBusiness8Full": "Pasar Tiga Temerloh serves nearby residents with fresh food, groceries and daily necessities.",
+
+  "temInteresting1Desc": "Center point of Peninsular Malaysia.",
+  "temInteresting1Full": "Titik Tengah Semenanjung is the geographical midpoint of Peninsular Malaysia and a famous photo spot.",
+
+  "temInteresting2Desc": "Lake park for recreation.",
+  "temInteresting2Full": "Tasik Chatin Recreation Park offers jogging paths, greenery, lakeside scenery and family activities.",
+
+  "temInteresting3Desc": "National elephant sanctuary.",
+  "temInteresting3Full": "Pusat Konservasi Gajah Kebangsaan protects elephants and educates visitors about wildlife conservation.",
+
+  "temInteresting4Desc": "Family animal attraction.",
+  "temInteresting4Full": "Deerland Park allows visitors to see deer and other animals in a fun family environment.",
+
+  "temInteresting5Desc": "Water theme park.",
+  "temInteresting5Full": "Kubang Gajah Water Theme Park is suitable for children and families with pools and slides.",
+
+  "temInteresting6Desc": "Beautiful limestone hill.",
+  "temInteresting6Full": "Gunung Senyum is famous for caves, climbing and scenic natural landscapes.",
+
+  "temInteresting7Desc": "Seladang conservation center.",
+  "temInteresting7Full": "This center focuses on conserving seladang (gaur), one of Malaysia’s protected wild animals.",
+
+  "temInteresting8Desc": "Traditional village stay.",
+  "temInteresting8Full": "Kampungstay Desa Murni offers homestay experiences with village lifestyle and cultural activities.",
+
+  "temInteresting9Desc": "Peaceful recreation park.",
+  "temInteresting9Full": "Wadi Al-Amin Recreation Park is a peaceful place for family outings and relaxation.",
+
+  "temInteresting10Desc": "Refreshing waterfall destination.",
+  "temInteresting10Full": "Lata Bujang Waterfall is a natural attraction popular for picnics and enjoying cool fresh water.",
+
+  "temInteresting11Desc": "Indigenous village experience.",
+  "temInteresting11Full": "Visitors can learn about the Che’ Wong indigenous community, traditions and lifestyle.",
+
+  "temInteresting12Desc": "Protected wildlife forest reserve.",
+  "temInteresting12Full": "Krau Wildlife Reserve is rich in biodiversity and ideal for eco-tourism and nature lovers.",
+
+  "temInteresting13Desc": "Riverfront public attraction.",
+  "temInteresting13Full": "Esplanade Temerloh is a relaxing riverside area for walking, gatherings and enjoying the town atmosphere.",
+
+  "temFood1Desc": "Popular local stall.",
+  "temFood1Full": "Warung Acu is known for tasty local dishes and friendly service.",
+
+  "temFood2Desc": "Roadside favourite eatery.",
+  "temFood2Full": "Go' Bang Maju Tol is a well-known stop for travelers seeking hearty meals.",
+
+  "temFood3Desc": "Famous patin riverside restaurant.",
+  "temFood3Full": "Angah Maju Selera Patin Tebing Sungai is famous for patin tempoyak and river views.",
+
+  "temFood4Desc": "Affordable local food stall.",
+  "temFood4Full": "Gerai Adik Hanizan serves delicious home-style dishes at reasonable prices.",
+
+  "temFood5Desc": "Modern café dining.",
+  "temFood5Full": "KOI & AOK Cafe offers burgers, steak, coffee and desserts in a cozy atmosphere.",
+
+  "temFood6Desc": "Traditional restaurant.",
+  "temFood6Full": "Restoran Tok Gajah Temerloh serves authentic Pahang cuisine and local favourites.",
+
+  "temFood7Desc": "Relaxing café spot.",
+  "temFood7Full": "Mukmin Cafe is a nice place for drinks, snacks and casual meals.",
+
+  "temFood8Desc": "Unique coffee place.",
+  "temFood8Full": "Kopi Bawah Tangga is known for coffee and charming ambiance.",
+
+  "temFood9Desc": "Popular patin destination.",
+  "temFood9Full": "Selera Patin Bangau Temerloh is another famous place to enjoy Temerloh patin dishes."
+
+
+}
