@@ -181,8 +181,8 @@ class IoTHubService {
         "terminal_ID": Config.terminalId,
         "battery_health": 80,
         "door_status": Random().nextBool() ? "open" : "close",
-        "latitude": 5.7800,
-        "longitude": 102.2500,
+        "latitude": 3.1837,
+        "longitude": 101.7686,
         "datetime": DateTime.now().toUtc().toIso8601String(),
       };
 
