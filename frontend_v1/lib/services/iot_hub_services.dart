@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:crypto/crypto.dart';
+import 'package:frontend_v1/pages/config.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
@@ -177,7 +178,7 @@ class IoTHubService {
       }
 
       final data = {
-        "terminal_ID": "M01ATEST",
+        "terminal_ID": Config.terminalId,
         "battery_health": 80,
         "door_status": Random().nextBool() ? "open" : "close",
         "latitude": 5.7800,
