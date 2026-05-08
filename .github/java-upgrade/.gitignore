@@ -34,3 +34,5 @@ app.*.map.json
 /android/app/release
 
 lib/pages/config.dart
+.vscode/launch.json
+.vscode/ 
