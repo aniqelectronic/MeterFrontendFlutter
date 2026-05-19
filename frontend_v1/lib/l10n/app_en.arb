@@ -6,7 +6,11 @@
   "p2Title": "MULTIPLE OPTION",
   "pbtText": "PBT",
   "rentText": "RENT",
+  "rentPBTText": "RENT PBT",
   "backText": "BACK",
+
+  "scrollup": "SCROLL UP",
+  "scrolldown": "SCROLL DOWN",
 
   "comingsoonText": "COMING SOON",
 
@@ -33,7 +37,7 @@
   "p3Subtitle": "PLEASE SELECT YOUR OPTION",
   "parkirButton" : "PARKING",
   "compoundButton" : "COMPOUND",
-  "taxButton" : "TAX",
+  "taxButton" : "ASSESSMENT TAX",
   "compoundTitle": "COMPOUND",
   "aduanTitle": "COMPLAINT",
   "singlecompoundTitle": "SINGLE COMPOUND",
@@ -45,6 +49,7 @@
   "inputPlateHint": "ENTER YOUR PLATE NUMBER",
   "inputICHint": "ENTER YOUR IC NUMBER",
   "inputCompoundHint": "ENTER COMPOUND NUMBER",
+  "inputTaxHint": "ENTER YOUR ACCOUNT/IC/SSM NUMBER",
 
   "pbil3Title": "BILL OPTIONS",
   "pbil3Subtitle": "PLEASE SELECT YOUR OPTION",

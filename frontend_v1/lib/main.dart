@@ -65,33 +65,103 @@ class _AppState extends State<App> {
   bool _screenOff = false;
 
   // ---------------- SCREEN POWER ----------------
-  Future<void> _turnScreenOff() async {
-    try {
-    await Process.run(
-      'bash',
-      ['-c', 'DISPLAY=:0 xset +dpms && DISPLAY=:0 xset dpms force off'],
-    );
+  // Future<void> _turnScreenOff() async {
+  //   try {
+  //   await Process.run(
+  //     'bash',
+  //     ['-c', 'DISPLAY=:0 xset +dpms && DISPLAY=:0 xset dpms force off'],
+  //   );
   
-      _screenOff = true;
-      print("Screen turned OFF");
-    } catch (e) {
-      print("Failed to turn screen off: $e");
-    }
-  }
+  //     _screenOff = true;
+  //     print("Screen turned OFF");
+  //   } catch (e) {
+  //     print("Failed to turn screen off: $e");
+  //   }
+  // }
  
-  Future<void> _turnScreenOn() async {
-    try {
+  // Future<void> _turnScreenOn() async {
+  //   try {
+  //   await Process.run(
+  //     'bash',
+  //     ['-c', 'DISPLAY=:0 xset +dpms && DISPLAY=:0 xset dpms force on'],
+  //   );
+  
+  //     _screenOff = false;
+  //     print("Screen turned ON");
+  //   } catch (e) {
+  //     print("Failed to turn screen on: $e");
+  //   }
+  // }
+
+Future<void> _turnScreenOn() async {
+  try {
+    final result = await Process.run(
+      'bash',
+      ['-c', 'DISPLAY=:0 xrandr'],
+    );
+
+    final outputLine = result.stdout
+        .toString()
+        .split('\n')
+        .firstWhere(
+          (line) => line.contains(" connected") || line.contains(" disconnected"),
+          orElse: () => '',
+        );
+
+    if (outputLine.isEmpty) {
+      print("No display found");
+      return;
+    }
+
+    final outputName = outputLine.split(' ')[0];
+
     await Process.run(
       'bash',
-      ['-c', 'DISPLAY=:0 xset +dpms && DISPLAY=:0 xset dpms force on'],
+      ['-c', 'DISPLAY=:0 xrandr --output $outputName --auto'],
     );
-  
-      _screenOff = false;
-      print("Screen turned ON");
-    } catch (e) {
-      print("Failed to turn screen on: $e");
-    }
+
+    _screenOff = false;
+    print("Screen turned ON: $outputName");
+  } catch (e) {
+    print("Failed to turn screen on: $e");
   }
+}
+
+
+Future<void> _turnScreenOff() async {
+  try {
+    final result = await Process.run(
+      'bash',
+      ['-c', 'DISPLAY=:0 xrandr'],
+    );
+
+    final outputLine = result.stdout
+        .toString()
+        .split('\n')
+        .firstWhere(
+          (line) => line.contains(" connected"),
+          orElse: () => '',
+        );
+
+    if (outputLine.isEmpty) {
+      print("No display found");
+      return;
+    }
+
+    final outputName = outputLine.split(' ')[0];
+
+    await Process.run(
+      'bash',
+      ['-c', 'DISPLAY=:0 xrandr --output $outputName --off'],
+    );
+
+    _screenOff = true;
+    print("Screen turned OFF: $outputName");
+  } catch (e) {
+    print("Failed to turn screen off: $e");
+  }
+}
+
 
  void _resetHibernateTimer() {
 

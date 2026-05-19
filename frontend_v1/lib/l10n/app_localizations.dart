@@ -125,11 +125,29 @@ abstract class AppLocalizations {
   /// **'RENT'**
   String get rentText;
 
+  /// No description provided for @rentPBTText.
+  ///
+  /// In en, this message translates to:
+  /// **'RENT PBT'**
+  String get rentPBTText;
+
   /// No description provided for @backText.
   ///
   /// In en, this message translates to:
   /// **'BACK'**
   String get backText;
+
+  /// No description provided for @scrollup.
+  ///
+  /// In en, this message translates to:
+  /// **'SCROLL UP'**
+  String get scrollup;
+
+  /// No description provided for @scrolldown.
+  ///
+  /// In en, this message translates to:
+  /// **'SCROLL DOWN'**
+  String get scrolldown;
 
   /// No description provided for @comingsoonText.
   ///
@@ -254,7 +272,7 @@ abstract class AppLocalizations {
   /// No description provided for @taxButton.
   ///
   /// In en, this message translates to:
-  /// **'TAX'**
+  /// **'ASSESSMENT TAX'**
   String get taxButton;
 
   /// No description provided for @compoundTitle.
@@ -322,6 +340,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'ENTER COMPOUND NUMBER'**
   String get inputCompoundHint;
+
+  /// No description provided for @inputTaxHint.
+  ///
+  /// In en, this message translates to:
+  /// **'ENTER YOUR ACCOUNT/IC/SSM NUMBER'**
+  String get inputTaxHint;
 
   /// No description provided for @pbil3Title.
   ///

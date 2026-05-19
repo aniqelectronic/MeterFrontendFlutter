@@ -6,7 +6,11 @@
   "p2Title": "PELBAGAI PILIHAN",
   "pbtText": "PBT",
   "rentText": "SEWAAN",
+  "rentPBTText": "SEWAAN PBT",
   "backText": "KEMBALI",
+
+  "scrollup": "SKROL KE ATAS",
+  "scrolldown": "SKROL KE BAWAH",
 
   "comingsoonText": "AKAN DATANG",
 
@@ -39,11 +43,12 @@
   "compoundSubtitle": "PILIH CARA PENCARIAN",
   "singleCompoundButton": "NOMBOR KOMPAUN",
   "multiCompoundButton": "NOMBOR PLAT",
-  "taxButton" : "CUKAI",
+  "taxButton" : "CUKAI TAKSIRAN",
   "licenseButton" : "LESEN",
   "inputPlateHint": "MASUKKAN NO. PLAT ANDA",
   "inputICHint": "MASUKKAN NO. IC ANDA",
   "inputCompoundHint": "MASUKKAN NO. KOMPAUN",
+  "inputTaxHint": "MASUKKAN NO. ACCOUNT/IC/SSM",
 
   "pbil3Title": "PILIHAN BIL",
   "pbil3Subtitle": "SILA PILIH PILIHAN ANDA",

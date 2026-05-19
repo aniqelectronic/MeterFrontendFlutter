@@ -122,7 +122,7 @@ class _P4PAGEState extends State<P4PAGE> {
 
   @override
   Widget build(BuildContext context) {
-    const horizontalPadding = 100.0;
+    const horizontalPadding = 80.0;
     const keySpacing = 15.0;
     const keyHeight = 120.0;
     const keyWidth = 125.0;
@@ -181,7 +181,7 @@ class _P4PAGEState extends State<P4PAGE> {
               child: TextField(
                 controller: _controller,
                 readOnly: true,
-                style: const TextStyle(fontSize: 40),
+                style: const TextStyle(fontSize: 35),
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   filled: true,

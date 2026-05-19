@@ -24,7 +24,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rentText => 'RENT';
 
   @override
+  String get rentPBTText => 'RENT PBT';
+
+  @override
   String get backText => 'BACK';
+
+  @override
+  String get scrollup => 'SCROLL UP';
+
+  @override
+  String get scrolldown => 'SCROLL DOWN';
 
   @override
   String get comingsoonText => 'COMING SOON';
@@ -87,7 +96,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get compoundButton => 'COMPOUND';
 
   @override
-  String get taxButton => 'TAX';
+  String get taxButton => 'ASSESSMENT TAX';
 
   @override
   String get compoundTitle => 'COMPOUND';
@@ -121,6 +130,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get inputCompoundHint => 'ENTER COMPOUND NUMBER';
+
+  @override
+  String get inputTaxHint => 'ENTER YOUR ACCOUNT/IC/SSM NUMBER';
 
   @override
   String get pbil3Title => 'BILL OPTIONS';

@@ -24,7 +24,16 @@ class AppLocalizationsMs extends AppLocalizations {
   String get rentText => 'SEWAAN';
 
   @override
+  String get rentPBTText => 'SEWAAN PBT';
+
+  @override
   String get backText => 'KEMBALI';
+
+  @override
+  String get scrollup => 'SKROL KE ATAS';
+
+  @override
+  String get scrolldown => 'SKROL KE BAWAH';
 
   @override
   String get comingsoonText => 'AKAN DATANG';
@@ -87,7 +96,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get compoundButton => 'KOMPAUN';
 
   @override
-  String get taxButton => 'CUKAI';
+  String get taxButton => 'CUKAI TAKSIRAN';
 
   @override
   String get compoundTitle => 'KOMPAUN';
@@ -121,6 +130,9 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get inputCompoundHint => 'MASUKKAN NO. KOMPAUN';
+
+  @override
+  String get inputTaxHint => 'MASUKKAN NO. ACCOUNT/IC/SSM';
 
   @override
   String get pbil3Title => 'PILIHAN BIL';
