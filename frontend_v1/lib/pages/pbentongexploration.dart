@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_v1/pages/pothers3.dart';
+import 'package:frontend_v1/pages/ptourist3.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:qr_flutter/qr_flutter.dart'; // 🔹 ADDED
 
@@ -182,7 +182,7 @@ class _PExplorationBentongPageState extends State<PExplorationBentongPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const POTHERS3PAGE()),
+                    MaterialPageRoute(builder: (_) => const PTOURISTPAGE()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

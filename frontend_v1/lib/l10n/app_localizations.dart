@@ -107,6 +107,12 @@ abstract class AppLocalizations {
   /// **'OTHERS'**
   String get otherText;
 
+  /// No description provided for @touristText.
+  ///
+  /// In en, this message translates to:
+  /// **'TOURIST GUIDE'**
+  String get touristText;
+
   /// No description provided for @p2Title.
   ///
   /// In en, this message translates to:

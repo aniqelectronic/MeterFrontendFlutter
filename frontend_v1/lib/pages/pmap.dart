@@ -5,7 +5,7 @@ import 'package:frontend_v1/pages/data.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
-import 'package:frontend_v1/pages/pothers3.dart';
+import 'package:frontend_v1/pages/ptourist3.dart';
 
 class PMAPPAGE extends StatefulWidget {
   const PMAPPAGE({super.key});
@@ -283,7 +283,7 @@ class _PMAPPAGEState extends State<PMAPPAGE> with SingleTickerProviderStateMixin
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const POTHERS3PAGE(),
+                      builder: (_) => const PTOURISTPAGE(),
                     ),
                   );
                 },

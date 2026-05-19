@@ -3,7 +3,7 @@ import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/p2.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
-import 'package:frontend_v1/pages/pothers3.dart';
+import 'package:frontend_v1/pages/ptourist3.dart';
 
 class PRENT3PAGE extends StatelessWidget {
   const PRENT3PAGE({super.key});

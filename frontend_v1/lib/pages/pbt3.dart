@@ -262,7 +262,7 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
           // ================= TOP SCROLL INDICATOR =================
           if (showScrollUp)
             Positioned(
-              right: 450,
+              right: 400,
               top: 280,
               child: Column(
                 children: [
@@ -289,7 +289,7 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
           // ================= BOTTOM SCROLL INDICATOR =================
           if (showScrollDown)
             Positioned(
-              right: 450,
+              right: 400,
               bottom: 230,
               child: Column(
                 children:  [

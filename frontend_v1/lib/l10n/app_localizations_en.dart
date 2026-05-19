@@ -15,6 +15,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get otherText => 'OTHERS';
 
   @override
+  String get touristText => 'TOURIST GUIDE';
+
+  @override
   String get p2Title => 'MULTIPLE OPTION';
 
   @override

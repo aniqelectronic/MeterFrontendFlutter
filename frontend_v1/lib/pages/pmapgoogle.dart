@@ -7,7 +7,7 @@ import 'package:frontend_v1/pages/data.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
-import 'package:frontend_v1/pages/pothers3.dart';
+import 'package:frontend_v1/pages/ptourist3.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
@@ -804,7 +804,7 @@ void _resetMapSearch() {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const POTHERS3PAGE(),
+                      builder: (_) => const PTOURISTPAGE(),
                     ),
                   );
                 },

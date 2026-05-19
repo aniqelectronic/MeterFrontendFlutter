@@ -1,22 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/pages/p4.dart';
 import 'package:frontend_v1/pages/pbahasa.dart';
-import 'package:frontend_v1/pages/pothers3.dart';
+import 'package:frontend_v1/pages/ptourist3.dart';
 import 'package:frontend_v1/pages/prent3.dart';
 import 'pbt3.dart';
 import 'pbil3.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 
-class P2Page extends StatelessWidget {
+class P2Page extends StatefulWidget {
   const P2Page({super.key});
+
+  @override
+  State<P2Page> createState() => _P2PageState();
+}
+
+class _P2PageState extends State<P2Page> {
+  final ScrollController _scrollController = ScrollController();
+
+  bool showScrollUp = false;
+  bool showScrollDown = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController.addListener(() {
+      final maxScroll = _scrollController.position.maxScrollExtent;
+      final current = _scrollController.offset;
+
+      setState(() {
+        showScrollUp = current > 10;
+        showScrollDown = current < (maxScroll - 10);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Background image
+          // ================= BACKGROUND =================
           Container(
             width: double.infinity,
             height: double.infinity,
@@ -28,7 +60,7 @@ class P2Page extends StatelessWidget {
             ),
           ),
 
-          // Title
+          // ================= TITLE =================
           Positioned(
             top: 120,
             left: 0,
@@ -45,7 +77,7 @@ class P2Page extends StatelessWidget {
             ),
           ),
 
-          // Subtitle
+          // ================= SUBTITLE =================
           Positioned(
             top: 240,
             left: 0,
@@ -62,141 +94,245 @@ class P2Page extends StatelessWidget {
             ),
           ),
 
-          // ================= PBT BUTTON =================
+          // ================= SCROLLABLE BUTTON AREA =================
           Positioned(
-            top: 500,
-            left: -500,
-            right: 0,
-            child: _KioskMainButton(
-              width: 400,   // button width
-              height: 400, 
-              icon: Icons.directions_car,
-              label: AppLocalizations.of(context)!.pbtText,
-              onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const PBT3PAGE(),
-                ),
-              );
-              },
-            ),
-          ),
-
-          // ================= BIL BUTTON =================
-          Positioned(
-            top: 500,
+            top: 430,
             left: 0,
-            right: -500,
-            child: _KioskMainButton(
-              width: 400,   // button width
-              height: 400, 
-              imagePath: "lib/images/bil.png",
-              label: AppLocalizations.of(context)!.bilText,
-              onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const PBIL3PAGE(),
-                ),
-              );
-              },
-            ),
-          ),
-
-          // ================= RENT BUTTON =================
-          Positioned(
-            top: 1000,
-            left: -500,
             right: 0,
-            child: _KioskMainButton(
-              width: 400,   // button width
-              height: 400, 
-              icon: Icons.house ,
-              label: AppLocalizations.of(context)!.rentText,
-              onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const PRENT3PAGE(),
-                ),
-              );
+            bottom: 400,
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              physics: const BouncingScrollPhysics(),
+              child: SizedBox(
+                height: 1600,
+                child: Stack(
+                  children: [
 
-              },
-            ),
-          ),
+                    // ================= PBT BUTTON =================
+                    Positioned(
+                      top: 50,
+                      left: -500,
+                      right: 0,
+                      child: _KioskMainButton(
+                        width: 400,
+                        height: 400,
+                        icon: Icons.directions_car,
+                        label: AppLocalizations.of(context)!.pbtText,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const PBT3PAGE(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
 
-          // ================= OTHER BUTTON =================
-          Positioned(
-            top: 1000,
-            left: 0,
-            right: -500,
-            child: _KioskMainButton(
-              width: 400,   // button width
-              height: 400, 
-              imagePath: "lib/images/other.png",
-              label: AppLocalizations.of(context)!.otherText,
-              onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const POTHERS3PAGE(),
-                ),
-              );
-              },
-            ),
-          ),
+                    // ================= BIL BUTTON =================
+                    Positioned(
+                      top: 50,
+                      left: 0,
+                      right: -500,
+                      child: _KioskMainButton(
+                        width: 400,
+                        height: 400,
+                        imagePath: "lib/images/bil.png",
+                        label: AppLocalizations.of(context)!.bilText,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const PBIL3PAGE(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
 
-          // ================= BACK BUTTON (UNCHANGED) =================
-          Positioned(
-            bottom: 200,
-            left: 300,
-            right: 300,
-             child: SizedBox(
-              width: 300,   // Set the button width
-              height: 120,  // Set the button height
-            child: ElevatedButton(
-              onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const PBAHASAPAGE(),
+                    // ================= RENT BUTTON =================
+                    Positioned(
+                      top: 550,
+                      left: -500,
+                      right: 0,
+                      child: _KioskMainButton(
+                        width: 400,
+                        height: 400,
+                        icon: Icons.house,
+                        label: AppLocalizations.of(context)!.rentText,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const PRENT3PAGE(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+
+                    // ================= TOURIST BUTTON =================
+                    Positioned(
+                      top: 550,
+                      left: 0,
+                      right: -500,
+                      child: _KioskMainButton(
+                        width: 400,
+                        height: 400,
+                        icon: Icons.travel_explore,
+                        label: AppLocalizations.of(context)!.touristText,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const PTOURISTPAGE(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+
+                    // ================= COMPLAINT BUTTON =================
+                    Positioned(
+                      top: 1050,
+                      left: -500,
+                      right: 0,
+                      child: _KioskMainButton(
+                        width: 400,
+                        height: 400,
+                        icon: Icons.report_problem,
+                        label:
+                            AppLocalizations.of(context)!
+                                .p3aduanButton,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => P4PAGE(
+                                title:
+                                    AppLocalizations.of(context)!
+                                        .aduanTitle,
+                                type: "OTHERS",
+                                hint:
+                                    AppLocalizations.of(context)!
+                                        .inputICHint,
+                                biz: "ADUAN",
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey[300], // light grey
-                foregroundColor: Colors.black,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                side: const BorderSide(
-                  color: Colors.black,
-                  width: 2,
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 15),
               ),
-              child: Text(
-                AppLocalizations.of(context)!.backText,
-                style: const TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
             ),
           ),
-          ),
 
-          // Footer
+          // ================= TOP SCROLL =================
+          if (showScrollUp)
+            Positioned(
+              right: 430,
+              top: 300,
+              child: Column(
+                children: [
+                  const Icon(
+                    Icons.keyboard_arrow_up_rounded,
+                    size: 65,
+                    color: Colors.black,
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    AppLocalizations.of(context)!
+                                        .scrollup,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 1.2,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+          // ================= BOTTOM SCROLL =================
+          if (showScrollDown)
+            Positioned(
+              right: 370,
+              bottom: 230,
+              child: Column(
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!
+                                        .scrolldown,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 1.2,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  const Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    size: 65,
+                    color: Colors.black,
+                  ),
+                ],
+              ),
+            ),
+
+          // ================= BACK BUTTON =================
           Positioned(
             bottom: 100,
+            left: 300,
+            right: 300,
+            child: SizedBox(
+              width: 300,
+              height: 120,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const PBAHASAPAGE(),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[300],
+                  foregroundColor: Colors.black,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 2,
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                ),
+                child: Text(
+                  AppLocalizations.of(context)!.backText,
+                  style: const TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // ================= FOOTER =================
+          Positioned(
+            bottom: 20,
             left: 0,
             right: 0,
             child: Center(
               child: Text(
                 Data.copyrightText,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
@@ -209,7 +345,6 @@ class P2Page extends StatelessWidget {
     );
   }
 }
-
 class _KioskMainButton extends StatefulWidget {
   final IconData? icon;
   final String? imagePath;

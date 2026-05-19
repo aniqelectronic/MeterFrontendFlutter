@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_v1/pages/pothers3.dart';
+import 'package:frontend_v1/pages/ptourist3.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -438,7 +438,7 @@ class _PExplorationMelakaPageState extends State<PExplorationMelakaPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const POTHERS3PAGE(),
+                        builder: (_) => const PTOURISTPAGE(),
                       ),
                     );
                   },

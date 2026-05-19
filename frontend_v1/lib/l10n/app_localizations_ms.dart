@@ -15,6 +15,9 @@ class AppLocalizationsMs extends AppLocalizations {
   String get otherText => 'LAIN-LAIN';
 
   @override
+  String get touristText => 'PANDUAN PELANCONG';
+
+  @override
   String get p2Title => 'PELBAGAI PILIHAN';
 
   @override

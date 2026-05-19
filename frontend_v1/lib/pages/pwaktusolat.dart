@@ -6,7 +6,7 @@ import 'package:frontend_v1/pages/data.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
-import 'package:frontend_v1/pages/pothers3.dart';
+import 'package:frontend_v1/pages/ptourist3.dart';
 
 class PWAKTUSOLATPAGE extends StatefulWidget {
   const PWAKTUSOLATPAGE({super.key});
@@ -337,7 +337,7 @@ String formatHijri(String hijri) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const POTHERS3PAGE(),
+                      builder: (_) => const PTOURISTPAGE(),
                     ),
                   );
                 },

@@ -19,8 +19,8 @@ import 'package:frontend_v1/pages/pwaktusolat.dart';
 import 'package:frontend_v1/pages/p_exploration_temerloh.dart';
 
 
-class POTHERS3PAGE extends StatelessWidget {
-  const POTHERS3PAGE({super.key});
+class PTOURISTPAGE extends StatelessWidget {
+  const PTOURISTPAGE({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -73,37 +73,37 @@ class POTHERS3PAGE extends StatelessWidget {
             ),
           ),
 
-          // ================= COMPLAINT BUTTON =================
-          Positioned(
-            top: 500,
-            left: -500,
-            right: 0,
-            child: _KioskMainButton(
-              width: 400,   // button width
-              height: 400, 
-              icon: Icons.report_problem,
-              label: AppLocalizations.of(context)!.p3aduanButton,
-              onPressed: () {
-                              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => P4PAGE(
-                    title: AppLocalizations.of(context)!.aduanTitle,
-                    type:"OTHERS",
-                    hint: AppLocalizations.of(context)!.inputICHint,
-                    biz: "ADUAN",
-                  ),
-                ),
-              );
-              },
-            ),
-          ),
+          // // ================= COMPLAINT BUTTON =================
+          // Positioned(
+          //   top: 500,
+          //   left: -500,
+          //   right: 0,
+          //   child: _KioskMainButton(
+          //     width: 400,   // button width
+          //     height: 400, 
+          //     icon: Icons.report_problem,
+          //     label: AppLocalizations.of(context)!.p3aduanButton,
+          //     onPressed: () {
+          //                     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (_) => P4PAGE(
+          //           title: AppLocalizations.of(context)!.aduanTitle,
+          //           type:"OTHERS",
+          //           hint: AppLocalizations.of(context)!.inputICHint,
+          //           biz: "ADUAN",
+          //         ),
+          //       ),
+          //     );
+          //     },
+          //   ),
+          // ),
 
           // ================= EXPLORATION BUTTON =================
           Positioned(
             top: 500,
-            left: 0,
-            right: -500,
+            left: -500,
+            right: 0,
             child: _KioskMainButton(
               width: 400,   // button width
               height: 400, 
@@ -120,30 +120,9 @@ class POTHERS3PAGE extends StatelessWidget {
             ),
           ),
 
-          // ================= WAKTU SOLAT BUTTON =================
-          Positioned(
-            top: 1000,
-            left: -500,
-            right: 0,
-            child: _KioskMainButton(
-              width: 400,   // button width
-              height: 400, 
-              icon: FlutterIslamicIcons.mosque,
-              label: AppLocalizations.of(context)!.p3waktusolat,
-              onPressed: () {
-              Navigator.push(
-               context,
-               MaterialPageRoute(
-                 builder: (_) => const PWAKTUSOLATPAGE(),
-               ),
-             );
-              },
-            ),
-          ),
-
           // ================= MAP BUTTON =================
           Positioned(
-            top: 1000,
+            top: 500,
             left: 0,
             right: -500,
             child: _KioskMainButton(
@@ -156,6 +135,27 @@ class POTHERS3PAGE extends StatelessWidget {
                context,
                MaterialPageRoute(
                  builder: (_) => const PMAPGOOGLEPAGE(),
+               ),
+             );
+              },
+            ),
+          ),
+
+          // ================= WAKTU SOLAT BUTTON =================
+          Positioned(
+            top: 1000,
+            left: -500,
+            right: -500,
+            child: _KioskMainButton(
+              width: 400,   // button width
+              height: 400, 
+              icon: FlutterIslamicIcons.mosque,
+              label: AppLocalizations.of(context)!.p3waktusolat,
+              onPressed: () {
+              Navigator.push(
+               context,
+               MaterialPageRoute(
+                 builder: (_) => const PWAKTUSOLATPAGE(),
                ),
              );
               },

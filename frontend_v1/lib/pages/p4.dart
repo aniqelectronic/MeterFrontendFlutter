@@ -6,6 +6,7 @@ import 'package:frontend_v1/controllers/tax/tax_service.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/pages/p2.dart';
 import 'package:frontend_v1/pages/p5_tax_screen.dart';
 import 'package:frontend_v1/pages/p5extendparking.dart';
 import 'package:frontend_v1/pages/p5parking.dart';
@@ -14,7 +15,7 @@ import 'package:frontend_v1/pages/p5_multiplecompound.dart';
 import 'package:frontend_v1/controllers/compound/compound_service.dart';
 import 'package:frontend_v1/pages/p5_singlecompound_screen.dart';
 import 'package:frontend_v1/pages/pbt3.dart';
-import 'package:frontend_v1/pages/pothers3.dart';
+import 'package:frontend_v1/pages/ptourist3.dart';
 
 class P4PAGE extends StatefulWidget {
   final String title;
@@ -331,7 +332,7 @@ class _P4PAGEState extends State<P4PAGE> {
                         Navigator.push(context, MaterialPageRoute(builder: (_) => const PBT3PAGE()));
                       }
                       if (widget.type == "OTHERS") {
-                        Navigator.push(context, MaterialPageRoute(builder: (_) => const POTHERS3PAGE()));
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => const P2Page()));
                       }
                     },
                     style: ElevatedButton.styleFrom(
