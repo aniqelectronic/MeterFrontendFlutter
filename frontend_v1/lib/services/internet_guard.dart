@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 
 class InternetGuard {
@@ -16,18 +15,35 @@ class InternetGuard {
   bool _offline = false;
   BuildContext? _dialogContext;
 
-  void start(GlobalKey<NavigatorState> navigatorKey) {
+  VoidCallback? _onOffline;
+  VoidCallback? _onOnline;
+
+  void start(
+    GlobalKey<NavigatorState> navigatorKey, {
+    VoidCallback? onOffline,
+    VoidCallback? onOnline,
+  }) {
+    _onOffline = onOffline;
+    _onOnline = onOnline;
+
     _subscription ??=
         _connectivity.onConnectivityChanged.listen((results) {
-      final hasInternet =
-          results.any((r) => r != ConnectivityResult.none);
+      final hasInternet = results.any(
+        (r) => r != ConnectivityResult.none,
+      );
 
       if (!hasInternet && !_offline) {
         _offline = true;
+
+        _onOffline?.call();
+
         _showDialog(navigatorKey);
       } else if (hasInternet && _offline) {
         _offline = false;
+
         _closeDialog();
+
+        _onOnline?.call();
       }
     });
   }
@@ -46,13 +62,14 @@ class InternetGuard {
       barrierDismissible: false,
       builder: (ctx) {
         _dialogContext = ctx;
+
         return WillPopScope(
           onWillPop: () async => false,
           child: AlertDialog(
             backgroundColor: Colors.black,
-            title: Center(
+            title: const Center(
               child: Icon(
-                Icons.build_circle, 
+                Icons.build_circle,
                 color: Colors.orange,
                 size: 100,
               ),
@@ -63,7 +80,7 @@ class InternetGuard {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'UNDER MAINTENANCE',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -73,18 +90,18 @@ class InternetGuard {
                         letterSpacing: 1.2,
                       ),
                     ),
-                    SizedBox(height: 20),
-                  Text(
-                    'This kiosk is temporarily unavailable.\n'
-                    'Please try again shortly.\n\n'
-                    'For assistance, please contact:\n'
-                    '📞 ${Data.telefonNo}',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.white70,
+                    const SizedBox(height: 20),
+                    Text(
+                      'This kiosk is temporarily unavailable.\n'
+                      'Please try again shortly.\n\n'
+                      'For assistance, please contact:\n'
+                      '📞 ${Data.telefonNo}',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        color: Colors.white70,
+                      ),
                     ),
-                  ),
                   ],
                 ),
               ),
@@ -97,8 +114,17 @@ class InternetGuard {
 
   void _closeDialog() {
     if (_dialogContext != null) {
-      Navigator.of(_dialogContext!).pop();
+      Navigator.of(_dialogContext!, rootNavigator: true).pop();
       _dialogContext = null;
     }
+  }
+
+  void stop() {
+    _subscription?.cancel();
+    _subscription = null;
+    _offline = false;
+    _dialogContext = null;
+    _onOffline = null;
+    _onOnline = null;
   }
 }

@@ -57,20 +57,24 @@ class _AppState extends State<App> {
 
   // ---------------- LOW POWER CONFIG ----------------
   static const Duration hibernateDuration = Duration(minutes: 5);
+
   static const double normalBrightness = 1.0;
   static const double dimBrightness = 0.1;
   static const double deepDimBrightness = 0.05;
+  static const double offlineDimBrightness = 0.5;
 
   Timer? _hibernateTimer;
-  bool _screenOff = false;
-
   Timer? _dimTimer;
   Timer? _warningTimer;
   Timer? _countdownTimer;
+  Timer? _offlineDimTimer;
 
-  int _remainingSeconds = countdownSeconds;
+  bool _screenOff = false;
   bool _warningShown = false;
   bool _dimmed = false;
+  bool _internetOffline = false;
+
+  int _remainingSeconds = countdownSeconds;
 
   // ---------------- ROUTING ----------------
   static const String routeHome = '/p1';
@@ -86,7 +90,11 @@ class _AppState extends State<App> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      InternetGuard().start(navigatorKey);
+      InternetGuard().start(
+        navigatorKey,
+        onOffline: _handleInternetOffline,
+        onOnline: _handleInternetOnline,
+      );
 
       _resetIdleTimers();
 
@@ -106,6 +114,7 @@ class _AppState extends State<App> {
     _dimTimer?.cancel();
     _warningTimer?.cancel();
     _countdownTimer?.cancel();
+    _offlineDimTimer?.cancel();
     super.dispose();
   }
 
@@ -180,15 +189,57 @@ class _AppState extends State<App> {
     }
   }
 
+  // ---------------- INTERNET BRIGHTNESS ----------------
+  void _handleInternetOffline() {
+    _internetOffline = true;
+
+    _dimTimer?.cancel();
+    _warningTimer?.cancel();
+    _hibernateTimer?.cancel();
+    _countdownTimer?.cancel();
+    _offlineDimTimer?.cancel();
+
+    _screenOff = false;
+    _dimmed = false;
+
+    _setBrightness(normalBrightness);
+
+    _offlineDimTimer = Timer(const Duration(minutes: 3), () {
+      if (_internetOffline) {
+        _setBrightness(offlineDimBrightness);
+        _screenOff = false;
+        _dimmed = true;
+      }
+    });
+  }
+
+  void _handleInternetOnline() {
+    _internetOffline = false;
+
+    _offlineDimTimer?.cancel();
+
+    _screenOff = false;
+    _dimmed = false;
+
+    _setBrightness(normalBrightness);
+
+    _resetIdleTimers();
+    _resetHibernateTimer();
+  }
+
   // ---------------- HIBERNATE TIMER ----------------
   void _resetHibernateTimer() {
     _hibernateTimer?.cancel();
+
+    if (_internetOffline) return;
 
     final routeName = _getCurrentRoute();
 
     if (routeName == null || routeName != routeHome) return;
 
     _hibernateTimer = Timer(hibernateDuration, () async {
+      if (_internetOffline) return;
+
       final currentRoute = _getCurrentRoute();
 
       if (currentRoute == routeHome) {
@@ -199,6 +250,8 @@ class _AppState extends State<App> {
 
   // ---------------- RESET TIMERS ----------------
   void _resetIdleTimers() {
+    if (_internetOffline) return;
+
     _dimTimer?.cancel();
     _warningTimer?.cancel();
     _countdownTimer?.cancel();
@@ -219,6 +272,8 @@ class _AppState extends State<App> {
     }
 
     _dimTimer = Timer(dimDuration, () {
+      if (_internetOffline) return;
+
       final routeName = _getCurrentRoute();
 
       if (routeName == routePayment || routeName == routeReceipt) return;
@@ -227,6 +282,8 @@ class _AppState extends State<App> {
     });
 
     _warningTimer = Timer(warningDuration, () {
+      if (_internetOffline) return;
+
       final routeName = _getCurrentRoute();
 
       if (routeName == routeHome ||
@@ -256,12 +313,15 @@ class _AppState extends State<App> {
 
     nav.pushNamedAndRemoveUntil(routeHome, (route) => false);
 
-    _resetHibernateTimer();
-    _resetIdleTimers();
+    if (!_internetOffline) {
+      _resetHibernateTimer();
+      _resetIdleTimers();
+    }
   }
 
   // ---------------- IDLE DIALOG ----------------
   void _showIdleWarning() {
+    if (_internetOffline) return;
     if (_warningShown) return;
 
     final overlayContext = navigatorKey.currentState?.overlay?.context;
@@ -383,6 +443,25 @@ class _AppState extends State<App> {
 
   // ---------------- TOUCH HANDLER ----------------
   Future<void> _handleUserTouch() async {
+    if (_internetOffline) {
+      await _setBrightness(normalBrightness);
+
+      _screenOff = false;
+      _dimmed = false;
+
+      _offlineDimTimer?.cancel();
+
+      _offlineDimTimer = Timer(const Duration(minutes: 3), () {
+        if (_internetOffline) {
+          _setBrightness(offlineDimBrightness);
+          _screenOff = false;
+          _dimmed = true;
+        }
+      });
+
+      return;
+    }
+
     if (_screenOff || _dimmed) {
       await _turnScreenOn();
     }
