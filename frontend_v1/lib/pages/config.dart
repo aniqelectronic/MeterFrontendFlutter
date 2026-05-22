@@ -14,12 +14,12 @@ class Config {
   static String forcifyToken = "5a5dd0ce-f986-4073-96a9-c3bbfe226fd9"; //forcify kompaun kuantan  token 
   static String compoundPrefix1 = "KN"; 
   //page map
-  static double latitude = 4.3007; 
-  static double longitude = 101.1616; 
+  static double latitude = 3.937395; 
+  static double longitude = 102.362038; 
   //page waktu solat
   //to change waktu solat url justchange zone part. ps: to know the zone code is from https://www.e-solat.gov.my/
-  static String waktusolatplace = "Kampar, Perak";
-  static String waktusolaturl = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=PRK02&period=today";
+  static String waktusolatplace = "Jerantut, Pahang";
+  static String waktusolaturl = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=PHG03&period=today";
 
 
 }

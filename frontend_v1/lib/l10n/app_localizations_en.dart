@@ -186,6 +186,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get alertEnterCompoundNo => 'Please enter compound number.';
 
   @override
+  String get alertEnterSewaan => 'Please enter Account Number.';
+
+  @override
+  String get alertNoSewaan => 'No Rent Record Found.';
+
+  @override
   String get keyboardBackspace => 'BACKSPACE';
 
   @override
@@ -312,6 +318,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get titleReceiptSingleCompound => 'SINGLE COMPOUND RECEIPT';
+
+  @override
+  String get titleReceiptSewaan => 'RENT RECEIPT';
 
   @override
   String get homeButton => 'HOME';
@@ -1192,7 +1201,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tabEating => 'Food Places';
 
   @override
-  String get back => 'BACK';
+  String get back => 'Back';
 
   @override
   String get aFamosaDesc => 'Explore the ruins of a 16th-century Portuguese fortress.';
@@ -2429,4 +2438,178 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get temFood9Full => 'Selera Patin Bangau Temerloh is another famous place to enjoy Temerloh patin dishes.';
+
+  @override
+  String get sewaanPbtTitle => 'PBT Rental';
+
+  @override
+  String get sewaanInfoTitle => 'Rental Information';
+
+  @override
+  String get sewaanSelectPayment => 'Please select rental arrears for payment';
+
+  @override
+  String get sewaanDetailsTitle => 'Rental Details';
+
+  @override
+  String get sewaanNoData => 'No rental data found';
+
+  @override
+  String get sewaanSelectAlert => 'Please select at least one rental.';
+
+  @override
+  String get sewaanNoArrearsAlert => 'No rental arrears to pay.';
+
+  @override
+  String get sewaanNoRecord => 'No rental record found';
+
+  @override
+  String get taksiranTitle => 'Assessment Tax';
+
+  @override
+  String get taksiranSelectPayment => 'Please select assessment tax for payment';
+
+  @override
+  String get taksiranDetailsTitle => 'Assessment Tax Details';
+
+  @override
+  String get taksiranNoData => 'No assessment tax data found';
+
+  @override
+  String get taksiranSelectAlert => 'Please select at least one assessment tax.';
+
+  @override
+  String get taksiranNoAmountAlert => 'No assessment tax amount to pay.';
+
+  @override
+  String get taksiranNoRecord => 'No assessment tax record found';
+
+  @override
+  String get notice => 'Notice';
+
+  @override
+  String get accountNo => 'Account No';
+
+  @override
+  String get oldAccountNo => 'Old Account No';
+
+  @override
+  String get invoiceNo => 'Invoice No';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get icNo => 'IC No';
+
+  @override
+  String get startDate => 'Start Date';
+
+  @override
+  String get endDate => 'End Date';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get info => 'Info';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get continueText => 'Continue';
+
+  @override
+  String get rentalMonthly => 'Monthly Rental';
+
+  @override
+  String get rentalPlace => 'Rental Place';
+
+  @override
+  String get rentalCity => 'Rental City';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get postcode => 'Postcode';
+
+  @override
+  String get town => 'Town';
+
+  @override
+  String get rentalArrears => 'Rental Arrears';
+
+  @override
+  String get waterArrears => 'Water Charge Arrears';
+
+  @override
+  String get electricArrears => 'Electric Charge Arrears';
+
+  @override
+  String get managementArrears => 'Management Charge Arrears';
+
+  @override
+  String get annualTotal => 'Annual Total';
+
+  @override
+  String get propertyAddress => 'Property Address';
+
+  @override
+  String get propertyPostcode => 'Property Postcode';
+
+  @override
+  String get propertyCity => 'Property City';
+
+  @override
+  String get state => 'State';
+
+  @override
+  String get mukim => 'Mukim';
+
+  @override
+  String get lotNo => 'Lot No';
+
+  @override
+  String get titleNo => 'Title No';
+
+  @override
+  String get ownerAddress => 'Owner Address';
+
+  @override
+  String get telephone => 'Telephone';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get annualValue => 'Annual Value';
+
+  @override
+  String get rate => 'Rate';
+
+  @override
+  String get annualTax => 'Annual Tax';
+
+  @override
+  String get halfYearTax => 'Half-Year Tax';
+
+  @override
+  String get currentTax => 'Current Tax';
+
+  @override
+  String get taxArrears => 'Tax Arrears';
+
+  @override
+  String get noticeE => 'Notice E';
+
+  @override
+  String get waranLod => 'Warrant LOD';
+
+  @override
+  String get halfYearTotal => 'Half-Year Total';
 }

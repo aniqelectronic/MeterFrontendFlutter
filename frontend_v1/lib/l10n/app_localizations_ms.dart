@@ -186,6 +186,12 @@ class AppLocalizationsMs extends AppLocalizations {
   String get alertEnterCompoundNo => 'Sila masukkan No. Kompaun.';
 
   @override
+  String get alertEnterSewaan => 'Sila masukkan No. Akaun.';
+
+  @override
+  String get alertNoSewaan => 'Tiada rekod sewaan dijumpai.';
+
+  @override
   String get keyboardBackspace => 'PADAM';
 
   @override
@@ -312,6 +318,9 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get titleReceiptSingleCompound => 'RESIT KOMPAUN';
+
+  @override
+  String get titleReceiptSewaan => 'RESIT SEWAAN';
 
   @override
   String get homeButton => 'LAMAN UTAMA';
@@ -1192,7 +1201,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get tabEating => 'Tempat Makan';
 
   @override
-  String get back => 'KEMBALI';
+  String get back => 'Kembali';
 
   @override
   String get aFamosaDesc => 'Terokai runtuhan kubu Portugis abad ke-16.';
@@ -2429,4 +2438,178 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get temFood9Full => 'Selera Patin Bangau Temerloh ialah lokasi terkenal menikmati ikan patin Temerloh.';
+
+  @override
+  String get sewaanPbtTitle => 'Sewaan PBT';
+
+  @override
+  String get sewaanInfoTitle => 'Maklumat Sewaan';
+
+  @override
+  String get sewaanSelectPayment => 'Sila pilih tunggakan sewaan untuk bayaran';
+
+  @override
+  String get sewaanDetailsTitle => 'Butiran Sewaan';
+
+  @override
+  String get sewaanNoData => 'Tiada data sewaan dijumpai';
+
+  @override
+  String get sewaanSelectAlert => 'Sila pilih sekurang-kurangnya satu sewaan.';
+
+  @override
+  String get sewaanNoArrearsAlert => 'Tiada tunggakan sewaan untuk dibayar.';
+
+  @override
+  String get sewaanNoRecord => 'Tiada rekod sewaan dijumpai';
+
+  @override
+  String get taksiranTitle => 'Cukai Taksiran';
+
+  @override
+  String get taksiranSelectPayment => 'Sila pilih cukai taksiran untuk bayaran';
+
+  @override
+  String get taksiranDetailsTitle => 'Butiran Cukai Taksiran';
+
+  @override
+  String get taksiranNoData => 'Tiada data cukai taksiran dijumpai';
+
+  @override
+  String get taksiranSelectAlert => 'Sila pilih sekurang-kurangnya satu cukai taksiran.';
+
+  @override
+  String get taksiranNoAmountAlert => 'Tiada jumlah cukai untuk dibayar.';
+
+  @override
+  String get taksiranNoRecord => 'Tiada rekod cukai taksiran dijumpai';
+
+  @override
+  String get notice => 'Makluman';
+
+  @override
+  String get accountNo => 'No Akaun';
+
+  @override
+  String get oldAccountNo => 'No Akaun Lama';
+
+  @override
+  String get invoiceNo => 'No Invois';
+
+  @override
+  String get name => 'Nama';
+
+  @override
+  String get icNo => 'No IC';
+
+  @override
+  String get startDate => 'Tarikh Mula';
+
+  @override
+  String get endDate => 'Tarikh Tamat';
+
+  @override
+  String get amount => 'Jumlah';
+
+  @override
+  String get total => 'Jumlah';
+
+  @override
+  String get info => 'Info';
+
+  @override
+  String get close => 'Tutup';
+
+  @override
+  String get continueText => 'Teruskan';
+
+  @override
+  String get rentalMonthly => 'Sewa Bulanan';
+
+  @override
+  String get rentalPlace => 'Tempat Sewaan';
+
+  @override
+  String get rentalCity => 'Bandar Sewaan';
+
+  @override
+  String get address => 'Alamat';
+
+  @override
+  String get postcode => 'Poskod';
+
+  @override
+  String get town => 'Pekan';
+
+  @override
+  String get rentalArrears => 'Tunggakan Sewa';
+
+  @override
+  String get waterArrears => 'Tunggakan Caj Air';
+
+  @override
+  String get electricArrears => 'Tunggakan Caj Elektrik';
+
+  @override
+  String get managementArrears => 'Tunggakan Caj Pengurusan';
+
+  @override
+  String get annualTotal => 'Jumlah Setahun';
+
+  @override
+  String get propertyAddress => 'Alamat Harta';
+
+  @override
+  String get propertyPostcode => 'Poskod Harta';
+
+  @override
+  String get propertyCity => 'Bandar Harta';
+
+  @override
+  String get state => 'Negeri';
+
+  @override
+  String get mukim => 'Mukim';
+
+  @override
+  String get lotNo => 'No Lot';
+
+  @override
+  String get titleNo => 'No Hakmilik';
+
+  @override
+  String get ownerAddress => 'Alamat Pemilik';
+
+  @override
+  String get telephone => 'Telefon';
+
+  @override
+  String get email => 'Emel';
+
+  @override
+  String get annualValue => 'Nilai Tahunan';
+
+  @override
+  String get rate => 'Kadar';
+
+  @override
+  String get annualTax => 'Cukai Setahun';
+
+  @override
+  String get halfYearTax => 'Cukai Sepenggal';
+
+  @override
+  String get currentTax => 'Cukai Semasa';
+
+  @override
+  String get taxArrears => 'Tunggakan Cukai';
+
+  @override
+  String get noticeE => 'Notis E';
+
+  @override
+  String get waranLod => 'Waran LOD';
+
+  @override
+  String get halfYearTotal => 'Jumlah Sepenggal';
 }

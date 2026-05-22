@@ -96,11 +96,15 @@ class ParkingService {
     required String plate,
     required int extendHours,
     required String typePayment,
+    String? orderNo,
+    String? bankTrxNo,
   }) async {
     try {
       final Map<String, dynamic> body = {
         "extend_hours": extendHours,
         "transaction_type": typePayment,
+        "order_no": orderNo,
+        "bank_trx_no": bankTrxNo,
       };
 
       final uri = Uri.parse(
@@ -128,6 +132,8 @@ class ParkingService {
     required String plate,
     required int timeUsed,
     required String typePayment,
+    String? orderNo,
+    String? bankTrxNo,
   }) async {
     try {
       final Map<String, dynamic> body = {
@@ -135,6 +141,8 @@ class ParkingService {
         "time_used": timeUsed,
         "terminal": Config.terminalId,
         "transaction_type": typePayment,
+        "order_no": orderNo,
+        "bank_trx_no": bankTrxNo,
       };
 
       final uri = Uri.parse("${Config.baseUrl}/parking/pay");

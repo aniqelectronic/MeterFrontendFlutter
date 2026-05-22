@@ -21,6 +21,10 @@ import 'package:frontend_v1/services/pegepay_qr_page.dart';
 import 'package:frontend_v1/services/pegepay_service.dart';
 import 'package:frontend_v1/services/pegepay_webview_helper.dart';
 import 'package:intl/intl.dart';
+import 'package:frontend_v1/model/taksiran/taksiran_payment_item.dart';
+import 'package:frontend_v1/controllers/taksiran/taksiran_payment_service_bentong.dart';
+import 'package:frontend_v1/model/sewaan/sewaan_payment_item.dart';
+import 'package:frontend_v1/controllers/sewaan/sewaan_payment_service_bentong.dart';
 
 
 class PaymentData {
@@ -34,6 +38,8 @@ class PaymentData {
   List<PaymentTaxItem>? taxItems;
   List<String>? licenseNos;
   List<String>? compoundNos;
+  List<TaksiranPaymentItem>? taksiranItems;
+  List<SewaanPaymentItem>? sewaanItems;
 
   String? offenderName;
   String? violationType;
@@ -57,6 +63,8 @@ class PaymentData {
     this.kodhasil,
     this.date,
     this.time,
+    this.taksiranItems,
+    this.sewaanItems,
   });
 
 }
@@ -687,13 +695,15 @@ Positioned(
                             //         );
 
                             await PegePayWebViewHelper.open(
-  iframeUrl: iframeUrl,
-  orderNo: orderNo,
+                            iframeUrl: iframeUrl,
+                            orderNo: orderNo,
 
-  onSuccess: () async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Payment successful!")),
-    );
+                            onSuccess: (Map<String, dynamic> paymentResult) async {
+                            final pegeOrderNo = paymentResult["order_no"] ?? orderNo;
+                            final pegeBankTrxNo = paymentResult["bank_trx_no"] ?? "";
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Payment successful!")),
+                              );
 
 
                                   /* ======================= */
@@ -705,6 +715,8 @@ Positioned(
                                       plate: data.plate ?? "",
                                       timeUsed: data.hour ?? 0,
                                       typePayment: "QR",
+                                      orderNo: pegeOrderNo,
+                                      bankTrxNo: pegeBankTrxNo,
                                     );
                                   
                                     if (result != null && !result.startsWith("Error")) {
@@ -718,6 +730,8 @@ Positioned(
                                               plate: data.plate,
                                               hour: data.hour,
                                               amount: data.amount,
+                                              pegeOrderNo: pegeOrderNo,
+                                              pegeBankTrxNo: pegeBankTrxNo,
                                             ),
                                           ),
                                         ),
@@ -734,6 +748,8 @@ Positioned(
                                    plate: data.plate ?? "",
                                    extendHours: data.hour ?? 0,
                                    typePayment: "QR",
+                                     orderNo: pegeOrderNo,
+                                    bankTrxNo: pegeBankTrxNo,
                                  );
                                
                                  if (result != null && !result.startsWith("Error")) {
@@ -747,6 +763,8 @@ Positioned(
                                            plate: data.plate,
                                            hour: data.hour,
                                            amount: data.amount,
+                                           pegeOrderNo: pegeOrderNo,
+                                           pegeBankTrxNo: pegeBankTrxNo,
                                          ),
                                        ),
                                      ),
@@ -761,34 +779,115 @@ Positioned(
                                   /* ======================= */
                                   /* ===== TAX QR PAYMENT ===== */
                                   /* ======================= */
-                                  else if (biz == "CUKAI") {
-                                    final billNos =
-                                        data.taxItems!.map((e) => e.billNo).toList();
+                                  // else if (biz == "CUKAI") {
+                                  //   final billNos =
+                                  //       data.taxItems!.map((e) => e.billNo).toList();
                                   
-                                    final success = await TaxService.payMultipleTaxes(billNos);
+                                  //   final success = await TaxService.payMultipleTaxes(billNos);
                                   
-                                    if (success) {
-                                     Navigator.push(
-                                       context,
-                                       MaterialPageRoute(
-                                        settings: const RouteSettings(name: '/receipt'),
-                                         builder: (_) => RESITPAGE(
-                                           biz: "CUKAI",
-                                           data: ResitData(
-                                             amount: data.amount,
-                                             taxItems: data.taxItems,
-                                           ),
-                                         ),
-                                       ),
-                                     );
+                                  //   if (success) {
+                                  //    Navigator.push(
+                                  //      context,
+                                  //      MaterialPageRoute(
+                                  //       settings: const RouteSettings(name: '/receipt'),
+                                  //        builder: (_) => RESITPAGE(
+                                  //          biz: "CUKAI",
+                                  //          data: ResitData(
+                                  //            amount: data.amount,
+                                  //            taxItems: data.taxItems,
+                                  //            pegeOrderNo: pegeOrderNo,
+                                  //            pegeBankTrxNo: pegeBankTrxNo,
+                                  //          ),
+                                  //        ),
+                                  //      ),
+                                  //    );
                                      
+                                  //   } else {
+                                  //     ScaffoldMessenger.of(context).showSnackBar(
+                                  //       const SnackBar(content: Text("Tax payment failed")),
+                                  //     );
+                                  //   }
+                                  // }
+
+                                  else if (biz == "CUKAI") {
+                                  final items = data.taksiranItems ?? [];
+
+                                  if (items.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text("Tiada cukai dipilih")),
+                                    );
+                                    return;
+                                  }
+
+                                  final success = await TaksiranPaymentServiceBentong.payMultiple(
+                                    items: items,
+                                    referenceNo: pegeOrderNo,
+                                  );
+
+                                  if (success) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        settings: const RouteSettings(name: '/receipt'),
+                                        builder: (_) => RESITPAGE(
+                                          biz: "CUKAI",
+                                          data: ResitData(
+                                            amount: data.amount,
+                                            taksiranItems: data.taksiranItems,
+                                            pegeOrderNo: pegeOrderNo,
+                                            pegeBankTrxNo: pegeBankTrxNo,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text("Cukai payment update failed")),
+                                    );
+                                  }
+                                }
+                                   /* ======================= */
+                                   /* ===== SEWAAN QR PAYMENT ===== */
+                                   /* ======================= */
+                                else if (biz == "SEWAAN") {
+                                    final items = data.sewaanItems ?? [];
+
+                                    if (items.isEmpty) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(content: Text("Tiada sewaan dipilih")),
+                                      );
+                                      return;
+                                    }
+
+                                    final success = await SewaanPaymentServiceBentong.payMultipleSewaan(
+                                      items: items,
+                                      referenceNo: pegeBankTrxNo,
+                                    );
+
+                                    if (success) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          settings: const RouteSettings(name: '/receipt'),
+                                          builder: (_) => RESITPAGE(
+                                            biz: "SEWAAN",
+                                            data: ResitData(
+                                              amount: data.amount,
+                                              pegeOrderNo: pegeOrderNo,
+                                              pegeBankTrxNo: pegeBankTrxNo,
+                                            ),
+                                          ),
+                                        ),
+                                      );
                                     } else {
                                       ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text("Tax payment failed")),
+                                        const SnackBar(
+                                          content: Text("Sewaan payment update failed"),
+                                        ),
                                       );
                                     }
                                   }
-                                   
+                                                                    
                                    /* ======================= */
                                    /* ===== LICENSE QR PAYMENT ===== */
                                    /* ======================= */
@@ -817,6 +916,8 @@ Positioned(
                                            data: ResitData(
                                              amount: data.amount,
                                              licenseNos: licenseNos, 
+                                             pegeOrderNo: pegeOrderNo,
+                                             pegeBankTrxNo: pegeBankTrxNo,
                                            ),
                                          ),
                                        ),
@@ -846,6 +947,8 @@ Positioned(
                                          data: ResitData(
                                            amount: data.amount,
                                            compoundNos: data.compoundNos,
+                                           pegeOrderNo: pegeOrderNo,
+                                           pegeBankTrxNo: pegeBankTrxNo,
                                          ),
                                        ),
                                      ),
@@ -861,6 +964,8 @@ Positioned(
                                        biz: "SINGLECOMPOUND",
                                        data: ResitData(
                                         amount: data.amount,
+                                        pegeOrderNo: pegeOrderNo,
+                                        pegeBankTrxNo: pegeBankTrxNo,
                                         compoundNos: data.compoundNos,
                                         plate: data.plate,
                                         offenderName: data.offenderName,

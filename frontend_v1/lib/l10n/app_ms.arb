@@ -68,6 +68,8 @@
   "alertEnterPlateNo": "Sila masukkan No. Pendaftaran Kenderaan.",
   "alertNoCompoundRecord": "Tiada rekod kompaun dijumpai.",
   "alertEnterCompoundNo": "Sila masukkan No. Kompaun.",
+  "alertEnterSewaan" : "Sila masukkan No. Akaun.",
+  "alertNoSewaan" : "Tiada rekod sewaan dijumpai.",
   "keyboardBackspace": "PADAM",
   "keyboardClearAll": "PADAM SEMUA",
   "buttonBack": "KEMBALI",
@@ -112,6 +114,7 @@
   "titleReceiptTax" : "RESIT CUKAI", 
   "titleReceiptMultipleCompound" : "RESIT PELBAGAI KOMPAUN",
   "titleReceiptSingleCompound" : "RESIT KOMPAUN",
+  "titleReceiptSewaan": "RESIT SEWAAN",
   "homeButton" : "LAMAN UTAMA",
   "receiptPlateLabel": "No. Plat: {plate}",
   "receiptDurationLabel": "Tempoh masa: {hours} Jam",
@@ -1182,6 +1185,75 @@
   "temFood8Full": "Kopi Bawah Tangga terkenal dengan kopi dan suasana menarik.",
 
   "temFood9Desc": "Destinasi patin popular.",
-  "temFood9Full": "Selera Patin Bangau Temerloh ialah lokasi terkenal menikmati ikan patin Temerloh."
+  "temFood9Full": "Selera Patin Bangau Temerloh ialah lokasi terkenal menikmati ikan patin Temerloh.",
+
+
+
+
+
+
+  "sewaanPbtTitle": "Sewaan PBT",
+"sewaanInfoTitle": "Maklumat Sewaan",
+"sewaanSelectPayment": "Sila pilih tunggakan sewaan untuk bayaran",
+"sewaanDetailsTitle": "Butiran Sewaan",
+"sewaanNoData": "Tiada data sewaan dijumpai",
+"sewaanSelectAlert": "Sila pilih sekurang-kurangnya satu sewaan.",
+"sewaanNoArrearsAlert": "Tiada tunggakan sewaan untuk dibayar.",
+"sewaanNoRecord": "Tiada rekod sewaan dijumpai",
+
+"taksiranTitle": "Cukai Taksiran",
+"taksiranSelectPayment": "Sila pilih cukai taksiran untuk bayaran",
+"taksiranDetailsTitle": "Butiran Cukai Taksiran",
+"taksiranNoData": "Tiada data cukai taksiran dijumpai",
+"taksiranSelectAlert": "Sila pilih sekurang-kurangnya satu cukai taksiran.",
+"taksiranNoAmountAlert": "Tiada jumlah cukai untuk dibayar.",
+"taksiranNoRecord": "Tiada rekod cukai taksiran dijumpai",
+
+"notice": "Makluman",
+"accountNo": "No Akaun",
+"oldAccountNo": "No Akaun Lama",
+"invoiceNo": "No Invois",
+"name": "Nama",
+"icNo": "No IC",
+"startDate": "Tarikh Mula",
+"endDate": "Tarikh Tamat",
+"amount": "Jumlah",
+"total": "Jumlah",
+"info": "Info",
+"close": "Tutup",
+"back": "Kembali",
+"continueText": "Teruskan",
+
+"rentalMonthly": "Sewa Bulanan",
+"rentalPlace": "Tempat Sewaan",
+"rentalCity": "Bandar Sewaan",
+"address": "Alamat",
+"postcode": "Poskod",
+"town": "Pekan",
+"rentalArrears": "Tunggakan Sewa",
+"waterArrears": "Tunggakan Caj Air",
+"electricArrears": "Tunggakan Caj Elektrik",
+"managementArrears": "Tunggakan Caj Pengurusan",
+"annualTotal": "Jumlah Setahun",
+
+"propertyAddress": "Alamat Harta",
+"propertyPostcode": "Poskod Harta",
+"propertyCity": "Bandar Harta",
+"state": "Negeri",
+"mukim": "Mukim",
+"lotNo": "No Lot",
+"titleNo": "No Hakmilik",
+"ownerAddress": "Alamat Pemilik",
+"telephone": "Telefon",
+"email": "Emel",
+"annualValue": "Nilai Tahunan",
+"rate": "Kadar",
+"annualTax": "Cukai Setahun",
+"halfYearTax": "Cukai Sepenggal",
+"currentTax": "Cukai Semasa",
+"taxArrears": "Tunggakan Cukai",
+"noticeE": "Notis E",
+"waranLod": "Waran LOD",
+"halfYearTotal": "Jumlah Sepenggal"
 
 }

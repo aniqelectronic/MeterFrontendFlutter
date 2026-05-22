@@ -449,6 +449,18 @@ abstract class AppLocalizations {
   /// **'Please enter compound number.'**
   String get alertEnterCompoundNo;
 
+  /// No description provided for @alertEnterSewaan.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter Account Number.'**
+  String get alertEnterSewaan;
+
+  /// No description provided for @alertNoSewaan.
+  ///
+  /// In en, this message translates to:
+  /// **'No Rent Record Found.'**
+  String get alertNoSewaan;
+
   /// No description provided for @keyboardBackspace.
   ///
   /// In en, this message translates to:
@@ -676,6 +688,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'SINGLE COMPOUND RECEIPT'**
   String get titleReceiptSingleCompound;
+
+  /// No description provided for @titleReceiptSewaan.
+  ///
+  /// In en, this message translates to:
+  /// **'RENT RECEIPT'**
+  String get titleReceiptSewaan;
 
   /// No description provided for @homeButton.
   ///
@@ -2396,7 +2414,7 @@ abstract class AppLocalizations {
   /// No description provided for @back.
   ///
   /// In en, this message translates to:
-  /// **'BACK'**
+  /// **'Back'**
   String get back;
 
   /// No description provided for @aFamosaDesc.
@@ -4870,6 +4888,354 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Selera Patin Bangau Temerloh is another famous place to enjoy Temerloh patin dishes.'**
   String get temFood9Full;
+
+  /// No description provided for @sewaanPbtTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PBT Rental'**
+  String get sewaanPbtTitle;
+
+  /// No description provided for @sewaanInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rental Information'**
+  String get sewaanInfoTitle;
+
+  /// No description provided for @sewaanSelectPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select rental arrears for payment'**
+  String get sewaanSelectPayment;
+
+  /// No description provided for @sewaanDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rental Details'**
+  String get sewaanDetailsTitle;
+
+  /// No description provided for @sewaanNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No rental data found'**
+  String get sewaanNoData;
+
+  /// No description provided for @sewaanSelectAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one rental.'**
+  String get sewaanSelectAlert;
+
+  /// No description provided for @sewaanNoArrearsAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'No rental arrears to pay.'**
+  String get sewaanNoArrearsAlert;
+
+  /// No description provided for @sewaanNoRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'No rental record found'**
+  String get sewaanNoRecord;
+
+  /// No description provided for @taksiranTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment Tax'**
+  String get taksiranTitle;
+
+  /// No description provided for @taksiranSelectPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select assessment tax for payment'**
+  String get taksiranSelectPayment;
+
+  /// No description provided for @taksiranDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment Tax Details'**
+  String get taksiranDetailsTitle;
+
+  /// No description provided for @taksiranNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No assessment tax data found'**
+  String get taksiranNoData;
+
+  /// No description provided for @taksiranSelectAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one assessment tax.'**
+  String get taksiranSelectAlert;
+
+  /// No description provided for @taksiranNoAmountAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'No assessment tax amount to pay.'**
+  String get taksiranNoAmountAlert;
+
+  /// No description provided for @taksiranNoRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'No assessment tax record found'**
+  String get taksiranNoRecord;
+
+  /// No description provided for @notice.
+  ///
+  /// In en, this message translates to:
+  /// **'Notice'**
+  String get notice;
+
+  /// No description provided for @accountNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Account No'**
+  String get accountNo;
+
+  /// No description provided for @oldAccountNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Old Account No'**
+  String get oldAccountNo;
+
+  /// No description provided for @invoiceNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice No'**
+  String get invoiceNo;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @icNo.
+  ///
+  /// In en, this message translates to:
+  /// **'IC No'**
+  String get icNo;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get startDate;
+
+  /// No description provided for @endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get endDate;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @info.
+  ///
+  /// In en, this message translates to:
+  /// **'Info'**
+  String get info;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @continueText.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueText;
+
+  /// No description provided for @rentalMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Rental'**
+  String get rentalMonthly;
+
+  /// No description provided for @rentalPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Rental Place'**
+  String get rentalPlace;
+
+  /// No description provided for @rentalCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Rental City'**
+  String get rentalCity;
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get address;
+
+  /// No description provided for @postcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Postcode'**
+  String get postcode;
+
+  /// No description provided for @town.
+  ///
+  /// In en, this message translates to:
+  /// **'Town'**
+  String get town;
+
+  /// No description provided for @rentalArrears.
+  ///
+  /// In en, this message translates to:
+  /// **'Rental Arrears'**
+  String get rentalArrears;
+
+  /// No description provided for @waterArrears.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Charge Arrears'**
+  String get waterArrears;
+
+  /// No description provided for @electricArrears.
+  ///
+  /// In en, this message translates to:
+  /// **'Electric Charge Arrears'**
+  String get electricArrears;
+
+  /// No description provided for @managementArrears.
+  ///
+  /// In en, this message translates to:
+  /// **'Management Charge Arrears'**
+  String get managementArrears;
+
+  /// No description provided for @annualTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual Total'**
+  String get annualTotal;
+
+  /// No description provided for @propertyAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Property Address'**
+  String get propertyAddress;
+
+  /// No description provided for @propertyPostcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Property Postcode'**
+  String get propertyPostcode;
+
+  /// No description provided for @propertyCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Property City'**
+  String get propertyCity;
+
+  /// No description provided for @state.
+  ///
+  /// In en, this message translates to:
+  /// **'State'**
+  String get state;
+
+  /// No description provided for @mukim.
+  ///
+  /// In en, this message translates to:
+  /// **'Mukim'**
+  String get mukim;
+
+  /// No description provided for @lotNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Lot No'**
+  String get lotNo;
+
+  /// No description provided for @titleNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Title No'**
+  String get titleNo;
+
+  /// No description provided for @ownerAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner Address'**
+  String get ownerAddress;
+
+  /// No description provided for @telephone.
+  ///
+  /// In en, this message translates to:
+  /// **'Telephone'**
+  String get telephone;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @annualValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual Value'**
+  String get annualValue;
+
+  /// No description provided for @rate.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate'**
+  String get rate;
+
+  /// No description provided for @annualTax.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual Tax'**
+  String get annualTax;
+
+  /// No description provided for @halfYearTax.
+  ///
+  /// In en, this message translates to:
+  /// **'Half-Year Tax'**
+  String get halfYearTax;
+
+  /// No description provided for @currentTax.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Tax'**
+  String get currentTax;
+
+  /// No description provided for @taxArrears.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Arrears'**
+  String get taxArrears;
+
+  /// No description provided for @noticeE.
+  ///
+  /// In en, this message translates to:
+  /// **'Notice E'**
+  String get noticeE;
+
+  /// No description provided for @waranLod.
+  ///
+  /// In en, this message translates to:
+  /// **'Warrant LOD'**
+  String get waranLod;
+
+  /// No description provided for @halfYearTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Half-Year Total'**
+  String get halfYearTotal;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

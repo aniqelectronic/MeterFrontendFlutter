@@ -6,7 +6,11 @@ class PegePayService {
   static const String baseUrl = Config.baseUrl;
 
   static Future<Map<String, dynamic>> createOrder(
-      double amount, String storeId, String terminalId, String shiftId) async {
+    double amount,
+    String storeId,
+    String terminalId,
+    String shiftId,
+  ) async {
     final body = jsonEncode({
       "order_amount": amount,
       "qr_validity": 120,
@@ -28,6 +32,7 @@ class PegePayService {
     return jsonDecode(response.body);
   }
 
+  // KEEP OLD FUNCTION, so QR success still works
   static Future<bool> checkStatus(String orderNo) async {
     final res = await http.post(
       Uri.parse("$baseUrl/pegepay/check-status"),
@@ -36,10 +41,38 @@ class PegePayService {
     );
 
     if (res.statusCode != 200) return false;
-    final json = jsonDecode(res.body);
 
+    final json = jsonDecode(res.body);
     final status = json["order_status"].toString().toLowerCase();
 
     return status == "successful" || status == "success" || status == "paid";
+  }
+
+  // ADD NEW FUNCTION for receipt data
+  static Future<Map<String, dynamic>> checkStatusDetails(String orderNo) async {
+    final res = await http.post(
+      Uri.parse("$baseUrl/pegepay/check-status"),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"order_no": orderNo}),
+    );
+
+    if (res.statusCode != 200) {
+      return {
+        "success": false,
+        "order_no": orderNo,
+        "bank_trx_no": "",
+      };
+    }
+
+    final json = jsonDecode(res.body);
+    final status = json["order_status"].toString().toLowerCase();
+
+    return {
+      "success": status == "successful" ||
+          status == "success" ||
+          status == "paid",
+      "order_no": json["order_no"] ?? orderNo,
+      "bank_trx_no": json["bank_trx_no"] ?? "",
+    };
   }
 }

@@ -226,7 +226,7 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                       ),
                     ),
 
-                    // ================= SEWAAN BUTTON =================
+                    // ================= SEWAAN PBT BUTTON =================
                     Positioned(
                       top: 1050,
                       left: -500,
@@ -241,12 +241,12 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                             context,
                             MaterialPageRoute(
                               builder: (_) => P4PAGE(
-                                title: "SEWAAN",
+                                title: "SEWAAN PBT",
                                 type: "PBT",
                                 hint:
                                     AppLocalizations.of(context)!
                                         .inputTaxHint,
-                                biz: "SEWAAN",
+                                biz: "SEWAAN PBT",
                               ),
                             ),
                           );

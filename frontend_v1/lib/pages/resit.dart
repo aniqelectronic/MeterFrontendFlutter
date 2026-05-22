@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'p1.dart';
 import 'dart:async';
+import 'package:frontend_v1/model/taksiran/taksiran_payment_item.dart';
 
 class ResitData {
   String? biz;
@@ -25,12 +26,16 @@ class ResitData {
   List<String>? licenseNos;
   List<String>? compoundNos;
   List<PaymentTaxItem>? taxItems;
+  List<TaksiranPaymentItem>? taksiranItems;
 
   String? offenderName;
   String? violationType;
   String? kodhasil;
   String? date;
   String? time;
+
+  String? pegeOrderNo;
+  String? pegeBankTrxNo;
 
   ResitData({
     this.biz,
@@ -50,6 +55,9 @@ class ResitData {
     this.kodhasil,
     this.date,
     this.time,
+    this.pegeOrderNo,
+    this.pegeBankTrxNo,
+    this.taksiranItems,
   });
 }
 
@@ -77,9 +85,16 @@ class _RESITSTATE extends State<RESITPAGE> {
   Timer? _countdownTimer;
   int _remainingSeconds = 100;
 
+  String? pegeOrderNo;
+  String? pegeBankTrxNo;
+
   @override
   void initState() {
     super.initState();
+    
+    pegeOrderNo = widget.data.pegeOrderNo;
+   pegeBankTrxNo = widget.data.pegeBankTrxNo;
+ 
     fetchTransactionData();
     fetchQrImage();
     _startCountdown();
@@ -105,40 +120,55 @@ class _RESITSTATE extends State<RESITPAGE> {
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
 
+        pegeOrderNo = jsonData['order_no'];
+        pegeBankTrxNo = jsonData['bank_trx_no'];      
+
         final timeInRaw = jsonData['time_in'] ?? "";
         final timeOutRaw = jsonData['time_out'] ?? "";
 
         final inputFmt = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
         final outputFmt = DateFormat("hh:mm a");
 
-        setState(() {
-          if (timeInRaw.isNotEmpty) {
-            widget.data.startTime = inputFmt.parse(timeInRaw);
-            startTimeStr = outputFmt.format(widget.data.startTime!);
-          } else {
-            startTimeStr = "N/A";
-          }
 
-          if (timeOutRaw.isNotEmpty) {
-            widget.data.endTime = inputFmt.parse(timeOutRaw);
+setState(() {
+  final backendOrderNo = jsonData['order_no']?.toString();
+  final backendBankTrxNo = jsonData['bank_trx_no']?.toString();
 
-            final maxEndTime = DateTime(
-              widget.data.endTime!.year,
-              widget.data.endTime!.month,
-              widget.data.endTime!.day,
-              18, // 6 PM
-              0,
-            );
+  if (backendOrderNo != null && backendOrderNo.isNotEmpty && backendOrderNo != "null") {
+    pegeOrderNo = backendOrderNo;
+  }
 
-            if (widget.data.endTime!.isAfter(maxEndTime)) {
-              widget.data.endTime = maxEndTime;
-            }
+  if (backendBankTrxNo != null && backendBankTrxNo.isNotEmpty && backendBankTrxNo != "null") {
+    pegeBankTrxNo = backendBankTrxNo;
+  }
 
-            endTimeStr = outputFmt.format(widget.data.endTime!);
-          } else {
-            endTimeStr = "N/A";
-          }
-        });
+  if (timeInRaw.isNotEmpty) {
+    widget.data.startTime = inputFmt.parse(timeInRaw);
+    startTimeStr = outputFmt.format(widget.data.startTime!);
+  } else {
+    startTimeStr = "N/A";
+  }
+
+  if (timeOutRaw.isNotEmpty) {
+    widget.data.endTime = inputFmt.parse(timeOutRaw);
+
+    final maxEndTime = DateTime(
+      widget.data.endTime!.year,
+      widget.data.endTime!.month,
+      widget.data.endTime!.day,
+      18,
+      0,
+    );
+
+    if (widget.data.endTime!.isAfter(maxEndTime)) {
+      widget.data.endTime = maxEndTime;
+    }
+
+    endTimeStr = outputFmt.format(widget.data.endTime!);
+  } else {
+    endTimeStr = "N/A";
+  }
+});
       } else {
         setState(() {
           startTimeStr = endTimeStr = "N/A";
@@ -270,23 +300,36 @@ class _RESITSTATE extends State<RESITPAGE> {
   }
 
   // --- Helper Widget for Data Rows ---
-  Widget _buildInfoRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label,
-              style: const TextStyle(fontSize: 35, color: Colors.black87)),
-          Text(value,
-              style: const TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87)),
-        ],
-      ),
-    );
-  }
+Widget _buildInfoRow(
+  String label,
+  String value, {
+  double labelSize = 35,
+  double valueSize = 35,
+}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 8.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: labelSize,
+            color: Colors.black87,
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: valueSize,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -304,6 +347,8 @@ class _RESITSTATE extends State<RESITPAGE> {
       title = AppLocalizations.of(context)!.titleReceiptMultipleCompound;
     } else if (widget.biz == "SINGLECOMPOUND") {
       title = AppLocalizations.of(context)!.titleReceiptSingleCompound;
+    }else if (widget.biz == "SEWAAN") {
+      title = AppLocalizations.of(context)!.titleReceiptSewaan;
     }
 
     return Scaffold(
@@ -344,7 +389,7 @@ class _RESITSTATE extends State<RESITPAGE> {
             top: 250,
             left: 100,
             right: 100,
-            bottom: 450,
+            bottom: 350,
             child: Container(
               padding: const EdgeInsets.all(40),
               decoration: BoxDecoration(
@@ -369,6 +414,21 @@ class _RESITSTATE extends State<RESITPAGE> {
                       _buildInfoRow(loc.receiptStartTimeLabel2, startTimeStr),
                       _buildInfoRow(loc.receiptEndTimeLabel2, endTimeStr),
                     ],
+                    // if (pegeOrderNo != null && pegeOrderNo!.isNotEmpty)
+                    //   _buildInfoRow(
+                    //     "Order No",
+                    //     pegeOrderNo ?? "N/A",
+                    //     labelSize: 35,
+                    //     valueSize: 30,
+                    //   ),
+
+                    if (pegeBankTrxNo != null && pegeBankTrxNo!.isNotEmpty)
+                      _buildInfoRow(
+                        "Bank Trx No",
+                        pegeBankTrxNo ?? "N/A",
+                        labelSize: 35,
+                        valueSize: 25,
+                      ),
 
                     // if (widget.biz == "LESEN")
                     //   _buildInfoRow(
@@ -391,7 +451,8 @@ class _RESITSTATE extends State<RESITPAGE> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 65),
+
+                    const SizedBox(height: 40),
 
                     // QR Code Section
                     Text(
@@ -400,7 +461,7 @@ class _RESITSTATE extends State<RESITPAGE> {
                       style: const TextStyle(
                           fontSize: 35, fontWeight: FontWeight.w600),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 25),
                     if (qrImageBytes != null)
                       Container(
                         padding: const EdgeInsets.all(10),
@@ -425,7 +486,7 @@ class _RESITSTATE extends State<RESITPAGE> {
 
           // 4. Countdown Timer (Maintained Function)
           Positioned(
-            bottom: 350,
+            bottom: 270,
             left: 0,
             right: 0,
             child: Center(
@@ -443,7 +504,7 @@ class _RESITSTATE extends State<RESITPAGE> {
 
           // 5. Back Button (Unchanged Style)
           Positioned(
-            bottom: 180,
+            bottom: 100,
             left: 300,
             right: 300,
             child: ElevatedButton(
@@ -477,7 +538,7 @@ class _RESITSTATE extends State<RESITPAGE> {
 
           // 6. Copyright (Unchanged)
            Positioned(
-            bottom: 80,
+            bottom: 40,
             left: 0,
             right: 0,
             child: Center(
