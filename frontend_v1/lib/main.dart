@@ -505,9 +505,6 @@ xrandr --output "\$OUTPUT" --brightness $safeValue
           onPointerMove: (_) {
             _handleUserTouch();
           },
-          onPointerHover: (_) {
-            _handleUserTouch();
-          },
           child: MediaQuery(
             data: mediaQuery.copyWith(textScaleFactor: 1.3),
             child: OnscreenKeyboard(child: child!),
