@@ -302,25 +302,27 @@ xrandr --output "\$OUTPUT" --brightness $safeValue
   }
 
   // ================= GO HOME =================
-  void _goHome() {
-    _dimTimer?.cancel();
-    _warningTimer?.cancel();
-    _countdownTimer?.cancel();
+void _goHome() {
+  _dimTimer?.cancel();
+  _warningTimer?.cancel();
+  _countdownTimer?.cancel();
 
-    _warningShown = false;
+  _warningShown = false;
 
-    _setBrightness(normalBrightness);
+  _setBrightness(normalBrightness);
 
-    final nav = navigatorKey.currentState;
-    if (nav == null) return;
+  final nav = navigatorKey.currentState;
+  if (nav == null) return;
 
-    nav.pushNamedAndRemoveUntil(routeHome, (route) => false);
+  nav.pushNamedAndRemoveUntil(routeHome, (route) => false);
 
+  Future.delayed(const Duration(milliseconds: 300), () {
     if (!_internetOffline) {
       _resetHibernateTimer();
       _resetIdleTimers();
     }
-  }
+  });
+}
 
   // ================= WARNING DIALOG =================
   void _showIdleWarning() {
