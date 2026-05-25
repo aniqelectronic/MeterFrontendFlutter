@@ -50,16 +50,14 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  // ---------------- IDLE CONFIG ----------------
   static const Duration dimDuration = Duration(minutes: 1);
   static const Duration warningDuration = Duration(minutes: 3);
   static const int countdownSeconds = 60;
 
-  // ---------------- LOW POWER CONFIG ----------------
   static const Duration hibernateDuration = Duration(minutes: 5);
 
   static const double normalBrightness = 1.0;
-  static const double dimBrightness = 0.1;
+  static const double dimBrightness = 0.3;
   static const double deepDimBrightness = 0.05;
   static const double offlineDimBrightness = 0.5;
 
@@ -73,10 +71,10 @@ class _AppState extends State<App> {
   bool _warningShown = false;
   bool _dimmed = false;
   bool _internetOffline = false;
+  bool _isRestoringBrightness = false;
 
   int _remainingSeconds = countdownSeconds;
 
-  // ---------------- ROUTING ----------------
   static const String routeHome = '/p1';
   static const String routePayment = '/payment';
   static const String routeReceipt = '/receipt';
@@ -118,7 +116,6 @@ class _AppState extends State<App> {
     super.dispose();
   }
 
-  // ---------------- ROUTE HELPER ----------------
   String? _getCurrentRoute() {
     final nav = navigatorKey.currentState;
     if (nav == null) return null;
@@ -126,7 +123,6 @@ class _AppState extends State<App> {
     return ModalRoute.of(nav.context)?.settings.name;
   }
 
-  // ---------------- BRIGHTNESS ----------------
   Future<void> _setBrightness(double value) async {
     try {
       final result = await Process.run(
@@ -162,7 +158,6 @@ class _AppState extends State<App> {
     }
   }
 
-  // ---------------- SCREEN LOW POWER ----------------
   Future<void> _turnScreenOff() async {
     try {
       await _setBrightness(deepDimBrightness);
@@ -177,7 +172,15 @@ class _AppState extends State<App> {
   }
 
   Future<void> _turnScreenOn() async {
+    if (_isRestoringBrightness) return;
+
+    _isRestoringBrightness = true;
+
     try {
+      await _setBrightness(normalBrightness);
+
+      await Future.delayed(const Duration(milliseconds: 150));
+
       await _setBrightness(normalBrightness);
 
       _screenOff = false;
@@ -186,10 +189,11 @@ class _AppState extends State<App> {
       print("Screen restored");
     } catch (e) {
       print("Failed to restore screen: $e");
+    } finally {
+      _isRestoringBrightness = false;
     }
   }
 
-  // ---------------- INTERNET BRIGHTNESS ----------------
   void _handleInternetOffline() {
     _internetOffline = true;
 
@@ -227,7 +231,6 @@ class _AppState extends State<App> {
     _resetHibernateTimer();
   }
 
-  // ---------------- HIBERNATE TIMER ----------------
   void _resetHibernateTimer() {
     _hibernateTimer?.cancel();
 
@@ -248,7 +251,6 @@ class _AppState extends State<App> {
     });
   }
 
-  // ---------------- RESET TIMERS ----------------
   void _resetIdleTimers() {
     if (_internetOffline) return;
 
@@ -296,7 +298,6 @@ class _AppState extends State<App> {
     });
   }
 
-  // ---------------- GO HOME ----------------
   void _goHome() {
     _dimTimer?.cancel();
     _warningTimer?.cancel();
@@ -319,7 +320,6 @@ class _AppState extends State<App> {
     }
   }
 
-  // ---------------- IDLE DIALOG ----------------
   void _showIdleWarning() {
     if (_internetOffline) return;
     if (_warningShown) return;
@@ -441,13 +441,9 @@ class _AppState extends State<App> {
     );
   }
 
-  // ---------------- TOUCH HANDLER ----------------
   Future<void> _handleUserTouch() async {
     if (_internetOffline) {
-      await _setBrightness(normalBrightness);
-
-      _screenOff = false;
-      _dimmed = false;
+      await _turnScreenOn();
 
       _offlineDimTimer?.cancel();
 
@@ -472,14 +468,12 @@ class _AppState extends State<App> {
     }
   }
 
-  // ---------------- LOCALE ----------------
   void setLocale(Locale locale) {
     setState(() {
       _locale = locale;
     });
   }
 
-  // ---------------- BUILD ----------------
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -500,12 +494,12 @@ class _AppState extends State<App> {
       builder: (context, child) {
         final mediaQuery = MediaQuery.of(context);
 
-        return GestureDetector(
+        return Listener(
           behavior: HitTestBehavior.translucent,
-          onTapDown: (_) {
+          onPointerDown: (_) {
             _handleUserTouch();
           },
-          onPanDown: (_) {
+          onPointerMove: (_) {
             _handleUserTouch();
           },
           child: MediaQuery(
@@ -535,31 +529,3 @@ class _AppState extends State<App> {
     );
   }
 }
-  // ---------------- SCREEN POWER ----------------
-  // Future<void> _turnScreenOff() async {
-  //   try {
-  //   await Process.run(
-  //     'bash',
-  //     ['-c', 'DISPLAY=:0 xset +dpms && DISPLAY=:0 xset dpms force off'],
-  //   );
-  
-  //     _screenOff = true;
-  //     print("Screen turned OFF");
-  //   } catch (e) {
-  //     print("Failed to turn screen off: $e");
-  //   }
-  // }
- 
-  // Future<void> _turnScreenOn() async {
-  //   try {
-  //   await Process.run(
-  //     'bash',
-  //     ['-c', 'DISPLAY=:0 xset +dpms && DISPLAY=:0 xset dpms force on'],
-  //   );
-  
-  //     _screenOff = false;
-  //     print("Screen turned ON");
-  //   } catch (e) {
-  //     print("Failed to turn screen on: $e");
-  //   }
-  // }
