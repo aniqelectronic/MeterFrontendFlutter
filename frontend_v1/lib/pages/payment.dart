@@ -449,6 +449,8 @@ Positioned(
                               plate: data.plate ?? "",
                               timeUsed: data.hour ?? 0,
                               typePayment: "CARD",
+                              orderNo: "0",
+                              bankTrxNo: "0",
                             );
                   
                             if (result != null && !result.startsWith("Error")) {
@@ -462,6 +464,8 @@ Positioned(
                                       plate: data.plate,
                                       hour: data.hour,
                                       amount: data.amount,
+                                      pegeOrderNo: "0",
+                                      pegeBankTrxNo: "0",
                                     ),
                                   ),
                                 ),
@@ -477,6 +481,8 @@ Positioned(
                               plate: data.plate ?? "",
                               extendHours: data.hour ?? 0,
                               typePayment: "CARD",
+                              orderNo: "0",
+                              bankTrxNo: "0",
                             );
                   
                             if (result != null && !result.startsWith("Error")) {
@@ -490,6 +496,8 @@ Positioned(
                                       plate: data.plate,
                                       hour: data.hour,
                                       amount: data.amount,
+                                      pegeOrderNo: "0",
+                                      pegeBankTrxNo: "0",
                                     ),
                                   ),
                                 ),
