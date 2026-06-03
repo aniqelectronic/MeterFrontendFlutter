@@ -2612,4 +2612,133 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get halfYearTotal => 'Jumlah Sepenggal';
+
+  @override
+  String get subangExplorationTitle => 'Jelajah Subang Jaya';
+
+  @override
+  String get subangBlueMosqueTitle => 'Masjid Biru Shah Alam';
+
+  @override
+  String get subangBlueMosqueDesc => 'Salah satu mercu tanda terkenal di Selangor.';
+
+  @override
+  String get subangBlueMosqueFull => 'Masjid Sultan Salahuddin Abdul Aziz, juga dikenali sebagai Masjid Biru, ialah salah satu mercu tanda terkenal berhampiran Subang Jaya. Masjid ini terkenal dengan kubah biru yang besar, seni bina Islam yang indah dan suasana yang tenang.';
+
+  @override
+  String get subangIstanaAlamTitle => 'Istana Alam Shah';
+
+  @override
+  String get subangIstanaAlamDesc => 'Istana diraja Sultan Selangor.';
+
+  @override
+  String get subangIstanaAlamFull => 'Istana Alam Shah merupakan mercu tanda diraja yang penting di Selangor. Ia melambangkan warisan dan sejarah diraja negeri Selangor serta terletak dalam jarak perjalanan dari Subang Jaya.';
+
+  @override
+  String get subangLakeGardenTitle => 'Taman Tasik Shah Alam';
+
+  @override
+  String get subangLakeGardenDesc => 'Taman awam dan kawasan tasik yang menarik.';
+
+  @override
+  String get subangLakeGardenFull => 'Taman Tasik Shah Alam ialah salah satu kawasan rekreasi awam yang terkenal di Selangor. Ia sesuai untuk berjalan santai, aktiviti keluarga dan bersiar-siar.';
+
+  @override
+  String get subangSunwayLagoonTitle => 'Sunway Lagoon';
+
+  @override
+  String get subangSunwayLagoonDesc => 'Taman tema terkenal di Bandar Sunway.';
+
+  @override
+  String get subangSunwayLagoonFull => 'Sunway Lagoon ialah salah satu taman tema paling popular di Malaysia. Ia menawarkan tarikan air, kawasan hidupan liar, permainan mencabar dan aktiviti hiburan yang sesuai untuk keluarga serta pelancong.';
+
+  @override
+  String get subangSunwayPyramidTitle => 'Sunway Pyramid';
+
+  @override
+  String get subangSunwayPyramidDesc => 'Pusat beli-belah ikonik dengan reka bentuk piramid.';
+
+  @override
+  String get subangSunwayPyramidFull => 'Sunway Pyramid ialah pusat beli-belah dan gaya hidup yang terkenal di Bandar Sunway. Ia dikenali dengan seni bina berinspirasikan Mesir, kedai membeli-belah, restoran, pawagam dan gelanggang luncur ais.';
+
+  @override
+  String get subangRiaParkTitle => 'Taman Rekreasi Subang Ria';
+
+  @override
+  String get subangRiaParkDesc => 'Taman popular untuk riadah dan senaman.';
+
+  @override
+  String get subangRiaParkFull => 'Taman Rekreasi Subang Ria ialah kawasan hijau di Subang Jaya dengan pemandangan tasik dan laluan berjalan kaki. Ia sesuai untuk berjoging, berehat dan meluangkan masa bersama keluarga.';
+
+  @override
+  String get subangEmpireTitle => 'Empire Shopping Gallery';
+
+  @override
+  String get subangEmpireDesc => 'Destinasi membeli-belah dan makanan moden.';
+
+  @override
+  String get subangEmpireFull => 'Empire Shopping Gallery ialah pusat gaya hidup yang popular di Subang Jaya. Pengunjung boleh menikmati aktiviti membeli-belah, kafe, restoran dan kemudahan dalaman.';
+
+  @override
+  String get subangSS15Title => 'SS15 Subang Jaya';
+
+  @override
+  String get subangSS15Desc => 'Kawasan makanan, kafe dan pelajar yang terkenal.';
+
+  @override
+  String get subangSS15Full => 'SS15 ialah salah satu kawasan paling meriah di Subang Jaya. Ia terkenal dengan kafe, kedai minuman, makanan tempatan, restoran dan suasana yang muda serta aktif.';
+
+  @override
+  String get subangDaMenTitle => 'Da Men Mall';
+
+  @override
+  String get subangDaMenDesc => 'Pusat beli-belah yang terletak di USJ.';
+
+  @override
+  String get subangDaMenFull => 'Da Men Mall ialah destinasi membeli-belah yang mudah dikunjungi di USJ, Subang Jaya. Ia menawarkan kedai runcit, kedai makanan dan kemudahan mesra keluarga.';
+
+  @override
+  String get subangSummitTitle => 'The Summit USJ';
+
+  @override
+  String get subangSummitDesc => 'Pusat beli-belah lama dan dikenali di USJ.';
+
+  @override
+  String get subangSummitFull => 'The Summit USJ ialah pusat beli-belah yang dikenali oleh ramai penduduk Subang Jaya. Ia menyediakan kedai runcit, kedai makanan dan perkhidmatan untuk komuniti setempat.';
+
+  @override
+  String get subangJibbyTitle => 'Jibby & Co';
+
+  @override
+  String get subangJibbyDesc => 'Kafe dan restoran popular.';
+
+  @override
+  String get subangJibbyFull => 'Jibby & Co ialah tempat makan popular di Subang Jaya yang menawarkan hidangan Barat, tempatan dan fusion dalam suasana kafe moden.';
+
+  @override
+  String get subangVillageParkTitle => 'Restoran Village Park';
+
+  @override
+  String get subangVillageParkDesc => 'Restoran nasi lemak terkenal.';
+
+  @override
+  String get subangVillageParkFull => 'Restoran Village Park terkenal dengan nasi lemak dan makanan tempatan Malaysia. Ia merupakan destinasi makanan popular untuk penduduk tempatan dan pengunjung.';
+
+  @override
+  String get subangRakuzenTitle => 'Rakuzen Sunway Pyramid';
+
+  @override
+  String get subangRakuzenDesc => 'Restoran Jepun di Sunway Pyramid.';
+
+  @override
+  String get subangRakuzenFull => 'Rakuzen menyajikan hidangan Jepun seperti sushi, sashimi, set nasi dan mi. Ia sesuai untuk pengunjung yang ingin menikmati makanan Jepun di sekitar Subang Jaya.';
+
+  @override
+  String get subangFoodStreetTitle => 'SS15 Food Street';
+
+  @override
+  String get subangFoodStreetDesc => 'Kawasan makanan popular di Subang Jaya.';
+
+  @override
+  String get subangFoodStreetFull => 'SS15 Food Street terkenal dengan makanan tempatan, kedai pencuci mulut, kafe dan restoran santai. Ia merupakan salah satu tempat terbaik untuk meneroka makanan di Subang Jaya.';
 }

@@ -1234,7 +1234,65 @@
 "taxArrears": "Tax Arrears",
 "noticeE": "Notice E",
 "waranLod": "Warrant LOD",
-"halfYearTotal": "Half-Year Total"
+"halfYearTotal": "Half-Year Total",
 
 
+
+  "subangExplorationTitle": "Explore Subang Jaya",
+
+  "subangBlueMosqueTitle": "Blue Mosque Shah Alam",
+  "subangBlueMosqueDesc": "One of Selangor's most iconic landmarks.",
+  "subangBlueMosqueFull": "The Sultan Salahuddin Abdul Aziz Mosque, also known as the Blue Mosque, is one of the most famous landmarks near Subang Jaya. It is known for its large blue dome, beautiful Islamic architecture, and peaceful surroundings.",
+
+  "subangIstanaAlamTitle": "Istana Alam Shah",
+  "subangIstanaAlamDesc": "Royal palace of the Sultan of Selangor.",
+  "subangIstanaAlamFull": "Istana Alam Shah is an important royal landmark in Selangor. It represents the heritage and royal history of the state and is located within travelling distance from Subang Jaya.",
+
+  "subangLakeGardenTitle": "Shah Alam Lake Gardens",
+  "subangLakeGardenDesc": "Historic public park and lake area.",
+  "subangLakeGardenFull": "Shah Alam Lake Gardens is one of the well-known recreational and public spaces in Selangor. It is suitable for relaxing walks, family activities and sightseeing.",
+
+  "subangSunwayLagoonTitle": "Sunway Lagoon",
+  "subangSunwayLagoonDesc": "Famous theme park in Bandar Sunway.",
+  "subangSunwayLagoonFull": "Sunway Lagoon is one of Malaysia's most popular theme parks. It offers water attractions, wildlife areas, thrilling rides and entertainment activities suitable for families and tourists.",
+
+  "subangSunwayPyramidTitle": "Sunway Pyramid",
+  "subangSunwayPyramidDesc": "Iconic shopping mall with pyramid design.",
+  "subangSunwayPyramidFull": "Sunway Pyramid is a famous shopping and lifestyle mall in Bandar Sunway. It is known for its Egyptian-inspired architecture, shopping outlets, restaurants, cinema and ice-skating rink.",
+
+  "subangRiaParkTitle": "Subang Ria Recreational Park",
+  "subangRiaParkDesc": "Popular park for leisure and exercise.",
+  "subangRiaParkFull": "Subang Ria Recreational Park is a green space in Subang Jaya with lake views and walking areas. It is suitable for jogging, relaxing and spending time with family.",
+
+  "subangEmpireTitle": "Empire Shopping Gallery",
+  "subangEmpireDesc": "Modern shopping and dining destination.",
+  "subangEmpireFull": "Empire Shopping Gallery is a popular lifestyle mall in Subang Jaya. Visitors can enjoy shopping, cafes, restaurants and indoor activities.",
+
+  "subangSS15Title": "SS15 Subang Jaya",
+  "subangSS15Desc": "Famous food, cafe and student area.",
+  "subangSS15Full": "SS15 is one of the liveliest areas in Subang Jaya. It is well known for cafes, bubble tea shops, local food, restaurants and a youthful atmosphere.",
+
+  "subangDaMenTitle": "Da Men Mall",
+  "subangDaMenDesc": "Shopping mall located in USJ.",
+  "subangDaMenFull": "Da Men Mall is a convenient shopping destination in USJ, Subang Jaya. It offers retail stores, food outlets and family-friendly facilities.",
+
+  "subangSummitTitle": "The Summit USJ",
+  "subangSummitDesc": "Long-established mall in USJ.",
+  "subangSummitFull": "The Summit USJ is a familiar shopping centre for many Subang Jaya residents. It provides retail shops, food outlets and services for the local community.",
+
+  "subangJibbyTitle": "Jibby & Co",
+  "subangJibbyDesc": "Popular cafe and restaurant.",
+  "subangJibbyFull": "Jibby & Co is a popular dining place in Subang Jaya, offering Western, local and fusion dishes in a modern cafe setting.",
+
+  "subangVillageParkTitle": "Village Park Restaurant",
+  "subangVillageParkDesc": "Famous nasi lemak restaurant.",
+  "subangVillageParkFull": "Village Park Restaurant is widely known for nasi lemak and Malaysian comfort food. It is a popular food destination for locals and visitors.",
+
+  "subangRakuzenTitle": "Rakuzen Sunway Pyramid",
+  "subangRakuzenDesc": "Japanese restaurant in Sunway Pyramid.",
+  "subangRakuzenFull": "Rakuzen serves Japanese dishes such as sushi, sashimi, rice sets and noodles. It is suitable for visitors looking for Japanese cuisine around Subang Jaya.",
+
+  "subangFoodStreetTitle": "SS15 Food Street",
+  "subangFoodStreetDesc": "Popular food area in Subang Jaya.",
+  "subangFoodStreetFull": "SS15 Food Street is known for local food, dessert shops, cafes and casual restaurants. It is one of the best places to explore food in Subang Jaya."
 }

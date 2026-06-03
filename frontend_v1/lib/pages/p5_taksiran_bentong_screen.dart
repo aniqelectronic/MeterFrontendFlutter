@@ -93,6 +93,15 @@ void _proceed() {
         (item) => TaksiranPaymentItem(
           accountNo: _value(item, "account_no"),
           amount: _amount(item, "jumlah_sepenggal"),
+          ownerName: _value(item, "name"),
+          propertyAddress: [
+            _value(item, "no_rumah"),
+            _value(item, "lorong_name"),
+            _value(item, "jalan_name"),
+            _value(item, "postcode"),
+            _value(item, "prop_pekan_name"),
+            _value(item, "negeri"),
+          ].where((e) => e != "-" && e.trim().isNotEmpty).join(", "),
         ),
       )
       .toList();

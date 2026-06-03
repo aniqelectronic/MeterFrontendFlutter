@@ -1254,6 +1254,65 @@
 "taxArrears": "Tunggakan Cukai",
 "noticeE": "Notis E",
 "waranLod": "Waran LOD",
-"halfYearTotal": "Jumlah Sepenggal"
+"halfYearTotal": "Jumlah Sepenggal",
+
+
+  "subangExplorationTitle": "Jelajah Subang Jaya",
+
+  "subangBlueMosqueTitle": "Masjid Biru Shah Alam",
+  "subangBlueMosqueDesc": "Salah satu mercu tanda terkenal di Selangor.",
+  "subangBlueMosqueFull": "Masjid Sultan Salahuddin Abdul Aziz, juga dikenali sebagai Masjid Biru, ialah salah satu mercu tanda terkenal berhampiran Subang Jaya. Masjid ini terkenal dengan kubah biru yang besar, seni bina Islam yang indah dan suasana yang tenang.",
+
+  "subangIstanaAlamTitle": "Istana Alam Shah",
+  "subangIstanaAlamDesc": "Istana diraja Sultan Selangor.",
+  "subangIstanaAlamFull": "Istana Alam Shah merupakan mercu tanda diraja yang penting di Selangor. Ia melambangkan warisan dan sejarah diraja negeri Selangor serta terletak dalam jarak perjalanan dari Subang Jaya.",
+
+  "subangLakeGardenTitle": "Taman Tasik Shah Alam",
+  "subangLakeGardenDesc": "Taman awam dan kawasan tasik yang menarik.",
+  "subangLakeGardenFull": "Taman Tasik Shah Alam ialah salah satu kawasan rekreasi awam yang terkenal di Selangor. Ia sesuai untuk berjalan santai, aktiviti keluarga dan bersiar-siar.",
+
+  "subangSunwayLagoonTitle": "Sunway Lagoon",
+  "subangSunwayLagoonDesc": "Taman tema terkenal di Bandar Sunway.",
+  "subangSunwayLagoonFull": "Sunway Lagoon ialah salah satu taman tema paling popular di Malaysia. Ia menawarkan tarikan air, kawasan hidupan liar, permainan mencabar dan aktiviti hiburan yang sesuai untuk keluarga serta pelancong.",
+
+  "subangSunwayPyramidTitle": "Sunway Pyramid",
+  "subangSunwayPyramidDesc": "Pusat beli-belah ikonik dengan reka bentuk piramid.",
+  "subangSunwayPyramidFull": "Sunway Pyramid ialah pusat beli-belah dan gaya hidup yang terkenal di Bandar Sunway. Ia dikenali dengan seni bina berinspirasikan Mesir, kedai membeli-belah, restoran, pawagam dan gelanggang luncur ais.",
+
+  "subangRiaParkTitle": "Taman Rekreasi Subang Ria",
+  "subangRiaParkDesc": "Taman popular untuk riadah dan senaman.",
+  "subangRiaParkFull": "Taman Rekreasi Subang Ria ialah kawasan hijau di Subang Jaya dengan pemandangan tasik dan laluan berjalan kaki. Ia sesuai untuk berjoging, berehat dan meluangkan masa bersama keluarga.",
+
+  "subangEmpireTitle": "Empire Shopping Gallery",
+  "subangEmpireDesc": "Destinasi membeli-belah dan makanan moden.",
+  "subangEmpireFull": "Empire Shopping Gallery ialah pusat gaya hidup yang popular di Subang Jaya. Pengunjung boleh menikmati aktiviti membeli-belah, kafe, restoran dan kemudahan dalaman.",
+
+  "subangSS15Title": "SS15 Subang Jaya",
+  "subangSS15Desc": "Kawasan makanan, kafe dan pelajar yang terkenal.",
+  "subangSS15Full": "SS15 ialah salah satu kawasan paling meriah di Subang Jaya. Ia terkenal dengan kafe, kedai minuman, makanan tempatan, restoran dan suasana yang muda serta aktif.",
+
+  "subangDaMenTitle": "Da Men Mall",
+  "subangDaMenDesc": "Pusat beli-belah yang terletak di USJ.",
+  "subangDaMenFull": "Da Men Mall ialah destinasi membeli-belah yang mudah dikunjungi di USJ, Subang Jaya. Ia menawarkan kedai runcit, kedai makanan dan kemudahan mesra keluarga.",
+
+  "subangSummitTitle": "The Summit USJ",
+  "subangSummitDesc": "Pusat beli-belah lama dan dikenali di USJ.",
+  "subangSummitFull": "The Summit USJ ialah pusat beli-belah yang dikenali oleh ramai penduduk Subang Jaya. Ia menyediakan kedai runcit, kedai makanan dan perkhidmatan untuk komuniti setempat.",
+
+  "subangJibbyTitle": "Jibby & Co",
+  "subangJibbyDesc": "Kafe dan restoran popular.",
+  "subangJibbyFull": "Jibby & Co ialah tempat makan popular di Subang Jaya yang menawarkan hidangan Barat, tempatan dan fusion dalam suasana kafe moden.",
+
+  "subangVillageParkTitle": "Restoran Village Park",
+  "subangVillageParkDesc": "Restoran nasi lemak terkenal.",
+  "subangVillageParkFull": "Restoran Village Park terkenal dengan nasi lemak dan makanan tempatan Malaysia. Ia merupakan destinasi makanan popular untuk penduduk tempatan dan pengunjung.",
+
+  "subangRakuzenTitle": "Rakuzen Sunway Pyramid",
+  "subangRakuzenDesc": "Restoran Jepun di Sunway Pyramid.",
+  "subangRakuzenFull": "Rakuzen menyajikan hidangan Jepun seperti sushi, sashimi, set nasi dan mi. Ia sesuai untuk pengunjung yang ingin menikmati makanan Jepun di sekitar Subang Jaya.",
+
+  "subangFoodStreetTitle": "SS15 Food Street",
+  "subangFoodStreetDesc": "Kawasan makanan popular di Subang Jaya.",
+  "subangFoodStreetFull": "SS15 Food Street terkenal dengan makanan tempatan, kedai pencuci mulut, kafe dan restoran santai. Ia merupakan salah satu tempat terbaik untuk meneroka makanan di Subang Jaya."
 
 }

@@ -81,10 +81,20 @@ class _P5SewaanPBTbentongScreenState
           data: PaymentData(
             amount: total.toStringAsFixed(2),
             sewaanItems: [
-              SewaanPaymentItem(
-                accountNo: _value("account_no"),
-                amount: _amount("jumlah"),
-              ),
+SewaanPaymentItem(
+  accountNo: _value("account_no"),
+  tenantName: _value("name"),
+  registrationNo: _value("rent_pdaftaran"),
+  startDate: _value("start_date"),
+  endDate: _value("end_date"),
+  premiseAddress:
+      "${_value("rent_alamatswn")} ${_value("rent_jalanname")} ${_value("rent_bandarnam")}",
+  mailingAddress:
+      "${_value("alamat1")} ${_value("alamat2")} ${_value("alamat3")} ${_value("alamat4")} ${_value("postcode")} ${_value("pekan_name")}",
+  outstandingRent: _amount("tunggakan_sewa"),
+  currentRent: _amount("rental_fee"),
+  amount: _amount("jumlah"),
+),
             ],
           ),
         ),

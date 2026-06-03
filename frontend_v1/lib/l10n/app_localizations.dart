@@ -5236,6 +5236,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Half-Year Total'**
   String get halfYearTotal;
+
+  /// No description provided for @subangExplorationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Subang Jaya'**
+  String get subangExplorationTitle;
+
+  /// No description provided for @subangBlueMosqueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue Mosque Shah Alam'**
+  String get subangBlueMosqueTitle;
+
+  /// No description provided for @subangBlueMosqueDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'One of Selangor\'s most iconic landmarks.'**
+  String get subangBlueMosqueDesc;
+
+  /// No description provided for @subangBlueMosqueFull.
+  ///
+  /// In en, this message translates to:
+  /// **'The Sultan Salahuddin Abdul Aziz Mosque, also known as the Blue Mosque, is one of the most famous landmarks near Subang Jaya. It is known for its large blue dome, beautiful Islamic architecture, and peaceful surroundings.'**
+  String get subangBlueMosqueFull;
+
+  /// No description provided for @subangIstanaAlamTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Istana Alam Shah'**
+  String get subangIstanaAlamTitle;
+
+  /// No description provided for @subangIstanaAlamDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Royal palace of the Sultan of Selangor.'**
+  String get subangIstanaAlamDesc;
+
+  /// No description provided for @subangIstanaAlamFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Istana Alam Shah is an important royal landmark in Selangor. It represents the heritage and royal history of the state and is located within travelling distance from Subang Jaya.'**
+  String get subangIstanaAlamFull;
+
+  /// No description provided for @subangLakeGardenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Shah Alam Lake Gardens'**
+  String get subangLakeGardenTitle;
+
+  /// No description provided for @subangLakeGardenDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Historic public park and lake area.'**
+  String get subangLakeGardenDesc;
+
+  /// No description provided for @subangLakeGardenFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Shah Alam Lake Gardens is one of the well-known recreational and public spaces in Selangor. It is suitable for relaxing walks, family activities and sightseeing.'**
+  String get subangLakeGardenFull;
+
+  /// No description provided for @subangSunwayLagoonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunway Lagoon'**
+  String get subangSunwayLagoonTitle;
+
+  /// No description provided for @subangSunwayLagoonDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Famous theme park in Bandar Sunway.'**
+  String get subangSunwayLagoonDesc;
+
+  /// No description provided for @subangSunwayLagoonFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunway Lagoon is one of Malaysia\'s most popular theme parks. It offers water attractions, wildlife areas, thrilling rides and entertainment activities suitable for families and tourists.'**
+  String get subangSunwayLagoonFull;
+
+  /// No description provided for @subangSunwayPyramidTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunway Pyramid'**
+  String get subangSunwayPyramidTitle;
+
+  /// No description provided for @subangSunwayPyramidDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Iconic shopping mall with pyramid design.'**
+  String get subangSunwayPyramidDesc;
+
+  /// No description provided for @subangSunwayPyramidFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunway Pyramid is a famous shopping and lifestyle mall in Bandar Sunway. It is known for its Egyptian-inspired architecture, shopping outlets, restaurants, cinema and ice-skating rink.'**
+  String get subangSunwayPyramidFull;
+
+  /// No description provided for @subangRiaParkTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Subang Ria Recreational Park'**
+  String get subangRiaParkTitle;
+
+  /// No description provided for @subangRiaParkDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular park for leisure and exercise.'**
+  String get subangRiaParkDesc;
+
+  /// No description provided for @subangRiaParkFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Subang Ria Recreational Park is a green space in Subang Jaya with lake views and walking areas. It is suitable for jogging, relaxing and spending time with family.'**
+  String get subangRiaParkFull;
+
+  /// No description provided for @subangEmpireTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Empire Shopping Gallery'**
+  String get subangEmpireTitle;
+
+  /// No description provided for @subangEmpireDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Modern shopping and dining destination.'**
+  String get subangEmpireDesc;
+
+  /// No description provided for @subangEmpireFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Empire Shopping Gallery is a popular lifestyle mall in Subang Jaya. Visitors can enjoy shopping, cafes, restaurants and indoor activities.'**
+  String get subangEmpireFull;
+
+  /// No description provided for @subangSS15Title.
+  ///
+  /// In en, this message translates to:
+  /// **'SS15 Subang Jaya'**
+  String get subangSS15Title;
+
+  /// No description provided for @subangSS15Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Famous food, cafe and student area.'**
+  String get subangSS15Desc;
+
+  /// No description provided for @subangSS15Full.
+  ///
+  /// In en, this message translates to:
+  /// **'SS15 is one of the liveliest areas in Subang Jaya. It is well known for cafes, bubble tea shops, local food, restaurants and a youthful atmosphere.'**
+  String get subangSS15Full;
+
+  /// No description provided for @subangDaMenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Da Men Mall'**
+  String get subangDaMenTitle;
+
+  /// No description provided for @subangDaMenDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping mall located in USJ.'**
+  String get subangDaMenDesc;
+
+  /// No description provided for @subangDaMenFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Da Men Mall is a convenient shopping destination in USJ, Subang Jaya. It offers retail stores, food outlets and family-friendly facilities.'**
+  String get subangDaMenFull;
+
+  /// No description provided for @subangSummitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The Summit USJ'**
+  String get subangSummitTitle;
+
+  /// No description provided for @subangSummitDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Long-established mall in USJ.'**
+  String get subangSummitDesc;
+
+  /// No description provided for @subangSummitFull.
+  ///
+  /// In en, this message translates to:
+  /// **'The Summit USJ is a familiar shopping centre for many Subang Jaya residents. It provides retail shops, food outlets and services for the local community.'**
+  String get subangSummitFull;
+
+  /// No description provided for @subangJibbyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Jibby & Co'**
+  String get subangJibbyTitle;
+
+  /// No description provided for @subangJibbyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular cafe and restaurant.'**
+  String get subangJibbyDesc;
+
+  /// No description provided for @subangJibbyFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Jibby & Co is a popular dining place in Subang Jaya, offering Western, local and fusion dishes in a modern cafe setting.'**
+  String get subangJibbyFull;
+
+  /// No description provided for @subangVillageParkTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Village Park Restaurant'**
+  String get subangVillageParkTitle;
+
+  /// No description provided for @subangVillageParkDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Famous nasi lemak restaurant.'**
+  String get subangVillageParkDesc;
+
+  /// No description provided for @subangVillageParkFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Village Park Restaurant is widely known for nasi lemak and Malaysian comfort food. It is a popular food destination for locals and visitors.'**
+  String get subangVillageParkFull;
+
+  /// No description provided for @subangRakuzenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rakuzen Sunway Pyramid'**
+  String get subangRakuzenTitle;
+
+  /// No description provided for @subangRakuzenDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese restaurant in Sunway Pyramid.'**
+  String get subangRakuzenDesc;
+
+  /// No description provided for @subangRakuzenFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Rakuzen serves Japanese dishes such as sushi, sashimi, rice sets and noodles. It is suitable for visitors looking for Japanese cuisine around Subang Jaya.'**
+  String get subangRakuzenFull;
+
+  /// No description provided for @subangFoodStreetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'SS15 Food Street'**
+  String get subangFoodStreetTitle;
+
+  /// No description provided for @subangFoodStreetDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular food area in Subang Jaya.'**
+  String get subangFoodStreetDesc;
+
+  /// No description provided for @subangFoodStreetFull.
+  ///
+  /// In en, this message translates to:
+  /// **'SS15 Food Street is known for local food, dessert shops, cafes and casual restaurants. It is one of the best places to explore food in Subang Jaya.'**
+  String get subangFoodStreetFull;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

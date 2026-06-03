@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'p1.dart';
 import 'dart:async';
 import 'package:frontend_v1/model/taksiran/taksiran_payment_item.dart';
+import 'package:frontend_v1/model/sewaan/sewaan_payment_item.dart';
 
 class ResitData {
   String? biz;
@@ -27,6 +28,8 @@ class ResitData {
   List<String>? compoundNos;
   List<PaymentTaxItem>? taxItems;
   List<TaksiranPaymentItem>? taksiranItems;
+  List<SewaanPaymentItem>? sewaanItems;
+
 
   String? offenderName;
   String? violationType;
@@ -36,6 +39,8 @@ class ResitData {
 
   String? pegeOrderNo;
   String? pegeBankTrxNo;
+
+  String? typePayment;
 
   ResitData({
     this.biz,
@@ -58,6 +63,8 @@ class ResitData {
     this.pegeOrderNo,
     this.pegeBankTrxNo,
     this.taksiranItems,
+    this.typePayment,
+    this.sewaanItems,
   });
 }
 
@@ -222,17 +229,92 @@ setState(() {
         );
       } else if (widget.biz == "SAMAN") {
         response = await http.get(Uri.parse("$baseUrl/saman/latest/qr"));
-      } else if (widget.biz == "CUKAI") {
-        final billNos = widget.data.taxItems!.map((e) => e.billNo).toList();
+      } 
+      //else if (widget.biz == "CUKAI") {
+      //   final billNos = widget.data.taxItems!.map((e) => e.billNo).toList();
+      //   response = await http.post(
+      //     Uri.parse("$baseUrl/tax/receipt/qr/multi"),
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       "Accept": "image/png",
+      //     },
+      //     body: jsonEncode({"bill_no": billNos}),
+      //   );
+      // } 
+
+            else if (widget.biz == "CUKAI") {
+        final items = widget.data.taksiranItems;
+
+        if (items == null || items.isEmpty) {
+          debugPrint("No taksiran items found for Bentong receipt QR");
+          return;
+        }
+
+        final taxItemsPayload = items.map((item) {
+          return {
+            "account_number": item.accountNo,
+            "owner_name": item.ownerName,
+            "property_address": item.propertyAddress,
+            "amount": item.amount,
+          };
+        }).toList();
+
         response = await http.post(
-          Uri.parse("$baseUrl/tax/receipt/qr/multi"),
+          Uri.parse("$baseUrl/tax/receipt/qr/bentong"),
           headers: {
             "Content-Type": "application/json",
             "Accept": "image/png",
           },
-          body: jsonEncode({"bill_no": billNos}),
+          body: jsonEncode({
+            "order_no": pegeOrderNo ?? widget.data.pegeOrderNo ?? "0",
+            "paid_date": DateTime.now().toIso8601String(),
+            "payment_method": widget.data.typePayment ?? " ",
+            "bank_trx_no": pegeBankTrxNo ?? widget.data.pegeBankTrxNo ?? "",
+            "tax_items": taxItemsPayload,
+          }),
         );
-      } else if (widget.biz == "MULTICOMPOUND") {
+      }
+
+      else if (widget.biz == "SEWAAN") {
+  final items = widget.data.sewaanItems;
+
+  if (items == null || items.isEmpty) {
+    debugPrint("No sewaan items found for Bentong receipt QR");
+    return;
+  }
+
+  final sewaanItemsPayload = items.map((item) {
+    return {
+      "account_number": item.accountNo,
+      "tenant_name": item.tenantName,
+      "registration_no": item.registrationNo,
+      "start_date": item.startDate,
+      "end_date": item.endDate,
+      "premise_address": item.premiseAddress,
+      "mailing_address": item.mailingAddress,
+      "outstanding_rent": item.outstandingRent,
+      "current_rent": item.currentRent,
+      "amount": item.amount,
+    };
+  }).toList();
+
+  response = await http.post(
+    Uri.parse("$baseUrl/sewaan/receipt/qr/bentong"),
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "image/png",
+    },
+    body: jsonEncode({
+      "order_no": pegeOrderNo ?? widget.data.pegeOrderNo ?? "0",
+      "paid_date": DateTime.now().toIso8601String(),
+      "payment_method": widget.data.typePayment ?? "QR",
+      "bank_trx_no": pegeBankTrxNo ?? widget.data.pegeBankTrxNo ?? "",
+      "sewaan_items": sewaanItemsPayload,
+    }),
+  );
+}
+            
+      else if (widget.biz == "MULTICOMPOUND") {
         final compoundNos = widget.data.compoundNos;
         if (compoundNos == null || compoundNos.isEmpty) return;
         final compoundMap = {
