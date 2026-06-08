@@ -385,19 +385,30 @@ class _P4PAGEState extends State<P4PAGE> {
   Widget build(BuildContext context) {
     const horizontalPadding = 80.0;
     const keySpacing = 15.0;
-    const keyHeight = 120.0;
-    const keyWidth = 125.0;
+    const keyHeight = 135.0;
+    const keyWidth = 135.0;
 
     final backspaceKey = AppLocalizations.of(context)!.keyboardBackspace;
     final clearAllKey = AppLocalizations.of(context)!.keyboardClearAll;
 
-    final List<List<String>> keyboardRows = [
-      ["1", "2", "3", "4", "5", "6", "7"],
-      ["8", "9", "0", "A", "B", "C", "D"],
-      ["E", "F", "G", "H", "I", backspaceKey],
-      ["J", "K", "L", "M", "N", clearAllKey],
-      ["O", "P", "Q", "R", "S", "T", "U"],
-      ["-", "V", "W", "X", "Y", "Z"],
+    // final List<List<String>> keyboardRows = [
+    //   ["1", "2", "3", "4", "5", "6", "7"],
+    //   ["8", "9", "0", "A", "B", "C", "D"],
+    //   ["E", "F", "G", "H", "I", backspaceKey],
+    //   ["J", "K", "L", "M", "N", clearAllKey],
+    //   ["O", "P", "Q", "R", "S", "T", "U"],
+    //   ["-", "V", "W", "X", "Y", "Z"],
+    // ];
+
+
+      final List<List<String>> keyboardRows = [
+      ["A", "B", "C", "D", "E", "F"],
+      ["G", "H", "I", "J", "K", "L"],
+      ["M", "N", "O", "P", "Q", "R" ],
+      ["S", "T", "U", "V", "W", "X", ],
+      ["Y", "Z", "-", backspaceKey, clearAllKey,],
+      ["0", "1", "2", "3", "4", "5"],
+      ["6", "7", "8", "9"],
     ];
 
     return Scaffold(
@@ -454,7 +465,7 @@ class _P4PAGEState extends State<P4PAGE> {
           ),
 
           Positioned(
-            top: 550,
+            top: 470,
             left: 20,
             right: 20,
             bottom: 120,
@@ -512,9 +523,11 @@ class _P4PAGEState extends State<P4PAGE> {
                                       setState(() => _activeKey = null);
                                     },
                                     child: Container(
-                                      width: isActionKey
-                                          ? keyWidth * 2.1
-                                          : keyWidth,
+                                    width: key == backspaceKey
+                                        ? keyWidth * 1.3   
+                                        : key == clearAllKey
+                                            ? keyWidth * 1.8 
+                                            : keyWidth,
                                       height: keyHeight,
                                       decoration: BoxDecoration(
                                         color: isActionKey
@@ -613,7 +626,7 @@ class _P4PAGEState extends State<P4PAGE> {
             ),
 
           Positioned(
-            bottom: 300,
+            bottom: 200,
             left: 100,
             right: 100,
             child: Row(

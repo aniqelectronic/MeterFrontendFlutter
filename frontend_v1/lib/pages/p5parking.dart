@@ -30,10 +30,13 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
   @override
   void initState() {
     super.initState();
+
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      setState(() {
-        startTime = DateTime.now();
-      });
+      if (mounted) {
+        setState(() {
+          startTime = DateTime.now();
+        });
+      }
     });
   }
 
@@ -48,7 +51,7 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
       startTime.year,
       startTime.month,
       startTime.day,
-      18, // 6 PM cut-off
+      18,
       0,
     );
   }
@@ -69,6 +72,23 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
     return hours * rate;
   }
 
+  void _addHour() {
+    final newEndTime = startTime.add(Duration(hours: hours + 1));
+    if (!newEndTime.isAfter(maxEndTime)) {
+      setState(() {
+        hours++;
+      });
+    }
+  }
+
+  void _minusHour() {
+    if (hours > 1) {
+      setState(() {
+        hours--;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
@@ -76,7 +96,6 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background (Requirement: No Change)
           Container(
             width: double.infinity,
             height: double.infinity,
@@ -88,7 +107,6 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
             ),
           ),
 
-          // Title (Requirement: No Change)
           Positioned(
             top: 60,
             left: 0,
@@ -105,7 +123,6 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
             ),
           ),
 
-          // Clock Card (Requirement: No Change)
           Positioned(
             top: 250,
             right: 250,
@@ -113,9 +130,8 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
             child: ClockCard(fontScale: 0.8),
           ),
 
-          // Main UI Content Box
           Positioned(
-            top: 700, // Adjusted top to accommodate the plate inside the box
+            top: 700,
             left: 60,
             right: 60,
             bottom: 350,
@@ -123,7 +139,10 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.95),
                 borderRadius: BorderRadius.circular(50),
-                border: Border.all(color: const Color.fromARGB(255, 3, 89, 210), width: 4),
+                border: Border.all(
+                  color: const Color.fromARGB(255, 3, 89, 210),
+                  width: 4,
+                ),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
@@ -134,7 +153,6 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
               ),
               child: Column(
                 children: [
-                  // Section 1: Plate Number (Inside the box at the top)
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 30),
@@ -171,51 +189,73 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
                     ),
                   ),
 
-                  // Section 2: Controls & Details
                   Expanded(
                     child: Row(
                       children: [
-                        // Left Side: Duration Selection
                         Expanded(
                           flex: 1,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            // Horizontal centering (The fix)
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                loc.p5parkingText1, // "Pilih Durasi"
-                                textAlign: TextAlign.center, // Ensures multi-line text is centered
-                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+                                loc.p5parkingText1,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                               const SizedBox(height: 30),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  _circularButton(Icons.remove, hours > 1 ? () => setState(() => hours--) : null),
+                                  _circularButton(
+                                    Icons.remove,
+                                    hours > 1 ? _minusHour : null,
+                                  ),
                                   Container(
                                     width: 180,
                                     alignment: Alignment.center,
                                     child: Text(
                                       "$hours",
-                                      style: const TextStyle(fontSize: 120, fontWeight: FontWeight.bold),
+                                      style: const TextStyle(
+                                        fontSize: 120,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                  _circularButton(Icons.add, endTime.isBefore(maxEndTime) ? () => setState(() => hours++) : null),
+                                  _circularButton(
+                                    Icons.add,
+                                    startTime
+                                            .add(Duration(hours: hours + 1))
+                                            .isBefore(maxEndTime) ||
+                                        startTime
+                                            .add(Duration(hours: hours + 1))
+                                            .isAtSameMomentAs(maxEndTime)
+                                        ? _addHour
+                                        : null,
+                                  ),
                                 ],
                               ),
                               Text(
-                                loc.time.toUpperCase(), 
-                                style: const TextStyle(fontSize: 30, letterSpacing: 4, fontWeight: FontWeight.w700),
+                                loc.time.toUpperCase(),
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  letterSpacing: 4,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ],
                           ),
                         ),
 
-                        // Vertical Divider
-                        Container(width: 2, height: 250, color: Colors.grey[300]),
+                        Container(
+                          width: 2,
+                          height: 250,
+                          color: Colors.grey[300],
+                        ),
 
-                        // Right Side: Time Range & Total Price
                         Expanded(
                           flex: 1,
                           child: Padding(
@@ -224,15 +264,27 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _timeInfoTile(Icons.play_circle_fill, loc.p5parkingStart, formatTime(startTime)),
+                                _timeInfoTile(
+                                  Icons.play_circle_fill,
+                                  loc.p5parkingStart,
+                                  formatTime(startTime),
+                                ),
                                 const SizedBox(height: 25),
-                                _timeInfoTile(Icons.stop_circle, loc.p5parkingEnd, formatTime(endTime)),
+                                _timeInfoTile(
+                                  Icons.stop_circle,
+                                  loc.p5parkingEnd,
+                                  formatTime(endTime),
+                                ),
                                 const SizedBox(height: 30),
                                 const Divider(thickness: 2),
                                 const SizedBox(height: 10),
                                 Text(
                                   loc.p5parkingTotal,
-                                  style: TextStyle(fontSize: 30, color: Colors.blueGrey[600], fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.blueGrey[600],
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 Text(
                                   "RM ${totalPrice.toStringAsFixed(2)}",
@@ -254,7 +306,6 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
             ),
           ),
 
-          // Bottom Buttons (Requirement: KEMBALI unchanged)
           Positioned(
             bottom: 160,
             left: 100,
@@ -280,13 +331,18 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
                       backgroundColor: Colors.grey[300],
                       foregroundColor: Colors.black,
                       side: const BorderSide(color: Colors.black, width: 2),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 30),
                       child: Text(
                         loc.backButton,
-                        style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -298,14 +354,19 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                       foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       side: const BorderSide(color: Colors.black, width: 2),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 30),
                       child: Text(
                         loc.continueButton,
-                        style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -314,7 +375,6 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
             ),
           ),
 
-          // Copyright (Requirement: No Change)
           Positioned(
             bottom: 70,
             left: 0,
@@ -335,7 +395,6 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
     );
   }
 
-  // Helper widget for circular inc/dec buttons
   Widget _circularButton(IconData icon, VoidCallback? onPressed) {
     return InkWell(
       onTap: onPressed,
@@ -343,14 +402,15 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: onPressed == null ? Colors.grey[300] : const Color.fromARGB(255, 3, 89, 210),
+          color: onPressed == null
+              ? Colors.grey[300]
+              : const Color.fromARGB(255, 3, 89, 210),
         ),
         child: Icon(icon, color: Colors.white, size: 50),
       ),
     );
   }
 
-  // Helper for time display rows
   Widget _timeInfoTile(IconData icon, String label, String value) {
     return Row(
       children: [
@@ -359,88 +419,157 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black54)),
-            Text(value, style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.black54,
+              ),
+            ),
+            Text(
+              value,
+              style: const TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         )
       ],
     );
   }
 
-  // Confirmation Dialog logic
   void _showConfirmation(BuildContext context, AppLocalizations loc) {
+    Timer? dialogTimer;
+
     showDialog(
       context: context,
-      builder: (context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-          child: SizedBox(
-            width: 1000,
-            height: 720,
-            child: Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Column(
-                children: [
-                  Text(loc.confirmDialogTitle, style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold)),
-                  const Divider(),
-                  const Spacer(),
-                  _dialogRow(loc.plateNumberLabel(""), widget.plate, true),
-                  _dialogRow(loc.p5timeparking, "$hours ${loc.time}", false),
-                  _dialogRow(loc.p5tempoh, "${formatTime(startTime)} - ${formatTime(endTime)}", false),
-                  _dialogRow(loc.p5Total, "RM ${totalPrice.toStringAsFixed(2)}", true),
-                  const Spacer(),
-                  Row(
+      builder: (dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            dialogTimer ??= Timer.periodic(const Duration(seconds: 1), (_) {
+              if (mounted) {
+                setState(() {
+                  startTime = DateTime.now();
+                });
+
+                setDialogState(() {});
+              }
+            });
+
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: SizedBox(
+                width: 1000,
+                height: 720,
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Column(
                     children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.grey[200],
-                          padding: const EdgeInsets.all(20),
-                          side: const BorderSide(   // <-- ADD THIS
-                            color: Colors.black,
-                            width: 2,
-                          ),
-                        ),
-                        child: Text(
-                          loc.cancelButton,
-                          style: const TextStyle(fontSize: 40, color: Colors.black),
+                      Text(
+                        loc.confirmDialogTitle,
+                        style: const TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                settings: const RouteSettings(name: '/payment'),
-                                builder: (_) => PAYMENTPAGE(
-                                  biz: widget.biz,
-                                  data: PaymentData(
-                                    plate: widget.plate,
-                                    hour: hours,
-                                    amount: totalPrice.toStringAsFixed(2),
-                                  ),
+                      const Divider(),
+                      const Spacer(),
+                      _dialogRow(loc.plateNumberLabel(""), widget.plate, true),
+                      _dialogRow(loc.p5timeparking, "$hours ${loc.time}", false),
+                      _dialogRow(
+                        loc.p5tempoh,
+                        "${formatTime(startTime)} - ${formatTime(endTime)}",
+                        false,
+                      ),
+                      _dialogRow(
+                        loc.p5Total,
+                        "RM ${totalPrice.toStringAsFixed(2)}",
+                        true,
+                      ),
+                      const Spacer(),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextButton(
+                              onPressed: () {
+                                dialogTimer?.cancel();
+                                Navigator.pop(dialogContext);
+                              },
+                              style: TextButton.styleFrom(
+                                backgroundColor: Colors.grey[200],
+                                padding: const EdgeInsets.all(20),
+                                side: const BorderSide(
+                                  color: Colors.black,
+                                  width: 2,
                                 ),
                               ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.green, padding: const EdgeInsets.all(20)),
-                          child: const Text("OK", style: TextStyle(fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold)),
-                        ),
+                              child: Text(
+                                loc.cancelButton,
+                                style: const TextStyle(
+                                  fontSize: 40,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                dialogTimer?.cancel();
+
+                                final payStartTime = startTime;
+                                final payEndTime = endTime;
+
+                                Navigator.pop(dialogContext);
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    settings:
+                                        const RouteSettings(name: '/payment'),
+                                    builder: (_) => PAYMENTPAGE(
+                                      biz: widget.biz,
+                                    data: PaymentData(
+                                      plate: widget.plate,
+                                      hour: hours,
+                                      amount: totalPrice.toStringAsFixed(2),
+                                    ),
+                                    ),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                                padding: const EdgeInsets.all(20),
+                              ),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(
+                                  fontSize: 40,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
-    );
+    ).then((_) {
+      dialogTimer?.cancel();
+    });
   }
 
   Widget _dialogRow(String label, String value, bool bold) {
@@ -450,7 +579,13 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: const TextStyle(fontSize: 40)),
-          Text(value, style: TextStyle(fontSize: 40, fontWeight: bold ? FontWeight.bold : FontWeight.normal)),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 40,
+              fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
         ],
       ),
     );

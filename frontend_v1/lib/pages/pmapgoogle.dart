@@ -166,8 +166,8 @@ Future<void> _searchLocation(String query) async {
           'viewbox':
               '${lon - 0.08},${lat + 0.08},${lon + 0.08},${lat - 0.08}',
 
-          /// prioritize inside box first
-          'bounded': '1',
+          // /// prioritize inside box first
+          // 'bounded': '1',
 
           /// extra details
           'extratags': '1',

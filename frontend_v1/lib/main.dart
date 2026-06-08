@@ -7,9 +7,70 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:frontend_v1/services/internet_guard.dart';
-import 'package:frontend_v1/services/iot_hub_services.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+String currentRouteName = '/p1';
+
+class AppRouteObserver extends NavigatorObserver {
+  final VoidCallback onRouteChanged;
+
+  AppRouteObserver({required this.onRouteChanged});
+
+  void _updateRoute(Route<dynamic>? route) {
+    if (route == null) return;
+
+    // Ignore dialog / popup routes
+    if (route is PopupRoute) {
+      print("IGNORED POPUP ROUTE");
+      return;
+    }
+
+    final name = route.settings.name;
+
+    if (name != null && name.isNotEmpty) {
+      currentRouteName = name;
+    } else {
+      currentRouteName = 'NORMAL_PAGE';
+    }
+
+    print("CURRENT ROUTE: $currentRouteName");
+    onRouteChanged();
+  }
+
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    super.didPush(route, previousRoute);
+    _updateRoute(route);
+  }
+
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    super.didPop(route, previousRoute);
+
+    if (route is PopupRoute) {
+      print("POPUP CLOSED, KEEP ROUTE: $currentRouteName");
+      return;
+    }
+
+    _updateRoute(previousRoute);
+  }
+
+  @override
+  void didReplace({Route? newRoute, Route? oldRoute}) {
+    super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
+    _updateRoute(newRoute);
+  }
+
+  @override
+  void didRemove(Route route, Route? previousRoute) {
+    super.didRemove(route, previousRoute);
+
+    if (route is PopupRoute) return;
+
+    _updateRoute(previousRoute);
+  }
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,27 +116,23 @@ class _AppState extends State<App> {
   static const Duration warningDuration = Duration(minutes: 3);
   static const int countdownSeconds = 60;
 
-  // ================= LOW POWER =================
-  static const Duration hibernateDuration = Duration(minutes: 5);
+  // ================= HOME DIM CONFIG =================
+  static const Duration homeDimDuration = Duration(minutes: 5);
 
   static const double normalBrightness = 1.0;
   static const double dimBrightness = 0.3;
-  static const double deepDimBrightness = 0.05;
-  static const double offlineDimBrightness = 0.5;
+  static const double homeDimBrightness = 0.05;
 
-  Timer? _hibernateTimer;
   Timer? _dimTimer;
   Timer? _warningTimer;
   Timer? _countdownTimer;
-  Timer? _offlineDimTimer;
-
-  bool _screenOff = false;
-  bool _warningShown = false;
-  bool _dimmed = false;
-  bool _internetOffline = false;
-  bool _isRestoringBrightness = false;
+  Timer? _homeDimTimer;
 
   int _remainingSeconds = countdownSeconds;
+
+  bool _warningShown = false;
+  bool _dimmed = false;
+  bool _restoringBrightness = false;
 
   // ================= ROUTES =================
   static const String routeHome = '/p1';
@@ -84,47 +141,57 @@ class _AppState extends State<App> {
 
   Locale _locale = const Locale('en');
 
-  final iotService = IoTHubService();
+  late final AppRouteObserver _routeObserver;
 
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      InternetGuard().start(
-        navigatorKey,
-        onOffline: _handleInternetOffline,
-        onOnline: _handleInternetOnline,
-      );
+    _routeObserver = AppRouteObserver(
+      onRouteChanged: _onRouteChanged,
+    );
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      InternetGuard().start(navigatorKey);
+
+      currentRouteName = routeHome;
       _resetIdleTimers();
-
-      iotService.connect().then((_) {
-        iotService.startSending();
-      });
-
-      Future.delayed(const Duration(milliseconds: 500), () {
-        _resetHibernateTimer();
-      });
     });
   }
 
   @override
   void dispose() {
-    _hibernateTimer?.cancel();
     _dimTimer?.cancel();
     _warningTimer?.cancel();
     _countdownTimer?.cancel();
-    _offlineDimTimer?.cancel();
+    _homeDimTimer?.cancel();
     super.dispose();
   }
 
-  // ================= ROUTE =================
-  String? _getCurrentRoute() {
-    final nav = navigatorKey.currentState;
-    if (nav == null) return null;
+  // ================= ROUTE CHANGE =================
+  void _onRouteChanged() {
+    Future.delayed(const Duration(milliseconds: 150), () {
+      if (!mounted) return;
+      if (_warningShown) return;
 
-    return ModalRoute.of(nav.context)?.settings.name;
+      _resetIdleTimers();
+    });
+  }
+
+  String _getCurrentRoute() {
+    return currentRouteName;
+  }
+
+  bool _isHomePage() {
+    return _getCurrentRoute() == routeHome;
+  }
+
+  bool _isBlockedWarningPage() {
+    final route = _getCurrentRoute();
+
+    return route == routeHome ||
+        route == routePayment ||
+        route == routeReceipt;
   }
 
   // ================= BRIGHTNESS =================
@@ -156,178 +223,101 @@ xrandr --output "\$OUTPUT" --brightness $safeValue
     }
   }
 
-  // ================= SCREEN OFF =================
-  Future<void> _turnScreenOff() async {
-    try {
-      await _setBrightness(deepDimBrightness);
+  Future<void> _restoreBrightness() async {
+    if (_restoringBrightness) return;
 
-      _screenOff = true;
-      _dimmed = true;
-
-      print("Screen deep dimmed");
-    } catch (e) {
-      print("Failed to deep dim screen: $e");
-    }
-  }
-
-  // ================= SCREEN ON =================
-  Future<void> _turnScreenOn() async {
-    if (_isRestoringBrightness) return;
-
-    _isRestoringBrightness = true;
+    _restoringBrightness = true;
 
     try {
-      await _setBrightness(1.0);
+      await _setBrightness(normalBrightness);
+      await Future.delayed(const Duration(milliseconds: 150));
+      await _setBrightness(normalBrightness);
 
-      await Future.delayed(const Duration(milliseconds: 200));
-
-      await _setBrightness(1.0);
-
-      await Future.delayed(const Duration(milliseconds: 200));
-
-      await _setBrightness(1.0);
-
-      _screenOff = false;
       _dimmed = false;
-
-      print("Screen restored");
-    } catch (e) {
-      print("Failed to restore screen: $e");
     } finally {
-      _isRestoringBrightness = false;
+      _restoringBrightness = false;
     }
-  }
-
-  // ================= INTERNET OFFLINE =================
-  void _handleInternetOffline() {
-    _internetOffline = true;
-
-    _dimTimer?.cancel();
-    _warningTimer?.cancel();
-    _hibernateTimer?.cancel();
-    _countdownTimer?.cancel();
-    _offlineDimTimer?.cancel();
-
-    _screenOff = false;
-    _dimmed = false;
-
-    _setBrightness(normalBrightness);
-
-    _offlineDimTimer = Timer(const Duration(minutes: 3), () {
-      if (_internetOffline) {
-        _setBrightness(offlineDimBrightness);
-
-        _screenOff = false;
-        _dimmed = true;
-      }
-    });
-  }
-
-  // ================= INTERNET ONLINE =================
-  void _handleInternetOnline() {
-    _internetOffline = false;
-
-    _offlineDimTimer?.cancel();
-
-    _screenOff = false;
-    _dimmed = false;
-
-    _setBrightness(normalBrightness);
-
-    _resetIdleTimers();
-    _resetHibernateTimer();
-  }
-
-  // ================= HIBERNATE =================
-  void _resetHibernateTimer() {
-    _hibernateTimer?.cancel();
-
-    if (_internetOffline) return;
-
-    final routeName = _getCurrentRoute();
-
-    if (routeName == null || routeName != routeHome) return;
-
-    _hibernateTimer = Timer(hibernateDuration, () async {
-      if (_internetOffline) return;
-
-      final currentRoute = _getCurrentRoute();
-
-      if (currentRoute == routeHome) {
-        await _turnScreenOff();
-      }
-    });
   }
 
   // ================= RESET TIMERS =================
   void _resetIdleTimers() {
-    if (_internetOffline) return;
-
     _dimTimer?.cancel();
     _warningTimer?.cancel();
     _countdownTimer?.cancel();
+    _homeDimTimer?.cancel();
 
     _remainingSeconds = countdownSeconds;
 
-    final currentRouteName = _getCurrentRoute();
+    print("RESET TIMER ON ROUTE: ${_getCurrentRoute()}");
 
-    if (currentRouteName == routePayment ||
-        currentRouteName == routeReceipt) {
+    if (_warningShown) return;
+
+    // ================= HOME PAGE =================
+    if (_isHomePage()) {
+      print("HOME PAGE: warning disabled, home dim enabled");
+
+      _homeDimTimer = Timer(homeDimDuration, () {
+        if (_isHomePage() && !_warningShown) {
+          _setBrightness(homeDimBrightness);
+        }
+      });
+
       return;
     }
 
+    // ================= PAYMENT / RECEIPT =================
+    if (_isBlockedWarningPage()) {
+      print("WARNING BLOCKED ON PAYMENT / RECEIPT");
+      return;
+    }
+
+    // ================= NORMAL PAGE =================
+    print("NORMAL PAGE: dim + warning enabled");
+
     _dimTimer = Timer(dimDuration, () {
-      if (_internetOffline) return;
-
-      final routeName = _getCurrentRoute();
-
-      if (routeName == routePayment || routeName == routeReceipt) return;
+      if (_isBlockedWarningPage()) return;
 
       _setBrightness(dimBrightness);
     });
 
     _warningTimer = Timer(warningDuration, () {
-      if (_internetOffline) return;
-
-      final routeName = _getCurrentRoute();
-
-      if (routeName == routeHome ||
-          routeName == routePayment ||
-          routeName == routeReceipt) {
-        return;
-      }
+      if (_isBlockedWarningPage()) return;
 
       _showIdleWarning();
     });
   }
 
   // ================= GO HOME =================
-void _goHome() {
-  _dimTimer?.cancel();
-  _warningTimer?.cancel();
-  _countdownTimer?.cancel();
+  void _goHome() {
+    _dimTimer?.cancel();
+    _warningTimer?.cancel();
+    _countdownTimer?.cancel();
+    _homeDimTimer?.cancel();
 
-  _warningShown = false;
+    _warningShown = false;
+    _dimmed = false;
 
-  _setBrightness(normalBrightness);
+    currentRouteName = routeHome;
 
-  final nav = navigatorKey.currentState;
-  if (nav == null) return;
+    _setBrightness(normalBrightness);
 
-  nav.pushNamedAndRemoveUntil(routeHome, (route) => false);
+    final nav = navigatorKey.currentState;
+    if (nav == null) return;
 
-  Future.delayed(const Duration(milliseconds: 300), () {
-    if (!_internetOffline) {
-      _resetHibernateTimer();
+    nav.pushNamedAndRemoveUntil(routeHome, (route) => false);
+
+    Future.delayed(const Duration(milliseconds: 300), () {
+      if (!mounted) return;
+
+      currentRouteName = routeHome;
       _resetIdleTimers();
-    }
-  });
-}
+    });
+  }
 
   // ================= WARNING DIALOG =================
   void _showIdleWarning() {
-    if (_internetOffline) return;
     if (_warningShown) return;
+    if (_isBlockedWarningPage()) return;
 
     final overlayContext = navigatorKey.currentState?.overlay?.context;
     if (overlayContext == null) return;
@@ -337,7 +327,7 @@ void _goHome() {
 
     _warningShown = true;
 
-    _turnScreenOn();
+    _restoreBrightness();
 
     _remainingSeconds = countdownSeconds;
 
@@ -351,10 +341,24 @@ void _goHome() {
 
             _countdownTimer =
                 Timer.periodic(const Duration(seconds: 1), (timer) {
+              if (_isBlockedWarningPage()) {
+                timer.cancel();
+
+                _warningShown = false;
+
+                if (Navigator.of(dialogContext, rootNavigator: true).canPop()) {
+                  Navigator.of(dialogContext, rootNavigator: true).pop();
+                }
+
+                return;
+              }
+
               if (_remainingSeconds <= 0) {
                 timer.cancel();
 
-                Navigator.of(dialogContext, rootNavigator: true).pop();
+                if (Navigator.of(dialogContext, rootNavigator: true).canPop()) {
+                  Navigator.of(dialogContext, rootNavigator: true).pop();
+                }
 
                 _goHome();
               } else {
@@ -402,15 +406,16 @@ void _goHome() {
                         onPressed: () {
                           _countdownTimer?.cancel();
 
-                          Navigator.of(dialogContext, rootNavigator: true)
-                              .pop();
+                          if (Navigator.of(dialogContext, rootNavigator: true)
+                              .canPop()) {
+                            Navigator.of(dialogContext, rootNavigator: true)
+                                .pop();
+                          }
 
                           _warningShown = false;
 
-                          _turnScreenOn();
-
+                          _restoreBrightness();
                           _resetIdleTimers();
-                          _resetHibernateTimer();
                         },
                         child: Text(loc.idleContinue),
                       ),
@@ -423,8 +428,11 @@ void _goHome() {
                         onPressed: () {
                           _countdownTimer?.cancel();
 
-                          Navigator.of(dialogContext, rootNavigator: true)
-                              .pop();
+                          if (Navigator.of(dialogContext, rootNavigator: true)
+                              .canPop()) {
+                            Navigator.of(dialogContext, rootNavigator: true)
+                                .pop();
+                          }
 
                           _warningShown = false;
 
@@ -443,31 +451,18 @@ void _goHome() {
           },
         );
       },
-    );
+    ).then((_) {
+      _countdownTimer?.cancel();
+      _warningShown = false;
+    });
   }
 
   // ================= TOUCH =================
-  Future<void> _handleUserTouch() async {
-    await _turnScreenOn();
-
-    if (_internetOffline) {
-      _offlineDimTimer?.cancel();
-
-      _offlineDimTimer = Timer(const Duration(minutes: 3), () {
-        if (_internetOffline) {
-          _setBrightness(offlineDimBrightness);
-
-          _screenOff = false;
-          _dimmed = true;
-        }
-      });
-
-      return;
-    }
+  void _handleUserTouch() {
+    _restoreBrightness();
 
     if (!_warningShown) {
       _resetIdleTimers();
-      _resetHibernateTimer();
     }
   }
 
@@ -483,6 +478,7 @@ void _goHome() {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
+      navigatorObservers: [_routeObserver],
       debugShowCheckedModeBanner: false,
       locale: _locale,
       supportedLocales: AppLocalizations.supportedLocales,

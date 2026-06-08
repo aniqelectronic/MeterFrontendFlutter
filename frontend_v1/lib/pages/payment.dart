@@ -180,11 +180,10 @@ void showPINEntryDialog(BuildContext context) {
 }
 
 
-class PAYMENTPAGE extends StatelessWidget {
+class PAYMENTPAGE extends StatefulWidget {
   final String biz;
   final PaymentData data;
 
-  // Track if a transaction is in progress to prevent multiple simultaneous transactions
   static bool _transactionInProgress = false;
 
   const PAYMENTPAGE({
@@ -193,11 +192,105 @@ class PAYMENTPAGE extends StatelessWidget {
     required this.data,
   });
 
+  @override
+  State<PAYMENTPAGE> createState() => _PAYMENTPAGEState();
+}
+
+class _PAYMENTPAGEState extends State<PAYMENTPAGE> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showPaymentGuideDialog(context);
+    });
+  }
+
+  Future<void> showPaymentGuideDialog(BuildContext context) async {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+        child: Container(
+          width: 900,
+          height: 1500,
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            children: [
+              const Text(
+                "PANDUAN PEMBAYARAN",
+                style: TextStyle(
+                  fontSize: 42,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF0359D2),
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                "PAYMENT GUIDE",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        "lib/images/card_guide.png",
+                        fit: BoxFit.contain,
+                      ),
+                      const SizedBox(height: 30),
+                      Image.asset(
+                        "lib/images/qr_guide.png",
+                        fit: BoxFit.contain,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              SizedBox(
+                width: 300,
+                height: 80,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF0359D2),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  child: const Text(
+                    "OK",
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     
-    final String displayedAmount = data.amount ?? "0.00";
+    final String displayedAmount = widget.data.amount ?? "0.00";
 
     return Scaffold(
       body: Stack(
@@ -319,7 +412,7 @@ Positioned(
     label: AppLocalizations.of(context)!.cardButton,
                     onPressed: () async {
                     // Prevent multiple simultaneous transactions
-                    if (_transactionInProgress) {
+                    if (PAYMENTPAGE._transactionInProgress) {
                       print('[PAYMENTPAGE] ⚠️ Transaction already in progress, ignoring button press');
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Transaction already in progress. Please wait.")),
@@ -327,8 +420,8 @@ Positioned(
                       return;
                     }
 
-                    _transactionInProgress = true;
-                    final amount = data.amount ?? "0.00";
+                    PAYMENTPAGE._transactionInProgress = true;
+                    final amount = widget.data.amount ?? "0.00";
                     final PaymentSpinner spinner = PaymentSpinner(context);
 
                     bool spinnerShown = false;
@@ -354,7 +447,7 @@ Positioned(
                         if (port == null) {
                           if (spinnerShown) await spinner.hide();
                           spinnerShown = false;
-                          _transactionInProgress = false;
+                          PAYMENTPAGE._transactionInProgress = false;
                           
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -380,14 +473,14 @@ Positioned(
                               amount: amount,
                               port: port,
                               traceNo: DateTime.now().millisecondsSinceEpoch.toString(),
-                              biz: biz,
-                              paymentData: data,
-                              transactionType: _getTransactionTypeLabel(biz),
+                              biz: widget.biz,
+                              paymentData: widget.data,
+                              transactionType: _getTransactionTypeLabel(widget.biz),
                             ),
                           ),
                         ).then((_) {
                           // Reset transaction flag when returning from PIN screen
-                          _transactionInProgress = false;
+                          PAYMENTPAGE._transactionInProgress = false;
                         });
                         
                         return; // Exit early - PIN screen will handle the rest
@@ -405,18 +498,18 @@ Positioned(
                       AbstractC200TransactionService? service;
                   
                       // Select service based on biz type
-                      if (biz == "PARKING" || biz == "EXTENDPARKING") {
+                      if (widget.biz == "PARKING" || widget.biz == "EXTENDPARKING") {
                         service = ParkingC200Service(context, spinner, [], connMgr);
-                      } else if (biz == "CUKAI") {
+                      } else if (widget.biz == "CUKAI") {
                         service = TaxC200Service(context, spinner, [], connMgr);
-                      } else if (biz == "LESEN") {
+                      } else if (widget.biz == "LESEN") {
                         service = LicenseC200Service(context, spinner, [], connMgr);
-                      } else if (biz == "MULTICOMPOUND" || biz == "SINGLECOMPOUND") {
+                      } else if (widget.biz == "MULTICOMPOUND" || widget.biz == "SINGLECOMPOUND") {
                         service = CompoundC200Service(context, spinner, [], connMgr);
                       }
                   
                       if (service == null) {
-                        throw Exception("Unsupported business type: $biz");
+                        throw Exception("Unsupported business type: ${widget.biz}");
                       }
                       
                   
@@ -444,10 +537,10 @@ Positioned(
                           // =============================
                           // ===== PARKING CARD PAYMENT
                           // =============================
-                          if (biz == "PARKING") {
+                          if (widget.biz == "PARKING") {
                             final result = await ParkingService.callParkingPayAPI(
-                              plate: data.plate ?? "",
-                              timeUsed: data.hour ?? 0,
+                              plate: widget.data.plate ?? "",
+                              timeUsed: widget.data.hour ?? 0,
                               typePayment: "Debit/Credit Card",
                               orderNo: "0",
                               bankTrxNo: "0",
@@ -459,11 +552,11 @@ Positioned(
                                 MaterialPageRoute(
                                   settings: const RouteSettings(name: '/receipt'),
                                   builder: (_) => RESITPAGE(
-                                    biz: biz,
+                                    biz: widget.biz,
                                     data: ResitData(
-                                      plate: data.plate,
-                                      hour: data.hour,
-                                      amount: data.amount,
+                                      plate: widget.data.plate,
+                                      hour: widget.data.hour,
+                                      amount: widget.data.amount,
                                       pegeOrderNo: "0",
                                       pegeBankTrxNo: "0",
                                       typePayment: "Debit/Credit Card",
@@ -477,10 +570,10 @@ Positioned(
                           // =============================
                           // ===== EXTEND PARKING CARD PAYMENT
                           // =============================
-                          else if (biz == "EXTENDPARKING") {
+                          else if (widget.biz == "EXTENDPARKING") {
                             final result = await ParkingService.callParkingExtendAPI(
-                              plate: data.plate ?? "",
-                              extendHours: data.hour ?? 0,
+                              plate: widget.data.plate ?? "",
+                              extendHours: widget.data.hour ?? 0,
                               typePayment: "Debit/Credit Card",
                               orderNo: "0",
                               bankTrxNo: "0",
@@ -494,9 +587,9 @@ Positioned(
                                   builder: (_) => RESITPAGE(
                                     biz: "PARKING",
                                     data: ResitData(
-                                      plate: data.plate,
-                                      hour: data.hour,
-                                      amount: data.amount,
+                                      plate: widget.data.plate,
+                                      hour: widget.data.hour,
+                                      amount: widget.data.amount,
                                       pegeOrderNo: "0",
                                       pegeBankTrxNo: "0",
                                       typePayment: "Debit/Credit Card",
@@ -514,8 +607,8 @@ Positioned(
                           // =============================
                           // ===== TAX CARD PAYMENT
                           // =============================
-                          else if (biz == "CUKAI") {
-                            final billNos = data.taxItems!.map((e) => e.billNo).toList();
+                          else if (widget.biz == "CUKAI") {
+                            final billNos = widget.data.taxItems!.map((e) => e.billNo).toList();
                             final success = await TaxService.payMultipleTaxes(billNos);
                   
                             if (success) {
@@ -526,8 +619,8 @@ Positioned(
                                   builder: (_) => RESITPAGE(
                                     biz: "CUKAI",
                                     data: ResitData(
-                                      amount: data.amount,
-                                      taxItems: data.taxItems,
+                                      amount: widget.data.amount,
+                                      taxItems: widget.data.taxItems,
                                       typePayment: "Debit/Credit Card",
                                     ),
                                   ),
@@ -543,8 +636,8 @@ Positioned(
                           // =============================
                           // ===== LICENSE CARD PAYMENT
                           // =============================
-                          else if (biz == "LESEN") {
-                            final licenseNos = data.licenseNos ?? [];
+                          else if (widget.biz == "LESEN") {
+                            final licenseNos = widget.data.licenseNos ?? [];
                             if (licenseNos.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text("Tiada lesen dipilih")),
@@ -561,7 +654,7 @@ Positioned(
                                   builder: (_) => RESITPAGE(
                                     biz: "LESEN",
                                     data: ResitData(
-                                      amount: data.amount,
+                                      amount: widget.data.amount,
                                       licenseNos: licenseNos,
                                       typePayment: "Debit/Credit Card",
                                     ),
@@ -578,22 +671,22 @@ Positioned(
                           // =============================
                           // ===== COMPOUND CARD PAYMENT
                           // =============================
-                          else if (biz == "MULTICOMPOUND" || biz == "SINGLECOMPOUND") {
+                          else if (widget.biz == "MULTICOMPOUND" || widget.biz == "SINGLECOMPOUND") {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 settings: const RouteSettings(name: '/receipt'),
                                 builder: (_) => RESITPAGE(
-                                  biz: biz,
+                                  biz: widget.biz,
                                   data: ResitData(
-                                    amount: data.amount,
-                                    compoundNos: data.compoundNos,
-                                    plate: data.plate,
-                                    offenderName: data.offenderName,
-                                    violationType: data.violationType,
-                                    kodhasil: data.kodhasil,
-                                    date: data.date ?? DateFormat("yyyy-MM-dd").format(DateTime.now()),
-                                    time: data.time ?? DateFormat("HH:mm:ss").format(DateTime.now()),
+                                    amount: widget.data.amount,
+                                    compoundNos: widget.data.compoundNos,
+                                    plate: widget.data.plate,
+                                    offenderName: widget.data.offenderName,
+                                    violationType: widget.data.violationType,
+                                    kodhasil: widget.data.kodhasil,
+                                    date: widget.data.date ?? DateFormat("yyyy-MM-dd").format(DateTime.now()),
+                                    time: widget.data.time ?? DateFormat("HH:mm:ss").format(DateTime.now()),
                                     typePayment: "Debit/Credit Card",
                                   ),
                                 ),
@@ -651,7 +744,7 @@ Positioned(
                         }
                       }
                       
-                      _transactionInProgress = false;
+                      PAYMENTPAGE._transactionInProgress = false;
                       print('[PAYMENTPAGE] ✅ Transaction flag reset');
                     }
                   },
@@ -723,11 +816,11 @@ Positioned(
                                   /* ===== PARKING QR PAYMENT ===== */
                                   /* ======================= */
                                   
-                                  if (biz == "PARKING") {
+                                  if (widget.biz == "PARKING") {
                                     final result = await ParkingService.callParkingPayAPI(
-                                      plate: data.plate ?? "",
-                                      timeUsed: data.hour ?? 0,
-                                      typePayment: "QR",
+                                      plate: widget.data.plate ?? "",
+                                      timeUsed: widget.data.hour ?? 0,
+                                      typePayment: "DuitNow QR",
                                       orderNo: pegeOrderNo,
                                       bankTrxNo: pegeBankTrxNo,
                                     );
@@ -738,14 +831,14 @@ Positioned(
                                         MaterialPageRoute(
                                           settings: const RouteSettings(name: '/receipt'),
                                           builder: (_) => RESITPAGE(
-                                            biz: biz,
+                                            biz: widget.biz,
                                             data: ResitData(
-                                              plate: data.plate,
-                                              hour: data.hour,
-                                              amount: data.amount,
+                                              plate: widget.data.plate,
+                                              hour: widget.data.hour,
+                                              amount: widget.data.amount,
                                               pegeOrderNo: pegeOrderNo,
                                               pegeBankTrxNo: pegeBankTrxNo,
-                                              typePayment: "QR",
+                                              typePayment: "DuitNow QR",
                                             ),
                                           ),
                                         ),
@@ -757,10 +850,10 @@ Positioned(
                                   /* ===== Extend QR PAYMENT ===== */
                                   /* ======================= */
 
-                                  else if (biz == "EXTENDPARKING") {
+                                  else if (widget.biz == "EXTENDPARKING") {
                                  final result = await ParkingService.callParkingExtendAPI(
-                                   plate: data.plate ?? "",
-                                   extendHours: data.hour ?? 0,
+                                   plate: widget.data.plate ?? "",
+                                   extendHours: widget.data.hour ?? 0,
                                    typePayment: "QR",
                                      orderNo: pegeOrderNo,
                                     bankTrxNo: pegeBankTrxNo,
@@ -774,12 +867,12 @@ Positioned(
                                        builder: (_) => RESITPAGE(
                                          biz: "PARKING",
                                          data: ResitData(
-                                           plate: data.plate,
-                                           hour: data.hour,
-                                           amount: data.amount,
+                                           plate: widget.data.plate,
+                                           hour: widget.data.hour,
+                                           amount: widget.data.amount,
                                            pegeOrderNo: pegeOrderNo,
                                            pegeBankTrxNo: pegeBankTrxNo,
-                                           typePayment: "QR",
+                                           typePayment: "DuitNow QR",
                                          ),
                                        ),
                                      ),
@@ -824,8 +917,8 @@ Positioned(
                                   //   }
                                   // }
 
-                                  else if (biz == "CUKAI") {
-                                  final items = data.taksiranItems ?? [];
+                                  else if (widget.biz == "CUKAI") {
+                                  final items = widget.data.taksiranItems ?? [];
 
                                   if (items.isEmpty) {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -847,11 +940,11 @@ Positioned(
                                         builder: (_) => RESITPAGE(
                                           biz: "CUKAI",
                                           data: ResitData(
-                                            amount: data.amount,
-                                            taksiranItems: data.taksiranItems,
+                                            amount: widget.data.amount,
+                                            taksiranItems: widget.data.taksiranItems,
                                             pegeOrderNo: pegeOrderNo,
                                             pegeBankTrxNo: pegeBankTrxNo,
-                                            typePayment: "QR",
+                                            typePayment: "DuitNow QR",
                                           ),
                                         ),
                                       ),
@@ -865,8 +958,8 @@ Positioned(
                                    /* ======================= */
                                    /* ===== SEWAAN QR PAYMENT ===== */
                                    /* ======================= */
-                                else if (biz == "SEWAAN") {
-                                    final items = data.sewaanItems ?? [];
+                                else if (widget.biz == "SEWAAN") {
+                                    final items = widget.data.sewaanItems ?? [];
 
                                     if (items.isEmpty) {
                                       ScaffoldMessenger.of(context).showSnackBar(
@@ -888,12 +981,12 @@ Positioned(
                                           builder: (_) => RESITPAGE(
                                             biz: "SEWAAN",
                                           data: ResitData(
-                                            amount: data.amount,
-                                            sewaanItems: data.sewaanItems,
-                                            pegeOrderNo: pegeOrderNo,
-                                            pegeBankTrxNo: pegeBankTrxNo,
-                                            typePayment: "QR",
-                                          ),
+                                              amount: widget.data.amount,
+                                              sewaanItems: widget.data.sewaanItems,
+                                              pegeOrderNo: pegeOrderNo,
+                                              pegeBankTrxNo: pegeBankTrxNo,
+                                              typePayment: "QR",
+                                            ),
                                           ),
                                         ),
                                       );
@@ -909,8 +1002,8 @@ Positioned(
                                    /* ======================= */
                                    /* ===== LICENSE QR PAYMENT ===== */
                                    /* ======================= */
-                                   else if (biz == "LESEN") {
-                                   final licenseNos = data.licenseNos ?? [];
+                                   else if (widget.biz == "LESEN") {
+                                   final licenseNos = widget.data.licenseNos ?? [];
                                    print('Selected licenses:  $licenseNos');
 
                                  
@@ -932,11 +1025,11 @@ Positioned(
                                          builder: (_) => RESITPAGE(
                                            biz: "LESEN", 
                                            data: ResitData(
-                                             amount: data.amount,
+                                             amount: widget.data.amount,
                                              licenseNos: licenseNos, 
                                              pegeOrderNo: pegeOrderNo,
                                              pegeBankTrxNo: pegeBankTrxNo,
-                                             typePayment: "QR",
+                                             typePayment: "DuitNow QR",
                                            ),
                                          ),
                                        ),
@@ -952,7 +1045,7 @@ Positioned(
                                   /* ===== MULTIPLECOMPOUND QR PAYMENT ===== */
                                   /* ======================= */
 
-                                 else if (biz == "MULTICOMPOUND") {
+                                 else if (widget.biz == "MULTICOMPOUND") {
                                    // NO API CALL ❌
                                    // Just go to receipt page ✅
                                 //Navigator.pop(context);
@@ -964,8 +1057,8 @@ Positioned(
                                        builder: (_) => RESITPAGE(
                                          biz: "MULTICOMPOUND",
                                          data: ResitData(
-                                           amount: data.amount,
-                                           compoundNos: data.compoundNos,
+                                           amount: widget.data.amount,
+                                           compoundNos: widget.data.compoundNos,
                                            pegeOrderNo: pegeOrderNo,
                                            pegeBankTrxNo: pegeBankTrxNo,
                                            typePayment: "QR",
@@ -975,7 +1068,7 @@ Positioned(
                                    );
                                  }
                                   
-                                else if (biz == "SINGLECOMPOUND") {
+                                else if (widget.biz == "SINGLECOMPOUND") {
                                  Navigator.push(
                                    context,
                                    MaterialPageRoute(
@@ -983,17 +1076,17 @@ Positioned(
                                      builder: (_) => RESITPAGE(
                                        biz: "SINGLECOMPOUND",
                                        data: ResitData(
-                                        amount: data.amount,
+                                        amount: widget.data.amount,
                                         pegeOrderNo: pegeOrderNo,
                                         pegeBankTrxNo: pegeBankTrxNo,
-                                        compoundNos: data.compoundNos,
-                                        plate: data.plate,
-                                        offenderName: data.offenderName,
-                                        violationType: data.violationType,
-                                        kodhasil: data.kodhasil,
-                                        date: data.date ?? DateFormat("yyyy-MM-dd").format(DateTime.now()),
-                                        time: data.time ?? DateFormat("HH:mm:ss").format(DateTime.now()),
-                                        typePayment: "QR",
+                                        compoundNos: widget.data.compoundNos,
+                                        plate: widget.data.plate,
+                                        offenderName: widget.data.offenderName,
+                                        violationType: widget.data.violationType,
+                                        kodhasil: widget.data.kodhasil,
+                                        date: widget.data.date ?? DateFormat("yyyy-MM-dd").format(DateTime.now()),
+                                        time: widget.data.time ?? DateFormat("HH:mm:ss").format(DateTime.now()),
+                                        typePayment: "DuitNow QR",
                                        ),
                                      ),
                                    ),
@@ -1051,6 +1144,36 @@ Positioned(
                   ),
                 ),
               ],
+            ),
+          ),
+        ),
+
+        Positioned(
+          top: 70,
+          right: 50,
+          child: InkWell(
+            onTap: () {
+              showPaymentGuideDialog(context);
+            },
+            child: Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                color: const Color(0xFF0359D2),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.info_outline,
+                color: Colors.white,
+                size: 100,
+              ),
             ),
           ),
         ),
