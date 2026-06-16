@@ -4,6 +4,7 @@ import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/p2.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/ptourist3.dart';
+import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
 class PRENT3PAGE extends StatelessWidget {
   const PRENT3PAGE({super.key});
@@ -126,40 +127,16 @@ class PRENT3PAGE extends StatelessWidget {
             bottom: 200,
             left: 300,
             right: 300,
-             child: SizedBox(
-              width: 300,   // Set the button width
-              height: 120,  // Set the button height
-            child: ElevatedButton(
+            child: KioskBackButton(
               onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const P2Page(),
-                ),
-              );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const P2Page(),
+                  ),
+                );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey[300], // light grey
-                foregroundColor: Colors.black,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                side: const BorderSide(
-                  color: Colors.black,
-                  width: 2,
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 15),
-              ),
-              child: Text(
-                AppLocalizations.of(context)!.backText,
-                style: const TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
             ),
-          ),
           ),
 
           // Footer

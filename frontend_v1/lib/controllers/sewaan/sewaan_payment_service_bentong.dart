@@ -3,10 +3,18 @@ import 'package:http/http.dart' as http;
 import 'package:frontend_v1/model/sewaan/sewaan_payment_item.dart';
 
 class SewaanPaymentServiceBentong {
-  static const String _baseUrl = "http://52.163.74.67:3010";
+  // MPB Gateway API
+  static const String _paymentBaseUrl = "http://52.163.74.67:3010";
 
-  static const Map<String, String> _headers = {
+  // Your FastAPI backend
+  static const String _backendBaseUrl = "http://4.194.122.32:8000";
+
+  static const Map<String, String> _paymentHeaders = {
     "x-api-key": "MPB_GW_2026_x8Kp91LmQ7zT44",
+    "Content-Type": "application/json",
+  };
+
+  static const Map<String, String> _backendHeaders = {
     "Content-Type": "application/json",
   };
 
@@ -15,7 +23,7 @@ class SewaanPaymentServiceBentong {
   }
 
   // =========================================
-  // SINGLE PAYMENT
+  // SINGLE PAYMENT TO MPB
   // =========================================
   static Future<bool> paySewaan({
     required String accountNumber,
@@ -25,7 +33,7 @@ class SewaanPaymentServiceBentong {
     try {
       final cleanAccountNo = _cleanAccountNo(accountNumber);
 
-      final url = Uri.parse("$_baseUrl/api/v1/mpb/sewaan/payment");
+      final url = Uri.parse("$_paymentBaseUrl/api/v1/mpb/sewaan/payment");
 
       final body = {
         "module": "S",
@@ -37,6 +45,7 @@ class SewaanPaymentServiceBentong {
 
       print("====================================");
       print("[SEWAAN PAYMENT]");
+      print("URL        : $url");
       print("Account No : $cleanAccountNo");
       print("Amount     : $amountPaid");
       print("Reference  : $referenceNo");
@@ -44,7 +53,7 @@ class SewaanPaymentServiceBentong {
 
       final response = await http.post(
         url,
-        headers: _headers,
+        headers: _paymentHeaders,
         body: jsonEncode(body),
       );
 
@@ -52,7 +61,17 @@ class SewaanPaymentServiceBentong {
       print("Response    : ${response.body}");
       print("====================================");
 
-      return response.statusCode >= 200 && response.statusCode < 300;
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        return false;
+      }
+
+      final decoded = jsonDecode(response.body);
+
+      if (decoded is Map && decoded["success"] == false) {
+        return false;
+      }
+
+      return true;
     } catch (e) {
       print("[SEWAAN PAYMENT ERROR] $e");
       return false;
@@ -60,7 +79,7 @@ class SewaanPaymentServiceBentong {
   }
 
   // =========================================
-  // MULTIPLE PAYMENT
+  // MULTIPLE PAYMENT TO MPB
   // =========================================
   static Future<bool> payMultipleSewaan({
     required List<SewaanPaymentItem> items,
@@ -83,5 +102,57 @@ class SewaanPaymentServiceBentong {
 
     print("[SEWAAN PAYMENT] All payments success");
     return true;
+  }
+
+  // =========================================
+  // SAVE PAYMENT UPDATE TO LOCAL FASTAPI DB
+  // =========================================
+  static Future<bool> postPaymentUpdateBentong({
+    required List<SewaanPaymentItem> items,
+    required String orderNo,
+    required String bankTrxNo,
+    required String paymentMethod,
+  }) async {
+    try {
+      final url = Uri.parse(
+        "$_backendBaseUrl/sewaan/payment-updates-sewaan-bentong",
+      );
+
+      final payload = {
+        "order_no": orderNo,
+        "paid_date": DateTime.now().toIso8601String(),
+        "payment_method": paymentMethod,
+        "bank_trx_no": bankTrxNo,
+        "sewaan_items": items.map((item) {
+          return {
+            "no_pendaftaran": item.noPendaftaran,
+            "account_number": item.accountNo,
+            "tenant_name": item.tenantName,
+            "premise_address": item.premiseAddress,
+            "amount": item.amount,
+          };
+        }).toList(),
+      };
+
+      print("====================================");
+      print("[SEWAAN UPDATE]");
+      print("URL     : $url");
+      print("Payload : ${jsonEncode(payload)}");
+
+      final response = await http.post(
+        url,
+        headers: _backendHeaders,
+        body: jsonEncode(payload),
+      );
+
+      print("Status  : ${response.statusCode}");
+      print("Body    : ${response.body}");
+      print("====================================");
+
+      return response.statusCode >= 200 && response.statusCode < 300;
+    } catch (e) {
+      print("[SEWAAN UPDATE ERROR] $e");
+      return false;
+    }
   }
 }

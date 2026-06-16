@@ -20,6 +20,7 @@ import 'package:frontend_v1/pages/pin_entry.dart'; // Import new PIN entry scree
 import 'package:frontend_v1/services/pegepay_qr_page.dart';
 import 'package:frontend_v1/services/pegepay_service.dart';
 import 'package:frontend_v1/services/pegepay_webview_helper.dart';
+import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:intl/intl.dart';
 import 'package:frontend_v1/model/taksiran/taksiran_payment_item.dart';
 import 'package:frontend_v1/controllers/taksiran/taksiran_payment_service_bentong.dart';
@@ -838,7 +839,7 @@ Positioned(
                                               amount: widget.data.amount,
                                               pegeOrderNo: pegeOrderNo,
                                               pegeBankTrxNo: pegeBankTrxNo,
-                                              typePayment: "DuitNow QR",
+                                              typePayment: "Now QR",
                                             ),
                                           ),
                                         ),
@@ -933,6 +934,23 @@ Positioned(
                                   );
 
                                   if (success) {
+                                    final updateSuccess =
+                                        await TaksiranPaymentServiceBentong.postPaymentUpdateBentong(
+                                      items: items,
+                                      orderNo: pegeOrderNo,
+                                      bankTrxNo: pegeBankTrxNo,
+                                      paymentMethod: "DuitNow QR",
+                                    );
+
+                                    if (!updateSuccess) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content: Text("Cukai payment saved to MPB, but local update failed"),
+                                        ),
+                                      );
+                                      return;
+                                    }
+
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -958,46 +976,63 @@ Positioned(
                                    /* ======================= */
                                    /* ===== SEWAAN QR PAYMENT ===== */
                                    /* ======================= */
-                                else if (widget.biz == "SEWAAN") {
-                                    final items = widget.data.sewaanItems ?? [];
+                                    else if (widget.biz == "SEWAAN") {
+                                      final items = widget.data.sewaanItems ?? [];
 
-                                    if (items.isEmpty) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text("Tiada sewaan dipilih")),
+                                      if (items.isEmpty) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text("Tiada sewaan dipilih")),
+                                        );
+                                        return;
+                                      }
+
+                                      final success = await SewaanPaymentServiceBentong.payMultipleSewaan(
+                                        items: items,
+                                        referenceNo: pegeBankTrxNo,
                                       );
-                                      return;
-                                    }
 
-                                    final success = await SewaanPaymentServiceBentong.payMultipleSewaan(
-                                      items: items,
-                                      referenceNo: pegeBankTrxNo,
-                                    );
+                                      if (success) {
+                                        final updateSuccess =
+                                            await SewaanPaymentServiceBentong.postPaymentUpdateBentong(
+                                          items: items,
+                                          orderNo: pegeOrderNo,
+                                          bankTrxNo: pegeBankTrxNo,
+                                          paymentMethod: "DuitNow QR",
+                                        );
 
-                                    if (success) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          settings: const RouteSettings(name: '/receipt'),
-                                          builder: (_) => RESITPAGE(
-                                            biz: "SEWAAN",
-                                          data: ResitData(
-                                              amount: widget.data.amount,
-                                              sewaanItems: widget.data.sewaanItems,
-                                              pegeOrderNo: pegeOrderNo,
-                                              pegeBankTrxNo: pegeBankTrxNo,
-                                              typePayment: "QR",
+                                        if (!updateSuccess) {
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(
+                                              content: Text("Sewaan payment saved to MPB, but local update failed"),
+                                            ),
+                                          );
+                                          return;
+                                        }
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            settings: const RouteSettings(name: '/receipt'),
+                                            builder: (_) => RESITPAGE(
+                                              biz: "SEWAAN",
+                                              data: ResitData(
+                                                amount: widget.data.amount,
+                                                sewaanItems: widget.data.sewaanItems,
+                                                pegeOrderNo: pegeOrderNo,
+                                                pegeBankTrxNo: pegeBankTrxNo,
+                                                typePayment: "DuitNow QR",
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    } else {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          content: Text("Sewaan payment update failed"),
-                                        ),
-                                      );
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text("Sewaan payment update failed"),
+                                          ),
+                                        );
+                                      }
                                     }
-                                  }
                                                                     
                                    /* ======================= */
                                    /* ===== LICENSE QR PAYMENT ===== */
@@ -1181,34 +1216,13 @@ Positioned(
 
           // Bottom button (KEMBALI)
           Positioned(
-            bottom: 180,
+            bottom: 170,
             left: 300,
             right: 300,
-            child: ElevatedButton(
+            child: KioskBackButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.black,
-                  side: const BorderSide(
-                  color: Colors.black,
-                  width: 2,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Text(
-                  AppLocalizations.of(context)!.backButton,
-                  style: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
             ),
           ),
 

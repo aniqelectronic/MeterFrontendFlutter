@@ -91,6 +91,7 @@ void _proceed() {
       )
       .map(
         (item) => TaksiranPaymentItem(
+          noPendaftaran: _value(item, "pdaftaran"),
           accountNo: _value(item, "account_no"),
           amount: _amount(item, "jumlah_sepenggal"),
           ownerName: _value(item, "name"),

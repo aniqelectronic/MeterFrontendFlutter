@@ -85,6 +85,10 @@ SewaanPaymentItem(
   accountNo: _value("account_no"),
   tenantName: _value("name"),
   registrationNo: _value("rent_pdaftaran"),
+
+  // use the correct key from API if different
+  noPendaftaran: _value("pdaftaran"),
+
   startDate: _value("start_date"),
   endDate: _value("end_date"),
   premiseAddress:

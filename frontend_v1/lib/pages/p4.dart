@@ -18,6 +18,11 @@ import 'package:frontend_v1/pages/p5_singlecompound_screen.dart';
 import 'package:frontend_v1/pages/p5sewaanPBTbentong.dart';
 import 'package:frontend_v1/pages/pbt3.dart';
 import 'package:frontend_v1/controllers/sewaan/sewaan_service_bentong.dart';
+import 'package:frontend_v1/controllers/taksiran/semakan_cukai_taksiran_bentong_service.dart';
+import 'package:frontend_v1/pages/p5_semakan_cukaitaksiran_bentong.dart';
+
+import 'package:frontend_v1/controllers/sewaan/semakan_sewaan_bentong_service.dart';
+import 'package:frontend_v1/pages/p5_semakan_sewaan_bentong.dart';
 
 class P4PAGE extends StatefulWidget {
   final String title;
@@ -192,7 +197,7 @@ class _P4PAGEState extends State<P4PAGE> {
         if (!hasData || TaksiranServiceBentong.taksiranList.isEmpty) {
           _showAlert(
             AppLocalizations.of(context)!.alertTitle,
-            "Tiada rekod cukai taksiran dijumpai",
+            AppLocalizations.of(context)!.noTaksiranRecordFound
           );
           return;
         }
@@ -206,6 +211,39 @@ class _P4PAGEState extends State<P4PAGE> {
 
         return;
       }
+
+      if (widget.biz == "SEMAKAN CUKAI") {
+      if (input.isEmpty) {
+        _showAlert(
+          AppLocalizations.of(context)!.alertTitle,
+          AppLocalizations.of(context)!.alertEnterSewaan,
+        );
+        return;
+      }
+
+      final hasData =
+          await SemakanCukaiTaksiranBentongService.semakanBayaran(input);
+
+      if (!mounted) return;
+
+      if (!hasData ||
+          SemakanCukaiTaksiranBentongService.paymentList.isEmpty) {
+        _showAlert(
+          AppLocalizations.of(context)!.alertTitle,
+          AppLocalizations.of(context)!.noTaksiranPaymentRecordFound,
+        );
+        return;
+      }
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const P5SemakanCukaiTaksiranBentongScreen(),
+        ),
+      );
+
+      return;
+    }
 
       if (widget.biz == "TAX") {
         if (input.isEmpty) {
@@ -363,16 +401,48 @@ class _P4PAGEState extends State<P4PAGE> {
         return;
       }
 
+      if (widget.biz == "SEMAKAN SEWAAN") {
+  if (input.isEmpty) {
+    _showAlert(
+      AppLocalizations.of(context)!.alertTitle,
+      AppLocalizations.of(context)!.alertEnterSewaan,
+    );
+    return;
+  }
+
+  final hasData =
+      await SemakanSewaanBentongService.semakanBayaran(input);
+
+  if (!mounted) return;
+
+  if (!hasData || SemakanSewaanBentongService.paymentList.isEmpty) {
+    _showAlert(
+      AppLocalizations.of(context)!.alertTitle,
+      AppLocalizations.of(context)!.noSewaanPaymentRecordFound
+    );
+    return;
+  }
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => const P5SemakanSewaanBentongScreen(),
+    ),
+  );
+
+  return;
+}
+
       _showAlert(
         AppLocalizations.of(context)!.alertTitle,
-        "Servis tidak dikenali.",
+        AppLocalizations.of(context)!.unknownService
       );
     } catch (e) {
       if (!mounted) return;
 
       _showAlert(
         AppLocalizations.of(context)!.alertTitle,
-        "Sambungan gagal. Sila cuba lagi.",
+        AppLocalizations.of(context)!.connectionFailed
       );
     } finally {
       if (mounted) {
@@ -425,21 +495,24 @@ class _P4PAGEState extends State<P4PAGE> {
             ),
           ),
 
-          Positioned(
-            top: 100,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
-                widget.title,
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 3, 89, 210),
-                  fontSize: 70,
-                  fontWeight: FontWeight.bold,
-                ),
+        Positioned(
+          top: 60,
+          left: 50,
+          right: 50,
+          child: Center(
+            child: Text(
+              widget.title,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.visible,
+              style: const TextStyle(
+                color: Color.fromARGB(255, 3, 89, 210),
+                fontSize: 60,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
+        ),
 
           Positioned(
             top: 300,

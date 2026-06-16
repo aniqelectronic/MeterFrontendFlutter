@@ -33,6 +33,33 @@ class AppLocalizationsMs extends AppLocalizations {
   String get backText => 'KEMBALI';
 
   @override
+  String get noTaksiranRecordFound => 'Tiada rekod cukai taksiran dijumpai';
+
+  @override
+  String get noSewaanRecordFound => 'Tiada rekod sewaan dijumpai';
+
+  @override
+  String get noSewaanPaymentRecordFound => 'Tiada rekod bayaran sewaan dijumpai';
+
+  @override
+  String get noTaksiranPaymentRecordFound => 'Tiada rekod bayaran cukai taksiran dijumpai';
+
+  @override
+  String get unknownService => 'Servis tidak dikenali.';
+
+  @override
+  String get connectionFailed => 'Sambungan gagal. Sila cuba lagi.';
+
+  @override
+  String get inputRegistrationOrAccountNo => 'Masukkan No Pendaftaran / No Akaun';
+
+  @override
+  String get inputSewaanRegistrationOrAccountNo => 'Masukkan No Pendaftaran Sewaan / No Akaun';
+
+  @override
+  String get inputTaksiranRegistrationOrAccountNo => 'Masukkan No Pendaftaran Cukai Taksiran / No Akaun';
+
+  @override
   String get scrollup => 'SKROL KE ATAS';
 
   @override
@@ -73,6 +100,105 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get p3map => 'PETA';
+
+  @override
+  String get p4optioncukaiTitle => 'CUKAI TAKSIRAN';
+
+  @override
+  String get p4optioncukaiSubtitle => 'SILA PILIH PILIHAN ANDA';
+
+  @override
+  String get p4optionsewaanTitle => 'SEWAAN PBT';
+
+  @override
+  String get p4optionsewaanSubtitle => 'SILA PILIH PILIHAN ANDA';
+
+  @override
+  String get paymentsewaan => 'MEMBUAT PEMBAYARAN';
+
+  @override
+  String get semakansewaantitle => 'SEMAKAN PEMBAYARAN SEWAAN';
+
+  @override
+  String get checkbuttonsewaan => 'SEMAKAN PEMBAYARAN';
+
+  @override
+  String get checkbuttontax => 'SEMAKAN PEMBAYARAN';
+
+  @override
+  String get paymenttax => 'MEMBUAT PEMBAYARAN';
+
+  @override
+  String get semakancukaititle => 'SEMAKAN PEMBAYARAN CUKAI';
+
+  @override
+  String get noPaymentRecordsFound => 'Tiada rekod bayaran dijumpai';
+
+  @override
+  String get assessmentTaxPaymentTransactionList => 'Senarai Transaksi Bayaran Cukai Taksiran';
+
+  @override
+  String get account => 'Akaun';
+
+  @override
+  String get transactionNo => 'No. Transaksi';
+
+  @override
+  String get amount => 'Amaun';
+
+  @override
+  String get info => 'Info';
+
+  @override
+  String get transactionInformation => 'Maklumat Transaksi';
+
+  @override
+  String get id => 'ID';
+
+  @override
+  String get registrationNo => 'No Pendaftaran';
+
+  @override
+  String get accountNo => 'No Akaun';
+
+  @override
+  String get ownerName => 'Nama Pemilik';
+
+  @override
+  String get propertyAddress => 'Alamat Harta';
+
+  @override
+  String get orderNo => 'No Pesanan';
+
+  @override
+  String get bankTransactionNo => 'No Transaksi Bank';
+
+  @override
+  String get paymentMethod => 'Kaedah Bayaran';
+
+  @override
+  String get paidDate => 'Tarikh Bayar';
+
+  @override
+  String get close => 'Tutup';
+
+  @override
+  String get semakanWarningTitle => 'Notis Penting';
+
+  @override
+  String get semakanWarningMessage => 'Semakan bayaran hanya tersedia untuk transaksi yang dibuat melalui kiosk ini. Bayaran yang dibuat melalui saluran lain mungkin tidak dipaparkan.';
+
+  @override
+  String get cancelButton => 'BATAL';
+
+  @override
+  String get continueButton => 'TERUSKAN';
+
+  @override
+  String get semakanSewaanWarningTitle => 'Notis Penting';
+
+  @override
+  String get semakanSewaanWarningMessage => 'Semakan bayaran sewaan hanya tersedia untuk transaksi yang dibuat melalui kiosk ini. Bayaran yang dibuat melalui saluran lain mungkin tidak dipaparkan.';
 
   @override
   String get pwaktusolattitle => 'WAKTU SOLAT';
@@ -157,9 +283,6 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get backButton => 'KEMBALI';
-
-  @override
-  String get continueButton => 'TERUSKAN';
 
   @override
   String get alertTitle => 'Makluman';
@@ -279,9 +402,6 @@ class AppLocalizationsMs extends AppLocalizations {
   String totalAmountLabel(Object total) {
     return 'JUMLAH AMAUN ANDA: RM $total';
   }
-
-  @override
-  String get cancelButton => 'BATAL';
 
   @override
   String get confirmButton => 'OK';
@@ -2488,9 +2608,6 @@ class AppLocalizationsMs extends AppLocalizations {
   String get notice => 'Makluman';
 
   @override
-  String get accountNo => 'No Akaun';
-
-  @override
   String get oldAccountNo => 'No Akaun Lama';
 
   @override
@@ -2509,16 +2626,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get endDate => 'Tarikh Tamat';
 
   @override
-  String get amount => 'Jumlah';
-
-  @override
   String get total => 'Jumlah';
-
-  @override
-  String get info => 'Info';
-
-  @override
-  String get close => 'Tutup';
 
   @override
   String get continueText => 'Teruskan';
@@ -2555,9 +2663,6 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get annualTotal => 'Jumlah Setahun';
-
-  @override
-  String get propertyAddress => 'Alamat Harta';
 
   @override
   String get propertyPostcode => 'Poskod Harta';
@@ -2612,6 +2717,27 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get halfYearTotal => 'Jumlah Sepenggal';
+
+  @override
+  String get semakanSewaanTitle => 'SEMAKAN SEWAAN';
+
+  @override
+  String get semakanSewaanSubtitle => 'Senarai Transaksi Bayaran Sewaan';
+
+  @override
+  String get transactionInfoTitle => 'Maklumat Transaksi';
+
+  @override
+  String get tenantName => 'Nama Penyewa';
+
+  @override
+  String get premiseAddress => 'Alamat Premis';
+
+  @override
+  String get paymentDate => 'Tarikh Bayaran';
+
+  @override
+  String get transactionId => 'ID';
 
   @override
   String get subangExplorationTitle => 'Jelajah Subang Jaya';

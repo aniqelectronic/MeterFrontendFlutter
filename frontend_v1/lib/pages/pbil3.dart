@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'p2.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 
@@ -123,39 +124,15 @@ class PBIL3PAGE extends StatelessWidget {
             bottom: 200,
             left: 300,
             right: 300,
-            child: SizedBox(
-              width: 300,
-              height: 120,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const P2Page(),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[300],
-                  foregroundColor: Colors.black,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            child: KioskBackButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const P2Page(),
                   ),
-                  side: const BorderSide(
-                    color: Colors.black,
-                    width: 2,
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                ),
-                child: Text(
-                  AppLocalizations.of(context)!.backText,
-                  style: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+                );
+              },
             ),
           ),
 

@@ -1,7 +1,8 @@
 class SewaanPaymentItem {
-  final String accountNo;
   final String tenantName;
-  final String registrationNo;
+   final String accountNo;        // Account Number
+  final String registrationNo;   // Registration Number
+  final String noPendaftaran;    // No Pendaftaran
   final String startDate;
   final String endDate;
   final String premiseAddress;
@@ -11,6 +12,7 @@ class SewaanPaymentItem {
   final double amount;
 
   SewaanPaymentItem({
+    required this.noPendaftaran,
     required this.accountNo,
     required this.tenantName,
     required this.registrationNo,

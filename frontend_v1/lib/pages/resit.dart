@@ -7,6 +7,7 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/tax/payment_tax_item.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/widgets/kiosk_home_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'p1.dart';
@@ -586,10 +587,10 @@ Widget _buildInfoRow(
 
           // 5. Back Button (Unchanged Style)
           Positioned(
-            bottom: 100,
+            bottom: 120,
             left: 300,
             right: 300,
-            child: ElevatedButton(
+            child: KioskHomeButton(
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -600,21 +601,6 @@ Widget _buildInfoRow(
                   (route) => false,
                 );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.black,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                side: const BorderSide(color: Colors.black, width: 2),
-                padding: const EdgeInsets.symmetric(vertical: 40),
-              ),
-              child: Text(
-                AppLocalizations.of(context)!.homeButton,
-                style:
-                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
             ),
           ),
 

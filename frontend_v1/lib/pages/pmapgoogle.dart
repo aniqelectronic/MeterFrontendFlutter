@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
@@ -163,8 +164,8 @@ Future<void> _searchLocation(String query) async {
           'countrycodes': 'my',
 
           /// bias to nearby area
-          'viewbox':
-              '${lon - 0.08},${lat + 0.08},${lon + 0.08},${lat - 0.08}',
+          // 'viewbox':
+          //     '${lon - 0.08},${lat + 0.08},${lon + 0.08},${lat - 0.08}',
 
           // /// prioritize inside box first
           // 'bounded': '1',
@@ -211,8 +212,8 @@ Future<void> _searchLocation(String query) async {
           return distA.compareTo(distB);
         });
 
-        /// keep nearest 8 only
-        final results = data.take(8).toList();
+        /// keep nearest 20 only
+        final results = data.take(20).toList();
 
         setState(() {
           _searchResults = results;
@@ -796,35 +797,15 @@ void _resetMapSearch() {
             bottom: 200,
             left: 300,
             right: 300,
-            child: SizedBox(
-              width: 300,
-              height: 120,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const PTOURISTPAGE(),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[300],
-                  foregroundColor: Colors.black,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            child: KioskBackButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const PTOURISTPAGE(),
                   ),
-                  side: const BorderSide(color: Colors.black, width: 2),
-                ),
-                child: Text(
-                  AppLocalizations.of(context)!.backText,
-                  style: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+                );
+              },
             ),
           ),
 

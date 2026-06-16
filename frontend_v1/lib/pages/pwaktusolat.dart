@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
@@ -326,13 +327,11 @@ String formatHijri(String hijri) {
           ),
 
           /// BACK BUTTON
-          Positioned(
-            bottom: 200,
-            left: 300,
-            right: 300,
-            child: SizedBox(
-              height: 120,
-              child: ElevatedButton(
+            Positioned(
+              bottom: 200,
+              left: 300,
+              right: 300,
+              child: KioskBackButton(
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -341,26 +340,8 @@ String formatHijri(String hijri) {
                     ),
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[300],
-                  foregroundColor: Colors.black,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  side: const BorderSide(
-                    color: Colors.black,
-                    width: 2,
-                  ),
-                ),
-                child: Text(
-                  AppLocalizations.of(context)!.backText,
-                  style: const TextStyle(
-                      fontSize: 40, fontWeight: FontWeight.bold),
-                ),
               ),
             ),
-          ),
 
                     // Footer
           Positioned(

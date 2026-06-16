@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/pages/p4_option_cukai_bentong.dart';
+import 'package:frontend_v1/pages/p4_option_sewaan_bentong.dart';
+import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'p2.dart';
 import 'p4optioncompound.dart';
 import 'p4.dart';
@@ -179,16 +182,8 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => P4PAGE(
-                                title:
-                                    AppLocalizations.of(context)!
-                                        .taxButton,
-                                type: "PBT",
-                                hint:
-                                    AppLocalizations.of(context)!
-                                        .inputTaxHint,
-                                biz: "CUKAI",
-                              ),
+                              builder: (_) =>
+                                  const P4OPTIONCUKAIBENTONG(),
                             ),
                           );
                         },
@@ -240,13 +235,7 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => P4PAGE(
-                                title: "SEWAAN PBT",
-                                type: "PBT",
-                                hint:
-                                    AppLocalizations.of(context)!
-                                        .inputTaxHint,
-                                biz: "SEWAAN PBT",
+                              builder: (_) => P4OPTIONSEWAANBENTONG(
                               ),
                             ),
                           );
@@ -314,14 +303,11 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
             ),
 
           // ================= BACK BUTTON FIXED =================
-          Positioned(
-            bottom: 100,
-            left: 300,
-            right: 300,
-            child: SizedBox(
-              width: 300,
-              height: 120,
-              child: ElevatedButton(
+            Positioned(
+              bottom: 100,
+              left: 300,
+              right: 300,
+              child: KioskBackButton(
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -330,29 +316,8 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                     ),
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[300],
-                  foregroundColor: Colors.black,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  side: const BorderSide(
-                    color: Colors.black,
-                    width: 2,
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                ),
-                child: Text(
-                  AppLocalizations.of(context)!.backText,
-                  style: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
               ),
             ),
-          ),
 
           // ================= FOOTER FIXED =================
           Positioned(

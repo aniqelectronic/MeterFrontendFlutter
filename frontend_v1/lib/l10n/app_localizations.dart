@@ -143,6 +143,60 @@ abstract class AppLocalizations {
   /// **'BACK'**
   String get backText;
 
+  /// No description provided for @noTaksiranRecordFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No assessment tax record found'**
+  String get noTaksiranRecordFound;
+
+  /// No description provided for @noSewaanRecordFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No rental record found'**
+  String get noSewaanRecordFound;
+
+  /// No description provided for @noSewaanPaymentRecordFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No rental payment record found'**
+  String get noSewaanPaymentRecordFound;
+
+  /// No description provided for @noTaksiranPaymentRecordFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No assessment tax payment record found'**
+  String get noTaksiranPaymentRecordFound;
+
+  /// No description provided for @unknownService.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown service.'**
+  String get unknownService;
+
+  /// No description provided for @connectionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection failed. Please try again.'**
+  String get connectionFailed;
+
+  /// No description provided for @inputRegistrationOrAccountNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Registration No / Account No'**
+  String get inputRegistrationOrAccountNo;
+
+  /// No description provided for @inputSewaanRegistrationOrAccountNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Rental Registration No / Account No'**
+  String get inputSewaanRegistrationOrAccountNo;
+
+  /// No description provided for @inputTaksiranRegistrationOrAccountNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Assessment Registration No / Account No'**
+  String get inputTaksiranRegistrationOrAccountNo;
+
   /// No description provided for @scrollup.
   ///
   /// In en, this message translates to:
@@ -226,6 +280,204 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'MAP'**
   String get p3map;
+
+  /// No description provided for @p4optioncukaiTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ASSESSMENT TAX'**
+  String get p4optioncukaiTitle;
+
+  /// No description provided for @p4optioncukaiSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PLEASE SELECT YOUR OPTION'**
+  String get p4optioncukaiSubtitle;
+
+  /// No description provided for @p4optionsewaanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'RENT PBT'**
+  String get p4optionsewaanTitle;
+
+  /// No description provided for @p4optionsewaanSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PLEASE SELECT YOUR OPTION'**
+  String get p4optionsewaanSubtitle;
+
+  /// No description provided for @paymentsewaan.
+  ///
+  /// In en, this message translates to:
+  /// **'MAKE PAYMENT'**
+  String get paymentsewaan;
+
+  /// No description provided for @semakansewaantitle.
+  ///
+  /// In en, this message translates to:
+  /// **'RENT PAYMENT HISTORY'**
+  String get semakansewaantitle;
+
+  /// No description provided for @checkbuttonsewaan.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT HISTORY'**
+  String get checkbuttonsewaan;
+
+  /// No description provided for @checkbuttontax.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT HISTORY'**
+  String get checkbuttontax;
+
+  /// No description provided for @paymenttax.
+  ///
+  /// In en, this message translates to:
+  /// **'MAKE PAYMENT'**
+  String get paymenttax;
+
+  /// No description provided for @semakancukaititle.
+  ///
+  /// In en, this message translates to:
+  /// **'TAX PAYMENT HISTORY'**
+  String get semakancukaititle;
+
+  /// No description provided for @noPaymentRecordsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No payment records found'**
+  String get noPaymentRecordsFound;
+
+  /// No description provided for @assessmentTaxPaymentTransactionList.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment Tax Payment Transaction List'**
+  String get assessmentTaxPaymentTransactionList;
+
+  /// No description provided for @account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
+  /// No description provided for @transactionNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction No.'**
+  String get transactionNo;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @info.
+  ///
+  /// In en, this message translates to:
+  /// **'Info'**
+  String get info;
+
+  /// No description provided for @transactionInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Information'**
+  String get transactionInformation;
+
+  /// No description provided for @id.
+  ///
+  /// In en, this message translates to:
+  /// **'ID'**
+  String get id;
+
+  /// No description provided for @registrationNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration No'**
+  String get registrationNo;
+
+  /// No description provided for @accountNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Account No'**
+  String get accountNo;
+
+  /// No description provided for @ownerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner Name'**
+  String get ownerName;
+
+  /// No description provided for @propertyAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Property Address'**
+  String get propertyAddress;
+
+  /// No description provided for @orderNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Order No'**
+  String get orderNo;
+
+  /// No description provided for @bankTransactionNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction No'**
+  String get bankTransactionNo;
+
+  /// No description provided for @paymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get paymentMethod;
+
+  /// No description provided for @paidDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid Date'**
+  String get paidDate;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @semakanWarningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Important Notice'**
+  String get semakanWarningTitle;
+
+  /// No description provided for @semakanWarningMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment checking is only available for transactions made through this kiosk. Payments made through other channels may not be displayed.'**
+  String get semakanWarningMessage;
+
+  /// No description provided for @cancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'CANCEL'**
+  String get cancelButton;
+
+  /// No description provided for @continueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'CONTINUE'**
+  String get continueButton;
+
+  /// No description provided for @semakanSewaanWarningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Important Notice'**
+  String get semakanSewaanWarningTitle;
+
+  /// No description provided for @semakanSewaanWarningMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Rental payment checking is only available for transactions made through this kiosk. Payments made through other channels may not be displayed.'**
+  String get semakanSewaanWarningMessage;
 
   /// No description provided for @pwaktusolattitle.
   ///
@@ -394,12 +646,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'BACK'**
   String get backButton;
-
-  /// No description provided for @continueButton.
-  ///
-  /// In en, this message translates to:
-  /// **'CONTINUE'**
-  String get continueButton;
 
   /// No description provided for @alertTitle.
   ///
@@ -610,12 +856,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'TOTAL AMOUNT: RM {total}'**
   String totalAmountLabel(Object total);
-
-  /// No description provided for @cancelButton.
-  ///
-  /// In en, this message translates to:
-  /// **'CANCEL'**
-  String get cancelButton;
 
   /// No description provided for @confirmButton.
   ///
@@ -4985,12 +5225,6 @@ abstract class AppLocalizations {
   /// **'Notice'**
   String get notice;
 
-  /// No description provided for @accountNo.
-  ///
-  /// In en, this message translates to:
-  /// **'Account No'**
-  String get accountNo;
-
   /// No description provided for @oldAccountNo.
   ///
   /// In en, this message translates to:
@@ -5027,29 +5261,11 @@ abstract class AppLocalizations {
   /// **'End Date'**
   String get endDate;
 
-  /// No description provided for @amount.
-  ///
-  /// In en, this message translates to:
-  /// **'Amount'**
-  String get amount;
-
   /// No description provided for @total.
   ///
   /// In en, this message translates to:
   /// **'Total'**
   String get total;
-
-  /// No description provided for @info.
-  ///
-  /// In en, this message translates to:
-  /// **'Info'**
-  String get info;
-
-  /// No description provided for @close.
-  ///
-  /// In en, this message translates to:
-  /// **'Close'**
-  String get close;
 
   /// No description provided for @continueText.
   ///
@@ -5122,12 +5338,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Annual Total'**
   String get annualTotal;
-
-  /// No description provided for @propertyAddress.
-  ///
-  /// In en, this message translates to:
-  /// **'Property Address'**
-  String get propertyAddress;
 
   /// No description provided for @propertyPostcode.
   ///
@@ -5236,6 +5446,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Half-Year Total'**
   String get halfYearTotal;
+
+  /// No description provided for @semakanSewaanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'RENT INQUIRY'**
+  String get semakanSewaanTitle;
+
+  /// No description provided for @semakanSewaanSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rental Payment Transaction List'**
+  String get semakanSewaanSubtitle;
+
+  /// No description provided for @transactionInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Information'**
+  String get transactionInfoTitle;
+
+  /// No description provided for @tenantName.
+  ///
+  /// In en, this message translates to:
+  /// **'Tenant Name'**
+  String get tenantName;
+
+  /// No description provided for @premiseAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Premise Address'**
+  String get premiseAddress;
+
+  /// No description provided for @paymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get paymentDate;
+
+  /// No description provided for @transactionId.
+  ///
+  /// In en, this message translates to:
+  /// **'ID'**
+  String get transactionId;
 
   /// No description provided for @subangExplorationTitle.
   ///

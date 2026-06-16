@@ -5,6 +5,7 @@ import 'package:frontend_v1/pages/p4.dart';
 import 'package:frontend_v1/pages/pbahasa.dart';
 import 'package:frontend_v1/pages/ptourist3.dart';
 import 'package:frontend_v1/pages/prent3.dart';
+import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'pbt3.dart';
 import 'pbil3.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
@@ -288,39 +289,15 @@ class _P2PageState extends State<P2Page> {
             bottom: 100,
             left: 300,
             right: 300,
-            child: SizedBox(
-              width: 300,
-              height: 120,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const PBAHASAPAGE(),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[300],
-                  foregroundColor: Colors.black,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            child: KioskBackButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const PBAHASAPAGE(),
                   ),
-                  side: const BorderSide(
-                    color: Colors.black,
-                    width: 2,
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                ),
-                child: Text(
-                  AppLocalizations.of(context)!.backText,
-                  style: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+                );
+              },
             ),
           ),
 

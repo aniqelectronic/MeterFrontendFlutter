@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/ptourist3.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
+import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class ExplorationItem {
@@ -251,40 +252,18 @@ class _PExplorationSubangJayaPageState
             ],
           ),
           Positioned(
-            bottom: 100,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: SizedBox(
-                width: 600,
-                height: 120,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const PTOURISTPAGE(),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[300],
-                    foregroundColor: Colors.black,
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    side: const BorderSide(color: Colors.black, width: 2),
+            bottom: 150,
+            left: 300,
+            right: 300,
+            child: KioskBackButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const PTOURISTPAGE(),
                   ),
-                  child: Text(
-                    loc.back,
-                    style: const TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
+                );
+              },
             ),
           ),
         ],

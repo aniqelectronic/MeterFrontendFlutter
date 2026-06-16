@@ -33,6 +33,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backText => 'BACK';
 
   @override
+  String get noTaksiranRecordFound => 'No assessment tax record found';
+
+  @override
+  String get noSewaanRecordFound => 'No rental record found';
+
+  @override
+  String get noSewaanPaymentRecordFound => 'No rental payment record found';
+
+  @override
+  String get noTaksiranPaymentRecordFound => 'No assessment tax payment record found';
+
+  @override
+  String get unknownService => 'Unknown service.';
+
+  @override
+  String get connectionFailed => 'Connection failed. Please try again.';
+
+  @override
+  String get inputRegistrationOrAccountNo => 'Enter Registration No / Account No';
+
+  @override
+  String get inputSewaanRegistrationOrAccountNo => 'Enter Rental Registration No / Account No';
+
+  @override
+  String get inputTaksiranRegistrationOrAccountNo => 'Enter Assessment Registration No / Account No';
+
+  @override
   String get scrollup => 'SCROLL UP';
 
   @override
@@ -73,6 +100,105 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get p3map => 'MAP';
+
+  @override
+  String get p4optioncukaiTitle => 'ASSESSMENT TAX';
+
+  @override
+  String get p4optioncukaiSubtitle => 'PLEASE SELECT YOUR OPTION';
+
+  @override
+  String get p4optionsewaanTitle => 'RENT PBT';
+
+  @override
+  String get p4optionsewaanSubtitle => 'PLEASE SELECT YOUR OPTION';
+
+  @override
+  String get paymentsewaan => 'MAKE PAYMENT';
+
+  @override
+  String get semakansewaantitle => 'RENT PAYMENT HISTORY';
+
+  @override
+  String get checkbuttonsewaan => 'PAYMENT HISTORY';
+
+  @override
+  String get checkbuttontax => 'PAYMENT HISTORY';
+
+  @override
+  String get paymenttax => 'MAKE PAYMENT';
+
+  @override
+  String get semakancukaititle => 'TAX PAYMENT HISTORY';
+
+  @override
+  String get noPaymentRecordsFound => 'No payment records found';
+
+  @override
+  String get assessmentTaxPaymentTransactionList => 'Assessment Tax Payment Transaction List';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get transactionNo => 'Transaction No.';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get info => 'Info';
+
+  @override
+  String get transactionInformation => 'Transaction Information';
+
+  @override
+  String get id => 'ID';
+
+  @override
+  String get registrationNo => 'Registration No';
+
+  @override
+  String get accountNo => 'Account No';
+
+  @override
+  String get ownerName => 'Owner Name';
+
+  @override
+  String get propertyAddress => 'Property Address';
+
+  @override
+  String get orderNo => 'Order No';
+
+  @override
+  String get bankTransactionNo => 'Bank Transaction No';
+
+  @override
+  String get paymentMethod => 'Payment Method';
+
+  @override
+  String get paidDate => 'Paid Date';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get semakanWarningTitle => 'Important Notice';
+
+  @override
+  String get semakanWarningMessage => 'Payment checking is only available for transactions made through this kiosk. Payments made through other channels may not be displayed.';
+
+  @override
+  String get cancelButton => 'CANCEL';
+
+  @override
+  String get continueButton => 'CONTINUE';
+
+  @override
+  String get semakanSewaanWarningTitle => 'Important Notice';
+
+  @override
+  String get semakanSewaanWarningMessage => 'Rental payment checking is only available for transactions made through this kiosk. Payments made through other channels may not be displayed.';
 
   @override
   String get pwaktusolattitle => 'PRAYER TIME';
@@ -157,9 +283,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get backButton => 'BACK';
-
-  @override
-  String get continueButton => 'CONTINUE';
 
   @override
   String get alertTitle => 'Notice';
@@ -279,9 +402,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String totalAmountLabel(Object total) {
     return 'TOTAL AMOUNT: RM $total';
   }
-
-  @override
-  String get cancelButton => 'CANCEL';
 
   @override
   String get confirmButton => 'OK';
@@ -2488,9 +2608,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notice => 'Notice';
 
   @override
-  String get accountNo => 'Account No';
-
-  @override
   String get oldAccountNo => 'Old Account No';
 
   @override
@@ -2509,16 +2626,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get endDate => 'End Date';
 
   @override
-  String get amount => 'Amount';
-
-  @override
   String get total => 'Total';
-
-  @override
-  String get info => 'Info';
-
-  @override
-  String get close => 'Close';
 
   @override
   String get continueText => 'Continue';
@@ -2555,9 +2663,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get annualTotal => 'Annual Total';
-
-  @override
-  String get propertyAddress => 'Property Address';
 
   @override
   String get propertyPostcode => 'Property Postcode';
@@ -2612,6 +2717,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get halfYearTotal => 'Half-Year Total';
+
+  @override
+  String get semakanSewaanTitle => 'RENT INQUIRY';
+
+  @override
+  String get semakanSewaanSubtitle => 'Rental Payment Transaction List';
+
+  @override
+  String get transactionInfoTitle => 'Transaction Information';
+
+  @override
+  String get tenantName => 'Tenant Name';
+
+  @override
+  String get premiseAddress => 'Premise Address';
+
+  @override
+  String get paymentDate => 'Payment Date';
+
+  @override
+  String get transactionId => 'ID';
 
   @override
   String get subangExplorationTitle => 'Explore Subang Jaya';

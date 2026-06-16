@@ -9,7 +9,6 @@ class SewaanService {
     "Content-Type": "application/json",
   };
 
-  // ✅ Save latest pulled sewaan data here
   static Map<String, dynamic>? sewaanData;
 
   static Future<bool> inquirySewaan(String searchValue) async {
@@ -22,13 +21,26 @@ class SewaanService {
         }),
       );
 
+      print("[SEWAAN INQUIRY] Status: ${response.statusCode}");
+      print("[SEWAAN INQUIRY] Body: ${response.body}");
+
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
 
         if (data["success"] == true &&
             data["data"] != null &&
             data["data"]["data"] != null) {
-          sewaanData = data["data"]["data"];
+          final Map<String, dynamic> item =
+              Map<String, dynamic>.from(data["data"]["data"]);
+
+          final params = data["data"]["params"];
+
+          item["pdaftaran"] = params?["pdaftaran"] ?? searchValue;
+
+          sewaanData = item;
+
+          print("[SEWAAN INQUIRY] Saved Data: $sewaanData");
+
           return true;
         }
       }

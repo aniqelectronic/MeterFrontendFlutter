@@ -1,11 +1,16 @@
 import 'dart:async';
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:ntp/ntp.dart';
 
 class ClockCard extends StatefulWidget {
   final double fontScale;
-  const ClockCard({super.key, this.fontScale = 1.0});
+
+  const ClockCard({
+    super.key,
+    this.fontScale = 1.0,
+  });
 
   @override
   State<ClockCard> createState() => _ClockCardState();
@@ -15,7 +20,6 @@ class _ClockCardState extends State<ClockCard> {
   String _time = "--:--";
   String _date = "-- -- ----";
   String _weekday = "";
-  bool _isSyncing = true;
 
   Timer? _ticker;
   Duration _ntpOffset = Duration.zero;
@@ -28,20 +32,19 @@ class _ClockCardState extends State<ClockCard> {
 
   Future<void> _startClock() async {
     _updateTime();
+
     try {
-      // Syncing with SIRIM Malaysia NTP Server
       final offsetMs = await NTP.getNtpOffset(
         lookUpAddress: "mst.sirim.my",
         timeout: const Duration(seconds: 3),
       );
-      if (mounted) {
-        setState(() {
-          _ntpOffset = Duration(milliseconds: offsetMs);
-          _isSyncing = false;
-        });
-      }
+
+      if (!mounted) return;
+
+      setState(() {
+        _ntpOffset = Duration(milliseconds: offsetMs);
+      });
     } catch (e) {
-      if (mounted) setState(() => _isSyncing = false);
       debugPrint("SIRIM Sync Failed: $e");
     }
 
@@ -52,7 +55,9 @@ class _ClockCardState extends State<ClockCard> {
 
   void _updateTime() {
     final now = DateTime.now().add(_ntpOffset);
+
     if (!mounted) return;
+
     setState(() {
       _time = "${_twoDigits(now.hour)}:${_twoDigits(now.minute)}";
       _date = "${_twoDigits(now.day)} ${_monthName(now.month)} ${now.year}";
@@ -63,12 +68,35 @@ class _ClockCardState extends State<ClockCard> {
   String _twoDigits(int n) => n.toString().padLeft(2, '0');
 
   String _monthName(int m) {
-    const months = ["JAN", "FEB", "MAC", "APR", "MEI", "JUN", "JUL", "OGOS", "SEPT", "OKT", "NOV", "DIS"];
+    const months = [
+      "JAN",
+      "FEB",
+      "MAC",
+      "APR",
+      "MEI",
+      "JUN",
+      "JUL",
+      "OGOS",
+      "SEPT",
+      "OKT",
+      "NOV",
+      "DIS",
+    ];
+
     return months[m - 1];
   }
 
   String _weekdayName(int d) {
-    const days = ["ISNIN", "SELASA", "RABU", "KHAMIS", "JUMAAT", "SABTU", "AHAD"];
+    const days = [
+      "ISNIN",
+      "SELASA",
+      "RABU",
+      "KHAMIS",
+      "JUMAAT",
+      "SABTU",
+      "AHAD",
+    ];
+
     return days[d - 1];
   }
 
@@ -81,177 +109,181 @@ class _ClockCardState extends State<ClockCard> {
   @override
   Widget build(BuildContext context) {
     final scale = widget.fontScale;
-    
-    // THEME COLORS
-    const mainText = Color(0xFF1A2A44);      // Dark Navy
-    const secondaryText = Color(0xFF5A6A85); // Muted Slate
-    const accentBlue = Color(0xFF0052D4);    // Malaysian Blue
-    const glassColor = Color(0xCCFFFFFF);   // 80% White Frost
+
+    const darkNavy = Color(0xFF10233F);
+    const softNavy = Color(0xFF53657F);
+    const primaryBlue = Color(0xFF1677FF);
+    const lightBlue = Color(0xFFEAF4FF);
+    const cardWhite = Color(0xEFFFFFFF);
 
     return Center(
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: BorderRadius.circular(38 * scale),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+          filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
           child: Container(
-            width: 580 * scale,
-            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 35),
+            width: 620 * scale,
+            padding: EdgeInsets.all(8 * scale),
             decoration: BoxDecoration(
-              color: glassColor,
-              borderRadius: BorderRadius.circular(32),
-              // --- THE BLACK BORDER ---
-              border: Border.all(
-                color: Colors.black, 
-                width: 3.0 * scale,
+              borderRadius: BorderRadius.circular(38 * scale),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white.withOpacity(0.95),
+                  lightBlue.withOpacity(0.9),
+                ],
               ),
-              // ------------------------
+              border: Border.all(
+                color: Colors.white.withOpacity(0.8),
+                width: 2,
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.15),
-                  blurRadius: 30,
-                  offset: const Offset(0, 15),
-                )
+                  color: primaryBlue.withOpacity(0.16),
+                  blurRadius: 45,
+                  offset: const Offset(0, 22),
+                ),
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.08),
+                  blurRadius: 25,
+                  offset: const Offset(0, 10),
+                ),
               ],
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Top Sync Status Indicator
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _PulseDot(isActive: !_isSyncing),
-                    const SizedBox(width: 12),
-                    Text(
-                      "MASA STANDARD MALAYSIA",
-                      style: TextStyle(
-                        color: secondaryText,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 2,
-                        fontSize: 12 * scale,
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: 36 * scale,
+                horizontal: 38 * scale,
+              ),
+              decoration: BoxDecoration(
+                color: cardWhite,
+                borderRadius: BorderRadius.circular(32 * scale),
+                border: Border.all(
+                  color: primaryBlue.withOpacity(0.12),
+                  width: 1.4,
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+
+                  SizedBox(height: 22 * scale),
+
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 22 * scale,
+                      horizontal: 20 * scale,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(28 * scale),
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFFF8FCFF),
+                          Color(0xFFEAF4FF),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-                
-                const SizedBox(height: 10),
-
-                // Digital Time
-                Text(
-                  _time,
-                  style: TextStyle(
-                    fontSize: 120 * scale,
-                    height: 1.1,
-                    fontWeight: FontWeight.w900,
-                    color: mainText,
-                    fontFeatures: const [FontFeature.tabularFigures()],
-                    letterSpacing: -2,
-                  ),
-                ),
-
-                const SizedBox(height: 15),
-
-                // Day & Date Info Box
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: accentBlue.withOpacity(0.08),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        _weekday,
-                        style: TextStyle(
-                          fontSize: 24 * scale,
-                          color: accentBlue,
-                          fontWeight: FontWeight.w900,
+                    child: Column(
+                      children: [
+                        Text(
+                          _time,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 118 * scale,
+                            height: 0.95,
+                            fontWeight: FontWeight.w900,
+                            color: darkNavy,
+                            letterSpacing: -4,
+                            fontFeatures: const [
+                              FontFeature.tabularFigures(),
+                            ],
+                          ),
                         ),
+
+                        SizedBox(height: 14 * scale),
+
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 24 * scale,
+                            vertical: 12 * scale,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.85),
+                            borderRadius: BorderRadius.circular(18 * scale),
+                            border: Border.all(
+                              color: primaryBlue.withOpacity(0.15),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                _weekday,
+                                style: TextStyle(
+                                  fontSize: 25 * scale,
+                                  fontWeight: FontWeight.w900,
+                                  color: primaryBlue,
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: 18 * scale,
+                                ),
+                                width: 1.5,
+                                height: 26 * scale,
+                                color: primaryBlue.withOpacity(0.18),
+                              ),
+                              Text(
+                                _date,
+                                style: TextStyle(
+                                  fontSize: 25 * scale,
+                                  fontWeight: FontWeight.w700,
+                                  color: darkNavy,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 24 * scale),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.verified_rounded,
+                        size: 18 * scale,
+                        color: primaryBlue,
                       ),
-                      const SizedBox(width: 18),
-                      Container(width: 1.5, height: 24, color: accentBlue.withOpacity(0.2)),
-                      const SizedBox(width: 18),
-                      Text(
-                        _date,
-                        style: TextStyle(
-                          fontSize: 24 * scale,
-                          color: mainText,
-                          fontWeight: FontWeight.w600,
+                      SizedBox(width: 8 * scale),
+                      Flexible(
+                        child: Text(
+                          "MASA STANDARD MALAYSIA SIRIM",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 12.5 * scale,
+                            fontWeight: FontWeight.w800,
+                            color: softNavy,
+                            letterSpacing: 1.1,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-
-                const SizedBox(height: 35),
-
-                // Official Footer
-                Text(
-                  "DISELARASKAN DENGAN MASA STANDARD MALAYSIA (SIRIM)",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13 * scale,
-                    color: secondaryText,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
-  }
-}
-
-// Glowing Pulse Animation for the Sync Indicator
-class _PulseDot extends StatefulWidget {
-  final bool isActive;
-  const _PulseDot({required this.isActive});
-
-  @override
-  State<_PulseDot> createState() => _PulseDotState();
-}
-
-class _PulseDotState extends State<_PulseDot> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    )..repeat(reverse: true);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _controller,
-      child: Container(
-        width: 12,
-        height: 12,
-        decoration: BoxDecoration(
-          color: widget.isActive ? const Color(0xFF00C853) : Colors.orange,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: (widget.isActive ? Colors.green : Colors.orange).withOpacity(0.4),
-              blurRadius: 8,
-              spreadRadius: 2,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }
