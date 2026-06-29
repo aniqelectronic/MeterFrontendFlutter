@@ -1,14 +1,16 @@
 {
   "@@locale": "en",
   
-  "bilText": "BILL",
+  "bilText": "UTILITY BILLS",
   "otherText": "OTHERS",
   "touristText": "TOURIST GUIDE",
-  "p2Title": "MULTIPLE OPTION",
-  "pbtText": "PBT",
-  "rentText": "RENT",
-  "rentPBTText": "RENT PBT",
+  "p2Title": "MULTIPLE SERVICES",
+  "pbtText": "COUNCIL SERVICES",
+  "rentText": "OTHER RENTALS",
+  "rentPBTText": "COUNCIL RENTAL",
   "backText": "BACK",
+
+   "processingReceipt": "Payment successful.\nProcessing your receipt...\nPlease do not touch the screen.",
 
   "noTaksiranRecordFound": "No assessment tax record found",
   "noSewaanRecordFound": "No rental record found",
@@ -40,7 +42,7 @@
 
   "p4optioncukaiTitle": "ASSESSMENT TAX",
   "p4optioncukaiSubtitle": "PLEASE SELECT YOUR OPTION",
-  "p4optionsewaanTitle" : "RENT PBT",
+  "p4optionsewaanTitle" : "COUNCIL RENTAL",
   "p4optionsewaanSubtitle" : "PLEASE SELECT YOUR OPTION",
   "paymentsewaan" : "MAKE PAYMENT",
   "semakansewaantitle" : "RENT PAYMENT HISTORY",
@@ -84,7 +86,7 @@
   "maptitle":"LOCATION MAP",
   "mapsubtitle":"EXPLORE AND DISCOVER WHAT’S AROUND YOU",
   
-  "p3Title": "PBT OPTIONS",
+  "p3Title": "COUNCIL SERVICES",
   "p3Subtitle": "PLEASE SELECT YOUR OPTION",
   "parkirButton" : "PARKING",
   "compoundButton" : "COMPOUND",
@@ -158,7 +160,7 @@
   "totalAmountText": "TOTAL AMOUNT",
   "cardButton": "PAY BY CARD",
   "qrButton": "PAY WITH QR",
-  "weAcceptText": "We accept :",
+  "weAcceptText": "WE ACCEPT :",
 
   "titleReceiptParking": "PARKING RECEIPT",
   "titleReceiptLicense": "LICENSE RECEIPT",

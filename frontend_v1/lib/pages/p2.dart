@@ -71,7 +71,7 @@ class _P2PageState extends State<P2Page> {
                 AppLocalizations.of(context)!.p2Title,
                 style: const TextStyle(
                   color: Color.fromARGB(255, 3, 89, 210),
-                  fontSize: 70,
+                  fontSize: 60,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -138,7 +138,8 @@ class _P2PageState extends State<P2Page> {
                       child: _KioskMainButton(
                         width: 400,
                         height: 400,
-                        imagePath: "lib/images/bil.png",
+                        // imagePath: "lib/images/bil.png",
+                        icon: Icons.receipt_long,
                         label: AppLocalizations.of(context)!.bilText,
                         onPressed: () {
                           Navigator.push(
@@ -421,7 +422,7 @@ class _KioskMainButtonState extends State<_KioskMainButton> {
                         widget.label.toUpperCase(),
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 40,
+                          fontSize: 30,
                           fontWeight: FontWeight.w900,
                           color: Colors.black,
                           letterSpacing: 2.0,

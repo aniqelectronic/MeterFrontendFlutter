@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:frontend_v1/pages/config.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend_v1/model/taksiran/taksiran_payment_item.dart';
 
@@ -32,9 +33,10 @@ class TaksiranPaymentServiceBentong {
 
       final response = await http.post(
         url,
-        headers: const {
+        headers: {
           "x-api-key": _apiKey,
           "Content-Type": "application/json",
+          "x-source-system": "TIP-${Config.terminalId}",
         },
         body: jsonEncode(body),
       );

@@ -202,28 +202,46 @@ class _InfoDialog extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  "MESIN INFORMASI",
-                  style: TextStyle(
-                    fontSize: 48,
-                    fontWeight: FontWeight.w400,
-                    color: Color.fromARGB(255, 3, 89, 210),
-                    letterSpacing: 2,
+                const Center(
+                  child: Text(
+                    "MESIN PEMBAYARAN & INFORMASI",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 3, 89, 210),
+                      letterSpacing: 2,
+                    ),
                   ),
                 ),
-                const Divider(height: 40, thickness: 2),
+                const Divider(height: 80, thickness: 2),
                 
                 // --- Service Icons Row ---
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Wrap(
+                  spacing: 30,
+                  runSpacing: 30,
+                  alignment: WrapAlignment.center,
                   children: [
                     _buildServiceIcon(Icons.local_parking, "Parking"),
                     _buildServiceIcon(Icons.assignment_late, "Kompaun"),
                     _buildServiceIcon(Icons.badge, "Lesen"),
-                    _buildServiceIcon(Icons.payments, "Cukai Taksiran"),
+                    _buildServiceIcon(Icons.home_work, "Sewaan"),
+                    _buildServiceIcon(Icons.receipt_long, "Cukai"),
+                    _buildServiceIcon(Icons.water_drop, "Bil Air"),
+                    _buildServiceIcon(Icons.electric_bolt, "Bil Api"),
+                    _buildServiceIcon(Icons.phone_android, "Topup"),
+                  //  _buildServiceIcon(Icons.account_balance_wallet, "E-Wallet"),
                   ],
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 60),
+
+                _buildInfoCard(
+                title: "Perkhidmatan Tersedia",
+                subtitle: "Available Services",
+                value: "9+",
+                icon: Icons.payments,
+              ),
+              const SizedBox(height: 20),
 
                 // --- Info Cards ---
                 _buildInfoCard(

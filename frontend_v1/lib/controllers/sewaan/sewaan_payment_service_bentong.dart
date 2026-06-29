@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:frontend_v1/pages/config.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend_v1/model/sewaan/sewaan_payment_item.dart';
 
@@ -9,12 +10,13 @@ class SewaanPaymentServiceBentong {
   // Your FastAPI backend
   static const String _backendBaseUrl = "http://4.194.122.32:8000";
 
-  static const Map<String, String> _paymentHeaders = {
+  static final Map<String, String> _paymentHeaders = {
     "x-api-key": "MPB_GW_2026_x8Kp91LmQ7zT44",
     "Content-Type": "application/json",
+    "x-source-system": "TIP-${Config.terminalId}",
   };
 
-  static const Map<String, String> _backendHeaders = {
+  static final Map<String, String> _backendHeaders = {
     "Content-Type": "application/json",
   };
 

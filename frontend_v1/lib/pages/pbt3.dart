@@ -70,7 +70,7 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                 AppLocalizations.of(context)!.p3Title,
                 style: const TextStyle(
                   color: Color.fromARGB(255, 3, 89, 210),
-                  fontSize: 70,
+                  fontSize: 60,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -198,7 +198,8 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                       child: _KioskMainButton(
                         width: 400,
                         height: 400,
-                        imagePath: "lib/images/lesen.png",
+                        // imagePath: "lib/images/lesen.png",
+                        icon:Icons.assignment_ind,
                         label:
                             AppLocalizations.of(context)!.licenseButton,
                         onPressed: () {

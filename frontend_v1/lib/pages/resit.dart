@@ -7,6 +7,7 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/tax/payment_tax_item.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/pages/p1bentong.dart';
 import 'package:frontend_v1/widgets/kiosk_home_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -198,7 +199,7 @@ setState(() {
             context,
             MaterialPageRoute(
                 settings: const RouteSettings(name: '/p1'),
-                builder: (_) => const P1Page()),
+                builder: (_) => const P1BentongPage()),
             (route) => false,
           );
         }
@@ -596,7 +597,7 @@ Widget _buildInfoRow(
                   context,
                   MaterialPageRoute(
                     settings: const RouteSettings(name: '/p1'),
-                    builder: (_) => const P1Page(),
+                    builder: (_) => const P1BentongPage(),
                   ),
                   (route) => false,
                 );

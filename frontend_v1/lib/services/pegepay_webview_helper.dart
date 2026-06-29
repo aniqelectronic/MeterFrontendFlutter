@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:frontend_v1/services/pegepay_service.dart';
 import 'package:frontend_v1/pages/config.dart';
+import 'package:window_manager/window_manager.dart';
 
 class PegePayWebViewHelper {
   static Webview? _currentWebview;
@@ -19,15 +21,17 @@ class PegePayWebViewHelper {
       _currentWebview = null;
     }
 
+    final screenSize = await windowManager.getSize();
+
     final webview = await WebviewWindow.create(
-      configuration: const CreateConfiguration(
+      configuration: CreateConfiguration(
         title: "",
-        windowWidth: 1080,
-        windowHeight: 1920,
+        windowWidth: screenSize.width.toInt(),
+        windowHeight: screenSize.height.toInt(),
         windowPosX: 0,
         windowPosY: 0,
         useWindowPositionAndSize: true,
-        openMaximized: true,
+        openMaximized: false,
       ),
     );
 
@@ -47,10 +51,8 @@ class PegePayWebViewHelper {
       if (url.startsWith("app://cancelPayment")) {
         if (!completed) {
           completed = true;
-
           _currentWebview?.close();
           _currentWebview = null;
-
           onCancel();
         }
       }

@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get bilText => 'BILL';
+  String get bilText => 'UTILITY BILLS';
 
   @override
   String get otherText => 'OTHERS';
@@ -18,19 +18,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get touristText => 'TOURIST GUIDE';
 
   @override
-  String get p2Title => 'MULTIPLE OPTION';
+  String get p2Title => 'MULTIPLE SERVICES';
 
   @override
-  String get pbtText => 'PBT';
+  String get pbtText => 'COUNCIL SERVICES';
 
   @override
-  String get rentText => 'RENT';
+  String get rentText => 'OTHER RENTALS';
 
   @override
-  String get rentPBTText => 'RENT PBT';
+  String get rentPBTText => 'COUNCIL RENTAL';
 
   @override
   String get backText => 'BACK';
+
+  @override
+  String get processingReceipt => 'Payment successful.\nProcessing your receipt...\nPlease do not touch the screen.';
 
   @override
   String get noTaksiranRecordFound => 'No assessment tax record found';
@@ -108,7 +111,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get p4optioncukaiSubtitle => 'PLEASE SELECT YOUR OPTION';
 
   @override
-  String get p4optionsewaanTitle => 'RENT PBT';
+  String get p4optionsewaanTitle => 'COUNCIL RENTAL';
 
   @override
   String get p4optionsewaanSubtitle => 'PLEASE SELECT YOUR OPTION';
@@ -213,7 +216,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mapsubtitle => 'EXPLORE AND DISCOVER WHAT’S AROUND YOU';
 
   @override
-  String get p3Title => 'PBT OPTIONS';
+  String get p3Title => 'COUNCIL SERVICES';
 
   @override
   String get p3Subtitle => 'PLEASE SELECT YOUR OPTION';
@@ -422,7 +425,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qrButton => 'PAY WITH QR';
 
   @override
-  String get weAcceptText => 'We accept :';
+  String get weAcceptText => 'WE ACCEPT :';
 
   @override
   String get titleReceiptParking => 'PARKING RECEIPT';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_v1/main.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/p1.dart';
+import 'package:frontend_v1/pages/p1bentong.dart';
 import 'package:frontend_v1/pages/p2.dart';
 import 'package:frontend_v1/widgets/kiosk_home_button.dart';
 
@@ -221,7 +222,7 @@ class PBAHASAPAGE extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     settings: const RouteSettings(name: '/p1'),
-                    builder: (_) => const P1Page(),
+                    builder: (_) => const P1BentongPage(),
                   ),
                   (route) => false,
                 );

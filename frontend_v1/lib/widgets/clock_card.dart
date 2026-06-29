@@ -193,7 +193,7 @@ class _ClockCardState extends State<ClockCard> {
                           _time,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 118 * scale,
+                            fontSize: 130 * scale,
                             height: 0.95,
                             fontWeight: FontWeight.w900,
                             color: darkNavy,
@@ -204,7 +204,7 @@ class _ClockCardState extends State<ClockCard> {
                           ),
                         ),
 
-                        SizedBox(height: 14 * scale),
+                        SizedBox(height: 18 * scale),
 
                         Container(
                           padding: EdgeInsets.symmetric(
@@ -224,7 +224,7 @@ class _ClockCardState extends State<ClockCard> {
                               Text(
                                 _weekday,
                                 style: TextStyle(
-                                  fontSize: 25 * scale,
+                                  fontSize: 40 * scale,
                                   fontWeight: FontWeight.w900,
                                   color: primaryBlue,
                                   letterSpacing: 0.5,
@@ -241,7 +241,7 @@ class _ClockCardState extends State<ClockCard> {
                               Text(
                                 _date,
                                 style: TextStyle(
-                                  fontSize: 25 * scale,
+                                  fontSize: 40 * scale,
                                   fontWeight: FontWeight.w700,
                                   color: darkNavy,
                                 ),
@@ -260,7 +260,7 @@ class _ClockCardState extends State<ClockCard> {
                     children: [
                       Icon(
                         Icons.verified_rounded,
-                        size: 18 * scale,
+                        size: 40 * scale,
                         color: primaryBlue,
                       ),
                       SizedBox(width: 8 * scale),
@@ -269,7 +269,7 @@ class _ClockCardState extends State<ClockCard> {
                           "MASA STANDARD MALAYSIA SIRIM",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 12.5 * scale,
+                            fontSize: 25 * scale,
                             fontWeight: FontWeight.w800,
                             color: softNavy,
                             letterSpacing: 1.1,

@@ -9,7 +9,7 @@ class AppLocalizationsMs extends AppLocalizations {
   AppLocalizationsMs([String locale = 'ms']) : super(locale);
 
   @override
-  String get bilText => 'BIL';
+  String get bilText => 'BIL UTILITI';
 
   @override
   String get otherText => 'LAIN-LAIN';
@@ -18,19 +18,22 @@ class AppLocalizationsMs extends AppLocalizations {
   String get touristText => 'PANDUAN PELANCONG';
 
   @override
-  String get p2Title => 'PELBAGAI PILIHAN';
+  String get p2Title => 'PELBAGAI PERKHIDMATAN';
 
   @override
-  String get pbtText => 'PBT';
+  String get pbtText => 'PERKHIDMATAN MAJLIS';
 
   @override
-  String get rentText => 'SEWAAN';
+  String get rentText => 'SEWAAN LAIN';
 
   @override
-  String get rentPBTText => 'SEWAAN PBT';
+  String get rentPBTText => 'SEWAAN MAJLIS';
 
   @override
   String get backText => 'KEMBALI';
+
+  @override
+  String get processingReceipt => 'Pembayaran berjaya.\nResit anda sedang diproses...\nSila jangan sentuh skrin.';
 
   @override
   String get noTaksiranRecordFound => 'Tiada rekod cukai taksiran dijumpai';
@@ -108,7 +111,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get p4optioncukaiSubtitle => 'SILA PILIH PILIHAN ANDA';
 
   @override
-  String get p4optionsewaanTitle => 'SEWAAN PBT';
+  String get p4optionsewaanTitle => 'SEWAAN MAJLIS';
 
   @override
   String get p4optionsewaanSubtitle => 'SILA PILIH PILIHAN ANDA';
@@ -213,7 +216,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get mapsubtitle => 'TEROKAI DAN LIHAT APA YANG TERDAPAT DI SEKITAR ANDA';
 
   @override
-  String get p3Title => 'PILIHAN PBT';
+  String get p3Title => 'PERKHIDMATAN MAJLIS';
 
   @override
   String get p3Subtitle => 'SILA PILIH PILIHAN ANDA';
@@ -422,7 +425,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get qrButton => 'BAYAR QR';
 
   @override
-  String get weAcceptText => 'Kami menerima :';
+  String get weAcceptText => 'KAMI MENERIMA :';
 
   @override
   String get titleReceiptParking => 'RESIT PARKIR';

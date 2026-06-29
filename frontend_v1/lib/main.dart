@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onscreen_keyboard/flutter_onscreen_keyboard.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:frontend_v1/pages/p1bentong.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:frontend_v1/pages/p1.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:frontend_v1/services/internet_guard.dart';
+import 'package:frontend_v1/services/iot_hub_services.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -78,9 +80,12 @@ void main() async {
   await windowManager.ensureInitialized();
 
   const windowOptions = WindowOptions(
-    size: Size(1080, 1920),
-    minimumSize: Size(1080, 1920),
-    maximumSize: Size(1080, 1920),
+    // size: Size(1080, 1920),
+    // minimumSize: Size(1080, 1920),
+    // maximumSize: Size(1080, 1920),
+    size: Size(800, 1280),
+    minimumSize: Size(800, 1280),
+    maximumSize: Size(800, 1280),
     center: true,
     backgroundColor: Colors.black,
     titleBarStyle: TitleBarStyle.hidden,
@@ -121,7 +126,7 @@ class _AppState extends State<App> {
 
   static const double normalBrightness = 1.0;
   static const double dimBrightness = 0.3;
-  static const double homeDimBrightness = 0.05;
+  static const double homeDimBrightness = 0.0;
 
   Timer? _dimTimer;
   Timer? _warningTimer;
@@ -143,6 +148,9 @@ class _AppState extends State<App> {
 
   late final AppRouteObserver _routeObserver;
 
+// ================= IOT HUB =================
+  final IoTHubService iotHubService = IoTHubService();
+
   @override
   void initState() {
     super.initState();
@@ -153,6 +161,8 @@ class _AppState extends State<App> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       InternetGuard().start(navigatorKey);
+
+       iotHubService.connect();
 
       currentRouteName = routeHome;
       _resetIdleTimers();
@@ -165,6 +175,8 @@ class _AppState extends State<App> {
     _warningTimer?.cancel();
     _countdownTimer?.cancel();
     _homeDimTimer?.cancel();
+
+    iotHubService.stop();
     super.dispose();
   }
 
@@ -197,14 +209,14 @@ class _AppState extends State<App> {
   // ================= BRIGHTNESS =================
   Future<void> _setBrightness(double value) async {
     try {
-      final safeValue = value.clamp(0.05, 1.0);
+      final safeValue = value.clamp(0.0, 1.0);
 
       final command = '''
-export DISPLAY=:0
-export XAUTHORITY=/home/orin_nano/.Xauthority
-OUTPUT=\$(xrandr | grep " connected" | awk '{print \$1}' | head -n 1)
-xrandr --output "\$OUTPUT" --brightness $safeValue
-''';
+      export DISPLAY=:0
+      export XAUTHORITY=/home/orin_nano/.Xauthority
+      OUTPUT=\$(xrandr | grep " connected" | awk '{print \$1}' | head -n 1)
+      xrandr --output "\$OUTPUT" --brightness $safeValue
+      ''';
 
       final result = await Process.run(
         'bash',
@@ -490,25 +502,54 @@ xrandr --output "\$OUTPUT" --brightness $safeValue
       ],
       initialRoute: routeHome,
       routes: {
-        routeHome: (context) => const P1Page(),
+        routeHome: (context) => const P1BentongPage(),
       },
-      builder: (context, child) {
-        final mediaQuery = MediaQuery.of(context);
+      // builder: (context, child) {
+      //   final mediaQuery = MediaQuery.of(context);
 
-        return Listener(
-          behavior: HitTestBehavior.translucent,
-          onPointerDown: (_) {
-            _handleUserTouch();
-          },
-          onPointerMove: (_) {
-            _handleUserTouch();
-          },
+      //   return Listener(
+      //     behavior: HitTestBehavior.translucent,
+      //     onPointerDown: (_) {
+      //       _handleUserTouch();
+      //     },
+      //     onPointerMove: (_) {
+      //       _handleUserTouch();
+      //     },
+      //     child: MediaQuery(
+      //       data: mediaQuery.copyWith(textScaleFactor: 1.3),
+      //       child: OnscreenKeyboard(child: child!),
+      //     ),
+      //   );
+      // },
+
+builder: (context, child) {
+  final realMediaQuery = MediaQuery.of(context);
+
+  const Size designSize = Size(1080, 1920);
+
+  return Listener(
+    behavior: HitTestBehavior.translucent,
+    onPointerDown: (_) => _handleUserTouch(),
+    onPointerMove: (_) => _handleUserTouch(),
+    child: SizedBox.expand(
+      child: FittedBox(
+        fit: BoxFit.fill,
+        alignment: Alignment.topLeft,
+        child: SizedBox(
+          width: designSize.width,
+          height: designSize.height,
           child: MediaQuery(
-            data: mediaQuery.copyWith(textScaleFactor: 1.3),
+            data: realMediaQuery.copyWith(
+              size: designSize,
+              textScaleFactor: 1.0,
+            ),
             child: OnscreenKeyboard(child: child!),
           ),
-        );
-      },
+        ),
+      ),
+    ),
+  );
+},
       theme: ThemeData(
         visualDensity: VisualDensity.standard,
         textTheme: const TextTheme(

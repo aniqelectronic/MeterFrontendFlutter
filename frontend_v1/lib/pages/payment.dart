@@ -16,6 +16,7 @@ import 'package:frontend_v1/model/tax/payment_tax_item.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/resit.dart';
+import 'package:frontend_v1/main.dart';
 import 'package:frontend_v1/pages/pin_entry.dart'; // Import new PIN entry screen
 import 'package:frontend_v1/services/pegepay_qr_page.dart';
 import 'package:frontend_v1/services/pegepay_service.dart';
@@ -68,6 +69,49 @@ class PaymentData {
     this.sewaanItems,
   });
 
+}
+
+void showProcessingDialog(BuildContext context,
+    { required String message,}) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (_) => PopScope(
+      canPop: false,
+      child: Material(
+        color: Colors.black54,
+        child: Center(
+          child: Container(
+            width: 450,
+            padding: const EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(
+                  width: 70,
+                  height: 70,
+                  child: CircularProgressIndicator(strokeWidth: 6),
+                ),
+                const SizedBox(height: 25),
+                Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 }
 
 void showLoadingDialog(BuildContext context, {String message = "Loading..."}) {
@@ -801,6 +845,7 @@ Positioned(
                             //           const SnackBar(content: Text("Payment successful!")),
                             //         );
 
+                            currentRouteName = '/payment';
                             await PegePayWebViewHelper.open(
                             iframeUrl: iframeUrl,
                             orderNo: orderNo,
@@ -810,6 +855,12 @@ Positioned(
                             final pegeBankTrxNo = paymentResult["bank_trx_no"] ?? "";
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text("Payment successful!")),
+                              );
+
+                              showProcessingDialog(
+                                context,
+                                message:
+                                    AppLocalizations.of(context)!.processingReceipt,
                               );
 
 
@@ -827,6 +878,10 @@ Positioned(
                                     );
                                   
                                     if (result != null && !result.startsWith("Error")) {
+
+                                      if (Navigator.canPop(context)) {
+  Navigator.pop(context); // close processing dialog
+}
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -861,6 +916,10 @@ Positioned(
                                  );
                                
                                  if (result != null && !result.startsWith("Error")) {
+
+                                  if (Navigator.canPop(context)) {
+  Navigator.pop(context); // close processing dialog
+}
                                    Navigator.push(
                                      context,
                                      MaterialPageRoute(
@@ -922,6 +981,10 @@ Positioned(
                                   final items = widget.data.taksiranItems ?? [];
 
                                   if (items.isEmpty) {
+
+                                      if (Navigator.canPop(context)) {
+                                      Navigator.pop(context);
+                                    }
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text("Tiada cukai dipilih")),
                                     );
@@ -950,6 +1013,10 @@ Positioned(
                                       );
                                       return;
                                     }
+
+                                    if (Navigator.canPop(context)) {
+  Navigator.pop(context); // close processing dialog
+}
 
                                     Navigator.push(
                                       context,
@@ -980,6 +1047,9 @@ Positioned(
                                       final items = widget.data.sewaanItems ?? [];
 
                                       if (items.isEmpty) {
+                                          if (Navigator.canPop(context)) {
+                                                Navigator.pop(context);
+                                              }
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           const SnackBar(content: Text("Tiada sewaan dipilih")),
                                         );
@@ -1008,6 +1078,9 @@ Positioned(
                                           );
                                           return;
                                         }
+                                        if (Navigator.canPop(context)) {
+  Navigator.pop(context); // close processing dialog
+}
 
                                         Navigator.push(
                                           context,
@@ -1053,6 +1126,9 @@ Positioned(
                                        await LicenseService.payMultipleLicenses(licenseNos);
                                  
                                    if (success) {
+                                    if (Navigator.canPop(context)) {
+  Navigator.pop(context); // close processing dialog
+}
                                      Navigator.push(
                                        context,
                                        MaterialPageRoute(
@@ -1084,7 +1160,10 @@ Positioned(
                                    // NO API CALL ❌
                                    // Just go to receipt page ✅
                                 //Navigator.pop(context);
-                                 
+
+                                 if (Navigator.canPop(context)) {
+  Navigator.pop(context); // close processing dialog
+}
                                    Navigator.push(
                                      context,
                                      MaterialPageRoute(
@@ -1104,6 +1183,9 @@ Positioned(
                                  }
                                   
                                 else if (widget.biz == "SINGLECOMPOUND") {
+                                  if (Navigator.canPop(context)) {
+  Navigator.pop(context);
+}
                                  Navigator.push(
                                    context,
                                    MaterialPageRoute(
@@ -1130,16 +1212,18 @@ Positioned(
                                
                                   },
                                     onCancel: () {
-    print("User closed QR window");
-    // stay on payment page (no navigation needed)
-  },
-);
-                                  
+                                print("User closed QR window");
+                                currentRouteName = '/payment';
+                                // stay on payment page (no navigation needed)
+                              },
+                            );
+                                                              
                             //     ),
                             //   ),
                             // );
                           } catch (e) {
                             Navigator.pop(context);
+                            currentRouteName = '/payment';
                             print("PegePay createOrder error: $e");
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text("Error creating PegePay order.")),

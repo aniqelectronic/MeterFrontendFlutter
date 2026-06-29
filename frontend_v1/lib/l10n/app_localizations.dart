@@ -98,7 +98,7 @@ abstract class AppLocalizations {
   /// No description provided for @bilText.
   ///
   /// In en, this message translates to:
-  /// **'BILL'**
+  /// **'UTILITY BILLS'**
   String get bilText;
 
   /// No description provided for @otherText.
@@ -116,25 +116,25 @@ abstract class AppLocalizations {
   /// No description provided for @p2Title.
   ///
   /// In en, this message translates to:
-  /// **'MULTIPLE OPTION'**
+  /// **'MULTIPLE SERVICES'**
   String get p2Title;
 
   /// No description provided for @pbtText.
   ///
   /// In en, this message translates to:
-  /// **'PBT'**
+  /// **'COUNCIL SERVICES'**
   String get pbtText;
 
   /// No description provided for @rentText.
   ///
   /// In en, this message translates to:
-  /// **'RENT'**
+  /// **'OTHER RENTALS'**
   String get rentText;
 
   /// No description provided for @rentPBTText.
   ///
   /// In en, this message translates to:
-  /// **'RENT PBT'**
+  /// **'COUNCIL RENTAL'**
   String get rentPBTText;
 
   /// No description provided for @backText.
@@ -142,6 +142,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'BACK'**
   String get backText;
+
+  /// No description provided for @processingReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment successful.\nProcessing your receipt...\nPlease do not touch the screen.'**
+  String get processingReceipt;
 
   /// No description provided for @noTaksiranRecordFound.
   ///
@@ -296,7 +302,7 @@ abstract class AppLocalizations {
   /// No description provided for @p4optionsewaanTitle.
   ///
   /// In en, this message translates to:
-  /// **'RENT PBT'**
+  /// **'COUNCIL RENTAL'**
   String get p4optionsewaanTitle;
 
   /// No description provided for @p4optionsewaanSubtitle.
@@ -506,7 +512,7 @@ abstract class AppLocalizations {
   /// No description provided for @p3Title.
   ///
   /// In en, this message translates to:
-  /// **'PBT OPTIONS'**
+  /// **'COUNCIL SERVICES'**
   String get p3Title;
 
   /// No description provided for @p3Subtitle.
@@ -896,7 +902,7 @@ abstract class AppLocalizations {
   /// No description provided for @weAcceptText.
   ///
   /// In en, this message translates to:
-  /// **'We accept :'**
+  /// **'WE ACCEPT :'**
   String get weAcceptText;
 
   /// No description provided for @titleReceiptParking.
