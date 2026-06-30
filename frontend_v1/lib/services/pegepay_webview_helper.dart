@@ -32,6 +32,7 @@ class PegePayWebViewHelper {
         windowPosY: 0,
         useWindowPositionAndSize: true,
         openMaximized: false,
+        titleBarTopPadding: 0,
       ),
     );
 
@@ -40,11 +41,16 @@ class PegePayWebViewHelper {
     bool completed = false;
 
     webview.onClose.whenComplete(() {
-      if (!completed) {
-        completed = true;
-        _currentWebview = null;
-        onCancel();
-      }
+      print("WEBVIEW CLOSED BY X");
+
+      completed = true;
+      _currentWebview = null;
+
+      Future.delayed(const Duration(milliseconds: 300), () async {
+        await windowManager.show();
+        await windowManager.focus();
+        await windowManager.setFullScreen(true);
+      });
     });
 
     // webview.addOnUrlRequestCallback((url) {
