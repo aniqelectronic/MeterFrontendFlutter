@@ -26,8 +26,8 @@ class PegePayWebViewHelper {
     final webview = await WebviewWindow.create(
       configuration: CreateConfiguration(
         title: "",
-        windowWidth: screenSize.width.toInt(),
-        windowHeight: screenSize.height.toInt(),
+        windowWidth: 800,
+        windowHeight: 1280,
         windowPosX: 0,
         windowPosY: 0,
         useWindowPositionAndSize: true,
