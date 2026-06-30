@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
+import 'package:frontend_v1/main.dart';
 import 'package:frontend_v1/services/pegepay_service.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:window_manager/window_manager.dart';
@@ -42,12 +43,14 @@ class PegePayWebViewHelper {
     webview.onClose.whenComplete(() {
       print("WEBVIEW CLOSED BY X");
 
+      currentRouteName = '/payment';
+
       completed = true;
       _currentWebview = null;
 
-      Future.delayed(const Duration(milliseconds: 300), () {
-        onCancel();
-      });
+      // Future.delayed(const Duration(milliseconds: 300), () {
+      //   onCancel();
+      // });
     });
 
     // webview.addOnUrlRequestCallback((url) {
