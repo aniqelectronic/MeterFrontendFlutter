@@ -63,7 +63,7 @@ class PegePayWebViewHelper {
     //   }
     // });
 
-    webview.addOnUrlRequestCallback((url) {
+webview.addOnUrlRequestCallback((url) {
   if (url.startsWith("app://cancelPayment")) {
     if (!completed) {
       completed = true;
@@ -93,8 +93,14 @@ class PegePayWebViewHelper {
           final paymentResult =
               await PegePayService.checkStatusDetails(orderNo);
 
-          _currentWebview?.close();
+          // _currentWebview?.close();
+
           _currentWebview = null;
+
+          await windowManager.show();
+          await windowManager.focus();
+          await windowManager.setFullScreen(true);
+
 
           onSuccess(paymentResult);
         }

@@ -1163,8 +1163,8 @@ Positioned(
                                 //Navigator.pop(context);
 
                                  if (Navigator.canPop(context)) {
-  Navigator.pop(context); // close processing dialog
-}
+                                    Navigator.pop(context); // close processing dialog
+                                  }
                                    Navigator.push(
                                      context,
                                      MaterialPageRoute(
