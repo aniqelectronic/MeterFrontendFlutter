@@ -123,7 +123,9 @@ webview.addOnUrlRequestCallback((url) {
       _currentWebview = null;
 
       Future.delayed(const Duration(milliseconds: 300), ()async  {
-        await _cleanupOldWebViews();
+        await windowManager.show();
+        await windowManager.focus();
+        await windowManager.setFullScreen(true);
         onCancel();
       });
     }
@@ -150,7 +152,6 @@ webview.addOnUrlRequestCallback((url) {
 
           _currentWebview = null;
 
-           await _cleanupOldWebViews();
 
           await windowManager.show();
           await windowManager.focus();
