@@ -24,15 +24,14 @@ class PegePayWebViewHelper {
     final screenSize = await windowManager.getSize();
 
     final webview = await WebviewWindow.create(
-      configuration: CreateConfiguration(
+      configuration: const CreateConfiguration(
         title: "",
         windowWidth: 800,
-        windowHeight: 1280,
+        windowHeight: 1320,
         windowPosX: 0,
-        windowPosY: 0,
+        windowPosY: -40,
         useWindowPositionAndSize: true,
         openMaximized: false,
-        titleBarTopPadding: 0,
       ),
     );
 
