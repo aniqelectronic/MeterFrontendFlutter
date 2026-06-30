@@ -11,7 +11,7 @@ class PegePayWebViewHelper {
   static Webview? _currentWebview;
 
 static Future<void> _removeWebViewDecoration() async {
-  await Future.delayed(const Duration(milliseconds: 700));
+  await Future.delayed(const Duration(milliseconds: 50));
 
   try {
     await Process.run('bash', [
