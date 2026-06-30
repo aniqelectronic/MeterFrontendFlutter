@@ -62,15 +62,15 @@ static Future<void> _cleanupOldWebViews() async {
     required Function onCancel,
   }) async {
     if (_currentWebview != null) {
-      // try {
-      //   _currentWebview!.close();
-      // } catch (_) {}
+      try {
+        _currentWebview!.close();
+      } catch (_) {}
       _currentWebview = null;
     }
 
     final screenSize = await windowManager.getSize();
 
-    await _cleanupOldWebViews();
+   // await _cleanupOldWebViews();
 
     final webview = await WebviewWindow.create(
       configuration: const CreateConfiguration(
