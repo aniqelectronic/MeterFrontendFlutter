@@ -20,7 +20,7 @@ static Future<void> _removeWebViewDecoration() async {
       export DISPLAY=:0
       export XAUTHORITY=/home/orin_nano/.Xauthority
 
-      WIN_ID=\$(xdotool search --name "PegePayQR" | head -n 1)
+      WIN_ID=\$(xdotool search --name "PegePayQR" | tail -n 1)
 
       if [ ! -z "\$WIN_ID" ]; then
         xprop -id \$WIN_ID -f _MOTIF_WM_HINTS 32c \
@@ -35,6 +35,25 @@ static Future<void> _removeWebViewDecoration() async {
   }
 }
 
+static Future<void> _cleanupOldWebViews() async {
+  try {
+    await Process.run('bash', [
+      '-c',
+      '''
+      export DISPLAY=:0
+      export XAUTHORITY=/home/orin_nano/.Xauthority
+
+      for WIN_ID in \$(xdotool search --name "PegePayQR" 2>/dev/null); do
+        wmctrl -ir \$WIN_ID -b remove,fullscreen
+        xdotool windowkill \$WIN_ID
+      done
+      '''
+    ]);
+  } catch (e) {
+    print("Failed to cleanup old WebViews: $e");
+  }
+}
+
 
   static Future<void> open({
     required String iframeUrl,
@@ -43,13 +62,15 @@ static Future<void> _removeWebViewDecoration() async {
     required Function onCancel,
   }) async {
     if (_currentWebview != null) {
-      try {
-        _currentWebview!.close();
-      } catch (_) {}
+      // try {
+      //   _currentWebview!.close();
+      // } catch (_) {}
       _currentWebview = null;
     }
 
     final screenSize = await windowManager.getSize();
+
+    await _cleanupOldWebViews();
 
     final webview = await WebviewWindow.create(
       configuration: const CreateConfiguration(
@@ -64,7 +85,9 @@ static Future<void> _removeWebViewDecoration() async {
     );
 
     _currentWebview = webview;
-    await _removeWebViewDecoration();
+    Future.delayed(const Duration(milliseconds: 500), () {
+  _removeWebViewDecoration();
+    });
 
     bool completed = false;
 
@@ -99,7 +122,8 @@ webview.addOnUrlRequestCallback((url) {
 
       _currentWebview = null;
 
-      Future.delayed(const Duration(milliseconds: 300), () {
+      Future.delayed(const Duration(milliseconds: 300), ()async  {
+        await _cleanupOldWebViews();
         onCancel();
       });
     }
@@ -125,6 +149,8 @@ webview.addOnUrlRequestCallback((url) {
           // _currentWebview?.close();
 
           _currentWebview = null;
+
+           await _cleanupOldWebViews();
 
           await windowManager.show();
           await windowManager.focus();
