@@ -126,7 +126,7 @@ class _AppState extends State<App> {
 
   static const double normalBrightness = 1.0;
   static const double dimBrightness = 0.3;
-  static const double homeDimBrightness = 0.0;
+  static const double homeDimBrightness = 0.05;
 
   Timer? _dimTimer;
   Timer? _warningTimer;

@@ -63,12 +63,7 @@ class PegePayWebViewHelper {
     if (!completed) {
       completed = true;
 
-      final w = _currentWebview;
       _currentWebview = null;
-
-      try {
-        w?.close();
-      } catch (_) {}
 
       Future.delayed(const Duration(milliseconds: 300), () {
         onCancel();
