@@ -27,6 +27,7 @@ import 'package:frontend_v1/model/taksiran/taksiran_payment_item.dart';
 import 'package:frontend_v1/controllers/taksiran/taksiran_payment_service_bentong.dart';
 import 'package:frontend_v1/model/sewaan/sewaan_payment_item.dart';
 import 'package:frontend_v1/controllers/sewaan/sewaan_payment_service_bentong.dart';
+import 'package:window_manager/window_manager.dart';
 
 
 class PaymentData {
@@ -1184,8 +1185,8 @@ Positioned(
                                   
                                 else if (widget.biz == "SINGLECOMPOUND") {
                                   if (Navigator.canPop(context)) {
-  Navigator.pop(context);
-}
+                                    Navigator.pop(context);
+                                  }
                                  Navigator.push(
                                    context,
                                    MaterialPageRoute(
@@ -1211,11 +1212,19 @@ Positioned(
                                }
                                
                                   },
-                                    onCancel: () {
-                                print("User closed QR window");
-                                currentRouteName = '/payment';
-                                // stay on payment page (no navigation needed)
-                              },
+                            onCancel: () async {
+                              print("User cancelled QR payment");
+
+                              currentRouteName = '/payment';
+
+                              await windowManager.show();
+                              await windowManager.focus();
+                              await windowManager.setFullScreen(true);
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Payment cancelled")),
+                              );
+                            },
                             );
                                                               
                             //     ),

@@ -47,16 +47,35 @@ class PegePayWebViewHelper {
       }
     });
 
+    // webview.addOnUrlRequestCallback((url) {
+    //   if (url.startsWith("app://cancelPayment")) {
+    //     if (!completed) {
+    //       completed = true;
+    //       _currentWebview?.close();
+    //       _currentWebview = null;
+    //       onCancel();
+    //     }
+    //   }
+    // });
+
     webview.addOnUrlRequestCallback((url) {
-      if (url.startsWith("app://cancelPayment")) {
-        if (!completed) {
-          completed = true;
-          _currentWebview?.close();
-          _currentWebview = null;
-          onCancel();
-        }
-      }
-    });
+  if (url.startsWith("app://cancelPayment")) {
+    if (!completed) {
+      completed = true;
+
+      final w = _currentWebview;
+      _currentWebview = null;
+
+      try {
+        w?.close();
+      } catch (_) {}
+
+      Future.delayed(const Duration(milliseconds: 300), () {
+        onCancel();
+      });
+    }
+  }
+});
 
     Timer.periodic(const Duration(seconds: 2), (timer) async {
       if (completed) {
