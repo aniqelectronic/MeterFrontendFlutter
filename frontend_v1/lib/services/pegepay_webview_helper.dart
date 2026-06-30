@@ -49,6 +49,7 @@ class PegePayWebViewHelper {
         await windowManager.show();
         await windowManager.focus();
         await windowManager.setFullScreen(true);
+        onCancel();
       });
     });
 
