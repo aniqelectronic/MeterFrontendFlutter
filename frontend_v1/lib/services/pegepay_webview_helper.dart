@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:frontend_v1/main.dart';
@@ -8,6 +9,32 @@ import 'package:window_manager/window_manager.dart';
 
 class PegePayWebViewHelper {
   static Webview? _currentWebview;
+
+static Future<void> _removeWebViewDecoration() async {
+  await Future.delayed(const Duration(milliseconds: 700));
+
+  try {
+    await Process.run('bash', [
+      '-c',
+      '''
+      export DISPLAY=:0
+      export XAUTHORITY=/home/orin_nano/.Xauthority
+
+      WIN_ID=\$(xdotool search --name "PegePayQR" | head -n 1)
+
+      if [ ! -z "\$WIN_ID" ]; then
+        xprop -id \$WIN_ID -f _MOTIF_WM_HINTS 32c \
+        -set _MOTIF_WM_HINTS "0x2, 0x0, 0x0, 0x0, 0x0"
+
+        wmctrl -ir \$WIN_ID -b add,fullscreen
+      fi
+      '''
+    ]);
+  } catch (e) {
+    print("Failed to remove WebView decoration: $e");
+  }
+}
+
 
   static Future<void> open({
     required String iframeUrl,
@@ -26,7 +53,7 @@ class PegePayWebViewHelper {
 
     final webview = await WebviewWindow.create(
       configuration: const CreateConfiguration(
-        title: "",
+        title: "PegePayQR",
         windowWidth: 800,
         windowHeight: 1320,
         windowPosX: 0,
@@ -37,6 +64,7 @@ class PegePayWebViewHelper {
     );
 
     _currentWebview = webview;
+    await _removeWebViewDecoration();
 
     bool completed = false;
 
@@ -112,4 +140,6 @@ webview.addOnUrlRequestCallback((url) {
       "${Config.baseUrl}/pegepay/iframe-wrapper?iframe_url=${Uri.encodeComponent(iframeUrl)}",
     );
   }
+  
 }
+
