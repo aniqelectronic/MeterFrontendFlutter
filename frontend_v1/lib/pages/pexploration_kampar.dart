@@ -106,7 +106,7 @@ title:"Gopeng Pipeline Bridge",date:"04/02/2026",
 description:loc.pipelineDesc,fullExplanation:loc.pipelineFull,
 mapUrl:"https://maps.app.goo.gl/fh78o3MKtvJEF2Kv6"),
 
-ExplorationItem(image:"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/13/4f/8c/photo2jpg.jpg?w=1200&h=-1&s=1",
+ExplorationItem(image:"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/13/4f/8c/photo2jpg.jpg?w=9600&h=-1&s=1",
 title:"Gua Tempurung",date:"04/02/2026",
 description:loc.tempurungDesc,fullExplanation:loc.tempurungFull,
 mapUrl:"https://maps.app.goo.gl/7va3h4FSUYsSye9i8"),

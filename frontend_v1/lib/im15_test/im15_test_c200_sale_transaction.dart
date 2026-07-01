@@ -9,7 +9,7 @@ Future<void> main() async {
   // Load serial config manually (replace with your real config)
   final cfg = IM15SerialSettings(
     explicitPort: '/dev/ttyUSB5', // change to your port
-    baudRate: 1200,
+    baudRate: 9600,
     dataBits: 8,
     stopBits: 1,
     parity: 0,

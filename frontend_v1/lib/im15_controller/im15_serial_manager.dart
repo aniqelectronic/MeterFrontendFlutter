@@ -21,7 +21,7 @@ class IM15SerialManager {
     if (!_port.openReadWrite()) return false;
 
     _port.config = SerialPortConfig()
-      ..baudRate = 1200
+      ..baudRate = 9600
       ..bits = 8
       ..stopBits = 1
       ..parity = SerialPortParity.none;

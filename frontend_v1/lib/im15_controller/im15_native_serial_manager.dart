@@ -22,7 +22,7 @@ class IM15NativeSerialManager {
       _port = NativeSerialPort(portName);
       
       final opened = _port!.open(
-        baudRate: 1200,
+        baudRate: 9600,
         dataBits: 8,
         stopBits: 1,
         parity: 0, // No parity

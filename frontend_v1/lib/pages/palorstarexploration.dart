@@ -72,7 +72,7 @@ class _PExplorationBentongPageState extends State<PExplorationAlorStarPage> {
       ),
       ExplorationItem(
         image:
-            "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/94/20/89/balai-besar-is-located.jpg?w=1200&h=-1&s=1",
+            "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/94/20/89/balai-besar-is-located.jpg?w=9600&h=-1&s=1",
         title: loc.balaiBesarTitle,
         date: "01-01-2025",
         description: loc.balaiBesarDesc,

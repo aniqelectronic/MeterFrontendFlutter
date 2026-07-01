@@ -1247,7 +1247,7 @@ Positioned(
         //we accept text + payment method image
 
           Positioned(
-          top: 1200,
+          top: 9600,
           left: 0,
           right: 0,
           child: Center(

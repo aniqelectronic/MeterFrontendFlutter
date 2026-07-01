@@ -141,7 +141,7 @@ class _PExplorationTemerlohPageState
           mapUrl: "https://maps.app.goo.gl/BBYxMXBVXnxv74fV8"),
       ExplorationItem(
           image:
-              "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/e1/74/23/gunung-senyum-recreational.jpg?w=1200&h=-1&s=1",
+              "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/e1/74/23/gunung-senyum-recreational.jpg?w=9600&h=-1&s=1",
           title: "Gunung Senyum",
           date: "23/04/2026",
           description: loc.temInteresting6Desc,

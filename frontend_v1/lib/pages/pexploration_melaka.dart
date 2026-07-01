@@ -184,7 +184,7 @@ class _PExplorationMelakaPageState extends State<PExplorationMelakaPage> {
         mapUrl:"https://maps.app.goo.gl/87H4QETJX4tZu2vk6",
       ),
       ExplorationItem(
-        image: "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1200,h_630/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/fvrybqt1y8envnreruyj/AFamosaTicketinMelaka-KlookMalaysia.jpg",
+        image: "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_9600,h_630/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/fvrybqt1y8envnreruyj/AFamosaTicketinMelaka-KlookMalaysia.jpg",
         title: "A'Famosa Water Theme Park",
         date: "04/02/2026",
         description: loc.waterDesc,
@@ -276,7 +276,7 @@ class _PExplorationMelakaPageState extends State<PExplorationMelakaPage> {
         mapUrl:"https://maps.app.goo.gl/iy4gNNJevBBLkCFx8",
       ),
       ExplorationItem(
-        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/d3/49/89/caption.jpg?w=1200&h=1200&s=1",
+        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/d3/49/89/caption.jpg?w=9600&h=9600&s=1",
         title: "Cendol Kampung Hulu",
         date: "04/02/2026",
         description: loc.cendolDesc,
@@ -292,7 +292,7 @@ class _PExplorationMelakaPageState extends State<PExplorationMelakaPage> {
         mapUrl:"https://maps.app.goo.gl/Fykgn4eNkDg5XzGz8",
       ),
       ExplorationItem(
-        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/31/70/b3/caption.jpg?w=1200&h=1200&s=1",
+        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/31/70/b3/caption.jpg?w=9600&h=9600&s=1",
         title: "Atas Restaurant – Heritage Riverside Dining",
         date: "04/02/2026",
         description: loc.atasDesc,

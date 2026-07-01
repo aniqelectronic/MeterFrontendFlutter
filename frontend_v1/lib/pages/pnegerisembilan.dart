@@ -310,7 +310,7 @@ class _PExplorationNegeriSembilanPageState
         mapUrl: "https://maps.app.goo.gl/UaJxagkFHF837QG47",
       ),
       ExplorationItem(
-        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/e6/e9/82/20180729-115603-largejpg.jpg?w=1200&h=1200&s=1",
+        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/e6/e9/82/20180729-115603-largejpg.jpg?w=9600&h=9600&s=1",
         title: loc.pdFamousCendolTitle,
         date: "01-01-2026",
         description: loc.pdFamousCendolDesc,
