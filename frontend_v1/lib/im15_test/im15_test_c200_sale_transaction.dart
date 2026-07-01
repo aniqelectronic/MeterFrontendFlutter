@@ -8,8 +8,8 @@ import '../im15_serial/im15_serial_settings.dart';
 Future<void> main() async {
   // Load serial config manually (replace with your real config)
   final cfg = IM15SerialSettings(
-    explicitPort: '/dev/ttyUSB0', // change to your port
-    baudRate: 9600,
+    explicitPort: '/dev/ttyUSB5', // change to your port
+    baudRate: 1200,
     dataBits: 8,
     stopBits: 1,
     parity: 0,

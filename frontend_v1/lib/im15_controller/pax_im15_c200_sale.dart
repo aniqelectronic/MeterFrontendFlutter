@@ -44,9 +44,9 @@ class PaxIM15C200Sale {
       // 60-second timeout for initial card tap detection
       final gotAckAfterEnq = await serial.waitForByte(
         IM15NativeSerialManager.ACK, 
-        30000 // 60 seconds for card tap
+        5000 //  seconds for card tap
       ).timeout(
-        const Duration(seconds: 60),
+        const Duration(seconds: 8),
         onTimeout: () {
           logger.logInfo('Timeout waiting for card tap (60 seconds)');
           print('[PaxIM15C200Sale] ⏱️ TIMEOUT: No card detected after 60 seconds');
