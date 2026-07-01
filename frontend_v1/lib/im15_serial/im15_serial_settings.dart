@@ -13,7 +13,7 @@ class IM15SerialSettings {
     this.baudRate = 9600,
     this.dataBits = 8,
     this.stopBits = 1,
-    this.parity = 0,
+    this.parity = 2,
     this.readTimeoutMs = 1000,
     this.writeTimeoutMs = 1000,
     this.openTimeoutMs = 300,
