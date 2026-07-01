@@ -12,7 +12,7 @@ Future<void> main() async {
     baudRate: 9600,
     dataBits: 8,
     stopBits: 1,
-    parity: 0,
+    parity: 2,
     readTimeoutMs: 1000,
     writeTimeoutMs: 1000,
     openTimeoutMs: 300,

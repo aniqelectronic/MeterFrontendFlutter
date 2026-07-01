@@ -135,7 +135,7 @@ class NativeSerialPort {
     int baudRate = 9600,
     int dataBits = 8,
     int stopBits = 1,
-    int parity = 0,
+    int parity = 2,
   }) {
     try {
       print('[NativeSerial] Opening port: $portPath');
