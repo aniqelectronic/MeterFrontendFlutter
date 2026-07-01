@@ -36,7 +36,15 @@ class IM15PortDetector {
     }
 
     // 2️⃣ Direct Jetson / Linux fallback - CHECK FILE EXISTS FIRST
-    const fallbackPorts = ['/dev/ttyUSB0', '/dev/ttyACM0', '/dev/ttyUSB1'];
+    const fallbackPorts = [
+  '/dev/ttyUSB5',
+  '/dev/ttyUSB0',
+  '/dev/ttyUSB1',
+  '/dev/ttyUSB2',
+  '/dev/ttyUSB3',
+  '/dev/ttyUSB4',
+  '/dev/ttyACM0',
+];
     for (final port in fallbackPorts) {
       print('[IM15PortDetector] Checking fallback port: $port');
       
