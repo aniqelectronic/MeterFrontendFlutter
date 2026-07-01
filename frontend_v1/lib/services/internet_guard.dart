@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/data.dart';
@@ -11,6 +12,7 @@ class InternetGuard {
   final Connectivity _connectivity = Connectivity();
 
   StreamSubscription<List<ConnectivityResult>>? _subscription;
+  Timer? _timer;
 
   bool _offline = false;
   BuildContext? _dialogContext;
@@ -26,26 +28,44 @@ class InternetGuard {
     _onOffline = onOffline;
     _onOnline = onOnline;
 
+    // Check immediately
+    _checkInternet(navigatorKey);
+
+    // Check every 10 seconds
+    _timer ??= Timer.periodic(const Duration(seconds: 10), (_) {
+      _checkInternet(navigatorKey);
+    });
+
+    // Also check when network changes
     _subscription ??=
         _connectivity.onConnectivityChanged.listen((results) {
-      final hasInternet = results.any(
-        (r) => r != ConnectivityResult.none,
-      );
-
-      if (!hasInternet && !_offline) {
-        _offline = true;
-
-        _onOffline?.call();
-
-        _showDialog(navigatorKey);
-      } else if (hasInternet && _offline) {
-        _offline = false;
-
-        _closeDialog();
-
-        _onOnline?.call();
-      }
+      _checkInternet(navigatorKey);
     });
+  }
+
+  Future<void> _checkInternet(GlobalKey<NavigatorState> navigatorKey) async {
+    final hasInternet = await _hasRealInternet();
+
+    if (!hasInternet && !_offline) {
+      _offline = true;
+      _onOffline?.call();
+      _showDialog(navigatorKey);
+    } else if (hasInternet && _offline) {
+      _offline = false;
+      _closeDialog();
+      _onOnline?.call();
+    }
+  }
+
+  Future<bool> _hasRealInternet() async {
+    try {
+      final result = await InternetAddress.lookup('google.com')
+          .timeout(const Duration(seconds: 5));
+
+      return result.isNotEmpty && result.first.rawAddress.isNotEmpty;
+    } catch (_) {
+      return false;
+    }
   }
 
   void _showDialog(GlobalKey<NavigatorState> navigatorKey) {
@@ -69,7 +89,7 @@ class InternetGuard {
             backgroundColor: Colors.black,
             title: const Center(
               child: Icon(
-                Icons.build_circle,
+                Icons.wifi_off,
                 color: Colors.orange,
                 size: 100,
               ),
@@ -81,7 +101,7 @@ class InternetGuard {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'UNDER MAINTENANCE',
+                      'NO INTERNET CONNECTION',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 32,
@@ -93,7 +113,7 @@ class InternetGuard {
                     const SizedBox(height: 20),
                     Text(
                       'This kiosk is temporarily unavailable.\n'
-                      'Please try again shortly.\n\n'
+                      'Please check the SIM card, topup, or network signal.\n\n'
                       'For assistance, please contact:\n'
                       '📞 ${Data.telefonNo}',
                       textAlign: TextAlign.center,
@@ -121,7 +141,10 @@ class InternetGuard {
 
   void stop() {
     _subscription?.cancel();
+    _timer?.cancel();
+
     _subscription = null;
+    _timer = null;
     _offline = false;
     _dialogContext = null;
     _onOffline = null;
