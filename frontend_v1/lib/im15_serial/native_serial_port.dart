@@ -132,7 +132,7 @@ class NativeSerialPort {
   }
   
   bool open({
-    int baudRate = 9600,
+    int baudRate = 1200,
     int dataBits = 8,
     int stopBits = 1,
     int parity = 0,

@@ -10,7 +10,7 @@ class IM15SerialSettings {
 
   IM15SerialSettings({
     this.explicitPort,
-    this.baudRate = 9600,
+    this.baudRate = 1200,
     this.dataBits = 8,
     this.stopBits = 1,
     this.parity = 0,
@@ -46,7 +46,7 @@ class IM15SerialSettings {
 
     return IM15SerialSettings(
       explicitPort: map['im15.port'],
-      baudRate: i(map['im15.baud'], 9600),
+      baudRate: i(map['im15.baud'], 1200),
       dataBits: i(map['im15.databits'], 8),
       stopBits: stopBits(map['im15.stopbits'] ?? '1'),
       parity: parity(map['im15.parity'] ?? 'NONE'),
