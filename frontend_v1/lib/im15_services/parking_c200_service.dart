@@ -32,7 +32,10 @@ class ParkingC200Service extends AbstractC200TransactionService {
     VoidCallback? onPINCompleted,
   }) async {
     // Use the explicit port passed in rather than auto-detecting again
-    await _ensureTransport(port); 
+        
+  // Do NOT open the serial port here.
+  // PaxIM15C200Sale / IM15NativeSerialManager will open it.
+ //   await _ensureTransport(port); 
     try {
       await super.execute(
         rawAmount, 
