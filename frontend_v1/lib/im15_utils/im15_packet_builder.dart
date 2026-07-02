@@ -78,9 +78,11 @@ class IM15PacketBuilder {
     final h = fixedNumeric(hostNo, 2);
     final acc = fixedOne(accountType);
     final amt = fixedNumeric(amount, 12);
-    final add = fixedText(additionalData, 24);
 
-    final data = 'C200$h$acc$amt$add';
+    // IMPORTANT:
+    // Basic C200 = C200 + HostNo(2) + AccountType(1) + Amount(12)
+    // Do not send additionalData unless terminal supports it.
+    final data = 'C200$h$acc$amt';
 
     return _asciiPacket(data, 'C200');
   }

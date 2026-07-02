@@ -49,7 +49,7 @@ class PaxIM15C200Sale {
 
       // 2. Build and send C200 sale packet.
       final Uint8List c200 = IM15PacketBuilder.buildC200Packet(
-        '01',          // Host No
+        '00',          // Host No
         '0',           // Account Type: 0 = card
         amountInCents, // Amount from kiosk
         transactionId, // Transaction ID / order reference
