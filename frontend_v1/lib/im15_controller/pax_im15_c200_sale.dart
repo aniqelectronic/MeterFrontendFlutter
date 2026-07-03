@@ -48,34 +48,74 @@ class PaxIM15C200Sale {
       logger.logRecv('ACK');
 
       // 2. Build and send C200 sale packet.
-      final Uint8List c200 = IM15PacketBuilder.buildC200Packet(
-        '00',          // Host No
-        '0',           // Account Type: 0 = card
-        amountInCents, // Amount from kiosk
-        transactionId, // Transaction ID / order reference
-      );
+      // final Uint8List c200 = IM15PacketBuilder.buildC200Packet(
+      //   '00',          // Host No
+      //   '0',           // Account Type: 0 = card
+      //   amountInCents, // Amount from kiosk
+      //   transactionId, // Transaction ID / order reference
+      // );
 
-      // serial.sendByte(IM15NativeSerialManager.STX);
-      // logger.logSend('STX');
+      // // serial.sendByte(IM15NativeSerialManager.STX);
+      // // logger.logSend('STX');
 
-      // serial.sendBytes(c200);
-      // logger.logSend('C200 packet (${c200.length} bytes)');
+      // // serial.sendBytes(c200);
+      // // logger.logSend('C200 packet (${c200.length} bytes)');
 
-      final fullFrame = Uint8List.fromList([
-      IM15NativeSerialManager.STX,
-        ...c200,
-      ]);
+      // final fullFrame = Uint8List.fromList([
+      // IM15NativeSerialManager.STX,
+      //   ...c200,
+      // ]);
 
-      serial.sendBytes(fullFrame);
-      logger.logSend('Full C200 frame (${fullFrame.length} bytes)');
+      // serial.sendBytes(fullFrame);
+      // logger.logSend('Full C200 frame (${fullFrame.length} bytes)');
 
-      // 3. Terminal should ACK the C200 packet.
-      final gotAckAfterC200 =
-          await serial.waitForByte(IM15NativeSerialManager.ACK, 8000);
+      // // 3. Terminal should ACK the C200 packet.
+      // final gotAckAfterC200 =
+      //     await serial.waitForByte(IM15NativeSerialManager.ACK, 8000);
+
+      // if (!gotAckAfterC200) {
+      //   print('[PaxIM15C200Sale] ❌ No ACK after C200');
+      //   logger.logInfo('No ACK after C200');
+      //   return null;
+      // }
+
+      bool gotAckAfterC200 = false;
+
+      for (int i = 0; i <= 9; i++) {
+        final host = i.toString().padLeft(2, '0');
+
+        print('\n==============================');
+        print('[PaxIM15C200Sale] Testing Host No: $host');
+        print('==============================');
+
+        final Uint8List c200 = IM15PacketBuilder.buildC200Packet(
+          host,
+          '0',
+          amountInCents,
+          transactionId,
+        );
+
+        final fullFrame = Uint8List.fromList([
+          IM15NativeSerialManager.STX,
+          ...c200,
+        ]);
+
+        serial.sendBytes(fullFrame);
+        logger.logSend('C200 Host $host');
+
+        gotAckAfterC200 =
+            await serial.waitForByte(IM15NativeSerialManager.ACK, 3000);
+
+        if (gotAckAfterC200) {
+          print('[PaxIM15C200Sale] ✅ Host $host ACCEPTED');
+          break;
+        }
+
+        print('[PaxIM15C200Sale] ❌ Host $host rejected');
+      }
 
       if (!gotAckAfterC200) {
-        print('[PaxIM15C200Sale] ❌ No ACK after C200');
-        logger.logInfo('No ACK after C200');
+        print('[PaxIM15C200Sale] ❌ No host accepted');
         return null;
       }
 
