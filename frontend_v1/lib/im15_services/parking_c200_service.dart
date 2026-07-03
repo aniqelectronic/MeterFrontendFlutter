@@ -38,15 +38,16 @@ class ParkingC200Service extends AbstractC200TransactionService {
   // PaxIM15C200Sale / IM15NativeSerialManager will open it.
  //   await _ensureTransport(port); 
     try {
-      await super.execute(
-        rawAmount, 
-        port, 
-        traceNo, 
-        onSuccess: onSuccess, 
-        onFailure: onFailure,
-        onPINRequired: onPINRequired,
-        onPINCompleted: onPINCompleted,
-      );
+    await super.execute(
+      rawAmount,
+      port,
+      traceNo,
+      onSuccess: onSuccess,
+      onFailure: onFailure,
+      onCardDetected: onCardDetected,
+      onPINRequired: onPINRequired,
+      onPINCompleted: onPINCompleted,
+    );
     } finally {
       await _closeTransport();
     }

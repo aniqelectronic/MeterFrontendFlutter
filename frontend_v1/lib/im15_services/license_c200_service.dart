@@ -40,6 +40,7 @@ class LicenseC200Service extends AbstractC200TransactionService {
         traceNo,
         onSuccess: onSuccess,
         onFailure: onFailure,
+        onCardDetected: onCardDetected,
         onPINRequired: onPINRequired,
         onPINCompleted: onPINCompleted,
       );
