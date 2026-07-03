@@ -10,15 +10,22 @@ class IM15PacketBuilder {
   // NOTE: STX is sent separately in PaxIM15C200Sale
   // LRC excludes STX and includes ETX
   // =========================================================
-  static Uint8List buildPacket(Uint8List dataBytes) {
-    final packet = Uint8List(dataBytes.length + 2);
+    static Uint8List buildPacket(Uint8List dataBytes) {
+      final packet = Uint8List(dataBytes.length + 2);
 
-    packet.setAll(0, dataBytes);
-    packet[packet.length - 2] = ETX;
-    packet[packet.length - 1] = calculateLRC(packet, 0, packet.length - 1);
+      packet.setAll(0, dataBytes);
+      packet[packet.length - 2] = ETX;
 
-    return packet;
-  }
+      // LRC include STX also
+      int lrc = 0x02;
+      for (int i = 0; i < packet.length - 1; i++) {
+        lrc ^= packet[i];
+      }
+
+      packet[packet.length - 1] = lrc;
+
+      return packet;
+    }
 
   static int calculateLRC(Uint8List data, int offset, int length) {
     int lrc = 0;
