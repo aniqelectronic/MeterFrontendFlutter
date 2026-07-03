@@ -55,11 +55,19 @@ class PaxIM15C200Sale {
         transactionId, // Transaction ID / order reference
       );
 
-      serial.sendByte(IM15NativeSerialManager.STX);
-      logger.logSend('STX');
+      // serial.sendByte(IM15NativeSerialManager.STX);
+      // logger.logSend('STX');
 
-      serial.sendBytes(c200);
-      logger.logSend('C200 packet (${c200.length} bytes)');
+      // serial.sendBytes(c200);
+      // logger.logSend('C200 packet (${c200.length} bytes)');
+
+      final fullFrame = Uint8List.fromList([
+      IM15NativeSerialManager.STX,
+        ...c200,
+      ]);
+
+      serial.sendBytes(fullFrame);
+      logger.logSend('Full C200 frame (${fullFrame.length} bytes)');
 
       // 3. Terminal should ACK the C200 packet.
       final gotAckAfterC200 =
