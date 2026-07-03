@@ -25,7 +25,7 @@ class IM15NativeSerialManager {
         baudRate: 9600,
         dataBits: 8,
         stopBits: 1,
-        parity: 2, // No parity
+        parity: 2, // Even parity
       );
       
       if (!opened) {
