@@ -12,7 +12,7 @@ class ParkingC200Service extends AbstractC200TransactionService {
 
   ParkingC200Service(
     BuildContext parentContext,
-    PaymentSpinner spinner,
+    PaymentSpinner? spinner,
     List<Function(bool)> interactiveSetters,
     this.connMgr,
   ) : super(parentContext, spinner, interactiveSetters);

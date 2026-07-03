@@ -12,7 +12,7 @@ class LicenseC200Service extends AbstractC200TransactionService {
 
   LicenseC200Service(
     BuildContext parentContext,
-    PaymentSpinner spinner,
+    PaymentSpinner? spinner,
     List<Function(bool)> interactiveSetters,
     this.connMgr,
   ) : super(parentContext, spinner, interactiveSetters);

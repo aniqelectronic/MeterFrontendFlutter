@@ -469,7 +469,7 @@ Positioned(
 
                     PAYMENTPAGE._transactionInProgress = true;
                     final amount = widget.data.amount ?? "0.00";
-                    final PaymentSpinner spinner = PaymentSpinner(context);
+                  //  final PaymentSpinner spinner = PaymentSpinner(context);
 
                     bool spinnerShown = false;
                     GlobalKey<PaymentStatusOverlayState>? overlayKey;
@@ -581,13 +581,13 @@ Positioned(
                   
                       // Select service based on biz type
                       if (widget.biz == "PARKING" || widget.biz == "EXTENDPARKING") {
-                        service = ParkingC200Service(context, spinner, [], connMgr);
+                        service = ParkingC200Service(context, null, [], connMgr);
                       } else if (widget.biz == "CUKAI") {
-                        service = TaxC200Service(context, spinner, [], connMgr);
+                        service = TaxC200Service(context, null, [], connMgr);
                       } else if (widget.biz == "LESEN") {
-                        service = LicenseC200Service(context, spinner, [], connMgr);
+                        service = LicenseC200Service(context, null, [], connMgr);
                       } else if (widget.biz == "MULTICOMPOUND" || widget.biz == "SINGLECOMPOUND") {
-                        service = CompoundC200Service(context, spinner, [], connMgr);
+                        service = CompoundC200Service(context, null, [], connMgr);
                       }
                   
                       if (service == null) {

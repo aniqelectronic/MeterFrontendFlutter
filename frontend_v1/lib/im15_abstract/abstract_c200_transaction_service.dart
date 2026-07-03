@@ -10,7 +10,7 @@ import '../im15_utils/payment_spinner.dart';
 /// Abstract class for all C200 transaction services
 abstract class AbstractC200TransactionService {
   final BuildContext parentContext;
-  final PaymentSpinner spinner;
+  final PaymentSpinner? spinner;
   final List<Function(bool)> interactiveSetters; // Functions to enable/disable buttons
 
   AbstractC200TransactionService(
@@ -25,7 +25,7 @@ abstract class AbstractC200TransactionService {
        VoidCallback? onPINCompleted}) async {
     const int maxRetries = 5;
     _setInteractionEnabled(false);
-    spinner.show();
+     await  spinner?.show();
 
     IM15ResponseModel? response;
     final logger = IM15TransactionLogger(getTransactionTypeLabel());
@@ -176,7 +176,7 @@ abstract class AbstractC200TransactionService {
       logger.endSession();
       // Ensure spinner is always hidden
       try {
-        spinner.hide();
+        await spinner?.hide();
       } catch (e) {
         logger.logInfo("Error hiding spinner: ${e.toString()}");
       }

@@ -12,7 +12,7 @@ class TaxC200Service extends AbstractC200TransactionService {
 
   TaxC200Service(
     BuildContext parentContext,
-    PaymentSpinner spinner,
+    PaymentSpinner? spinner,
     List<Function(bool)> interactiveSetters,
     this.connMgr,
   ) : super(parentContext, spinner, interactiveSetters);

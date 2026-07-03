@@ -12,7 +12,7 @@ class CompoundC200Service extends AbstractC200TransactionService {
 
   CompoundC200Service(
     BuildContext parentContext,
-    PaymentSpinner spinner,
+    PaymentSpinner? spinner,
     List<Function(bool)> interactiveSetters,
     this.connMgr,
   ) : super(parentContext, spinner, interactiveSetters);
