@@ -137,6 +137,14 @@ class PaxIM15C200Sale {
         return null;
       }
 
+      //Decline if status code is not 00 
+
+      if (model.statusCode != '00') {
+        print('[PaxIM15C200Sale] ❌ Transaction not approved. Status: ${model.statusCode}');
+        logger.logInfo('Transaction declined/aborted with status ${model.statusCode}');
+        return model;
+      }
+
       print('[PaxIM15C200Sale] ✅ Returning model');
       print('[PaxIM15C200Sale] Status: ${model.statusCode}');
       print('[PaxIM15C200Sale] Bank Trx/RRN: ${model.rrn}');
@@ -246,7 +254,7 @@ class PaxIM15C200Sale {
     IM15NativeSerialManager serial,
     IM15TransactionLogger logger,
   ) async {
-    final gotEot = await serial.waitForByte(IM15NativeSerialManager.EOT, 3000);
+    final gotEot = await serial.waitForByte(IM15NativeSerialManager.EOT, 1500);
 
     if (gotEot) {
       print('[PaxIM15C200Sale] ✅ EOT received');
@@ -258,7 +266,7 @@ class PaxIM15C200Sale {
     logger.logSend('ENQ after R200');
 
     final gotEotAfterEnq =
-        await serial.waitForByte(IM15NativeSerialManager.EOT, 3000);
+        await serial.waitForByte(IM15NativeSerialManager.EOT, 1500);
 
     if (gotEotAfterEnq) {
       print('[PaxIM15C200Sale] ✅ EOT received after ENQ');
