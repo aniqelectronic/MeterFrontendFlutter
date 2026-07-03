@@ -13,6 +13,7 @@ class PaxIM15C200Sale {
     String amountInCents,
     String transactionId,
     IM15TransactionLogger logger, {
+    VoidCallback? onCardDetected,
     VoidCallback? onPINRequired,
     VoidCallback? onPINCompleted,
     Function(String)? onPINEntered,
@@ -127,6 +128,7 @@ class PaxIM15C200Sale {
         serial,
         logger,
         amountInCents,
+        onCardDetected: onCardDetected,
         onPINRequired: onPINRequired,
         onPINCompleted: onPINCompleted,
       );
@@ -175,6 +177,7 @@ class PaxIM15C200Sale {
     IM15NativeSerialManager serial,
     IM15TransactionLogger logger,
     String amountInCents, {
+    VoidCallback? onCardDetected,
     VoidCallback? onPINRequired,
     VoidCallback? onPINCompleted,
   }) async {
@@ -185,7 +188,7 @@ class PaxIM15C200Sale {
     final buffer = StringBuffer();
 
     while (DateTime.now().difference(start) < totalTimeout) {
-      final chunk = await serial.readAsciiResponse(3000, 512);
+      final chunk = await serial.readAsciiResponse(3000, 150);
 
       if (chunk.isEmpty) {
         continue;
@@ -214,6 +217,7 @@ class PaxIM15C200Sale {
         print('[PaxIM15C200Sale] 💳 Card prompt detected');
         serial.sendByte(IM15NativeSerialManager.ACK);
         logger.logSend('ACK for card prompt');
+        onCardDetected?.call();
         buffer.clear();
         continue;
       }

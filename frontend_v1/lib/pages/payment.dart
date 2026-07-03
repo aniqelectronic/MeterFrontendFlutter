@@ -28,6 +28,7 @@ import 'package:frontend_v1/controllers/taksiran/taksiran_payment_service_benton
 import 'package:frontend_v1/model/sewaan/sewaan_payment_item.dart';
 import 'package:frontend_v1/controllers/sewaan/sewaan_payment_service_bentong.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:frontend_v1/widgets/payment_status_overlay.dart';
 
 
 class PaymentData {
@@ -471,6 +472,8 @@ Positioned(
                     final PaymentSpinner spinner = PaymentSpinner(context);
 
                     bool spinnerShown = false;
+                    GlobalKey<PaymentStatusOverlayState>? overlayKey;
+                    OverlayEntry? overlayEntry;
                     
                     try {
                       // Validate amount for RM250 threshold
@@ -481,8 +484,23 @@ Positioned(
                         print('[PAYMENTPAGE] ⚠️ Amount RM${amountValue.toStringAsFixed(2)} exceeds RM250 - navigating to PIN entry screen');
                         
                         // First, detect port and prepare for transaction
-                        await spinner.show();
-                        spinnerShown = true;
+                        // await spinner.show();
+                        // spinnerShown = true;
+
+                        // final overlayKey = GlobalKey<PaymentStatusOverlayState>();
+                        // late final OverlayEntry overlayEntry;
+                        // overlayEntry = OverlayEntry(
+                        //   builder: (_) => PaymentStatusOverlay(key: overlayKey),
+                        // );
+                        // Overlay.of(context).insert(overlayEntry);
+                        // spinnerShown = true; // reuse this flag to know we need to remove the overlay
+
+                        overlayKey = GlobalKey<PaymentStatusOverlayState>();
+                        overlayEntry = OverlayEntry(
+                          builder: (_) => PaymentStatusOverlay(key: overlayKey!),
+                        );
+                        Overlay.of(context).insert(overlayEntry);
+                        spinnerShown = true; // reuse this flag to know we need to remove the overlay
 
                         // Detect port automatically with timeout
                         final port = await Future.any([
@@ -491,7 +509,9 @@ Positioned(
                         ]);
                     
                         if (port == null) {
-                          if (spinnerShown) await spinner.hide();
+                          // if (spinnerShown) await spinner.hide();
+                          // spinnerShown = false;
+                          overlayEntry?.remove();
                           spinnerShown = false;
                           PAYMENTPAGE._transactionInProgress = false;
                           
@@ -506,7 +526,9 @@ Positioned(
                         
                         // Hide spinner before navigating to PIN screen
                         if (spinnerShown) {
-                          await spinner.hide();
+                          // await spinner.hide();
+                          // spinnerShown = false;
+                          overlayEntry?.remove();
                           spinnerShown = false;
                         }
                         
@@ -535,8 +557,22 @@ Positioned(
                       // Amount ≤ RM250 - proceed with normal transaction flow
                       print('[PAYMENTPAGE] ✅ Amount RM${amountValue.toStringAsFixed(2)} ≤ RM250 - proceeding with normal transaction');
 
-                      await spinner.show();
-                      spinnerShown = true;
+                      // await spinner.show();
+                      // spinnerShown = true;
+                      // var overlayKey = GlobalKey<PaymentStatusOverlayState>();
+                      // late final OverlayEntry overlayEntry;
+                      // overlayEntry = OverlayEntry(
+                      //   builder: (_) => PaymentStatusOverlay(key: overlayKey),
+                      // );
+                      // Overlay.of(context).insert(overlayEntry);
+                      // spinnerShown = true; // reuse this flag to know we need to remove the overlay
+
+                      overlayKey = GlobalKey<PaymentStatusOverlayState>();
+                      overlayEntry = OverlayEntry(
+                        builder: (_) => PaymentStatusOverlay(key: overlayKey!),
+                      );
+                      Overlay.of(context).insert(overlayEntry!);
+                      spinnerShown = true; // reuse this flag to know we need to remove the overlay
 
                       final serialSettings = IM15SerialSettings();
                       final connMgr = IM15SerialConnectionManager(serialSettings);
@@ -573,8 +609,13 @@ Positioned(
                         amount,
                         port,
                         DateTime.now().millisecondsSinceEpoch.toString(), // traceNo
+                          onCardDetected: () {
+                          overlayKey?.currentState?.setStage(PaymentStage.processing);
+                        },
                         onSuccess: () async {
                           print('[PAYMENTPAGE] ✅ Card payment successful');
+                          overlayKey?.currentState?.setStage(PaymentStage.success);
+                          await Future.delayed(const Duration(milliseconds: 800)); 
                           
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text("Card payment successful")),
@@ -783,7 +824,8 @@ Positioned(
                       // ALWAYS hide spinner and reset transaction flag
                       if (spinnerShown) {
                         try {
-                          await spinner.hide();
+                          // await spinner.hide();
+                          overlayEntry?.remove();
                           print('[PAYMENTPAGE] ✅ Spinner hidden in finally block');
                         } catch (hideError) {
                           print('[PAYMENTPAGE] ⚠️ Error hiding spinner in finally block: $hideError');
@@ -1080,8 +1122,8 @@ Positioned(
                                           return;
                                         }
                                         if (Navigator.canPop(context)) {
-  Navigator.pop(context); // close processing dialog
-}
+                                          Navigator.pop(context); // close processing dialog
+                                        }
 
                                         Navigator.push(
                                           context,

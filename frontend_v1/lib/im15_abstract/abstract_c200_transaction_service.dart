@@ -18,8 +18,9 @@ abstract class AbstractC200TransactionService {
 
   /// Execute a C200 transaction with retries
   Future<void> execute(String rawAmount, String port, String traceNo,
-      {required VoidCallback onSuccess, 
-       required VoidCallback onFailure,
+      {required Future<void> Function() onSuccess, 
+     required Future<void> Function() onFailure,
+      VoidCallback? onCardDetected,
        VoidCallback? onPINRequired,
        VoidCallback? onPINCompleted}) async {
     const int maxRetries = 5;
@@ -76,6 +77,10 @@ abstract class AbstractC200TransactionService {
             paxFormattedAmount, 
             traceNo, 
             logger,
+             onCardDetected: () {
+              print('[AbstractC200] 💳 Card detected callback triggered');
+              onCardDetected?.call();
+            },
             onPINRequired: () {
               print('[AbstractC200] 📞 PIN required callback triggered');
               pinRequested = true;
@@ -114,6 +119,43 @@ abstract class AbstractC200TransactionService {
                 "Card reader did not respond after ${maxRetries} attempts.\n\nPlease check:\n1. Card reader is powered on\n2. Card reader cable is connected\n3. Card is inserted properly");
             }
           }
+
+          //when deploy 
+
+          // final approved = response != null && response.statusCode == '00';
+          // print('[AbstractC200] 📥 Transaction returned: ${response == null ? "NULL" : (approved ? "APPROVED" : "DECLINED (${response.statusCode})")}');
+
+          // if (approved) {
+          //   print('[AbstractC200] ✅ Transaction APPROVED');
+          //   IM15ResponseParser.printDebug(response!);
+          //   logger.logInfo("Status: APPROVED (${response.statusCode})");
+          //   logger.logInfo("Amount: ${response.amount}");
+          //   logger.logInfo("Card: ${response.cardNumber}");
+            
+          //   // Notify PIN completion if PIN was requested
+          //   if (pinRequested && onPINCompleted != null) {
+          //     onPINCompleted();
+          //   }
+          //   break;
+          // } else if (response != null) {
+          //   // Got a real response from the terminal, but it was declined/aborted.
+          //   // Don't retry — the terminal gave a definitive answer.
+          //   print('[AbstractC200] ❌ Transaction declined. Status: ${response.statusCode}');
+          //   logger.logInfo("Transaction declined with status ${response.statusCode}");
+          //   _showWarning("Transaction Declined",
+          //       "The transaction was not approved (status: ${response.statusCode}). Please try again.");
+          //   response = null; // treat as failure for the final success/failure check below
+          //   break;
+          // } else {
+          //   logger.logInfo("Attempt #${attempts + 1} returned null. No response from card reader.");
+          //   print('[AbstractC200] ❌ Attempt #${attempts + 1} returned null');
+            
+          //   // Show timeout warning on last attempt
+          //   if (attempts == maxRetries - 1) {
+          //     _showWarning("Transaction Timeout", 
+          //       "Card reader did not respond after ${maxRetries} attempts.\n\nPlease check:\n1. Card reader is powered on\n2. Card reader cable is connected\n3. Card is inserted properly");
+          //   }
+          // }
         } catch (e) {
           logger.logInfo("Exception: ${e.toString()}");
           print('[AbstractC200] ⚠️ Exception in attempt #${attempts + 1}: $e');
@@ -143,8 +185,9 @@ abstract class AbstractC200TransactionService {
 
     // Handle success/failure callbacks
     if (response != null) {
+//  if (response != null && response.statusCode == '00') {
       print("[AbstractC200] 🎉 Payment Successful - Calling onSuccess()");
-      onSuccess();
+      await onSuccess();
     } else {
       print("[AbstractC200] ❌ Payment failed - Calling onFailure()");
       if (!shouldCallFailure) {
