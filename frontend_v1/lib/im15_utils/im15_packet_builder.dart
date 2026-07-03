@@ -16,8 +16,7 @@ class IM15PacketBuilder {
       packet.setAll(0, dataBytes);
       packet[packet.length - 2] = ETX;
 
-      // LRC include STX also
-      int lrc = 0x02;
+      int lrc = 0x00;
       for (int i = 0; i < packet.length - 1; i++) {
         lrc ^= packet[i];
       }
