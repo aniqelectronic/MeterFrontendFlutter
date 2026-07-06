@@ -23,6 +23,7 @@ class PaymentStatusOverlayState extends State<PaymentStatusOverlay> {
 
   @override
   Widget build(BuildContext context) {
+     print('[TIMING] Overlay build, stage=$_stage @ ${DateTime.now()}');
     final (icon, iconColor, title, subtitle) = switch (_stage) {
       PaymentStage.waitingForCard => (
           Icons.contactless,

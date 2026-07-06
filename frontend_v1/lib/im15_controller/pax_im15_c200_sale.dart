@@ -69,6 +69,7 @@ class PaxIM15C200Sale {
 
       serial.sendBytes(fullFrame);
       logger.logSend('Full C200 frame (${fullFrame.length} bytes)');
+      print('[TIMING] C200 sent @ ${DateTime.now()}');
 
       // 3. Terminal should ACK the C200 packet.
       final gotAckAfterC200 =
@@ -122,6 +123,7 @@ class PaxIM15C200Sale {
 
       print('[PaxIM15C200Sale] ✅ ACK after C200');
       logger.logRecv('ACK');
+      print('[TIMING] ACK after C200 @ ${DateTime.now()}');
 
 // // Show PROCESSING immediately after terminal accepts C200
 //       onCardDetected?.call();
@@ -206,6 +208,7 @@ class PaxIM15C200Sale {
       // earliest possible signal that the card was tapped.
       if (!cardDetectedNotified) {
         cardDetectedNotified = true;
+        print('[TIMING] First byte @ ${DateTime.now()}');
         print('[PaxIM15C200Sale] 💳 First byte received - card tapped');
         onCardDetected?.call();
       }
