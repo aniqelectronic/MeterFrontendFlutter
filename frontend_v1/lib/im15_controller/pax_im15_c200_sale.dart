@@ -202,12 +202,16 @@ class PaxIM15C200Sale {
 
       buffer.write(chunk);
 
+       // Fire the instant ANY data arrives after C200 ACK — this is the
+      // earliest possible signal that the card was tapped.
+      if (!cardDetectedNotified) {
+        cardDetectedNotified = true;
+        print('[PaxIM15C200Sale] 💳 First byte received - card tapped');
+        onCardDetected?.call();
+      }
+
       final cleaned = _cleanControlChars(buffer.toString());
-      if (!cardDetectedNotified && RegExp(r'\d{6}').hasMatch(cleaned)) {
-      cardDetectedNotified = true;
-      print('[PaxIM15C200Sale] 💳 Card data detected');
-      onCardDetected?.call();
-    }
+      
       print('[PaxIM15C200Sale] RX: $cleaned');
       logger.logRecv(cleaned);
 
