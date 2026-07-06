@@ -237,7 +237,7 @@ class _AppState extends State<App> {
 
   Future<void> _restoreBrightness() async {
     if (_restoringBrightness) return;
-    if (!_dimmed) return;   
+ //   if (!_dimmed) return;   
 
     _restoringBrightness = true;
 
