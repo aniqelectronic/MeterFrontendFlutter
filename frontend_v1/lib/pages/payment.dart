@@ -610,12 +610,12 @@ Positioned(
                         port,
                         DateTime.now().millisecondsSinceEpoch.toString(), // traceNo
                           onCardDetected: () {
+                          print('[PAYMENTPAGE] 💳 Changing overlay to PROCESSING');
                           overlayKey?.currentState?.setStage(PaymentStage.processing);
                         },
                         onSuccess: () async {
                           print('[PAYMENTPAGE] ✅ Card payment successful');
                           overlayKey?.currentState?.setStage(PaymentStage.success);
-                            print('[PAYMENTPAGE] 💳 Changing overlay to PROCESSING');
                           await Future.delayed(const Duration(milliseconds: 800)); 
                           
                           ScaffoldMessenger.of(context).showSnackBar(

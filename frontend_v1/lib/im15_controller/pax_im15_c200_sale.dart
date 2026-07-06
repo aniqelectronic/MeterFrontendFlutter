@@ -185,7 +185,7 @@ class PaxIM15C200Sale {
     const totalTimeout = Duration(minutes: 2);
 
     bool pinRequested = false;
-    bool cardDetectedNotified = false;
+    bool cardDetectedNotified  = false;
     final buffer = StringBuffer();
 
     while (DateTime.now().difference(start) < totalTimeout) {
@@ -198,6 +198,11 @@ class PaxIM15C200Sale {
       buffer.write(chunk);
 
       final cleaned = _cleanControlChars(buffer.toString());
+      if (!cardDetectedNotified && RegExp(r'\d{6}').hasMatch(cleaned)) {
+      cardDetectedNotified = true;
+      print('[PaxIM15C200Sale] 💳 Card data detected');
+      onCardDetected?.call();
+    }
       print('[PaxIM15C200Sale] RX: $cleaned');
       logger.logRecv(cleaned);
 
@@ -214,7 +219,8 @@ class PaxIM15C200Sale {
         }
       }
 
-      if (_containsAny(cleaned, ['CARD', 'CLES', 'MAGS', 'SCAN', 'CLESC', 'LES'])) {
+      if (!cardDetectedNotified &&
+    _containsAny(cleaned, ['CARD', 'CLES', 'MAGS', 'SCAN', 'CLESC', 'LES'])) {
         cardDetectedNotified = true;
         print('[PaxIM15C200Sale] 💳 Card/tap detected');
         onCardDetected?.call();
