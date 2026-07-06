@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class InternetGuard {
   static final InternetGuard _instance = InternetGuard._internal();
@@ -15,6 +15,8 @@ class InternetGuard {
   Timer? _timer;
 
   bool _offline = false;
+  bool _checking = false;
+
   BuildContext? _dialogContext;
 
   VoidCallback? _onOffline;
@@ -28,15 +30,12 @@ class InternetGuard {
     _onOffline = onOffline;
     _onOnline = onOnline;
 
-    // Check immediately
     _checkInternet(navigatorKey);
 
-    // Check every 10 seconds
     _timer ??= Timer.periodic(const Duration(seconds: 10), (_) {
       _checkInternet(navigatorKey);
     });
 
-    // Also check when network changes
     _subscription ??=
         _connectivity.onConnectivityChanged.listen((results) {
       _checkInternet(navigatorKey);
@@ -44,27 +43,29 @@ class InternetGuard {
   }
 
   Future<void> _checkInternet(GlobalKey<NavigatorState> navigatorKey) async {
-    final hasInternet = await _hasRealInternet();
+    if (_checking) return;
+    _checking = true;
 
-    if (!hasInternet && !_offline) {
-      _offline = true;
-      _onOffline?.call();
-      _showDialog(navigatorKey);
-    } else if (hasInternet && _offline) {
-      _offline = false;
-      _closeDialog();
-      _onOnline?.call();
-    }
-  }
-
-  Future<bool> _hasRealInternet() async {
     try {
-      final result = await InternetAddress.lookup('google.com')
-          .timeout(const Duration(seconds: 5));
+      final hasInternet = await InternetConnection().hasInternetAccess;
 
-      return result.isNotEmpty && result.first.rawAddress.isNotEmpty;
+      if (!hasInternet && !_offline) {
+        _offline = true;
+        _onOffline?.call();
+        _showDialog(navigatorKey);
+      } else if (hasInternet && _offline) {
+        _offline = false;
+        _closeDialog();
+        _onOnline?.call();
+      }
     } catch (_) {
-      return false;
+      if (!_offline) {
+        _offline = true;
+        _onOffline?.call();
+        _showDialog(navigatorKey);
+      }
+    } finally {
+      _checking = false;
     }
   }
 
@@ -77,59 +78,67 @@ class InternetGuard {
       (route) => false,
     );
 
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (ctx) {
-        _dialogContext = ctx;
+    Future.delayed(const Duration(milliseconds: 300), () {
+      final newContext = navigatorKey.currentContext;
+      if (newContext == null || !_offline || _dialogContext != null) return;
 
-        return WillPopScope(
-          onWillPop: () async => false,
-          child: AlertDialog(
-            backgroundColor: Colors.black,
-            title: const Center(
-              child: Icon(
-                Icons.wifi_off,
-                color: Colors.orange,
-                size: 100,
+      showDialog(
+        context: newContext,
+        barrierDismissible: false,
+        builder: (ctx) {
+          _dialogContext = ctx;
+
+          return WillPopScope(
+            onWillPop: () async => false,
+            child: AlertDialog(
+              backgroundColor: Colors.black,
+              title: const Center(
+                child: Icon(
+                  Icons.wifi_off,
+                  color: Colors.orange,
+                  size: 100,
+                ),
               ),
-            ),
-            content: SizedBox(
-              height: 300,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'NO INTERNET CONNECTION',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 32,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
+              content: SizedBox(
+                height: 450,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'PERKHIDMATAN TIDAK TERSEDIA\nSERVICE TEMPORARILY UNAVAILABLE',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 28,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.2,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
+                      const SizedBox(height: 20),
+                  Text(
+                      'Kiosk ini tidak dapat digunakan buat sementara waktu.\n'
+                      'Sila cuba sebentar lagi.\n\n'
                       'This kiosk is temporarily unavailable.\n'
-                      'Please check the SIM card, topup, or network signal.\n\n'
-                      'For assistance, please contact:\n'
+                      'Please try again later.\n\n'
+                      'Untuk bantuan / For assistance:\n'
                       '📞 ${Data.telefonNo}',
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 22,
                         color: Colors.white70,
+                        height: 1.5,
                       ),
                     ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+    });
   }
 
   void _closeDialog() {
@@ -146,6 +155,7 @@ class InternetGuard {
     _subscription = null;
     _timer = null;
     _offline = false;
+    _checking = false;
     _dialogContext = null;
     _onOffline = null;
     _onOnline = null;
