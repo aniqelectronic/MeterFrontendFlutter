@@ -25,7 +25,7 @@ class PaymentStatusOverlayState extends State<PaymentStatusOverlay> {
           Icons.contactless,
           Colors.blue[700]!,
           "TAP YOUR CARD",
-          "Please tap on the card reader",
+          'Please tap on the card reader\n until "Bip" sound is heard',
         ),
       PaymentStage.processing => (
           Icons.sync,

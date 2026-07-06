@@ -123,11 +123,10 @@ class PaxIM15C200Sale {
       print('[PaxIM15C200Sale] ✅ ACK after C200');
       logger.logRecv('ACK');
 
-// Show PROCESSING immediately after terminal accepts C200
-      onCardDetected?.call();
+// // Show PROCESSING immediately after terminal accepts C200
+//       onCardDetected?.call();
 
-  // give Flutter time to repaint PROCESSING before serial read continues
-  await Future.delayed(const Duration(milliseconds: 200));
+       await Future.delayed(Duration.zero);
 
       // 4. Wait for prompts or final R200.
       model = await _waitForTerminalResponse(
@@ -191,7 +190,7 @@ class PaxIM15C200Sale {
     const totalTimeout = Duration(minutes: 2);
 
     bool pinRequested = false;
-    bool cardDetectedNotified  = true;
+    bool cardDetectedNotified  = false;
     final buffer = StringBuffer();
 
     while (DateTime.now().difference(start) < totalTimeout) {
