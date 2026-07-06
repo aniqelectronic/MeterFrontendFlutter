@@ -126,6 +126,8 @@ class PaxIM15C200Sale {
 // Show PROCESSING immediately after terminal accepts C200
       onCardDetected?.call();
 
+      await Future.delayed(Duration.zero);
+
       // 4. Wait for prompts or final R200.
       model = await _waitForTerminalResponse(
         serial,
