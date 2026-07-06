@@ -105,7 +105,12 @@ class IM15NativeSerialManager {
     
     while (DateTime.now().millisecondsSinceEpoch - start < timeoutMillis) {
       // Check if data is available (blocking read with small timeout)
-      final data = _port!.read(1, timeoutMs: 20);
+        final _t0 = DateTime.now();
+        final data = _port!.read(1, timeoutMs: 20);
+        final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
+        if (_elapsed > 25) {
+          print('[TIMING] ⚠️ waitForByte read() took ${_elapsed}ms');
+        }
       
       if (data != null && data.isNotEmpty) {
         final received = data[0];
@@ -217,7 +222,12 @@ class IM15NativeSerialManager {
     int lastDataTime = DateTime.now().millisecondsSinceEpoch;
     
     while (DateTime.now().millisecondsSinceEpoch - start < maxTimeoutMillis) {
-      final data = _port!.read(1, timeoutMs: 20);
+        final _t0 = DateTime.now();
+        final data = _port!.read(1, timeoutMs: 20);
+        final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
+        if (_elapsed > 25) {
+          print('[TIMING] ⚠️ readAsciiResponse read() took ${_elapsed}ms');
+        }
       
       if (data != null && data.isNotEmpty) {
         final byte = data[0];
