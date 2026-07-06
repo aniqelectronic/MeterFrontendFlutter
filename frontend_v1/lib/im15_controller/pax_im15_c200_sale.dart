@@ -123,6 +123,9 @@ class PaxIM15C200Sale {
       print('[PaxIM15C200Sale] ✅ ACK after C200');
       logger.logRecv('ACK');
 
+// Show PROCESSING immediately after terminal accepts C200
+      onCardDetected?.call();
+
       // 4. Wait for prompts or final R200.
       model = await _waitForTerminalResponse(
         serial,
@@ -185,7 +188,7 @@ class PaxIM15C200Sale {
     const totalTimeout = Duration(minutes: 2);
 
     bool pinRequested = false;
-    bool cardDetectedNotified  = false;
+    bool cardDetectedNotified  = true;
     final buffer = StringBuffer();
 
     while (DateTime.now().difference(start) < totalTimeout) {
