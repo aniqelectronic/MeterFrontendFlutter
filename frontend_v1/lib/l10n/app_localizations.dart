@@ -905,6 +905,54 @@ abstract class AppLocalizations {
   /// **'WE ACCEPT :'**
   String get weAcceptText;
 
+  /// No description provided for @paymentTapYourCard.
+  ///
+  /// In en, this message translates to:
+  /// **'TAP YOUR CARD'**
+  String get paymentTapYourCard;
+
+  /// No description provided for @paymentTapCardInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Please tap on the card reader\nuntil \"Bip\" sound is heard'**
+  String get paymentTapCardInstruction;
+
+  /// No description provided for @paymentProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'PROCESSING'**
+  String get paymentProcessing;
+
+  /// No description provided for @paymentProcessingInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we process\nyour payment...'**
+  String get paymentProcessingInstruction;
+
+  /// No description provided for @paymentSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT SUCCESSFUL'**
+  String get paymentSuccessful;
+
+  /// No description provided for @paymentSuccessInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Redirecting to receipt...'**
+  String get paymentSuccessInstruction;
+
+  /// No description provided for @paymentFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT FAILED'**
+  String get paymentFailed;
+
+  /// No description provided for @paymentFailedInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again'**
+  String get paymentFailedInstruction;
+
   /// No description provided for @titleReceiptParking.
   ///
   /// In en, this message translates to:

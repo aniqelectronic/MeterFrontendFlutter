@@ -162,6 +162,15 @@
   "qrButton": "PAY WITH QR",
   "weAcceptText": "WE ACCEPT :",
 
+  "paymentTapYourCard": "TAP YOUR CARD",
+  "paymentTapCardInstruction": "Please tap on the card reader\nuntil \"Bip\" sound is heard",
+  "paymentProcessing": "PROCESSING",
+  "paymentProcessingInstruction": "Please wait while we process\nyour payment...",
+  "paymentSuccessful": "PAYMENT SUCCESSFUL",
+  "paymentSuccessInstruction": "Redirecting to receipt...",
+  "paymentFailed": "PAYMENT FAILED",
+  "paymentFailedInstruction": "Please try again",
+
   "titleReceiptParking": "PARKING RECEIPT",
   "titleReceiptLicense": "LICENSE RECEIPT",
   "titleReceiptTax": "TAX RECEIPT",

@@ -160,6 +160,14 @@
   "qrButton": "BAYAR QR",
   "weAcceptText": "KAMI MENERIMA :",
 
+  "paymentTapYourCard": "SENTUH KAD ANDA",
+  "paymentTapCardInstruction": "Sila sentuh kad pada pembaca kad\nsehingga bunyi \"Bip\" kedengaran",
+  "paymentProcessing": "SEDANG DIPROSES",
+  "paymentProcessingInstruction": "Sila tunggu sementara kami memproses\npembayaran anda...",
+  "paymentSuccessful": "PEMBAYARAN BERJAYA",
+  "paymentSuccessInstruction": "Sedang ke resit...",
+  "paymentFailed": "PEMBAYARAN GAGAL",
+  "paymentFailedInstruction": "Sila cuba lagi",
 
   "titleReceiptParking" : "RESIT PARKIR",
   "titleReceiptLicense" : "RESIT LESEN",

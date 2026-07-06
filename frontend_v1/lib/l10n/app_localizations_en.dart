@@ -428,6 +428,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weAcceptText => 'WE ACCEPT :';
 
   @override
+  String get paymentTapYourCard => 'TAP YOUR CARD';
+
+  @override
+  String get paymentTapCardInstruction => 'Please tap on the card reader\nuntil \"Bip\" sound is heard';
+
+  @override
+  String get paymentProcessing => 'PROCESSING';
+
+  @override
+  String get paymentProcessingInstruction => 'Please wait while we process\nyour payment...';
+
+  @override
+  String get paymentSuccessful => 'PAYMENT SUCCESSFUL';
+
+  @override
+  String get paymentSuccessInstruction => 'Redirecting to receipt...';
+
+  @override
+  String get paymentFailed => 'PAYMENT FAILED';
+
+  @override
+  String get paymentFailedInstruction => 'Please try again';
+
+  @override
   String get titleReceiptParking => 'PARKING RECEIPT';
 
   @override

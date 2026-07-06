@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_v1/l10n/app_localizations.dart';
 
 enum PaymentStage { waitingForCard, processing, success, failed }
 
@@ -23,33 +24,36 @@ class PaymentStatusOverlayState extends State<PaymentStatusOverlay> {
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+    
      print('[TIMING] Overlay build, stage=$_stage @ ${DateTime.now()}');
-    final (icon, iconColor, title, subtitle) = switch (_stage) {
-      PaymentStage.waitingForCard => (
-          Icons.contactless,
-          Colors.blue[700]!,
-          "TAP YOUR CARD",
-          'Please tap on the card reader\n until "Bip" sound is heard',
-        ),
-      PaymentStage.processing => (
-          Icons.sync,
-          Colors.orange[700]!,
-          "PROCESSING",
-          "Please wait while we process\nyour payment...",
-        ),
-      PaymentStage.success => (
-          Icons.check_circle,
-          Colors.green[700]!,
-          "PAYMENT SUCCESSFUL",
-          "Redirecting to receipt...",
-        ),
-      PaymentStage.failed => (
-          Icons.error,
-          Colors.red[700]!,
-          "PAYMENT FAILED",
-          "Please try again",
-        ),
-    };
+      final (icon, iconColor, title, subtitle) = switch (_stage) {
+        PaymentStage.waitingForCard => (
+            Icons.contactless,
+            Colors.blue[700]!,
+            l10n.paymentTapYourCard,
+            l10n.paymentTapCardInstruction,
+          ),
+        PaymentStage.processing => (
+            Icons.sync,
+            Colors.orange[700]!,
+            l10n.paymentProcessing,
+            l10n.paymentProcessingInstruction,
+          ),
+        PaymentStage.success => (
+            Icons.check_circle,
+            Colors.green[700]!,
+            l10n.paymentSuccessful,
+            l10n.paymentSuccessInstruction,
+          ),
+        PaymentStage.failed => (
+            Icons.error,
+            Colors.red[700]!,
+            l10n.paymentFailed,
+            l10n.paymentFailedInstruction,
+          ),
+      };
 
     return PopScope(
       canPop: false,

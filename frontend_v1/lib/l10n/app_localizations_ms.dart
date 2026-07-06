@@ -428,6 +428,30 @@ class AppLocalizationsMs extends AppLocalizations {
   String get weAcceptText => 'KAMI MENERIMA :';
 
   @override
+  String get paymentTapYourCard => 'SENTUH KAD ANDA';
+
+  @override
+  String get paymentTapCardInstruction => 'Sila sentuh kad pada pembaca kad\nsehingga bunyi \"Bip\" kedengaran';
+
+  @override
+  String get paymentProcessing => 'SEDANG DIPROSES';
+
+  @override
+  String get paymentProcessingInstruction => 'Sila tunggu sementara kami memproses\npembayaran anda...';
+
+  @override
+  String get paymentSuccessful => 'PEMBAYARAN BERJAYA';
+
+  @override
+  String get paymentSuccessInstruction => 'Sedang ke resit...';
+
+  @override
+  String get paymentFailed => 'PEMBAYARAN GAGAL';
+
+  @override
+  String get paymentFailedInstruction => 'Sila cuba lagi';
+
+  @override
   String get titleReceiptParking => 'RESIT PARKIR';
 
   @override

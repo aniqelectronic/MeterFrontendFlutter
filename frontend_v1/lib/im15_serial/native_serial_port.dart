@@ -199,8 +199,8 @@ class NativeSerialPort {
       termios.c_ospeed = speed;
       
       // Set minimum characters and timeout
-termios.c_cc[5] = 1;  // VTIME = 0.1 seconds (index 5 is VTIME)
-termios.c_cc[6] = 0;  // VMIN = 0 (index 6 is VMIN)
+      termios.c_cc[5] = 1;  // VTIME = 0.1 seconds (index 5 is VTIME)
+      termios.c_cc[6] = 0;  // VMIN = 0 (index 6 is VMIN)
       
       // Apply settings
       result = _ioctl(_fd!, TCSETS, termiosPtr.cast());
