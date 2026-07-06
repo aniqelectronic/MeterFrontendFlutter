@@ -185,6 +185,7 @@ class PaxIM15C200Sale {
     const totalTimeout = Duration(minutes: 2);
 
     bool pinRequested = false;
+    bool cardDetectedNotified = false;
     final buffer = StringBuffer();
 
     while (DateTime.now().difference(start) < totalTimeout) {
@@ -214,10 +215,11 @@ class PaxIM15C200Sale {
       }
 
       if (_containsAny(cleaned, ['CARD', 'CLES', 'MAGS', 'SCAN', 'CLESC', 'LES'])) {
-        print('[PaxIM15C200Sale] 💳 Card prompt detected');
+        cardDetectedNotified = true;
+        print('[PaxIM15C200Sale] 💳 Card/tap detected');
+        onCardDetected?.call();
         serial.sendByte(IM15NativeSerialManager.ACK);
         logger.logSend('ACK for card prompt');
-        onCardDetected?.call();
         buffer.clear();
         continue;
       }
