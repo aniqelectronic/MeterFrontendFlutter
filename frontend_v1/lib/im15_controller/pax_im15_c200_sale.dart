@@ -126,7 +126,7 @@ class PaxIM15C200Sale {
 // // Show PROCESSING immediately after terminal accepts C200
 //       onCardDetected?.call();
 
-       await Future.delayed(Duration.zero);
+      // await Future.delayed(Duration.zero);
 
       // 4. Wait for prompts or final R200.
       model = await _waitForTerminalResponse(
@@ -211,7 +211,7 @@ class PaxIM15C200Sale {
       }
 
       final cleaned = _cleanControlChars(buffer.toString());
-      
+
       print('[PaxIM15C200Sale] RX: $cleaned');
       logger.logRecv(cleaned);
 

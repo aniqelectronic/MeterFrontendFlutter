@@ -15,6 +15,9 @@ class PaymentStatusOverlayState extends State<PaymentStatusOverlay> {
   void setStage(PaymentStage stage) {
     if (mounted) {
       setState(() => _stage = stage);
+          // Force an immediate repaint instead of waiting for the next
+    // natural frame tick — closes any gap between setState and paint.
+    WidgetsBinding.instance.ensureVisualUpdate();
     }
   }
 
