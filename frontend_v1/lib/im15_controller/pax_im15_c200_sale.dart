@@ -220,6 +220,7 @@ class PaxIM15C200Sale {
 
       final r200Text = _extractR200(cleaned);
       if (r200Text != null) {
+        print('[TIMING] R200 detected @ ${DateTime.now()}');
         final parsed = parseAsciiR200Response(r200Text, amountInCents);
 
         if (parsed != null) {
