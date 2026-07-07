@@ -565,7 +565,7 @@ Positioned(
                     if (!confirmed) {
                       return;
                     }
-                    
+
                     // Prevent multiple simultaneous transactions
                     if (PAYMENTPAGE._transactionInProgress) {
                       print('[PAYMENTPAGE] ⚠️ Transaction already in progress, ignoring button press');
@@ -1051,8 +1051,8 @@ Positioned(
                                     if (result != null && !result.startsWith("Error")) {
 
                                       if (Navigator.canPop(context)) {
-  Navigator.pop(context); // close processing dialog
-}
+                                        Navigator.pop(context); // close processing dialog
+                                      }
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
