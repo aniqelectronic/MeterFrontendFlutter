@@ -905,6 +905,30 @@ abstract class AppLocalizations {
   /// **'WE ACCEPT :'**
   String get weAcceptText;
 
+  /// No description provided for @cardConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Card Payment'**
+  String get cardConfirmTitle;
+
+  /// No description provided for @cardConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to pay using a Debit or Credit Card?\n\nBefore continuing:\n• Prepare your physical card.\n• Hold your card near the card reader when instructed.\n• Do not remove your card until you hear the beep sound.'**
+  String get cardConfirmMessage;
+
+  /// No description provided for @cardConfirmContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'CONTINUE'**
+  String get cardConfirmContinue;
+
+  /// No description provided for @cardConfirmCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'CANCEL'**
+  String get cardConfirmCancel;
+
   /// No description provided for @paymentTapYourCard.
   ///
   /// In en, this message translates to:

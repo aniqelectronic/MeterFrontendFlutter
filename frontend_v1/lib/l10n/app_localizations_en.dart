@@ -428,6 +428,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weAcceptText => 'WE ACCEPT :';
 
   @override
+  String get cardConfirmTitle => 'Confirm Card Payment';
+
+  @override
+  String get cardConfirmMessage => 'Are you sure you want to pay using a Debit or Credit Card?\n\nBefore continuing:\n• Prepare your physical card.\n• Hold your card near the card reader when instructed.\n• Do not remove your card until you hear the beep sound.';
+
+  @override
+  String get cardConfirmContinue => 'CONTINUE';
+
+  @override
+  String get cardConfirmCancel => 'CANCEL';
+
+  @override
   String get paymentTapYourCard => 'TAP YOUR CARD';
 
   @override

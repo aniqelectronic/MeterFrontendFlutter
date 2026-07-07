@@ -162,6 +162,11 @@
   "qrButton": "PAY WITH QR",
   "weAcceptText": "WE ACCEPT :",
 
+  "cardConfirmTitle": "Confirm Card Payment",
+  "cardConfirmMessage": "Are you sure you want to pay using a Debit or Credit Card?\n\nBefore continuing:\n• Prepare your physical card.\n• Hold your card near the card reader when instructed.\n• Do not remove your card until you hear the beep sound.",
+  "cardConfirmContinue": "CONTINUE",
+  "cardConfirmCancel": "CANCEL",
+
   "paymentTapYourCard": "TAP YOUR CARD",
   "paymentTapCardInstruction": "Please tap on the card reader\nuntil \"Bip\" sound is heard",
   "paymentProcessing": "PROCESSING",

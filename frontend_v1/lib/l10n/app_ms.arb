@@ -160,6 +160,11 @@
   "qrButton": "BAYAR QR",
   "weAcceptText": "KAMI MENERIMA :",
 
+  "cardConfirmTitle": "Sahkan Pembayaran Kad",
+  "cardConfirmMessage": "Adakah anda pasti ingin membuat pembayaran menggunakan Kad Debit atau Kad Kredit?\n\nSebelum meneruskan:\n• Sediakan kad anda.\n• Dekatkan kad pada pembaca kad apabila diarahkan.\n• Jangan alihkan kad sehingga bunyi bip kedengaran.",
+  "cardConfirmContinue": "TERUSKAN",
+  "cardConfirmCancel": "BATAL",
+
   "paymentTapYourCard": "SENTUH KAD ANDA",
   "paymentTapCardInstruction": "Sila sentuh kad pada pembaca kad\nsehingga bunyi \"Bip\" kedengaran",
   "paymentProcessing": "SEDANG DIPROSES",

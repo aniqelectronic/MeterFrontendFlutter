@@ -428,6 +428,18 @@ class AppLocalizationsMs extends AppLocalizations {
   String get weAcceptText => 'KAMI MENERIMA :';
 
   @override
+  String get cardConfirmTitle => 'Sahkan Pembayaran Kad';
+
+  @override
+  String get cardConfirmMessage => 'Adakah anda pasti ingin membuat pembayaran menggunakan Kad Debit atau Kad Kredit?\n\nSebelum meneruskan:\n• Sediakan kad anda.\n• Dekatkan kad pada pembaca kad apabila diarahkan.\n• Jangan alihkan kad sehingga bunyi bip kedengaran.';
+
+  @override
+  String get cardConfirmContinue => 'TERUSKAN';
+
+  @override
+  String get cardConfirmCancel => 'BATAL';
+
+  @override
   String get paymentTapYourCard => 'SENTUH KAD ANDA';
 
   @override

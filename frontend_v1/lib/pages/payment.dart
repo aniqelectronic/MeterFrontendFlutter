@@ -335,6 +335,106 @@ class _PAYMENTPAGEState extends State<PAYMENTPAGE> {
     );
   }
 
+  Future<bool> showCardConfirmationDialog(BuildContext context) async {
+  final l10n = AppLocalizations.of(context)!;
+
+  return await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Container(
+            width: 700,
+            padding: const EdgeInsets.all(35),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.credit_card,
+                  color: Color(0xFF0359D2),
+                  size: 100,
+                ),
+
+                const SizedBox(height: 20),
+
+                Text(
+                  l10n.cardConfirmTitle,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 42,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF0359D2),
+                  ),
+                ),
+
+                const SizedBox(height: 25),
+
+                Text(
+                  l10n.cardConfirmMessage,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 28,
+                    height: 1.5,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+
+                const SizedBox(height: 40),
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 75,
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.pop(context, false),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey.shade400,
+                          ),
+                          child: Text(
+                            l10n.cardConfirmCancel,
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(width: 20),
+
+                    Expanded(
+                      child: SizedBox(
+                        height: 75,
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.pop(context, true),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF0359D2),
+                          ),
+                          child: Text(
+                            l10n.cardConfirmContinue,
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ) ??
+      false;
+}
+
   @override
   Widget build(BuildContext context) {
     
@@ -455,10 +555,17 @@ Positioned(
             left: -500,
             right: 0,
             child: Center(
-  child: _PaymentKioskButton(
-    icon: IconData(0xe19f, fontFamily: 'MaterialIcons'),
-    label: AppLocalizations.of(context)!.cardButton,
+                    child: _PaymentKioskButton(
+                    icon: IconData(0xe19f, fontFamily: 'MaterialIcons'),
+                    label: AppLocalizations.of(context)!.cardButton,
                     onPressed: () async {
+
+                    final confirmed = await showCardConfirmationDialog(context);
+
+                    if (!confirmed) {
+                      return;
+                    }
+                    
                     // Prevent multiple simultaneous transactions
                     if (PAYMENTPAGE._transactionInProgress) {
                       print('[PAYMENTPAGE] ⚠️ Transaction already in progress, ignoring button press');
