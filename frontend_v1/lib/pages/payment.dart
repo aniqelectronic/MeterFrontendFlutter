@@ -559,6 +559,7 @@ Positioned(
                     icon: IconData(0xe19f, fontFamily: 'MaterialIcons'),
                     label: AppLocalizations.of(context)!.cardButton,
                     onPressed: () async {
+                    currentRouteName = '/payment';
 
                     final confirmed = await showCardConfirmationDialog(context);
 
