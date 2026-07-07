@@ -576,6 +576,8 @@ Positioned(
                           onCancel: () {
                             print('[PAYMENTPAGE] 🛑 User tapped Cancel');
                             cancelToken.cancel();
+                            overlayEntry?.remove();     // <-- tear down the UI right now
+                            spinnerShown = false; 
                           },
                         ),
                       );

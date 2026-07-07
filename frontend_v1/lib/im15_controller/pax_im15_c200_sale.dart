@@ -175,10 +175,16 @@ class PaxIM15C200Sale {
       return null;
     } finally {
       if (transactionStarted && model == null) {
-        try {
+      try {
+        if (cancelToken?.isCancelled == true) {
+          // User cancelled — give the terminal a real chance to reset its own screen
+          print('[PaxIM15C200Sale] 🔄 Cancelled — force resetting terminal display');
+          await serial.forceReset();
+        } else {
           serial.sendByte(IM15NativeSerialManager.EOT);
           logger.logSend('EOT cleanup');
           await Future.delayed(const Duration(milliseconds: 300));
+        }
         } catch (_) {}
       }
 
@@ -210,7 +216,7 @@ class PaxIM15C200Sale {
     if (cancelToken?.isCancelled == true) {
       print('[PaxIM15C200Sale] 🛑 Cancelled by user');
       logger.logInfo('Transaction cancelled by user');
-      serial.sendByte(IM15NativeSerialManager.EOT);   // tell terminal to abort
+      // serial.sendByte(IM15NativeSerialManager.EOT);   // tell terminal to abort
       return null;
     }
       final chunk = await serial.readAsciiResponse(3000, 150);
