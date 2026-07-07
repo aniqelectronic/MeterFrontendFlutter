@@ -173,27 +173,24 @@ class PaxIM15C200Sale {
       print('[PaxIM15C200Sale] ❌ Error: $e');
       logger.logInfo('Error: $e');
       return null;
-    } finally {
-      if (transactionStarted && model == null) {
-      try {
-        if (cancelToken?.isCancelled == true) {
-          // User cancelled — give the terminal a real chance to reset its own screen
-          print('[PaxIM15C200Sale] 🔄 Cancelled — force resetting terminal display');
-          await serial.forceReset();
-        } else {
-          serial.sendByte(IM15NativeSerialManager.EOT);
-          logger.logSend('EOT cleanup');
-          await Future.delayed(const Duration(milliseconds: 300));
-        }
-        } catch (_) {}
-      }
+    }  finally {
+  if (transactionStarted && model == null && cancelToken?.isCancelled != true) {
+    // Only send a cleanup EOT here for a genuine timeout/error —
+    // if the user cancelled, the single EOT was already sent
+    // in the cancel branch above per the protocol spec, so don't send another.
+    try {
+      serial.sendByte(IM15NativeSerialManager.EOT);
+      logger.logSend('EOT cleanup');
+      await Future.delayed(const Duration(milliseconds: 300));
+    } catch (_) {}
+  }
 
-      try {
-        serial.close();
-        print('[PaxIM15C200Sale] 🔒 Serial closed');
-        logger.logInfo('Serial closed');
-      } catch (_) {}
-    }
+  try {
+    serial.close();
+    print('[PaxIM15C200Sale] 🔒 Serial closed');
+    logger.logInfo('Serial closed');
+  } catch (_) {}
+}
   }
 
   Future<IM15ResponseModel?> _waitForTerminalResponse(
@@ -216,7 +213,7 @@ class PaxIM15C200Sale {
     if (cancelToken?.isCancelled == true) {
       print('[PaxIM15C200Sale] 🛑 Cancelled by user');
       logger.logInfo('Transaction cancelled by user');
-      // serial.sendByte(IM15NativeSerialManager.EOT);   // tell terminal to abort
+      serial.sendByte(IM15NativeSerialManager.EOT);   // tell terminal to abort
       return null;
     }
       final chunk = await serial.readAsciiResponse(3000, 150);
