@@ -10,6 +10,7 @@ import 'package:frontend_v1/im15_services/compound_c200_service.dart';
 import 'package:frontend_v1/im15_services/license_c200_service.dart';
 import 'package:frontend_v1/im15_services/parking_c200_service.dart';
 import 'package:frontend_v1/im15_services/tax_c200_service.dart';
+import 'package:frontend_v1/im15_utils/cancellation_token.dart';
 import 'package:frontend_v1/im15_utils/payment_spinner.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/tax/payment_tax_item.dart';
@@ -29,7 +30,7 @@ import 'package:frontend_v1/model/sewaan/sewaan_payment_item.dart';
 import 'package:frontend_v1/controllers/sewaan/sewaan_payment_service_bentong.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:frontend_v1/widgets/payment_status_overlay.dart';
-
+import 'package:frontend_v1/widgets/payment_status_overlay.dart';
 
 class PaymentData {
   String? plate;
@@ -474,6 +475,7 @@ Positioned(
                     bool spinnerShown = false;
                     GlobalKey<PaymentStatusOverlayState>? overlayKey;
                     OverlayEntry? overlayEntry;
+                    final cancelToken = CancellationToken();
                     
                     try {
                       // Validate amount for RM250 threshold
@@ -569,7 +571,13 @@ Positioned(
 
                       overlayKey = GlobalKey<PaymentStatusOverlayState>();
                       overlayEntry = OverlayEntry(
-                        builder: (_) => PaymentStatusOverlay(key: overlayKey!),
+                        builder: (_) => PaymentStatusOverlay(
+                          key: overlayKey!,
+                          onCancel: () {
+                            print('[PAYMENTPAGE] 🛑 User tapped Cancel');
+                            cancelToken.cancel();
+                          },
+                        ),
                       );
                       Overlay.of(context).insert(overlayEntry!);
                       spinnerShown = true; // reuse this flag to know we need to remove the overlay
@@ -609,6 +617,7 @@ Positioned(
                         amount,
                         port,
                         DateTime.now().millisecondsSinceEpoch.toString(), // traceNo
+                        cancelToken: cancelToken,
                           onCardDetected: () {
                           print('[PAYMENTPAGE] 💳 Changing overlay to PROCESSING');
                           overlayKey?.currentState?.setStage(PaymentStage.processing);
@@ -784,13 +793,22 @@ Positioned(
                         },
                         onFailure: () async {
                           print('[PAYMENTPAGE] ❌ Card payment failed');
-                          
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Card payment failed or timeout. Please try again."),
-                              duration: Duration(seconds: 3),
-                            ),
-                          );
+
+                          if (cancelToken.isCancelled) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Payment cancelled."),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Card payment failed or timeout. Please try again."),
+                                duration: Duration(seconds: 3),
+                              ),
+                            );
+                          }
                         },
                         onPINRequired: () async {
                           // This shouldn't be called for amounts ≤ RM250

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:frontend_v1/im15_utils/cancellation_token.dart';
+
 import 'im15_native_serial_manager.dart';
 import '../im15_model/im15_response_model.dart';
 import '../im15_utils/im15_packet_builder.dart';
@@ -13,6 +15,7 @@ class PaxIM15C200Sale {
     String amountInCents,
     String transactionId,
     IM15TransactionLogger logger, {
+    CancellationToken? cancelToken,
     VoidCallback? onCardDetected,
     VoidCallback? onPINRequired,
     VoidCallback? onPINCompleted,
@@ -38,6 +41,12 @@ class PaxIM15C200Sale {
 
       final gotAckAfterEnq =
           await serial.waitForByte(IM15NativeSerialManager.ACK, 8000);
+
+      if (cancelToken?.isCancelled == true) {
+        print('[PaxIM15C200Sale] 🛑 Cancelled before C200');
+        serial.sendByte(IM15NativeSerialManager.EOT);
+        return null;
+      }
 
       if (!gotAckAfterEnq) {
         print('[PaxIM15C200Sale] ❌ No ACK after ENQ');
@@ -135,6 +144,7 @@ class PaxIM15C200Sale {
         serial,
         logger,
         amountInCents,
+        cancelToken: cancelToken,
         onCardDetected: onCardDetected,
         onPINRequired: onPINRequired,
         onPINCompleted: onPINCompleted,
@@ -184,6 +194,7 @@ class PaxIM15C200Sale {
     IM15NativeSerialManager serial,
     IM15TransactionLogger logger,
     String amountInCents, {
+    CancellationToken? cancelToken, 
     VoidCallback? onCardDetected,
     VoidCallback? onPINRequired,
     VoidCallback? onPINCompleted,
@@ -196,6 +207,12 @@ class PaxIM15C200Sale {
     final buffer = StringBuffer();
 
     while (DateTime.now().difference(start) < totalTimeout) {
+    if (cancelToken?.isCancelled == true) {
+      print('[PaxIM15C200Sale] 🛑 Cancelled by user');
+      logger.logInfo('Transaction cancelled by user');
+      serial.sendByte(IM15NativeSerialManager.EOT);   // tell terminal to abort
+      return null;
+    }
       final chunk = await serial.readAsciiResponse(3000, 150);
 
       if (chunk.isEmpty) {

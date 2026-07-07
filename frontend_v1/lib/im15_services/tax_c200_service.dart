@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_v1/im15_utils/cancellation_token.dart';
 import '../im15_serial/im15_native_serial_transport.dart';
 import '../im15_serial/im15_serial_connection_manager.dart';
 import '../im15_serial/im15_transport.dart';
@@ -26,6 +27,7 @@ class TaxC200Service extends AbstractC200TransactionService {
     String rawAmount,
     String port,
     String traceNo, {
+    CancellationToken? cancelToken,
     void Function()? onCardDetected,
     required Future<void> Function() onFailure,
     void Function()? onPINCompleted,
@@ -40,7 +42,8 @@ class TaxC200Service extends AbstractC200TransactionService {
         traceNo,
         onSuccess: onSuccess,
         onFailure: onFailure,
-       onCardDetected: onCardDetected,
+        cancelToken: cancelToken,
+        onCardDetected: onCardDetected,
         onPINRequired: onPINRequired,
         onPINCompleted: onPINCompleted,
       );

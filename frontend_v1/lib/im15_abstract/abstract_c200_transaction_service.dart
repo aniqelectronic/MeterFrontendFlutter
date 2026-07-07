@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_v1/im15_utils/cancellation_token.dart';
 import 'package:frontend_v1/im15_utils/payment_utils.dart';
 import '../im15_controller/pax_im15_c200_sale.dart';
 import '../im15_model/im15_response_model.dart';
@@ -19,10 +20,11 @@ abstract class AbstractC200TransactionService {
   /// Execute a C200 transaction with retries
   Future<void> execute(String rawAmount, String port, String traceNo,
       {required Future<void> Function() onSuccess, 
-     required Future<void> Function() onFailure,
+      required Future<void> Function() onFailure,
+      CancellationToken? cancelToken,  
       VoidCallback? onCardDetected,
-       VoidCallback? onPINRequired,
-       VoidCallback? onPINCompleted}) async {
+      VoidCallback? onPINRequired,
+      VoidCallback? onPINCompleted}) async {
     const int maxRetries = 5;
     _setInteractionEnabled(false);
      await  spinner?.show();
@@ -53,6 +55,11 @@ abstract class AbstractC200TransactionService {
 
       int attempts = 0;
       while (attempts < maxRetries) {
+        if (cancelToken?.isCancelled == true) {
+          print('[AbstractC200] 🛑 Cancelled by user, stopping retries');
+          logger.logInfo("Transaction cancelled by user before attempt #${attempts + 1}");
+          break;
+        }
         try {
           logger.logInfo("${getTransactionTypeLabel()} Attempt #${attempts + 1}");
           
@@ -77,6 +84,7 @@ abstract class AbstractC200TransactionService {
             paxFormattedAmount, 
             traceNo, 
             logger,
+            cancelToken: cancelToken,
              onCardDetected: () {
               print('[AbstractC200] 💳 Card detected callback triggered');
               onCardDetected?.call();
@@ -112,7 +120,12 @@ abstract class AbstractC200TransactionService {
           } else {
             logger.logInfo("Attempt #${attempts + 1} returned null. No response from card reader.");
             print('[AbstractC200] ❌ Attempt #${attempts + 1} returned null');
-            
+
+            // Don't show a timeout warning if the person deliberately cancelled
+            if (cancelToken?.isCancelled == true) {
+              break;
+            }
+                      
             // Show timeout warning on last attempt
             if (attempts == maxRetries - 1) {
               _showWarning("Transaction Timeout", 
@@ -190,7 +203,9 @@ abstract class AbstractC200TransactionService {
       await onSuccess();
     } else {
       print("[AbstractC200] ❌ Payment failed - Calling onFailure()");
-      if (!shouldCallFailure) {
+      if (cancelToken?.isCancelled == true) {
+        print("[AbstractC200] 🛑 Payment cancelled by user, skipping failure dialog");
+      } else if (!shouldCallFailure) {
         _showWarning("Payment Failed",
             "No response received after $maxRetries attempts.\n\nThe card reader may need to be reset. Please try again or contact support.");
       }

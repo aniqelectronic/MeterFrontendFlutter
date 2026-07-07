@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_v1/im15_utils/cancellation_token.dart';
 import '../im15_serial/im15_native_serial_transport.dart';
 import '../im15_serial/im15_serial_connection_manager.dart';
 import '../im15_serial/im15_transport.dart';
@@ -26,6 +27,7 @@ class ParkingC200Service extends AbstractC200TransactionService {
     String rawAmount,
     String port, // This is the path you found in payment.dart
     String traceNo, {
+    CancellationToken? cancelToken,
     void Function()? onCardDetected,
     required Future<void> Function() onFailure,
     void Function()? onPINCompleted,
@@ -42,6 +44,7 @@ class ParkingC200Service extends AbstractC200TransactionService {
       rawAmount,
       port,
       traceNo,
+      cancelToken: cancelToken,
       onSuccess: onSuccess,
       onFailure: onFailure,
       onCardDetected: onCardDetected,

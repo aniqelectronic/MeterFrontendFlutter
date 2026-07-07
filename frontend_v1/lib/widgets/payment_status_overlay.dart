@@ -4,7 +4,8 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 enum PaymentStage { waitingForCard, processing, success, failed }
 
 class PaymentStatusOverlay extends StatefulWidget {
-  const PaymentStatusOverlay({super.key});
+  final VoidCallback? onCancel;
+  const PaymentStatusOverlay({super.key, this.onCancel});
 
   @override
   State<PaymentStatusOverlay> createState() => PaymentStatusOverlayState();
@@ -85,11 +86,29 @@ class PaymentStatusOverlayState extends State<PaymentStatusOverlay> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 15),
-                Text(
+            Text(
                   subtitle,
                   style: const TextStyle(fontSize: 22, color: Colors.black87),
                   textAlign: TextAlign.center,
                 ),
+
+                // Only show Cancel while waiting for the tap — once real
+                // card data starts flowing, cancelling mid-read could leave
+                // the terminal in a weird state, so it's hidden after that.
+                if (_stage == PaymentStage.waitingForCard && widget.onCancel != null) ...[
+                  const SizedBox(height: 30),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 60,
+                    child: OutlinedButton(
+                      onPressed: widget.onCancel,
+                      child:  Text(
+                        l10n.cancelButton,
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                ],
               ],
             ),
           ),
