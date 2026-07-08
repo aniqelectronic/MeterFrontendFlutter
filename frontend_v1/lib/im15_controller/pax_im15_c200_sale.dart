@@ -306,8 +306,17 @@ class PaxIM15C200Sale {
       }
     }
 
-    print('[PaxIM15C200Sale] ⏱️ Timeout waiting for R200 (budget was ${currentTimeout.inSeconds}s)');
-    logger.logInfo('Timeout waiting for R200');
+    print('[PaxIM15C200Sale] ⏱️ Timeout waiting for R200 (budget was ${currentTimeout.inSeconds}s) - sending ABORT');
+    logger.logInfo('Timeout waiting for R200 - sending ABORT');
+
+    try {
+        serial.sendAbort();
+        logger.logSend('ABORT');
+
+        await Future.delayed(const Duration(milliseconds: 500));
+      } catch (e) {
+        logger.logInfo('Failed to send ABORT: $e');
+      }
     return null;
   }
 

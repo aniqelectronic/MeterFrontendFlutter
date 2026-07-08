@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:frontend_v1/im15_utils/im15_transaction_logger.dart';
 import '../im15_serial/native_serial_port.dart';
+import 'dart:typed_data';
 
 /// Native Serial Manager using BLOCKING reads (like Java implementation)
 /// This ensures no bytes are missed during critical handshake moments
@@ -46,6 +47,10 @@ class IM15NativeSerialManager {
     _port = null;
     print('[IM15NativeSerialManager] Port closed');
   }
+
+  void sendAbort() {
+  sendBytes(Uint8List.fromList('ABORT'.codeUnits));
+}
 
   /// CRITICAL FIX: Force reset card reader by sending multiple EOT bytes
   Future<void> forceReset() async {
