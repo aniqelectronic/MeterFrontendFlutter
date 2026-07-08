@@ -203,7 +203,7 @@ class PaxIM15C200Sale {
     VoidCallback? onPINCompleted,
   }) async {
     final start = DateTime.now();
-    const totalTimeout = Duration(minutes: 2);
+    const totalTimeout = Duration(seconds: 30);
 
     bool pinRequested = false;
     bool cardDetectedNotified  = false;

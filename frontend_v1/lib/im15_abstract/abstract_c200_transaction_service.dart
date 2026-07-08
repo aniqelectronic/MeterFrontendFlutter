@@ -25,7 +25,7 @@ abstract class AbstractC200TransactionService {
       VoidCallback? onCardDetected,
       VoidCallback? onPINRequired,
       VoidCallback? onPINCompleted}) async {
-    const int maxRetries = 5;
+    const int maxRetries = 2;
     _setInteractionEnabled(false);
      await  spinner?.show();
 
