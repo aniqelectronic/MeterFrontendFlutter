@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/controllers/license/license_service.dart';
 import 'package:frontend_v1/controllers/parking/parking_controller.dart';
-import 'package:frontend_v1/controllers/tax/tax_service.dart';
+// import 'package:frontend_v1/controllers/tax/tax_service.dart';
 import 'package:frontend_v1/im15_abstract/abstract_c200_transaction_service.dart';
 import 'package:frontend_v1/im15_serial/im15_port_detector.dart';
 import 'package:frontend_v1/im15_serial/im15_serial_connection_manager.dart';
 import 'package:frontend_v1/im15_serial/im15_serial_settings.dart';
 import 'package:frontend_v1/im15_services/compound_c200_service.dart';
-import 'package:frontend_v1/im15_services/license_c200_service.dart';
+// import 'package:frontend_v1/im15_services/license_c200_service.dart';
 import 'package:frontend_v1/im15_services/parking_c200_service.dart';
 import 'package:frontend_v1/im15_services/tax_c200_service.dart';
 import 'package:frontend_v1/im15_utils/cancellation_token.dart';
-import 'package:frontend_v1/im15_utils/payment_spinner.dart';
+// import 'package:frontend_v1/im15_utils/payment_spinner.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/tax/payment_tax_item.dart';
 import 'package:frontend_v1/pages/config.dart';
@@ -19,7 +19,7 @@ import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/resit.dart';
 import 'package:frontend_v1/main.dart';
 import 'package:frontend_v1/pages/pin_entry.dart'; // Import new PIN entry screen
-import 'package:frontend_v1/services/pegepay_qr_page.dart';
+// import 'package:frontend_v1/services/pegepay_qr_page.dart';
 import 'package:frontend_v1/services/pegepay_service.dart';
 import 'package:frontend_v1/services/pegepay_webview_helper.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
@@ -29,7 +29,6 @@ import 'package:frontend_v1/controllers/taksiran/taksiran_payment_service_benton
 import 'package:frontend_v1/model/sewaan/sewaan_payment_item.dart';
 import 'package:frontend_v1/controllers/sewaan/sewaan_payment_service_bentong.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:frontend_v1/widgets/payment_status_overlay.dart';
 import 'package:frontend_v1/widgets/payment_status_overlay.dart';
 
 class PaymentData {
@@ -335,10 +334,10 @@ class _PAYMENTPAGEState extends State<PAYMENTPAGE> {
     );
   }
 
-  Future<bool> showCardConfirmationDialog(BuildContext context) async {
-  final l10n = AppLocalizations.of(context)!;
+        Future<bool> showCardConfirmationDialog(BuildContext context) async {
+        final l10n = AppLocalizations.of(context)!;
 
-  return await showDialog<bool>(
+        return await showDialog<bool>(
         context: context,
         barrierDismissible: false,
         builder: (_) => Dialog(
@@ -700,11 +699,12 @@ Positioned(
                       // Select service based on biz type
                       if (widget.biz == "PARKING" || widget.biz == "EXTENDPARKING") {
                         service = ParkingC200Service(context, null, [], connMgr);
-                      } else if (widget.biz == "CUKAI") {
-                        service = TaxC200Service(context, null, [], connMgr);
-                      } else if (widget.biz == "LESEN") {
-                        service = LicenseC200Service(context, null, [], connMgr);
                       } else if (widget.biz == "MULTICOMPOUND" || widget.biz == "SINGLECOMPOUND") {
+                        service = CompoundC200Service(context, null, [], connMgr);
+                      }
+                       else if (widget.biz == "CUKAI" || widget.biz == "SEMAKAN CUKAI") {
+                        service = TaxC200Service(context, null, [], connMgr);
+                      } else if (widget.biz == "SEWAAN" || widget.biz == "SEMAKAN SEWAAN") {
                         service = CompoundC200Service(context, null, [], connMgr);
                       }
                   
@@ -731,6 +731,10 @@ Positioned(
                           onCardDetected: () {
                           print('[PAYMENTPAGE] 💳 Changing overlay to PROCESSING');
                           overlayKey?.currentState?.setStage(PaymentStage.processing);
+                        },
+                        onCancelling: () {
+                          print('[PAYMENTPAGE] ⏳ Cancelling payment...');
+                          overlayKey?.currentState?.setStage(PaymentStage.cancelling);
                         },
                         onSuccess: () async {
                           print('[PAYMENTPAGE] ✅ Card payment successful');
@@ -814,31 +818,87 @@ Positioned(
                           // =============================
                           // ===== TAX CARD PAYMENT
                           // =============================
-                          else if (widget.biz == "CUKAI") {
-                            final billNos = widget.data.taxItems!.map((e) => e.billNo).toList();
-                            final success = await TaxService.payMultipleTaxes(billNos);
+
+
+                          // else if (widget.biz == "CUKAI") {
+                          //   final billNos = widget.data.taxItems!.map((e) => e.billNo).toList();
+                          //   final success = await TaxService.payMultipleTaxes(billNos);
                   
-                            if (success) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  settings: const RouteSettings(name: '/receipt'),
-                                  builder: (_) => RESITPAGE(
-                                    biz: "CUKAI",
-                                    data: ResitData(
-                                      amount: widget.data.amount,
-                                      taxItems: widget.data.taxItems,
-                                      typePayment: "Debit/Credit Card",
-                                    ),
-                                  ),
+                          //   if (success) {
+                          //     Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         settings: const RouteSettings(name: '/receipt'),
+                          //         builder: (_) => RESITPAGE(
+                          //           biz: "CUKAI",
+                          //           data: ResitData(
+                          //             amount: widget.data.amount,
+                          //             taxItems: widget.data.taxItems,
+                          //             typePayment: "Debit/Credit Card",
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     );
+                          //   } else {
+                          //     ScaffoldMessenger.of(context).showSnackBar(
+                          //       const SnackBar(content: Text("Tax payment failed")),
+                          //     );
+                          //   }
+                          // }
+
+                          else if (widget.biz == "CUKAI" || widget.biz == "SEMAKAN CUKAI") {
+                          final items = widget.data.taksiranItems ?? [];
+
+                          if (items.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Tiada cukai dipilih")),
+                            );
+                            return;
+                          }
+
+                          final success = await TaksiranPaymentServiceBentong.payMultiple(
+                            items: items,
+                            referenceNo: "0",
+                          );
+
+                          if (success) {
+                            final updateSuccess =
+                                await TaksiranPaymentServiceBentong.postPaymentUpdateBentong(
+                              items: items,
+                              orderNo: "0",
+                              bankTrxNo: "0",
+                              paymentMethod: "Debit/Credit Card",
+                            );
+
+                            if (!updateSuccess) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Cukai payment saved to MPB, but local update failed"),
                                 ),
                               );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Tax payment failed")),
-                              );
+                              return;
                             }
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                settings: const RouteSettings(name: '/receipt'),
+                                builder: (_) => RESITPAGE(
+                                  biz: "CUKAI",
+                                  data: ResitData(
+                                    amount: widget.data.amount,
+                                    taksiranItems: widget.data.taksiranItems,
+                                    typePayment: "Debit/Credit Card",
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Cukai payment update failed")),
+                            );
                           }
+                        }
                   
                           // =============================
                           // ===== LICENSE CARD PAYMENT
@@ -874,6 +934,64 @@ Positioned(
                               );
                             }
                           }
+
+                     // =============================
+                     // ===== SEWAAN CARD PAYMENT
+                     // =============================
+
+                    else if (widget.biz == "SEWAAN" || widget.biz == "SEMAKAN SEWAAN") {
+                      final items = widget.data.sewaanItems ?? [];
+
+                      if (items.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Tiada sewaan dipilih")),
+                        );
+                        return;
+                      }
+
+                      final success = await SewaanPaymentServiceBentong.payMultipleSewaan(
+                        items: items,
+                        referenceNo: "0",
+                      );
+
+                      if (success) {
+                        final updateSuccess =
+                            await SewaanPaymentServiceBentong.postPaymentUpdateBentong(
+                          items: items,
+                          orderNo: "0",
+                          bankTrxNo: "0",
+                          paymentMethod: "Debit/Credit Card",
+                        );
+
+                        if (!updateSuccess) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Sewaan payment saved to MPB, but local update failed"),
+                            ),
+                          );
+                          return;
+                        }
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            settings: const RouteSettings(name: '/receipt'),
+                            builder: (_) => RESITPAGE(
+                              biz: "SEWAAN",
+                              data: ResitData(
+                                amount: widget.data.amount,
+                                sewaanItems: widget.data.sewaanItems,
+                                typePayment: "Debit/Credit Card",
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Sewaan payment update failed")),
+                        );
+                      }
+                    }
                   
                           // =============================
                           // ===== COMPOUND CARD PAYMENT
@@ -969,15 +1087,15 @@ Positioned(
             ),
           ),
 
-          // QR PAYMENT Button
-          Positioned(
-            top: 750,
-            left: 0,
-            right: -500,
-            child: Center(
-            child: _PaymentKioskButton(
-            icon: IconData(0xe4f5, fontFamily: 'MaterialIcons'),
-            label: AppLocalizations.of(context)!.qrButton,
+                      // QR PAYMENT Button
+                      Positioned(
+                        top: 750,
+                        left: 0,
+                        right: -500,
+                        child: Center(
+                        child: _PaymentKioskButton(
+                        icon: IconData(0xe4f5, fontFamily: 'MaterialIcons'),
+                        label: AppLocalizations.of(context)!.qrButton,
                         onPressed: () async {
                           //double amount = double.tryParse(data.amount ?? "0.00") ?? 0.00;
                           showLoadingDialog(context); 
@@ -1149,7 +1267,7 @@ Positioned(
                                   //   }
                                   // }
 
-                                  else if (widget.biz == "CUKAI") {
+                                  else if (widget.biz == "CUKAI" || widget.biz == "SEMAKAN CUKAI") {
                                   final items = widget.data.taksiranItems ?? [];
 
                                   if (items.isEmpty) {
@@ -1187,8 +1305,8 @@ Positioned(
                                     }
 
                                     if (Navigator.canPop(context)) {
-  Navigator.pop(context); // close processing dialog
-}
+                                        Navigator.pop(context); // close processing dialog
+                                      }
 
                                     Navigator.push(
                                       context,
@@ -1215,7 +1333,7 @@ Positioned(
                                    /* ======================= */
                                    /* ===== SEWAAN QR PAYMENT ===== */
                                    /* ======================= */
-                                    else if (widget.biz == "SEWAAN") {
+                                    else if (widget.biz == "SEWAAN" || widget.biz == "SEMAKAN SEWAAN") {
                                       final items = widget.data.sewaanItems ?? [];
 
                                       if (items.isEmpty) {
@@ -1299,8 +1417,8 @@ Positioned(
                                  
                                    if (success) {
                                     if (Navigator.canPop(context)) {
-  Navigator.pop(context); // close processing dialog
-}
+                                      Navigator.pop(context); // close processing dialog
+                                    }
                                      Navigator.push(
                                        context,
                                        MaterialPageRoute(

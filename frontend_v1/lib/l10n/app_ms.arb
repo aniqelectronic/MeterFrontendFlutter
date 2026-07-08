@@ -165,6 +165,9 @@
   "cardConfirmContinue": "TERUSKAN",
   "cardConfirmCancel": "BATAL",
 
+  "paymentCancelling": "MEMBATALKAN BAYARAN",
+  "paymentCancellingInstruction": "Tiada kad dikesan.\nTransaksi sedang dibatalkan...\nSila tunggu.",
+
   "paymentTapYourCard": "SENTUH KAD ANDA",
   "paymentTapCardInstruction": "Sila sentuh kad pada pembaca kad\nsehingga bunyi \"Bip\" kedengaran",
   "paymentProcessing": "SEDANG DIPROSES",

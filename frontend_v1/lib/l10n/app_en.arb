@@ -167,6 +167,9 @@
   "cardConfirmContinue": "CONTINUE",
   "cardConfirmCancel": "CANCEL",
 
+  "paymentCancelling": "CANCELLING PAYMENT",
+  "paymentCancellingInstruction": "No card detected.\nCancelling transaction...\nPlease wait.",
+
   "paymentTapYourCard": "TAP YOUR CARD",
   "paymentTapCardInstruction": "Please tap on the card reader\nuntil \"Bip\" sound is heard",
   "paymentProcessing": "PROCESSING",

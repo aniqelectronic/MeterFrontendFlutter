@@ -929,6 +929,18 @@ abstract class AppLocalizations {
   /// **'CANCEL'**
   String get cardConfirmCancel;
 
+  /// No description provided for @paymentCancelling.
+  ///
+  /// In en, this message translates to:
+  /// **'CANCELLING PAYMENT'**
+  String get paymentCancelling;
+
+  /// No description provided for @paymentCancellingInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'No card detected.\nCancelling transaction...\nPlease wait.'**
+  String get paymentCancellingInstruction;
+
   /// No description provided for @paymentTapYourCard.
   ///
   /// In en, this message translates to:

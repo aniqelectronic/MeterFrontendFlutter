@@ -29,6 +29,7 @@ class CompoundC200Service extends AbstractC200TransactionService {
     String traceNo, {
     CancellationToken? cancelToken,
     void Function()? onCardDetected,
+    void Function()? onCancelling,
     required Future<void> Function() onFailure,
     void Function()? onPINCompleted,
     void Function()? onPINRequired,
@@ -46,6 +47,7 @@ class CompoundC200Service extends AbstractC200TransactionService {
         onPINCompleted: onPINCompleted,
         onPINRequired: onPINRequired,
         onSuccess: onSuccess,
+        onCancelling: onCancelling,
       );
     } finally {
       await _closeTransport();

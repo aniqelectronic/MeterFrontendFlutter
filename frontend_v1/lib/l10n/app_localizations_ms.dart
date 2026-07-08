@@ -440,6 +440,12 @@ class AppLocalizationsMs extends AppLocalizations {
   String get cardConfirmCancel => 'BATAL';
 
   @override
+  String get paymentCancelling => 'MEMBATALKAN BAYARAN';
+
+  @override
+  String get paymentCancellingInstruction => 'Tiada kad dikesan.\nTransaksi sedang dibatalkan...\nSila tunggu.';
+
+  @override
   String get paymentTapYourCard => 'SENTUH KAD ANDA';
 
   @override

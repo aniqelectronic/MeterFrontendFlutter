@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 
-enum PaymentStage { waitingForCard, processing, success, failed }
+enum PaymentStage { waitingForCard, processing,cancelling, success, failed }
 
 class PaymentStatusOverlay extends StatefulWidget {
   final VoidCallback? onCancel;
@@ -48,6 +48,12 @@ class PaymentStatusOverlayState extends State<PaymentStatusOverlay> {
             l10n.paymentSuccessful,
             l10n.paymentSuccessInstruction,
           ),
+        PaymentStage.cancelling => (
+            Icons.cancel_schedule_send,
+            Colors.orange[700]!,
+            l10n.paymentCancelling,
+            l10n.paymentCancellingInstruction,
+          ),
         PaymentStage.failed => (
             Icons.error,
             Colors.red[700]!,
@@ -71,7 +77,8 @@ class PaymentStatusOverlayState extends State<PaymentStatusOverlay> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (_stage == PaymentStage.processing)
+                if (_stage == PaymentStage.processing ||
+                  _stage == PaymentStage.cancelling)
                   SizedBox(
                     width: 90,
                     height: 90,

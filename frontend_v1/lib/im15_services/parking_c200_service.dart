@@ -29,6 +29,7 @@ class ParkingC200Service extends AbstractC200TransactionService {
     String traceNo, {
     CancellationToken? cancelToken,
     void Function()? onCardDetected,
+    void Function()? onCancelling,
     required Future<void> Function() onFailure,
     void Function()? onPINCompleted,
     void Function()? onPINRequired,
@@ -48,6 +49,7 @@ class ParkingC200Service extends AbstractC200TransactionService {
       onSuccess: onSuccess,
       onFailure: onFailure,
       onCardDetected: onCardDetected,
+      onCancelling: onCancelling,
       onPINRequired: onPINRequired,
       onPINCompleted: onPINCompleted,
     );

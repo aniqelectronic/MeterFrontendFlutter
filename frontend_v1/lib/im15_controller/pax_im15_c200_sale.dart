@@ -19,6 +19,7 @@ class PaxIM15C200Sale {
     VoidCallback? onCardDetected,
     VoidCallback? onPINRequired,
     VoidCallback? onPINCompleted,
+    VoidCallback? onCancelling,
     Function(String)? onPINEntered,
   }) async {
     final serial = IM15NativeSerialManager();
@@ -147,6 +148,7 @@ class PaxIM15C200Sale {
         cancelToken: cancelToken,
         onCardDetected: onCardDetected,
         onPINRequired: onPINRequired,
+        onCancelling: onCancelling,
         onPINCompleted: onPINCompleted,
       );
 
@@ -200,6 +202,7 @@ class PaxIM15C200Sale {
     CancellationToken? cancelToken, 
     VoidCallback? onCardDetected,
     VoidCallback? onPINRequired,
+    VoidCallback? onCancelling,
     VoidCallback? onPINCompleted,
   }) async {
     final start = DateTime.now();
@@ -310,10 +313,14 @@ class PaxIM15C200Sale {
     logger.logInfo('Timeout waiting for R200 - sending ABORT');
 
     try {
+
+        onCancelling?.call();
+        await Future.delayed(Duration.zero);
+
         serial.sendAbort();
         logger.logSend('ABORT');
 
-        await Future.delayed(const Duration(milliseconds: 500));
+        await Future.delayed(const Duration(seconds: 15));
       } catch (e) {
         logger.logInfo('Failed to send ABORT: $e');
       }

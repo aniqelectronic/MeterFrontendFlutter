@@ -24,6 +24,7 @@ abstract class AbstractC200TransactionService {
       CancellationToken? cancelToken,  
       VoidCallback? onCardDetected,
       VoidCallback? onPINRequired,
+      VoidCallback? onCancelling,
       VoidCallback? onPINCompleted}) async {
     const int maxRetries = 2;
     _setInteractionEnabled(false);
@@ -102,6 +103,10 @@ abstract class AbstractC200TransactionService {
                 onPINCompleted();
               }
             },
+              onCancelling: () {
+            print('[AbstractC200] ⏳ Cancelling callback triggered');
+            onCancelling?.call();
+          },
           );
           print('[AbstractC200] 📥 Transaction returned: ${response != null ? "SUCCESS" : "NULL"}');
 

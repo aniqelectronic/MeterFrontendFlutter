@@ -29,6 +29,7 @@ class LicenseC200Service extends AbstractC200TransactionService {
     String traceNo, {
     CancellationToken? cancelToken,
     void Function()? onCardDetected,
+    void Function()? onCancelling,
     required Future<void> Function() onFailure,
     void Function()? onPINCompleted,
     void Function()? onPINRequired,
@@ -46,6 +47,7 @@ class LicenseC200Service extends AbstractC200TransactionService {
         onCardDetected: onCardDetected,
         onPINRequired: onPINRequired,
         onPINCompleted: onPINCompleted,
+        onCancelling: onCancelling,
       );
     } finally {
       await _closeTransport();

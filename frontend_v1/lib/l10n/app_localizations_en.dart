@@ -440,6 +440,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cardConfirmCancel => 'CANCEL';
 
   @override
+  String get paymentCancelling => 'CANCELLING PAYMENT';
+
+  @override
+  String get paymentCancellingInstruction => 'No card detected.\nCancelling transaction...\nPlease wait.';
+
+  @override
   String get paymentTapYourCard => 'TAP YOUR CARD';
 
   @override
