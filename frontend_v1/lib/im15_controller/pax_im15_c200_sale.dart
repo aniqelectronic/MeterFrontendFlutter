@@ -203,13 +203,26 @@ class PaxIM15C200Sale {
     VoidCallback? onPINCompleted,
   }) async {
     final start = DateTime.now();
-    const totalTimeout = Duration(seconds: 30);
+    //const totalTimeout = Duration(seconds: 30);
+
+      // Staged timeout budgets:
+  // - Nobody has tapped yet: short, since there's no reason to wait long
+  //   for a person who simply isn't interacting.
+  // - Card tapped, waiting for host authorization: needs real headroom —
+  //   we've measured genuine bank round-trips taking ~30s even with no PIN.
+  // - PIN requested: needs the most time, since a person has to physically
+  //   read the terminal and enter digits before authorization even starts.
+  const noCardTimeout = Duration(seconds: 30);
+  const cardTappedTimeout = Duration(seconds: 60);
+  const pinRequestedTimeout = Duration(seconds: 90);
+
+  Duration currentTimeout = noCardTimeout;
 
     bool pinRequested = false;
     bool cardDetectedNotified  = false;
     final buffer = StringBuffer();
 
-    while (DateTime.now().difference(start) < totalTimeout) {
+    while (DateTime.now().difference(start) < currentTimeout) {
     if (cancelToken?.isCancelled == true) {
       print('[PaxIM15C200Sale] 🛑 Cancelled by user');
       logger.logInfo('Transaction cancelled by user');
@@ -228,6 +241,7 @@ class PaxIM15C200Sale {
       // earliest possible signal that the card was tapped.
       if (!cardDetectedNotified) {
         cardDetectedNotified = true;
+        currentTimeout = cardTappedTimeout;   // extend now that a tap happened
         print('[TIMING] First byte @ ${DateTime.now()}');
         print('[PaxIM15C200Sale] 💳 First byte received - card tapped');
         onCardDetected?.call();
@@ -255,7 +269,8 @@ class PaxIM15C200Sale {
       if (!cardDetectedNotified &&
     _containsAny(cleaned, ['CARD', 'CLES', 'MAGS', 'SCAN', 'CLESC', 'LES'])) {
         cardDetectedNotified = true;
-        print('[PaxIM15C200Sale] 💳 Card/tap detected');
+        currentTimeout = cardTappedTimeout;
+        print('[PaxIM15C200Sale] 💳 Card/tap detected, extending timeout to ${cardTappedTimeout.inSeconds}s');
         onCardDetected?.call();
         serial.sendByte(IM15NativeSerialManager.ACK);
         logger.logSend('ACK for card prompt');
@@ -265,7 +280,8 @@ class PaxIM15C200Sale {
 
       if (cleaned.contains('PIN') && !pinRequested) {
         pinRequested = true;
-        print('[PaxIM15C200Sale] 🔐 PIN requested');
+        currentTimeout = pinRequestedTimeout;   // extend further for PIN entry
+        print('[PaxIM15C200Sale] 🔐 PIN requested, extending timeout to ${pinRequestedTimeout.inSeconds}s');
         serial.sendByte(IM15NativeSerialManager.ACK);
         logger.logSend('ACK for PIN');
         onPINRequired?.call();
@@ -290,7 +306,7 @@ class PaxIM15C200Sale {
       }
     }
 
-    print('[PaxIM15C200Sale] ⏱️ Timeout waiting for R200');
+    print('[PaxIM15C200Sale] ⏱️ Timeout waiting for R200 (budget was ${currentTimeout.inSeconds}s)');
     logger.logInfo('Timeout waiting for R200');
     return null;
   }
