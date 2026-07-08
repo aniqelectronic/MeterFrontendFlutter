@@ -4,6 +4,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:ntp/ntp.dart';
 
+/// Sync status for the small indicator dot.
+enum _SyncStatus {
+  synced,     // green  - time is following SIRIM NTP
+  connecting, // yellow - currently trying to reach SIRIM
+  fallback,   // red    - could not reach SIRIM, using this device's own clock
+}
+
 class ClockCard extends StatefulWidget {
   final double fontScale;
 
@@ -22,7 +29,26 @@ class _ClockCardState extends State<ClockCard> {
   String _weekday = "";
 
   Timer? _ticker;
+  Timer? _resyncTimer;
   Duration _ntpOffset = Duration.zero;
+
+  _SyncStatus _status = _SyncStatus.connecting;
+
+  // mst.sirim.my is SIRIM's *web* clock (plain HTTP/HTTPS) — it does not
+  // speak the NTP protocol, so calling NTP.getNtpOffset against it always
+  // times out and silently falls back to the device clock. The actual
+  // Stratum-1 NTP hosts SIRIM publishes are ntp1.sirim.my / ntp2.sirim.my.
+  static const List<String> _sirimNtpHosts = [
+    "ntp1.sirim.my",
+    "ntp2.sirim.my",
+  ];
+
+  // How often to re-sync once we're successfully following SIRIM.
+  static const Duration _resyncInterval = Duration(minutes: 15);
+
+  // If we're in fallback (using kiosk's own clock), retry sooner so we
+  // recover automatically once network/NTP is available again.
+  static const Duration _retryInterval = Duration(minutes: 2);
 
   @override
   void initState() {
@@ -32,25 +58,58 @@ class _ClockCardState extends State<ClockCard> {
 
   Future<void> _startClock() async {
     _updateTime();
-
-    try {
-      final offsetMs = await NTP.getNtpOffset(
-        lookUpAddress: "mst.sirim.my",
-        timeout: const Duration(seconds: 3),
-      );
-
-      if (!mounted) return;
-
-      setState(() {
-        _ntpOffset = Duration(milliseconds: offsetMs);
-      });
-    } catch (e) {
-      debugPrint("SIRIM Sync Failed: $e");
-    }
+    await _syncWithSirim();
 
     _ticker = Timer.periodic(const Duration(seconds: 1), (_) {
       _updateTime();
     });
+
+    _scheduleNextSync();
+  }
+
+  void _scheduleNextSync() {
+    _resyncTimer?.cancel();
+    final interval =
+        _status == _SyncStatus.synced ? _resyncInterval : _retryInterval;
+    _resyncTimer = Timer(interval, () async {
+      await _syncWithSirim();
+      _scheduleNextSync();
+    });
+  }
+
+  Future<void> _syncWithSirim() async {
+    if (!mounted) return;
+    setState(() => _status = _SyncStatus.connecting);
+
+    for (final host in _sirimNtpHosts) {
+      try {
+        final offsetMs = await NTP.getNtpOffset(
+          lookUpAddress: host,
+          timeout: const Duration(seconds: 3),
+        );
+
+        if (!mounted) return;
+
+        setState(() {
+          _ntpOffset = Duration(milliseconds: offsetMs);
+          _status = _SyncStatus.synced;
+        });
+
+        debugPrint("SIRIM Sync OK via $host (offset ${offsetMs}ms)");
+        return; // success — no need to try the next host
+      } catch (e) {
+        debugPrint("SIRIM Sync failed via $host: $e");
+        // fall through and try the next host
+      }
+    }
+
+    // Every host failed -> fall back to this kiosk's own device clock.
+    if (!mounted) return;
+    setState(() {
+      _ntpOffset = Duration.zero;
+      _status = _SyncStatus.fallback;
+    });
+    debugPrint("SIRIM Sync failed on all hosts, using kiosk's own clock");
   }
 
   void _updateTime() {
@@ -103,7 +162,30 @@ class _ClockCardState extends State<ClockCard> {
   @override
   void dispose() {
     _ticker?.cancel();
+    _resyncTimer?.cancel();
     super.dispose();
+  }
+
+  Color _statusColor() {
+    switch (_status) {
+      case _SyncStatus.synced:
+        return const Color(0xFF2ECC71); // green - following SIRIM
+      case _SyncStatus.connecting:
+        return const Color(0xFFF1C40F); // yellow - connecting to SIRIM
+      case _SyncStatus.fallback:
+        return const Color(0xFFE74C3C); // red - own device/kiosk time
+    }
+  }
+
+  String _statusLabel() {
+    switch (_status) {
+      case _SyncStatus.synced:
+        return "SIRIM";
+      case _SyncStatus.connecting:
+        return "MENYAMBUNG";
+      case _SyncStatus.fallback:
+        return "KIOSK";
+    }
   }
 
   @override
@@ -167,6 +249,37 @@ class _ClockCardState extends State<ClockCard> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  // ---- Status row: small dot + label, top-left ----
+                  Row(
+                    children: [
+                      Container(
+                        width: 14 * scale,
+                        height: 14 * scale,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _statusColor(),
+                          boxShadow: [
+                            BoxShadow(
+                              color: _statusColor().withOpacity(0.6),
+                              blurRadius: 8 * scale,
+                              spreadRadius: 1 * scale,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 8 * scale),
+                      Text(
+                        _statusLabel(),
+                        style: TextStyle(
+                          fontSize: 16 * scale,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.8,
+                          color: softNavy,
+                        ),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
 
                   SizedBox(height: 22 * scale),
 
