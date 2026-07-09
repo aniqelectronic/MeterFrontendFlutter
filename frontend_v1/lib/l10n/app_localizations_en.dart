@@ -354,6 +354,17 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String receiptDurationValue(int hours) {
+    String _temp0 = intl.Intl.pluralLogic(
+      hours,
+      locale: localeName,
+      other: '# Hours',
+      one: '# Hour',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get p5parkingNumberPlate => 'PLATE NUMBER';
 
   @override
@@ -2912,4 +2923,36 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subangFoodStreetFull => 'SS15 Food Street is known for local food, dessert shops, cafes and casual restaurants. It is one of the best places to explore food in Subang Jaya.';
+
+  @override
+  String get prayerTimeDisclaimerTitle => 'Prayer Times Disclaimer';
+
+  @override
+  String get prayerTimeDisclaimer => 'The prayer times displayed are provided for reference and are sourced from the official JAKIM e-Solat service.';
+
+  @override
+  String get prayerTimeQrInstruction => 'Scan the QR code to view the latest prayer times on the official e-Solat website.';
+
+  @override
+  String get parkingInfoTitle => 'PARKING INFORMATION';
+
+  @override
+  String get parkingRateLabel => 'Parking Rate';
+
+  @override
+  String parkingRatePerHour(Object rate) {
+    return 'RM $rate / Hour';
+  }
+
+  @override
+  String get parkingContactTitle => 'If you experience any issues, please contact:';
+
+  @override
+  String get parkingCouncilHotline => 'Municipal Council Hotline';
+
+  @override
+  String get parkingCityCarParkHotline => 'CityCarPark Hotline';
+
+  @override
+  String get parkingInfoOk => 'OK';
 }

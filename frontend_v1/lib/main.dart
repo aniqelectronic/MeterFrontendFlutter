@@ -396,7 +396,7 @@ class _AppState extends State<App> {
                       loc.idleTitle,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontSize: 35,
+                        fontSize: 40,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -404,7 +404,7 @@ class _AppState extends State<App> {
                     Text(
                       loc.idleMessage(_remainingSeconds),
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 25),
+                      style: const TextStyle(fontSize: 30),
                     ),
                     const SizedBox(height: 100),
                     SizedBox(
@@ -414,7 +414,7 @@ class _AppState extends State<App> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           foregroundColor: Colors.black,
-                          textStyle: const TextStyle(fontSize: 26),
+                          textStyle: const TextStyle(fontSize: 30),
                         ),
                         onPressed: () {
                           _countdownTimer?.cancel();

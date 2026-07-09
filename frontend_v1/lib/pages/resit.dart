@@ -493,8 +493,12 @@ Widget _buildInfoRow(
                     // Dynamic Plate/License Info
                     if (widget.biz == "PARKING") ...[
                       _buildInfoRow(loc.receiptPlateLabel2, widget.data.plate ?? 'N/A'),
-                      _buildInfoRow(
-                          loc.receiptDurationLabel2, "${widget.data.hour ?? 'N/A'} Hour(s)"),
+                        _buildInfoRow(
+                          loc.receiptDurationLabel2,
+                          widget.data.hour != null
+                              ? loc.receiptDurationValue(widget.data.hour!)
+                              : "N/A",
+                        ),
                       _buildInfoRow(loc.receiptStartTimeLabel2, startTimeStr),
                       _buildInfoRow(loc.receiptEndTimeLabel2, endTimeStr),
                     ],

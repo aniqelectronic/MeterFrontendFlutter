@@ -10,4 +10,7 @@ class Data {
 
     //text copyright
   static String copyrightText = "Copyright © 2026 City Car Park. All rights reserved.";
+
+    //talian aduan majlis
+  static String aduanMajlisBentong = "1300-88-1148";
 }

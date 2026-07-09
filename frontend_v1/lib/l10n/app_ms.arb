@@ -134,6 +134,15 @@
   "p5parkingRatePerHour": "KADAR SEJAM = RM {ratePerHour}",
   "p5parkingTotalAmount": "JUMLAH AMAUN = RM {amount}",
 
+  "receiptDurationValue": "{hours} Jam",
+  "@receiptDurationValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+
   "p5parkingNumberPlate" : "NO.KENDERAAN",
   "p5parkingTotal" : "JUMLAH BAYARAN",
   "p5parkingStart" : "MULA",
@@ -1397,6 +1406,23 @@
 
   "subangFoodStreetTitle": "SS15 Food Street",
   "subangFoodStreetDesc": "Kawasan makanan popular di Subang Jaya.",
-  "subangFoodStreetFull": "SS15 Food Street terkenal dengan makanan tempatan, kedai pencuci mulut, kafe dan restoran santai. Ia merupakan salah satu tempat terbaik untuk meneroka makanan di Subang Jaya."
+  "subangFoodStreetFull": "SS15 Food Street terkenal dengan makanan tempatan, kedai pencuci mulut, kafe dan restoran santai. Ia merupakan salah satu tempat terbaik untuk meneroka makanan di Subang Jaya.",
+
+  "prayerTimeDisclaimerTitle": "Penafian Waktu Solat",
+  "prayerTimeDisclaimer": "Waktu solat yang dipaparkan adalah untuk rujukan dan diperoleh daripada perkhidmatan rasmi JAKIM e-Solat.",
+  "prayerTimeQrInstruction": "Sila imbas kod QR untuk melihat waktu solat terkini melalui laman web rasmi e-Solat.",
+
+  "parkingInfoTitle": "MAKLUMAT PARKIR",
+"parkingRateLabel": "Kadar Bayaran Parkir",
+"parkingRatePerHour": "RM {rate} / Jam",
+"@parkingRatePerHour": {
+  "placeholders": {
+    "rate": {}
+  }
+},
+"parkingContactTitle": "Sekiranya terdapat sebarang masalah, sila hubungi:",
+"parkingCouncilHotline": "Talian Aduan Majlis",
+"parkingCityCarParkHotline": "Talian Aduan CityCarPark",
+"parkingInfoOk": "OK"
 
 }

@@ -517,7 +517,7 @@ Positioned(
             AppLocalizations.of(context)!.totalAmountText,
             style: const TextStyle(
               color: Colors.black54,
-              fontSize: 32,
+              fontSize: 40,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -526,17 +526,17 @@ Positioned(
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
-                Icons.payments,
-                size: 40,
-                color: Color.fromARGB(255, 3, 89, 210),
-              ),
-              const SizedBox(width: 15),
+              // const Icon(
+              //   Icons.payments,
+              //   size: 40,
+              //   color: Color.fromARGB(255, 3, 89, 210),
+              // ),
+              // const SizedBox(width: 15),
               Text(
                 "RM $displayedAmount",
                 style: const TextStyle(
                   color: Color.fromARGB(255, 3, 89, 210),
-                  fontSize: 70,
+                  fontSize: 90,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -1536,7 +1536,7 @@ Positioned(
         //we accept text + payment method image
 
           Positioned(
-          top: 9600,
+          top: 1200,
           left: 0,
           right: 0,
           child: Center(

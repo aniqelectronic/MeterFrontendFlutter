@@ -773,6 +773,12 @@ abstract class AppLocalizations {
   /// **'TOTAL AMOUNT = RM {amount}'**
   String p5parkingTotalAmount(Object amount);
 
+  /// No description provided for @receiptDurationValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours, plural, =1{# Hour} other{# Hours}}'**
+  String receiptDurationValue(int hours);
+
   /// No description provided for @p5parkingNumberPlate.
   ///
   /// In en, this message translates to:
@@ -5836,6 +5842,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'SS15 Food Street is known for local food, dessert shops, cafes and casual restaurants. It is one of the best places to explore food in Subang Jaya.'**
   String get subangFoodStreetFull;
+
+  /// No description provided for @prayerTimeDisclaimerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer Times Disclaimer'**
+  String get prayerTimeDisclaimerTitle;
+
+  /// No description provided for @prayerTimeDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'The prayer times displayed are provided for reference and are sourced from the official JAKIM e-Solat service.'**
+  String get prayerTimeDisclaimer;
+
+  /// No description provided for @prayerTimeQrInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan the QR code to view the latest prayer times on the official e-Solat website.'**
+  String get prayerTimeQrInstruction;
+
+  /// No description provided for @parkingInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PARKING INFORMATION'**
+  String get parkingInfoTitle;
+
+  /// No description provided for @parkingRateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Parking Rate'**
+  String get parkingRateLabel;
+
+  /// No description provided for @parkingRatePerHour.
+  ///
+  /// In en, this message translates to:
+  /// **'RM {rate} / Hour'**
+  String parkingRatePerHour(Object rate);
+
+  /// No description provided for @parkingContactTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'If you experience any issues, please contact:'**
+  String get parkingContactTitle;
+
+  /// No description provided for @parkingCouncilHotline.
+  ///
+  /// In en, this message translates to:
+  /// **'Municipal Council Hotline'**
+  String get parkingCouncilHotline;
+
+  /// No description provided for @parkingCityCarParkHotline.
+  ///
+  /// In en, this message translates to:
+  /// **'CityCarPark Hotline'**
+  String get parkingCityCarParkHotline;
+
+  /// No description provided for @parkingInfoOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get parkingInfoOk;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

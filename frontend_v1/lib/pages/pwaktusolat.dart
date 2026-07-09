@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/ptourist3.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class PWAKTUSOLATPAGE extends StatefulWidget {
   const PWAKTUSOLATPAGE({super.key});
@@ -326,9 +327,88 @@ String formatHijri(String hijri) {
             ),
           ),
 
+          /// DISCLAIMER + QR
+          Positioned(
+            bottom: 400,
+            left: 120,
+            right: 120,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 30,
+                vertical: 22,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.95),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: Colors.blue.shade200,
+                  width: 2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(.08),
+                    blurRadius: 12,
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  QrImageView(
+                    data: "https://www.e-solat.gov.my/",
+                    version: QrVersions.auto,
+                    size: 130,
+                    backgroundColor: Colors.white,
+                  ),
+
+                  const SizedBox(width: 25),
+
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!
+                              .prayerTimeDisclaimerTitle,
+                          style: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        Text(
+                          AppLocalizations.of(context)!
+                              .prayerTimeDisclaimer,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            height: 1.45,
+                          ),
+                        ),
+
+                        const SizedBox(height: 12),
+
+                        Text(
+                          AppLocalizations.of(context)!
+                              .prayerTimeQrInstruction,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.black54,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
           /// BACK BUTTON
             Positioned(
-              bottom: 200,
+              bottom: 150,
               left: 300,
               right: 300,
               child: KioskBackButton(
@@ -343,9 +423,9 @@ String formatHijri(String hijri) {
               ),
             ),
 
-                    // Footer
+          // Footer
           Positioned(
-            bottom: 100,
+            bottom: 50,
             left: 0,
             right: 0,
             child:  Center(

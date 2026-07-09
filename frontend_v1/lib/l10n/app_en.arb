@@ -135,6 +135,15 @@
   "p5parkingRatePerHour": "RATE PER HOUR = RM {ratePerHour}",
   "p5parkingTotalAmount": "TOTAL AMOUNT = RM {amount}",
 
+  "receiptDurationValue": "{hours, plural, =1{# Hour} other{# Hours}}",
+  "@receiptDurationValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+
   "p5parkingNumberPlate" : "PLATE NUMBER",
   "p5parkingTotal" : "TOTAL PAYMENT",
   "p5parkingStart" : "START",
@@ -1379,5 +1388,22 @@
 
   "subangFoodStreetTitle": "SS15 Food Street",
   "subangFoodStreetDesc": "Popular food area in Subang Jaya.",
-  "subangFoodStreetFull": "SS15 Food Street is known for local food, dessert shops, cafes and casual restaurants. It is one of the best places to explore food in Subang Jaya."
+  "subangFoodStreetFull": "SS15 Food Street is known for local food, dessert shops, cafes and casual restaurants. It is one of the best places to explore food in Subang Jaya.",
+
+  "prayerTimeDisclaimerTitle": "Prayer Times Disclaimer",
+  "prayerTimeDisclaimer": "The prayer times displayed are provided for reference and are sourced from the official JAKIM e-Solat service.",
+  "prayerTimeQrInstruction": "Scan the QR code to view the latest prayer times on the official e-Solat website.",
+
+  "parkingInfoTitle": "PARKING INFORMATION",
+"parkingRateLabel": "Parking Rate",
+"parkingRatePerHour": "RM {rate} / Hour",
+"@parkingRatePerHour": {
+  "placeholders": {
+    "rate": {}
+  }
+},
+"parkingContactTitle": "If you experience any issues, please contact:",
+"parkingCouncilHotline": "Municipal Council Hotline",
+"parkingCityCarParkHotline": "CityCarPark Hotline",
+"parkingInfoOk": "OK"
 }

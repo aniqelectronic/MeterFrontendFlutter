@@ -31,6 +31,10 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
   void initState() {
     super.initState();
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    _showParkingRateInfoDialog();
+   });
+
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (mounted) {
         setState(() {
@@ -88,6 +92,165 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
       });
     }
   }
+
+  void _showParkingRateInfoDialog() {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (dialogContext) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+        child: SizedBox(
+          width: 900,
+          child: Padding(
+            padding: const EdgeInsets.all(35),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.local_parking_rounded,
+                  size: 80,
+                  color: Color.fromARGB(255, 3, 89, 210),
+                ),
+
+                const SizedBox(height: 15),
+
+                Text(
+              AppLocalizations.of(context)!.parkingInfoTitle,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 38,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 3, 89, 210),
+              ),
+            ),
+
+                const Divider(height: 35, thickness: 2),
+
+                Text(
+                AppLocalizations.of(context)!.parkingRateLabel,
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[800],
+                ),
+              ),
+
+                const SizedBox(height: 10),
+
+                Text(
+                  AppLocalizations.of(context)!
+                      .parkingRatePerHour(Data.ratePerHour.toStringAsFixed(2)),
+                  style: const TextStyle(
+                    fontSize: 45,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
+
+                const SizedBox(height: 25),
+
+                Text(
+                  AppLocalizations.of(context)!.parkingContactTitle,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                _contactRow(
+                  Icons.phone,
+                  AppLocalizations.of(context)!.parkingCouncilHotline,
+                  Data.aduanMajlisBentong,
+                ),
+
+                const SizedBox(height: 12),
+
+                _contactRow(
+                  Icons.local_phone_rounded,
+                  AppLocalizations.of(context)!.parkingCityCarParkHotline,
+                  Data.telefonNo,
+                ),
+
+                const SizedBox(height: 35),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(dialogContext);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 3, 89, 210),
+                      padding: const EdgeInsets.symmetric(vertical: 22),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 35,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Widget _contactRow(IconData icon, String label, String value) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+    decoration: BoxDecoration(
+      color: Colors.blue.shade50,
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(
+        color: Colors.blue.shade200,
+        width: 1.5,
+      ),
+    ),
+    child: Row(
+      children: [
+        Icon(
+          icon,
+          size: 38,
+          color: const Color.fromARGB(255, 3, 89, 210),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
