@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:ntp/ntp.dart';
+import 'package:frontend_v1/services/sirim_time.dart';
 
 class ClockCard extends StatefulWidget {
   final double fontScale;
@@ -16,23 +16,18 @@ class ClockCard extends StatefulWidget {
 }
 
 class _ClockCardState extends State<ClockCard> {
-  String _time = "--:--";
-  String _date = "-- -- ----";
-  String _weekday = "";
+  String _time = '--:--';
+  String _date = '-- -- ----';
+  String _weekday = '';
 
   Timer? _ticker;
   Timer? _resyncTimer;
-  Duration _ntpOffset = Duration.zero;
 
   int _syncStatus = 1;
-  // 0 = green  = synced
-  // 1 = yellow = connecting
-  // 2 = red    = fallback
 
-  static const List<String> _sirimNtpHosts = [
-    "ntp1.sirim.my",
-    "ntp2.sirim.my",
-  ];
+  // 0 = green  = SIRIM synchronized
+  // 1 = yellow = synchronizing
+  // 2 = red    = synchronization failed
 
   static const Duration _resyncInterval = Duration(minutes: 15);
   static const Duration _retryInterval = Duration(minutes: 2);
@@ -44,125 +39,139 @@ class _ClockCardState extends State<ClockCard> {
   }
 
   Future<void> _startClock() async {
+    // Display the currently available time first.
     _updateTime();
+
+    // Start the clock before waiting for the SIRIM server.
+    _ticker = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) {
+        _updateTime();
+      },
+    );
+
+    // Synchronize the shared SirimTime function.
     await _syncWithSirim();
 
-    _ticker = Timer.periodic(const Duration(seconds: 1), (_) {
-      _updateTime();
-    });
-
+    // Schedule the next synchronization attempt.
     _scheduleNextSync();
-  }
-
-  void _scheduleNextSync() {
-    _resyncTimer?.cancel();
-
-    final interval = _syncStatus == 0 ? _resyncInterval : _retryInterval;
-
-    _resyncTimer = Timer(interval, () async {
-      await _syncWithSirim();
-      _scheduleNextSync();
-    });
   }
 
   Future<void> _syncWithSirim() async {
     if (!mounted) return;
 
-    setState(() => _syncStatus = 1);
+    setState(() {
+      _syncStatus = 1;
+    });
 
-    for (final host in _sirimNtpHosts) {
-      try {
-        final offsetMs = await NTP.getNtpOffset(
-          lookUpAddress: host,
-          timeout: const Duration(seconds: 3),
-        );
-
-        if (!mounted) return;
-
-        setState(() {
-          _ntpOffset = Duration(milliseconds: offsetMs);
-          _syncStatus = 0;
-        });
-
-        debugPrint("SIRIM Sync OK via $host offset ${offsetMs}ms");
-        return;
-      } catch (e) {
-        debugPrint("SIRIM Sync failed via $host: $e");
-      }
-    }
+    final success = await SirimTime.sync();
 
     if (!mounted) return;
 
     setState(() {
-      _ntpOffset = Duration.zero;
-      _syncStatus = 2;
+      _syncStatus = success ? 0 : 2;
     });
 
-    debugPrint("SIRIM Sync failed. Using device clock.");
+    _updateTime();
+
+    if (success) {
+      debugPrint('[ClockCard] SIRIM time synchronized successfully.');
+    } else {
+      debugPrint(
+        '[ClockCard] SIRIM synchronization failed. '
+        'The displayed time is using the available device time.',
+      );
+    }
+  }
+
+  void _scheduleNextSync() {
+    _resyncTimer?.cancel();
+
+    final interval = _syncStatus == 0
+        ? _resyncInterval
+        : _retryInterval;
+
+    _resyncTimer = Timer(interval, () async {
+      await _syncWithSirim();
+
+      if (!mounted) return;
+
+      _scheduleNextSync();
+    });
   }
 
   void _updateTime() {
-    final now = DateTime.now().add(_ntpOffset);
-
     if (!mounted) return;
 
+    // Use this instead of DateTime.now().
+    final currentTime = SirimTime.now();
+
     setState(() {
-      _time = "${_twoDigits(now.hour)}:${_twoDigits(now.minute)}";
-      _date = "${_twoDigits(now.day)} ${_monthName(now.month)} ${now.year}";
-      _weekday = _weekdayName(now.weekday);
+      _time =
+          '${_twoDigits(currentTime.hour)}:${_twoDigits(currentTime.minute)}';
+
+      _date =
+          '${_twoDigits(currentTime.day)} '
+          '${_monthName(currentTime.month)} '
+          '${currentTime.year}';
+
+      _weekday = _weekdayName(currentTime.weekday);
     });
   }
 
-  String _twoDigits(int n) => n.toString().padLeft(2, '0');
+  String _twoDigits(int number) {
+    return number.toString().padLeft(2, '0');
+  }
 
-  String _monthName(int m) {
+  String _monthName(int month) {
     const months = [
-      "JAN",
-      "FEB",
-      "MAC",
-      "APR",
-      "MEI",
-      "JUN",
-      "JUL",
-      "OGOS",
-      "SEPT",
-      "OKT",
-      "NOV",
-      "DIS",
+      'JAN',
+      'FEB',
+      'MAC',
+      'APR',
+      'MEI',
+      'JUN',
+      'JUL',
+      'OGOS',
+      'SEPT',
+      'OKT',
+      'NOV',
+      'DIS',
     ];
 
-    if (m < 1 || m > 12) return "";
-    return months[m - 1];
+    if (month < 1 || month > 12) {
+      return '';
+    }
+
+    return months[month - 1];
   }
 
-  String _weekdayName(int d) {
-    const days = [
-      "ISNIN",
-      "SELASA",
-      "RABU",
-      "KHAMIS",
-      "JUMAAT",
-      "SABTU",
-      "AHAD",
+  String _weekdayName(int weekday) {
+    const weekdays = [
+      'ISNIN',
+      'SELASA',
+      'RABU',
+      'KHAMIS',
+      'JUMAAT',
+      'SABTU',
+      'AHAD',
     ];
 
-    if (d < 1 || d > 7) return "";
-    return days[d - 1];
-  }
+    if (weekday < 1 || weekday > 7) {
+      return '';
+    }
 
-  @override
-  void dispose() {
-    _ticker?.cancel();
-    _resyncTimer?.cancel();
-    super.dispose();
+    return weekdays[weekday - 1];
   }
 
   Color _statusColor() {
     switch (_syncStatus) {
       case 0:
         return const Color(0xFF2ECC71);
+
       case 1:
         return const Color(0xFFF1C40F);
+
       case 2:
       default:
         return const Color(0xFFE74C3C);
@@ -173,12 +182,22 @@ class _ClockCardState extends State<ClockCard> {
     switch (_syncStatus) {
       case 0:
         return Icons.check_circle_rounded;
+
       case 1:
         return Icons.sync_rounded;
+
       case 2:
       default:
         return Icons.error_rounded;
     }
+  }
+
+  @override
+  void dispose() {
+    _ticker?.cancel();
+    _resyncTimer?.cancel();
+
+    super.dispose();
   }
 
   @override
@@ -317,9 +336,7 @@ class _ClockCardState extends State<ClockCard> {
                     ],
                   ),
                 ),
-
                 SizedBox(height: 24 * scale),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -331,7 +348,7 @@ class _ClockCardState extends State<ClockCard> {
                     SizedBox(width: 10 * scale),
                     Flexible(
                       child: Text(
-                        "MALAYSIAN STANDARD TIME",
+                        'MALAYSIAN STANDARD TIME',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 25 * scale,

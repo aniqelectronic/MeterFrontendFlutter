@@ -354,6 +354,9 @@ class AppLocalizationsMs extends AppLocalizations {
   }
 
   @override
+  String get parkingStartTimeDisclaimer => 'Penafian: Masa permulaan parkir hanya akan bermula selepas pembayaran anda berjaya diselesaikan.';
+
+  @override
   String receiptDurationValue(int hours) {
     return '$hours Jam';
   }

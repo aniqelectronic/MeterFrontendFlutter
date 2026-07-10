@@ -177,6 +177,38 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
                   Data.telefonNo,
                 ),
 
+                const SizedBox(height: 25),
+
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    color: Colors.amber.shade50,
+                    border: Border.all(color: Colors.orange),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(
+                        Icons.info_outline,
+                        color: Colors.orange,
+                        size: 30,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          AppLocalizations.of(context)!.parkingStartTimeDisclaimer,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
                 const SizedBox(height: 35),
 
                 SizedBox(
@@ -642,9 +674,9 @@ Widget _contactRow(IconData icon, String label, String value) {
                       const Divider(),
                       const Spacer(),
                       _dialogRow(loc.plateNumberLabel(""), widget.plate, true),
-                      _dialogRow(loc.p5timeparking, "$hours ${loc.time}", false),
+                      _dialogRow(loc.p5tempoh, "$hours ${loc.time}", false),
                       _dialogRow(
-                        loc.p5tempoh,
+                        loc.p5timeparking,
                         "${formatTime(startTime)} - ${formatTime(endTime)}",
                         false,
                       ),
@@ -652,6 +684,37 @@ Widget _contactRow(IconData icon, String label, String value) {
                         loc.p5Total,
                         "RM ${totalPrice.toStringAsFixed(2)}",
                         true,
+                      ),
+                      const SizedBox(height: 20),
+
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(18),
+                        decoration: BoxDecoration(
+                          color: Colors.amber.shade50,
+                          border: Border.all(color: Colors.orange),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.info_outline,
+                              color: Colors.orange,
+                              size: 30,
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                loc.parkingStartTimeDisclaimer,
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       const Spacer(),
                       Row(

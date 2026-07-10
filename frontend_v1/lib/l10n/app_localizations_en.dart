@@ -354,6 +354,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get parkingStartTimeDisclaimer => 'Disclaimer: The parking session start time will begin only after your payment has been successfully completed.';
+
+  @override
   String receiptDurationValue(int hours) {
     String _temp0 = intl.Intl.pluralLogic(
       hours,

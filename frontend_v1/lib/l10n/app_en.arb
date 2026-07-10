@@ -134,6 +134,7 @@
   "p5parkingTimeRange": "{startTime} UNTIL {endTime}",
   "p5parkingRatePerHour": "RATE PER HOUR = RM {ratePerHour}",
   "p5parkingTotalAmount": "TOTAL AMOUNT = RM {amount}",
+  "parkingStartTimeDisclaimer": "Disclaimer: The parking session start time will begin only after your payment has been successfully completed.",
 
   "receiptDurationValue": "{hours, plural, =1{# Hour} other{# Hours}}",
   "@receiptDurationValue": {

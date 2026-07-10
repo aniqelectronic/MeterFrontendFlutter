@@ -773,6 +773,12 @@ abstract class AppLocalizations {
   /// **'TOTAL AMOUNT = RM {amount}'**
   String p5parkingTotalAmount(Object amount);
 
+  /// No description provided for @parkingStartTimeDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Disclaimer: The parking session start time will begin only after your payment has been successfully completed.'**
+  String get parkingStartTimeDisclaimer;
+
   /// No description provided for @receiptDurationValue.
   ///
   /// In en, this message translates to:

@@ -134,6 +134,8 @@
   "p5parkingRatePerHour": "KADAR SEJAM = RM {ratePerHour}",
   "p5parkingTotalAmount": "JUMLAH AMAUN = RM {amount}",
 
+  "parkingStartTimeDisclaimer": "Penafian: Masa permulaan parkir hanya akan bermula selepas pembayaran anda berjaya diselesaikan.",
+
   "receiptDurationValue": "{hours} Jam",
   "@receiptDurationValue": {
     "placeholders": {

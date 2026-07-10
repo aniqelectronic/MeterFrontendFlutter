@@ -1184,7 +1184,7 @@ Positioned(
                                               amount: widget.data.amount,
                                               pegeOrderNo: pegeOrderNo,
                                               pegeBankTrxNo: pegeBankTrxNo,
-                                              typePayment: "Now QR",
+                                              typePayment: "DuitNow QR",
                                             ),
                                           ),
                                         ),
@@ -1200,7 +1200,7 @@ Positioned(
                                  final result = await ParkingService.callParkingExtendAPI(
                                    plate: widget.data.plate ?? "",
                                    extendHours: widget.data.hour ?? 0,
-                                   typePayment: "QR",
+                                   typePayment: "DuitNow",
                                      orderNo: pegeOrderNo,
                                     bankTrxNo: pegeBankTrxNo,
                                  );
@@ -1465,7 +1465,7 @@ Positioned(
                                            compoundNos: widget.data.compoundNos,
                                            pegeOrderNo: pegeOrderNo,
                                            pegeBankTrxNo: pegeBankTrxNo,
-                                           typePayment: "QR",
+                                           typePayment: "DuitNow QR",
                                          ),
                                        ),
                                      ),
