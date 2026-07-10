@@ -16,9 +16,9 @@ class SasToken {
 
 class IoTHubService {
   final String hostName = "VS-MeterIOT.azure-devices.net";
-  final String deviceId = "VS-Meter";
+  final String deviceId = Config.terminalId;
   final String sharedAccessKey =
-      "zwzaouHeBz/C0Rn0sBf38Ww93icViWvm7LEWAJ6GY5E=";
+      Config.iotHubSharedAccessKey; // Replace with your IoT Hub device's shared access key
 
   late MqttServerClient client;
 

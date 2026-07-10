@@ -5,7 +5,7 @@ class Config {
   //backend base url
   static const String baseUrl = "http://4.194.122.32:8000";
   //for qr payment
-  static String terminalId = "TEST01";
+  static String terminalId = "TEST02";
   static String storeId = "Kiosk_Terminal";
   static String shiftId = "DAY_SHIFT";
   static int qrValidity = 300;
@@ -20,6 +20,9 @@ class Config {
   //to change waktu solat url justchange zone part. ps: to know the zone code is from https://www.e-solat.gov.my/
   static String waktusolatplace = "Subang Jaya, Selangor";
   static String waktusolaturl = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=SGR01&period=today";
+
+  //for iot hub
+  static const String iotHubSharedAccessKey ='cKdMAo/kZ/zFPmXUUVB1Nshdkdl9sStWJQAJcLaRkZw=';
 
 
 }
