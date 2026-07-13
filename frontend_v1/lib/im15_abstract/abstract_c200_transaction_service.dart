@@ -133,8 +133,9 @@ abstract class AbstractC200TransactionService {
                       
             // Show timeout warning on last attempt
             if (attempts == maxRetries - 1) {
-              _showWarning("Transaction Timeout", 
-                "Card reader did not respond after ${maxRetries} attempts.\n\nPlease check:\n1. Card reader is powered on\n2. Card reader cable is connected\n3. Card is inserted properly");
+              // _showWarning("Transaction Timeout", 
+              //   "Card reader did not respond after ${maxRetries} attempts.\n\nPlease check:\n1. Card reader is powered on\n2. Card reader cable is connected\n3. Card is inserted properly");
+              print("[AbstractC200] 🛑 Transaction Timeout");
             }
           }
 
@@ -211,8 +212,9 @@ abstract class AbstractC200TransactionService {
       if (cancelToken?.isCancelled == true) {
         print("[AbstractC200] 🛑 Payment cancelled by user, skipping failure dialog");
       } else if (!shouldCallFailure) {
-        _showWarning("Payment Failed",
-            "No response received after $maxRetries attempts.\n\nThe card reader may need to be reset. Please try again or contact support.");
+        // _showWarning("Payment Failed",
+        //     "No response received after $maxRetries attempts.\n\nThe card reader may need to be reset. Please try again or contact support.");
+      print("[AbstractC200] 🛑 Payment Failed, The user didnt tap the card");
       }
       onFailure();
     }

@@ -102,20 +102,20 @@ class PaymentStatusOverlayState extends State<PaymentStatusOverlay> {
                 // Only show Cancel while waiting for the tap — once real
                 // card data starts flowing, cancelling mid-read could leave
                 // the terminal in a weird state, so it's hidden after that.
-                // if (_stage == PaymentStage.waitingForCard && widget.onCancel != null) ...[
-                //   const SizedBox(height: 30),
-                //   SizedBox(
-                //     width: double.infinity,
-                //     height: 60,
-                //     child: OutlinedButton(
-                //       onPressed: widget.onCancel,
-                //       child:  Text(
-                //         l10n.cancelButton,
-                //         style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-                //       ),
-                //     ),
-                //   ),
-                // ],
+                if (_stage == PaymentStage.waitingForCard && widget.onCancel != null) ...[
+                  const SizedBox(height: 30),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 60,
+                    child: OutlinedButton(
+                      onPressed: widget.onCancel,
+                      child:  Text(
+                        l10n.cancelButton,
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                ],
               ],
             ),
           ),
