@@ -236,7 +236,14 @@ class PaxIM15C200Sale {
           try {
             serial.sendAbort();
             logger.logSend('ABORT (user cancelled)');
-            await Future.delayed(const Duration(seconds: 15));
+
+            final gotEot = await serial.waitForByte(IM15NativeSerialManager.EOT, 15000);
+            if (gotEot) {
+              print('[PaxIM15C200Sale] ✅ EOT received after ABORT - reader is idle');
+              logger.logRecv('EOT (post-abort)');
+            } else {
+              print('[PaxIM15C200Sale] ⏱️ No EOT after ABORT within 15s, proceeding anyway');
+            }
           } catch (e) {
             logger.logInfo('Failed to send ABORT on cancel: $e');
           }
@@ -328,7 +335,7 @@ class PaxIM15C200Sale {
     print('[PaxIM15C200Sale] ⏱️ Timeout waiting for R200 (budget was ${currentTimeout.inSeconds}s) - sending ABORT');
     logger.logInfo('Timeout waiting for R200 - sending ABORT');
 
-    try {
+try {
 
         onCancelling?.call();
         await Future.delayed(Duration.zero);
@@ -336,7 +343,13 @@ class PaxIM15C200Sale {
         serial.sendAbort();
         logger.logSend('ABORT');
 
-        await Future.delayed(const Duration(seconds: 15));
+        final gotEot = await serial.waitForByte(IM15NativeSerialManager.EOT, 15000);
+        if (gotEot) {
+          print('[PaxIM15C200Sale] ✅ EOT received after ABORT - reader is idle');
+          logger.logRecv('EOT (post-abort)');
+        } else {
+          print('[PaxIM15C200Sale] ⏱️ No EOT after ABORT within 15s, proceeding anyway');
+        }
       } catch (e) {
         logger.logInfo('Failed to send ABORT: $e');
       }
