@@ -233,16 +233,23 @@ class PaxIM15C200Sale {
           onCancelling?.call();
           await Future.delayed(Duration.zero);
 
-          try {
+try {
             serial.sendAbort();
             logger.logSend('ABORT (user cancelled)');
 
-            final gotEot = await serial.waitForByte(IM15NativeSerialManager.EOT, 15000);
-            if (gotEot) {
-              print('[PaxIM15C200Sale] ✅ EOT received after ABORT - reader is idle');
-              logger.logRecv('EOT (post-abort)');
-            } else {
-              print('[PaxIM15C200Sale] ⏱️ No EOT after ABORT within 15s, proceeding anyway');
+            // The spec only documents ABORT for "before tap" and gives no
+            // response packet for it — so we can't safely treat any single
+            // received byte as "reader is done". Wait the full fixed
+            // window instead, but log anything received during it so we
+            // can see empirically what the reader actually sends back.
+            final abortWaitStart = DateTime.now();
+            while (DateTime.now().difference(abortWaitStart) <
+                const Duration(seconds: 15)) {
+              final chunk = await serial.readAsciiResponse(500, 100);
+              if (chunk.isNotEmpty) {
+                print('[PaxIM15C200Sale] 📥 Post-ABORT bytes: $chunk');
+                logger.logRecv('Post-ABORT: $chunk');
+              }
             }
           } catch (e) {
             logger.logInfo('Failed to send ABORT on cancel: $e');
@@ -343,12 +350,13 @@ try {
         serial.sendAbort();
         logger.logSend('ABORT');
 
-        final gotEot = await serial.waitForByte(IM15NativeSerialManager.EOT, 15000);
-        if (gotEot) {
-          print('[PaxIM15C200Sale] ✅ EOT received after ABORT - reader is idle');
-          logger.logRecv('EOT (post-abort)');
-        } else {
-          print('[PaxIM15C200Sale] ⏱️ No EOT after ABORT within 15s, proceeding anyway');
+        final abortWaitStart = DateTime.now();
+        while (DateTime.now().difference(abortWaitStart) < const Duration(seconds: 15)) {
+          final chunk = await serial.readAsciiResponse(500, 100);
+          if (chunk.isNotEmpty) {
+            print('[PaxIM15C200Sale] 📥 Post-ABORT bytes: $chunk');
+            logger.logRecv('Post-ABORT: $chunk');
+          }
         }
       } catch (e) {
         logger.logInfo('Failed to send ABORT: $e');
