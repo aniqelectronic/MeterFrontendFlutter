@@ -2952,4 +2952,109 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get parkingInfoOk => 'OK';
+
+  @override
+  String get pinConnectingTitle => 'MENYEDIAKAN PEMBAYARAN KAD';
+
+  @override
+  String get pinConnectingMessage => 'Sila ikuti arahan yang dipaparkan pada pembaca kad.';
+
+  @override
+  String get pinEntryTitle => 'MASUKKAN NOMBOR PIN';
+
+  @override
+  String get pinEntryMessage => 'Masukkan nombor PIN anda dengan selamat menggunakan papan kekunci pada pembaca kad.';
+
+  @override
+  String get pinProcessingTitle => 'MEMPROSES PEMBAYARAN';
+
+  @override
+  String get pinProcessingMessage => 'Nombor PIN anda telah diterima. Sila tunggu sementara pembayaran diproses.';
+
+  @override
+  String get pinSuccessTitle => 'PEMBAYARAN BERJAYA';
+
+  @override
+  String get pinSuccessMessage => 'Pembayaran kad anda telah diluluskan.';
+
+  @override
+  String get pinTestSuccessMessage => 'Proses pembaca kad telah selesai. Keputusan ini dianggap berjaya untuk tujuan ujian.';
+
+  @override
+  String get pinFailedTitle => 'PEMBAYARAN TIDAK BERJAYA';
+
+  @override
+  String get pinCancellingTitle => 'MEMBATALKAN PEMBAYARAN';
+
+  @override
+  String get pinCancellingMessage => 'Sila tunggu sementara pembaca kad menyelesaikan proses pembatalan.';
+
+  @override
+  String get pinPaymentAmount => 'JUMLAH PEMBAYARAN';
+
+  @override
+  String get pinKeypadInstruction => 'Masukkan nombor PIN pada papan kekunci pembaca kad, kemudian tekan butang pengesahan berwarna hijau.';
+
+  @override
+  String get pinDoNotRemoveCard => 'Jangan keluarkan kad sehingga pembaca kad mengarahkan anda berbuat demikian.';
+
+  @override
+  String get pinTimeRemaining => 'Masa berbaki';
+
+  @override
+  String get pinSeconds => 'saat';
+
+  @override
+  String get pinSuccessNextStep => 'Sila tunggu. Resit anda sedang disediakan.';
+
+  @override
+  String get pinFailureNextStep => 'Anda akan dikembalikan ke halaman pembayaran sebentar lagi.';
+
+  @override
+  String get pinReferenceCode => 'Kod rujukan';
+
+  @override
+  String get pinTestingModeNotice => 'MOD UJIAN: Proses sebenar pembaca kad sedang dijalankan, tetapi setiap keputusan akhir akan diteruskan sebagai berjaya.';
+
+  @override
+  String get pinFailureDeclined => 'Pembayaran tidak diluluskan. Sila gunakan kad atau kaedah pembayaran yang lain.';
+
+  @override
+  String get pinFailureInsufficientFunds => 'Pembayaran tidak dapat diselesaikan. Sila semak baki tersedia atau gunakan kaedah pembayaran yang lain.';
+
+  @override
+  String get pinFailureExpiredCard => 'Kad ini telah tamat tempoh. Sila gunakan kad yang lain.';
+
+  @override
+  String get pinFailureIncorrectPin => 'Nombor PIN yang dimasukkan tidak betul. Sila cuba membuat pembayaran sekali lagi dengan berhati-hati.';
+
+  @override
+  String get pinFailureInvalidCard => 'Kad ini tidak dapat digunakan. Sila gunakan kad lain yang disokong.';
+
+  @override
+  String get pinFailureNotPermitted => 'Transaksi ini tidak dibenarkan untuk kad yang dipilih. Sila gunakan kaedah pembayaran yang lain.';
+
+  @override
+  String get pinFailureConnection => 'Perkhidmatan pembayaran tidak tersedia buat sementara waktu. Sila cuba lagi.';
+
+  @override
+  String get pinFailureCancelled => 'Pembayaran telah dibatalkan. Tiada pembayaran telah diselesaikan.';
+
+  @override
+  String get pinFailureTimeout => 'Sesi pembayaran mengambil masa terlalu lama dan tidak dapat diselesaikan. Sila cuba lagi.';
+
+  @override
+  String get pinFailureGeneral => 'Pembayaran tidak dapat diselesaikan. Sila cuba lagi atau gunakan kaedah pembayaran yang lain.';
+
+  @override
+  String get cardPaymentSuccessTitle => 'PEMBAYARAN BERJAYA';
+
+  @override
+  String get cardPaymentSuccessMessage => 'Pembayaran kad anda telah berjaya diluluskan.';
+
+  @override
+  String get cardPreparingReceipt => 'Sedang menyediakan resit anda...';
+
+  @override
+  String get cardPleaseWaitNotice => 'Sila tunggu dan jangan sentuh skrin.';
 }

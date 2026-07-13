@@ -1406,5 +1406,52 @@
 "parkingContactTitle": "If you experience any issues, please contact:",
 "parkingCouncilHotline": "Municipal Council Hotline",
 "parkingCityCarParkHotline": "CityCarPark Hotline",
-"parkingInfoOk": "OK"
+"parkingInfoOk": "OK",
+
+  "pinConnectingTitle": "PREPARING CARD PAYMENT",
+  "pinConnectingMessage": "Please follow the instructions shown on the card reader.",
+
+  "pinEntryTitle": "ENTER YOUR PIN",
+  "pinEntryMessage": "Enter your PIN securely using the keypad on the card reader.",
+
+  "pinProcessingTitle": "PROCESSING PAYMENT",
+  "pinProcessingMessage": "Your PIN has been received. Please wait while the payment is being processed.",
+
+  "pinSuccessTitle": "PAYMENT SUCCESSFUL",
+  "pinSuccessMessage": "Your card payment has been approved.",
+  "pinTestSuccessMessage": "The card-reader process has completed. The result is being treated as successful for testing.",
+
+  "pinFailedTitle": "PAYMENT UNSUCCESSFUL",
+
+  "pinCancellingTitle": "CANCELLING PAYMENT",
+  "pinCancellingMessage": "Please wait while the card reader completes the cancellation process.",
+
+  "pinPaymentAmount": "PAYMENT AMOUNT",
+  "pinKeypadInstruction": "Enter your PIN on the card reader keypad, then press the green confirmation button.",
+  "pinDoNotRemoveCard": "Do not remove your card until the card reader instructs you to do so.",
+  "pinTimeRemaining": "Time remaining",
+  "pinSeconds": "seconds",
+
+  "pinSuccessNextStep": "Please wait. Your receipt is being prepared.",
+  "pinFailureNextStep": "You will be returned to the payment page shortly.",
+  "pinReferenceCode": "Reference code",
+
+  "pinTestingModeNotice": "TESTING MODE: The real card-reader process is running, but every final result will continue as successful.",
+
+  "pinFailureDeclined": "The payment was not approved. Please use another card or payment method.",
+  "pinFailureInsufficientFunds": "The payment could not be completed. Please check your available balance or use another payment method.",
+  "pinFailureExpiredCard": "This card has expired. Please use another card.",
+  "pinFailureIncorrectPin": "The PIN entered was incorrect. Please try the payment again carefully.",
+  "pinFailureInvalidCard": "This card could not be used. Please use another supported card.",
+  "pinFailureNotPermitted": "This transaction is not permitted for the selected card. Please use another payment method.",
+  "pinFailureConnection": "The payment service is temporarily unavailable. Please try again.",
+  "pinFailureCancelled": "The payment was cancelled. No payment has been completed.",
+  "pinFailureTimeout": "The payment session took too long and could not be completed. Please try again.",
+  "pinFailureGeneral": "The payment could not be completed. Please try again or use another payment method.",
+
+"cardPaymentSuccessTitle": "PAYMENT SUCCESSFUL",
+"cardPaymentSuccessMessage": "Your card payment has been approved successfully.",
+"cardPreparingReceipt": "Preparing your receipt...",
+"cardPleaseWaitNotice": "Please wait and do not touch the screen."
+
 }

@@ -1425,6 +1425,52 @@
 "parkingContactTitle": "Sekiranya terdapat sebarang masalah, sila hubungi:",
 "parkingCouncilHotline": "Talian Aduan Majlis",
 "parkingCityCarParkHotline": "Talian Aduan CityCarPark",
-"parkingInfoOk": "OK"
+"parkingInfoOk": "OK",
+
+  "pinConnectingTitle": "MENYEDIAKAN PEMBAYARAN KAD",
+  "pinConnectingMessage": "Sila ikuti arahan yang dipaparkan pada pembaca kad.",
+
+  "pinEntryTitle": "MASUKKAN NOMBOR PIN",
+  "pinEntryMessage": "Masukkan nombor PIN anda dengan selamat menggunakan papan kekunci pada pembaca kad.",
+
+  "pinProcessingTitle": "MEMPROSES PEMBAYARAN",
+  "pinProcessingMessage": "Nombor PIN anda telah diterima. Sila tunggu sementara pembayaran diproses.",
+
+  "pinSuccessTitle": "PEMBAYARAN BERJAYA",
+  "pinSuccessMessage": "Pembayaran kad anda telah diluluskan.",
+  "pinTestSuccessMessage": "Proses pembaca kad telah selesai. Keputusan ini dianggap berjaya untuk tujuan ujian.",
+
+  "pinFailedTitle": "PEMBAYARAN TIDAK BERJAYA",
+
+  "pinCancellingTitle": "MEMBATALKAN PEMBAYARAN",
+  "pinCancellingMessage": "Sila tunggu sementara pembaca kad menyelesaikan proses pembatalan.",
+
+  "pinPaymentAmount": "JUMLAH PEMBAYARAN",
+  "pinKeypadInstruction": "Masukkan nombor PIN pada papan kekunci pembaca kad, kemudian tekan butang pengesahan berwarna hijau.",
+  "pinDoNotRemoveCard": "Jangan keluarkan kad sehingga pembaca kad mengarahkan anda berbuat demikian.",
+  "pinTimeRemaining": "Masa berbaki",
+  "pinSeconds": "saat",
+
+  "pinSuccessNextStep": "Sila tunggu. Resit anda sedang disediakan.",
+  "pinFailureNextStep": "Anda akan dikembalikan ke halaman pembayaran sebentar lagi.",
+  "pinReferenceCode": "Kod rujukan",
+
+  "pinTestingModeNotice": "MOD UJIAN: Proses sebenar pembaca kad sedang dijalankan, tetapi setiap keputusan akhir akan diteruskan sebagai berjaya.",
+
+  "pinFailureDeclined": "Pembayaran tidak diluluskan. Sila gunakan kad atau kaedah pembayaran yang lain.",
+  "pinFailureInsufficientFunds": "Pembayaran tidak dapat diselesaikan. Sila semak baki tersedia atau gunakan kaedah pembayaran yang lain.",
+  "pinFailureExpiredCard": "Kad ini telah tamat tempoh. Sila gunakan kad yang lain.",
+  "pinFailureIncorrectPin": "Nombor PIN yang dimasukkan tidak betul. Sila cuba membuat pembayaran sekali lagi dengan berhati-hati.",
+  "pinFailureInvalidCard": "Kad ini tidak dapat digunakan. Sila gunakan kad lain yang disokong.",
+  "pinFailureNotPermitted": "Transaksi ini tidak dibenarkan untuk kad yang dipilih. Sila gunakan kaedah pembayaran yang lain.",
+  "pinFailureConnection": "Perkhidmatan pembayaran tidak tersedia buat sementara waktu. Sila cuba lagi.",
+  "pinFailureCancelled": "Pembayaran telah dibatalkan. Tiada pembayaran telah diselesaikan.",
+  "pinFailureTimeout": "Sesi pembayaran mengambil masa terlalu lama dan tidak dapat diselesaikan. Sila cuba lagi.",
+  "pinFailureGeneral": "Pembayaran tidak dapat diselesaikan. Sila cuba lagi atau gunakan kaedah pembayaran yang lain.",
+
+"cardPaymentSuccessTitle": "PEMBAYARAN BERJAYA",
+"cardPaymentSuccessMessage": "Pembayaran kad anda telah berjaya diluluskan.",
+"cardPreparingReceipt": "Sedang menyediakan resit anda...",
+"cardPleaseWaitNotice": "Sila tunggu dan jangan sentuh skrin."
 
 }

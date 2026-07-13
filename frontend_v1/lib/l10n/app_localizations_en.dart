@@ -2958,4 +2958,109 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get parkingInfoOk => 'OK';
+
+  @override
+  String get pinConnectingTitle => 'PREPARING CARD PAYMENT';
+
+  @override
+  String get pinConnectingMessage => 'Please follow the instructions shown on the card reader.';
+
+  @override
+  String get pinEntryTitle => 'ENTER YOUR PIN';
+
+  @override
+  String get pinEntryMessage => 'Enter your PIN securely using the keypad on the card reader.';
+
+  @override
+  String get pinProcessingTitle => 'PROCESSING PAYMENT';
+
+  @override
+  String get pinProcessingMessage => 'Your PIN has been received. Please wait while the payment is being processed.';
+
+  @override
+  String get pinSuccessTitle => 'PAYMENT SUCCESSFUL';
+
+  @override
+  String get pinSuccessMessage => 'Your card payment has been approved.';
+
+  @override
+  String get pinTestSuccessMessage => 'The card-reader process has completed. The result is being treated as successful for testing.';
+
+  @override
+  String get pinFailedTitle => 'PAYMENT UNSUCCESSFUL';
+
+  @override
+  String get pinCancellingTitle => 'CANCELLING PAYMENT';
+
+  @override
+  String get pinCancellingMessage => 'Please wait while the card reader completes the cancellation process.';
+
+  @override
+  String get pinPaymentAmount => 'PAYMENT AMOUNT';
+
+  @override
+  String get pinKeypadInstruction => 'Enter your PIN on the card reader keypad, then press the green confirmation button.';
+
+  @override
+  String get pinDoNotRemoveCard => 'Do not remove your card until the card reader instructs you to do so.';
+
+  @override
+  String get pinTimeRemaining => 'Time remaining';
+
+  @override
+  String get pinSeconds => 'seconds';
+
+  @override
+  String get pinSuccessNextStep => 'Please wait. Your receipt is being prepared.';
+
+  @override
+  String get pinFailureNextStep => 'You will be returned to the payment page shortly.';
+
+  @override
+  String get pinReferenceCode => 'Reference code';
+
+  @override
+  String get pinTestingModeNotice => 'TESTING MODE: The real card-reader process is running, but every final result will continue as successful.';
+
+  @override
+  String get pinFailureDeclined => 'The payment was not approved. Please use another card or payment method.';
+
+  @override
+  String get pinFailureInsufficientFunds => 'The payment could not be completed. Please check your available balance or use another payment method.';
+
+  @override
+  String get pinFailureExpiredCard => 'This card has expired. Please use another card.';
+
+  @override
+  String get pinFailureIncorrectPin => 'The PIN entered was incorrect. Please try the payment again carefully.';
+
+  @override
+  String get pinFailureInvalidCard => 'This card could not be used. Please use another supported card.';
+
+  @override
+  String get pinFailureNotPermitted => 'This transaction is not permitted for the selected card. Please use another payment method.';
+
+  @override
+  String get pinFailureConnection => 'The payment service is temporarily unavailable. Please try again.';
+
+  @override
+  String get pinFailureCancelled => 'The payment was cancelled. No payment has been completed.';
+
+  @override
+  String get pinFailureTimeout => 'The payment session took too long and could not be completed. Please try again.';
+
+  @override
+  String get pinFailureGeneral => 'The payment could not be completed. Please try again or use another payment method.';
+
+  @override
+  String get cardPaymentSuccessTitle => 'PAYMENT SUCCESSFUL';
+
+  @override
+  String get cardPaymentSuccessMessage => 'Your card payment has been approved successfully.';
+
+  @override
+  String get cardPreparingReceipt => 'Preparing your receipt...';
+
+  @override
+  String get cardPleaseWaitNotice => 'Please wait and do not touch the screen.';
 }

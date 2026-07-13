@@ -5908,6 +5908,216 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get parkingInfoOk;
+
+  /// No description provided for @pinConnectingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PREPARING CARD PAYMENT'**
+  String get pinConnectingTitle;
+
+  /// No description provided for @pinConnectingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please follow the instructions shown on the card reader.'**
+  String get pinConnectingMessage;
+
+  /// No description provided for @pinEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ENTER YOUR PIN'**
+  String get pinEntryTitle;
+
+  /// No description provided for @pinEntryMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your PIN securely using the keypad on the card reader.'**
+  String get pinEntryMessage;
+
+  /// No description provided for @pinProcessingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PROCESSING PAYMENT'**
+  String get pinProcessingTitle;
+
+  /// No description provided for @pinProcessingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your PIN has been received. Please wait while the payment is being processed.'**
+  String get pinProcessingMessage;
+
+  /// No description provided for @pinSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT SUCCESSFUL'**
+  String get pinSuccessTitle;
+
+  /// No description provided for @pinSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your card payment has been approved.'**
+  String get pinSuccessMessage;
+
+  /// No description provided for @pinTestSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The card-reader process has completed. The result is being treated as successful for testing.'**
+  String get pinTestSuccessMessage;
+
+  /// No description provided for @pinFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT UNSUCCESSFUL'**
+  String get pinFailedTitle;
+
+  /// No description provided for @pinCancellingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'CANCELLING PAYMENT'**
+  String get pinCancellingTitle;
+
+  /// No description provided for @pinCancellingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while the card reader completes the cancellation process.'**
+  String get pinCancellingMessage;
+
+  /// No description provided for @pinPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT AMOUNT'**
+  String get pinPaymentAmount;
+
+  /// No description provided for @pinKeypadInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your PIN on the card reader keypad, then press the green confirmation button.'**
+  String get pinKeypadInstruction;
+
+  /// No description provided for @pinDoNotRemoveCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Do not remove your card until the card reader instructs you to do so.'**
+  String get pinDoNotRemoveCard;
+
+  /// No description provided for @pinTimeRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Time remaining'**
+  String get pinTimeRemaining;
+
+  /// No description provided for @pinSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'seconds'**
+  String get pinSeconds;
+
+  /// No description provided for @pinSuccessNextStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait. Your receipt is being prepared.'**
+  String get pinSuccessNextStep;
+
+  /// No description provided for @pinFailureNextStep.
+  ///
+  /// In en, this message translates to:
+  /// **'You will be returned to the payment page shortly.'**
+  String get pinFailureNextStep;
+
+  /// No description provided for @pinReferenceCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference code'**
+  String get pinReferenceCode;
+
+  /// No description provided for @pinTestingModeNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'TESTING MODE: The real card-reader process is running, but every final result will continue as successful.'**
+  String get pinTestingModeNotice;
+
+  /// No description provided for @pinFailureDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'The payment was not approved. Please use another card or payment method.'**
+  String get pinFailureDeclined;
+
+  /// No description provided for @pinFailureInsufficientFunds.
+  ///
+  /// In en, this message translates to:
+  /// **'The payment could not be completed. Please check your available balance or use another payment method.'**
+  String get pinFailureInsufficientFunds;
+
+  /// No description provided for @pinFailureExpiredCard.
+  ///
+  /// In en, this message translates to:
+  /// **'This card has expired. Please use another card.'**
+  String get pinFailureExpiredCard;
+
+  /// No description provided for @pinFailureIncorrectPin.
+  ///
+  /// In en, this message translates to:
+  /// **'The PIN entered was incorrect. Please try the payment again carefully.'**
+  String get pinFailureIncorrectPin;
+
+  /// No description provided for @pinFailureInvalidCard.
+  ///
+  /// In en, this message translates to:
+  /// **'This card could not be used. Please use another supported card.'**
+  String get pinFailureInvalidCard;
+
+  /// No description provided for @pinFailureNotPermitted.
+  ///
+  /// In en, this message translates to:
+  /// **'This transaction is not permitted for the selected card. Please use another payment method.'**
+  String get pinFailureNotPermitted;
+
+  /// No description provided for @pinFailureConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'The payment service is temporarily unavailable. Please try again.'**
+  String get pinFailureConnection;
+
+  /// No description provided for @pinFailureCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'The payment was cancelled. No payment has been completed.'**
+  String get pinFailureCancelled;
+
+  /// No description provided for @pinFailureTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'The payment session took too long and could not be completed. Please try again.'**
+  String get pinFailureTimeout;
+
+  /// No description provided for @pinFailureGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'The payment could not be completed. Please try again or use another payment method.'**
+  String get pinFailureGeneral;
+
+  /// No description provided for @cardPaymentSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT SUCCESSFUL'**
+  String get cardPaymentSuccessTitle;
+
+  /// No description provided for @cardPaymentSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your card payment has been approved successfully.'**
+  String get cardPaymentSuccessMessage;
+
+  /// No description provided for @cardPreparingReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your receipt...'**
+  String get cardPreparingReceipt;
+
+  /// No description provided for @cardPleaseWaitNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait and do not touch the screen.'**
+  String get cardPleaseWaitNotice;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

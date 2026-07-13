@@ -116,6 +116,168 @@ void showProcessingDialog(BuildContext context,
   );
 }
 
+Future<void> showCardPaymentSuccessDialog(
+  BuildContext context, {
+  required String amount,
+}) async {
+  final l10n = AppLocalizations.of(context)!;
+
+  await showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (_) => PopScope(
+      canPop: false,
+      child: Material(
+        color: Colors.black54,
+        child: Center(
+          child: Container(
+            width: 650,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 45,
+              vertical: 45,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.30),
+                  blurRadius: 25,
+                  spreadRadius: 4,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 140,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE7F8EE),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const Color(0xFF169B62),
+                      width: 5,
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.check_rounded,
+                    size: 100,
+                    color: Color(0xFF169B62),
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                Text(
+                  l10n.cardPaymentSuccessTitle,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Color(0xFF087443),
+                    fontSize: 44,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+
+                const SizedBox(height: 18),
+
+                Text(
+                  l10n.cardPaymentSuccessMessage,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.black87,
+                    fontSize: 27,
+                    fontWeight: FontWeight.w600,
+                    height: 1.4,
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 22,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF4F8FD),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: const Color(0xFFB7CAE8),
+                      width: 2,
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        l10n.totalAmountText,
+                        style: const TextStyle(
+                          color: Colors.black54,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        'RM $amount',
+                        style: const TextStyle(
+                          color: Color(0xFF0359D2),
+                          fontSize: 52,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                const SizedBox(
+                  width: 65,
+                  height: 65,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 6,
+                    color: Color(0xFF0359D2),
+                  ),
+                ),
+
+                const SizedBox(height: 22),
+
+                Text(
+                  l10n.cardPreparingReceipt,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Color(0xFF0359D2),
+                    fontSize: 25,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+
+                const SizedBox(height: 15),
+
+                Text(
+                  l10n.cardPleaseWaitNotice,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.black54,
+                    fontSize: 21,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 void showLoadingDialog(BuildContext context, {String message = "Loading..."}) {
   showDialog(
     context: context,
@@ -434,6 +596,19 @@ class _PAYMENTPAGEState extends State<PAYMENTPAGE> {
       false;
 }
 
+void _closeCardSuccessDialog() {
+  if (!mounted) return;
+
+  final navigator = Navigator.of(
+    context,
+    rootNavigator: true,
+  );
+
+  if (navigator.canPop()) {
+    navigator.pop();
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     
@@ -680,14 +855,14 @@ Positioned(
                       overlayEntry = OverlayEntry(
                         builder: (_) => PaymentStatusOverlay(
                           key: overlayKey!,
-                        onCancel: () {
-                          print('[PAYMENTPAGE] 🛑 User tapped Cancel');
+                        // onCancel: () {
+                        //   print('[PAYMENTPAGE] 🛑 User tapped Cancel');
 
-                          overlayKey?.currentState?.setStage(PaymentStage.cancelling); // instant visual feedback
-                          cancelToken.cancel();  // triggers ABORT + 15s wait inside pax_im15_c200_sale.dart
-                          // do NOT remove overlayEntry here — let the `finally` block below do it
-                          // once the transaction actually finishes (after the abort completes)
-                        },
+                        //   overlayKey?.currentState?.setStage(PaymentStage.cancelling); // instant visual feedback
+                        //   cancelToken.cancel();  // triggers ABORT + 15s wait inside pax_im15_c200_sale.dart
+                        //   // do NOT remove overlayEntry here — let the `finally` block below do it
+                        //   // once the transaction actually finishes (after the abort completes)
+                        // },
                         ),
                       );
                       Overlay.of(context).insert(overlayEntry!);
@@ -740,11 +915,36 @@ Positioned(
                         },
                         onSuccess: () async {
                           print('[PAYMENTPAGE] ✅ Card payment successful');
-                          overlayKey?.currentState?.setStage(PaymentStage.success);
-                          await Future.delayed(const Duration(milliseconds: 800)); 
-                          
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Card payment successful")),
+
+                          // First show the success state on the card-reader overlay.
+                          overlayKey?.currentState?.setStage(
+                            PaymentStage.success,
+                          );
+
+                          await Future.delayed(
+                            const Duration(milliseconds: 900),
+                          );
+
+                          // Remove the card-reader overlay before showing the success card.
+                          if (spinnerShown) {
+                            try {
+                              overlayEntry?.remove();
+                            } catch (_) {}
+
+                            overlayEntry = null;
+                            spinnerShown = false;
+                          }
+
+                          if (!mounted) return;
+
+                          // Show the same type of processing/success card as QR payment.
+                          showCardPaymentSuccessDialog(
+                            context,
+                            amount: widget.data.amount ?? '0.00',
+                          );
+
+                          await Future.delayed(
+                            const Duration(milliseconds: 300),
                           );
                   
                           // =============================
@@ -759,25 +959,27 @@ Positioned(
                               bankTrxNo: "0",
                             );
                   
-                            if (result != null && !result.startsWith("Error")) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  settings: const RouteSettings(name: '/receipt'),
-                                  builder: (_) => RESITPAGE(
-                                    biz: widget.biz,
-                                    data: ResitData(
-                                      plate: widget.data.plate,
-                                      hour: widget.data.hour,
-                                      amount: widget.data.amount,
-                                      pegeOrderNo: "0",
-                                      pegeBankTrxNo: "0",
-                                      typePayment: "Debit/Credit Card",
-                                    ),
-                                  ),
+                        if (result != null && !result.startsWith("Error")) {
+                          _closeCardSuccessDialog();
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              settings: const RouteSettings(name: '/receipt'),
+                              builder: (_) => RESITPAGE(
+                                biz: widget.biz,
+                                data: ResitData(
+                                  plate: widget.data.plate,
+                                  hour: widget.data.hour,
+                                  amount: widget.data.amount,
+                                  pegeOrderNo: "0",
+                                  pegeBankTrxNo: "0",
+                                  typePayment: "Debit/Credit Card",
                                 ),
-                              );
-                            }
+                              ),
+                            ),
+                          );
+                        }
                           }
                   
                           // =============================
@@ -793,6 +995,8 @@ Positioned(
                             );
                   
                             if (result != null && !result.startsWith("Error")) {
+                              _closeCardSuccessDialog();
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -881,6 +1085,8 @@ Positioned(
                               return;
                             }
 
+                            _closeCardSuccessDialog();
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -916,6 +1122,8 @@ Positioned(
                   
                             final success = await LicenseService.payMultipleLicenses(licenseNos);
                             if (success) {
+                              _closeCardSuccessDialog();
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -974,6 +1182,8 @@ Positioned(
                           return;
                         }
 
+                         _closeCardSuccessDialog();
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -999,6 +1209,9 @@ Positioned(
                           // ===== COMPOUND CARD PAYMENT
                           // =============================
                           else if (widget.biz == "MULTICOMPOUND" || widget.biz == "SINGLECOMPOUND") {
+
+                            _closeCardSuccessDialog();
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1210,8 +1423,8 @@ Positioned(
                                  if (result != null && !result.startsWith("Error")) {
 
                                   if (Navigator.canPop(context)) {
-  Navigator.pop(context); // close processing dialog
-}
+                                    Navigator.pop(context); // close processing dialog
+                                  }
                                    Navigator.push(
                                      context,
                                      MaterialPageRoute(
@@ -1230,6 +1443,8 @@ Positioned(
                                      ),
                                    );
                                  } else {
+                                   _closeCardSuccessDialog();
+
                                    ScaffoldMessenger.of(context).showSnackBar(
                                      SnackBar(content: Text(result ?? "Extend parking failed")),
                                    );
@@ -1327,6 +1542,8 @@ Positioned(
                                       ),
                                     );
                                   } else {
+                                    _closeCardSuccessDialog();
+
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text("Cukai payment update failed")),
                                     );
@@ -1438,6 +1655,8 @@ Positioned(
                                        ),
                                      );
                                    } else {
+                                     _closeCardSuccessDialog();
+                                     
                                      ScaffoldMessenger.of(context).showSnackBar(
                                        const SnackBar(content: Text("Pembayaran lesen gagal")),
                                      );
