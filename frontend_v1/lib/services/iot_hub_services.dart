@@ -162,6 +162,9 @@ class IoTHubService {
 
     print("📡 Starting telemetry...");
 
+    // Send immediately after connection.
+    _sendTelemetry();
+
     _telemetryTimer =
         Timer.periodic(const Duration(seconds: 60), (_) {
       _sendTelemetry();
@@ -170,10 +173,13 @@ class IoTHubService {
 
   void _sendTelemetry() {
     try {
-      if (!isConnected ||
-          client.connectionStatus?.state !=
-              MqttConnectionState.connected) {
-        print("⚠️ Skipping send (not connected)");
+      final state = client.connectionStatus?.state;
+
+      print("📋 MQTT connection state: $state");
+      print("📋 isConnected variable: $isConnected");
+
+      if (!isConnected || state != MqttConnectionState.connected) {
+        print("⚠️ Skipping telemetry because MQTT is not connected");
         return;
       }
 
@@ -191,12 +197,19 @@ class IoTHubService {
 
       final topic = "devices/$deviceId/messages/events/";
 
-      client.publishMessage(
-          topic, MqttQos.atLeastOnce, builder.payload!);
+      final messageId = client.publishMessage(
+        topic,
+        MqttQos.atLeastOnce,
+        builder.payload!,
+      );
 
-      print("📡 Sent: $data");
-    } catch (e) {
-      print("❌ Send error: $e");
+      print("📡 Telemetry published");
+      print("📡 MQTT message ID: $messageId");
+      print("📡 Topic: $topic");
+      print("📡 Data: ${jsonEncode(data)}");
+    } catch (e, stackTrace) {
+      print("❌ Telemetry send exception: $e");
+      print("❌ Stack trace: $stackTrace");
     }
   }
 
