@@ -680,12 +680,14 @@ Positioned(
                       overlayEntry = OverlayEntry(
                         builder: (_) => PaymentStatusOverlay(
                           key: overlayKey!,
-                          onCancel: () {
-                            print('[PAYMENTPAGE] 🛑 User tapped Cancel');
-                            cancelToken.cancel();
-                            overlayEntry?.remove();     // <-- tear down the UI right now
-                            spinnerShown = false; 
-                          },
+                        onCancel: () {
+                          print('[PAYMENTPAGE] 🛑 User tapped Cancel');
+
+                          overlayKey?.currentState?.setStage(PaymentStage.cancelling); // instant visual feedback
+                          cancelToken.cancel();  // triggers ABORT + 15s wait inside pax_im15_c200_sale.dart
+                          // do NOT remove overlayEntry here — let the `finally` block below do it
+                          // once the transaction actually finishes (after the abort completes)
+                        },
                         ),
                       );
                       Overlay.of(context).insert(overlayEntry!);
