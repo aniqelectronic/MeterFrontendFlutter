@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/pbahasa.dart';
 import 'package:frontend_v1/widgets/clock_card.dart';
+import 'package:frontend_v1/pages/config.dart';
 
 class P1BentongPage extends StatefulWidget {
   const P1BentongPage({super.key});
@@ -32,12 +33,38 @@ class _P1BentongPageState extends State<P1BentongPage> {
           child: Stack(
             children: [
               /// ================= SMALL CLOCK TOP RIGHT =================
-              const Positioned(
+              Positioned(
                 top: 40,
                 right: -75,
-                child: SizedBox(
-                  width: 600,
-                  child: ClockCard(fontScale: 0.68),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      width: 600,
+                      child: ClockCard(fontScale: 0.68),
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.85),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        "SERIAL NUMBER: ${Config.terminalId}",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
 

@@ -227,11 +227,27 @@ class PaxIM15C200Sale {
 
     while (DateTime.now().difference(start) < currentTimeout) {
     if (cancelToken?.isCancelled == true) {
-      print('[PaxIM15C200Sale] 🛑 Cancelled by user');
-      logger.logInfo('Transaction cancelled by user');
-      serial.sendByte(IM15NativeSerialManager.EOT);   // tell terminal to abort
-      return null;
-    }
+          print('[PaxIM15C200Sale] 🛑 Cancelled by user - sending ABORT');
+          logger.logInfo('Transaction cancelled by user - sending ABORT');
+
+          onCancelling?.call();
+          await Future.delayed(Duration.zero);
+
+          try {
+            serial.sendAbort();
+            logger.logSend('ABORT (user cancelled)');
+            await Future.delayed(const Duration(seconds: 15));
+          } catch (e) {
+            logger.logInfo('Failed to send ABORT on cancel: $e');
+          }
+
+          try {
+            serial.sendByte(IM15NativeSerialManager.EOT);
+            logger.logSend('EOT cleanup after cancel');
+          } catch (_) {}
+
+          return null;
+        }
       final chunk = await serial.readAsciiResponse(3000, 150);
 
       if (chunk.isEmpty) {
