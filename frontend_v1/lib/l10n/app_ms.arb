@@ -1471,6 +1471,9 @@
 "cardPaymentSuccessTitle": "PEMBAYARAN BERJAYA",
 "cardPaymentSuccessMessage": "Pembayaran kad anda telah berjaya diluluskan.",
 "cardPreparingReceipt": "Sedang menyediakan resit anda...",
-"cardPleaseWaitNotice": "Sila tunggu dan jangan sentuh skrin."
+"cardPleaseWaitNotice": "Sila tunggu dan jangan sentuh skrin.",
+
+"pinTitle" : "MASUKKAN PIN",
+"pinInstruction" : "Sila masukkan PIN anda pada pembaca kad"
 
 }

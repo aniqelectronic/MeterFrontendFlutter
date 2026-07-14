@@ -3057,4 +3057,10 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get cardPleaseWaitNotice => 'Sila tunggu dan jangan sentuh skrin.';
+
+  @override
+  String get pinTitle => 'MASUKKAN PIN';
+
+  @override
+  String get pinInstruction => 'Sila masukkan PIN anda pada pembaca kad';
 }

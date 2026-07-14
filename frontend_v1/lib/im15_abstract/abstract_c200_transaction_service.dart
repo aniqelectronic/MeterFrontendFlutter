@@ -10,6 +10,21 @@ import '../im15_utils/payment_spinner.dart';
 
 /// Abstract class for all C200 transaction services
 abstract class AbstractC200TransactionService {
+  // ============================================================
+  // TESTING SWITCH — set to false before deploying to production.
+  //
+  // true  = ANY response from the card reader (declined, aborted,
+  //         wrong PIN, whatever) is treated as a SUCCESSFUL payment.
+  //         Use this to test the app's flow without needing a real
+  //         approved bank transaction every time.
+  //
+  // false = REAL deployment behavior. Only a genuine approved
+  //         status code ('00') from the bank counts as success.
+  //         Everything else (declined, timeout, no response,
+  //         aborted) is treated as a failure.
+  // ============================================================
+  static const bool forceSuccessForTesting = true;
+
   final BuildContext parentContext;
   final PaymentSpinner? spinner;
   final List<Function(bool)> interactiveSetters; // Functions to enable/disable buttons
@@ -34,6 +49,12 @@ abstract class AbstractC200TransactionService {
     final logger = IM15TransactionLogger(getTransactionTypeLabel());
     bool shouldCallFailure = false;
     bool pinRequested = false;
+
+    if (forceSuccessForTesting) {
+      print('[AbstractC200] ⚠️⚠️⚠️ TESTING MODE ACTIVE — any reader response '
+          'will be treated as SUCCESS. Set forceSuccessForTesting = false '
+          'before deploying. ⚠️⚠️⚠️');
+    }
 
     try {
       // Internet check
@@ -108,19 +129,27 @@ abstract class AbstractC200TransactionService {
             onCancelling?.call();
           },
           );
-          print('[AbstractC200] 📥 Transaction returned: ${response != null ? "SUCCESS" : "NULL"}');
+
+          // ==========================================================
+          // TESTING MODE: log what actually happened, but the real
+          // success/failure decision for testing vs deploy is made
+          // once, below, after the retry loop — not here.
+          // ==========================================================
+          print('[AbstractC200] 📥 Transaction returned: '
+              '${response != null ? "response (status: ${response.statusCode})" : "NULL"}');
 
           if (response != null) {
-            print('[AbstractC200] ✅ Transaction returned SUCCESS response');
             IM15ResponseParser.printDebug(response);
-            logger.logInfo("Status: SUCCESS");
+            logger.logInfo("Terminal responded with status: ${response.statusCode}");
             logger.logInfo("Amount: ${response.amount}");
             logger.logInfo("Card: ${response.cardNumber}");
-            
+
             // Notify PIN completion if PIN was requested
             if (pinRequested && onPINCompleted != null) {
               onPINCompleted();
             }
+            // Got a definitive answer from the terminal (approved or
+            // declined) — don't retry, the terminal already decided.
             break;
           } else {
             logger.logInfo("Attempt #${attempts + 1} returned null. No response from card reader.");
@@ -133,48 +162,9 @@ abstract class AbstractC200TransactionService {
                       
             // Show timeout warning on last attempt
             if (attempts == maxRetries - 1) {
-              // _showWarning("Transaction Timeout", 
-              //   "Card reader did not respond after ${maxRetries} attempts.\n\nPlease check:\n1. Card reader is powered on\n2. Card reader cable is connected\n3. Card is inserted properly");
               print("[AbstractC200] 🛑 Transaction Timeout");
             }
           }
-
-          //when deploy 
-
-          // final approved = response != null && response.statusCode == '00';
-          // print('[AbstractC200] 📥 Transaction returned: ${response == null ? "NULL" : (approved ? "APPROVED" : "DECLINED (${response.statusCode})")}');
-
-          // if (approved) {
-          //   print('[AbstractC200] ✅ Transaction APPROVED');
-          //   IM15ResponseParser.printDebug(response!);
-          //   logger.logInfo("Status: APPROVED (${response.statusCode})");
-          //   logger.logInfo("Amount: ${response.amount}");
-          //   logger.logInfo("Card: ${response.cardNumber}");
-            
-          //   // Notify PIN completion if PIN was requested
-          //   if (pinRequested && onPINCompleted != null) {
-          //     onPINCompleted();
-          //   }
-          //   break;
-          // } else if (response != null) {
-          //   // Got a real response from the terminal, but it was declined/aborted.
-          //   // Don't retry — the terminal gave a definitive answer.
-          //   print('[AbstractC200] ❌ Transaction declined. Status: ${response.statusCode}');
-          //   logger.logInfo("Transaction declined with status ${response.statusCode}");
-          //   _showWarning("Transaction Declined",
-          //       "The transaction was not approved (status: ${response.statusCode}). Please try again.");
-          //   response = null; // treat as failure for the final success/failure check below
-          //   break;
-          // } else {
-          //   logger.logInfo("Attempt #${attempts + 1} returned null. No response from card reader.");
-          //   print('[AbstractC200] ❌ Attempt #${attempts + 1} returned null');
-            
-          //   // Show timeout warning on last attempt
-          //   if (attempts == maxRetries - 1) {
-          //     _showWarning("Transaction Timeout", 
-          //       "Card reader did not respond after ${maxRetries} attempts.\n\nPlease check:\n1. Card reader is powered on\n2. Card reader cable is connected\n3. Card is inserted properly");
-          //   }
-          // }
         } catch (e) {
           logger.logInfo("Exception: ${e.toString()}");
           print('[AbstractC200] ⚠️ Exception in attempt #${attempts + 1}: $e');
@@ -202,19 +192,26 @@ abstract class AbstractC200TransactionService {
       _setInteractionEnabled(true);
     }
 
-    // Handle success/failure callbacks
-    if (response != null) {
-//  if (response != null && response.statusCode == '00') {
-      print("[AbstractC200] 🎉 Payment Successful - Calling onSuccess()");
+    // ============================================================
+    // FINAL SUCCESS/FAILURE DECISION
+    //
+    // forceSuccessForTesting = true  -> any response counts as success
+    // forceSuccessForTesting = false -> only statusCode == '00' counts
+    // ============================================================
+    final bool isSuccess = forceSuccessForTesting
+        ? response != null
+        : (response != null && response.statusCode == '00');
+
+    if (isSuccess) {
+      print("[AbstractC200] 🎉 Payment Successful - Calling onSuccess() "
+          "(testing override: $forceSuccessForTesting)");
       await onSuccess();
     } else {
       print("[AbstractC200] ❌ Payment failed - Calling onFailure()");
       if (cancelToken?.isCancelled == true) {
         print("[AbstractC200] 🛑 Payment cancelled by user, skipping failure dialog");
       } else if (!shouldCallFailure) {
-        // _showWarning("Payment Failed",
-        //     "No response received after $maxRetries attempts.\n\nThe card reader may need to be reset. Please try again or contact support.");
-      print("[AbstractC200] 🛑 Payment Failed, The user didnt tap the card");
+        print("[AbstractC200] 🛑 Payment Failed, The user didnt tap the card");
       }
       onFailure();
     }

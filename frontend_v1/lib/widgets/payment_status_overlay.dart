@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 
-enum PaymentStage { waitingForCard, processing,cancelling, success, failed }
+enum PaymentStage { waitingForCard, processing,pinRequired,cancelling, success, failed }
 
 class PaymentStatusOverlay extends StatefulWidget {
   final VoidCallback? onCancel;
@@ -42,6 +42,12 @@ class PaymentStatusOverlayState extends State<PaymentStatusOverlay> {
             l10n.paymentProcessing,
             l10n.paymentProcessingInstruction,
           ),
+        PaymentStage.pinRequired => (
+          Icons.lock,
+          Colors.orange[700]!,
+          l10n.pinTitle,
+          l10n.pinInstruction,
+        ),
         PaymentStage.success => (
             Icons.check_circle,
             Colors.green[700]!,
@@ -60,6 +66,7 @@ class PaymentStatusOverlayState extends State<PaymentStatusOverlay> {
             l10n.paymentFailed,
             l10n.paymentFailedInstruction,
           ),
+
       };
 
     return PopScope(

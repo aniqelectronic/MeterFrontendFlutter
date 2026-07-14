@@ -6118,6 +6118,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please wait and do not touch the screen.'**
   String get cardPleaseWaitNotice;
+
+  /// No description provided for @pinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ENTER PIN'**
+  String get pinTitle;
+
+  /// No description provided for @pinInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your PIN on the card reader'**
+  String get pinInstruction;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

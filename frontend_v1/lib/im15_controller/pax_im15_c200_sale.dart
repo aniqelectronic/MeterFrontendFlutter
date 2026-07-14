@@ -233,7 +233,7 @@ class PaxIM15C200Sale {
           onCancelling?.call();
           await Future.delayed(Duration.zero);
 
-try {
+    try {
             serial.sendAbort();
             logger.logSend('ABORT (user cancelled)');
 

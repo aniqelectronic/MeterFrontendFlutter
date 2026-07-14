@@ -18,7 +18,7 @@ import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/resit.dart';
 import 'package:frontend_v1/main.dart';
-import 'package:frontend_v1/pages/pin_entry.dart'; // Import new PIN entry screen
+//import 'package:frontend_v1/pages/pin_entry.dart'; // Import new PIN entry screen
 // import 'package:frontend_v1/services/pegepay_qr_page.dart';
 import 'package:frontend_v1/services/pegepay_service.dart';
 import 'package:frontend_v1/services/pegepay_webview_helper.dart';
@@ -760,97 +760,98 @@ Positioned(
                     final cancelToken = CancellationToken();
                     
                     try {
-                      // Validate amount for RM250 threshold
-                      final double amountValue = double.tryParse(amount) ?? 0.0;
+                      // // Validate amount for RM250 threshold
+                      // final double amountValue = double.tryParse(amount) ?? 0.0;
                       
-                      if (amountValue > 250.00) {
-                        // Amount exceeds RM250 - navigate to PIN entry screen
-                        print('[PAYMENTPAGE] ⚠️ Amount RM${amountValue.toStringAsFixed(2)} exceeds RM250 - navigating to PIN entry screen');
+                      // if (amountValue > 250.00) {
+                      //   // Amount exceeds RM250 - navigate to PIN entry screen
+                      //   print('[PAYMENTPAGE] ⚠️ Amount RM${amountValue.toStringAsFixed(2)} exceeds RM250 - navigating to PIN entry screen');
                         
-                        // First, detect port and prepare for transaction
-                        // await spinner.show();
-                        // spinnerShown = true;
+                      //   // First, detect port and prepare for transaction
+                      //   // await spinner.show();
+                      //   // spinnerShown = true;
 
-                        // final overlayKey = GlobalKey<PaymentStatusOverlayState>();
-                        // late final OverlayEntry overlayEntry;
-                        // overlayEntry = OverlayEntry(
-                        //   builder: (_) => PaymentStatusOverlay(key: overlayKey),
-                        // );
-                        // Overlay.of(context).insert(overlayEntry);
-                        // spinnerShown = true; // reuse this flag to know we need to remove the overlay
+                      //   // final overlayKey = GlobalKey<PaymentStatusOverlayState>();
+                      //   // late final OverlayEntry overlayEntry;
+                      //   // overlayEntry = OverlayEntry(
+                      //   //   builder: (_) => PaymentStatusOverlay(key: overlayKey),
+                      //   // );
+                      //   // Overlay.of(context).insert(overlayEntry);
+                      //   // spinnerShown = true; // reuse this flag to know we need to remove the overlay
 
-                        overlayKey = GlobalKey<PaymentStatusOverlayState>();
-                        overlayEntry = OverlayEntry(
-                          builder: (_) => PaymentStatusOverlay(key: overlayKey!),
-                        );
-                        Overlay.of(context).insert(overlayEntry);
-                        spinnerShown = true; // reuse this flag to know we need to remove the overlay
+                      //   overlayKey = GlobalKey<PaymentStatusOverlayState>();
+                      //   overlayEntry = OverlayEntry(
+                      //     builder: (_) => PaymentStatusOverlay(key: overlayKey!),
+                      //   );
+                      //   Overlay.of(context).insert(overlayEntry);
+                      //   spinnerShown = true; // reuse this flag to know we need to remove the overlay
 
-                        // Detect port automatically with timeout
-                        final port = await Future.any([
-                          IM15PortDetector.detect(),
-                          Future.delayed(const Duration(seconds: 10), () => null),
-                        ]);
+                      //   // Detect port automatically with timeout
+                      //   final port = await Future.any([
+                      //     IM15PortDetector.detect(),
+                      //     Future.delayed(const Duration(seconds: 10), () => null),
+                      //   ]);
                     
-                        if (port == null) {
-                          // if (spinnerShown) await spinner.hide();
-                          // spinnerShown = false;
-                          overlayEntry?.remove();
-                          spinnerShown = false;
-                          PAYMENTPAGE._transactionInProgress = false;
+                      //   if (port == null) {
+                      //     // if (spinnerShown) await spinner.hide();
+                      //     // spinnerShown = false;
+                      //     overlayEntry?.remove();
+                      //     spinnerShown = false;
+                      //     PAYMENTPAGE._transactionInProgress = false;
                           
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("No IM15 device detected. Please check connection."),
-                              duration: Duration(seconds: 3),
-                            ),
-                          );
-                          return;
-                        }
+                      //     ScaffoldMessenger.of(context).showSnackBar(
+                      //       const SnackBar(
+                      //         content: Text("No IM15 device detected. Please check connection."),
+                      //         duration: Duration(seconds: 3),
+                      //       ),
+                      //     );
+                      //     return;
+                      //   }
                         
-                        // Hide spinner before navigating to PIN screen
-                        if (spinnerShown) {
-                          // await spinner.hide();
-                          // spinnerShown = false;
-                          overlayEntry?.remove();
-                          spinnerShown = false;
-                        }
+                      //   // Hide spinner before navigating to PIN screen
+                      //   if (spinnerShown) {
+                      //     // await spinner.hide();
+                      //     // spinnerShown = false;
+                      //     overlayEntry?.remove();
+                      //     spinnerShown = false;
+                      //   }
                         
-                        // Navigate to PIN entry screen
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            settings: const RouteSettings(name: '/payment'),
-                            builder: (_) => PinEntryScreen(
-                              amount: amount,
-                              port: port,
-                              traceNo: DateTime.now().millisecondsSinceEpoch.toString(),
-                              biz: widget.biz,
-                              paymentData: widget.data,
-                              transactionType: _getTransactionTypeLabel(widget.biz),
-                            ),
-                          ),
-                        ).then((_) {
-                          // Reset transaction flag when returning from PIN screen
-                          PAYMENTPAGE._transactionInProgress = false;
-                        });
+                      //   // Navigate to PIN entry screen
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       settings: const RouteSettings(name: '/payment'),
+                      //       builder: (_) => PinEntryScreen(
+                      //         amount: amount,
+                      //         port: port,
+                      //         traceNo: DateTime.now().millisecondsSinceEpoch.toString(),
+                      //         biz: widget.biz,
+                      //         paymentData: widget.data,
+                      //         transactionType: _getTransactionTypeLabel(widget.biz),
+                      //       ),
+                      //     ),
+                      //   ).then((_) {
+                      //     // Reset transaction flag when returning from PIN screen
+                      //     PAYMENTPAGE._transactionInProgress = false;
+                      //   });
                         
-                        return; // Exit early - PIN screen will handle the rest
-                      }
+                      //   return; // Exit early - PIN screen will handle the rest
+                      // }
                       
-                      // Amount ≤ RM250 - proceed with normal transaction flow
-                      print('[PAYMENTPAGE] ✅ Amount RM${amountValue.toStringAsFixed(2)} ≤ RM250 - proceeding with normal transaction');
+                      // // Amount ≤ RM250 - proceed with normal transaction flow
+                      // print('[PAYMENTPAGE] ✅ Amount RM${amountValue.toStringAsFixed(2)} ≤ RM250 - proceeding with normal transaction');
 
-                      // await spinner.show();
-                      // spinnerShown = true;
-                      // var overlayKey = GlobalKey<PaymentStatusOverlayState>();
-                      // late final OverlayEntry overlayEntry;
-                      // overlayEntry = OverlayEntry(
-                      //   builder: (_) => PaymentStatusOverlay(key: overlayKey),
-                      // );
-                      // Overlay.of(context).insert(overlayEntry);
-                      // spinnerShown = true; // reuse this flag to know we need to remove the overlay
+                      // // await spinner.show();
+                      // // spinnerShown = true;
+                      // // var overlayKey = GlobalKey<PaymentStatusOverlayState>();
+                      // // late final OverlayEntry overlayEntry;
+                      // // overlayEntry = OverlayEntry(
+                      // //   builder: (_) => PaymentStatusOverlay(key: overlayKey),
+                      // // );
+                      // // Overlay.of(context).insert(overlayEntry);
+                      // // spinnerShown = true; // reuse this flag to know we need to remove the overlay
 
+                      // overlayKey = GlobalKey<PaymentStatusOverlayState>();
                       overlayKey = GlobalKey<PaymentStatusOverlayState>();
                       overlayEntry = OverlayEntry(
                         builder: (_) => PaymentStatusOverlay(
@@ -1253,13 +1254,13 @@ Positioned(
                             );
                           }
                         },
-                        onPINRequired: () async {
-                          // This shouldn't be called for amounts ≤ RM250
-                          print('[PAYMENTPAGE] ⚠️ Unexpected PIN required for amount ≤ RM250');
+                      onPINRequired: () {
+                          print('[PAYMENTPAGE] 🔐 PIN required - switching overlay to PIN stage');
+                          overlayKey?.currentState?.setStage(PaymentStage.pinRequired);
                         },
-                        onPINCompleted: () async {
-                          // This shouldn't be called for amounts ≤ RM250
-                          print('[PAYMENTPAGE] ⚠️ Unexpected PIN completed for amount ≤ RM250');
+                        onPINCompleted: () {
+                          print('[PAYMENTPAGE] ✅ PIN completed - switching overlay back to processing');
+                          overlayKey?.currentState?.setStage(PaymentStage.processing);
                         },
                       );
                     } catch (e) {

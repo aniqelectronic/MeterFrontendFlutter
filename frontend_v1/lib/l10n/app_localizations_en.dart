@@ -3063,4 +3063,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cardPleaseWaitNotice => 'Please wait and do not touch the screen.';
+
+  @override
+  String get pinTitle => 'ENTER PIN';
+
+  @override
+  String get pinInstruction => 'Please enter your PIN on the card reader';
 }

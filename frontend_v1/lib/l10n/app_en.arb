@@ -1452,6 +1452,9 @@
 "cardPaymentSuccessTitle": "PAYMENT SUCCESSFUL",
 "cardPaymentSuccessMessage": "Your card payment has been approved successfully.",
 "cardPreparingReceipt": "Preparing your receipt...",
-"cardPleaseWaitNotice": "Please wait and do not touch the screen."
+"cardPleaseWaitNotice": "Please wait and do not touch the screen.",
+
+"pinTitle" : "ENTER PIN",
+"pinInstruction" : "Please enter your PIN on the card reader"
 
 }
