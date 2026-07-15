@@ -4112,13 +4112,13 @@ abstract class AppLocalizations {
   /// No description provided for @gunungLangDesc.
   ///
   /// In en, this message translates to:
-  /// **'Lake and limestone hill park.'**
+  /// **'A scenic recreational park with a lake, limestone hills and landscaped gardens.'**
   String get gunungLangDesc;
 
   /// No description provided for @gunungLangFull.
   ///
   /// In en, this message translates to:
-  /// **'Gunung Lang Recreational Park features a lake, boat rides and limestone hills.'**
+  /// **'Gunung Lang Recreational Park is known for its lake, limestone scenery, gardens and relaxing environment. Visitors can enjoy views, photography and family recreation in a natural setting.'**
   String get gunungLangFull;
 
   /// No description provided for @tamanJepunDesc.
@@ -6130,6 +6130,462 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter your PIN on the card reader'**
   String get pinInstruction;
+
+  /// No description provided for @ipohExplorationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Ipoh'**
+  String get ipohExplorationTitle;
+
+  /// No description provided for @ipohTabHistorical.
+  ///
+  /// In en, this message translates to:
+  /// **'Historical Places'**
+  String get ipohTabHistorical;
+
+  /// No description provided for @ipohTabInteresting.
+  ///
+  /// In en, this message translates to:
+  /// **'Interesting Places'**
+  String get ipohTabInteresting;
+
+  /// No description provided for @ipohTabEating.
+  ///
+  /// In en, this message translates to:
+  /// **'Food Places'**
+  String get ipohTabEating;
+
+  /// No description provided for @ipohGoogleMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Maps'**
+  String get ipohGoogleMap;
+
+  /// No description provided for @ipohClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get ipohClose;
+
+  /// No description provided for @birchMemorialClockTowerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Birch Memorial Clock Tower'**
+  String get birchMemorialClockTowerTitle;
+
+  /// No description provided for @birchMemorialClockTowerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A well-known colonial-era clock tower in the heart of Ipoh.'**
+  String get birchMemorialClockTowerDesc;
+
+  /// No description provided for @birchMemorialClockTowerFull.
+  ///
+  /// In en, this message translates to:
+  /// **'The Birch Memorial Clock Tower is one of Ipoh\'s most recognizable historical landmarks. Built during the British colonial period, it features decorative panels and a clock tower design that reflects the architecture of its time.'**
+  String get birchMemorialClockTowerFull;
+
+  /// No description provided for @masjidMuhammadiahIpohTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Masjid Muhammadiah Ipoh'**
+  String get masjidMuhammadiahIpohTitle;
+
+  /// No description provided for @masjidMuhammadiahIpohDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A unique Chinese-style mosque that reflects Ipoh\'s multicultural identity.'**
+  String get masjidMuhammadiahIpohDesc;
+
+  /// No description provided for @masjidMuhammadiahIpohFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Masjid Muhammadiah Ipoh is known for its distinctive Chinese-inspired architecture. Its red walls, decorative roof details and peaceful prayer environment make it an important religious and cultural landmark in Ipoh.'**
+  String get masjidMuhammadiahIpohFull;
+
+  /// No description provided for @muziumDarulRidzuanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Darul Ridzuan Museum'**
+  String get muziumDarulRidzuanTitle;
+
+  /// No description provided for @muziumDarulRidzuanDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A museum presenting the history and development of Perak.'**
+  String get muziumDarulRidzuanDesc;
+
+  /// No description provided for @muziumDarulRidzuanFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Darul Ridzuan Museum is housed in a historic building and displays information about Perak\'s administration, mining history, culture and local development. It is suitable for visitors who want to understand the state\'s heritage.'**
+  String get muziumDarulRidzuanFull;
+
+  /// No description provided for @muziumGeologiIpohTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Geological Museum Ipoh'**
+  String get muziumGeologiIpohTitle;
+
+  /// No description provided for @muziumGeologiIpohDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A museum featuring rocks, minerals, fossils and Malaysia\'s geological heritage.'**
+  String get muziumGeologiIpohDesc;
+
+  /// No description provided for @muziumGeologiIpohFull.
+  ///
+  /// In en, this message translates to:
+  /// **'The Geological Museum Ipoh provides educational displays about rocks, minerals, fossils, mining and geological processes. It is a useful destination for families, students and visitors interested in earth science.'**
+  String get muziumGeologiIpohFull;
+
+  /// No description provided for @lostWorldTambunTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lost World of Tambun'**
+  String get lostWorldTambunTitle;
+
+  /// No description provided for @lostWorldTambunDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A family theme park with water attractions, hot springs and adventure activities.'**
+  String get lostWorldTambunDesc;
+
+  /// No description provided for @lostWorldTambunFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Lost World of Tambun is a popular family destination featuring a water park, amusement rides, natural hot springs, animal attractions and adventure activities surrounded by limestone hills.'**
+  String get lostWorldTambunFull;
+
+  /// No description provided for @bookXcessIpohTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BookXcess Ipoh'**
+  String get bookXcessIpohTitle;
+
+  /// No description provided for @bookXcessIpohDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A stylish bookstore located inside a historic building in Ipoh Old Town.'**
+  String get bookXcessIpohDesc;
+
+  /// No description provided for @bookXcessIpohFull.
+  ///
+  /// In en, this message translates to:
+  /// **'BookXcess Ipoh combines books, heritage architecture and creative interior design. Visitors can browse a wide range of books while enjoying the unique atmosphere of a restored historic building.'**
+  String get bookXcessIpohFull;
+
+  /// No description provided for @kongHengSquareTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Kong Heng Square'**
+  String get kongHengSquareTitle;
+
+  /// No description provided for @kongHengSquareDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A vibrant heritage area with cafes, shops and creative spaces.'**
+  String get kongHengSquareDesc;
+
+  /// No description provided for @kongHengSquareFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Kong Heng Square is a popular gathering place in Ipoh Old Town. It features restored heritage buildings, cafes, small shops, art spaces and a lively environment suitable for photography and casual exploration.'**
+  String get kongHengSquareFull;
+
+  /// No description provided for @banjaranHotspringsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The Banjaran Hotsprings Retreat'**
+  String get banjaranHotspringsTitle;
+
+  /// No description provided for @banjaranHotspringsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A luxury wellness retreat surrounded by limestone hills and natural hot springs.'**
+  String get banjaranHotspringsDesc;
+
+  /// No description provided for @banjaranHotspringsFull.
+  ///
+  /// In en, this message translates to:
+  /// **'The Banjaran Hotsprings Retreat offers a peaceful wellness experience with geothermal hot springs, caves, spa facilities and lush tropical scenery. It is known for privacy, relaxation and natural beauty.'**
+  String get banjaranHotspringsFull;
+
+  /// No description provided for @gopengRaftingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Gopeng Rainforest White Water Rafting'**
+  String get gopengRaftingTitle;
+
+  /// No description provided for @gopengRaftingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'An exciting white-water rafting experience surrounded by rainforest scenery.'**
+  String get gopengRaftingDesc;
+
+  /// No description provided for @gopengRaftingFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Gopeng Rainforest White Water Rafting offers guided river adventures suitable for visitors seeking outdoor excitement. The activity combines rapids, teamwork and beautiful rainforest surroundings.'**
+  String get gopengRaftingFull;
+
+  /// No description provided for @timeTunnelIpohTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Tunnel Ipoh'**
+  String get timeTunnelIpohTitle;
+
+  /// No description provided for @timeTunnelIpohDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A nostalgic museum displaying memories and everyday items from earlier decades.'**
+  String get timeTunnelIpohDesc;
+
+  /// No description provided for @timeTunnelIpohFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Tunnel Ipoh presents vintage household items, photographs, advertisements and recreated scenes from Malaysia\'s past. It offers visitors a nostalgic and educational journey through earlier decades.'**
+  String get timeTunnelIpohFull;
+
+  /// No description provided for @upsideDownWorldIpohTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Upside Down World Ipoh'**
+  String get upsideDownWorldIpohTitle;
+
+  /// No description provided for @upsideDownWorldIpohDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A fun indoor attraction featuring upside-down rooms and creative photo opportunities.'**
+  String get upsideDownWorldIpohDesc;
+
+  /// No description provided for @upsideDownWorldIpohFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Upside Down World Ipoh features specially designed rooms where furniture and decorations appear upside down. It is a family-friendly attraction created for imaginative and entertaining photography.'**
+  String get upsideDownWorldIpohFull;
+
+  /// No description provided for @catchAToyRainbowBoxTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Catch A Toy x Rainbow Box'**
+  String get catchAToyRainbowBoxTitle;
+
+  /// No description provided for @catchAToyRainbowBoxDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A colourful entertainment venue with arcade games and toy-catching machines.'**
+  String get catchAToyRainbowBoxDesc;
+
+  /// No description provided for @catchAToyRainbowBoxFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Catch A Toy x Rainbow Box is an indoor entertainment destination featuring claw machines, arcade-style games and colourful displays. It is suitable for children, families and visitors who enjoy casual gaming.'**
+  String get catchAToyRainbowBoxFull;
+
+  /// No description provided for @kekLokTongTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Kek Look Tong Cave Temple & Zen Garden'**
+  String get kekLokTongTitle;
+
+  /// No description provided for @kekLokTongDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A peaceful cave temple surrounded by limestone formations and a Zen garden.'**
+  String get kekLokTongDesc;
+
+  /// No description provided for @kekLokTongFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Kek Look Tong Cave Temple is located inside a limestone cave and opens into a scenic garden area. Visitors can enjoy religious architecture, natural rock formations, landscaped grounds and a calm atmosphere.'**
+  String get kekLokTongFull;
+
+  /// No description provided for @artOfOldTownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Art of Old Town'**
+  String get artOfOldTownTitle;
+
+  /// No description provided for @artOfOldTownDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A collection of wall murals that tells stories about Ipoh\'s heritage and daily life.'**
+  String get artOfOldTownDesc;
+
+  /// No description provided for @artOfOldTownFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Art of Old Town features murals painted across heritage buildings in Ipoh Old Town. The artworks highlight local culture, traditional activities and memorable scenes, making the area popular for walking and photography.'**
+  String get artOfOldTownFull;
+
+  /// No description provided for @gunungLangTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Gunung Lang Recreational Park'**
+  String get gunungLangTitle;
+
+  /// No description provided for @funtasyHouseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Funtasy House Trick Art'**
+  String get funtasyHouseTitle;
+
+  /// No description provided for @funtasyHouseDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'An interactive trick-art gallery with creative optical illusion displays.'**
+  String get funtasyHouseDesc;
+
+  /// No description provided for @funtasyHouseFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Funtasy House Trick Art offers interactive paintings and optical illusion scenes where visitors can become part of the artwork. It is designed for entertaining photos and family activities.'**
+  String get funtasyHouseFull;
+
+  /// No description provided for @dataranMedanStesenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ipoh Station Square'**
+  String get dataranMedanStesenTitle;
+
+  /// No description provided for @dataranMedanStesenDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A prominent public square located in front of the historic Ipoh Railway Station.'**
+  String get dataranMedanStesenDesc;
+
+  /// No description provided for @dataranMedanStesenFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Ipoh Station Square is an open public space near the iconic Ipoh Railway Station. The area is suitable for sightseeing, photography and appreciating the city\'s colonial architecture.'**
+  String get dataranMedanStesenFull;
+
+  /// No description provided for @bluebluePlaylandTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Blueblue Playland'**
+  String get bluebluePlaylandTitle;
+
+  /// No description provided for @bluebluePlaylandDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A family-friendly indoor playground designed for children\'s active play.'**
+  String get bluebluePlaylandDesc;
+
+  /// No description provided for @bluebluePlaylandFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Blueblue Playland provides indoor play equipment and activity spaces for children. It offers families a comfortable place for recreation, movement and supervised play.'**
+  String get bluebluePlaylandFull;
+
+  /// No description provided for @lubukTimahTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lubuk Timah Hot Spring'**
+  String get lubukTimahTitle;
+
+  /// No description provided for @lubukTimahDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A natural hot spring and recreational area surrounded by greenery.'**
+  String get lubukTimahDesc;
+
+  /// No description provided for @lubukTimahFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Lubuk Timah Hot Spring is a nature-based destination offering warm spring water, forest scenery and a relaxed outdoor atmosphere. It is suitable for visitors looking for a simple recreational escape.'**
+  String get lubukTimahFull;
+
+  /// No description provided for @xParkSunwayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'X Park Sunway City Ipoh'**
+  String get xParkSunwayTitle;
+
+  /// No description provided for @xParkSunwayDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'An outdoor activity park offering adventure and recreational experiences.'**
+  String get xParkSunwayDesc;
+
+  /// No description provided for @xParkSunwayFull.
+  ///
+  /// In en, this message translates to:
+  /// **'X Park Sunway City Ipoh offers a range of outdoor and adventure-based activities. It is suitable for groups, families and visitors looking for active recreation in the Sunway City Ipoh area.'**
+  String get xParkSunwayFull;
+
+  /// No description provided for @tasikCerminTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasik Cermin 1'**
+  String get tasikCerminTitle;
+
+  /// No description provided for @tasikCerminDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A hidden lake with calm water surrounded by dramatic limestone cliffs.'**
+  String get tasikCerminDesc;
+
+  /// No description provided for @tasikCerminFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasik Cermin, also known as Mirror Lake, is famous for its reflective water and limestone surroundings. The peaceful scenery makes it a popular destination for sightseeing and photography.'**
+  String get tasikCerminFull;
+
+  /// No description provided for @dataranMbiFoodCourtTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dataran MBI Food Court'**
+  String get dataranMbiFoodCourtTitle;
+
+  /// No description provided for @dataranMbiFoodCourtDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A convenient food court offering a variety of local meals and drinks.'**
+  String get dataranMbiFoodCourtDesc;
+
+  /// No description provided for @dataranMbiFoodCourtFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Dataran MBI Food Court brings together different local food choices in one convenient location. It is suitable for visitors who want to sample casual Malaysian meals and refreshments.'**
+  String get dataranMbiFoodCourtFull;
+
+  /// No description provided for @meeRebusRamliTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoran Mee Rebus Ramli - Taman Tasek Jaya'**
+  String get meeRebusRamliTitle;
+
+  /// No description provided for @meeRebusRamliDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A local restaurant known for mee rebus and familiar Malaysian flavours.'**
+  String get meeRebusRamliDesc;
+
+  /// No description provided for @meeRebusRamliFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoran Mee Rebus Ramli at Taman Tasek Jaya is a local dining destination offering mee rebus and other Malaysian dishes. It is suitable for visitors looking for a casual local meal.'**
+  String get meeRebusRamliFull;
+
+  /// No description provided for @redBrickKitchenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Red Brick Kitchen'**
+  String get redBrickKitchenTitle;
+
+  /// No description provided for @redBrickKitchenDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A comfortable dining spot with a modern and welcoming atmosphere.'**
+  String get redBrickKitchenDesc;
+
+  /// No description provided for @redBrickKitchenFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Red Brick Kitchen offers a casual dining environment with a modern interior and a selection of meals. It is suitable for families, friends and visitors looking for a relaxed place to eat in Ipoh.'**
+  String get redBrickKitchenFull;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

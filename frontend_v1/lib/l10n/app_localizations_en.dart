@@ -2058,10 +2058,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sultanAzizFull => 'Taman Rekreasi Sultan Abdul Aziz is ideal for jogging and outdoor activities.';
 
   @override
-  String get gunungLangDesc => 'Lake and limestone hill park.';
+  String get gunungLangDesc => 'A scenic recreational park with a lake, limestone hills and landscaped gardens.';
 
   @override
-  String get gunungLangFull => 'Gunung Lang Recreational Park features a lake, boat rides and limestone hills.';
+  String get gunungLangFull => 'Gunung Lang Recreational Park is known for its lake, limestone scenery, gardens and relaxing environment. Visitors can enjoy views, photography and family recreation in a natural setting.';
 
   @override
   String get tamanJepunDesc => 'Japanese garden park.';
@@ -3069,4 +3069,232 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pinInstruction => 'Please enter your PIN on the card reader';
+
+  @override
+  String get ipohExplorationTitle => 'Explore Ipoh';
+
+  @override
+  String get ipohTabHistorical => 'Historical Places';
+
+  @override
+  String get ipohTabInteresting => 'Interesting Places';
+
+  @override
+  String get ipohTabEating => 'Food Places';
+
+  @override
+  String get ipohGoogleMap => 'Google Maps';
+
+  @override
+  String get ipohClose => 'Close';
+
+  @override
+  String get birchMemorialClockTowerTitle => 'Birch Memorial Clock Tower';
+
+  @override
+  String get birchMemorialClockTowerDesc => 'A well-known colonial-era clock tower in the heart of Ipoh.';
+
+  @override
+  String get birchMemorialClockTowerFull => 'The Birch Memorial Clock Tower is one of Ipoh\'s most recognizable historical landmarks. Built during the British colonial period, it features decorative panels and a clock tower design that reflects the architecture of its time.';
+
+  @override
+  String get masjidMuhammadiahIpohTitle => 'Masjid Muhammadiah Ipoh';
+
+  @override
+  String get masjidMuhammadiahIpohDesc => 'A unique Chinese-style mosque that reflects Ipoh\'s multicultural identity.';
+
+  @override
+  String get masjidMuhammadiahIpohFull => 'Masjid Muhammadiah Ipoh is known for its distinctive Chinese-inspired architecture. Its red walls, decorative roof details and peaceful prayer environment make it an important religious and cultural landmark in Ipoh.';
+
+  @override
+  String get muziumDarulRidzuanTitle => 'Darul Ridzuan Museum';
+
+  @override
+  String get muziumDarulRidzuanDesc => 'A museum presenting the history and development of Perak.';
+
+  @override
+  String get muziumDarulRidzuanFull => 'Darul Ridzuan Museum is housed in a historic building and displays information about Perak\'s administration, mining history, culture and local development. It is suitable for visitors who want to understand the state\'s heritage.';
+
+  @override
+  String get muziumGeologiIpohTitle => 'Geological Museum Ipoh';
+
+  @override
+  String get muziumGeologiIpohDesc => 'A museum featuring rocks, minerals, fossils and Malaysia\'s geological heritage.';
+
+  @override
+  String get muziumGeologiIpohFull => 'The Geological Museum Ipoh provides educational displays about rocks, minerals, fossils, mining and geological processes. It is a useful destination for families, students and visitors interested in earth science.';
+
+  @override
+  String get lostWorldTambunTitle => 'Lost World of Tambun';
+
+  @override
+  String get lostWorldTambunDesc => 'A family theme park with water attractions, hot springs and adventure activities.';
+
+  @override
+  String get lostWorldTambunFull => 'Lost World of Tambun is a popular family destination featuring a water park, amusement rides, natural hot springs, animal attractions and adventure activities surrounded by limestone hills.';
+
+  @override
+  String get bookXcessIpohTitle => 'BookXcess Ipoh';
+
+  @override
+  String get bookXcessIpohDesc => 'A stylish bookstore located inside a historic building in Ipoh Old Town.';
+
+  @override
+  String get bookXcessIpohFull => 'BookXcess Ipoh combines books, heritage architecture and creative interior design. Visitors can browse a wide range of books while enjoying the unique atmosphere of a restored historic building.';
+
+  @override
+  String get kongHengSquareTitle => 'Kong Heng Square';
+
+  @override
+  String get kongHengSquareDesc => 'A vibrant heritage area with cafes, shops and creative spaces.';
+
+  @override
+  String get kongHengSquareFull => 'Kong Heng Square is a popular gathering place in Ipoh Old Town. It features restored heritage buildings, cafes, small shops, art spaces and a lively environment suitable for photography and casual exploration.';
+
+  @override
+  String get banjaranHotspringsTitle => 'The Banjaran Hotsprings Retreat';
+
+  @override
+  String get banjaranHotspringsDesc => 'A luxury wellness retreat surrounded by limestone hills and natural hot springs.';
+
+  @override
+  String get banjaranHotspringsFull => 'The Banjaran Hotsprings Retreat offers a peaceful wellness experience with geothermal hot springs, caves, spa facilities and lush tropical scenery. It is known for privacy, relaxation and natural beauty.';
+
+  @override
+  String get gopengRaftingTitle => 'Gopeng Rainforest White Water Rafting';
+
+  @override
+  String get gopengRaftingDesc => 'An exciting white-water rafting experience surrounded by rainforest scenery.';
+
+  @override
+  String get gopengRaftingFull => 'Gopeng Rainforest White Water Rafting offers guided river adventures suitable for visitors seeking outdoor excitement. The activity combines rapids, teamwork and beautiful rainforest surroundings.';
+
+  @override
+  String get timeTunnelIpohTitle => 'Time Tunnel Ipoh';
+
+  @override
+  String get timeTunnelIpohDesc => 'A nostalgic museum displaying memories and everyday items from earlier decades.';
+
+  @override
+  String get timeTunnelIpohFull => 'Time Tunnel Ipoh presents vintage household items, photographs, advertisements and recreated scenes from Malaysia\'s past. It offers visitors a nostalgic and educational journey through earlier decades.';
+
+  @override
+  String get upsideDownWorldIpohTitle => 'Upside Down World Ipoh';
+
+  @override
+  String get upsideDownWorldIpohDesc => 'A fun indoor attraction featuring upside-down rooms and creative photo opportunities.';
+
+  @override
+  String get upsideDownWorldIpohFull => 'Upside Down World Ipoh features specially designed rooms where furniture and decorations appear upside down. It is a family-friendly attraction created for imaginative and entertaining photography.';
+
+  @override
+  String get catchAToyRainbowBoxTitle => 'Catch A Toy x Rainbow Box';
+
+  @override
+  String get catchAToyRainbowBoxDesc => 'A colourful entertainment venue with arcade games and toy-catching machines.';
+
+  @override
+  String get catchAToyRainbowBoxFull => 'Catch A Toy x Rainbow Box is an indoor entertainment destination featuring claw machines, arcade-style games and colourful displays. It is suitable for children, families and visitors who enjoy casual gaming.';
+
+  @override
+  String get kekLokTongTitle => 'Kek Look Tong Cave Temple & Zen Garden';
+
+  @override
+  String get kekLokTongDesc => 'A peaceful cave temple surrounded by limestone formations and a Zen garden.';
+
+  @override
+  String get kekLokTongFull => 'Kek Look Tong Cave Temple is located inside a limestone cave and opens into a scenic garden area. Visitors can enjoy religious architecture, natural rock formations, landscaped grounds and a calm atmosphere.';
+
+  @override
+  String get artOfOldTownTitle => 'Art of Old Town';
+
+  @override
+  String get artOfOldTownDesc => 'A collection of wall murals that tells stories about Ipoh\'s heritage and daily life.';
+
+  @override
+  String get artOfOldTownFull => 'Art of Old Town features murals painted across heritage buildings in Ipoh Old Town. The artworks highlight local culture, traditional activities and memorable scenes, making the area popular for walking and photography.';
+
+  @override
+  String get gunungLangTitle => 'Gunung Lang Recreational Park';
+
+  @override
+  String get funtasyHouseTitle => 'Funtasy House Trick Art';
+
+  @override
+  String get funtasyHouseDesc => 'An interactive trick-art gallery with creative optical illusion displays.';
+
+  @override
+  String get funtasyHouseFull => 'Funtasy House Trick Art offers interactive paintings and optical illusion scenes where visitors can become part of the artwork. It is designed for entertaining photos and family activities.';
+
+  @override
+  String get dataranMedanStesenTitle => 'Ipoh Station Square';
+
+  @override
+  String get dataranMedanStesenDesc => 'A prominent public square located in front of the historic Ipoh Railway Station.';
+
+  @override
+  String get dataranMedanStesenFull => 'Ipoh Station Square is an open public space near the iconic Ipoh Railway Station. The area is suitable for sightseeing, photography and appreciating the city\'s colonial architecture.';
+
+  @override
+  String get bluebluePlaylandTitle => 'Blueblue Playland';
+
+  @override
+  String get bluebluePlaylandDesc => 'A family-friendly indoor playground designed for children\'s active play.';
+
+  @override
+  String get bluebluePlaylandFull => 'Blueblue Playland provides indoor play equipment and activity spaces for children. It offers families a comfortable place for recreation, movement and supervised play.';
+
+  @override
+  String get lubukTimahTitle => 'Lubuk Timah Hot Spring';
+
+  @override
+  String get lubukTimahDesc => 'A natural hot spring and recreational area surrounded by greenery.';
+
+  @override
+  String get lubukTimahFull => 'Lubuk Timah Hot Spring is a nature-based destination offering warm spring water, forest scenery and a relaxed outdoor atmosphere. It is suitable for visitors looking for a simple recreational escape.';
+
+  @override
+  String get xParkSunwayTitle => 'X Park Sunway City Ipoh';
+
+  @override
+  String get xParkSunwayDesc => 'An outdoor activity park offering adventure and recreational experiences.';
+
+  @override
+  String get xParkSunwayFull => 'X Park Sunway City Ipoh offers a range of outdoor and adventure-based activities. It is suitable for groups, families and visitors looking for active recreation in the Sunway City Ipoh area.';
+
+  @override
+  String get tasikCerminTitle => 'Tasik Cermin 1';
+
+  @override
+  String get tasikCerminDesc => 'A hidden lake with calm water surrounded by dramatic limestone cliffs.';
+
+  @override
+  String get tasikCerminFull => 'Tasik Cermin, also known as Mirror Lake, is famous for its reflective water and limestone surroundings. The peaceful scenery makes it a popular destination for sightseeing and photography.';
+
+  @override
+  String get dataranMbiFoodCourtTitle => 'Dataran MBI Food Court';
+
+  @override
+  String get dataranMbiFoodCourtDesc => 'A convenient food court offering a variety of local meals and drinks.';
+
+  @override
+  String get dataranMbiFoodCourtFull => 'Dataran MBI Food Court brings together different local food choices in one convenient location. It is suitable for visitors who want to sample casual Malaysian meals and refreshments.';
+
+  @override
+  String get meeRebusRamliTitle => 'Restoran Mee Rebus Ramli - Taman Tasek Jaya';
+
+  @override
+  String get meeRebusRamliDesc => 'A local restaurant known for mee rebus and familiar Malaysian flavours.';
+
+  @override
+  String get meeRebusRamliFull => 'Restoran Mee Rebus Ramli at Taman Tasek Jaya is a local dining destination offering mee rebus and other Malaysian dishes. It is suitable for visitors looking for a casual local meal.';
+
+  @override
+  String get redBrickKitchenTitle => 'Red Brick Kitchen';
+
+  @override
+  String get redBrickKitchenDesc => 'A comfortable dining spot with a modern and welcoming atmosphere.';
+
+  @override
+  String get redBrickKitchenFull => 'Red Brick Kitchen offers a casual dining environment with a modern interior and a selection of meals. It is suitable for families, friends and visitors looking for a relaxed place to eat in Ipoh.';
 }

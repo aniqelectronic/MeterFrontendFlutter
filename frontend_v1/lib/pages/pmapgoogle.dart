@@ -33,7 +33,7 @@ Timer? _debounce;
 
   List<LatLng> _routePoints = [];
 
-  LatLng _currentPosition = LatLng(Config.latitude, Config.longitude);
+  LatLng _currentPosition = LatLng(Data.latitudedemo, Data.longitudedemo);
 
   late AnimationController _pulseController;
 

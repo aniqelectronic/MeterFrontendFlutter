@@ -13,4 +13,12 @@ class Data {
 
     //talian aduan majlis
   static String aduanMajlisBentong = "1300-88-1148";
+
+    //to change waktu solat for demo url justchange zone part. ps: to know the zone code is from https://www.e-solat.gov.my/
+  static String waktusolatplacedemo = "Ipoh, Perak";
+  static String waktusolaturldemo = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=PRK02&period=today";
+
+    //page map demo
+  static double latitudedemo = 4.5975; 
+  static double longitudedemo = 101.0901; 
 }

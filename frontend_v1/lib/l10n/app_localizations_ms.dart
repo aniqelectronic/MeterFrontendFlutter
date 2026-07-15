@@ -2052,10 +2052,10 @@ class AppLocalizationsMs extends AppLocalizations {
   String get sultanAzizFull => 'Taman Rekreasi Sultan Abdul Aziz sesuai untuk berjoging dan riadah.';
 
   @override
-  String get gunungLangDesc => 'Taman tasik batu kapur.';
+  String get gunungLangDesc => 'Taman rekreasi yang indah dengan tasik, bukit batu kapur dan taman landskap.';
 
   @override
-  String get gunungLangFull => 'Taman Rekreasi Gunung Lang mempunyai tasik dan bukit batu kapur.';
+  String get gunungLangFull => 'Taman Rekreasi Gunung Lang terkenal dengan tasik, pemandangan batu kapur, taman dan suasana santai. Pengunjung boleh menikmati pemandangan, aktiviti fotografi dan rekreasi keluarga dalam persekitaran semula jadi.';
 
   @override
   String get tamanJepunDesc => 'Taman konsep Jepun.';
@@ -3063,4 +3063,232 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get pinInstruction => 'Sila masukkan PIN anda pada pembaca kad';
+
+  @override
+  String get ipohExplorationTitle => 'Jelajah Ipoh';
+
+  @override
+  String get ipohTabHistorical => 'Tempat Bersejarah';
+
+  @override
+  String get ipohTabInteresting => 'Tempat Menarik';
+
+  @override
+  String get ipohTabEating => 'Tempat Makanan';
+
+  @override
+  String get ipohGoogleMap => 'Google Maps';
+
+  @override
+  String get ipohClose => 'Tutup';
+
+  @override
+  String get birchMemorialClockTowerTitle => 'Menara Jam Memorial Birch';
+
+  @override
+  String get birchMemorialClockTowerDesc => 'Sebuah menara jam era kolonial yang terkenal di tengah bandar Ipoh.';
+
+  @override
+  String get birchMemorialClockTowerFull => 'Menara Jam Memorial Birch ialah salah satu mercu tanda bersejarah yang paling dikenali di Ipoh. Dibina pada zaman penjajahan British, menara ini mempunyai panel hiasan dan reka bentuk seni bina yang mencerminkan zaman tersebut.';
+
+  @override
+  String get masjidMuhammadiahIpohTitle => 'Masjid Muhammadiah Ipoh';
+
+  @override
+  String get masjidMuhammadiahIpohDesc => 'Sebuah masjid unik berkonsep seni bina Cina yang mencerminkan kepelbagaian budaya Ipoh.';
+
+  @override
+  String get masjidMuhammadiahIpohFull => 'Masjid Muhammadiah Ipoh terkenal dengan seni bina berinspirasikan Cina. Dinding merah, perincian bumbung yang menarik dan suasana ibadah yang tenang menjadikannya mercu tanda agama dan budaya yang penting di Ipoh.';
+
+  @override
+  String get muziumDarulRidzuanTitle => 'Muzium Darul Ridzuan';
+
+  @override
+  String get muziumDarulRidzuanDesc => 'Sebuah muzium yang memaparkan sejarah dan pembangunan negeri Perak.';
+
+  @override
+  String get muziumDarulRidzuanFull => 'Muzium Darul Ridzuan ditempatkan di sebuah bangunan bersejarah dan mempamerkan maklumat mengenai pentadbiran Perak, sejarah perlombongan, budaya dan pembangunan tempatan. Ia sesuai untuk pengunjung yang ingin memahami warisan negeri Perak.';
+
+  @override
+  String get muziumGeologiIpohTitle => 'Muzium Geologi Ipoh';
+
+  @override
+  String get muziumGeologiIpohDesc => 'Sebuah muzium yang mempamerkan batuan, mineral, fosil dan warisan geologi Malaysia.';
+
+  @override
+  String get muziumGeologiIpohFull => 'Muzium Geologi Ipoh menyediakan pameran pendidikan mengenai batuan, mineral, fosil, perlombongan dan proses geologi. Ia merupakan destinasi yang sesuai untuk keluarga, pelajar dan pengunjung yang berminat dengan sains bumi.';
+
+  @override
+  String get lostWorldTambunTitle => 'Lost World of Tambun';
+
+  @override
+  String get lostWorldTambunDesc => 'Taman tema keluarga dengan tarikan air, kolam air panas dan aktiviti pengembaraan.';
+
+  @override
+  String get lostWorldTambunFull => 'Lost World of Tambun ialah destinasi keluarga yang popular dengan taman air, permainan hiburan, kolam air panas semula jadi, tarikan haiwan dan aktiviti pengembaraan yang dikelilingi bukit batu kapur.';
+
+  @override
+  String get bookXcessIpohTitle => 'BookXcess Ipoh';
+
+  @override
+  String get bookXcessIpohDesc => 'Sebuah kedai buku bergaya yang terletak di dalam bangunan bersejarah di Pekan Lama Ipoh.';
+
+  @override
+  String get bookXcessIpohFull => 'BookXcess Ipoh menggabungkan buku, seni bina warisan dan reka bentuk dalaman kreatif. Pengunjung boleh melihat pelbagai pilihan buku sambil menikmati suasana unik sebuah bangunan bersejarah yang telah dipulihkan.';
+
+  @override
+  String get kongHengSquareTitle => 'Kong Heng Square';
+
+  @override
+  String get kongHengSquareDesc => 'Kawasan warisan yang meriah dengan kafe, kedai dan ruang kreatif.';
+
+  @override
+  String get kongHengSquareFull => 'Kong Heng Square ialah tempat tumpuan popular di Pekan Lama Ipoh. Kawasan ini mempunyai bangunan warisan yang dipulihkan, kafe, kedai kecil, ruang seni dan suasana meriah yang sesuai untuk bergambar serta bersiar-siar.';
+
+  @override
+  String get banjaranHotspringsTitle => 'The Banjaran Hotsprings Retreat';
+
+  @override
+  String get banjaranHotspringsDesc => 'Pusat peranginan kesihatan mewah yang dikelilingi bukit batu kapur dan kolam air panas semula jadi.';
+
+  @override
+  String get banjaranHotspringsFull => 'The Banjaran Hotsprings Retreat menawarkan pengalaman kesihatan yang tenang dengan kolam air panas geoterma, gua, kemudahan spa dan pemandangan tropika yang menghijau. Ia terkenal dengan privasi, ketenangan dan keindahan semula jadi.';
+
+  @override
+  String get gopengRaftingTitle => 'Aktiviti Arung Jeram Hutan Hujan Gopeng';
+
+  @override
+  String get gopengRaftingDesc => 'Pengalaman arung jeram yang menarik dikelilingi pemandangan hutan hujan.';
+
+  @override
+  String get gopengRaftingFull => 'Aktiviti Arung Jeram Hutan Hujan Gopeng menawarkan pengembaraan sungai berpandu untuk pengunjung yang mencari aktiviti luar yang mencabar. Aktiviti ini menggabungkan jeram, kerjasama berkumpulan dan pemandangan hutan hujan yang indah.';
+
+  @override
+  String get timeTunnelIpohTitle => 'Time Tunnel Ipoh';
+
+  @override
+  String get timeTunnelIpohDesc => 'Sebuah muzium nostalgia yang mempamerkan kenangan dan barangan harian dari zaman dahulu.';
+
+  @override
+  String get timeTunnelIpohFull => 'Time Tunnel Ipoh mempamerkan barangan rumah vintaj, gambar, iklan dan suasana yang dibina semula daripada zaman lalu di Malaysia. Ia menawarkan perjalanan nostalgia dan pendidikan kepada para pengunjung.';
+
+  @override
+  String get upsideDownWorldIpohTitle => 'Upside Down World Ipoh';
+
+  @override
+  String get upsideDownWorldIpohDesc => 'Tarikan dalaman menyeronokkan dengan bilik terbalik dan peluang bergambar kreatif.';
+
+  @override
+  String get upsideDownWorldIpohFull => 'Upside Down World Ipoh mempunyai bilik yang direka khas dengan perabot dan hiasan kelihatan terbalik. Ia merupakan tarikan mesra keluarga yang sesuai untuk menghasilkan gambar kreatif dan menghiburkan.';
+
+  @override
+  String get catchAToyRainbowBoxTitle => 'Catch A Toy x Rainbow Box';
+
+  @override
+  String get catchAToyRainbowBoxDesc => 'Pusat hiburan berwarna-warni dengan permainan arked dan mesin tangkap mainan.';
+
+  @override
+  String get catchAToyRainbowBoxFull => 'Catch A Toy x Rainbow Box ialah destinasi hiburan dalaman yang menyediakan mesin tangkap mainan, permainan gaya arked dan hiasan berwarna-warni. Ia sesuai untuk kanak-kanak, keluarga dan pengunjung yang gemar permainan santai.';
+
+  @override
+  String get kekLokTongTitle => 'Tokong Gua Kek Look Tong dan Taman Zen';
+
+  @override
+  String get kekLokTongDesc => 'Tokong gua yang tenang dikelilingi formasi batu kapur dan taman Zen.';
+
+  @override
+  String get kekLokTongFull => 'Tokong Gua Kek Look Tong terletak di dalam gua batu kapur dan bersambung dengan kawasan taman yang indah. Pengunjung boleh menikmati seni bina keagamaan, formasi batu semula jadi, landskap taman dan suasana yang damai.';
+
+  @override
+  String get artOfOldTownTitle => 'Seni Pekan Lama Ipoh';
+
+  @override
+  String get artOfOldTownDesc => 'Koleksi mural dinding yang menceritakan warisan dan kehidupan harian Ipoh.';
+
+  @override
+  String get artOfOldTownFull => 'Seni Pekan Lama Ipoh menampilkan mural yang dilukis pada bangunan warisan di Pekan Lama Ipoh. Hasil seni ini menggambarkan budaya tempatan, aktiviti tradisional dan suasana kenangan, menjadikan kawasan ini popular untuk berjalan kaki dan bergambar.';
+
+  @override
+  String get gunungLangTitle => 'Taman Rekreasi Gunung Lang';
+
+  @override
+  String get funtasyHouseTitle => 'Funtasy House Trick Art';
+
+  @override
+  String get funtasyHouseDesc => 'Galeri seni interaktif dengan paparan ilusi optik yang kreatif.';
+
+  @override
+  String get funtasyHouseFull => 'Funtasy House Trick Art menawarkan lukisan interaktif dan suasana ilusi optik yang membolehkan pengunjung menjadi sebahagian daripada karya seni. Ia direka untuk aktiviti bergambar dan hiburan keluarga.';
+
+  @override
+  String get dataranMedanStesenTitle => 'Dataran Medan Stesen';
+
+  @override
+  String get dataranMedanStesenDesc => 'Dataran awam utama yang terletak di hadapan Stesen Kereta Api Ipoh yang bersejarah.';
+
+  @override
+  String get dataranMedanStesenFull => 'Dataran Medan Stesen ialah ruang awam terbuka berhampiran Stesen Kereta Api Ipoh yang ikonik. Kawasan ini sesuai untuk bersiar-siar, bergambar dan menghargai seni bina kolonial bandar Ipoh.';
+
+  @override
+  String get bluebluePlaylandTitle => 'Blueblue Playland';
+
+  @override
+  String get bluebluePlaylandDesc => 'Taman permainan dalaman mesra keluarga yang direka untuk aktiviti kanak-kanak.';
+
+  @override
+  String get bluebluePlaylandFull => 'Blueblue Playland menyediakan peralatan permainan dalaman dan ruang aktiviti untuk kanak-kanak. Ia menawarkan tempat yang selesa untuk keluarga berekreasi, bergerak aktif dan bermain dengan pengawasan.';
+
+  @override
+  String get lubukTimahTitle => 'Kolam Air Panas Lubuk Timah';
+
+  @override
+  String get lubukTimahDesc => 'Kawasan kolam air panas semula jadi yang dikelilingi kehijauan.';
+
+  @override
+  String get lubukTimahFull => 'Kolam Air Panas Lubuk Timah ialah destinasi berasaskan alam semula jadi yang menawarkan air panas, pemandangan hutan dan suasana luar yang santai. Ia sesuai untuk pengunjung yang mencari aktiviti rekreasi ringkas.';
+
+  @override
+  String get xParkSunwayTitle => 'X Park Sunway City Ipoh';
+
+  @override
+  String get xParkSunwayDesc => 'Taman aktiviti luar yang menawarkan pengalaman pengembaraan dan rekreasi.';
+
+  @override
+  String get xParkSunwayFull => 'X Park Sunway City Ipoh menawarkan pelbagai aktiviti luar dan berasaskan pengembaraan. Ia sesuai untuk kumpulan, keluarga dan pengunjung yang mencari rekreasi aktif di kawasan Sunway City Ipoh.';
+
+  @override
+  String get tasikCerminTitle => 'Tasik Cermin 1';
+
+  @override
+  String get tasikCerminDesc => 'Tasik tersembunyi dengan air yang tenang dikelilingi tebing batu kapur.';
+
+  @override
+  String get tasikCerminFull => 'Tasik Cermin terkenal dengan permukaan air yang memantulkan pemandangan dan persekitaran batu kapur. Keindahan suasananya menjadikan lokasi ini popular untuk bersiar-siar dan fotografi.';
+
+  @override
+  String get dataranMbiFoodCourtTitle => 'Medan Selera Dataran MBI';
+
+  @override
+  String get dataranMbiFoodCourtDesc => 'Medan selera yang menawarkan pelbagai hidangan dan minuman tempatan.';
+
+  @override
+  String get dataranMbiFoodCourtFull => 'Medan Selera Dataran MBI menghimpunkan pelbagai pilihan makanan tempatan di satu lokasi yang mudah dikunjungi. Ia sesuai untuk pengunjung yang ingin menikmati hidangan Malaysia dan minuman secara santai.';
+
+  @override
+  String get meeRebusRamliTitle => 'Restoran Mee Rebus Ramli - Taman Tasek Jaya';
+
+  @override
+  String get meeRebusRamliDesc => 'Restoran tempatan yang terkenal dengan mee rebus dan cita rasa Malaysia.';
+
+  @override
+  String get meeRebusRamliFull => 'Restoran Mee Rebus Ramli di Taman Tasek Jaya ialah destinasi makanan tempatan yang menyediakan mee rebus dan hidangan Malaysia yang lain. Ia sesuai untuk pengunjung yang mencari hidangan tempatan secara santai.';
+
+  @override
+  String get redBrickKitchenTitle => 'Red Brick Kitchen';
+
+  @override
+  String get redBrickKitchenDesc => 'Tempat makan yang selesa dengan suasana moden dan mesra.';
+
+  @override
+  String get redBrickKitchenFull => 'Red Brick Kitchen menawarkan suasana makan santai dengan ruang dalaman moden serta pelbagai pilihan hidangan. Ia sesuai untuk keluarga, rakan-rakan dan pengunjung yang mencari tempat makan yang selesa di Ipoh.';
 }

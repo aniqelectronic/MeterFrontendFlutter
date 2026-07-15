@@ -11,6 +11,7 @@ import 'package:frontend_v1/pages/p_exploration_cameronhighlands.dart';
 import 'package:frontend_v1/pages/p_exploration_subangjaya.dart';
 import 'package:frontend_v1/pages/p_exploration_tapah.dart';
 import 'package:frontend_v1/pages/pbentongexploration.dart';
+import 'package:frontend_v1/pages/pexploration_ipoh.dart';
 import 'package:frontend_v1/pages/pexploration_kampar.dart';
 import 'package:frontend_v1/pages/pexploration_melaka.dart';
 import 'package:frontend_v1/pages/pexploration_rompin.dart';
@@ -116,7 +117,7 @@ class PTOURISTPAGE extends StatelessWidget {
              Navigator.push(
                context,
                MaterialPageRoute(
-                 builder: (_) => const PExplorationBentongPage(),
+                 builder: (_) => const PExplorationIpohPage(),
                ),
              );
               },

@@ -44,8 +44,14 @@ class _PWAKTUSOLATPAGEState extends State<PWAKTUSOLATPAGE> {
 
   /// ================= FETCH API =================
   Future<void> fetchPrayerTimes() async {
-    final response = await http.get(Uri.parse(
-        Config.waktusolaturl));
+    //deployment url
+
+    // final response = await http.get(Uri.parse(
+    //     Config.waktusolaturl));
+
+    //demo url
+        final response = await http.get(Uri.parse(
+        Data.waktusolaturldemo));
 
     final data = json.decode(response.body);
     final prayer = data["prayerTime"][0];
@@ -263,7 +269,8 @@ String formatHijri(String hijri) {
               children: [
                 // LOCATION BAR
                 Text(
-                  Config.waktusolatplace.toUpperCase(),
+                  // Config.waktusolatplace.toUpperCase(),
+                  Data.waktusolatplacedemo.toUpperCase(),
                   style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold, letterSpacing: 2),
                 ),
 
