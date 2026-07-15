@@ -111,7 +111,7 @@ class IoTHubService {
         _telemetryTimer?.cancel();
 
         if (!_isManualReconnect) {
-          Future.delayed(const Duration(seconds: 5), () {
+          Future.delayed(const Duration(minutes: 5), () {
             if (!isConnected && !_isConnecting) {
               connect();
             }
@@ -197,11 +197,11 @@ class IoTHubService {
 
     print('📡 Starting telemetry...');
 
-    // Send immediately after connecting.
-    unawaited(_sendTelemetry());
+    // // Send immediately after connecting.
+    // unawaited(_sendTelemetry());
 
     _telemetryTimer = Timer.periodic(
-      const Duration(seconds: 60),
+      const Duration(minutes: 5),
       (_) {
         unawaited(_sendTelemetry());
       },

@@ -938,7 +938,7 @@ Positioned(
 
                           if (!mounted) return;
 
-                          // Show the same type of processing/success card as QR payment.
+                          
                           showCardPaymentSuccessDialog(
                             context,
                             amount: widget.data.amount ?? '0.00',
