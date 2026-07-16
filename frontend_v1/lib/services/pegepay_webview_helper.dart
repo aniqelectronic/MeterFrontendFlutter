@@ -74,7 +74,7 @@ class PegePayWebViewHelper {
            * The Linux commands below force fullscreen afterward.
            */
           windowWidth: 800,
-          windowHeight: 1320,
+          windowHeight: 1280,
           windowPosX: 0,
           windowPosY: 0,
           useWindowPositionAndSize: true,
@@ -579,7 +579,7 @@ fi
            * web page title changes.
            */
           await Future.delayed(
-            const Duration(milliseconds: 500),
+            const Duration(milliseconds: 1000),
           );
 
           if (sessionId == _activeSessionId) {
@@ -616,13 +616,13 @@ fi
   // REAPPLY FULLSCREEN AFTER PAGE TITLE CHANGES
   // ============================================================
 
-  static Future<void> _reapplyFullscreen() async {
-    try {
-      await Process.run(
-        'bash',
-        [
-          '-c',
-          r'''
+static Future<void> _reapplyFullscreen() async {
+  try {
+    final result = await Process.run(
+      'bash',
+      [
+        '-c',
+        r'''
 export DISPLAY=:0
 export XAUTHORITY=/home/orin_nano/.Xauthority
 
@@ -633,17 +633,58 @@ if [ -z "$WIN_ID" ]; then
 fi
 
 if [ -n "$WIN_ID" ]; then
-  wmctrl -ir "$WIN_ID" -b add,fullscreen 2>/dev/null
-  wmctrl -ia "$WIN_ID" 2>/dev/null
-  xdotool windowraise "$WIN_ID" 2>/dev/null
+  # Get the actual screen resolution, for example 800x1280.
+  SCREEN_SIZE=$(xrandr \
+    | grep ' connected primary' \
+    | grep -oE '[0-9]+x[0-9]+\+[0-9]+\+[0-9]+' \
+    | head -n 1 \
+    | cut -d'+' -f1)
+
+  if [ -z "$SCREEN_SIZE" ]; then
+    SCREEN_SIZE=$(xrandr \
+      | grep '\*' \
+      | head -n 1 \
+      | awk '{print $1}')
+  fi
+
+  SCREEN_WIDTH=$(echo "$SCREEN_SIZE" | cut -d'x' -f1)
+  SCREEN_HEIGHT=$(echo "$SCREEN_SIZE" | cut -d'x' -f2)
+
+  # Remove the Linux title bar and window border.
+  xprop -id "$WIN_ID" \
+    -f _MOTIF_WM_HINTS 32c \
+    -set _MOTIF_WM_HINTS "2, 0, 0, 0, 0"
+
+  # Clear existing window states first.
+  wmctrl -ir "$WIN_ID" \
+    -b remove,fullscreen,maximized_vert,maximized_horz
+
+  sleep 0.2
+
+  # Force the WebView to cover the complete physical screen.
+  xdotool windowmove "$WIN_ID" 0 0
+  xdotool windowsize "$WIN_ID" "$SCREEN_WIDTH" "$SCREEN_HEIGHT"
+
+  # Apply fullscreen again.
+  wmctrl -ir "$WIN_ID" -b add,fullscreen
+  wmctrl -ir "$WIN_ID" -b add,above
+
+  xdotool windowactivate --sync "$WIN_ID"
+  xdotool windowraise "$WIN_ID"
+
+  echo "Fullscreen applied: ${SCREEN_WIDTH}x${SCREEN_HEIGHT}"
 fi
 ''',
-        ],
-      );
-    } catch (e) {
-      print('[PegePay] Fullscreen reapply failed: $e');
-    }
+      ],
+    );
+
+    print(
+      '[PegePay] ${result.stdout.toString().trim()}',
+    );
+  } catch (e) {
+    print('[PegePay] Fullscreen reapply failed: $e');
   }
+}
 
   // ============================================================
   // FORCE-CLOSE LEFTOVER QR WINDOWS
