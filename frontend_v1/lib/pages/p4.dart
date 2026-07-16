@@ -99,18 +99,18 @@ class _P4PAGEState extends State<P4PAGE> {
       builder: (_) => AlertDialog(
         title: Text(
           AppLocalizations.of(context)!.alertTitle,
-          style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
         ),
         content: Text(
           AppLocalizations.of(context)!.parkingExpiredAfter6pm,
-          style: const TextStyle(fontSize: 30),
+          style: const TextStyle(fontSize: 40),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
               AppLocalizations.of(context)!.buttonBack,
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -118,32 +118,176 @@ class _P4PAGEState extends State<P4PAGE> {
     );
   }
 
-  void _showAlert(String title, String message) {
-    if (!mounted) return;
+void _showAlert(
+  String title,
+  String message, {
+  IconData icon = Icons.info_outline_rounded,
+  Color iconColor = const Color.fromARGB(255, 3, 89, 210),
+}) {
+  if (!mounted) return;
 
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(
-          title,
-          style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-        ),
-        content: Text(
-          message,
-          style: const TextStyle(fontSize: 30),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text(
-              "OK",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+  showGeneralDialog(
+    context: context,
+    barrierDismissible: false,
+    barrierLabel: "Alert",
+    barrierColor: Colors.black.withOpacity(0.65),
+    transitionDuration: const Duration(milliseconds: 250),
+    pageBuilder: (dialogContext, animation, secondaryAnimation) {
+      return SafeArea(
+        child: Center(
+          child: Material(
+            color: Colors.transparent,
+            child: Container(
+              width: 850,
+              constraints: const BoxConstraints(
+                minHeight: 520,
+                maxHeight: 1050,
+              ),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 50,
+                vertical: 80,
+              ),
+              padding: const EdgeInsets.fromLTRB(55, 45, 55, 45),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(38),
+                border: Border.all(
+                  color: iconColor.withOpacity(0.25),
+                  width: 3,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.30),
+                    blurRadius: 35,
+                    offset: const Offset(0, 15),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // ================= ICON =================
+                  Container(
+                    width: 145,
+                    height: 145,
+                    decoration: BoxDecoration(
+                      color: iconColor.withOpacity(0.12),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      icon,
+                      size: 90,
+                      color: iconColor,
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  // ================= TITLE =================
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 20, 45, 80),
+                      fontSize: 52,
+                      fontWeight: FontWeight.w900,
+                      height: 1.15,
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  Container(
+                    width: 130,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: iconColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  // ================= MESSAGE =================
+                  Flexible(
+                    child: SingleChildScrollView(
+                      child: Text(
+                        message,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 65, 72, 82),
+                          fontSize: 50,
+                          fontWeight: FontWeight.w600,
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 45),
+
+                  // ================= OK BUTTON =================
+                  SizedBox(
+                    width: double.infinity,
+                    height: 105,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.of(dialogContext).pop();
+                      },
+                      icon: const Icon(
+                        Icons.check_circle_outline_rounded,
+                        size: 42,
+                      ),
+                      label: const Text(
+                        "OK",
+                        style: TextStyle(
+                          fontSize: 38,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.5,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: iconColor,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(22),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      );
+    },
+    transitionBuilder: (
+      context,
+      animation,
+      secondaryAnimation,
+      child,
+    ) {
+      final curvedAnimation = CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeOutBack,
+        reverseCurve: Curves.easeIn,
+      );
+
+      return FadeTransition(
+        opacity: animation,
+        child: ScaleTransition(
+          scale: Tween<double>(
+            begin: 0.85,
+            end: 1.0,
+          ).animate(curvedAnimation),
+          child: child,
+        ),
+      );
+    },
+  );
+}
 
   void _backspace() {
     if (_isLoading) return;
@@ -522,24 +666,59 @@ class _P4PAGEState extends State<P4PAGE> {
             ),
           ),
 
-        Positioned(
-          top: 60,
-          left: 50,
-          right: 50,
-          child: Center(
-            child: Text(
-              widget.title,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.visible,
-              style: const TextStyle(
-                color: Color.fromARGB(255, 3, 89, 210),
-                fontSize: 60,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+      Positioned(
+        top: 45,
+        left: 90,
+        right: 90,
+        child:Container(
+        height: 110,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xFF0D47A1),
+              Color(0xFF1976D2),
+              Color(0xFF42A5F5),
+            ],
           ),
         ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Center(
+              child: Text(
+                widget.title,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 48,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
+            // Keyboard icon on the left
+            Positioned(
+              left: 28,
+              child: Container(
+                width: 70,
+                height: 70,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: const Icon(
+                  Icons.keyboard_alt_rounded,
+                  color: Colors.white,
+                  size: 42,
+                ),
+              ),
+            ),
+          ],
+        ),
+      )
+      ),
 
           Positioned(
             top: 230,
