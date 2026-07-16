@@ -144,10 +144,6 @@ class PegePayWebViewHelper {
     ).replace(
       queryParameters: {
         'iframe_url': iframeUrl,
-
-        // Prevent reuse of the old wrapper page.
-        'timestamp':
-            DateTime.now().millisecondsSinceEpoch.toString(),
       },
     ).toString();
 
