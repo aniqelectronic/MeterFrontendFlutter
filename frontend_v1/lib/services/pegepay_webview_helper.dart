@@ -78,7 +78,7 @@ class PegePayWebViewHelper {
           windowPosX: 0,
           windowPosY: 0,
           useWindowPositionAndSize: true,
-          openMaximized: false,
+          openMaximized: true,
         ),
       );
 
