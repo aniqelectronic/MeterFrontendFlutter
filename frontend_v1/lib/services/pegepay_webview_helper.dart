@@ -11,12 +11,19 @@ class PegePayWebViewHelper {
   static Webview? _currentWebview;
   static Timer? _statusTimer;
 
-  static bool _completed = false;
-  static bool _isClosing = false;
+  /// Every newly opened QR receives a different session ID.
+  ///
+  /// This prevents an old WebView's delayed onClose callback
+  /// from cancelling a newly opened payment.
+  static int _activeSessionId = 0;
 
-  // True when Flutter closes the WebView itself.
-  // Prevents onClose from calling onCancel again.
-  static bool _programmaticClose = false;
+  /// Session currently being closed by Flutter.
+  ///
+  /// When onClose fires for this session, it must not call
+  /// onCancel again.
+  static int? _programmaticClosingSessionId;
+
+  static bool _isClosing = false;
 
   // ============================================================
   // OPEN PEGEpay QR WEBVIEW
@@ -28,54 +35,100 @@ class PegePayWebViewHelper {
     required Function(Map<String, dynamic>) onSuccess,
     required Function onCancel,
   }) async {
-    print('[PegePay] Opening QR WebView for order: $orderNo');
+    print('[PegePay] Opening QR for order: $orderNo');
 
-    // Close an old QR window before opening another one.
+    /*
+     * Invalidate every callback belonging to the previous WebView
+     * before closing that previous window.
+     */
+    final int sessionId = ++_activeSessionId;
+
     await _closeOldWebView();
 
-    _completed = false;
-    _isClosing = false;
-    _programmaticClose = false;
+    /*
+     * Another open() might have started while cleanup was running.
+     */
+    if (sessionId != _activeSessionId) {
+      print('[PegePay] Open request superseded by a newer session');
+      return;
+    }
+
+    bool finished = false;
+    bool cancelCallbackCalled = false;
 
     late final Webview webview;
 
     try {
       webview = await WebviewWindow.create(
         configuration: const CreateConfiguration(
+          /*
+           * Initial Linux window title.
+           *
+           * After the webpage loads, Linux may change this to:
+           * "PegePay QR Payment"
+           */
           title: 'PegePayQR',
 
-          // These are only initial values.
-          // Linux wmctrl will make it fullscreen afterward.
+          /*
+           * Temporary size only.
+           * The Linux commands below force fullscreen afterward.
+           */
           windowWidth: 800,
           windowHeight: 1320,
           windowPosX: 0,
           windowPosY: 0,
-
           useWindowPositionAndSize: true,
           openMaximized: false,
         ),
       );
 
+      if (sessionId != _activeSessionId) {
+        try {
+          webview.close();
+        } catch (_) {}
+
+        return;
+      }
+
       _currentWebview = webview;
     } catch (e) {
       print('[PegePay] Failed to create WebView: $e');
 
-      await _restoreFlutterWindow();
+      if (sessionId == _activeSessionId) {
+        finished = true;
+        await _restoreFlutterWindow();
 
-      if (!_completed) {
-        _completed = true;
-        onCancel();
+        if (!cancelCallbackCalled) {
+          cancelCallbackCalled = true;
+          onCancel();
+        }
       }
 
       return;
     }
 
     // ==========================================================
-    // USER PRESSES X ON THE WEBVIEW WINDOW
+    // WEBVIEW WINDOW CLOSED
     // ==========================================================
 
     webview.onClose.whenComplete(() async {
-      print('[PegePay] WebView onClose triggered');
+      print(
+        '[PegePay] onClose received for session $sessionId',
+      );
+
+      /*
+       * Very important:
+       *
+       * Ignore onClose events from old WebViews. Previously, an old
+       * delayed callback could cancel the newly opened QR screen.
+       */
+      if (sessionId != _activeSessionId) {
+        print(
+          '[PegePay] Ignoring old onClose event '
+          'for session $sessionId',
+        );
+        return;
+      }
 
       _statusTimer?.cancel();
       _statusTimer = null;
@@ -86,31 +139,42 @@ class PegePayWebViewHelper {
 
       await _restoreFlutterWindow();
 
-      // The WebView was closed because:
-      // - payment succeeded
-      // - Cancel button was pressed
-      // - close() was called manually
-      //
-      // Do not call onCancel again.
-      if (_programmaticClose || _completed) {
-        print('[PegePay] Programmatic WebView close completed');
+      /*
+       * Flutter intentionally closed this window because:
+       * - Cancel was pressed
+       * - payment succeeded
+       * - close() was called
+       */
+      if (_programmaticClosingSessionId == sessionId || finished) {
+        print(
+          '[PegePay] Programmatic close completed '
+          'for session $sessionId',
+        );
         return;
       }
 
-      // The user manually pressed the Linux X button.
-      print('[PegePay] User pressed WebView X');
+      /*
+       * The user manually pressed the Linux X button.
+       */
+      print('[PegePay] User pressed X');
 
-      _completed = true;
+      finished = true;
 
-      try {
-        onCancel();
-      } catch (e) {
-        print('[PegePay] onCancel error after X close: $e');
+      if (!cancelCallbackCalled) {
+        cancelCallbackCalled = true;
+
+        try {
+          onCancel();
+        } catch (e) {
+          print(
+            '[PegePay] onCancel failed after X close: $e',
+          );
+        }
       }
     });
 
     // ==========================================================
-    // CANCEL/BACK BUTTON FROM THE HTML WRAPPER
+    // CANCEL BUTTON FROM THE BACKEND WRAPPER
     // ==========================================================
 
     webview.addOnUrlRequestCallback((url) {
@@ -120,23 +184,37 @@ class PegePayWebViewHelper {
         return;
       }
 
-      if (_completed || _isClosing) {
+      if (sessionId != _activeSessionId) {
+        print('[PegePay] Ignoring cancel from old session');
         return;
       }
 
-      print('[PegePay] Cancel requested from wrapper page');
+      if (finished || _isClosing) {
+        print('[PegePay] Cancel already being processed');
+        return;
+      }
 
-      _completed = true;
+      print('[PegePay] Cancel button pressed');
+
+      finished = true;
 
       unawaited(
-        _cancelPayment(
-          onCancel: onCancel,
+        _handleCancel(
+          sessionId: sessionId,
+          onCancel: () {
+            if (cancelCallbackCalled) {
+              return;
+            }
+
+            cancelCallbackCalled = true;
+            onCancel();
+          },
         ),
       );
     });
 
     // ==========================================================
-    // BUILD WRAPPER URL
+    // WRAPPER URL
     // ==========================================================
 
     final wrapperUrl = Uri.parse(
@@ -154,51 +232,83 @@ class PegePayWebViewHelper {
     try {
       webview.launch(wrapperUrl);
     } catch (e) {
-      print('[PegePay] Failed to launch wrapper URL: $e');
+      print('[PegePay] Failed to launch WebView: $e');
 
-      if (!_completed) {
-        _completed = true;
+      if (sessionId == _activeSessionId && !finished) {
+        finished = true;
 
-        await _closeCurrentWebView();
+        await _closeCurrentWebView(
+          sessionId: sessionId,
+        );
+
         await _restoreFlutterWindow();
 
-        onCancel();
+        if (!cancelCallbackCalled) {
+          cancelCallbackCalled = true;
+          onCancel();
+        }
       }
 
       return;
     }
 
-    // Fullscreen after Linux creates the actual window.
-    unawaited(_makeWebViewFullscreen());
+    /*
+     * Run fullscreen detection in the background.
+     *
+     * It checks both possible Linux window titles:
+     * - PegePayQR
+     * - PegePay QR Payment
+     */
+    unawaited(
+      _makeWebViewFullscreen(
+        sessionId: sessionId,
+      ),
+    );
 
     // ==========================================================
-    // CHECK PAYMENT STATUS EVERY 2 SECONDS
+    // CHECK PAYMENT STATUS
     // ==========================================================
 
     _statusTimer?.cancel();
 
+    bool statusRequestRunning = false;
+
     _statusTimer = Timer.periodic(
       const Duration(seconds: 2),
       (timer) async {
-        if (_completed) {
+        if (sessionId != _activeSessionId || finished) {
           timer.cancel();
           return;
         }
+
+        /*
+         * Prevent overlapping HTTP status requests if one request
+         * takes longer than two seconds.
+         */
+        if (statusRequestRunning) {
+          return;
+        }
+
+        statusRequestRunning = true;
 
         try {
           final paid = await PegePayService.checkStatus(
             orderNo,
           );
 
-          if (!paid || _completed) {
+          if (sessionId != _activeSessionId || finished) {
+            return;
+          }
+
+          if (!paid) {
             return;
           }
 
           print(
-            '[PegePay] Payment successful for order: $orderNo',
+            '[PegePay] Payment successful for $orderNo',
           );
 
-          _completed = true;
+          finished = true;
 
           timer.cancel();
           _statusTimer = null;
@@ -208,40 +318,61 @@ class PegePayWebViewHelper {
             orderNo,
           );
 
-          // Close the QR window before displaying success UI.
-          await _closeCurrentWebView();
+          if (sessionId != _activeSessionId) {
+            return;
+          }
 
-          // Bring the main Flutter application forward.
+          /*
+           * Close only the QR WebView.
+           */
+          await _closeCurrentWebView(
+            sessionId: sessionId,
+          );
+
           await _restoreFlutterWindow();
 
           try {
             onSuccess(paymentResult);
           } catch (e) {
-            print('[PegePay] onSuccess callback error: $e');
+            print(
+              '[PegePay] onSuccess callback failed: $e',
+            );
           }
         } catch (e) {
-          // Do not close the QR screen because of one temporary
-          // status-check error.
           print('[PegePay] Status check error: $e');
+        } finally {
+          statusRequestRunning = false;
         }
       },
     );
   }
 
   // ============================================================
-  // CANCEL PAYMENT FROM WRAPPER BUTTON
+  // HANDLE CANCEL
   // ============================================================
 
-  static Future<void> _cancelPayment({
-    required Function onCancel,
+  static Future<void> _handleCancel({
+    required int sessionId,
+    required void Function() onCancel,
   }) async {
-    await _closeCurrentWebView();
+    if (sessionId != _activeSessionId) {
+      return;
+    }
+
+    await _closeCurrentWebView(
+      sessionId: sessionId,
+    );
+
     await _restoreFlutterWindow();
+
+    if (sessionId != _activeSessionId) {
+      return;
+    }
 
     try {
       onCancel();
     } catch (e) {
-      print('[PegePay] onCancel callback error: $e');
+      print('[PegePay] onCancel callback failed: $e');
     }
   }
 
@@ -250,25 +381,38 @@ class PegePayWebViewHelper {
   // ============================================================
 
   static Future<void> close() async {
-    print('[PegePay] Manual close requested');
+    final sessionId = _activeSessionId;
 
-    _completed = true;
+    print(
+      '[PegePay] Manual close requested '
+      'for session $sessionId',
+    );
 
-    await _closeCurrentWebView();
+    await _closeCurrentWebView(
+      sessionId: sessionId,
+    );
+
     await _restoreFlutterWindow();
   }
 
   // ============================================================
-  // CLOSE CURRENT WEBVIEW
+  // CLOSE CURRENT QR WEBVIEW
   // ============================================================
 
-  static Future<void> _closeCurrentWebView() async {
+  static Future<void> _closeCurrentWebView({
+    required int sessionId,
+  }) async {
+    if (sessionId != _activeSessionId) {
+      print('[PegePay] Refusing to close an old session');
+      return;
+    }
+
     if (_isClosing) {
       return;
     }
 
     _isClosing = true;
-    _programmaticClose = true;
+    _programmaticClosingSessionId = sessionId;
 
     _statusTimer?.cancel();
     _statusTimer = null;
@@ -278,29 +422,47 @@ class PegePayWebViewHelper {
 
     if (webview != null) {
       try {
-        print('[PegePay] Calling webview.close()');
+        print(
+          '[PegePay] Calling webview.close() '
+          'for session $sessionId',
+        );
 
-        // This closes only the separate QR WebView window.
-        // It does not close the main Flutter application.
+        /*
+         * This closes only the separate QR WebView window.
+         * It does not close the Flutter application.
+         */
         webview.close();
       } catch (e) {
         print('[PegePay] webview.close() failed: $e');
       }
     }
 
-    // Give desktop_webview_window time to close normally.
+    await Future.delayed(
+      const Duration(milliseconds: 400),
+    );
+
+    /*
+     * Remove any Linux QR window that failed to close normally.
+     */
+    await _forceClosePegePayWindows();
+
+    _isClosing = false;
+
+    /*
+     * Keep the programmatic-close marker briefly because onClose
+     * may be delivered slightly later.
+     */
     await Future.delayed(
       const Duration(milliseconds: 300),
     );
 
-    // Remove any window that did not close properly.
-    await _forceClosePegePayWindows();
-
-    _isClosing = false;
+    if (_programmaticClosingSessionId == sessionId) {
+      _programmaticClosingSessionId = null;
+    }
   }
 
   // ============================================================
-  // CLOSE ANY PREVIOUS WEBVIEW
+  // CLOSE PREVIOUS WEBVIEW BEFORE OPENING A NEW ONE
   // ============================================================
 
   static Future<void> _closeOldWebView() async {
@@ -321,7 +483,7 @@ class PegePayWebViewHelper {
       }
 
       await Future.delayed(
-        const Duration(milliseconds: 300),
+        const Duration(milliseconds: 400),
       );
     }
 
@@ -329,39 +491,73 @@ class PegePayWebViewHelper {
   }
 
   // ============================================================
-  // MAKE WEBVIEW FULLSCREEN
+  // MAKE LINUX WEBVIEW FULLSCREEN
   // ============================================================
 
-  static Future<void> _makeWebViewFullscreen() async {
-    // Retry because the Linux window may not exist immediately
-    // after webview.launch().
-    for (int attempt = 1; attempt <= 15; attempt++) {
+  static Future<void> _makeWebViewFullscreen({
+    required int sessionId,
+  }) async {
+    /*
+     * Retry for approximately eight seconds because:
+     * - the native window may appear late
+     * - the title may change after HTML loads
+     */
+    for (int attempt = 1; attempt <= 40; attempt++) {
+      if (sessionId != _activeSessionId) {
+        return;
+      }
+
       try {
         final result = await Process.run(
           'bash',
           [
             '-c',
-            '''
+            r'''
 export DISPLAY=:0
 export XAUTHORITY=/home/orin_nano/.Xauthority
 
-WIN_ID=\$(xdotool search --name "PegePayQR" 2>/dev/null | tail -n 1)
+# The initial native title is "PegePayQR".
+WIN_ID=$(xdotool search --name "^PegePayQR$" 2>/dev/null | tail -n 1)
 
-if [ -n "\$WIN_ID" ]; then
-  xprop -id "\$WIN_ID" \
+# After the HTML page loads, the title can change to this.
+if [ -z "$WIN_ID" ]; then
+  WIN_ID=$(xdotool search --name "PegePay QR Payment" 2>/dev/null | tail -n 1)
+fi
+
+# Fallback: find either title from wmctrl.
+if [ -z "$WIN_ID" ]; then
+  WIN_ID=$(wmctrl -l 2>/dev/null \
+    | grep -E "PegePayQR|PegePay QR Payment" \
+    | tail -n 1 \
+    | awk '{print $1}')
+fi
+
+if [ -n "$WIN_ID" ]; then
+  # Remove native border/title decoration.
+  xprop -id "$WIN_ID" \
     -f _MOTIF_WM_HINTS 32c \
-    -set _MOTIF_WM_HINTS "0x2, 0x0, 0x0, 0x0, 0x0"
+    -set _MOTIF_WM_HINTS "0x2, 0x0, 0x0, 0x0, 0x0" \
+    2>/dev/null
 
-  wmctrl -ir "\$WIN_ID" \
-    -b remove,maximized_vert,maximized_horz
+  # Remove previous states first.
+  wmctrl -ir "$WIN_ID" \
+    -b remove,maximized_vert,maximized_horz \
+    2>/dev/null
 
-  wmctrl -ir "\$WIN_ID" \
-    -b add,fullscreen
+  # Move it to the top-left before fullscreen.
+  xdotool windowmove "$WIN_ID" 0 0 2>/dev/null
 
-  xdotool windowactivate --sync "\$WIN_ID"
-  xdotool windowraise "\$WIN_ID"
+  # Apply real Linux fullscreen.
+  wmctrl -ir "$WIN_ID" \
+    -b add,fullscreen \
+    2>/dev/null
 
-  echo "FOUND"
+  # Activate and raise it above the Flutter window.
+  wmctrl -ia "$WIN_ID" 2>/dev/null
+  xdotool windowactivate --sync "$WIN_ID" 2>/dev/null
+  xdotool windowraise "$WIN_ID" 2>/dev/null
+
+  echo "FOUND:$WIN_ID"
 else
   echo "NOT_FOUND"
 fi
@@ -369,18 +565,39 @@ fi
           ],
         );
 
-        final output = result.stdout.toString();
+        final output = result.stdout.toString().trim();
 
-        if (output.contains('FOUND')) {
+        if (output.startsWith('FOUND:')) {
           print(
-            '[PegePay] WebView fullscreen enabled',
+            '[PegePay] Linux WebView fullscreen enabled: '
+            '$output',
           );
+
+          /*
+           * Apply fullscreen again after a short delay because
+           * some Linux window managers replace the state when the
+           * web page title changes.
+           */
+          await Future.delayed(
+            const Duration(milliseconds: 500),
+          );
+
+          if (sessionId == _activeSessionId) {
+            await _reapplyFullscreen();
+          }
+
           return;
+        }
+
+        if (attempt == 1 || attempt % 5 == 0) {
+          print(
+            '[PegePay] Waiting for Linux QR window '
+            '(attempt $attempt)',
+          );
         }
       } catch (e) {
         print(
-          '[PegePay] Fullscreen attempt '
-          '$attempt failed: $e',
+          '[PegePay] Fullscreen attempt $attempt failed: $e',
         );
       }
 
@@ -390,12 +607,46 @@ fi
     }
 
     print(
-      '[PegePay] Unable to find QR window for fullscreen',
+      '[PegePay] QR window was not found for fullscreen. '
+      'Check xdotool, wmctrl, DISPLAY and XAUTHORITY.',
     );
   }
 
   // ============================================================
-  // FORCE CLOSE LEFTOVER PEGEpay WINDOWS
+  // REAPPLY FULLSCREEN AFTER PAGE TITLE CHANGES
+  // ============================================================
+
+  static Future<void> _reapplyFullscreen() async {
+    try {
+      await Process.run(
+        'bash',
+        [
+          '-c',
+          r'''
+export DISPLAY=:0
+export XAUTHORITY=/home/orin_nano/.Xauthority
+
+WIN_ID=$(xdotool search --name "PegePay QR Payment" 2>/dev/null | tail -n 1)
+
+if [ -z "$WIN_ID" ]; then
+  WIN_ID=$(xdotool search --name "PegePayQR" 2>/dev/null | tail -n 1)
+fi
+
+if [ -n "$WIN_ID" ]; then
+  wmctrl -ir "$WIN_ID" -b add,fullscreen 2>/dev/null
+  wmctrl -ia "$WIN_ID" 2>/dev/null
+  xdotool windowraise "$WIN_ID" 2>/dev/null
+fi
+''',
+        ],
+      );
+    } catch (e) {
+      print('[PegePay] Fullscreen reapply failed: $e');
+    }
+  }
+
+  // ============================================================
+  // FORCE-CLOSE LEFTOVER QR WINDOWS
   // ============================================================
 
   static Future<void> _forceClosePegePayWindows() async {
@@ -404,15 +655,18 @@ fi
         'bash',
         [
           '-c',
-          '''
+          r'''
 export DISPLAY=:0
 export XAUTHORITY=/home/orin_nano/.Xauthority
 
-for WIN_ID in \$(xdotool search --name "PegePayQR" 2>/dev/null); do
-  wmctrl -ir "\$WIN_ID" \
-    -b remove,fullscreen 2>/dev/null
-
-  xdotool windowkill "\$WIN_ID" 2>/dev/null
+{
+  xdotool search --name "PegePayQR" 2>/dev/null
+  xdotool search --name "PegePay QR Payment" 2>/dev/null
+} | sort -u | while read -r WIN_ID; do
+  if [ -n "$WIN_ID" ]; then
+    wmctrl -ir "$WIN_ID" -b remove,fullscreen 2>/dev/null
+    xdotool windowclose "$WIN_ID" 2>/dev/null
+  fi
 done
 ''',
         ],
@@ -427,7 +681,7 @@ done
   }
 
   // ============================================================
-  // RESTORE MAIN FLUTTER KIOSK WINDOW
+  // RESTORE MAIN FLUTTER WINDOW
   // ============================================================
 
   static Future<void> _restoreFlutterWindow() async {
@@ -437,11 +691,7 @@ done
       );
 
       await windowManager.show();
-
-      // Ensure the main application is fullscreen again.
       await windowManager.setFullScreen(true);
-
-      // Temporarily bring it above the WebView.
       await windowManager.setAlwaysOnTop(true);
       await windowManager.focus();
 
@@ -450,13 +700,11 @@ done
       );
 
       await windowManager.focus();
-
-      // Return to normal after focus is restored.
       await windowManager.setAlwaysOnTop(false);
 
       currentRouteName = '/payment';
 
-      print('[PegePay] Main Flutter window restored');
+      print('[PegePay] Flutter window restored');
     } catch (e) {
       print(
         '[PegePay] Failed to restore Flutter window: $e',
