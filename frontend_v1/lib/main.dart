@@ -328,147 +328,364 @@ class _AppState extends State<App> {
   }
 
   // ================= WARNING DIALOG =================
-  void _showIdleWarning() {
-    if (_warningShown) return;
-    if (_isBlockedWarningPage()) return;
+void _showIdleWarning() {
+  if (_warningShown) return;
+  if (_isBlockedWarningPage()) return;
 
-    final overlayContext = navigatorKey.currentState?.overlay?.context;
-    if (overlayContext == null) return;
+  final overlayContext = navigatorKey.currentState?.overlay?.context;
+  if (overlayContext == null) return;
 
-    final loc = AppLocalizations.of(overlayContext);
-    if (loc == null) return;
+  final loc = AppLocalizations.of(overlayContext);
+  if (loc == null) return;
 
-    _warningShown = true;
+  _warningShown = true;
 
-    _restoreBrightness();
+  _restoreBrightness();
 
-    _remainingSeconds = countdownSeconds;
+  _remainingSeconds = countdownSeconds;
 
-    showDialog(
-      context: overlayContext,
-      barrierDismissible: false,
-      builder: (_) {
-        return StatefulBuilder(
-          builder: (dialogContext, setDialogState) {
-            _countdownTimer?.cancel();
+  showDialog(
+    context: overlayContext,
+    barrierDismissible: false,
 
-            _countdownTimer =
-                Timer.periodic(const Duration(seconds: 1), (timer) {
-              if (_isBlockedWarningPage()) {
-                timer.cancel();
+    // Darkens the background so the warning is easy to notice.
+    barrierColor: Colors.black.withOpacity(0.65),
 
-                _warningShown = false;
+    builder: (_) {
+      return StatefulBuilder(
+        builder: (dialogContext, setDialogState) {
+          _countdownTimer?.cancel();
 
-                if (Navigator.of(dialogContext, rootNavigator: true).canPop()) {
-                  Navigator.of(dialogContext, rootNavigator: true).pop();
-                }
+          _countdownTimer =
+              Timer.periodic(const Duration(seconds: 1), (timer) {
+            if (_isBlockedWarningPage()) {
+              timer.cancel();
 
-                return;
+              _warningShown = false;
+
+              if (Navigator.of(dialogContext, rootNavigator: true).canPop()) {
+                Navigator.of(
+                  dialogContext,
+                  rootNavigator: true,
+                ).pop();
               }
 
-              if (_remainingSeconds <= 0) {
-                timer.cancel();
+              return;
+            }
 
-                if (Navigator.of(dialogContext, rootNavigator: true).canPop()) {
-                  Navigator.of(dialogContext, rootNavigator: true).pop();
-                }
+            if (_remainingSeconds <= 0) {
+              timer.cancel();
 
-                _goHome();
-              } else {
-                setDialogState(() {
-                  _remainingSeconds--;
-                });
+              if (Navigator.of(dialogContext, rootNavigator: true).canPop()) {
+                Navigator.of(
+                  dialogContext,
+                  rootNavigator: true,
+                ).pop();
               }
-            });
 
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+              _goHome();
+            } else {
+              setDialogState(() {
+                _remainingSeconds--;
+              });
+            }
+          });
+
+          final double countdownProgress =
+              (_remainingSeconds / countdownSeconds)
+                  .clamp(0.0, 1.0)
+                  .toDouble();
+
+          final bool isUrgent = _remainingSeconds <= 10;
+
+          final Color countdownColor = isUrgent
+              ? Colors.red
+              : const Color.fromARGB(255, 3, 89, 210);
+
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            insetPadding: const EdgeInsets.symmetric(
+              horizontal: 80,
+              vertical: 80,
+            ),
+            child: Container(
+              width: 760,
+              padding: const EdgeInsets.fromLTRB(
+                42,
+                40,
+                42,
+                36,
               ),
-              child: Container(
-                width: 600,
-                height: 600,
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      loc.idleTitle,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(32),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    blurRadius: 35,
+                    offset: const Offset(0, 16),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // ================= WARNING ICON =================
+                  Container(
+                    width: 92,
+                    height: 92,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(
+                        255,
+                        255,
+                        246,
+                        225,
                       ),
+                      borderRadius: BorderRadius.circular(26),
                     ),
-                    const SizedBox(height: 20),
-                    Text(
+                    child: const Icon(
+                      Icons.hourglass_top_rounded,
+                      size: 52,
+                      color: Colors.orange,
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ================= TITLE =================
+                  Text(
+                    loc.idleTitle,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 44,
+                      height: 1.15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+
+                  const SizedBox(height: 14),
+
+                  Container(
+                    width: 75,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(
+                        255,
+                        3,
+                        89,
+                        210,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+
+                  const SizedBox(height: 34),
+
+                  // ================= COUNTDOWN =================
+                  SizedBox(
+                    width: 190,
+                    height: 190,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SizedBox.expand(
+                          child: CircularProgressIndicator(
+                            value: countdownProgress,
+                            strokeWidth: 14,
+                            backgroundColor: Colors.grey.shade200,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              countdownColor,
+                            ),
+                          ),
+                        ),
+
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AnimatedSwitcher(
+                              duration:
+                                  const Duration(milliseconds: 250),
+                              transitionBuilder: (
+                                Widget child,
+                                Animation<double> animation,
+                              ) {
+                                return FadeTransition(
+                                  opacity: animation,
+                                  child: ScaleTransition(
+                                    scale: animation,
+                                    child: child,
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "$_remainingSeconds",
+                                key: ValueKey<int>(_remainingSeconds),
+                                style: TextStyle(
+                                  fontSize: 62,
+                                  height: 1,
+                                  fontWeight: FontWeight.bold,
+                                  color: countdownColor,
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 5),
+
+                            Icon(
+                              Icons.timer_outlined,
+                              size: 30,
+                              color: Colors.grey.shade500,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  // ================= MESSAGE =================
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 22,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(
+                        255,
+                        245,
+                        248,
+                        253,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
                       loc.idleMessage(_remainingSeconds),
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 30),
-                    ),
-                    const SizedBox(height: 100),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 60,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          foregroundColor: Colors.black,
-                          textStyle: const TextStyle(fontSize: 30),
-                        ),
-                        onPressed: () {
-                          _countdownTimer?.cancel();
-
-                          if (Navigator.of(dialogContext, rootNavigator: true)
-                              .canPop()) {
-                            Navigator.of(dialogContext, rootNavigator: true)
-                                .pop();
-                          }
-
-                          _warningShown = false;
-
-                          _restoreBrightness();
-                          _resetIdleTimers();
-                        },
-                        child: Text(loc.idleContinue),
+                      style: const TextStyle(
+                        fontSize: 29,
+                        height: 1.4,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black87,
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 60,
-                      child: OutlinedButton(
-                        onPressed: () {
-                          _countdownTimer?.cancel();
+                  ),
 
-                          if (Navigator.of(dialogContext, rootNavigator: true)
-                              .canPop()) {
-                            Navigator.of(dialogContext, rootNavigator: true)
-                                .pop();
-                          }
+                  const SizedBox(height: 38),
 
-                          _warningShown = false;
+                  // ================= CONTINUE BUTTON =================
+                  SizedBox(
+                    width: double.infinity,
+                    height: 90,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(
+                          255,
+                          3,
+                          89,
+                          210,
+                        ),
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                      ),
+                      onPressed: () {
+                        _countdownTimer?.cancel();
 
-                          _goHome();
-                        },
-                        child: Text(
-                          loc.idleGoHome,
-                          style: const TextStyle(fontSize: 24),
+                        if (Navigator.of(
+                          dialogContext,
+                          rootNavigator: true,
+                        ).canPop()) {
+                          Navigator.of(
+                            dialogContext,
+                            rootNavigator: true,
+                          ).pop();
+                        }
+
+                        _warningShown = false;
+
+                        _restoreBrightness();
+                        _resetIdleTimers();
+                      },
+                      icon: const Icon(
+                        Icons.touch_app_rounded,
+                        size: 38,
+                      ),
+                      label: Text(
+                        loc.idleContinue,
+                        style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+
+                  const SizedBox(height: 18),
+
+                  // ================= HOME BUTTON =================
+                  SizedBox(
+                    width: double.infinity,
+                    height: 82,
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.black87,
+                        backgroundColor: Colors.grey.shade50,
+                        side: BorderSide(
+                          color: Colors.grey.shade400,
+                          width: 2,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                      ),
+                      onPressed: () {
+                        _countdownTimer?.cancel();
+
+                        if (Navigator.of(
+                          dialogContext,
+                          rootNavigator: true,
+                        ).canPop()) {
+                          Navigator.of(
+                            dialogContext,
+                            rootNavigator: true,
+                          ).pop();
+                        }
+
+                        _warningShown = false;
+
+                        _goHome();
+                      },
+                      icon: const Icon(
+                        Icons.home_outlined,
+                        size: 35,
+                      ),
+                      label: Text(
+                        loc.idleGoHome,
+                        style: const TextStyle(
+                          fontSize: 29,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            );
-          },
-        );
-      },
-    ).then((_) {
-      _countdownTimer?.cancel();
-      _warningShown = false;
-    });
-  }
+            ),
+          );
+        },
+      );
+    },
+  ).then((_) {
+    _countdownTimer?.cancel();
+    _warningShown = false;
+  });
+}
 
   // ================= TOUCH =================
   void _handleUserTouch() {

@@ -470,7 +470,7 @@ abstract class AppLocalizations {
   /// No description provided for @continueButton.
   ///
   /// In en, this message translates to:
-  /// **'CONTINUE'**
+  /// **'Continue'**
   String get continueButton;
 
   /// No description provided for @semakanSewaanWarningTitle.
@@ -617,17 +617,47 @@ abstract class AppLocalizations {
   /// **'BILL OPTIONS'**
   String get pbil3Title;
 
+  /// No description provided for @pbilelectric3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'BILL ELECTRIC OPTIONS'**
+  String get pbilelectric3Title;
+
   /// No description provided for @pbil3Subtitle.
   ///
   /// In en, this message translates to:
   /// **'PLEASE SELECT YOUR OPTION'**
   String get pbil3Subtitle;
 
+  /// No description provided for @electricitybutton.
+  ///
+  /// In en, this message translates to:
+  /// **'ELECTRIC BILL'**
+  String get electricitybutton;
+
   /// No description provided for @tnbButton.
   ///
   /// In en, this message translates to:
   /// **'TNB BILL'**
   String get tnbButton;
+
+  /// No description provided for @sarawakenergyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'SARAWAK ENERGY BILL'**
+  String get sarawakenergyButton;
+
+  /// No description provided for @sabahelectricityButton.
+  ///
+  /// In en, this message translates to:
+  /// **'SABAH ELECTRICITY BILL'**
+  String get sabahelectricityButton;
+
+  /// No description provided for @nurpowerButton.
+  ///
+  /// In en, this message translates to:
+  /// **'NUR POWER BILL'**
+  String get nurpowerButton;
 
   /// No description provided for @waterButton.
   ///
@@ -862,6 +892,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'PARKING FOR {hours} HOURS'**
   String parkingDurationLabel(Object hours);
+
+  /// No description provided for @parkingStartTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Time'**
+  String get parkingStartTimeLabel;
+
+  /// No description provided for @parkingEndTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'End Time'**
+  String get parkingEndTimeLabel;
 
   /// No description provided for @timeRangeLabel.
   ///
@@ -6586,6 +6628,336 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Red Brick Kitchen offers a casual dining environment with a modern interior and a selection of meals. It is suitable for families, friends and visitors looking for a relaxed place to eat in Ipoh.'**
   String get redBrickKitchenFull;
+
+  /// No description provided for @networkInterruptionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Interruption'**
+  String get networkInterruptionTitle;
+
+  /// No description provided for @networkLastUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated'**
+  String get networkLastUpdated;
+
+  /// No description provided for @networkInterruptionMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'{biller} is currently experiencing an interruption. Your transaction may be slow or may not go through. You may still continue with your payment.'**
+  String networkInterruptionMessage(Object biller);
+
+  /// No description provided for @electricAccountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your electricity account number.'**
+  String get electricAccountRequired;
+
+  /// No description provided for @electricAccountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Number'**
+  String get electricAccountNumber;
+
+  /// No description provided for @electricAccountNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No electricity account record was found.'**
+  String get electricAccountNotFound;
+
+  /// No description provided for @electricAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ENTER YOUR ELECTRICITY ACCOUNT NUMBER'**
+  String get electricAccountTitle;
+
+  /// No description provided for @electricAccountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'ENTER YOUR ELECTRICITY ACCOUNT NUMBER'**
+  String get electricAccountHint;
+
+  /// No description provided for @electricProductCodeRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Product code is required.'**
+  String get electricProductCodeRequired;
+
+  /// No description provided for @electricAccountNumberRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Account number is required.'**
+  String get electricAccountNumberRequired;
+
+  /// No description provided for @electricApiKeyMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The IIMMPACT API key is missing.'**
+  String get electricApiKeyMissing;
+
+  /// No description provided for @electricHmacSecretMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The IIMMPACT HMAC secret is missing.'**
+  String get electricHmacSecretMissing;
+
+  /// No description provided for @electricInquiryHttpFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill inquiry failed. HTTP {statusCode}.'**
+  String electricInquiryHttpFailed(int statusCode);
+
+  /// No description provided for @electricNoBillRecordFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No bill record was found.'**
+  String get electricNoBillRecordFound;
+
+  /// No description provided for @electricNoBillRecordForAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'No bill record was found for this account.'**
+  String get electricNoBillRecordForAccount;
+
+  /// No description provided for @electricInquiryTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'The inquiry took too long. Please try again.'**
+  String get electricInquiryTimeout;
+
+  /// No description provided for @electricUnableToConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to connect to the bill inquiry service.'**
+  String get electricUnableToConnect;
+
+  /// No description provided for @electricInvalidServerResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The server returned an invalid response: {error}'**
+  String electricInvalidServerResponse(String error);
+
+  /// No description provided for @electricInquiryFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Electric bill inquiry failed: {error}'**
+  String electricInquiryFailed(String error);
+
+  /// No description provided for @electricInvalidHmacBase64.
+  ///
+  /// In en, this message translates to:
+  /// **'The IIMMPACT HMAC secret is not valid Base64.'**
+  String get electricInvalidHmacBase64;
+
+  /// No description provided for @electricEmptyApiResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The API response was empty.'**
+  String get electricEmptyApiResponse;
+
+  /// No description provided for @electricInvalidJsonObject.
+  ///
+  /// In en, this message translates to:
+  /// **'The API response is not a JSON object.'**
+  String get electricInvalidJsonObject;
+
+  /// No description provided for @electricInvalidAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid account number.'**
+  String get electricInvalidAccount;
+
+  /// No description provided for @electricInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get electricInformation;
+
+  /// No description provided for @electricOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get electricOk;
+
+  /// No description provided for @electricMaximumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'The maximum payment amount is {amount}.'**
+  String electricMaximumPayment(String amount);
+
+  /// No description provided for @electricMinimumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'The minimum payment amount is {amount}.'**
+  String electricMinimumPayment(String amount);
+
+  /// No description provided for @electricNoOutstandingBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'This account does not have a positive outstanding amount.'**
+  String get electricNoOutstandingBalance;
+
+  /// No description provided for @electricEnterPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Payment Amount'**
+  String get electricEnterPaymentAmount;
+
+  /// No description provided for @electricUseKeypad.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the keypad below'**
+  String get electricUseKeypad;
+
+  /// No description provided for @electricKeyboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount Keyboard'**
+  String get electricKeyboard;
+
+  /// No description provided for @electricClear.
+  ///
+  /// In en, this message translates to:
+  /// **'CLEAR'**
+  String get electricClear;
+
+  /// No description provided for @electricDone.
+  ///
+  /// In en, this message translates to:
+  /// **'DONE'**
+  String get electricDone;
+
+  /// No description provided for @electricCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'CANCEL'**
+  String get electricCancel;
+
+  /// No description provided for @electricMinimumMaximum.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum RM 1.00 • Maximum RM 10,000.00'**
+  String get electricMinimumMaximum;
+
+  /// No description provided for @electricBillPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Electricity Bill Payment'**
+  String get electricBillPayment;
+
+  /// No description provided for @electricBillInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill Information'**
+  String get electricBillInformation;
+
+  /// No description provided for @electricOutstandingAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding Amount'**
+  String get electricOutstandingAmount;
+
+  /// No description provided for @electricCreditBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit Balance'**
+  String get electricCreditBalance;
+
+  /// No description provided for @electricDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get electricDueDate;
+
+  /// No description provided for @electricCustomerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Name'**
+  String get electricCustomerName;
+
+  /// No description provided for @electricServiceAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Address'**
+  String get electricServiceAddress;
+
+  /// No description provided for @electricCreditNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'This account currently has a credit balance.'**
+  String get electricCreditNotice;
+
+  /// No description provided for @electricSelectPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Payment Amount'**
+  String get electricSelectPaymentAmount;
+
+  /// No description provided for @electricAmountInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the amount box to type your payment amount, or use the − and + buttons.'**
+  String get electricAmountInstruction;
+
+  /// No description provided for @electricIncreaseDecreaseInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Press − to decrease or + to increase the amount by RM 1.00.'**
+  String get electricIncreaseDecreaseInstruction;
+
+  /// No description provided for @electricAmountLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum: RM 1.00 | Maximum: RM 10,000.00'**
+  String get electricAmountLimit;
+
+  /// No description provided for @electricFull.
+  ///
+  /// In en, this message translates to:
+  /// **'FULL'**
+  String get electricFull;
+
+  /// No description provided for @electricOrderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get electricOrderSummary;
+
+  /// No description provided for @electricServiceFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fee'**
+  String get electricServiceFee;
+
+  /// No description provided for @electricTotalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get electricTotalAmount;
+
+  /// No description provided for @electricContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get electricContinue;
+
+  /// No description provided for @electricPaymentUpdateTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill Update Time'**
+  String get electricPaymentUpdateTime;
+
+  /// No description provided for @electricUpdateInstant.
+  ///
+  /// In en, this message translates to:
+  /// **'INSTANT'**
+  String get electricUpdateInstant;
+
+  /// No description provided for @electricUpdateWithinThreeDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Within 3 days'**
+  String get electricUpdateWithinThreeDays;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

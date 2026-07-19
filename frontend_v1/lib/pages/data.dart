@@ -9,16 +9,28 @@ class Data {
   static String telefonNo = "03-4162 8672";
 
     //text copyright
-  static String copyrightText = "Copyright © 2026 City Car Park. All rights reserved.";
+  static String copyrightText = "Copyright © 2026 Juara Inovasi Pasifik. All rights reserved.";
 
     //talian aduan majlis
   static String aduanMajlisBentong = "1300-88-1148";
 
     //to change waktu solat for demo url justchange zone part. ps: to know the zone code is from https://www.e-solat.gov.my/
-  static String waktusolatplacedemo = "Ipoh, Perak";
-  static String waktusolaturldemo = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=PRK02&period=today";
+  static String waktusolatplacedemo = "Bentong, Pahang";
+  static String waktusolaturldemo = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=PHG04&period=today";
 
     //page map demo
-  static double latitudedemo = 4.5975; 
-  static double longitudedemo = 101.0901; 
+  static double latitudedemo = 3.522168; 
+  static double longitudedemo = 101.910355; 
+
+  //iimmpact api key and secret
+  static const String iimmpactApiKey =
+    'iimm_dev_GsdV7nL4xb95Vl3MB7dLOBYKDZ9Y3Uyo';
+
+  static const String iimmpactHmacSecret =
+      'GxsoPPUj20q+irjuQkIUdWLSvQi63yVDCeoVETp43HA=';
+    
+  static const String iimmpactBaseUrl =
+      'https://staging.iimmpact.com';
+
+  static const double electricityServiceFee = 1.00;
 }

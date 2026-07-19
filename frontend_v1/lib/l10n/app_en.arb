@@ -105,8 +105,13 @@
   "inputTaxHint": "ENTER YOUR ACCOUNT/IC/SSM NUMBER",
 
   "pbil3Title": "BILL OPTIONS",
+  "pbilelectric3Title" : "BILL ELECTRIC OPTIONS",
   "pbil3Subtitle": "PLEASE SELECT YOUR OPTION",
+  "electricitybutton": "ELECTRIC BILL",
   "tnbButton": "TNB BILL",
+  "sarawakenergyButton" : "SARAWAK ENERGY BILL",
+  "sabahelectricityButton" : "SABAH ELECTRICITY BILL",
+  "nurpowerButton" : "NUR POWER BILL",
   "waterButton": "WATER BILL",
   "tmButton": "TM BILL",
   "telkoButton": "TELCO BILL",
@@ -160,6 +165,8 @@
   "confirmDialogTitle": "PRESS OK IF CONFIRMED",
   "plateNumberLabel": "Plate Number: {plate}",
   "parkingDurationLabel": "PARKING FOR {hours} HOURS",
+  "parkingStartTimeLabel": "Start Time",
+  "parkingEndTimeLabel": "End Time",
   "timeRangeLabel": "FROM {startTime} TO {endTime}",
   "totalAmountLabel": "TOTAL AMOUNT: RM {total}",
   "cancelButton": "CANCEL",
@@ -1534,7 +1541,140 @@
   "meeRebusRamliFull": "Restoran Mee Rebus Ramli at Taman Tasek Jaya is a local dining destination offering mee rebus and other Malaysian dishes. It is suitable for visitors looking for a casual local meal.",
   "redBrickKitchenTitle": "Red Brick Kitchen",
   "redBrickKitchenDesc": "A comfortable dining spot with a modern and welcoming atmosphere.",
-  "redBrickKitchenFull": "Red Brick Kitchen offers a casual dining environment with a modern interior and a selection of meals. It is suitable for families, friends and visitors looking for a relaxed place to eat in Ipoh."
+  "redBrickKitchenFull": "Red Brick Kitchen offers a casual dining environment with a modern interior and a selection of meals. It is suitable for families, friends and visitors looking for a relaxed place to eat in Ipoh.",
 
+  "networkInterruptionTitle": "Service Interruption",
+  "networkLastUpdated": "Last updated",
+  "continueButton": "Continue",
+
+  "networkInterruptionMessage": "{biller} is currently experiencing an interruption. Your transaction may be slow or may not go through. You may still continue with your payment.",
+  "@networkInterruptionMessage": {
+    "placeholders": {
+      "biller": {}
+    }
+  },
+
+"electricAccountRequired": "Please enter your electricity account number.",
+"electricAccountNumber": "Electricity Account Number",
+"electricAccountNotFound": "No electricity account record was found.",
+
+"electricAccountTitle": "ENTER YOUR ELECTRICITY ACCOUNT NUMBER",
+"electricAccountHint": "ENTER YOUR ELECTRICITY ACCOUNT NUMBER",
+
+ "electricProductCodeRequired": "Product code is required.",
+"electricAccountNumberRequired": "Account number is required.",
+"electricApiKeyMissing": "The IIMMPACT API key is missing.",
+"electricHmacSecretMissing": "The IIMMPACT HMAC secret is missing.",
+
+"electricInquiryHttpFailed": "Bill inquiry failed. HTTP {statusCode}.",
+"@electricInquiryHttpFailed": {
+  "placeholders": {
+    "statusCode": {
+      "type": "int"
+    }
+  }
+},
+
+"electricNoBillRecordFound": "No bill record was found.",
+"electricNoBillRecordForAccount": "No bill record was found for this account.",
+"electricInquiryTimeout": "The inquiry took too long. Please try again.",
+"electricUnableToConnect": "Unable to connect to the bill inquiry service.",
+
+"electricInvalidServerResponse": "The server returned an invalid response: {error}",
+"@electricInvalidServerResponse": {
+  "placeholders": {
+    "error": {
+      "type": "String"
+    }
+  }
+},
+
+"electricInquiryFailed": "Electric bill inquiry failed: {error}",
+"@electricInquiryFailed": {
+  "placeholders": {
+    "error": {
+      "type": "String"
+    }
+  }
+},
+
+"electricInvalidHmacBase64": "The IIMMPACT HMAC secret is not valid Base64.",
+"electricEmptyApiResponse": "The API response was empty.",
+"electricInvalidJsonObject": "The API response is not a JSON object.",
+"electricInvalidAccount": "Invalid account number.",
+
+"electricInformation": "Information",
+"electricOk": "OK",
+
+"electricMaximumPayment": "The maximum payment amount is {amount}.",
+"@electricMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"electricMinimumPayment": "The minimum payment amount is {amount}.",
+"@electricMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"electricNoOutstandingBalance": "This account does not have a positive outstanding amount.",
+
+"electricEnterPaymentAmount": "Enter Payment Amount",
+"electricUseKeypad": "Use the keypad below",
+
+"electricKeyboard": "Amount Keyboard",
+
+"electricClear": "CLEAR",
+"electricDone": "DONE",
+"electricCancel": "CANCEL",
+
+"electricMinimumMaximum": "Minimum RM 1.00 • Maximum RM 10,000.00",
+
+"electricBillPayment": "Electricity Bill Payment",
+
+"electricBillInformation": "Bill Information",
+
+"electricOutstandingAmount": "Outstanding Amount",
+
+"electricCreditBalance": "Credit Balance",
+
+"electricDueDate": "Due Date",
+
+"electricCustomerName": "Customer Name",
+
+"electricServiceAddress": "Service Address",
+
+"electricCreditNotice": "This account currently has a credit balance.",
+
+"electricAccountNumber": "Account Number",
+
+"electricSelectPaymentAmount": "Select Payment Amount",
+
+"electricAmountInstruction": "Tap the amount box to type your payment amount, or use the − and + buttons.",
+
+"electricIncreaseDecreaseInstruction": "Press − to decrease or + to increase the amount by RM 1.00.",
+
+"electricAmountLimit": "Minimum: RM 1.00 | Maximum: RM 10,000.00",
+
+"electricFull": "FULL",
+
+"electricOrderSummary": "Order Summary",
+
+"electricServiceFee": "Service Fee",
+
+"electricTotalAmount": "Total Amount",
+
+"electricContinue": "Continue",
+
+"electricPaymentUpdateTime": "Bill Update Time",
+"electricUpdateInstant": "INSTANT",
+"electricUpdateWithinThreeDays": "Within 3 days"
 
 }

@@ -117,7 +117,7 @@ class PTOURISTPAGE extends StatelessWidget {
              Navigator.push(
                context,
                MaterialPageRoute(
-                 builder: (_) => const PExplorationIpohPage(),
+                 builder: (_) => const PExplorationBentongPage(),
                ),
              );
               },

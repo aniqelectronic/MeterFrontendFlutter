@@ -200,7 +200,7 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
                         child: Text(
                           AppLocalizations.of(context)!.parkingStartTimeDisclaimer,
                           style: const TextStyle(
-                            fontSize: 22,
+                            fontSize: 30,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -635,15 +635,18 @@ Widget _contactRow(IconData icon, String label, String value) {
     );
   }
 
-  void _showConfirmation(BuildContext context, AppLocalizations loc) {
-    Timer? dialogTimer;
+void _showConfirmation(BuildContext context, AppLocalizations loc) {
+  Timer? dialogTimer;
 
-    showDialog(
-      context: context,
-      builder: (dialogContext) {
-        return StatefulBuilder(
-          builder: (context, setDialogState) {
-            dialogTimer ??= Timer.periodic(const Duration(seconds: 1), (_) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (dialogContext) {
+      return StatefulBuilder(
+        builder: (context, setDialogState) {
+          dialogTimer ??= Timer.periodic(
+            const Duration(seconds: 1),
+            (_) {
               if (mounted) {
                 setState(() {
                   startTime = DateTime.now();
@@ -651,99 +654,255 @@ Widget _contactRow(IconData icon, String label, String value) {
 
                 setDialogState(() {});
               }
-            });
+            },
+          );
 
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            insetPadding: const EdgeInsets.symmetric(
+              horizontal: 45,
+              vertical: 40,
+            ),
+            child: Container(
+              width: 950,
+              height: 1100,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(28),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.20),
+                    blurRadius: 30,
+                    offset: const Offset(0, 12),
+                  ),
+                ],
               ),
-              child: SizedBox(
-                width: 1000,
-                height: 720,
-                child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        loc.confirmDialogTitle,
-                        style: const TextStyle(
-                          fontSize: 50,
-                          fontWeight: FontWeight.bold,
+              child: Padding(
+                padding: const EdgeInsets.all(35),
+                child: Column(
+                  children: [
+                    // ================= HEADER =================
+                    Row(
+                      children: [
+                        Container(
+                          width: 65,
+                          height: 65,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 3, 89, 210)
+                                .withOpacity(0.10),
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          child: const Icon(
+                            Icons.checklist_rounded,
+                            size: 38,
+                            color: Color.fromARGB(255, 3, 89, 210),
+                          ),
                         ),
-                      ),
-                      const Divider(),
-                      const Spacer(),
-                      _dialogRow(loc.plateNumberLabel(""), widget.plate, true),
-                      _dialogRow(loc.p5tempoh, "$hours ${loc.time}", false),
-                      _dialogRow(
-                        loc.p5timeparking,
-                        "${formatTime(startTime)} - ${formatTime(endTime)}",
-                        false,
-                      ),
-                      _dialogRow(
-                        loc.p5Total,
-                        "RM ${totalPrice.toStringAsFixed(2)}",
-                        true,
-                      ),
-                      const SizedBox(height: 20),
-
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(18),
-                        decoration: BoxDecoration(
-                          color: Colors.amber.shade50,
-                          border: Border.all(color: Colors.orange),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Icon(
-                              Icons.info_outline,
-                              color: Colors.orange,
-                              size: 30,
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: Text(
+                            loc.confirmDialogTitle,
+                            style: const TextStyle(
+                              fontSize: 42,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
                             ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                loc.parkingStartTimeDisclaimer,
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 18),
+
+                    Divider(
+                      color: Colors.grey.shade300,
+                      thickness: 1.5,
+                    ),
+
+                    const SizedBox(height: 22),
+
+                    // ================= PLATE =================
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 28,
+                        vertical: 22,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 245, 248, 253),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            loc.plateNumberLabel(""),
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blueGrey.shade600,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            widget.plate.toUpperCase(),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 52,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 6,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // ================= DURATION =================
+                    _simpleInfoRow(
+                      icon: Icons.schedule_rounded,
+                      label: loc.p5tempoh,
+                      value: "$hours ${loc.time}",
+                    ),
+
+                    const SizedBox(height: 18),
+
+                    // ================= TIME =================
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _simpleTimeCard(
+                            label: loc.parkingStartTimeLabel,
+                            value: formatTime(startTime),
+                            icon: Icons.play_arrow_rounded,
+                          ),
+                        ),
+                        const SizedBox(width: 18),
+                        Expanded(
+                          child: _simpleTimeCard(
+                            label: loc.parkingEndTimeLabel,
+                            value: formatTime(endTime),
+                            icon: Icons.stop_rounded,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // ================= TOTAL =================
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 28,
+                        vertical: 22,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 238, 249, 242),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.account_balance_wallet_rounded,
+                            size: 42,
+                            color: Colors.green,
+                          ),
+                          const SizedBox(width: 18),
+                          Expanded(
+                            child: Text(
+                              loc.p5Total,
+                              style: const TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black54,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          Text(
+                            "RM ${totalPrice.toStringAsFixed(2)}",
+                            style: const TextStyle(
+                              fontSize: 44,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ],
                       ),
-                      const Spacer(),
-                      Row(
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // ================= DISCLAIMER =================
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(18),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 255, 248, 230),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          const Icon(
+                            Icons.info_outline_rounded,
+                            color: Colors.orange,
+                            size: 30,
+                          ),
+                          const SizedBox(width: 14),
                           Expanded(
-                            child: TextButton(
+                            child: Text(
+                              loc.parkingStartTimeDisclaimer,
+                              style: const TextStyle(
+                                fontSize: 30,
+                                height: 1.35,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const Spacer(),
+
+                    // ================= BUTTONS =================
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 82,
+                            child: OutlinedButton(
                               onPressed: () {
                                 dialogTimer?.cancel();
                                 Navigator.pop(dialogContext);
                               },
-                              style: TextButton.styleFrom(
-                                backgroundColor: Colors.grey[200],
-                                padding: const EdgeInsets.all(20),
-                                side: const BorderSide(
-                                  color: Colors.black,
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: Colors.black87,
+                                side: BorderSide(
+                                  color: Colors.grey.shade400,
                                   width: 2,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
                               ),
                               child: Text(
                                 loc.cancelButton,
                                 style: const TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.black,
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox(width: 20),
-                          Expanded(
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: SizedBox(
+                            height: 82,
                             child: ElevatedButton(
                               onPressed: () {
                                 dialogTimer?.cancel();
@@ -756,64 +915,191 @@ Widget _contactRow(IconData icon, String label, String value) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    settings:
-                                        const RouteSettings(name: '/payment'),
+                                    settings: const RouteSettings(
+                                      name: '/payment',
+                                    ),
                                     builder: (_) => PAYMENTPAGE(
                                       biz: widget.biz,
-                                    data: PaymentData(
-                                      plate: widget.plate,
-                                      hour: hours,
-                                      amount: totalPrice.toStringAsFixed(2),
-                                    ),
+                                      data: PaymentData(
+                                        plate: widget.plate,
+                                        hour: hours,
+                                        amount:
+                                            totalPrice.toStringAsFixed(2),
+                                      ),
                                     ),
                                   ),
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                                padding: const EdgeInsets.all(20),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 3, 89, 210),
+                                foregroundColor: Colors.white,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
                               ),
                               child: const Text(
                                 "OK",
                                 style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.white,
+                                  fontSize: 34,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                  ],
                 ),
               ),
-            );
-          },
-        );
-      },
-    ).then((_) {
-      dialogTimer?.cancel();
-    });
-  }
+            ),
+          );
+        },
+      );
+    },
+  ).then((_) {
+    dialogTimer?.cancel();
+  });
+}
 
-  Widget _dialogRow(String label, String value, bool bold) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: const TextStyle(fontSize: 40)),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 40,
-              fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+Widget _simpleInfoRow({
+  required IconData icon,
+  required String label,
+  required String value,
+}) {
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.symmetric(
+      horizontal: 24,
+      vertical: 20,
+    ),
+    decoration: BoxDecoration(
+      color: Colors.grey.shade50,
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(
+        color: Colors.grey.shade200,
+        width: 1.5,
+      ),
+    ),
+    child: Row(
+      children: [
+        Container(
+          width: 55,
+          height: 55,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 3, 89, 210)
+                .withOpacity(0.10),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Icon(
+            icon,
+            size: 32,
+            color: const Color.fromARGB(255, 3, 89, 210),
+          ),
+        ),
+        const SizedBox(width: 18),
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+              color: Colors.black54,
             ),
           ),
-        ],
+        ),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 34,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _simpleTimeCard({
+  required String label,
+  required String value,
+  required IconData icon,
+}) {
+  return Container(
+    padding: const EdgeInsets.symmetric(
+      horizontal: 18,
+      vertical: 22,
+    ),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(
+        color: Colors.grey.shade300,
+        width: 1.5,
       ),
-    );
-  }
+    ),
+    child: Column(
+      children: [
+        Container(
+          width: 52,
+          height: 52,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 3, 89, 210)
+                .withOpacity(0.10),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            icon,
+            size: 32,
+            color: const Color.fromARGB(255, 3, 89, 210),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: Colors.black54,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          value,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 34,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+  // Widget _dialogRow(String label, String value, bool bold) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 8),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Text(label, style: const TextStyle(fontSize: 40)),
+  //         Text(
+  //           value,
+  //           style: TextStyle(
+  //             fontSize: 40,
+  //             fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+  
 }

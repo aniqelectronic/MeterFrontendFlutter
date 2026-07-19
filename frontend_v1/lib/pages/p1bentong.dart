@@ -26,7 +26,7 @@ class _P1BentongPageState extends State<P1BentongPage> {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("lib/images/p1ipoh.png"),
+              image: AssetImage("lib/images/p1bentong.png"),
               fit: BoxFit.cover,
             ),
           ),

@@ -195,7 +195,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelButton => 'CANCEL';
 
   @override
-  String get continueButton => 'CONTINUE';
+  String get continueButton => 'Continue';
 
   @override
   String get semakanSewaanWarningTitle => 'Important Notice';
@@ -270,10 +270,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pbil3Title => 'BILL OPTIONS';
 
   @override
+  String get pbilelectric3Title => 'BILL ELECTRIC OPTIONS';
+
+  @override
   String get pbil3Subtitle => 'PLEASE SELECT YOUR OPTION';
 
   @override
+  String get electricitybutton => 'ELECTRIC BILL';
+
+  @override
   String get tnbButton => 'TNB BILL';
+
+  @override
+  String get sarawakenergyButton => 'SARAWAK ENERGY BILL';
+
+  @override
+  String get sabahelectricityButton => 'SABAH ELECTRICITY BILL';
+
+  @override
+  String get nurpowerButton => 'NUR POWER BILL';
 
   @override
   String get waterButton => 'WATER BILL';
@@ -409,6 +424,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String parkingDurationLabel(Object hours) {
     return 'PARKING FOR $hours HOURS';
   }
+
+  @override
+  String get parkingStartTimeLabel => 'Start Time';
+
+  @override
+  String get parkingEndTimeLabel => 'End Time';
 
   @override
   String timeRangeLabel(Object endTime, Object startTime) {
@@ -3297,4 +3318,181 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get redBrickKitchenFull => 'Red Brick Kitchen offers a casual dining environment with a modern interior and a selection of meals. It is suitable for families, friends and visitors looking for a relaxed place to eat in Ipoh.';
+
+  @override
+  String get networkInterruptionTitle => 'Service Interruption';
+
+  @override
+  String get networkLastUpdated => 'Last updated';
+
+  @override
+  String networkInterruptionMessage(Object biller) {
+    return '$biller is currently experiencing an interruption. Your transaction may be slow or may not go through. You may still continue with your payment.';
+  }
+
+  @override
+  String get electricAccountRequired => 'Please enter your electricity account number.';
+
+  @override
+  String get electricAccountNumber => 'Account Number';
+
+  @override
+  String get electricAccountNotFound => 'No electricity account record was found.';
+
+  @override
+  String get electricAccountTitle => 'ENTER YOUR ELECTRICITY ACCOUNT NUMBER';
+
+  @override
+  String get electricAccountHint => 'ENTER YOUR ELECTRICITY ACCOUNT NUMBER';
+
+  @override
+  String get electricProductCodeRequired => 'Product code is required.';
+
+  @override
+  String get electricAccountNumberRequired => 'Account number is required.';
+
+  @override
+  String get electricApiKeyMissing => 'The IIMMPACT API key is missing.';
+
+  @override
+  String get electricHmacSecretMissing => 'The IIMMPACT HMAC secret is missing.';
+
+  @override
+  String electricInquiryHttpFailed(int statusCode) {
+    return 'Bill inquiry failed. HTTP $statusCode.';
+  }
+
+  @override
+  String get electricNoBillRecordFound => 'No bill record was found.';
+
+  @override
+  String get electricNoBillRecordForAccount => 'No bill record was found for this account.';
+
+  @override
+  String get electricInquiryTimeout => 'The inquiry took too long. Please try again.';
+
+  @override
+  String get electricUnableToConnect => 'Unable to connect to the bill inquiry service.';
+
+  @override
+  String electricInvalidServerResponse(String error) {
+    return 'The server returned an invalid response: $error';
+  }
+
+  @override
+  String electricInquiryFailed(String error) {
+    return 'Electric bill inquiry failed: $error';
+  }
+
+  @override
+  String get electricInvalidHmacBase64 => 'The IIMMPACT HMAC secret is not valid Base64.';
+
+  @override
+  String get electricEmptyApiResponse => 'The API response was empty.';
+
+  @override
+  String get electricInvalidJsonObject => 'The API response is not a JSON object.';
+
+  @override
+  String get electricInvalidAccount => 'Invalid account number.';
+
+  @override
+  String get electricInformation => 'Information';
+
+  @override
+  String get electricOk => 'OK';
+
+  @override
+  String electricMaximumPayment(String amount) {
+    return 'The maximum payment amount is $amount.';
+  }
+
+  @override
+  String electricMinimumPayment(String amount) {
+    return 'The minimum payment amount is $amount.';
+  }
+
+  @override
+  String get electricNoOutstandingBalance => 'This account does not have a positive outstanding amount.';
+
+  @override
+  String get electricEnterPaymentAmount => 'Enter Payment Amount';
+
+  @override
+  String get electricUseKeypad => 'Use the keypad below';
+
+  @override
+  String get electricKeyboard => 'Amount Keyboard';
+
+  @override
+  String get electricClear => 'CLEAR';
+
+  @override
+  String get electricDone => 'DONE';
+
+  @override
+  String get electricCancel => 'CANCEL';
+
+  @override
+  String get electricMinimumMaximum => 'Minimum RM 1.00 • Maximum RM 10,000.00';
+
+  @override
+  String get electricBillPayment => 'Electricity Bill Payment';
+
+  @override
+  String get electricBillInformation => 'Bill Information';
+
+  @override
+  String get electricOutstandingAmount => 'Outstanding Amount';
+
+  @override
+  String get electricCreditBalance => 'Credit Balance';
+
+  @override
+  String get electricDueDate => 'Due Date';
+
+  @override
+  String get electricCustomerName => 'Customer Name';
+
+  @override
+  String get electricServiceAddress => 'Service Address';
+
+  @override
+  String get electricCreditNotice => 'This account currently has a credit balance.';
+
+  @override
+  String get electricSelectPaymentAmount => 'Select Payment Amount';
+
+  @override
+  String get electricAmountInstruction => 'Tap the amount box to type your payment amount, or use the − and + buttons.';
+
+  @override
+  String get electricIncreaseDecreaseInstruction => 'Press − to decrease or + to increase the amount by RM 1.00.';
+
+  @override
+  String get electricAmountLimit => 'Minimum: RM 1.00 | Maximum: RM 10,000.00';
+
+  @override
+  String get electricFull => 'FULL';
+
+  @override
+  String get electricOrderSummary => 'Order Summary';
+
+  @override
+  String get electricServiceFee => 'Service Fee';
+
+  @override
+  String get electricTotalAmount => 'Total Amount';
+
+  @override
+  String get electricContinue => 'Continue';
+
+  @override
+  String get electricPaymentUpdateTime => 'Bill Update Time';
+
+  @override
+  String get electricUpdateInstant => 'INSTANT';
+
+  @override
+  String get electricUpdateWithinThreeDays => 'Within 3 days';
 }

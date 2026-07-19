@@ -152,11 +152,32 @@ class _P2PageState extends State<P2Page> {
                       ),
                     ),
 
-                    // ================= RENT BUTTON =================
+                    // ================= TOURIST BUTTON =================
                     Positioned(
                       top: 550,
                       left: -500,
                       right: 0,
+                      child: _KioskMainButton(
+                        width: 400,
+                        height: 400,
+                        icon: Icons.travel_explore,
+                        label: AppLocalizations.of(context)!.touristText,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const PTOURISTPAGE(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),                    
+
+                    // ================= RENT BUTTON =================
+                    Positioned(
+                      top: 550,
+                      left: 0,
+                      right: -500,
                       child: _KioskMainButton(
                         width: 400,
                         height: 400,
@@ -173,58 +194,38 @@ class _P2PageState extends State<P2Page> {
                       ),
                     ),
 
-                    // ================= TOURIST BUTTON =================
-                    Positioned(
-                      top: 550,
-                      left: 0,
-                      right: -500,
-                      child: _KioskMainButton(
-                        width: 400,
-                        height: 400,
-                        icon: Icons.travel_explore,
-                        label: AppLocalizations.of(context)!.touristText,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const PTOURISTPAGE(),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-
                     // ================= COMPLAINT BUTTON =================
-                    Positioned(
-                      top: 1050,
-                      left: -500,
-                      right: 0,
-                      child: _KioskMainButton(
-                        width: 400,
-                        height: 400,
-                        icon: Icons.report_problem,
-                        label:
-                            AppLocalizations.of(context)!
-                                .p3aduanButton,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => P4PAGE(
-                                title:
-                                    AppLocalizations.of(context)!
-                                        .aduanTitle,
-                                type: "OTHERS",
-                                hint:
-                                    AppLocalizations.of(context)!
-                                        .inputICHint,
-                                biz: "ADUAN",
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+
+                    // Positioned(
+                    //   top: 1050,
+                    //   left: -500,
+                    //   right: 0,
+                    //   child: _KioskMainButton(
+                    //     width: 400,
+                    //     height: 400,
+                    //     icon: Icons.report_problem,
+                    //     label:
+                    //         AppLocalizations.of(context)!
+                    //             .p3aduanButton,
+                    //     onPressed: () {
+                    //       Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //           builder: (_) => P4PAGE(
+                    //             title:
+                    //                 AppLocalizations.of(context)!
+                    //                     .aduanTitle,
+                    //             type: "OTHERS",
+                    //             hint:
+                    //                 AppLocalizations.of(context)!
+                    //                     .inputICHint,
+                    //             biz: "ADUAN",
+                    //           ),
+                    //         ),
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

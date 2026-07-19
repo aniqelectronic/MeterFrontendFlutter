@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/pages/pelectricbill3.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'p2.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
@@ -59,7 +60,7 @@ class PBIL3PAGE extends StatelessWidget {
             ),
           ),
 
-          // ================= TNB BUTTON =================
+          // ================= ELECTRICITY BUTTON =================
           Positioned(
             top: 500,
             left: -500,
@@ -67,10 +68,18 @@ class PBIL3PAGE extends StatelessWidget {
             child: _KioskMainButton(
               width: 400,
               height: 400,
-              imagePath: "lib/images/tnb.png",
-              label: AppLocalizations.of(context)!.tnbButton,
-              onPressed: () {},
-              comingSoon: true,
+              icon: const IconData(0xf0744, fontFamily: 'MaterialIcons'),
+              iconColor: Colors.yellow,
+              label: AppLocalizations.of(context)!.electricitybutton,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                  builder: (_) => const PELECTRICBILL3PAGE(),
+                  ),
+                );
+              },
+              comingSoon: false,
             ),
           ),
 
@@ -163,6 +172,7 @@ class PBIL3PAGE extends StatelessWidget {
 /// =======================================================
 class _KioskMainButton extends StatefulWidget {
   final IconData? icon;
+  final Color? iconColor;
   final String? imagePath;
   final String label;
   final VoidCallback onPressed;
@@ -173,6 +183,7 @@ class _KioskMainButton extends StatefulWidget {
   const _KioskMainButton({
     super.key,
     this.icon,
+    this.iconColor,
     this.imagePath,
     required this.label,
     required this.onPressed,
@@ -252,7 +263,7 @@ class _KioskMainButtonState extends State<_KioskMainButton> {
                           ],
                         ),
                         child: widget.icon != null
-                            ? Icon(widget.icon, size: 140, color: Colors.black)
+                            ? Icon(widget.icon, size: 140, color: widget.iconColor ?? Colors.black,)
                             : Image.asset(widget.imagePath!, height: 140),
                       ),
                       const SizedBox(height: 15),

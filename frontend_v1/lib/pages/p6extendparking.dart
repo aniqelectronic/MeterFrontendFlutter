@@ -597,87 +597,328 @@ Widget _contactRow(IconData icon, String label, String value) {
     );
   }
 
-  void _showConfirmation(BuildContext context, AppLocalizations loc) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-          child: SizedBox(
-            width: 1000,
-            height: 850,
-            child: Padding(
-              padding: const EdgeInsets.all(30),
-              child: Column(
-                children: [
-
-                  Text(
-                    loc.confirmDialogTitle,
-                    style: const TextStyle(
-                        fontSize: 50, fontWeight: FontWeight.bold),
-                  ),
-
-                  const Divider(),
-
-                  const Spacer(),
-
-                  _dialogRow(loc.plateNumberLabel(""), widget.plate, true),
-
-                  _dialogRow(
-                      loc.currentParkingEnd,
-                      formatTime(startTime),
-                      false),
-
-                  _dialogRow(
-                      loc.newParkingEnd,
-                      formatTime(endTime),
-                      false),
-
-                  _dialogRow(
-                      loc.p5timeparking,
-                      "$hours ${loc.time}",
-                      false),
-
-                  _dialogRow(
-                      loc.p5Total,
-                      "RM ${totalPrice.toStringAsFixed(2)}",
-                      true),
-
-                  const Spacer(),
-
-                  Row(
-                    children: [
-
+void _showConfirmation(BuildContext context, AppLocalizations loc) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (dialogContext) {
+      return Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.symmetric(
+          horizontal: 45,
+          vertical: 40,
+        ),
+        child: Container(
+          width: 950,
+          height: 1100,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(28),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.20),
+                blurRadius: 30,
+                offset: const Offset(0, 12),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(35),
+            child: Column(
+              children: [
+                // ================= HEADER =================
+                Row(
+                  children: [
+                    Container(
+                      width: 65,
+                      height: 65,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 3, 89, 210)
+                            .withOpacity(0.10),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      child: const Icon(
+                        Icons.update_rounded,
+                        size: 38,
+                        color: Color.fromARGB(255, 3, 89, 210),
+                      ),
+                    ),
+                    const SizedBox(width: 20),
                     Expanded(
-                      child: TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.grey[200],
-                          padding: const EdgeInsets.all(20),
-                          side: const BorderSide(   // <-- ADD THIS
-                            color: Colors.black,
-                            width: 2,
+                      child: Text(
+                        loc.confirmDialogTitle,
+                        style: const TextStyle(
+                          fontSize: 42,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 18),
+
+                Divider(
+                  color: Colors.grey.shade300,
+                  thickness: 1.5,
+                ),
+
+                const SizedBox(height: 22),
+
+                // ================= PLATE NUMBER =================
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 28,
+                    vertical: 22,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 245, 248, 253),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        loc.plateNumberLabel(""),
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.blueGrey.shade600,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        widget.plate.toUpperCase(),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 52,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 6,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // ================= EXTENSION DURATION =================
+                _simpleExtendInfoRow(
+                  icon: Icons.timer_outlined,
+                  label: loc.p5timeparking,
+                  value: "$hours ${loc.time}",
+                ),
+
+                const SizedBox(height: 18),
+
+                // ================= CURRENT / NEW END TIME =================
+                Row(
+                  children: [
+                    Expanded(
+                      child: _simpleExtendTimeCard(
+                        label: loc.currentParkingEnd,
+                        value: formatTime(startTime),
+                        icon: Icons.history_rounded,
+                        iconColor: Colors.orange,
+                        backgroundColor:
+                            const Color.fromARGB(255, 255, 248, 230),
+                      ),
+                    ),
+                    const SizedBox(width: 18),
+                    Expanded(
+                      child: _simpleExtendTimeCard(
+                        label: loc.newParkingEnd,
+                        value: formatTime(endTime),
+                        icon: Icons.update_rounded,
+                        iconColor:
+                            const Color.fromARGB(255, 3, 89, 210),
+                        backgroundColor:
+                            const Color.fromARGB(255, 240, 246, 255),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 20),
+
+                // ================= TIME CHANGE SUMMARY =================
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 25,
+                    vertical: 20,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade50,
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(
+                      color: Colors.grey.shade200,
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              formatTime(startTime),
+                              style: const TextStyle(
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black54,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              loc.currentParkingEnd,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        width: 65,
+                        height: 65,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 3, 89, 210)
+                              .withOpacity(0.10),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.arrow_forward_rounded,
+                          size: 38,
+                          color: Color.fromARGB(255, 3, 89, 210),
+                        ),
+                      ),
+
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              formatTime(endTime),
+                              style: const TextStyle(
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 3, 89, 210),
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              loc.newParkingEnd,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // ================= TOTAL =================
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 28,
+                    vertical: 22,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 238, 249, 242),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.account_balance_wallet_rounded,
+                        size: 42,
+                        color: Colors.green,
+                      ),
+                      const SizedBox(width: 18),
+                      Expanded(
+                        child: Text(
+                          loc.p5Total,
+                          style: const TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black54,
                           ),
                         ),
-                        child: Text(
-                          loc.cancelButton,
-                          style: const TextStyle(fontSize: 40, color: Colors.black),
+                      ),
+                      Text(
+                        "RM ${totalPrice.toStringAsFixed(2)}",
+                        style: const TextStyle(
+                          fontSize: 44,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const Spacer(),
+
+                // ================= BUTTONS =================
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 82,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            Navigator.pop(dialogContext);
+                          },
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.black87,
+                            side: BorderSide(
+                              color: Colors.grey.shade400,
+                              width: 2,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                          child: Text(
+                            loc.cancelButton,
+                            style: const TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
 
-                      const SizedBox(width: 20),
+                    const SizedBox(width: 20),
 
-                      Expanded(
+                    Expanded(
+                      child: SizedBox(
+                        height: 82,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Navigator.pop(dialogContext);
 
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                settings: const RouteSettings(name: '/payment'),
+                                settings: const RouteSettings(
+                                  name: '/payment',
+                                ),
                                 builder: (_) => PAYMENTPAGE(
                                   biz: "EXTENDPARKING",
                                   data: PaymentData(
@@ -691,47 +932,175 @@ Widget _contactRow(IconData icon, String label, String value) {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              padding: const EdgeInsets.all(20)),
+                            backgroundColor:
+                                const Color.fromARGB(255, 3, 89, 210),
+                            foregroundColor: Colors.white,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
                           child: const Text(
                             "OK",
                             style: TextStyle(
-                                fontSize: 40,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                              fontSize: 34,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
+                    ),
+                  ],
+                ),
 
-  Widget _dialogRow(String label, String value, bool bold) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: const TextStyle(fontSize: 40)),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 40,
-              fontWeight: bold
-                  ? FontWeight.bold
-                  : FontWeight.normal,
+                const SizedBox(height: 10),
+              ],
             ),
           ),
-        ],
+        ),
+      );
+    },
+  );
+}
+
+Widget _simpleExtendInfoRow({
+  required IconData icon,
+  required String label,
+  required String value,
+}) {
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.symmetric(
+      horizontal: 24,
+      vertical: 20,
+    ),
+    decoration: BoxDecoration(
+      color: Colors.grey.shade50,
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(
+        color: Colors.grey.shade200,
+        width: 1.5,
       ),
-    );
-  }
+    ),
+    child: Row(
+      children: [
+        Container(
+          width: 55,
+          height: 55,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 3, 89, 210)
+                .withOpacity(0.10),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Icon(
+            icon,
+            size: 32,
+            color: const Color.fromARGB(255, 3, 89, 210),
+          ),
+        ),
+        const SizedBox(width: 18),
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+              color: Colors.black54,
+            ),
+          ),
+        ),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 34,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _simpleExtendTimeCard({
+  required String label,
+  required String value,
+  required IconData icon,
+  required Color iconColor,
+  required Color backgroundColor,
+}) {
+  return Container(
+    padding: const EdgeInsets.symmetric(
+      horizontal: 15,
+      vertical: 22,
+    ),
+    decoration: BoxDecoration(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(18),
+    ),
+    child: Column(
+      children: [
+        Container(
+          width: 54,
+          height: 54,
+          decoration: BoxDecoration(
+            color: iconColor.withOpacity(0.12),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            icon,
+            size: 32,
+            color: iconColor,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          style: const TextStyle(
+            fontSize: 22,
+            height: 1.2,
+            fontWeight: FontWeight.w600,
+            color: Colors.black54,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          value,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 34,
+            fontWeight: FontWeight.bold,
+            color: iconColor,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+//   Widget _dialogRow(String label, String value, bool bold) {
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(vertical: 8),
+//       child: Row(
+//         mainAxisAlignment:
+//             MainAxisAlignment.spaceBetween,
+//         children: [
+//           Text(label, style: const TextStyle(fontSize: 40)),
+//           Text(
+//             value,
+//             style: TextStyle(
+//               fontSize: 40,
+//               fontWeight: bold
+//                   ? FontWeight.bold
+//                   : FontWeight.normal,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
 }

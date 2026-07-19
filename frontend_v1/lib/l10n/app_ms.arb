@@ -104,8 +104,13 @@
   "inputTaxHint": "MASUKKAN NO. ACCOUNT/IC/SSM",
 
   "pbil3Title": "PILIHAN BIL",
+  "pbilelectric3Title" : "PILIHAN BIL ELEKTRIK",
   "pbil3Subtitle": "SILA PILIH PILIHAN ANDA",
+  "electricitybutton": "BIL ELEKTRIK",
   "tnbButton": "BIL TNB",
+  "sarawakenergyButton" : "BIL SARAWAK ENERGY",
+  "sabahelectricityButton" : "BIL SABAH ELECTRICITY",
+  "nurpowerButton" : "BIL NUR POWER",
   "waterButton": "BIL AIR",
   "tmButton": "BIL TM",
   "telkoButton": "BIL TELKO",
@@ -158,6 +163,8 @@
   "time" : "JAM",
   "confirmDialogTitle": "TEKAN OK JIKA SAH",
   "plateNumberLabel": "No. Plat: {plate}",
+  "parkingStartTimeLabel": "Masa Mula",
+  "parkingEndTimeLabel": "Masa Tamat",
   "parkingDurationLabel": "PARKIR SELAMA {hours} JAM",
   "timeRangeLabel": "MULA {startTime} SEHINGGA {endTime}",
   "totalAmountLabel": "JUMLAH AMAUN ANDA: RM {total}",
@@ -1553,7 +1560,144 @@
   "meeRebusRamliFull": "Restoran Mee Rebus Ramli di Taman Tasek Jaya ialah destinasi makanan tempatan yang menyediakan mee rebus dan hidangan Malaysia yang lain. Ia sesuai untuk pengunjung yang mencari hidangan tempatan secara santai.",
   "redBrickKitchenTitle": "Red Brick Kitchen",
   "redBrickKitchenDesc": "Tempat makan yang selesa dengan suasana moden dan mesra.",
-  "redBrickKitchenFull": "Red Brick Kitchen menawarkan suasana makan santai dengan ruang dalaman moden serta pelbagai pilihan hidangan. Ia sesuai untuk keluarga, rakan-rakan dan pengunjung yang mencari tempat makan yang selesa di Ipoh."
+  "redBrickKitchenFull": "Red Brick Kitchen menawarkan suasana makan santai dengan ruang dalaman moden serta pelbagai pilihan hidangan. Ia sesuai untuk keluarga, rakan-rakan dan pengunjung yang mencari tempat makan yang selesa di Ipoh.",
 
+  "networkInterruptionTitle": "Gangguan Perkhidmatan",
+  "networkLastUpdated": "Kemaskini terakhir",
+  "continueButton": "Teruskan",
+
+ 
+  "networkInterruptionMessage": "{biller} sedang mengalami gangguan. Transaksi anda mungkin perlahan atau tidak berjaya. Anda masih boleh meneruskan pembayaran.",
+  "@networkInterruptionMessage": {
+    "placeholders": {
+      "biller": {}
+    }
+  } ,
+
+"electricAccountRequired": "Sila masukkan nombor akaun elektrik anda.",
+"electricAccountNumber": "Nombor Akaun Elektrik",
+"electricAccountNotFound": "Tiada rekod akaun elektrik ditemui.",
+
+"electricAccountTitle": "MASUKKAN NOMBOR AKAUN ELECTRIC ANDA",
+"electricAccountHint": "MASUKKAN NOMBOR AKAUN ELECTRIC ANDA",
+
+"electricProductCodeRequired": "Kod produk diperlukan.",
+"electricAccountNumberRequired": "Nombor akaun diperlukan.",
+"electricApiKeyMissing": "Kunci API IIMMPACT tidak tersedia.",
+"electricHmacSecretMissing": "Rahsia HMAC IIMMPACT tidak tersedia.",
+
+"electricInquiryHttpFailed": "Semakan bil gagal. HTTP {statusCode}.",
+"@electricInquiryHttpFailed": {
+  "placeholders": {
+    "statusCode": {
+      "type": "int"
+    }
+  }
+},
+
+"electricNoBillRecordFound": "Tiada rekod bil ditemui.",
+"electricNoBillRecordForAccount": "Tiada rekod bil ditemui untuk akaun ini.",
+"electricInquiryTimeout": "Semakan mengambil masa terlalu lama. Sila cuba lagi.",
+"electricUnableToConnect": "Tidak dapat menyambung ke perkhidmatan semakan bil.",
+
+"electricInvalidServerResponse": "Pelayan memberikan respons yang tidak sah: {error}",
+"@electricInvalidServerResponse": {
+  "placeholders": {
+    "error": {
+      "type": "String"
+    }
+  }
+},
+
+"electricInquiryFailed": "Semakan bil elektrik gagal: {error}",
+"@electricInquiryFailed": {
+  "placeholders": {
+    "error": {
+      "type": "String"
+    }
+  }
+},
+
+"electricInvalidHmacBase64": "Rahsia HMAC IIMMPACT bukan Base64 yang sah.",
+"electricEmptyApiResponse": "Respons API adalah kosong.",
+"electricInvalidJsonObject": "Respons API bukan objek JSON.",
+"electricInvalidAccount": "Nombor akaun tidak sah.",
+
+"electricInformation": "Maklumat",
+"electricOk": "OK",
+
+"electricMaximumPayment": "Jumlah pembayaran maksimum ialah {amount}.",
+"@electricMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"electricMinimumPayment": "Jumlah pembayaran minimum ialah {amount}.",
+"@electricMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"electricNoOutstandingBalance": "Akaun ini tidak mempunyai baki tertunggak.",
+
+"electricEnterPaymentAmount": "Masukkan Amaun Bayaran",
+
+"electricUseKeypad": "Gunakan papan kekunci di bawah",
+
+"electricKeyboard": "Papan Kekunci Amaun",
+
+"electricClear": "PADAM",
+
+"electricDone": "SELESAI",
+
+"electricCancel": "BATAL",
+
+"electricMinimumMaximum": "Minimum RM 1.00 • Maksimum RM 10,000.00",
+
+"electricBillPayment": "Pembayaran Bil Elektrik",
+
+"electricBillInformation": "Maklumat Bil",
+
+"electricOutstandingAmount": "Amaun Tertunggak",
+
+"electricCreditBalance": "Baki Kredit",
+
+"electricDueDate": "Tarikh Akhir Bayaran",
+
+"electricCustomerName": "Nama Pelanggan",
+
+"electricServiceAddress": "Alamat Premis",
+
+"electricCreditNotice": "Akaun ini mempunyai baki kredit.",
+
+"electricAccountNumber": "Nombor Akaun",
+
+"electricSelectPaymentAmount": "Pilih Amaun Bayaran",
+
+"electricAmountInstruction": "Sentuh kotak amaun untuk memasukkan jumlah bayaran atau gunakan butang − dan +.",
+
+"electricIncreaseDecreaseInstruction": "Tekan − untuk mengurangkan atau + untuk menambah amaun sebanyak RM1.00.",
+
+"electricAmountLimit": "Minimum: RM 1.00 | Maksimum: RM 10,000.00",
+
+"electricFull": "PENUH",
+
+"electricOrderSummary": "Ringkasan Bayaran",
+
+"electricServiceFee": "Caj Perkhidmatan",
+
+"electricTotalAmount": "Jumlah Keseluruhan",
+
+"electricContinue": "Teruskan",
+
+"electricPaymentUpdateTime": "Tempoh Kemas Kini Bil",
+"electricUpdateInstant": "SERTA-MERTA",
+"electricUpdateWithinThreeDays": "Dalam tempoh 3 hari"
 
 }

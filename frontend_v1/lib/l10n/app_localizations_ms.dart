@@ -195,7 +195,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get cancelButton => 'BATAL';
 
   @override
-  String get continueButton => 'TERUSKAN';
+  String get continueButton => 'Teruskan';
 
   @override
   String get semakanSewaanWarningTitle => 'Notis Penting';
@@ -270,10 +270,25 @@ class AppLocalizationsMs extends AppLocalizations {
   String get pbil3Title => 'PILIHAN BIL';
 
   @override
+  String get pbilelectric3Title => 'PILIHAN BIL ELEKTRIK';
+
+  @override
   String get pbil3Subtitle => 'SILA PILIH PILIHAN ANDA';
 
   @override
+  String get electricitybutton => 'BIL ELEKTRIK';
+
+  @override
   String get tnbButton => 'BIL TNB';
+
+  @override
+  String get sarawakenergyButton => 'BIL SARAWAK ENERGY';
+
+  @override
+  String get sabahelectricityButton => 'BIL SABAH ELECTRICITY';
+
+  @override
+  String get nurpowerButton => 'BIL NUR POWER';
 
   @override
   String get waterButton => 'BIL AIR';
@@ -403,6 +418,12 @@ class AppLocalizationsMs extends AppLocalizations {
   String parkingDurationLabel(Object hours) {
     return 'PARKIR SELAMA $hours JAM';
   }
+
+  @override
+  String get parkingStartTimeLabel => 'Masa Mula';
+
+  @override
+  String get parkingEndTimeLabel => 'Masa Tamat';
 
   @override
   String timeRangeLabel(Object endTime, Object startTime) {
@@ -3291,4 +3312,181 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get redBrickKitchenFull => 'Red Brick Kitchen menawarkan suasana makan santai dengan ruang dalaman moden serta pelbagai pilihan hidangan. Ia sesuai untuk keluarga, rakan-rakan dan pengunjung yang mencari tempat makan yang selesa di Ipoh.';
+
+  @override
+  String get networkInterruptionTitle => 'Gangguan Perkhidmatan';
+
+  @override
+  String get networkLastUpdated => 'Kemaskini terakhir';
+
+  @override
+  String networkInterruptionMessage(Object biller) {
+    return '$biller sedang mengalami gangguan. Transaksi anda mungkin perlahan atau tidak berjaya. Anda masih boleh meneruskan pembayaran.';
+  }
+
+  @override
+  String get electricAccountRequired => 'Sila masukkan nombor akaun elektrik anda.';
+
+  @override
+  String get electricAccountNumber => 'Nombor Akaun';
+
+  @override
+  String get electricAccountNotFound => 'Tiada rekod akaun elektrik ditemui.';
+
+  @override
+  String get electricAccountTitle => 'MASUKKAN NOMBOR AKAUN ELECTRIC ANDA';
+
+  @override
+  String get electricAccountHint => 'MASUKKAN NOMBOR AKAUN ELECTRIC ANDA';
+
+  @override
+  String get electricProductCodeRequired => 'Kod produk diperlukan.';
+
+  @override
+  String get electricAccountNumberRequired => 'Nombor akaun diperlukan.';
+
+  @override
+  String get electricApiKeyMissing => 'Kunci API IIMMPACT tidak tersedia.';
+
+  @override
+  String get electricHmacSecretMissing => 'Rahsia HMAC IIMMPACT tidak tersedia.';
+
+  @override
+  String electricInquiryHttpFailed(int statusCode) {
+    return 'Semakan bil gagal. HTTP $statusCode.';
+  }
+
+  @override
+  String get electricNoBillRecordFound => 'Tiada rekod bil ditemui.';
+
+  @override
+  String get electricNoBillRecordForAccount => 'Tiada rekod bil ditemui untuk akaun ini.';
+
+  @override
+  String get electricInquiryTimeout => 'Semakan mengambil masa terlalu lama. Sila cuba lagi.';
+
+  @override
+  String get electricUnableToConnect => 'Tidak dapat menyambung ke perkhidmatan semakan bil.';
+
+  @override
+  String electricInvalidServerResponse(String error) {
+    return 'Pelayan memberikan respons yang tidak sah: $error';
+  }
+
+  @override
+  String electricInquiryFailed(String error) {
+    return 'Semakan bil elektrik gagal: $error';
+  }
+
+  @override
+  String get electricInvalidHmacBase64 => 'Rahsia HMAC IIMMPACT bukan Base64 yang sah.';
+
+  @override
+  String get electricEmptyApiResponse => 'Respons API adalah kosong.';
+
+  @override
+  String get electricInvalidJsonObject => 'Respons API bukan objek JSON.';
+
+  @override
+  String get electricInvalidAccount => 'Nombor akaun tidak sah.';
+
+  @override
+  String get electricInformation => 'Maklumat';
+
+  @override
+  String get electricOk => 'OK';
+
+  @override
+  String electricMaximumPayment(String amount) {
+    return 'Jumlah pembayaran maksimum ialah $amount.';
+  }
+
+  @override
+  String electricMinimumPayment(String amount) {
+    return 'Jumlah pembayaran minimum ialah $amount.';
+  }
+
+  @override
+  String get electricNoOutstandingBalance => 'Akaun ini tidak mempunyai baki tertunggak.';
+
+  @override
+  String get electricEnterPaymentAmount => 'Masukkan Amaun Bayaran';
+
+  @override
+  String get electricUseKeypad => 'Gunakan papan kekunci di bawah';
+
+  @override
+  String get electricKeyboard => 'Papan Kekunci Amaun';
+
+  @override
+  String get electricClear => 'PADAM';
+
+  @override
+  String get electricDone => 'SELESAI';
+
+  @override
+  String get electricCancel => 'BATAL';
+
+  @override
+  String get electricMinimumMaximum => 'Minimum RM 1.00 • Maksimum RM 10,000.00';
+
+  @override
+  String get electricBillPayment => 'Pembayaran Bil Elektrik';
+
+  @override
+  String get electricBillInformation => 'Maklumat Bil';
+
+  @override
+  String get electricOutstandingAmount => 'Amaun Tertunggak';
+
+  @override
+  String get electricCreditBalance => 'Baki Kredit';
+
+  @override
+  String get electricDueDate => 'Tarikh Akhir Bayaran';
+
+  @override
+  String get electricCustomerName => 'Nama Pelanggan';
+
+  @override
+  String get electricServiceAddress => 'Alamat Premis';
+
+  @override
+  String get electricCreditNotice => 'Akaun ini mempunyai baki kredit.';
+
+  @override
+  String get electricSelectPaymentAmount => 'Pilih Amaun Bayaran';
+
+  @override
+  String get electricAmountInstruction => 'Sentuh kotak amaun untuk memasukkan jumlah bayaran atau gunakan butang − dan +.';
+
+  @override
+  String get electricIncreaseDecreaseInstruction => 'Tekan − untuk mengurangkan atau + untuk menambah amaun sebanyak RM1.00.';
+
+  @override
+  String get electricAmountLimit => 'Minimum: RM 1.00 | Maksimum: RM 10,000.00';
+
+  @override
+  String get electricFull => 'PENUH';
+
+  @override
+  String get electricOrderSummary => 'Ringkasan Bayaran';
+
+  @override
+  String get electricServiceFee => 'Caj Perkhidmatan';
+
+  @override
+  String get electricTotalAmount => 'Jumlah Keseluruhan';
+
+  @override
+  String get electricContinue => 'Teruskan';
+
+  @override
+  String get electricPaymentUpdateTime => 'Tempoh Kemas Kini Bil';
+
+  @override
+  String get electricUpdateInstant => 'SERTA-MERTA';
+
+  @override
+  String get electricUpdateWithinThreeDays => 'Dalam tempoh 3 hari';
 }
