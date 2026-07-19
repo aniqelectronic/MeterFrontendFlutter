@@ -1698,6 +1698,95 @@
 
 "electricPaymentUpdateTime": "Tempoh Kemas Kini Bil",
 "electricUpdateInstant": "SERTA-MERTA",
-"electricUpdateWithinThreeDays": "Dalam tempoh 3 hari"
+"electricUpdateWithinThreeDays": "Dalam tempoh 3 hari",
+
+"waterBillProviderTitle": "PILIHAN BIL AIR",
+"waterBillProviderSubtitle": "Sila pilih penyedia perkhidmatan air anda",
+"waterAccountTitle": "Masukkan Nombor Akaun Air",
+"waterAccountHint": "Masukkan nombor akaun bil air anda",
+"networkLabel": "RANGKAIAN",
+"networkStatusChecking": "MEMERIKSA",
+"networkStatusGood": "BAIK",
+"networkStatusSlow": "PERLAHAN",
+"networkStatusUnknown": "TIDAK DIKETAHUI",
+
+  "waterBillPayment": "Pembayaran Bil Air",
+  "waterBillInformation": "Maklumat Bil Air",
+  "waterOutstandingAmount": "Jumlah Tertunggak",
+  "waterCreditBalance": "Baki Kredit",
+  "waterDueDate": "Tarikh Akhir Bayaran",
+  "waterCustomerName": "Nama Pelanggan",
+  "waterServiceAddress": "Alamat Perkhidmatan",
+  "waterCreditNotice": "Akaun ini mempunyai baki kredit.",
+  "waterAccountNumber": "Nombor Akaun",
+  "waterSelectPaymentAmount": "Pilih Jumlah Bayaran",
+  "waterOrderSummary": "Ringkasan Pesanan",
+  "waterServiceFee": "Caj Perkhidmatan",
+  "waterTotalAmount": "Jumlah Keseluruhan",
+  "waterPaymentUpdateTime": "Tempoh Kemas Kini Bil",
+  "waterUpdateWithinThreeDays": "Dalam tempoh 3 hari bekerja",
+  "waterContinue": "Teruskan",
+  "waterInformation": "Makluman",
+  "waterOk": "OK",
+  "waterEnterPaymentAmount": "Masukkan Jumlah Bayaran",
+  "waterCancel": "Batal",
+  "waterDone": "Selesai",
+  "waterFull": "PENUH",
+  "waterNoOutstandingBalance": "Tiada baki tertunggak untuk akaun ini.",
+  "waterMinimumPayment": "Jumlah bayaran minimum ialah {amount}.",
+  "@waterMinimumPayment": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "waterMaximumPayment": "Jumlah bayaran maksimum ialah {amount}.",
+  "@waterMaximumPayment": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "waterProductCodeRequired": "Kod produk pembekal air diperlukan.",
+  "waterAccountNumberRequired": "Nombor akaun air diperlukan.",
+  "waterAccountRequired": "Sila masukkan nombor akaun air.",
+  "waterAccountNotFound": "Akaun bil air tidak ditemui.",
+  "waterApiKeyMissing": "Kunci API tidak ditetapkan.",
+  "waterHmacSecretMissing": "Rahsia HMAC tidak ditetapkan.",
+  "waterInvalidHmacBase64": "Rahsia HMAC bukan Base64 yang sah.",
+  "waterInquiryTimeout": "Semakan bil air mengambil masa terlalu lama. Sila cuba lagi.",
+  "waterUnableToConnect": "Tidak dapat menyambung ke perkhidmatan bil air.",
+  "waterInvalidServerResponse": "Respons pelayan tidak sah: {error}",
+  "@waterInvalidServerResponse": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "waterInquiryFailed": "Semakan bil air gagal: {error}",
+  "@waterInquiryFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "waterInquiryHttpFailed": "Semakan bil air gagal dengan kod status {statusCode}.",
+  "@waterInquiryHttpFailed": {
+    "placeholders": {
+      "statusCode": {
+        "type": "int"
+      }
+    }
+  },
+  "waterEmptyApiResponse": "API memulangkan respons kosong.",
+  "waterInvalidJsonObject": "Respons API bukan objek JSON yang sah.",
+  "waterNoBillRecordFound": "Tiada rekod bil air ditemui.",
+  "waterInvalidAccount": "Nombor akaun air tidak sah.",
+
+  "waterProviderTimeout": "Pembekal perkhidmatan air mengambil masa terlalu lama untuk memberi respons. Sila cuba lagi kemudian."
 
 }

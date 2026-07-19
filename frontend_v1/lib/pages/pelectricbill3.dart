@@ -44,26 +44,38 @@ class PELECTRICBILL3PAGE extends StatefulWidget {
   void initState() {
     super.initState();
 
-    _scrollController.addListener(() {
-      if (!_scrollController.hasClients) return;
-
-      final double maxScroll =
-          _scrollController.position.maxScrollExtent;
-
-      final double current =
-          _scrollController.offset;
-
-      if (!mounted) return;
-
-      setState(() {
-        showScrollUp = current > 10;
-        showScrollDown = current < maxScroll - 10;
-      });
-    });
+    _scrollController.addListener(_handleScroll);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadInitialNetworkStatuses();
+      _handleScroll();
     });
+  }
+
+  void _handleScroll() {
+    if (!_scrollController.hasClients || !mounted) {
+      return;
+    }
+
+    final maxScroll =
+        _scrollController.position.maxScrollExtent;
+
+    final current =
+        _scrollController.offset;
+
+    final newShowScrollUp =
+        current > 10;
+
+    final newShowScrollDown =
+        current < maxScroll - 10;
+
+    if (showScrollUp != newShowScrollUp ||
+        showScrollDown != newShowScrollDown) {
+      setState(() {
+        showScrollUp = newShowScrollUp;
+        showScrollDown = newShowScrollDown;
+      });
+    }
   }
 
   Future<void> _loadInitialNetworkStatuses() async {
@@ -309,8 +321,45 @@ Future<void> _handleBillerTap({
   navigate();
 }
 
+  void _scrollUp() {
+    if (!_scrollController.hasClients) {
+      return;
+    }
+
+    final destination =
+        (_scrollController.offset - 600).clamp(
+      0.0,
+      _scrollController.position.maxScrollExtent,
+    );
+
+    _scrollController.animateTo(
+      destination,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeOut,
+    );
+  }
+
+  void _scrollDown() {
+    if (!_scrollController.hasClients) {
+      return;
+    }
+
+    final destination =
+        (_scrollController.offset + 600).clamp(
+      0.0,
+      _scrollController.position.maxScrollExtent,
+    );
+
+    _scrollController.animateTo(
+      destination,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeOut,
+    );
+  }
+
   @override
   void dispose() {
+    _scrollController.removeListener(_handleScroll);
     _scrollController.dispose();
     super.dispose();
   }
@@ -374,13 +423,23 @@ Future<void> _handleBillerTap({
             left: 0,
             right: 0,
             bottom: 400,
-            child: SingleChildScrollView(
+            child: Scrollbar(
               controller: _scrollController,
-              physics: const BouncingScrollPhysics(),
-              child: SizedBox(
-                height: 1200,
-                child: Stack(
-                  children: [
+              thumbVisibility: true,
+              trackVisibility: true,
+              thickness: 12,
+              radius: const Radius.circular(20),
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(
+                  right: 20,
+                  bottom: 30,
+                ),
+                child: SizedBox(
+                    height: 1200,
+                    child: Stack(
+                      children: [
                     // ================= TNB BUTTON =================
                     Positioned(
                       top: 50,
@@ -389,14 +448,14 @@ Future<void> _handleBillerTap({
                       child: _KioskMainButton(
                         width: 400,
                         height: 500,
-                        imagePath: "lib/images/tnb.png",
+                        imagePath: "lib/images/electric/tnb.png",
                         label:
                             AppLocalizations.of(context)!
                                 .tnbButton,
                         networkStatus:
                             _billerStatuses['TNB'] ??
                                 BillerStatus.loading,
-                        networkLabel: 'NETWORK',                                               
+                        networkLabel: AppLocalizations.of(context)!.networkLabel,                                               
                         onPressed: () {
                           _handleBillerTap(
                             productCode: 'TNB',
@@ -412,6 +471,7 @@ Future<void> _handleBillerTap({
                                         .electricAccountHint,
                                     productCode: 'TNB',
                                     billerName: 'TENAGA NASIONAL BERHAD',
+                                    serviceType: BillServiceType.electric,
                                   ),
                                 ),
                               );
@@ -431,14 +491,14 @@ Future<void> _handleBillerTap({
                         width: 400,
                         height: 500,
                         imagePath:
-                            "lib/images/sarawakenergy.png",
+                            "lib/images/electric/sarawakenergy.png",
                         label:
                             AppLocalizations.of(context)!
                                 .sarawakenergyButton,
                         networkStatus:
                             _billerStatuses['FP'] ??
                                 BillerStatus.loading,
-                        networkLabel: 'NETWORK',
+                        networkLabel: AppLocalizations.of(context)!.networkLabel,
                         onPressed: () {
                           _handleBillerTap(
                             productCode: 'FP',
@@ -454,6 +514,7 @@ Future<void> _handleBillerTap({
                                         .electricAccountHint,
                                     productCode: 'SESCO',
                                     billerName: 'Sarawak ENERGY',
+                                    serviceType: BillServiceType.electric,
                                   ),
                                 ),
                               );
@@ -473,13 +534,13 @@ Future<void> _handleBillerTap({
                       child: _KioskMainButton(
                         width: 400,
                         height: 500,
-                        imagePath: "lib/images/sabahelectricity.png",
+                        imagePath: "lib/images/electric/sabahelectricity.png",
                         label: AppLocalizations.of(context)!
                                 .sabahelectricityButton,
                         networkStatus:
                             _billerStatuses['SESB'] ??
                                 BillerStatus.loading,
-                        networkLabel: 'NETWORK',
+                        networkLabel: AppLocalizations.of(context)!.networkLabel,
                         onPressed: () {
                           _handleBillerTap(
                             productCode: 'SESB',
@@ -495,6 +556,7 @@ Future<void> _handleBillerTap({
                                         .electricAccountHint,
                                     productCode: 'SESB',
                                     billerName: 'Sabah ELECTRICITY',
+                                    serviceType: BillServiceType.electric,
                                   ),
                                 ),
                               );
@@ -514,12 +576,12 @@ Future<void> _handleBillerTap({
                       child: _KioskMainButton(
                         width: 400,
                         height: 500,
-                        imagePath: "lib/images/nurpower.png",
+                        imagePath: "lib/images/electric/nurpower.png",
                         label: AppLocalizations.of(context)!.nurpowerButton,   
                           networkStatus:
                             _billerStatuses['NUR'] ??
                                 BillerStatus.loading,
-                        networkLabel: 'NETWORK',
+                        networkLabel: AppLocalizations.of(context)!.networkLabel,
                         onPressed: () {
                           _handleBillerTap(
                             productCode: 'NUR',
@@ -534,7 +596,7 @@ Future<void> _handleBillerTap({
                                     hint: AppLocalizations.of(context)!
                                         .electricAccountHint,
                                     productCode: 'NUR',
-                                    billerName: 'NUR POWER',
+                                    billerName: 'NUR POWER', serviceType: BillServiceType.electric,
                                   ),
                                 ),
                               );
@@ -548,60 +610,34 @@ Future<void> _handleBillerTap({
                   ],
                 ),
               ),
+              ),
             ),
           ),
 
           // ================= SCROLL UP INDICATOR =================
-          if (showScrollUp)
-            Positioned(
-              right: 430,
-              top: 330,
-              child: Column(
-                children: [
-                  const Icon(
-                    Icons.keyboard_arrow_up_rounded,
-                    size: 65,
-                    color: Colors.black,
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    AppLocalizations.of(context)!.scrollup,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 1.2,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
+        if (showScrollUp)
+          Positioned(
+            right: 25,
+            top: 370,
+            child: _ScrollIndicatorButton(
+              icon: Icons.keyboard_arrow_up_rounded,
+              label: AppLocalizations.of(context)!.scrollup,
+              onPressed: _scrollUp,
             ),
+          ),
 
           // ================= SCROLL DOWN INDICATOR =================
-          if (showScrollDown)
-            Positioned(
-              right: 370,
-              bottom: 230,
-              child: Column(
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.scrolldown,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 1.2,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  const Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    size: 65,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
+        if (showScrollDown)
+          Positioned(
+            right: 25,
+            bottom: 350,
+            child: _ScrollIndicatorButton(
+              icon: Icons.keyboard_arrow_down_rounded,
+              label: AppLocalizations.of(context)!.scrolldown,
+              onPressed: _scrollDown,
+              iconBelowText: true,
             ),
+          ),
 
           // ================= BACK BUTTON =================
           Positioned(
@@ -664,7 +700,7 @@ class _KioskMainButton extends StatefulWidget {
     required this.label,
     required this.onPressed,
     required this.networkStatus,
-    this.networkLabel = 'NETWORK',
+    required this.networkLabel,
     this.width = 200,
     this.height = 150,
     this.comingSoon = false,
@@ -811,6 +847,67 @@ class _KioskMainButtonState extends State<_KioskMainButton> {
   }
 }
 
+class _ScrollIndicatorButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onPressed;
+  final bool iconBelowText;
+
+  const _ScrollIndicatorButton({
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+    this.iconBelowText = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final iconWidget = Icon(
+      icon,
+      size: 58,
+      color: Colors.black,
+    );
+
+    final textWidget = Text(
+      label,
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w900,
+        color: Colors.black,
+      ),
+    );
+
+    return Material(
+      color: Colors.white.withOpacity(0.90),
+      borderRadius: BorderRadius.circular(22),
+      elevation: 4,
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(22),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 10,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: iconBelowText
+                ? [
+                    textWidget,
+                    iconWidget,
+                  ]
+                : [
+                    iconWidget,
+                    textWidget,
+                  ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _NetworkStatusBadge extends StatelessWidget {
   final BillerStatus status;
   final String label;
@@ -822,6 +919,8 @@ class _NetworkStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc =
+        AppLocalizations.of(context)!;
     late final String statusText;
     late final Color backgroundColor;
     late final Color foregroundColor;
@@ -829,31 +928,46 @@ class _NetworkStatusBadge extends StatelessWidget {
 
     switch (status) {
       case BillerStatus.loading:
-        statusText = 'CHECKING';
-        backgroundColor = const Color(0xFFE8EEF6);
-        foregroundColor = const Color(0xFF455A64);
+        statusText =
+            loc.networkStatusChecking;
+        backgroundColor =
+            const Color(0xFFE8EEF6);
+        foregroundColor =
+            const Color(0xFF455A64);
         icon = Icons.sync_rounded;
         break;
 
       case BillerStatus.healthy:
-        statusText = 'GOOD';
-        backgroundColor = const Color(0xFFDDF7E8);
-        foregroundColor = const Color(0xFF08783E);
-        icon = Icons.check_circle_rounded;
+        statusText =
+            loc.networkStatusGood;
+        backgroundColor =
+            const Color(0xFFDDF7E8);
+        foregroundColor =
+            const Color(0xFF08783E);
+        icon =
+            Icons.check_circle_rounded;
         break;
 
       case BillerStatus.interruption:
-        statusText = 'SLOW';
-        backgroundColor = const Color(0xFFFFE8C2);
-        foregroundColor = const Color(0xFFB75B00);
-        icon = Icons.warning_amber_rounded;
+        statusText =
+            loc.networkStatusSlow;
+        backgroundColor =
+            const Color(0xFFFFE8C2);
+        foregroundColor =
+            const Color(0xFFB75B00);
+        icon =
+            Icons.warning_amber_rounded;
         break;
 
       case BillerStatus.unavailable:
-        statusText = 'UNKNOWN';
-        backgroundColor = const Color(0xFFE8E8E8);
-        foregroundColor = const Color(0xFF555555);
-        icon = Icons.help_outline_rounded;
+        statusText =
+            loc.networkStatusUnknown;
+        backgroundColor =
+            const Color(0xFFE8E8E8);
+        foregroundColor =
+            const Color(0xFF555555);
+        icon =
+            Icons.help_outline_rounded;
         break;
     }
 

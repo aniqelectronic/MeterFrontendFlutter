@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/pelectricbill3.dart';
+import 'package:frontend_v1/pages/pwaterbill3.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'p2.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
@@ -62,7 +63,7 @@ class PBIL3PAGE extends StatelessWidget {
 
           // ================= ELECTRICITY BUTTON =================
           Positioned(
-            top: 500,
+            top: 450,
             left: -500,
             right: 0,
             child: _KioskMainButton(
@@ -85,7 +86,7 @@ class PBIL3PAGE extends StatelessWidget {
 
           // ================= BIL AIR BUTTON =================
           Positioned(
-            top: 500,
+            top: 450,
             left: 0,
             right: -500,
             child: _KioskMainButton(
@@ -93,14 +94,21 @@ class PBIL3PAGE extends StatelessWidget {
               height: 400,
               imagePath: "lib/images/water.png",
               label: AppLocalizations.of(context)!.waterButton,
-              onPressed: () {},
-              comingSoon: true,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                  builder: (_) => const PWATERBILL3PAGE(),
+                  ),
+                );
+              },
+              comingSoon: false,
             ),
           ),
 
           // ================= TM BUTTON =================
           Positioned(
-            top: 1000,
+            top: 900,
             left: -500,
             right: 0,
             child: _KioskMainButton(
@@ -115,7 +123,7 @@ class PBIL3PAGE extends StatelessWidget {
 
           // ================= BIL TELKO BUTTON =================
           Positioned(
-            top: 1000,
+            top: 900,
             left: 0,
             right: -500,
             child: _KioskMainButton(

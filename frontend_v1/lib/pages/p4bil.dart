@@ -1,42 +1,50 @@
-import 'package:flutter/material.dart';
-import 'package:frontend_v1/l10n/app_localizations.dart';
-import 'package:frontend_v1/pages/data.dart';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:frontend_v1/controllers/electric/electric_bill_controller.dart';
 import 'package:frontend_v1/controllers/electric/electric_bill_exception.dart';
 import 'package:frontend_v1/controllers/electric/electric_bill_service.dart';
+
+import 'package:frontend_v1/controllers/water/water_bill_controller.dart';
+import 'package:frontend_v1/controllers/water/water_bill_exception.dart';
+import 'package:frontend_v1/controllers/water/water_bill_service.dart';
+
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/p5_electric_bill_result.dart';
+import 'package:frontend_v1/pages/p5_water_bill_result.dart';
+
+enum BillServiceType {
+  electric,
+  water,
+}
 
 class P4BILPAGE extends StatefulWidget {
   final String title;
   final String hint;
-
-  /// Examples:
-  /// TNB, SESCO, SESB, NUR
   final String productCode;
-
-  /// Examples:
-  /// Tenaga Nasional Berhad, Sarawak Energy
   final String billerName;
+  final BillServiceType serviceType;
 
-  const P4BILPAGE({
+  P4BILPAGE({
     super.key,
-    required this.title,
-    required this.hint,
-    required this.productCode,
-    required this.billerName,
-  });
+    required String title,
+    required String hint,
+    required String productCode,
+    required String billerName,
+    required this.serviceType,
+  })  : title = title.toUpperCase(),
+        hint = hint.toUpperCase(),
+        productCode = productCode.toUpperCase(),
+        billerName = billerName.toUpperCase();
 
   @override
   State<P4BILPAGE> createState() => _P4BILPAGEState();
 }
 
 class _P4BILPAGEState extends State<P4BILPAGE> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller =
+      TextEditingController();
 
   String? _activeKey;
   Offset? _activeKeyPosition;
@@ -44,22 +52,58 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
   bool _isLoading = false;
 
   // =========================================================
+  // THEME BY SERVICE TYPE
+  // =========================================================
+
+  bool get _isWater =>
+      widget.serviceType == BillServiceType.water;
+
+  Color get _primaryColor => _isWater
+      ? const Color(0xFF00838F)
+      : const Color(0xFF1976D2);
+
+  Color get _darkColor => _isWater
+      ? const Color(0xFF006064)
+      : const Color(0xFF0D47A1);
+
+  Color get _lightColor => _isWater
+      ? const Color(0xFF26C6DA)
+      : const Color(0xFF42A5F5);
+
+  IconData get _serviceIcon => _isWater
+      ? Icons.water_drop_rounded
+      : Icons.electric_bolt_rounded;
+
+  // =========================================================
   // ACCOUNT NUMBER LENGTH
   // =========================================================
 
   int get _maximumInputLength {
     switch (widget.productCode.toUpperCase()) {
+      // ELECTRIC
       case 'TNB':
-        return 20;
-
       case 'SESCO':
-        return 20;
-
       case 'SESB':
-        return 20;
-
       case 'NUR':
         return 20;
+
+      // WATER
+      case 'AKSB':
+      case 'IW':
+      case 'JBA':
+      case 'KWB':
+      case 'LAKU':
+      case 'PAIP':
+      case 'PWB':
+      case 'SADA':
+      case 'SAINS':
+      case 'SAJ':
+      case 'SAMB':
+      case 'SAP':
+      case 'SATU':
+      case 'SWB':
+      case 'SYABAS':
+        return 30;
 
       default:
         return 30;
@@ -84,10 +128,7 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
   void _backspace() {
     if (_isLoading) return;
-
-    if (_controller.text.isEmpty) {
-      return;
-    }
+    if (_controller.text.isEmpty) return;
 
     setState(() {
       _controller.text = _controller.text.substring(
@@ -113,16 +154,20 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
     String title,
     String message, {
     IconData icon = Icons.info_outline_rounded,
-    Color iconColor = const Color.fromARGB(255, 3, 89, 210),
+    Color? iconColor,
   }) {
     if (!mounted) return;
+
+    final effectiveIconColor =
+        iconColor ?? _primaryColor;
 
     showGeneralDialog<void>(
       context: context,
       barrierDismissible: false,
       barrierLabel: 'Alert',
       barrierColor: Colors.black.withOpacity(0.65),
-      transitionDuration: const Duration(milliseconds: 250),
+      transitionDuration:
+          const Duration(milliseconds: 250),
       pageBuilder: (
         dialogContext,
         animation,
@@ -152,7 +197,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(38),
                   border: Border.all(
-                    color: iconColor.withOpacity(0.25),
+                    color:
+                        effectiveIconColor.withOpacity(0.25),
                     width: 3,
                   ),
                   boxShadow: [
@@ -166,52 +212,47 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // ================= ICON =================
-
                     Container(
                       width: 145,
                       height: 145,
                       decoration: BoxDecoration(
-                        color: iconColor.withOpacity(0.12),
+                        color: effectiveIconColor
+                            .withOpacity(0.12),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         icon,
                         size: 90,
-                        color: iconColor,
+                        color: effectiveIconColor,
                       ),
                     ),
-
                     const SizedBox(height: 30),
-
-                    // ================= TITLE =================
-
                     Text(
                       title,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        color: Color.fromARGB(255, 20, 45, 80),
+                        color: Color.fromARGB(
+                          255,
+                          20,
+                          45,
+                          80,
+                        ),
                         fontSize: 52,
                         fontWeight: FontWeight.w900,
                         height: 1.15,
                       ),
                     ),
-
                     const SizedBox(height: 16),
-
                     Container(
                       width: 130,
                       height: 6,
                       decoration: BoxDecoration(
-                        color: iconColor,
-                        borderRadius: BorderRadius.circular(10),
+                        color: effectiveIconColor,
+                        borderRadius:
+                            BorderRadius.circular(10),
                       ),
                     ),
-
                     const SizedBox(height: 30),
-
-                    // ================= MESSAGE =================
-
                     Flexible(
                       child: SingleChildScrollView(
                         child: Text(
@@ -231,11 +272,7 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 45),
-
-                    // ================= OK BUTTON =================
-
                     SizedBox(
                       width: double.infinity,
                       height: 105,
@@ -244,7 +281,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                           Navigator.of(dialogContext).pop();
                         },
                         icon: const Icon(
-                          Icons.check_circle_outline_rounded,
+                          Icons
+                              .check_circle_outline_rounded,
                           size: 42,
                         ),
                         label: const Text(
@@ -255,12 +293,16 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                             letterSpacing: 1.5,
                           ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: iconColor,
+                        style:
+                            ElevatedButton.styleFrom(
+                          backgroundColor:
+                              effectiveIconColor,
                           foregroundColor: Colors.white,
                           elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(22),
+                          shape:
+                              RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(22),
                           ),
                         ),
                       ),
@@ -302,107 +344,176 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
   // CONTINUE
   // =========================================================
 
-    Future<void> _handleContinue() async {
-      if (_isLoading) return;
+  Future<void> _handleContinue() async {
+    if (_isLoading) return;
 
-      final accountNumber =
-          _controller.text.trim().toUpperCase();
+    final loc = AppLocalizations.of(context)!;
 
-      if (accountNumber.isEmpty) {
-        _showAlert(
-          AppLocalizations.of(context)!.alertTitle,
-          AppLocalizations.of(context)!
-              .electricAccountRequired,
-          icon: Icons.electric_bolt_rounded,
-          iconColor: const Color(0xFF1976D2),
-        );
+    final accountNumber =
+        _controller.text.trim().toUpperCase();
 
-        return;
-      }
+    if (accountNumber.isEmpty) {
+      _showAlert(
+        loc.alertTitle,
+        _isWater
+            ? loc.waterAccountRequired
+            : loc.electricAccountRequired,
+        icon: _serviceIcon,
+        iconColor: _primaryColor,
+      );
+      return;
+    }
 
-      FocusScope.of(context).unfocus();
+    FocusScope.of(context).unfocus();
 
-      setState(() {
-        _isLoading = true;
-      });
+    setState(() {
+      _isLoading = true;
+    });
 
-      try {
-        final loc = AppLocalizations.of(context)!;
-
-        final result =
-            await ElectricBillService.inquiryBill(
-          productCode: widget.productCode,
-          billerName: widget.billerName,
+    try {
+      if (_isWater) {
+        await _handleWaterInquiry(
           accountNumber: accountNumber,
           loc: loc,
         );
-
-        if (!mounted) return;
-
-        if (!result.success || result.bill == null) {
-          _showAlert(
-            AppLocalizations.of(context)!.alertTitle,
-            result.message.isNotEmpty
-                ? result.message
-                : AppLocalizations.of(context)!
-                    .electricAccountNotFound,
-            icon: Icons.search_off_rounded,
-            iconColor: Colors.orange,
-          );
-
-          return;
-        }
-
-        final bill = result.bill!;
-
-        ElectricBillController.setSelectedBill(bill);
-
-        await Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => P5ElectricBillResultPage(
-              bill: bill,
-            ),
-          ),
+      } else {
+        await _handleElectricInquiry(
+          accountNumber: accountNumber,
+          loc: loc,
         );
-      } on ElectricBillException catch (error) {
-        if (!mounted) return;
+      }
+    } on WaterBillException catch (error) {
+      if (!mounted) return;
 
-        debugPrint(
-          'ElectricBillException: ${error.message}',
-        );
+      debugPrint(
+        'WaterBillException: ${error.message}',
+      );
 
-        _showAlert(
-          AppLocalizations.of(context)!.alertTitle,
-          error.message,
-          icon: Icons.cloud_off_rounded,
-          iconColor: Colors.red,
-        );
-      } catch (error, stackTrace) {
-        if (!mounted) return;
+      _showAlert(
+        loc.alertTitle,
+        error.message,
+        icon: Icons.cloud_off_rounded,
+        iconColor: Colors.red,
+      );
+    } on ElectricBillException catch (error) {
+      if (!mounted) return;
 
-        debugPrint(
-          'Unexpected electric bill error: $error',
-        );
+      debugPrint(
+        'ElectricBillException: ${error.message}',
+      );
 
-        debugPrintStack(
-          stackTrace: stackTrace,
-        );
+      _showAlert(
+        loc.alertTitle,
+        error.message,
+        icon: Icons.cloud_off_rounded,
+        iconColor: Colors.red,
+      );
+    } catch (error, stackTrace) {
+      if (!mounted) return;
 
-        _showAlert(
-          AppLocalizations.of(context)!.alertTitle,
-          AppLocalizations.of(context)!.connectionFailed,
-          icon: Icons.error_outline_rounded,
-          iconColor: Colors.red,
-        );
-      } finally {
-        if (mounted) {
-          setState(() {
-            _isLoading = false;
-          });
-        }
+      debugPrint(
+        'Unexpected bill inquiry error: $error',
+      );
+
+      debugPrintStack(
+        stackTrace: stackTrace,
+      );
+
+      _showAlert(
+        loc.alertTitle,
+        loc.connectionFailed,
+        icon: Icons.error_outline_rounded,
+        iconColor: Colors.red,
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
+  }
+
+  Future<void> _handleElectricInquiry({
+    required String accountNumber,
+    required AppLocalizations loc,
+  }) async {
+    final result =
+        await ElectricBillService.inquiryBill(
+      productCode: widget.productCode,
+      billerName: widget.billerName,
+      accountNumber: accountNumber,
+      loc: loc,
+    );
+
+    if (!mounted) return;
+
+    if (!result.success || result.bill == null) {
+      _showAlert(
+        loc.alertTitle,
+        result.message.isNotEmpty
+            ? result.message
+            : loc.electricAccountNotFound,
+        icon: Icons.search_off_rounded,
+        iconColor: Colors.orange,
+      );
+      return;
+    }
+
+    final bill = result.bill!;
+
+    ElectricBillController.setSelectedBill(bill);
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            P5ElectricBillResultPage(
+          bill: bill,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _handleWaterInquiry({
+    required String accountNumber,
+    required AppLocalizations loc,
+  }) async {
+    final result =
+        await WaterBillService.inquiryBill(
+      productCode: widget.productCode,
+      billerName: widget.billerName,
+      accountNumber: accountNumber,
+      loc: loc,
+    );
+
+    if (!mounted) return;
+
+    if (!result.success || result.bill == null) {
+      _showAlert(
+        loc.alertTitle,
+        result.message.isNotEmpty
+            ? result.message
+            : loc.waterAccountNotFound,
+        icon: Icons.search_off_rounded,
+        iconColor: Colors.orange,
+      );
+      return;
+    }
+
+    final bill = result.bill!;
+
+    WaterBillController.setSelectedBill(bill);
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => P5WaterBillResultPage(
+          bill: bill,
+        ),
+      ),
+    );
+  }
 
   // =========================================================
   // DISPOSE
@@ -444,16 +555,13 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
     return Scaffold(
       body: Stack(
         children: [
-          // ===================================================
-          // BACKGROUND
-          // ===================================================
-
           Container(
             width: double.infinity,
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('lib/images/pnew.png'),
+                image:
+                    AssetImage('lib/images/pnew.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -470,28 +578,29 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
             child: Container(
               height: 110,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                gradient: const LinearGradient(
+                borderRadius:
+                    BorderRadius.circular(30),
+                gradient: LinearGradient(
                   colors: [
-                    Color(0xFF0D47A1),
-                    Color(0xFF1976D2),
-                    Color(0xFF42A5F5),
+                    _darkColor,
+                    _primaryColor,
+                    _lightColor,
                   ],
                 ),
               ),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 115,
-                      ),
-                      child: Text(
+                  Positioned.fill(
+                    left: 110,
+                    right: 40,
+                    child: Center(
+                      child: AutoSizeText(
                         widget.billerName,
                         textAlign: TextAlign.center,
                         maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                        minFontSize: 18,
+                        stepGranularity: 1,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 48,
@@ -500,18 +609,19 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                       ),
                     ),
                   ),
-
                   Positioned(
                     left: 28,
                     child: Container(
                       width: 70,
                       height: 70,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(18),
+                        color:
+                            Colors.white.withOpacity(0.15),
+                        borderRadius:
+                            BorderRadius.circular(18),
                       ),
-                      child: const Icon(
-                        Icons.electric_bolt_rounded,
+                      child: Icon(
+                        _serviceIcon,
                         color: Colors.white,
                         size: 45,
                       ),
@@ -521,7 +631,6 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
               ),
             ),
           ),
-
 
           // ===================================================
           // ACCOUNT NUMBER FIELD
@@ -537,7 +646,7 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                 controller: _controller,
                 readOnly: true,
                 showCursor: true,
-                cursorColor: const Color(0xFF1976D2),
+                cursorColor: _primaryColor,
                 cursorWidth: 4,
                 style: const TextStyle(
                   fontSize: 50,
@@ -555,21 +664,24 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                     fontWeight: FontWeight.bold,
                     color: Colors.black45,
                   ),
-                  contentPadding: const EdgeInsets.symmetric(
+                  contentPadding:
+                      const EdgeInsets.symmetric(
                     horizontal: 35,
                     vertical: 30,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(40),
-                    borderSide: const BorderSide(
-                      color: Color(0xFF1976D2),
+                    borderRadius:
+                        BorderRadius.circular(40),
+                    borderSide: BorderSide(
+                      color: _primaryColor,
                       width: 3,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(40),
-                    borderSide: const BorderSide(
-                      color: Color(0xFF0D47A1),
+                    borderRadius:
+                        BorderRadius.circular(40),
+                    borderSide: BorderSide(
+                      color: _darkColor,
                       width: 4,
                     ),
                   ),
@@ -592,15 +704,15 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
               child: Opacity(
                 opacity: _isLoading ? 0.5 : 1.0,
                 child: SingleChildScrollView(
-                  physics: const ClampingScrollPhysics(),
+                  physics:
+                      const ClampingScrollPhysics(),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // ================= LETTERS =================
-
                       ...keyboardRows.take(5).map((row) {
                         return Padding(
-                          padding: const EdgeInsets.only(
+                          padding:
+                              const EdgeInsets.only(
                             bottom: keySpacing,
                           ),
                           child: Row(
@@ -614,27 +726,36 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                   key == clearAllKey;
 
                               final bool isActionKey =
-                                  isBackspace || isClearAll;
+                                  isBackspace ||
+                                      isClearAll;
 
-                              double currentKeyWidth = keyWidth;
+                              double currentKeyWidth =
+                                  keyWidth;
 
                               if (isBackspace) {
-                                currentKeyWidth = keyWidth * 1.3;
+                                currentKeyWidth =
+                                    keyWidth * 1.3;
                               }
 
                               if (isClearAll) {
-                                currentKeyWidth = keyWidth * 1.8;
+                                currentKeyWidth =
+                                    keyWidth * 1.8;
                               }
 
                               return Padding(
-                                padding: const EdgeInsets.only(
+                                padding:
+                                    const EdgeInsets.only(
                                   right: keySpacing,
                                 ),
                                 child: Builder(
-                                  builder: (buttonContext) {
+                                  builder:
+                                      (buttonContext) {
                                     return Listener(
-                                      onPointerDown: (details) {
-                                        if (_isLoading) return;
+                                      onPointerDown:
+                                          (details) {
+                                        if (_isLoading) {
+                                          return;
+                                        }
 
                                         final renderObject =
                                             buttonContext
@@ -646,7 +767,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                         }
 
                                         final position =
-                                            renderObject.localToGlobal(
+                                            renderObject
+                                                .localToGlobal(
                                           Offset.zero,
                                         );
 
@@ -656,11 +778,15 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                               position;
                                         });
                                       },
-                                      onPointerUp: (details) {
-                                        if (_isLoading) return;
+                                      onPointerUp:
+                                          (details) {
+                                        if (_isLoading) {
+                                          return;
+                                        }
 
                                         setState(() {
-                                          _activeKey = null;
+                                          _activeKey =
+                                              null;
                                         });
 
                                         if (isBackspace) {
@@ -671,40 +797,51 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                           _addText(key);
                                         }
                                       },
-                                      onPointerCancel: (details) {
-                                        if (_isLoading) return;
+                                      onPointerCancel:
+                                          (details) {
+                                        if (_isLoading) {
+                                          return;
+                                        }
 
                                         setState(() {
-                                          _activeKey = null;
+                                          _activeKey =
+                                              null;
                                         });
                                       },
-                                      child: AnimatedContainer(
-                                        duration: const Duration(
-                                          milliseconds: 80,
+                                      child:
+                                          AnimatedContainer(
+                                        duration:
+                                            const Duration(
+                                          milliseconds:
+                                              80,
                                         ),
-                                        width: currentKeyWidth,
+                                        width:
+                                            currentKeyWidth,
                                         height: keyHeight,
-                                        decoration: BoxDecoration(
+                                        decoration:
+                                            BoxDecoration(
                                           color: isActionKey
-                                              ? const Color.fromARGB(
-                                                  255,
-                                                  3,
-                                                  89,
-                                                  210,
-                                                )
-                                              : _activeKey == key
-                                                  ? Colors.grey[300]
-                                                  : Colors.white,
+                                              ? _primaryColor
+                                              : _activeKey ==
+                                                      key
+                                                  ? Colors
+                                                      .grey[300]
+                                                  : Colors
+                                                      .white,
                                           borderRadius:
-                                              BorderRadius.circular(
+                                              BorderRadius
+                                                  .circular(
                                             10,
                                           ),
-                                          border: Border.all(
-                                            color: Colors.black,
+                                          border:
+                                              Border.all(
+                                            color:
+                                                Colors.black,
                                             width: 2,
                                           ),
                                           boxShadow:
-                                              _activeKey == key
+                                              _activeKey ==
+                                                      key
                                                   ? []
                                                   : const [
                                                       BoxShadow(
@@ -712,7 +849,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                                             Colors.black26,
                                                         offset:
                                                             Offset(0, 4),
-                                                        blurRadius: 2,
+                                                        blurRadius:
+                                                            2,
                                                       ),
                                                     ],
                                         ),
@@ -729,16 +867,15 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                                   ? Text(
                                                       clearAllKey,
                                                       textAlign:
-                                                          TextAlign
-                                                              .center,
+                                                          TextAlign.center,
                                                       style:
                                                           const TextStyle(
                                                         color:
                                                             Colors.white,
-                                                        fontSize: 23,
+                                                        fontSize:
+                                                            23,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .bold,
+                                                            FontWeight.bold,
                                                       ),
                                                     )
                                                   : Text(
@@ -747,10 +884,10 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                                           const TextStyle(
                                                         color:
                                                             Colors.black,
-                                                        fontSize: 50,
+                                                        fontSize:
+                                                            50,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .bold,
+                                                            FontWeight.bold,
                                                       ),
                                                     ),
                                         ),
@@ -774,11 +911,10 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
                       const SizedBox(height: 35),
 
-                      // ================= NUMBERS =================
-
                       ...keyboardRows.skip(5).map((row) {
                         return Padding(
-                          padding: const EdgeInsets.only(
+                          padding:
+                              const EdgeInsets.only(
                             bottom: keySpacing,
                           ),
                           child: Row(
@@ -786,14 +922,19 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                 MainAxisAlignment.center,
                             children: row.map((key) {
                               return Padding(
-                                padding: const EdgeInsets.only(
+                                padding:
+                                    const EdgeInsets.only(
                                   right: keySpacing,
                                 ),
                                 child: Builder(
-                                  builder: (buttonContext) {
+                                  builder:
+                                      (buttonContext) {
                                     return Listener(
-                                      onPointerDown: (details) {
-                                        if (_isLoading) return;
+                                      onPointerDown:
+                                          (details) {
+                                        if (_isLoading) {
+                                          return;
+                                        }
 
                                         final renderObject =
                                             buttonContext
@@ -805,7 +946,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                         }
 
                                         final position =
-                                            renderObject.localToGlobal(
+                                            renderObject
+                                                .localToGlobal(
                                           Offset.zero,
                                         );
 
@@ -815,42 +957,61 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                               position;
                                         });
                                       },
-                                      onPointerUp: (details) {
-                                        if (_isLoading) return;
+                                      onPointerUp:
+                                          (details) {
+                                        if (_isLoading) {
+                                          return;
+                                        }
 
                                         setState(() {
-                                          _activeKey = null;
+                                          _activeKey =
+                                              null;
                                         });
 
                                         _addText(key);
                                       },
-                                      onPointerCancel: (details) {
-                                        if (_isLoading) return;
+                                      onPointerCancel:
+                                          (details) {
+                                        if (_isLoading) {
+                                          return;
+                                        }
 
                                         setState(() {
-                                          _activeKey = null;
+                                          _activeKey =
+                                              null;
                                         });
                                       },
-                                      child: AnimatedContainer(
-                                        duration: const Duration(
-                                          milliseconds: 80,
+                                      child:
+                                          AnimatedContainer(
+                                        duration:
+                                            const Duration(
+                                          milliseconds:
+                                              80,
                                         ),
                                         width: keyWidth,
                                         height: keyHeight,
-                                        decoration: BoxDecoration(
-                                          color: _activeKey == key
-                                              ? Colors.grey[300]
-                                              : Colors.white,
+                                        decoration:
+                                            BoxDecoration(
+                                          color: _activeKey ==
+                                                  key
+                                              ? Colors
+                                                  .grey[300]
+                                              : Colors
+                                                  .white,
                                           borderRadius:
-                                              BorderRadius.circular(
+                                              BorderRadius
+                                                  .circular(
                                             10,
                                           ),
-                                          border: Border.all(
-                                            color: Colors.black,
+                                          border:
+                                              Border.all(
+                                            color:
+                                                Colors.black,
                                             width: 2,
                                           ),
                                           boxShadow:
-                                              _activeKey == key
+                                              _activeKey ==
+                                                      key
                                                   ? []
                                                   : const [
                                                       BoxShadow(
@@ -858,17 +1019,20 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                                             Colors.black26,
                                                         offset:
                                                             Offset(0, 4),
-                                                        blurRadius: 2,
+                                                        blurRadius:
+                                                            2,
                                                       ),
                                                     ],
                                         ),
                                         child: Center(
                                           child: Text(
                                             key,
-                                            style: const TextStyle(
+                                            style:
+                                                const TextStyle(
                                               fontSize: 50,
                                               fontWeight:
-                                                  FontWeight.bold,
+                                                  FontWeight
+                                                      .bold,
                                             ),
                                           ),
                                         ),
@@ -905,43 +1069,46 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                       width: 120,
                       height: 120,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(
-                          255,
-                          3,
-                          89,
-                          210,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
+                        color: _primaryColor,
+                        borderRadius:
+                            BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black
+                                .withOpacity(0.3),
                             blurRadius: 10,
-                            offset: const Offset(0, 5),
+                            offset:
+                                const Offset(0, 5),
                           ),
                         ],
                       ),
                       child: Center(
-                        child: Text(
-                          _activeKey!,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 50,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: _activeKey ==
+                                backspaceKey
+                            ? const Icon(
+                                Icons
+                                    .backspace_outlined,
+                                color: Colors.white,
+                                size: 50,
+                              )
+                            : Text(
+                                _activeKey!,
+                                textAlign:
+                                    TextAlign.center,
+                                style:
+                                    const TextStyle(
+                                  fontSize: 50,
+                                  color: Colors.white,
+                                  fontWeight:
+                                      FontWeight.bold,
+                                ),
+                              ),
                       ),
                     ),
                     CustomPaint(
                       size: const Size(30, 15),
-                      painter: DrawTriangle(
-                        const Color.fromARGB(
-                          255,
-                          3,
-                          89,
-                          210,
-                        ),
-                      ),
+                      painter:
+                          DrawTriangle(_primaryColor),
                     ),
                   ],
                 ),
@@ -958,8 +1125,6 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
             right: 100,
             child: Row(
               children: [
-                // ================= BACK =================
-
                 Expanded(
                   child: SizedBox(
                     height: 105,
@@ -981,7 +1146,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      style: ElevatedButton.styleFrom(
+                      style:
+                          ElevatedButton.styleFrom(
                         backgroundColor:
                             const Color(0xFFE0E0E0),
                         foregroundColor: Colors.black,
@@ -993,7 +1159,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                           color: Colors.black,
                           width: 2,
                         ),
-                        shape: RoundedRectangleBorder(
+                        shape:
+                            RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.circular(18),
                         ),
@@ -1001,18 +1168,16 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                     ),
                   ),
                 ),
-
                 const SizedBox(width: 50),
-
-                // ================= CONTINUE =================
-
                 Expanded(
                   child: SizedBox(
                     height: 105,
                     child: ElevatedButton(
-                      onPressed:
-                          _isLoading ? null : _handleContinue,
-                      style: ElevatedButton.styleFrom(
+                      onPressed: _isLoading
+                          ? null
+                          : _handleContinue,
+                      style:
+                          ElevatedButton.styleFrom(
                         backgroundColor:
                             const Color(0xFF16813B),
                         foregroundColor: Colors.white,
@@ -1024,7 +1189,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                           color: Colors.black,
                           width: 2,
                         ),
-                        shape: RoundedRectangleBorder(
+                        shape:
+                            RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.circular(18),
                         ),
@@ -1041,12 +1207,16 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                             )
                           : Row(
                               mainAxisAlignment:
-                                  MainAxisAlignment.center,
+                                  MainAxisAlignment
+                                      .center,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)!
+                                  AppLocalizations.of(
+                                    context,
+                                  )!
                                       .buttonContinue,
-                                  style: const TextStyle(
+                                  style:
+                                      const TextStyle(
                                     fontSize: 40,
                                     fontWeight:
                                         FontWeight.bold,
@@ -1075,19 +1245,16 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
             Positioned.fill(
               child: IgnorePointer(
                 child: Container(
-                  color: Colors.black.withOpacity(0.08),
-                  child: const Center(
+                  color:
+                      Colors.black.withOpacity(0.08),
+                  child: Center(
                     child: SizedBox(
                       width: 90,
                       height: 90,
-                      child: CircularProgressIndicator(
+                      child:
+                          CircularProgressIndicator(
                         strokeWidth: 8,
-                        color: Color.fromARGB(
-                          255,
-                          3,
-                          89,
-                          210,
-                        ),
+                        color: _primaryColor,
                       ),
                     ),
                   ),
@@ -1120,10 +1287,6 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
   }
 }
 
-// ===========================================================
-// TRIANGLE FOR KEY PREVIEW
-// ===========================================================
-
 class DrawTriangle extends CustomPainter {
   final Color color;
 
@@ -1145,7 +1308,9 @@ class DrawTriangle extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant DrawTriangle oldDelegate) {
+  bool shouldRepaint(
+    covariant DrawTriangle oldDelegate,
+  ) {
     return oldDelegate.color != color;
   }
 }

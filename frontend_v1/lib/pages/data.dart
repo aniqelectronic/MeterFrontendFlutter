@@ -33,4 +33,6 @@ class Data {
       'https://staging.iimmpact.com';
 
   static const double electricityServiceFee = 1.00;
+
+  static const double waterServiceFee = 1.00;
 }

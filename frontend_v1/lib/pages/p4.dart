@@ -842,16 +842,30 @@ void _showAlert(
                                                 ],
                                         ),
                                         child: Center(
-                                          child: Text(
-                                            key,
-                                            style: TextStyle(
-                                              color: isActionKey
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: isActionKey ? 25 : 50,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
+                                          child: key == backspaceKey
+                                              ? const Icon(
+                                                  Icons.backspace_outlined,
+                                                  color: Colors.white,
+                                                  size: 45,
+                                                )
+                                              : key == clearAllKey
+                                                  ? Text(
+                                                      clearAllKey,
+                                                      textAlign: TextAlign.center,
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 23,
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    )
+                                                  : Text(
+                                                      key,
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 50,
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
                                         ),
                                       ),
                                     );

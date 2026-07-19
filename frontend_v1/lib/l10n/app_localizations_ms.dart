@@ -1503,7 +1503,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get waterDesc => 'Bermain air di taman tema air yang menyeronokkan.';
 
   @override
-  String get waterFull => 'Nikmati permainan air dan hiburan di A\'Famosa Water Theme Park, sesuai untuk semua peringkat umur.';
+  String get waterFull => 'PENUH';
 
   @override
   String get mocityDesc => 'Bermain mini-game dan aktiviti interaktif.';
@@ -3489,4 +3489,164 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get electricUpdateWithinThreeDays => 'Dalam tempoh 3 hari';
+
+  @override
+  String get waterBillProviderTitle => 'PILIHAN BIL AIR';
+
+  @override
+  String get waterBillProviderSubtitle => 'Sila pilih penyedia perkhidmatan air anda';
+
+  @override
+  String get waterAccountTitle => 'Masukkan Nombor Akaun Air';
+
+  @override
+  String get waterAccountHint => 'Masukkan nombor akaun bil air anda';
+
+  @override
+  String get networkLabel => 'RANGKAIAN';
+
+  @override
+  String get networkStatusChecking => 'MEMERIKSA';
+
+  @override
+  String get networkStatusGood => 'BAIK';
+
+  @override
+  String get networkStatusSlow => 'PERLAHAN';
+
+  @override
+  String get networkStatusUnknown => 'TIDAK DIKETAHUI';
+
+  @override
+  String get waterBillPayment => 'Pembayaran Bil Air';
+
+  @override
+  String get waterBillInformation => 'Maklumat Bil Air';
+
+  @override
+  String get waterOutstandingAmount => 'Jumlah Tertunggak';
+
+  @override
+  String get waterCreditBalance => 'Baki Kredit';
+
+  @override
+  String get waterDueDate => 'Tarikh Akhir Bayaran';
+
+  @override
+  String get waterCustomerName => 'Nama Pelanggan';
+
+  @override
+  String get waterServiceAddress => 'Alamat Perkhidmatan';
+
+  @override
+  String get waterCreditNotice => 'Akaun ini mempunyai baki kredit.';
+
+  @override
+  String get waterAccountNumber => 'Nombor Akaun';
+
+  @override
+  String get waterSelectPaymentAmount => 'Pilih Jumlah Bayaran';
+
+  @override
+  String get waterOrderSummary => 'Ringkasan Pesanan';
+
+  @override
+  String get waterServiceFee => 'Caj Perkhidmatan';
+
+  @override
+  String get waterTotalAmount => 'Jumlah Keseluruhan';
+
+  @override
+  String get waterPaymentUpdateTime => 'Tempoh Kemas Kini Bil';
+
+  @override
+  String get waterUpdateWithinThreeDays => 'Dalam tempoh 3 hari bekerja';
+
+  @override
+  String get waterContinue => 'Teruskan';
+
+  @override
+  String get waterInformation => 'Makluman';
+
+  @override
+  String get waterOk => 'OK';
+
+  @override
+  String get waterEnterPaymentAmount => 'Masukkan Jumlah Bayaran';
+
+  @override
+  String get waterCancel => 'Batal';
+
+  @override
+  String get waterDone => 'Selesai';
+
+  @override
+  String get waterNoOutstandingBalance => 'Tiada baki tertunggak untuk akaun ini.';
+
+  @override
+  String waterMinimumPayment(String amount) {
+    return 'Jumlah bayaran minimum ialah $amount.';
+  }
+
+  @override
+  String waterMaximumPayment(String amount) {
+    return 'Jumlah bayaran maksimum ialah $amount.';
+  }
+
+  @override
+  String get waterProductCodeRequired => 'Kod produk pembekal air diperlukan.';
+
+  @override
+  String get waterAccountNumberRequired => 'Nombor akaun air diperlukan.';
+
+  @override
+  String get waterAccountRequired => 'Sila masukkan nombor akaun air.';
+
+  @override
+  String get waterAccountNotFound => 'Akaun bil air tidak ditemui.';
+
+  @override
+  String get waterApiKeyMissing => 'Kunci API tidak ditetapkan.';
+
+  @override
+  String get waterHmacSecretMissing => 'Rahsia HMAC tidak ditetapkan.';
+
+  @override
+  String get waterInvalidHmacBase64 => 'Rahsia HMAC bukan Base64 yang sah.';
+
+  @override
+  String get waterInquiryTimeout => 'Semakan bil air mengambil masa terlalu lama. Sila cuba lagi.';
+
+  @override
+  String get waterUnableToConnect => 'Tidak dapat menyambung ke perkhidmatan bil air.';
+
+  @override
+  String waterInvalidServerResponse(String error) {
+    return 'Respons pelayan tidak sah: $error';
+  }
+
+  @override
+  String waterInquiryFailed(String error) {
+    return 'Semakan bil air gagal: $error';
+  }
+
+  @override
+  String waterInquiryHttpFailed(int statusCode) {
+    return 'Semakan bil air gagal dengan kod status $statusCode.';
+  }
+
+  @override
+  String get waterEmptyApiResponse => 'API memulangkan respons kosong.';
+
+  @override
+  String get waterInvalidJsonObject => 'Respons API bukan objek JSON yang sah.';
+
+  @override
+  String get waterNoBillRecordFound => 'Tiada rekod bil air ditemui.';
+
+  @override
+  String get waterInvalidAccount => 'Nombor akaun air tidak sah.';
+
+  @override
+  String get waterProviderTimeout => 'Pembekal perkhidmatan air mengambil masa terlalu lama untuk memberi respons. Sila cuba lagi kemudian.';
 }

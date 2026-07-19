@@ -22,23 +22,83 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
   bool showScrollUp = false;
   bool showScrollDown = true;
 
+
   @override
   void initState() {
     super.initState();
 
-    _scrollController.addListener(() {
-      final maxScroll = _scrollController.position.maxScrollExtent;
-      final current = _scrollController.offset;
+    _scrollController.addListener(_handleScroll);
 
-      setState(() {
-        showScrollUp = current > 10;
-        showScrollDown = current < (maxScroll - 10);
-      });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _handleScroll();
     });
   }
 
+  void _handleScroll() {
+    if (!_scrollController.hasClients || !mounted) {
+      return;
+    }
+
+    final maxScroll =
+        _scrollController.position.maxScrollExtent;
+
+    final current =
+        _scrollController.offset;
+
+    final newShowScrollUp =
+        current > 10;
+
+    final newShowScrollDown =
+        current < maxScroll - 10;
+
+    if (showScrollUp != newShowScrollUp ||
+        showScrollDown != newShowScrollDown) {
+      setState(() {
+        showScrollUp = newShowScrollUp;
+        showScrollDown = newShowScrollDown;
+      });
+    }
+  }
+
+  void _scrollUp() {
+    if (!_scrollController.hasClients) {
+      return;
+    }
+
+    final destination =
+        (_scrollController.offset - 600).clamp(
+      0.0,
+      _scrollController.position.maxScrollExtent,
+    );
+
+    _scrollController.animateTo(
+      destination,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeOut,
+    );
+  }
+
+  void _scrollDown() {
+    if (!_scrollController.hasClients) {
+      return;
+    }
+
+    final destination =
+        (_scrollController.offset + 600).clamp(
+      0.0,
+      _scrollController.position.maxScrollExtent,
+    );
+
+    _scrollController.animateTo(
+      destination,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeOut,
+    );
+  } 
+
   @override
   void dispose() {
+    _scrollController.removeListener(_handleScroll);
     _scrollController.dispose();
     super.dispose();
   }
@@ -96,13 +156,20 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
 
           // ================= ONLY BUTTON AREA SCROLL =================
           Positioned(
-            top: 430,
+            top: 350,
             left: 0,
             right: 0,
             bottom: 400,
+          child: Scrollbar(
+            controller: _scrollController,
+            thumbVisibility: true,
+            trackVisibility: true,
+            thickness: 12,
+            radius: const Radius.circular(20),
             child: SingleChildScrollView(
               controller: _scrollController,
               physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.only(right: 20),
               child: SizedBox(
                 height: 1520,
                 child: Stack(
@@ -246,63 +313,34 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                   ],
                 ),
               ),
+              ),
             ),
           ),
 
-          // ================= TOP SCROLL INDICATOR =================
-          if (showScrollUp)
-            Positioned(
-              right: 400,
-              top: 280,
-              child: Column(
-                children: [
-                  const Icon(
-                    Icons.keyboard_arrow_up_rounded,
-                    size: 65,
-                    color: Colors.black,
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    AppLocalizations.of(context)!
-                                        .scrollup,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 1.2,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
+        // ================= TOP SCROLL INDICATOR =================
+        if (showScrollUp)
+          Positioned(
+            right: 25,
+            top: 370,
+            child: _ScrollIndicatorButton(
+              icon: Icons.keyboard_arrow_up_rounded,
+              label: AppLocalizations.of(context)!.scrollup,
+              onPressed: _scrollUp,
             ),
+          ),
 
-          // ================= BOTTOM SCROLL INDICATOR =================
-          if (showScrollDown)
-            Positioned(
-              right: 400,
-              bottom: 230,
-              child: Column(
-                children:  [
-                  Text(
-                     AppLocalizations.of(context)!
-                                        .scrolldown,
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 1.2,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    size: 65,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
+        // ================= BOTTOM SCROLL INDICATOR =================
+        if (showScrollDown)
+          Positioned(
+            right: 25,
+            bottom: 350,
+            child: _ScrollIndicatorButton(
+              icon: Icons.keyboard_arrow_down_rounded,
+              label: AppLocalizations.of(context)!.scrolldown,
+              onPressed: _scrollDown,
+              iconBelowText: true,
             ),
-
+          ),
           // ================= BACK BUTTON FIXED =================
             Positioned(
               bottom: 100,
@@ -337,6 +375,67 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ScrollIndicatorButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onPressed;
+  final bool iconBelowText;
+
+  const _ScrollIndicatorButton({
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+    this.iconBelowText = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final iconWidget = Icon(
+      icon,
+      size: 58,
+      color: Colors.black,
+    );
+
+    final textWidget = Text(
+      label,
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w900,
+        color: Colors.black,
+      ),
+    );
+
+    return Material(
+      color: Colors.white.withOpacity(0.90),
+      borderRadius: BorderRadius.circular(22),
+      elevation: 4,
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(22),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 10,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: iconBelowText
+                ? [
+                    textWidget,
+                    iconWidget,
+                  ]
+                : [
+                    iconWidget,
+                    textWidget,
+                  ],
+          ),
+        ),
       ),
     );
   }

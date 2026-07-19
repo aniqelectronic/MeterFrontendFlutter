@@ -3014,7 +3014,7 @@ abstract class AppLocalizations {
   /// No description provided for @waterFull.
   ///
   /// In en, this message translates to:
-  /// **'Enjoy water rides and entertainment at A\'Famosa Water Theme Park, suitable for all ages.'**
+  /// **'FULL'**
   String get waterFull;
 
   /// No description provided for @mocityDesc.
@@ -6958,6 +6958,306 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Within 3 days'**
   String get electricUpdateWithinThreeDays;
+
+  /// No description provided for @waterBillProviderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BILL ELECTRIC OPTIONS'**
+  String get waterBillProviderTitle;
+
+  /// No description provided for @waterBillProviderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your water service provider'**
+  String get waterBillProviderSubtitle;
+
+  /// No description provided for @waterAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Water Account Number'**
+  String get waterAccountTitle;
+
+  /// No description provided for @waterAccountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your water account number'**
+  String get waterAccountHint;
+
+  /// No description provided for @networkLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'NETWORK'**
+  String get networkLabel;
+
+  /// No description provided for @networkStatusChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'CHECKING'**
+  String get networkStatusChecking;
+
+  /// No description provided for @networkStatusGood.
+  ///
+  /// In en, this message translates to:
+  /// **'GOOD'**
+  String get networkStatusGood;
+
+  /// No description provided for @networkStatusSlow.
+  ///
+  /// In en, this message translates to:
+  /// **'SLOW'**
+  String get networkStatusSlow;
+
+  /// No description provided for @networkStatusUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'UNKNOWN'**
+  String get networkStatusUnknown;
+
+  /// No description provided for @waterBillPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Bill Payment'**
+  String get waterBillPayment;
+
+  /// No description provided for @waterBillInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Bill Information'**
+  String get waterBillInformation;
+
+  /// No description provided for @waterOutstandingAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding Amount'**
+  String get waterOutstandingAmount;
+
+  /// No description provided for @waterCreditBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit Balance'**
+  String get waterCreditBalance;
+
+  /// No description provided for @waterDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get waterDueDate;
+
+  /// No description provided for @waterCustomerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Name'**
+  String get waterCustomerName;
+
+  /// No description provided for @waterServiceAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Address'**
+  String get waterServiceAddress;
+
+  /// No description provided for @waterCreditNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'This account currently has a credit balance.'**
+  String get waterCreditNotice;
+
+  /// No description provided for @waterAccountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Number'**
+  String get waterAccountNumber;
+
+  /// No description provided for @waterSelectPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Payment Amount'**
+  String get waterSelectPaymentAmount;
+
+  /// No description provided for @waterOrderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get waterOrderSummary;
+
+  /// No description provided for @waterServiceFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fee'**
+  String get waterServiceFee;
+
+  /// No description provided for @waterTotalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get waterTotalAmount;
+
+  /// No description provided for @waterPaymentUpdateTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill Update Time'**
+  String get waterPaymentUpdateTime;
+
+  /// No description provided for @waterUpdateWithinThreeDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Within 3 working days'**
+  String get waterUpdateWithinThreeDays;
+
+  /// No description provided for @waterContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get waterContinue;
+
+  /// No description provided for @waterInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get waterInformation;
+
+  /// No description provided for @waterOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get waterOk;
+
+  /// No description provided for @waterEnterPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Payment Amount'**
+  String get waterEnterPaymentAmount;
+
+  /// No description provided for @waterCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get waterCancel;
+
+  /// No description provided for @waterDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get waterDone;
+
+  /// No description provided for @waterNoOutstandingBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no outstanding balance for this account.'**
+  String get waterNoOutstandingBalance;
+
+  /// No description provided for @waterMinimumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum payment amount is {amount}.'**
+  String waterMinimumPayment(String amount);
+
+  /// No description provided for @waterMaximumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum payment amount is {amount}.'**
+  String waterMaximumPayment(String amount);
+
+  /// No description provided for @waterProductCodeRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Water provider product code is required.'**
+  String get waterProductCodeRequired;
+
+  /// No description provided for @waterAccountNumberRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Water account number is required.'**
+  String get waterAccountNumberRequired;
+
+  /// No description provided for @waterAccountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the water account number.'**
+  String get waterAccountRequired;
+
+  /// No description provided for @waterAccountNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Water bill account was not found.'**
+  String get waterAccountNotFound;
+
+  /// No description provided for @waterApiKeyMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The API key is missing.'**
+  String get waterApiKeyMissing;
+
+  /// No description provided for @waterHmacSecretMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The HMAC secret is missing.'**
+  String get waterHmacSecretMissing;
+
+  /// No description provided for @waterInvalidHmacBase64.
+  ///
+  /// In en, this message translates to:
+  /// **'The HMAC secret is not valid Base64.'**
+  String get waterInvalidHmacBase64;
+
+  /// No description provided for @waterInquiryTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'The water bill inquiry timed out. Please try again.'**
+  String get waterInquiryTimeout;
+
+  /// No description provided for @waterUnableToConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to connect to the water bill service.'**
+  String get waterUnableToConnect;
+
+  /// No description provided for @waterInvalidServerResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid server response: {error}'**
+  String waterInvalidServerResponse(String error);
+
+  /// No description provided for @waterInquiryFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Water bill inquiry failed: {error}'**
+  String waterInquiryFailed(String error);
+
+  /// No description provided for @waterInquiryHttpFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Water bill inquiry failed with status code {statusCode}.'**
+  String waterInquiryHttpFailed(int statusCode);
+
+  /// No description provided for @waterEmptyApiResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The API returned an empty response.'**
+  String get waterEmptyApiResponse;
+
+  /// No description provided for @waterInvalidJsonObject.
+  ///
+  /// In en, this message translates to:
+  /// **'The API response is not a valid JSON object.'**
+  String get waterInvalidJsonObject;
+
+  /// No description provided for @waterNoBillRecordFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No water bill record was found.'**
+  String get waterNoBillRecordFound;
+
+  /// No description provided for @waterInvalidAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid water account number.'**
+  String get waterInvalidAccount;
+
+  /// No description provided for @waterProviderTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'The water provider is taking too long to respond. Please try again later.'**
+  String get waterProviderTimeout;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

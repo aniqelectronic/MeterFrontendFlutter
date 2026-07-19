@@ -44,6 +44,38 @@ class _P2PageState extends State<P2Page> {
     super.dispose();
   }
 
+  void _scrollUp() {
+  if (!_scrollController.hasClients) return;
+
+  final destination =
+      (_scrollController.offset - 600).clamp(
+    0.0,
+    _scrollController.position.maxScrollExtent,
+  );
+
+  _scrollController.animateTo(
+    destination,
+    duration: const Duration(milliseconds: 400),
+    curve: Curves.easeOut,
+  );
+}
+
+void _scrollDown() {
+  if (!_scrollController.hasClients) return;
+
+  final destination =
+      (_scrollController.offset + 600).clamp(
+    0.0,
+    _scrollController.position.maxScrollExtent,
+  );
+
+  _scrollController.animateTo(
+    destination,
+    duration: const Duration(milliseconds: 400),
+    curve: Curves.easeOut,
+  );
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,14 +129,20 @@ class _P2PageState extends State<P2Page> {
 
           // ================= SCROLLABLE BUTTON AREA =================
           Positioned(
-            top: 430,
+            top: 350,
             left: 0,
             right: 0,
             bottom: 400,
-            child: SingleChildScrollView(
+            child: Scrollbar(
               controller: _scrollController,
-              physics: const BouncingScrollPhysics(),
-              child: SizedBox(
+              thumbVisibility: true,
+              trackVisibility: true,
+              thickness: 12,
+              radius: const Radius.circular(20),
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(),
+                child: SizedBox(
                 height: 1600,
                 child: Stack(
                   children: [
@@ -230,59 +268,32 @@ class _P2PageState extends State<P2Page> {
                 ),
               ),
             ),
-          ),
+            ),
+            ),
+          
 
           // ================= TOP SCROLL =================
-          if (showScrollUp)
-            Positioned(
-              right: 430,
-              top: 300,
-              child: Column(
-                children: [
-                  const Icon(
-                    Icons.keyboard_arrow_up_rounded,
-                    size: 65,
-                    color: Colors.black,
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    AppLocalizations.of(context)!
-                                        .scrollup,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 1.2,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
+        if (showScrollUp)
+          Positioned(
+            right: 25,
+            top: 370,
+            child: _ScrollIndicatorButton(
+              icon: Icons.keyboard_arrow_up_rounded,
+              label: AppLocalizations.of(context)!.scrollup,
+              onPressed: _scrollUp,
             ),
+          ),
 
           // ================= BOTTOM SCROLL =================
           if (showScrollDown)
             Positioned(
-              right: 370,
-              bottom: 230,
-              child: Column(
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!
-                                        .scrolldown,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 1.2,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  const Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    size: 65,
-                    color: Colors.black,
-                  ),
-                ],
+              right: 25,
+              bottom: 350,
+              child: _ScrollIndicatorButton(
+                icon: Icons.keyboard_arrow_down_rounded,
+                label: AppLocalizations.of(context)!.scrolldown,
+                onPressed: _scrollDown,
+                iconBelowText: true,
               ),
             ),
 
@@ -320,6 +331,67 @@ class _P2PageState extends State<P2Page> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ScrollIndicatorButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onPressed;
+  final bool iconBelowText;
+
+  const _ScrollIndicatorButton({
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+    this.iconBelowText = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final iconWidget = Icon(
+      icon,
+      size: 58,
+      color: Colors.black,
+    );
+
+    final textWidget = Text(
+      label,
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w900,
+        color: Colors.black,
+      ),
+    );
+
+    return Material(
+      color: Colors.white.withOpacity(0.90),
+      borderRadius: BorderRadius.circular(22),
+      elevation: 4,
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(22),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 10,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: iconBelowText
+                ? [
+                    textWidget,
+                    iconWidget,
+                  ]
+                : [
+                    iconWidget,
+                    textWidget,
+                  ],
+          ),
+        ),
       ),
     );
   }

@@ -1675,6 +1675,94 @@
 
 "electricPaymentUpdateTime": "Bill Update Time",
 "electricUpdateInstant": "INSTANT",
-"electricUpdateWithinThreeDays": "Within 3 days"
+"electricUpdateWithinThreeDays": "Within 3 days",
+
+"waterBillProviderTitle": "BILL ELECTRIC OPTIONS",
+"waterBillProviderSubtitle": "Please select your water service provider",
+"waterAccountTitle": "Enter Water Account Number",
+"waterAccountHint": "Enter your water account number",
+"networkLabel": "NETWORK",
+"networkStatusChecking": "CHECKING",
+"networkStatusGood": "GOOD",
+"networkStatusSlow": "SLOW",
+"networkStatusUnknown": "UNKNOWN",
+
+  "waterBillPayment": "Water Bill Payment",
+  "waterBillInformation": "Water Bill Information",
+  "waterOutstandingAmount": "Outstanding Amount",
+  "waterCreditBalance": "Credit Balance",
+  "waterDueDate": "Due Date",
+  "waterCustomerName": "Customer Name",
+  "waterServiceAddress": "Service Address",
+  "waterCreditNotice": "This account currently has a credit balance.",
+  "waterAccountNumber": "Account Number",
+  "waterSelectPaymentAmount": "Select Payment Amount",
+  "waterOrderSummary": "Order Summary",
+  "waterServiceFee": "Service Fee",
+  "waterTotalAmount": "Total Amount",
+  "waterPaymentUpdateTime": "Bill Update Time",
+  "waterUpdateWithinThreeDays": "Within 3 working days",
+  "waterContinue": "Continue",
+  "waterInformation": "Information",
+  "waterOk": "OK",
+  "waterEnterPaymentAmount": "Enter Payment Amount",
+  "waterCancel": "Cancel",
+  "waterDone": "Done",
+  "waterFull": "FULL",
+  "waterNoOutstandingBalance": "There is no outstanding balance for this account.",
+  "waterMinimumPayment": "Minimum payment amount is {amount}.",
+  "@waterMinimumPayment": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "waterMaximumPayment": "Maximum payment amount is {amount}.",
+  "@waterMaximumPayment": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "waterProductCodeRequired": "Water provider product code is required.",
+  "waterAccountNumberRequired": "Water account number is required.",
+  "waterAccountRequired": "Please enter the water account number.",
+  "waterAccountNotFound": "Water bill account was not found.",
+  "waterApiKeyMissing": "The API key is missing.",
+  "waterHmacSecretMissing": "The HMAC secret is missing.",
+  "waterInvalidHmacBase64": "The HMAC secret is not valid Base64.",
+  "waterInquiryTimeout": "The water bill inquiry timed out. Please try again.",
+  "waterUnableToConnect": "Unable to connect to the water bill service.",
+  "waterInvalidServerResponse": "Invalid server response: {error}",
+  "@waterInvalidServerResponse": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "waterInquiryFailed": "Water bill inquiry failed: {error}",
+  "@waterInquiryFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "waterInquiryHttpFailed": "Water bill inquiry failed with status code {statusCode}.",
+  "@waterInquiryHttpFailed": {
+    "placeholders": {
+      "statusCode": {
+        "type": "int"
+      }
+    }
+  },
+  "waterEmptyApiResponse": "The API returned an empty response.",
+  "waterInvalidJsonObject": "The API response is not a valid JSON object.",
+  "waterNoBillRecordFound": "No water bill record was found.",
+  "waterInvalidAccount": "Invalid water account number.",
+  "waterProviderTimeout": "The water provider is taking too long to respond. Please try again later."
 
 }

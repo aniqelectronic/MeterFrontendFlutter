@@ -1509,7 +1509,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get waterDesc => 'Splash around in an exciting water theme park.';
 
   @override
-  String get waterFull => 'Enjoy water rides and entertainment at A\'Famosa Water Theme Park, suitable for all ages.';
+  String get waterFull => 'FULL';
 
   @override
   String get mocityDesc => 'Play mini-games and enjoy interactive fun.';
@@ -3495,4 +3495,164 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get electricUpdateWithinThreeDays => 'Within 3 days';
+
+  @override
+  String get waterBillProviderTitle => 'BILL ELECTRIC OPTIONS';
+
+  @override
+  String get waterBillProviderSubtitle => 'Please select your water service provider';
+
+  @override
+  String get waterAccountTitle => 'Enter Water Account Number';
+
+  @override
+  String get waterAccountHint => 'Enter your water account number';
+
+  @override
+  String get networkLabel => 'NETWORK';
+
+  @override
+  String get networkStatusChecking => 'CHECKING';
+
+  @override
+  String get networkStatusGood => 'GOOD';
+
+  @override
+  String get networkStatusSlow => 'SLOW';
+
+  @override
+  String get networkStatusUnknown => 'UNKNOWN';
+
+  @override
+  String get waterBillPayment => 'Water Bill Payment';
+
+  @override
+  String get waterBillInformation => 'Water Bill Information';
+
+  @override
+  String get waterOutstandingAmount => 'Outstanding Amount';
+
+  @override
+  String get waterCreditBalance => 'Credit Balance';
+
+  @override
+  String get waterDueDate => 'Due Date';
+
+  @override
+  String get waterCustomerName => 'Customer Name';
+
+  @override
+  String get waterServiceAddress => 'Service Address';
+
+  @override
+  String get waterCreditNotice => 'This account currently has a credit balance.';
+
+  @override
+  String get waterAccountNumber => 'Account Number';
+
+  @override
+  String get waterSelectPaymentAmount => 'Select Payment Amount';
+
+  @override
+  String get waterOrderSummary => 'Order Summary';
+
+  @override
+  String get waterServiceFee => 'Service Fee';
+
+  @override
+  String get waterTotalAmount => 'Total Amount';
+
+  @override
+  String get waterPaymentUpdateTime => 'Bill Update Time';
+
+  @override
+  String get waterUpdateWithinThreeDays => 'Within 3 working days';
+
+  @override
+  String get waterContinue => 'Continue';
+
+  @override
+  String get waterInformation => 'Information';
+
+  @override
+  String get waterOk => 'OK';
+
+  @override
+  String get waterEnterPaymentAmount => 'Enter Payment Amount';
+
+  @override
+  String get waterCancel => 'Cancel';
+
+  @override
+  String get waterDone => 'Done';
+
+  @override
+  String get waterNoOutstandingBalance => 'There is no outstanding balance for this account.';
+
+  @override
+  String waterMinimumPayment(String amount) {
+    return 'Minimum payment amount is $amount.';
+  }
+
+  @override
+  String waterMaximumPayment(String amount) {
+    return 'Maximum payment amount is $amount.';
+  }
+
+  @override
+  String get waterProductCodeRequired => 'Water provider product code is required.';
+
+  @override
+  String get waterAccountNumberRequired => 'Water account number is required.';
+
+  @override
+  String get waterAccountRequired => 'Please enter the water account number.';
+
+  @override
+  String get waterAccountNotFound => 'Water bill account was not found.';
+
+  @override
+  String get waterApiKeyMissing => 'The API key is missing.';
+
+  @override
+  String get waterHmacSecretMissing => 'The HMAC secret is missing.';
+
+  @override
+  String get waterInvalidHmacBase64 => 'The HMAC secret is not valid Base64.';
+
+  @override
+  String get waterInquiryTimeout => 'The water bill inquiry timed out. Please try again.';
+
+  @override
+  String get waterUnableToConnect => 'Unable to connect to the water bill service.';
+
+  @override
+  String waterInvalidServerResponse(String error) {
+    return 'Invalid server response: $error';
+  }
+
+  @override
+  String waterInquiryFailed(String error) {
+    return 'Water bill inquiry failed: $error';
+  }
+
+  @override
+  String waterInquiryHttpFailed(int statusCode) {
+    return 'Water bill inquiry failed with status code $statusCode.';
+  }
+
+  @override
+  String get waterEmptyApiResponse => 'The API returned an empty response.';
+
+  @override
+  String get waterInvalidJsonObject => 'The API response is not a valid JSON object.';
+
+  @override
+  String get waterNoBillRecordFound => 'No water bill record was found.';
+
+  @override
+  String get waterInvalidAccount => 'Invalid water account number.';
+
+  @override
+  String get waterProviderTimeout => 'The water provider is taking too long to respond. Please try again later.';
 }
