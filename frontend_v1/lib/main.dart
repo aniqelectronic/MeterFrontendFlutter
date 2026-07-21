@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onscreen_keyboard/flutter_onscreen_keyboard.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:frontend_v1/pages/p1bentong.dart';
+import 'package:frontend_v1/pages/home/p1bentong.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:frontend_v1/pages/p1.dart';
+import 'package:frontend_v1/pages/home/p1.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'dart:async';
 import 'dart:io';
