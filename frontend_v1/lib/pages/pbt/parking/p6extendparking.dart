@@ -4,8 +4,8 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/payment/payment.dart';
 import 'package:frontend_v1/widgets/clock_card.dart';
-import 'p4.dart';
-import '../config.dart';
+import '../p4.dart';
+import '../../config.dart';
 
 class P6EXTENDPARKINGPAGE extends StatefulWidget {
   final String plate;

@@ -7,22 +7,22 @@ import 'package:frontend_v1/controllers/tax/tax_service.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/p2.dart';
-import 'package:frontend_v1/pages/pbt/p5_taksiran_bentong_screen.dart';
-import 'package:frontend_v1/pages/pbt/p5_tax_screen.dart';
-import 'package:frontend_v1/pages/pbt/p5extendparking.dart';
-import 'package:frontend_v1/pages/pbt/p5parking.dart';
-import 'package:frontend_v1/pages/pbt/p5_license_screen.dart';
-import 'package:frontend_v1/pages/pbt/p5_multiplecompound.dart';
+import 'package:frontend_v1/pages/pbt/cukai/p5_taksiran_bentong_screen.dart';
+import 'package:frontend_v1/pages/pbt/cukai/p5_tax_screen.dart';
+import 'package:frontend_v1/pages/pbt/parking/p5extendparking.dart';
+import 'package:frontend_v1/pages/pbt/parking/p5parking.dart';
+import 'package:frontend_v1/pages/pbt/lesen/p5_license_screen.dart';
+import 'package:frontend_v1/pages/pbt/compound/p5_multiplecompound.dart';
 import 'package:frontend_v1/controllers/compound/compound_service.dart';
-import 'package:frontend_v1/pages/pbt/p5_singlecompound_screen.dart';
-import 'package:frontend_v1/pages/pbt/p5sewaanPBTbentong.dart';
+import 'package:frontend_v1/pages/pbt/compound/p5_singlecompound_screen.dart';
+import 'package:frontend_v1/pages/pbt/sewaan/p5sewaanPBTbentong.dart';
 import 'package:frontend_v1/pages/option/pbt3.dart';
 import 'package:frontend_v1/controllers/sewaan/sewaan_service_bentong.dart';
 import 'package:frontend_v1/controllers/taksiran/semakan_cukai_taksiran_bentong_service.dart';
-import 'package:frontend_v1/pages/pbt/p5_semakan_cukaitaksiran_bentong.dart';
+import 'package:frontend_v1/pages/pbt/cukai/p5_semakan_cukaitaksiran_bentong.dart';
 
 import 'package:frontend_v1/controllers/sewaan/semakan_sewaan_bentong_service.dart';
-import 'package:frontend_v1/pages/pbt/p5_semakan_sewaan_bentong.dart';
+import 'package:frontend_v1/pages/pbt/sewaan/p5_semakan_sewaan_bentong.dart';
 
 class P4PAGE extends StatefulWidget {
   final String title;

@@ -3,11 +3,10 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
-import '../option/pbt3.dart';
-import 'p4.dart';
+import '../../option/pbt3.dart';
+import '../p4.dart';
 
-
-  void _showSemakanWarning(BuildContext context) {
+void _showSemakanSewaanWarning(BuildContext context) {
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -29,6 +28,13 @@ import 'p4.dart';
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.25),
+                blurRadius: 25,
+                offset: const Offset(0, 12),
+              ),
+            ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -43,14 +49,14 @@ import 'p4.dart';
                 child: const Icon(
                   Icons.warning_amber_rounded,
                   color: Colors.orange,
-                  size: 70,
+                  size: 75,
                 ),
               ),
 
               const SizedBox(height: 25),
 
               Text(
-                AppLocalizations.of(context)!.semakanWarningTitle,
+                AppLocalizations.of(context)!.semakanSewaanWarningTitle,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 34,
@@ -62,7 +68,7 @@ import 'p4.dart';
               const SizedBox(height: 20),
 
               Text(
-                AppLocalizations.of(context)!.semakanWarningMessage,
+                AppLocalizations.of(context)!.semakanSewaanWarningMessage,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 24,
@@ -83,6 +89,10 @@ import 'p4.dart';
                           Navigator.pop(context);
                         },
                         style: OutlinedButton.styleFrom(
+                          side: const BorderSide(
+                            color: Color(0xFF0359D2),
+                            width: 2,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18),
                           ),
@@ -92,6 +102,7 @@ import 'p4.dart';
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
+                            color: Color(0xFF0359D2),
                           ),
                         ),
                       ),
@@ -112,11 +123,11 @@ import 'p4.dart';
                             MaterialPageRoute(
                               builder: (_) => P4PAGE(
                                 title: AppLocalizations.of(context)!
-                                    .semakancukaititle,
+                                    .semakansewaantitle,
                                 type: "PBT",
                                 hint: AppLocalizations.of(context)!
                                     .inputTaxHint,
-                                biz: "SEMAKAN CUKAI",
+                                biz: "SEMAKAN SEWAAN",
                               ),
                             ),
                           );
@@ -126,6 +137,7 @@ import 'p4.dart';
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18),
                           ),
+                          elevation: 8,
                         ),
                         child: Text(
                           AppLocalizations.of(context)!.continueButton,
@@ -148,8 +160,8 @@ import 'p4.dart';
   );
 }
 
-class P4OPTIONCUKAIBENTONG extends StatelessWidget {
-  const P4OPTIONCUKAIBENTONG({super.key});
+class P4OPTIONSEWAANBENTONG extends StatelessWidget {
+  const P4OPTIONSEWAANBENTONG({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -168,14 +180,14 @@ class P4OPTIONCUKAIBENTONG extends StatelessWidget {
             ),
           ),
 
-          // P4OPTIONCUKAIBENTONG Title Text
+          // P4OPTIONSEWAANBENTONG Title Text
           Positioned(
             top: 120,
             left: 0,
             right: 0,
             child: Center(
               child: Text(
-                AppLocalizations.of(context)!.p4optioncukaiTitle,
+                AppLocalizations.of(context)!.p4optionsewaanTitle,
                 style: const TextStyle(
                   color: Color.fromARGB(255, 3, 89, 210),
                   fontSize: 70,
@@ -193,7 +205,7 @@ class P4OPTIONCUKAIBENTONG extends StatelessWidget {
               right: 0,
               child: Center(
                 child: Text(
-                  AppLocalizations.of(context)!.p4optioncukaiSubtitle,
+                  AppLocalizations.of(context)!.p4optionsewaanSubtitle,
                   style: const TextStyle(
                     color: Color.fromARGB(255, 62, 62, 62),
                     fontSize: 40,
@@ -212,20 +224,18 @@ class P4OPTIONCUKAIBENTONG extends StatelessWidget {
             child: _KioskMainButton(
               width: 450,
               height: 450,
-              label: AppLocalizations.of(context)!.paymenttax,
+              label: AppLocalizations.of(context)!.paymentsewaan,
               onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (_) => P4PAGE(
-                                title:
-                                    AppLocalizations.of(context)!
-                                        .taxButton,
+                                title: AppLocalizations.of(context)!.p4optionsewaanTitle,
                                 type: "PBT",
                                 hint:
                                     AppLocalizations.of(context)!
                                         .inputTaxHint,
-                                biz: "CUKAI",
+                                biz: "SEWAAN PBT",
                               ),
                             ),
                           );
@@ -242,10 +252,10 @@ class P4OPTIONCUKAIBENTONG extends StatelessWidget {
             child: _KioskMainButton(
               width: 450,
               height: 450,
-              label: AppLocalizations.of(context)!.checkbuttontax,
-            onPressed: () {
-              _showSemakanWarning(context);
-            },
+              label: AppLocalizations.of(context)!.checkbuttonsewaan,
+              onPressed: () {
+                _showSemakanSewaanWarning(context);
+              },
             ),
           ),
 

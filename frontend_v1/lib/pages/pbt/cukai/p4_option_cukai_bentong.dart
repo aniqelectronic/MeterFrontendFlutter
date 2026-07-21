@@ -3,11 +3,153 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
-import '../option/pbt3.dart';
-import 'p4.dart';
+import '../../option/pbt3.dart';
+import '../p4.dart';
 
-class P4OPTIONCOMPOUND extends StatelessWidget {
-  const P4OPTIONCOMPOUND({super.key});
+
+  void _showSemakanWarning(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(35),
+        ),
+        child: Container(
+          width: 650,
+          padding: const EdgeInsets.all(35),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(35),
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFFF8FBFF),
+                Color(0xFFEAF3FF),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 110,
+                height: 110,
+                decoration: BoxDecoration(
+                  color: Colors.amber.shade100,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.warning_amber_rounded,
+                  color: Colors.orange,
+                  size: 70,
+                ),
+              ),
+
+              const SizedBox(height: 25),
+
+              Text(
+                AppLocalizations.of(context)!.semakanWarningTitle,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 34,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF0359D2),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              Text(
+                AppLocalizations.of(context)!.semakanWarningMessage,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 24,
+                  height: 1.5,
+                  color: Colors.black87,
+                ),
+              ),
+
+              const SizedBox(height: 35),
+
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 75,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)!.cancelButton,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: 20),
+
+                  Expanded(
+                    child: SizedBox(
+                      height: 75,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => P4PAGE(
+                                title: AppLocalizations.of(context)!
+                                    .semakancukaititle,
+                                type: "PBT",
+                                hint: AppLocalizations.of(context)!
+                                    .inputTaxHint,
+                                biz: "SEMAKAN CUKAI",
+                              ),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF0359D2),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)!.continueButton,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+class P4OPTIONCUKAIBENTONG extends StatelessWidget {
+  const P4OPTIONCUKAIBENTONG({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +168,14 @@ class P4OPTIONCOMPOUND extends StatelessWidget {
             ),
           ),
 
-          // P4OPTIONCOMPOUND Title Text
+          // P4OPTIONCUKAIBENTONG Title Text
           Positioned(
             top: 120,
             left: 0,
             right: 0,
             child: Center(
               child: Text(
-                AppLocalizations.of(context)!.compoundTitle,
+                AppLocalizations.of(context)!.p4optioncukaiTitle,
                 style: const TextStyle(
                   color: Color.fromARGB(255, 3, 89, 210),
                   fontSize: 70,
@@ -51,7 +193,7 @@ class P4OPTIONCOMPOUND extends StatelessWidget {
               right: 0,
               child: Center(
                 child: Text(
-                  AppLocalizations.of(context)!.compoundSubtitle,
+                  AppLocalizations.of(context)!.p4optioncukaiSubtitle,
                   style: const TextStyle(
                     color: Color.fromARGB(255, 62, 62, 62),
                     fontSize: 40,
@@ -62,56 +204,48 @@ class P4OPTIONCOMPOUND extends StatelessWidget {
             ),
 
 
-             // NOMBOR KOMPAUN Button
+             // MEMBUAT PEMBAYARAN Button
              Positioned(
             top: 700,
             left: -500,
             right: 0,
             child: _KioskMainButton(
-              width: 400,
-              height: 400,
-              label: AppLocalizations.of(context)!.singleCompoundButton,
+              width: 450,
+              height: 450,
+              label: AppLocalizations.of(context)!.paymenttax,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => P4PAGE(
-                      title: AppLocalizations.of(context)!.singlecompoundTitle,
-                      type: "PBT",
-                      hint: AppLocalizations.of(context)!.inputCompoundHint,
-                      biz: "SINGLECOMPOUND",
-                    ),
-                    transitionsBuilder: (_, animation, __, child) =>
-                        FadeTransition(opacity: animation, child: child),
-                  ),
-                );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => P4PAGE(
+                                title:
+                                    AppLocalizations.of(context)!
+                                        .taxButton,
+                                type: "PBT",
+                                hint:
+                                    AppLocalizations.of(context)!
+                                        .inputTaxHint,
+                                biz: "CUKAI",
+                              ),
+                            ),
+                          );
               },
             ),
           ),
           
                      
-          //NOMBOR PLAT Button
+          //MEMBUAT SEMAKAN BAYARAN Button
           Positioned(
             top: 700,
             left: 0,
             right: -500,
             child: _KioskMainButton(
-              width: 400,
-              height: 400,
-              label: AppLocalizations.of(context)!.multiCompoundButton,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => P4PAGE(
-                      title: AppLocalizations.of(context)!.multicompoundTitle,
-                      type: "PBT",
-                      hint: AppLocalizations.of(context)!.inputPlateHint,
-                      biz: "MULTICOMPOUND",
-                    ),
-                  ),
-                );
-              },
+              width: 450,
+              height: 450,
+              label: AppLocalizations.of(context)!.checkbuttontax,
+            onPressed: () {
+              _showSemakanWarning(context);
+            },
             ),
           ),
 

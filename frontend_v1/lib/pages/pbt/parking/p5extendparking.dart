@@ -4,7 +4,7 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/pbt/p4.dart';
-import 'package:frontend_v1/pages/pbt/p6extendparking.dart';
+import 'package:frontend_v1/pages/pbt/parking/p6extendparking.dart';
 import 'package:frontend_v1/pages/resit/resit.dart';
 
 class P5EXTENDPARKINGPAGE extends StatefulWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
-import 'package:frontend_v1/pages/pbt/p4_option_cukai_bentong.dart';
-import 'package:frontend_v1/pages/pbt/p4_option_sewaan_bentong.dart';
+import 'package:frontend_v1/pages/pbt/cukai/p4_option_cukai_bentong.dart';
+import 'package:frontend_v1/pages/pbt/sewaan/p4_option_sewaan_bentong.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'p2.dart';
-import '../pbt/p4optioncompound.dart';
+import '../pbt/compound/p4optioncompound.dart';
 import '../pbt/p4.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 

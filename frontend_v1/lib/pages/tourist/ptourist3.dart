@@ -15,10 +15,10 @@ import 'package:frontend_v1/pages/tourist/eksplorasi/pexploration_ipoh.dart';
 import 'package:frontend_v1/pages/tourist/eksplorasi/pexploration_kampar.dart';
 import 'package:frontend_v1/pages/tourist/eksplorasi/pexploration_melaka.dart';
 import 'package:frontend_v1/pages/tourist/eksplorasi/pexploration_rompin.dart';
-import 'package:frontend_v1/pages/tourist/pmap.dart';
-import 'package:frontend_v1/pages/tourist/pmapgoogle.dart';
+import 'package:frontend_v1/pages/tourist/map/pmap.dart';
+import 'package:frontend_v1/pages/tourist/map/pmapgoogle.dart';
 import 'package:frontend_v1/pages/tourist/eksplorasi/pnegerisembilan.dart';
-import 'package:frontend_v1/pages/tourist/pwaktusolat.dart';
+import 'package:frontend_v1/pages/tourist/waktusolat/pwaktusolat.dart';
 import 'package:frontend_v1/pages/tourist/eksplorasi/p_exploration_temerloh.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
