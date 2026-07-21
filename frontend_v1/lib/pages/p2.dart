@@ -211,26 +211,26 @@ void _scrollDown() {
                       ),
                     ),                    
 
-                    // ================= RENT BUTTON =================
-                    Positioned(
-                      top: 550,
-                      left: 0,
-                      right: -500,
-                      child: _KioskMainButton(
-                        width: 400,
-                        height: 400,
-                        icon: Icons.house,
-                        label: AppLocalizations.of(context)!.rentText,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const PRENT3PAGE(),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    // ================= OTHER RENT BUTTON =================
+                    // Positioned(
+                    //   top: 550,
+                    //   left: 0,
+                    //   right: -500,
+                    //   child: _KioskMainButton(
+                    //     width: 400,
+                    //     height: 400,
+                    //     icon: Icons.house,
+                    //     label: AppLocalizations.of(context)!.rentText,
+                    //     onPressed: () {
+                    //       Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //           builder: (_) => const PRENT3PAGE(),
+                    //         ),
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
 
                     // ================= COMPLAINT BUTTON =================
 

@@ -10,13 +10,18 @@ import 'package:frontend_v1/controllers/water/water_bill_exception.dart';
 import 'package:frontend_v1/controllers/water/water_bill_service.dart';
 
 import 'package:frontend_v1/l10n/app_localizations.dart';
+import 'package:frontend_v1/model/pricing/catalog_pricing.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/services/iimmpact_catalog_service.dart';
 import 'package:frontend_v1/pages/p5_electric_bill_result.dart';
 import 'package:frontend_v1/pages/p5_water_bill_result.dart';
+
+import 'package:frontend_v1/pages/pbroadbandbill3.dart';
 
 enum BillServiceType {
   electric,
   water,
+  broadband,
 }
 
 class P4BILPAGE extends StatefulWidget {
@@ -464,12 +469,48 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
     ElectricBillController.setSelectedBill(bill);
 
+    // Retrieve the latest pricing for this product from GET /v2/catalog.
+    // If the catalog request fails, the bill page still opens safely
+    // without applying a discount or price adjustment.
+    CatalogPricing catalogPricing =
+        const CatalogPricing.empty();
+
+    try {
+      final catalogJson =
+          await IimmpactCatalogService.getCatalog();
+
+      catalogPricing =
+          CatalogPricing.fromCatalogResponse(
+        catalogJson: catalogJson,
+        productCode: widget.productCode,
+      );
+
+      debugPrint(
+        'Catalog pricing loaded for ${widget.productCode}: '
+        'discount=${catalogPricing.providerDiscount?.displayValue ?? '-'}, '
+        'adjustment=${catalogPricing.priceAdjustment?.displayValue ?? '-'}',
+      );
+    } on IimmpactCatalogException catch (error) {
+      debugPrint(
+        'Catalog pricing unavailable for ${widget.productCode}: '
+        '${error.message}',
+      );
+    } catch (error, stackTrace) {
+      debugPrint(
+        'Unexpected catalog pricing error for '
+        '${widget.productCode}: $error',
+      );
+      debugPrintStack(stackTrace: stackTrace);
+    }
+
+    if (!mounted) return;
+
     await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) =>
-            P5ElectricBillResultPage(
+        builder: (_) => P5ElectricBillResultPage(
           bill: bill,
+          catalogPricing: catalogPricing,
         ),
       ),
     );
@@ -505,11 +546,48 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
     WaterBillController.setSelectedBill(bill);
 
+    // Retrieve the latest water pricing from GET /v2/catalog.
+    // If the catalog request fails, the result page still opens
+    // without a provider discount or service adjustment.
+    CatalogPricing catalogPricing =
+        const CatalogPricing.empty();
+
+    try {
+      final catalogJson =
+          await IimmpactCatalogService.getCatalog();
+
+      catalogPricing =
+          CatalogPricing.fromCatalogResponse(
+        catalogJson: catalogJson,
+        productCode: widget.productCode,
+      );
+
+      debugPrint(
+        'Water catalog pricing loaded for ${widget.productCode}: '
+        'discount=${catalogPricing.providerDiscount?.displayValue ?? '-'}, '
+        'adjustment=${catalogPricing.priceAdjustment?.displayValue ?? '-'}',
+      );
+    } on IimmpactCatalogException catch (error) {
+      debugPrint(
+        'Water catalog pricing unavailable for ${widget.productCode}: '
+        '${error.message}',
+      );
+    } catch (error, stackTrace) {
+      debugPrint(
+        'Unexpected water catalog pricing error for '
+        '${widget.productCode}: $error',
+      );
+      debugPrintStack(stackTrace: stackTrace);
+    }
+
+    if (!mounted) return;
+
     await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => P5WaterBillResultPage(
           bill: bill,
+          catalogPricing: catalogPricing,
         ),
       ),
     );

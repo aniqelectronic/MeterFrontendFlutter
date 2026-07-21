@@ -1671,11 +1671,16 @@
 
 "electricTotalAmount": "Total Amount",
 
-"electricContinue": "Continue",
+"electricContinue": "CONTINUE",
 
 "electricPaymentUpdateTime": "Bill Update Time",
 "electricUpdateInstant": "INSTANT",
 "electricUpdateWithinThreeDays": "Within 3 days",
+
+"waterUpdateInstant": "INSTANT",
+"waterUpdateTwentyFourHours" : "Within 24 hours",
+
+
 
 "waterBillProviderTitle": "BILL ELECTRIC OPTIONS",
 "waterBillProviderSubtitle": "Please select your water service provider",
@@ -1763,6 +1768,66 @@
   "waterInvalidJsonObject": "The API response is not a valid JSON object.",
   "waterNoBillRecordFound": "No water bill record was found.",
   "waterInvalidAccount": "Invalid water account number.",
-  "waterProviderTimeout": "The water provider is taking too long to respond. Please try again later."
+  "waterProviderTimeout": "The water provider is taking too long to respond. Please try again later.",
+
+  "electricAmountToPay": "Amount to Pay",
+"@electricAmountToPay": {
+  "description": "Label for the amount the customer needs to pay"
+},
+
+"electricOutstandingAmount": "Outstanding Amount",
+"@electricOutstandingAmount": {
+  "description": "Actual outstanding balance returned by the utility provider. May be negative if the customer has a credit balance."
+},
+
+"waterAmountToPay": "Amount to Pay",
+"@waterAmountToPay": {
+  "description": "Amount currently payable for the water bill"
+},
+
+"waterOutstandingAmount": "Outstanding Amount",
+"@waterOutstandingAmount": {
+  "description": "Actual outstanding water account balance returned by the bill provider"
+},
+
+"electricReviewDetailsTitle": "Check Your Details",
+"@electricReviewDetailsTitle": {
+  "description": "Title shown above the bill information review step"
+},
+
+"electricReviewDetailsSubtitle": "Please confirm the bill information and account number before continuing.",
+"@electricReviewDetailsSubtitle": {
+  "description": "Instruction shown on the bill information review step"
+},
+
+"waterReviewDetailsTitle": "Check Your Details",
+"@waterReviewDetailsTitle": {
+  "description": "Title shown above the water bill information review step"
+},
+
+"waterReviewDetailsSubtitle": "Please confirm the bill information and account number before continuing.",
+"@waterReviewDetailsSubtitle": {
+  "description": "Instruction shown on the water bill information review step"
+},
+
+"billbroadbandButton":  "BROADBAND BILL",
+"broadbandSelectionTitle": "SELECT BROADBAND BILL",
+"broadbandAccountTitle": "Enter Broadband Account Number",
+"broadbandAccountHint": "Enter your account number",
+"tmBroadbandButton": "TM BILL",
+"unbBroadbandButton": "UNIFI BILL",
+
+"electricProviderDiscount": "Provider Discount",
+"electricServiceAdjustment": "Discount",
+
+"waterServiceFee": "Service Fee",
+"@waterServiceFee": {
+  "description": "Customer-facing service fee added to a water bill"
+},
+
+"waterServiceAdjustment": "Discount",
+"@waterServiceAdjustment": {
+  "description": "Customer-facing adjustment deducted from a water bill"
+}
 
 }

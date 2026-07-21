@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/electric/electric_bill_model.dart';
+import 'package:frontend_v1/model/pricing/catalog_pricing.dart';
 import 'package:frontend_v1/pages/data.dart';
 
 class P5ElectricBillResultPage extends StatefulWidget {
   final ElectricBillModel bill;
+  final CatalogPricing catalogPricing;
 
   const P5ElectricBillResultPage({
     super.key,
     required this.bill,
+    required this.catalogPricing,
   });
 
   @override
@@ -31,13 +34,32 @@ class _P5ElectricBillResultPageState
 
   double _selectedAmount = 1.00;
 
+  // Step 0: review bill details
+  // Step 1: choose payment amount
+  int _currentStep = 0;
+
   ElectricBillModel get bill => widget.bill;
 
-  double get _serviceFee =>
-      Data.electricityServiceFee;
+  double get _amountToPay {
+  return bill.outstandingAmount > 0
+      ? bill.outstandingAmount
+      : 0.0;
+}
+
+  BillPricingResult get _pricingResult =>
+      BillPricingResult.calculate(
+        billAmount: _selectedAmount,
+        pricing: widget.catalogPricing,
+      );
 
   double get _totalAmount =>
-      _selectedAmount + _serviceFee;
+      _pricingResult.totalAmount;
+
+  bool get _hasProviderDiscount =>
+      _pricingResult.providerDiscountAmount.abs() >= 0.005;
+
+  bool get _hasPriceAdjustment =>
+      _pricingResult.platformAdjustmentAmount.abs() >= 0.005;
 
   @override
   void initState() {
@@ -57,27 +79,30 @@ class _P5ElectricBillResultPageState
     super.dispose();
   }
   
-  double _getInitialPaymentAmount() {
-    if (bill.outstandingAmount > 0) {
-      return bill.outstandingAmount.clamp(
-        _minimumAmount,
-        _maximumAmount,
-      );
-    }
-
-    if (bill.amount > 0) {
-      return bill.amount.clamp(
-        _minimumAmount,
-        _maximumAmount,
-      );
-    }
-
-    return _minimumAmount;
+double _getInitialPaymentAmount() {
+  if (_amountToPay > 0) {
+    return _amountToPay.clamp(
+      _minimumAmount,
+      _maximumAmount,
+    );
   }
 
-  String _formatAmount(double amount) {
-    return 'RM ${amount.abs().toStringAsFixed(2)}';
-  }
+  return 0.0;
+}
+
+String _formatAmount(double amount) {
+  return 'RM ${amount.toStringAsFixed(2)}';
+}
+
+String _formatPositiveAmount(double amount) {
+  final safeAmount = amount > 0 ? amount : 0.0;
+  return 'RM ${safeAmount.toStringAsFixed(2)}';
+}
+
+String _formatSignedAmount(double amount) {
+  final sign = amount >= 0 ? '+' : '-';
+  return '$sign RM ${amount.abs().toStringAsFixed(2)}';
+}
 
   String _formatInputAmount(double amount) {
     return amount.toStringAsFixed(2);
@@ -183,6 +208,36 @@ class _P5ElectricBillResultPageState
     _setQuickAmount(
       bill.outstandingAmount,
     );
+  }
+
+  void _goToPaymentStep() {
+    _closeKeyboard();
+
+    setState(() {
+      _currentStep = 1;
+    });
+
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(0);
+    }
+  }
+
+  void _handleBack() {
+    _closeKeyboard();
+
+    if (_currentStep == 1) {
+      setState(() {
+        _currentStep = 0;
+      });
+
+      if (_scrollController.hasClients) {
+        _scrollController.jumpTo(0);
+      }
+
+      return;
+    }
+
+    Navigator.pop(context);
   }
 
   void _handleContinue() {
@@ -1055,8 +1110,132 @@ Widget _buildKeyboardIconButton({
   );
 }
 
-  @override
+
+  Widget _buildStepHeading({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 28),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFEAF4FF), Color(0xFFF7FBFF)],
+        ),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: const Color(0xFF90CAF9), width: 2),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 78,
+            height: 78,
+            decoration: BoxDecoration(
+              color: const Color(0xFF1976D2),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Icon(icon, color: Colors.white, size: 44),
+          ),
+          const SizedBox(width: 24),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Color(0xFF102A43),
+                    fontSize: 36,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                const SizedBox(height: 9),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    color: Color(0xFF53677E),
+                    fontSize: 24,
+                    height: 1.4,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAmountToPayCard() {
+    final loc = AppLocalizations.of(context)!;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 30),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFFE8F5E9), Color(0xFFF5FFF6)],
+        ),
+        borderRadius: BorderRadius.circular(26),
+        border: Border.all(color: const Color(0xFF66BB6A), width: 2.5),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF2E7D32).withOpacity(0.10),
+            blurRadius: 18,
+            offset: const Offset(0, 7),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 84,
+            height: 84,
+            decoration: BoxDecoration(
+              color: const Color(0xFF2E7D32),
+              borderRadius: BorderRadius.circular(22),
+            ),
+            child: const Icon(Icons.payments_rounded, color: Colors.white, size: 48),
+          ),
+          const SizedBox(width: 26),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  loc.electricAmountToPay,
+                  style: const TextStyle(
+                    color: Color(0xFF39724A),
+                    fontSize: 27,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  _formatPositiveAmount(_amountToPay),
+                  style: const TextStyle(
+                    color: Color(0xFF1B5E20),
+                    fontSize: 50,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Icon(Icons.verified_rounded, color: Color(0xFF2E7D32), size: 44),
+        ],
+      ),
+    );
+  }
+
+@override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: _closeKeyboard,
@@ -1076,109 +1255,146 @@ Widget _buildKeyboardIconButton({
                 ),
               ),
             ),
-
             SafeArea(
               child: Column(
-              children: [
-                _buildHeader(),
+                children: [
+                  _buildHeader(),
 
-                // ==========================
-                // SCROLLABLE CONTENT
-                // ==========================
-                Expanded(
+                  Expanded(
                     child: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Scrollbar(
-                    controller: _scrollController,
-                    thumbVisibility: true,
-                    trackVisibility: true,
-                    thickness: 12,
-                    radius: const Radius.circular(20),
-                    interactive: true,
-                    child: SingleChildScrollView(
-                      controller: _scrollController,
-                      keyboardDismissBehavior:
-                          ScrollViewKeyboardDismissBehavior.onDrag,
-                      padding: const EdgeInsets.fromLTRB(
-                        70,
-                        35,
-                        70,
-                        20,
+                      padding: const EdgeInsets.only(
+                        right: 20,
                       ),
-                      child: Container(
-                      padding: const EdgeInsets.all(35),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.97),
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                          color: const Color(0xFFE2E8F0),
-                          width: 2,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.08),
-                            blurRadius: 20,
-                            offset: const Offset(0, 8),
+                      child: Scrollbar(
+                        controller: _scrollController,
+                        thumbVisibility: true,
+                        trackVisibility: true,
+                        thickness: 12,
+                        radius: const Radius.circular(20),
+                        interactive: true,
+                        child: SingleChildScrollView(
+                          controller: _scrollController,
+                          keyboardDismissBehavior:
+                              ScrollViewKeyboardDismissBehavior.onDrag,
+                          padding: const EdgeInsets.fromLTRB(
+                            70,
+                            35,
+                            70,
+                            20,
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.stretch,
-                        children: [
-                          _buildBillInformationCard(),
-
-                          const SizedBox(height: 30),
-
-                          _buildAccountNumberSection(),
-
-                          const SizedBox(height: 32),
-
-                          _buildAmountSection(),
-
-                          const SizedBox(height: 32),
-
-                          _buildOrderSummary(),
-
-                          // Give space so last card isn't hidden
-                          const SizedBox(height: 30),
-                        ],
+                          child: AnimatedSwitcher(
+                            duration: const Duration(
+                              milliseconds: 250,
+                            ),
+                            switchInCurve: Curves.easeOut,
+                            switchOutCurve: Curves.easeIn,
+                            child: Container(
+                              key: ValueKey<int>(
+                                _currentStep,
+                              ),
+                              padding: const EdgeInsets.all(
+                                35,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(
+                                  0.97,
+                                ),
+                                borderRadius:
+                                    BorderRadius.circular(30),
+                                border: Border.all(
+                                  color: const Color(
+                                    0xFFE2E8F0,
+                                  ),
+                                  width: 2,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(
+                                      0.08,
+                                    ),
+                                    blurRadius: 20,
+                                    offset: const Offset(
+                                      0,
+                                      8,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              child: _currentStep == 0
+                                  ? Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        _buildStepHeading(
+                                          icon: Icons
+                                              .fact_check_outlined,
+                                          title: loc
+                                              .electricReviewDetailsTitle,
+                                          subtitle: loc
+                                              .electricReviewDetailsSubtitle,
+                                        ),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                        _buildBillInformationCard(),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                        _buildAccountNumberSection(),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                      ],
+                                    )
+                                  : Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        _buildAmountToPayCard(),
+                                        const SizedBox(
+                                          height: 32,
+                                        ),
+                                        _buildAmountSection(),
+                                        const SizedBox(
+                                          height: 32,
+                                        ),
+                                        _buildOrderSummary(),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                      ],
+                                    ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                   ),
                   ),
-                ),
-                ),
 
-                // ==========================
-                // FIXED BOTTOM BUTTON BAR
-                // ==========================
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 70,
-                    vertical: 60,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _buildActionButtons(),
-
-                      const SizedBox(height: 18),
-
-                      Text(
-                        Data.copyrightText,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                          color: Color(0xFF17375E),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 70,
+                      vertical: 60,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildActionButtons(),
+                        const SizedBox(height: 18),
+                        Text(
+                          Data.copyrightText,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800,
+                            color: Color(0xFF17375E),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            )
+                ],
+              ),
             ),
           ],
         ),
@@ -1257,142 +1473,124 @@ Widget _buildKeyboardIconButton({
 }
 
   Widget _buildBillInformationCard() {
-  final loc = AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context)!;
 
-  final isCredit =
-      bill.outstandingAmount < 0;
+    final isCredit = bill.outstandingAmount < 0;
 
-  final amountTitle = isCredit
-      ? loc.electricCreditBalance
-      : loc.electricOutstandingAmount;
+    final outstandingColor = isCredit
+        ? const Color(0xFF138A72)
+        : const Color(0xFF0097B2);
 
-  final amountColor = isCredit
-      ? const Color(0xFF138A72)
-      : const Color(0xFF0097B2);
-
-  return Container(
-    padding: const EdgeInsets.all(32),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(28),
-      border: Border.all(
-        color: const Color(0xFF0097B2),
-        width: 2.5,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withValues(
-            alpha: 0.08,
-          ),
-          blurRadius: 16,
-          offset: const Offset(0, 7),
+    return Container(
+      padding: const EdgeInsets.all(32),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(
+          color: const Color(0xFF0097B2),
+          width: 2.5,
         ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment:
-          CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          loc.electricBillInformation,
-          style: const TextStyle(
-            color: Color(0xFF102A43),
-            fontSize: 31,
-            fontWeight: FontWeight.w900,
-          ),
-        ),
-        const SizedBox(height: 15),
-        Row(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: _InformationItem(
-                icon: isCredit
-                    ? Icons
-                        .account_balance_wallet_rounded
-                    : Icons.credit_card_rounded,
-                label: amountTitle,
-                value: _formatAmount(
-                  bill.outstandingAmount,
-                ),
-                valueColor: amountColor,
-              ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(
+              alpha: 0.08,
             ),
-            const SizedBox(width: 30),
-            Expanded(
-              child: _InformationItem(
-                icon:
-                    Icons.calendar_month_rounded,
-                label: loc.electricDueDate,
-                value: bill.dueDate.trim().isEmpty
-                    ? '-'
-                    : bill.dueDate,
+            blurRadius: 16,
+            offset: const Offset(0, 7),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            loc.electricBillInformation,
+            style: const TextStyle(
+              color: Color(0xFF102A43),
+              fontSize: 35,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          const SizedBox(height: 22),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: _InformationItem(
+                  icon: isCredit
+                      ? Icons.account_balance_wallet_rounded
+                      : Icons.credit_card_rounded,
+                  label: loc.electricOutstandingAmount,
+                  value: _formatAmount(
+                    bill.outstandingAmount,
+                  ),
+                  valueColor: outstandingColor,
+                ),
+              ),
+              const SizedBox(width: 30),
+              Expanded(
+                child: _InformationItem(
+                  icon: Icons.calendar_month_rounded,
+                  label: loc.electricDueDate,
+                  value: bill.dueDate.trim().isEmpty
+                      ? '-'
+                      : bill.dueDate,
+                ),
+              ),
+            ],
+          ),
+          if (bill.customerName.trim().isNotEmpty) ...[
+            const Divider(height: 32),
+            _InformationItem(
+              icon: Icons.person_outline_rounded,
+              label: loc.electricCustomerName,
+              value: bill.customerName,
+            ),
+          ],
+          if (bill.customerAddress.trim().isNotEmpty) ...[
+            const SizedBox(height: 25),
+            const Divider(),
+            const SizedBox(height: 22),
+            _InformationItem(
+              icon: Icons.home_outlined,
+              label: loc.electricServiceAddress,
+              value: bill.customerAddress,
+            ),
+          ],
+          if (isCredit) ...[
+            const SizedBox(height: 25),
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: const Color(0xFFEAF8F4),
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.check_circle_outline_rounded,
+                    color: Color(0xFF138A72),
+                    size: 32,
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Text(
+                      loc.electricCreditNotice,
+                      style: const TextStyle(
+                        color: Color(0xFF096B59),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
-        ),
-        if (bill.customerName
-            .trim()
-            .isNotEmpty) ...[
-          const Divider(height: 28),
-          _InformationItem(
-            icon:
-                Icons.person_outline_rounded,
-            label: loc.electricCustomerName,
-            value: bill.customerName,
-          ),
         ],
-        if (bill.customerAddress
-            .trim()
-            .isNotEmpty) ...[
-          const SizedBox(height: 25),
-          const Divider(),
-          const SizedBox(height: 22),
-          _InformationItem(
-            icon: Icons.home_outlined,
-            label: loc.electricServiceAddress,
-            value: bill.customerAddress,
-          ),
-        ],
-        if (isCredit) ...[
-          const SizedBox(height: 25),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: const Color(0xFFEAF8F4),
-              borderRadius:
-                  BorderRadius.circular(18),
-            ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons
-                      .check_circle_outline_rounded,
-                  color: Color(0xFF138A72),
-                  size: 32,
-                ),
-                const SizedBox(width: 15),
-                Expanded(
-                  child: Text(
-                    loc.electricCreditNotice,
-                    style: const TextStyle(
-                      color:
-                          Color(0xFF096B59),
-                      fontSize: 20,
-                      fontWeight:
-                          FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ],
-    ),
-  );
-}
+      ),
+    );
+  }
 
  Widget _buildAccountNumberSection() {
   final loc = AppLocalizations.of(context)!;
@@ -1405,7 +1603,7 @@ Widget _buildKeyboardIconButton({
         loc.electricAccountNumber,
         style: const TextStyle(
           color: Color(0xFF102A43),
-          fontSize: 27,
+          fontSize: 31,
           fontWeight: FontWeight.w900,
         ),
       ),
@@ -1466,7 +1664,7 @@ Widget _buildAmountSection() {
         loc.electricSelectPaymentAmount,
         style: const TextStyle(
           color: Color(0xFF102A43),
-          fontSize: 27,
+          fontSize: 31,
           fontWeight: FontWeight.w900,
         ),
       ),
@@ -1516,7 +1714,7 @@ Widget _buildAmountSection() {
             'RM',
             style: TextStyle(
               color: Color(0xFF53677E),
-              fontSize: 30,
+              fontSize: 34,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -1757,152 +1955,157 @@ String _getBillUpdateTime(
   }
 }
 
-  Widget _buildOrderSummary() {
-    final loc = AppLocalizations.of(context)!;
-
-    final billUpdateTime = _getBillUpdateTime(
-      loc,
-    );
-
-    return Container(
-      padding: const EdgeInsets.all(30),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: const Color(0xFFD3DCE8),
-          width: 2,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            loc.electricOrderSummary,
-            style: const TextStyle(
-              color: Color(0xFF102A43),
-              fontSize: 30,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-
-          const SizedBox(height: 25),
-
-          _SummaryRow(
-            label: bill.billerName,
-            value: _formatAmount(
-              _selectedAmount,
-            ),
-          ),
-
-          const Divider(height: 38),
-
-          _SummaryRow(
-            label: loc.electricServiceFee,
-            value: _formatAmount(
-              _serviceFee,
-            ),
-          ),
-
-          const Divider(height: 38),
-
-          _SummaryRow(
-            label: loc.electricTotalAmount,
-            value: _formatAmount(
-              _totalAmount,
-            ),
-            isTotal: true,
-          ),
-
-          const Divider(height: 38),
-
-          _SummaryRow(
-            label: loc.electricPaymentUpdateTime,
-            value: billUpdateTime,
-          ),
-        ],
-      ),
-    );
-  }
-
-Widget _buildActionButtons() {
+Widget _buildOrderSummary() {
   final loc = AppLocalizations.of(context)!;
 
-  return Row(
-    children: [
-      Expanded(
-        child: SizedBox(
-          height: 90,
-          child: ElevatedButton.icon(
-            onPressed: () {
-              _closeKeyboard();
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_rounded,
-              size: 34,
-            ),
-            label: Text(
-              loc.buttonBack,
-              style: const TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-            style:
-                ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
-              elevation: 1,
-              side: const BorderSide(
-                color: Color(0xFFD5DCE5),
-                width: 2,
-              ),
-              shape:
-                  RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(18),
-              ),
-            ),
+  final billUpdateTime = _getBillUpdateTime(loc);
+  final pricing = _pricingResult;
+
+  final double serviceAdjustment =
+      pricing.platformAdjustmentAmount;
+
+  final bool isServiceFee =
+      serviceAdjustment > 0;
+
+  return Container(
+    padding: const EdgeInsets.all(30),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(24),
+      border: Border.all(
+        color: const Color(0xFFD3DCE8),
+        width: 2,
+      ),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          loc.electricOrderSummary,
+          style: const TextStyle(
+            color: Color(0xFF102A43),
+            fontSize: 34,
+            fontWeight: FontWeight.w900,
           ),
         ),
-      ),
-      const SizedBox(width: 24),
-      Expanded(
-        child: SizedBox(
-          height: 90,
-          child: ElevatedButton.icon(
-            onPressed: _handleContinue,
-            icon: const Icon(
-              Icons.arrow_forward_rounded,
-              size: 34,
-            ),
-            label: Text(
-              loc.electricContinue,
-              style: const TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-            style:
-                ElevatedButton.styleFrom(
-              backgroundColor:
-                  const Color(0xFF2E7D32),
-              foregroundColor: Colors.white,
-              elevation: 3,
-              shape:
-                  RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(18),
-              ),
-            ),
+
+        const SizedBox(height: 25),
+
+        _SummaryRow(
+          label: bill.billerName,
+          value: _formatAmount(
+            pricing.billAmount,
           ),
         ),
-      ),
-    ],
+
+        // Only show customer-facing pricing.
+        // Provider discount is our internal margin.
+        if (pricing.hasPlatformAdjustment) ...[
+          const Divider(height: 38),
+
+          _SummaryRow(
+            label: isServiceFee
+                ? loc.electricServiceFee
+                : loc.electricServiceAdjustment,
+            value: _formatSignedAmount(
+              serviceAdjustment,
+            ),
+            valueColor: isServiceFee
+                ? const Color(0xFFE65100)
+                : const Color(0xFF138A72),
+          ),
+        ],
+
+        const Divider(height: 38),
+
+        _SummaryRow(
+          label: loc.electricTotalAmount,
+          value: _formatAmount(
+            pricing.totalAmount,
+          ),
+          isTotal: true,
+        ),
+
+        const Divider(height: 38),
+
+        _SummaryRow(
+          label: loc.electricPaymentUpdateTime,
+          value: billUpdateTime,
+        ),
+      ],
+    ),
   );
 }
+
+Widget _buildActionButtons() {
+    final loc = AppLocalizations.of(context)!;
+
+    return Row(
+      children: [
+        Expanded(
+          child: SizedBox(
+            height: 90,
+            child: ElevatedButton.icon(
+              onPressed: _handleBack,
+              icon: const Icon(
+                Icons.arrow_back_rounded,
+                size: 34,
+              ),
+              label: Text(
+                loc.buttonBack,
+                style: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                elevation: 1,
+                side: const BorderSide(
+                  color: Color(0xFFD5DCE5),
+                  width: 2,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18),
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 24),
+        Expanded(
+          child: SizedBox(
+            height: 90,
+            child: ElevatedButton.icon(
+              onPressed: _currentStep == 0
+                  ? _goToPaymentStep
+                  : _handleContinue,
+              icon: const Icon(
+                Icons.arrow_forward_rounded,
+                size: 34,
+              ),
+              label: Text(
+                loc.electricContinue,
+                style: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2E7D32),
+                foregroundColor: Colors.white,
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class _InformationItem
@@ -1948,7 +2151,7 @@ class _InformationItem
                 style: const TextStyle(
                   color:
                       Color(0xFF63758A),
-                  fontSize: 21,
+                  fontSize: 24,
                   fontWeight:
                       FontWeight.w600,
                 ),
@@ -1963,7 +2166,7 @@ class _InformationItem
                       const Color(
                         0xFF102A43,
                       ),
-                  fontSize: 25,
+                  fontSize: 29,
                   height: 1.35,
                   fontWeight:
                       FontWeight.w800,
@@ -2044,11 +2247,13 @@ class _SummaryRow
   final String label;
   final String value;
   final bool isTotal;
+  final Color? valueColor;
 
   const _SummaryRow({
     required this.label,
     required this.value,
     this.isTotal = false,
+    this.valueColor,
   });
 
   @override
@@ -2067,7 +2272,7 @@ class _SummaryRow
                       0xFF63758A,
                     ),
               fontSize:
-                  isTotal ? 27 : 22,
+                  isTotal ? 31 : 25,
               fontWeight: isTotal
                   ? FontWeight.w900
                   : FontWeight.w600,
@@ -2080,15 +2285,12 @@ class _SummaryRow
         Text(
           value,
           style: TextStyle(
-            color: isTotal
-                ? const Color(
-                    0xFF2E7D32,
-                  )
-                : const Color(
-                    0xFF102A43,
-                  ),
+            color: valueColor ??
+                (isTotal
+                    ? const Color(0xFF2E7D32)
+                    : const Color(0xFF102A43)),
             fontSize:
-                isTotal ? 29 : 23,
+                isTotal ? 34 : 27,
             fontWeight:
                 FontWeight.w900,
           ),

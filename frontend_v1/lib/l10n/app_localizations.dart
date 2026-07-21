@@ -6851,7 +6851,7 @@ abstract class AppLocalizations {
   /// **'Bill Information'**
   String get electricBillInformation;
 
-  /// No description provided for @electricOutstandingAmount.
+  /// Actual outstanding balance returned by the utility provider. May be negative if the customer has a credit balance.
   ///
   /// In en, this message translates to:
   /// **'Outstanding Amount'**
@@ -6938,7 +6938,7 @@ abstract class AppLocalizations {
   /// No description provided for @electricContinue.
   ///
   /// In en, this message translates to:
-  /// **'Continue'**
+  /// **'CONTINUE'**
   String get electricContinue;
 
   /// No description provided for @electricPaymentUpdateTime.
@@ -6958,6 +6958,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Within 3 days'**
   String get electricUpdateWithinThreeDays;
+
+  /// No description provided for @waterUpdateInstant.
+  ///
+  /// In en, this message translates to:
+  /// **'INSTANT'**
+  String get waterUpdateInstant;
+
+  /// No description provided for @waterUpdateTwentyFourHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Within 24 hours'**
+  String get waterUpdateTwentyFourHours;
 
   /// No description provided for @waterBillProviderTitle.
   ///
@@ -7025,7 +7037,7 @@ abstract class AppLocalizations {
   /// **'Water Bill Information'**
   String get waterBillInformation;
 
-  /// No description provided for @waterOutstandingAmount.
+  /// Actual outstanding water account balance returned by the bill provider
   ///
   /// In en, this message translates to:
   /// **'Outstanding Amount'**
@@ -7079,7 +7091,7 @@ abstract class AppLocalizations {
   /// **'Order Summary'**
   String get waterOrderSummary;
 
-  /// No description provided for @waterServiceFee.
+  /// Customer-facing service fee added to a water bill
   ///
   /// In en, this message translates to:
   /// **'Service Fee'**
@@ -7258,6 +7270,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The water provider is taking too long to respond. Please try again later.'**
   String get waterProviderTimeout;
+
+  /// Label for the amount the customer needs to pay
+  ///
+  /// In en, this message translates to:
+  /// **'Amount to Pay'**
+  String get electricAmountToPay;
+
+  /// Amount currently payable for the water bill
+  ///
+  /// In en, this message translates to:
+  /// **'Amount to Pay'**
+  String get waterAmountToPay;
+
+  /// Title shown above the bill information review step
+  ///
+  /// In en, this message translates to:
+  /// **'Check Your Details'**
+  String get electricReviewDetailsTitle;
+
+  /// Instruction shown on the bill information review step
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm the bill information and account number before continuing.'**
+  String get electricReviewDetailsSubtitle;
+
+  /// Title shown above the water bill information review step
+  ///
+  /// In en, this message translates to:
+  /// **'Check Your Details'**
+  String get waterReviewDetailsTitle;
+
+  /// Instruction shown on the water bill information review step
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm the bill information and account number before continuing.'**
+  String get waterReviewDetailsSubtitle;
+
+  /// No description provided for @billbroadbandButton.
+  ///
+  /// In en, this message translates to:
+  /// **'BROADBAND BILL'**
+  String get billbroadbandButton;
+
+  /// No description provided for @broadbandSelectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'SELECT BROADBAND BILL'**
+  String get broadbandSelectionTitle;
+
+  /// No description provided for @broadbandAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Broadband Account Number'**
+  String get broadbandAccountTitle;
+
+  /// No description provided for @broadbandAccountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your account number'**
+  String get broadbandAccountHint;
+
+  /// No description provided for @tmBroadbandButton.
+  ///
+  /// In en, this message translates to:
+  /// **'TM BILL'**
+  String get tmBroadbandButton;
+
+  /// No description provided for @unbBroadbandButton.
+  ///
+  /// In en, this message translates to:
+  /// **'UNIFI BILL'**
+  String get unbBroadbandButton;
+
+  /// No description provided for @electricProviderDiscount.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider Discount'**
+  String get electricProviderDiscount;
+
+  /// No description provided for @electricServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Discount'**
+  String get electricServiceAdjustment;
+
+  /// Customer-facing adjustment deducted from a water bill
+  ///
+  /// In en, this message translates to:
+  /// **'Discount'**
+  String get waterServiceAdjustment;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

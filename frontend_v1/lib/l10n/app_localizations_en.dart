@@ -3485,7 +3485,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get electricTotalAmount => 'Total Amount';
 
   @override
-  String get electricContinue => 'Continue';
+  String get electricContinue => 'CONTINUE';
 
   @override
   String get electricPaymentUpdateTime => 'Bill Update Time';
@@ -3495,6 +3495,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get electricUpdateWithinThreeDays => 'Within 3 days';
+
+  @override
+  String get waterUpdateInstant => 'INSTANT';
+
+  @override
+  String get waterUpdateTwentyFourHours => 'Within 24 hours';
 
   @override
   String get waterBillProviderTitle => 'BILL ELECTRIC OPTIONS';
@@ -3655,4 +3661,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get waterProviderTimeout => 'The water provider is taking too long to respond. Please try again later.';
+
+  @override
+  String get electricAmountToPay => 'Amount to Pay';
+
+  @override
+  String get waterAmountToPay => 'Amount to Pay';
+
+  @override
+  String get electricReviewDetailsTitle => 'Check Your Details';
+
+  @override
+  String get electricReviewDetailsSubtitle => 'Please confirm the bill information and account number before continuing.';
+
+  @override
+  String get waterReviewDetailsTitle => 'Check Your Details';
+
+  @override
+  String get waterReviewDetailsSubtitle => 'Please confirm the bill information and account number before continuing.';
+
+  @override
+  String get billbroadbandButton => 'BROADBAND BILL';
+
+  @override
+  String get broadbandSelectionTitle => 'SELECT BROADBAND BILL';
+
+  @override
+  String get broadbandAccountTitle => 'Enter Broadband Account Number';
+
+  @override
+  String get broadbandAccountHint => 'Enter your account number';
+
+  @override
+  String get tmBroadbandButton => 'TM BILL';
+
+  @override
+  String get unbBroadbandButton => 'UNIFI BILL';
+
+  @override
+  String get electricProviderDiscount => 'Provider Discount';
+
+  @override
+  String get electricServiceAdjustment => 'Discount';
+
+  @override
+  String get waterServiceAdjustment => 'Discount';
 }

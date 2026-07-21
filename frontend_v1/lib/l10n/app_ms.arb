@@ -1694,11 +1694,14 @@
 
 "electricTotalAmount": "Jumlah Keseluruhan",
 
-"electricContinue": "Teruskan",
+"electricContinue": "TERUSKAN",
 
 "electricPaymentUpdateTime": "Tempoh Kemas Kini Bil",
 "electricUpdateInstant": "SERTA-MERTA",
 "electricUpdateWithinThreeDays": "Dalam tempoh 3 hari",
+
+"waterUpdateInstant": "SERTA-MERTA",
+"waterUpdateTwentyFourHours" : "Dalam tempoh 24 jam",
 
 "waterBillProviderTitle": "PILIHAN BIL AIR",
 "waterBillProviderSubtitle": "Sila pilih penyedia perkhidmatan air anda",
@@ -1787,6 +1790,66 @@
   "waterNoBillRecordFound": "Tiada rekod bil air ditemui.",
   "waterInvalidAccount": "Nombor akaun air tidak sah.",
 
-  "waterProviderTimeout": "Pembekal perkhidmatan air mengambil masa terlalu lama untuk memberi respons. Sila cuba lagi kemudian."
+  "waterProviderTimeout": "Pembekal perkhidmatan air mengambil masa terlalu lama untuk memberi respons. Sila cuba lagi kemudian.",
+
+  "electricAmountToPay": "Jumlah Perlu Dibayar",
+"@electricAmountToPay": {
+  "description": "Label untuk jumlah yang perlu dibayar oleh pelanggan"
+},
+
+"electricOutstandingAmount": "Baki Tertunggak",
+"@electricOutstandingAmount": {
+  "description": "Baki sebenar yang dipulangkan oleh pembekal utiliti. Nilai boleh menjadi negatif jika pelanggan mempunyai lebihan bayaran."
+},
+
+"waterAmountToPay": "Jumlah Perlu Dibayar",
+"@waterAmountToPay": {
+  "description": "Jumlah semasa yang perlu dibayar untuk bil air"
+},
+
+"waterOutstandingAmount": "Baki Tertunggak",
+"@waterOutstandingAmount": {
+  "description": "Baki tertunggak sebenar akaun air yang dipulangkan oleh penyedia bil"
+},
+
+"electricReviewDetailsTitle": "Semak Butiran Anda",
+"@electricReviewDetailsTitle": {
+  "description": "Tajuk yang dipaparkan di atas langkah semakan maklumat bil"
+},
+
+"electricReviewDetailsSubtitle": "Sila pastikan maklumat bil dan nombor akaun adalah betul sebelum meneruskan.",
+"@electricReviewDetailsSubtitle": {
+  "description": "Arahan yang dipaparkan pada langkah semakan maklumat bil"
+},
+
+"waterReviewDetailsTitle": "Semak Butiran Anda",
+"@waterReviewDetailsTitle": {
+  "description": "Tajuk yang dipaparkan di atas langkah semakan maklumat bil air"
+},
+
+"waterReviewDetailsSubtitle": "Sila pastikan maklumat bil dan nombor akaun adalah betul sebelum meneruskan.",
+"@waterReviewDetailsSubtitle": {
+  "description": "Arahan yang dipaparkan pada langkah semakan maklumat bil air"
+},
+
+"billbroadbandButton": "BIL BROADBAND",
+"broadbandSelectionTitle": "PILIHAN BIL BROADBAND",
+"broadbandAccountTitle": "Masukkan Nombor Akaun Broadband",
+"broadbandAccountHint": "Masukkan nombor akaun anda",
+"tmBroadbandButton": "BIL TM",
+"unbBroadbandButton": "BIL UNIFI",
+
+"electricProviderDiscount": "Diskaun Penyedia",
+"electricServiceAdjustment": "Diskaun",
+
+"waterServiceFee": "Caj Perkhidmatan",
+"@waterServiceFee": {
+  "description": "Caj perkhidmatan yang ditambah kepada bil air pelanggan"
+},
+
+"waterServiceAdjustment": "Diskaun",
+"@waterServiceAdjustment": {
+  "description": "Pelarasan yang ditolak daripada bil air pelanggan"
+}
 
 }

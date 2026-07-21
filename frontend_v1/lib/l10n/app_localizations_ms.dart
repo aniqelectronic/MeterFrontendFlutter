@@ -3437,7 +3437,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get electricBillInformation => 'Maklumat Bil';
 
   @override
-  String get electricOutstandingAmount => 'Amaun Tertunggak';
+  String get electricOutstandingAmount => 'Baki Tertunggak';
 
   @override
   String get electricCreditBalance => 'Baki Kredit';
@@ -3479,7 +3479,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get electricTotalAmount => 'Jumlah Keseluruhan';
 
   @override
-  String get electricContinue => 'Teruskan';
+  String get electricContinue => 'TERUSKAN';
 
   @override
   String get electricPaymentUpdateTime => 'Tempoh Kemas Kini Bil';
@@ -3489,6 +3489,12 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get electricUpdateWithinThreeDays => 'Dalam tempoh 3 hari';
+
+  @override
+  String get waterUpdateInstant => 'SERTA-MERTA';
+
+  @override
+  String get waterUpdateTwentyFourHours => 'Dalam tempoh 24 jam';
 
   @override
   String get waterBillProviderTitle => 'PILIHAN BIL AIR';
@@ -3524,7 +3530,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get waterBillInformation => 'Maklumat Bil Air';
 
   @override
-  String get waterOutstandingAmount => 'Jumlah Tertunggak';
+  String get waterOutstandingAmount => 'Baki Tertunggak';
 
   @override
   String get waterCreditBalance => 'Baki Kredit';
@@ -3649,4 +3655,49 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get waterProviderTimeout => 'Pembekal perkhidmatan air mengambil masa terlalu lama untuk memberi respons. Sila cuba lagi kemudian.';
+
+  @override
+  String get electricAmountToPay => 'Jumlah Perlu Dibayar';
+
+  @override
+  String get waterAmountToPay => 'Jumlah Perlu Dibayar';
+
+  @override
+  String get electricReviewDetailsTitle => 'Semak Butiran Anda';
+
+  @override
+  String get electricReviewDetailsSubtitle => 'Sila pastikan maklumat bil dan nombor akaun adalah betul sebelum meneruskan.';
+
+  @override
+  String get waterReviewDetailsTitle => 'Semak Butiran Anda';
+
+  @override
+  String get waterReviewDetailsSubtitle => 'Sila pastikan maklumat bil dan nombor akaun adalah betul sebelum meneruskan.';
+
+  @override
+  String get billbroadbandButton => 'BIL BROADBAND';
+
+  @override
+  String get broadbandSelectionTitle => 'PILIHAN BIL BROADBAND';
+
+  @override
+  String get broadbandAccountTitle => 'Masukkan Nombor Akaun Broadband';
+
+  @override
+  String get broadbandAccountHint => 'Masukkan nombor akaun anda';
+
+  @override
+  String get tmBroadbandButton => 'BIL TM';
+
+  @override
+  String get unbBroadbandButton => 'BIL UNIFI';
+
+  @override
+  String get electricProviderDiscount => 'Diskaun Penyedia';
+
+  @override
+  String get electricServiceAdjustment => 'Diskaun';
+
+  @override
+  String get waterServiceAdjustment => 'Diskaun';
 }
