@@ -7360,6 +7360,270 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Discount'**
   String get waterServiceAdjustment;
+
+  /// No description provided for @broadbandBillPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Broadband Bill Payment'**
+  String get broadbandBillPayment;
+
+  /// No description provided for @broadbandBillInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Broadband Account Information'**
+  String get broadbandBillInformation;
+
+  /// No description provided for @broadbandCustomerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Name'**
+  String get broadbandCustomerName;
+
+  /// No description provided for @broadbandServiceAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Address'**
+  String get broadbandServiceAddress;
+
+  /// No description provided for @broadbandDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get broadbandDueDate;
+
+  /// No description provided for @broadbandOutstandingAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding Amount'**
+  String get broadbandOutstandingAmount;
+
+  /// No description provided for @broadbandAccountStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Status'**
+  String get broadbandAccountStatus;
+
+  /// No description provided for @broadbandAccountValid.
+  ///
+  /// In en, this message translates to:
+  /// **'The broadband account number is valid.'**
+  String get broadbandAccountValid;
+
+  /// No description provided for @broadbandAccountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Number'**
+  String get broadbandAccountNumber;
+
+  /// No description provided for @broadbandReviewDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Account Details'**
+  String get broadbandReviewDetailsTitle;
+
+  /// No description provided for @broadbandReviewDetailsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please verify the broadband account information before continuing.'**
+  String get broadbandReviewDetailsSubtitle;
+
+  /// No description provided for @broadbandSelectPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Payment Amount'**
+  String get broadbandSelectPaymentAmount;
+
+  /// No description provided for @broadbandAmountInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'The provider did not return an outstanding amount. Please enter the amount you want to pay.'**
+  String get broadbandAmountInstruction;
+
+  /// No description provided for @broadbandOrderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get broadbandOrderSummary;
+
+  /// No description provided for @broadbandServiceFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fee'**
+  String get broadbandServiceFee;
+
+  /// No description provided for @broadbandServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get broadbandServiceAdjustment;
+
+  /// No description provided for @broadbandTotalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get broadbandTotalAmount;
+
+  /// No description provided for @broadbandPaymentUpdateTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill Update Time'**
+  String get broadbandPaymentUpdateTime;
+
+  /// No description provided for @broadbandUpdateWithinThreeDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Within 3 working days'**
+  String get broadbandUpdateWithinThreeDays;
+
+  /// No description provided for @broadbandContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get broadbandContinue;
+
+  /// No description provided for @broadbandInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get broadbandInformation;
+
+  /// No description provided for @broadbandOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get broadbandOk;
+
+  /// No description provided for @broadbandEnterPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Payment Amount'**
+  String get broadbandEnterPaymentAmount;
+
+  /// No description provided for @broadbandCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get broadbandCancel;
+
+  /// No description provided for @broadbandDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get broadbandDone;
+
+  /// No description provided for @broadbandAccountNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Broadband account was not found.'**
+  String get broadbandAccountNotFound;
+
+  /// No description provided for @broadbandMinimumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum payment amount is {amount}.'**
+  String broadbandMinimumPayment(String amount);
+
+  /// No description provided for @broadbandMaximumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum payment amount is {amount}.'**
+  String broadbandMaximumPayment(String amount);
+
+  /// No description provided for @broadbandProductCodeRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Broadband product code is required.'**
+  String get broadbandProductCodeRequired;
+
+  /// No description provided for @broadbandAccountNumberRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Broadband account number is required.'**
+  String get broadbandAccountNumberRequired;
+
+  /// No description provided for @broadbandApiKeyMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The broadband API key is missing.'**
+  String get broadbandApiKeyMissing;
+
+  /// No description provided for @broadbandHmacSecretMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The broadband HMAC secret is missing.'**
+  String get broadbandHmacSecretMissing;
+
+  /// No description provided for @broadbandInvalidHmacBase64.
+  ///
+  /// In en, this message translates to:
+  /// **'The broadband HMAC secret is not valid Base64.'**
+  String get broadbandInvalidHmacBase64;
+
+  /// No description provided for @broadbandInquiryTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'The broadband inquiry timed out. Please try again.'**
+  String get broadbandInquiryTimeout;
+
+  /// No description provided for @broadbandUnableToConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to connect to the broadband bill service.'**
+  String get broadbandUnableToConnect;
+
+  /// No description provided for @broadbandEmptyApiResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'The broadband service returned an empty response.'**
+  String get broadbandEmptyApiResponse;
+
+  /// No description provided for @broadbandInvalidJsonObject.
+  ///
+  /// In en, this message translates to:
+  /// **'The broadband service returned an invalid JSON response.'**
+  String get broadbandInvalidJsonObject;
+
+  /// No description provided for @broadbandNoBillRecordFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No broadband bill record was found.'**
+  String get broadbandNoBillRecordFound;
+
+  /// No description provided for @broadbandInvalidAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'The broadband account number is invalid.'**
+  String get broadbandInvalidAccount;
+
+  /// No description provided for @broadbandProviderTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'The broadband provider is taking too long to respond. Please try again later.'**
+  String get broadbandProviderTimeout;
+
+  /// No description provided for @broadbandInquiryHttpFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Broadband inquiry failed with status code {statusCode}.'**
+  String broadbandInquiryHttpFailed(int statusCode);
+
+  /// No description provided for @broadbandInvalidServerResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid broadband server response: {error}'**
+  String broadbandInvalidServerResponse(String error);
+
+  /// No description provided for @broadbandInquiryFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Broadband bill inquiry failed: {error}'**
+  String broadbandInquiryFailed(String error);
+
+  /// No description provided for @broadbandAccountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your broadband account number.'**
+  String get broadbandAccountRequired;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

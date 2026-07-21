@@ -3706,4 +3706,146 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get waterServiceAdjustment => 'Discount';
+
+  @override
+  String get broadbandBillPayment => 'Broadband Bill Payment';
+
+  @override
+  String get broadbandBillInformation => 'Broadband Account Information';
+
+  @override
+  String get broadbandCustomerName => 'Customer Name';
+
+  @override
+  String get broadbandServiceAddress => 'Service Address';
+
+  @override
+  String get broadbandDueDate => 'Due Date';
+
+  @override
+  String get broadbandOutstandingAmount => 'Outstanding Amount';
+
+  @override
+  String get broadbandAccountStatus => 'Account Status';
+
+  @override
+  String get broadbandAccountValid => 'The broadband account number is valid.';
+
+  @override
+  String get broadbandAccountNumber => 'Account Number';
+
+  @override
+  String get broadbandReviewDetailsTitle => 'Review Account Details';
+
+  @override
+  String get broadbandReviewDetailsSubtitle => 'Please verify the broadband account information before continuing.';
+
+  @override
+  String get broadbandSelectPaymentAmount => 'Select Payment Amount';
+
+  @override
+  String get broadbandAmountInstruction => 'The provider did not return an outstanding amount. Please enter the amount you want to pay.';
+
+  @override
+  String get broadbandOrderSummary => 'Order Summary';
+
+  @override
+  String get broadbandServiceFee => 'Service Fee';
+
+  @override
+  String get broadbandServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get broadbandTotalAmount => 'Total Amount';
+
+  @override
+  String get broadbandPaymentUpdateTime => 'Bill Update Time';
+
+  @override
+  String get broadbandUpdateWithinThreeDays => 'Within 3 working days';
+
+  @override
+  String get broadbandContinue => 'Continue';
+
+  @override
+  String get broadbandInformation => 'Information';
+
+  @override
+  String get broadbandOk => 'OK';
+
+  @override
+  String get broadbandEnterPaymentAmount => 'Enter Payment Amount';
+
+  @override
+  String get broadbandCancel => 'Cancel';
+
+  @override
+  String get broadbandDone => 'Done';
+
+  @override
+  String get broadbandAccountNotFound => 'Broadband account was not found.';
+
+  @override
+  String broadbandMinimumPayment(String amount) {
+    return 'Minimum payment amount is $amount.';
+  }
+
+  @override
+  String broadbandMaximumPayment(String amount) {
+    return 'Maximum payment amount is $amount.';
+  }
+
+  @override
+  String get broadbandProductCodeRequired => 'Broadband product code is required.';
+
+  @override
+  String get broadbandAccountNumberRequired => 'Broadband account number is required.';
+
+  @override
+  String get broadbandApiKeyMissing => 'The broadband API key is missing.';
+
+  @override
+  String get broadbandHmacSecretMissing => 'The broadband HMAC secret is missing.';
+
+  @override
+  String get broadbandInvalidHmacBase64 => 'The broadband HMAC secret is not valid Base64.';
+
+  @override
+  String get broadbandInquiryTimeout => 'The broadband inquiry timed out. Please try again.';
+
+  @override
+  String get broadbandUnableToConnect => 'Unable to connect to the broadband bill service.';
+
+  @override
+  String get broadbandEmptyApiResponse => 'The broadband service returned an empty response.';
+
+  @override
+  String get broadbandInvalidJsonObject => 'The broadband service returned an invalid JSON response.';
+
+  @override
+  String get broadbandNoBillRecordFound => 'No broadband bill record was found.';
+
+  @override
+  String get broadbandInvalidAccount => 'The broadband account number is invalid.';
+
+  @override
+  String get broadbandProviderTimeout => 'The broadband provider is taking too long to respond. Please try again later.';
+
+  @override
+  String broadbandInquiryHttpFailed(int statusCode) {
+    return 'Broadband inquiry failed with status code $statusCode.';
+  }
+
+  @override
+  String broadbandInvalidServerResponse(String error) {
+    return 'Invalid broadband server response: $error';
+  }
+
+  @override
+  String broadbandInquiryFailed(String error) {
+    return 'Broadband bill inquiry failed: $error';
+  }
+
+  @override
+  String get broadbandAccountRequired => 'Please enter your broadband account number.';
 }

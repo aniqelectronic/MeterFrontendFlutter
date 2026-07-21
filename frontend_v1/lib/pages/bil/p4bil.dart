@@ -16,7 +16,11 @@ import 'package:frontend_v1/services/iimmpact_catalog_service.dart';
 import 'package:frontend_v1/pages/bil/electric/p5_electric_bill_result.dart';
 import 'package:frontend_v1/pages/bil/water/p5_water_bill_result.dart';
 
-import 'package:frontend_v1/pages/bil/broadband/pbroadbandbill3.dart';
+import 'package:frontend_v1/controllers/broadband/broadband_bill_controller.dart';
+import 'package:frontend_v1/controllers/broadband/broadband_bill_exception.dart';
+import 'package:frontend_v1/controllers/broadband/broadband_bill_service.dart';
+
+import 'package:frontend_v1/pages/bil/broadband/p5_broadband_bill_result.dart';
 
 enum BillServiceType {
   electric,
@@ -60,24 +64,63 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
   // THEME BY SERVICE TYPE
   // =========================================================
 
-  bool get _isWater =>
-      widget.serviceType == BillServiceType.water;
+    bool get _isWater =>
+        widget.serviceType == BillServiceType.water;
 
-  Color get _primaryColor => _isWater
-      ? const Color(0xFF00838F)
-      : const Color(0xFF1976D2);
+    bool get _isBroadband =>
+        widget.serviceType == BillServiceType.broadband;
 
-  Color get _darkColor => _isWater
-      ? const Color(0xFF006064)
-      : const Color(0xFF0D47A1);
+    Color get _primaryColor {
+      switch (widget.serviceType) {
+        case BillServiceType.electric:
+          return const Color(0xFF1976D2);
 
-  Color get _lightColor => _isWater
-      ? const Color(0xFF26C6DA)
-      : const Color(0xFF42A5F5);
+        case BillServiceType.water:
+          return const Color(0xFF00838F);
 
-  IconData get _serviceIcon => _isWater
-      ? Icons.water_drop_rounded
-      : Icons.electric_bolt_rounded;
+        case BillServiceType.broadband:
+          return const Color(0xFF6A1B9A);
+      }
+    }
+
+    Color get _darkColor {
+      switch (widget.serviceType) {
+        case BillServiceType.electric:
+          return const Color(0xFF0D47A1);
+
+        case BillServiceType.water:
+          return const Color(0xFF006064);
+
+        case BillServiceType.broadband:
+          return const Color(0xFF4A148C);
+      }
+    }
+
+    Color get _lightColor {
+      switch (widget.serviceType) {
+        case BillServiceType.electric:
+          return const Color(0xFF42A5F5);
+
+        case BillServiceType.water:
+          return const Color(0xFF26C6DA);
+
+        case BillServiceType.broadband:
+          return const Color(0xFFAB47BC);
+      }
+    }
+
+    IconData get _serviceIcon {
+      switch (widget.serviceType) {
+        case BillServiceType.electric:
+          return Icons.electric_bolt_rounded;
+
+        case BillServiceType.water:
+          return Icons.water_drop_rounded;
+
+        case BillServiceType.broadband:
+          return Icons.router_rounded;
+      }
+    }
 
   // =========================================================
   // ACCOUNT NUMBER LENGTH
@@ -108,6 +151,11 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
       case 'SATU':
       case 'SWB':
       case 'SYABAS':
+        return 30;
+
+      // BROADBAND
+      case 'TM':
+      case 'UNB':
         return 30;
 
       default:
@@ -358,14 +406,29 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
         _controller.text.trim().toUpperCase();
 
     if (accountNumber.isEmpty) {
+      late final String message;
+
+      switch (widget.serviceType) {
+        case BillServiceType.electric:
+          message = loc.electricAccountRequired;
+          break;
+
+        case BillServiceType.water:
+          message = loc.waterAccountRequired;
+          break;
+
+        case BillServiceType.broadband:
+          message = loc.broadbandAccountRequired;
+          break;
+      }
+
       _showAlert(
         loc.alertTitle,
-        _isWater
-            ? loc.waterAccountRequired
-            : loc.electricAccountRequired,
+        message,
         icon: _serviceIcon,
         iconColor: _primaryColor,
       );
+
       return;
     }
 
@@ -376,16 +439,27 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
     });
 
     try {
-      if (_isWater) {
-        await _handleWaterInquiry(
-          accountNumber: accountNumber,
-          loc: loc,
-        );
-      } else {
-        await _handleElectricInquiry(
-          accountNumber: accountNumber,
-          loc: loc,
-        );
+      switch (widget.serviceType) {
+        case BillServiceType.electric:
+          await _handleElectricInquiry(
+            accountNumber: accountNumber,
+            loc: loc,
+          );
+          break;
+
+        case BillServiceType.water:
+          await _handleWaterInquiry(
+            accountNumber: accountNumber,
+            loc: loc,
+          );
+          break;
+
+        case BillServiceType.broadband:
+          await _handleBroadbandInquiry(
+            accountNumber: accountNumber,
+            loc: loc,
+          );
+          break;
       }
     } on WaterBillException catch (error) {
       if (!mounted) return;
@@ -413,7 +487,21 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
         icon: Icons.cloud_off_rounded,
         iconColor: Colors.red,
       );
-    } catch (error, stackTrace) {
+    } on BroadbandBillException catch (error) {
+      if (!mounted) return;
+
+      debugPrint(
+        'BroadbandBillException: ${error.message}',
+      );
+
+      _showAlert(
+        loc.alertTitle,
+        error.message,
+        icon: Icons.cloud_off_rounded,
+        iconColor: Colors.red,
+      );
+
+   }catch (error, stackTrace) {
       if (!mounted) return;
 
       debugPrint(
@@ -592,6 +680,91 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
       ),
     );
   }
+
+  Future<void> _handleBroadbandInquiry({
+  required String accountNumber,
+  required AppLocalizations loc,
+}) async {
+  final result =
+      await BroadbandBillService.inquiryBill(
+    productCode: widget.productCode,
+    billerName: widget.billerName,
+    accountNumber: accountNumber,
+    loc: loc,
+  );
+
+  if (!mounted) return;
+
+  if (!result.success || result.bill == null) {
+    _showAlert(
+      loc.alertTitle,
+      result.message.isNotEmpty
+          ? result.message
+          : loc.broadbandAccountNotFound,
+      icon: Icons.search_off_rounded,
+      iconColor: Colors.orange,
+    );
+
+    return;
+  }
+
+  final bill = result.bill!;
+
+  BroadbandBillController.setSelectedBill(
+    bill,
+  );
+
+  CatalogPricing catalogPricing =
+      const CatalogPricing.empty();
+
+  try {
+    final catalogJson =
+        await IimmpactCatalogService.getCatalog();
+
+    catalogPricing =
+        CatalogPricing.fromCatalogResponse(
+      catalogJson: catalogJson,
+      productCode: widget.productCode,
+    );
+
+    debugPrint(
+      'Broadband catalog pricing loaded for '
+      '${widget.productCode}: '
+      'discount='
+      '${catalogPricing.providerDiscount?.displayValue ?? '-'}, '
+      'adjustment='
+      '${catalogPricing.priceAdjustment?.displayValue ?? '-'}',
+    );
+  } on IimmpactCatalogException catch (error) {
+    debugPrint(
+      'Broadband catalog pricing unavailable for '
+      '${widget.productCode}: '
+      '${error.message}',
+    );
+  } catch (error, stackTrace) {
+    debugPrint(
+      'Unexpected broadband catalog pricing error for '
+      '${widget.productCode}: $error',
+    );
+
+    debugPrintStack(
+      stackTrace: stackTrace,
+    );
+  }
+
+  if (!mounted) return;
+
+  await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) =>
+          P5BroadbandBillResultPage(
+        bill: bill,
+        catalogPricing: catalogPricing,
+      ),
+    ),
+  );
+}
 
   // =========================================================
   // DISPOSE

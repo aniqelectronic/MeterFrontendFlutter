@@ -1850,6 +1850,94 @@
 "waterServiceAdjustment": "Diskaun",
 "@waterServiceAdjustment": {
   "description": "Pelarasan yang ditolak daripada bil air pelanggan"
-}
+},
+
+"broadbandBillPayment": "Pembayaran Bil Jalur Lebar",
+"broadbandBillInformation": "Maklumat Akaun Jalur Lebar",
+"broadbandCustomerName": "Nama Pelanggan",
+"broadbandServiceAddress": "Alamat Perkhidmatan",
+"broadbandDueDate": "Tarikh Akhir Bayaran",
+"broadbandOutstandingAmount": "Jumlah Tertunggak",
+"broadbandAccountStatus": "Status Akaun",
+"broadbandAccountValid": "Nombor akaun adalah sah",
+"broadbandAccountNumber": "Nombor Akaun",
+"broadbandReviewDetailsTitle": "Semak Maklumat Akaun",
+"broadbandReviewDetailsSubtitle": "Sila sahkan maklumat akaun jalur lebar sebelum meneruskan.",
+"broadbandSelectPaymentAmount": "Pilih Jumlah Bayaran",
+"broadbandAmountInstruction": "Pembekal tidak memberikan jumlah tertunggak. Sila masukkan jumlah yang ingin dibayar.",
+"broadbandOrderSummary": "Ringkasan Pesanan",
+"broadbandServiceFee": "Caj Perkhidmatan",
+"broadbandServiceAdjustment": "Pelarasan Perkhidmatan",
+"broadbandTotalAmount": "Jumlah Keseluruhan",
+"broadbandPaymentUpdateTime": "Tempoh Kemas Kini Bil",
+"broadbandUpdateWithinThreeDays": "Dalam tempoh 3 hari bekerja",
+"broadbandContinue": "Teruskan",
+"broadbandInformation": "Makluman",
+"broadbandOk": "OK",
+"broadbandEnterPaymentAmount": "Masukkan Jumlah Bayaran",
+"broadbandCancel": "Batal",
+"broadbandDone": "Selesai",
+"broadbandAccountNotFound": "Akaun jalur lebar tidak ditemui.",
+
+"broadbandMinimumPayment": "Jumlah bayaran minimum ialah {amount}.",
+"@broadbandMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandMaximumPayment": "Jumlah bayaran maksimum ialah {amount}.",
+"@broadbandMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandProductCodeRequired": "Kod produk jalur lebar diperlukan.",
+"broadbandAccountNumberRequired": "Nombor akaun jalur lebar diperlukan.",
+"broadbandApiKeyMissing": "Kunci API jalur lebar tidak ditetapkan.",
+"broadbandHmacSecretMissing": "Rahsia HMAC jalur lebar tidak ditetapkan.",
+"broadbandInvalidHmacBase64": "Rahsia HMAC jalur lebar bukan Base64 yang sah.",
+"broadbandInquiryTimeout": "Semakan bil jalur lebar mengambil masa terlalu lama. Sila cuba lagi.",
+"broadbandUnableToConnect": "Tidak dapat menyambung ke perkhidmatan bil jalur lebar.",
+"broadbandEmptyApiResponse": "Perkhidmatan jalur lebar memulangkan respons kosong.",
+"broadbandInvalidJsonObject": "Perkhidmatan jalur lebar memulangkan respons JSON yang tidak sah.",
+"broadbandNoBillRecordFound": "Tiada rekod bil jalur lebar ditemui.",
+"broadbandInvalidAccount": "Nombor akaun jalur lebar tidak sah.",
+"broadbandProviderTimeout": "Pembekal jalur lebar mengambil masa terlalu lama untuk memberi respons. Sila cuba lagi kemudian.",
+"broadbandAccountValid": "Nombor akaun jalur lebar adalah sah.",
+
+"broadbandInquiryHttpFailed": "Semakan jalur lebar gagal dengan kod status {statusCode}.",
+"@broadbandInquiryHttpFailed": {
+  "placeholders": {
+    "statusCode": {
+      "type": "int"
+    }
+  }
+},
+
+"broadbandInvalidServerResponse": "Respons pelayan jalur lebar tidak sah: {error}",
+"@broadbandInvalidServerResponse": {
+  "placeholders": {
+    "error": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandInquiryFailed": "Semakan bil jalur lebar gagal: {error}",
+"@broadbandInquiryFailed": {
+  "placeholders": {
+    "error": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandAccountRequired": "Sila masukkan nombor akaun jalur lebar."
 
 }

@@ -1828,6 +1828,94 @@
 "waterServiceAdjustment": "Discount",
 "@waterServiceAdjustment": {
   "description": "Customer-facing adjustment deducted from a water bill"
-}
+},
+
+"broadbandBillPayment": "Broadband Bill Payment",
+"broadbandBillInformation": "Broadband Account Information",
+"broadbandCustomerName": "Customer Name",
+"broadbandServiceAddress": "Service Address",
+"broadbandDueDate": "Due Date",
+"broadbandOutstandingAmount": "Outstanding Amount",
+"broadbandAccountStatus": "Account Status",
+"broadbandAccountValid": "Account number is valid",
+"broadbandAccountNumber": "Account Number",
+"broadbandReviewDetailsTitle": "Review Account Details",
+"broadbandReviewDetailsSubtitle": "Please verify the broadband account information before continuing.",
+"broadbandSelectPaymentAmount": "Select Payment Amount",
+"broadbandAmountInstruction": "The provider did not return an outstanding amount. Please enter the amount you want to pay.",
+"broadbandOrderSummary": "Order Summary",
+"broadbandServiceFee": "Service Fee",
+"broadbandServiceAdjustment": "Service Adjustment",
+"broadbandTotalAmount": "Total Amount",
+"broadbandPaymentUpdateTime": "Bill Update Time",
+"broadbandUpdateWithinThreeDays": "Within 3 working days",
+"broadbandContinue": "Continue",
+"broadbandInformation": "Information",
+"broadbandOk": "OK",
+"broadbandEnterPaymentAmount": "Enter Payment Amount",
+"broadbandCancel": "Cancel",
+"broadbandDone": "Done",
+"broadbandAccountNotFound": "Broadband account was not found.",
+
+"broadbandMinimumPayment": "Minimum payment amount is {amount}.",
+"@broadbandMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandMaximumPayment": "Maximum payment amount is {amount}.",
+"@broadbandMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandProductCodeRequired": "Broadband product code is required.",
+"broadbandAccountNumberRequired": "Broadband account number is required.",
+"broadbandApiKeyMissing": "The broadband API key is missing.",
+"broadbandHmacSecretMissing": "The broadband HMAC secret is missing.",
+"broadbandInvalidHmacBase64": "The broadband HMAC secret is not valid Base64.",
+"broadbandInquiryTimeout": "The broadband inquiry timed out. Please try again.",
+"broadbandUnableToConnect": "Unable to connect to the broadband bill service.",
+"broadbandEmptyApiResponse": "The broadband service returned an empty response.",
+"broadbandInvalidJsonObject": "The broadband service returned an invalid JSON response.",
+"broadbandNoBillRecordFound": "No broadband bill record was found.",
+"broadbandInvalidAccount": "The broadband account number is invalid.",
+"broadbandProviderTimeout": "The broadband provider is taking too long to respond. Please try again later.",
+"broadbandAccountValid": "The broadband account number is valid.",
+
+"broadbandInquiryHttpFailed": "Broadband inquiry failed with status code {statusCode}.",
+"@broadbandInquiryHttpFailed": {
+  "placeholders": {
+    "statusCode": {
+      "type": "int"
+    }
+  }
+},
+
+"broadbandInvalidServerResponse": "Invalid broadband server response: {error}",
+"@broadbandInvalidServerResponse": {
+  "placeholders": {
+    "error": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandInquiryFailed": "Broadband bill inquiry failed: {error}",
+"@broadbandInquiryFailed": {
+  "placeholders": {
+    "error": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandAccountRequired": "Please enter your broadband account number."
 
 }

@@ -3700,4 +3700,146 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get waterServiceAdjustment => 'Diskaun';
+
+  @override
+  String get broadbandBillPayment => 'Pembayaran Bil Jalur Lebar';
+
+  @override
+  String get broadbandBillInformation => 'Maklumat Akaun Jalur Lebar';
+
+  @override
+  String get broadbandCustomerName => 'Nama Pelanggan';
+
+  @override
+  String get broadbandServiceAddress => 'Alamat Perkhidmatan';
+
+  @override
+  String get broadbandDueDate => 'Tarikh Akhir Bayaran';
+
+  @override
+  String get broadbandOutstandingAmount => 'Jumlah Tertunggak';
+
+  @override
+  String get broadbandAccountStatus => 'Status Akaun';
+
+  @override
+  String get broadbandAccountValid => 'Nombor akaun jalur lebar adalah sah.';
+
+  @override
+  String get broadbandAccountNumber => 'Nombor Akaun';
+
+  @override
+  String get broadbandReviewDetailsTitle => 'Semak Maklumat Akaun';
+
+  @override
+  String get broadbandReviewDetailsSubtitle => 'Sila sahkan maklumat akaun jalur lebar sebelum meneruskan.';
+
+  @override
+  String get broadbandSelectPaymentAmount => 'Pilih Jumlah Bayaran';
+
+  @override
+  String get broadbandAmountInstruction => 'Pembekal tidak memberikan jumlah tertunggak. Sila masukkan jumlah yang ingin dibayar.';
+
+  @override
+  String get broadbandOrderSummary => 'Ringkasan Pesanan';
+
+  @override
+  String get broadbandServiceFee => 'Caj Perkhidmatan';
+
+  @override
+  String get broadbandServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get broadbandTotalAmount => 'Jumlah Keseluruhan';
+
+  @override
+  String get broadbandPaymentUpdateTime => 'Tempoh Kemas Kini Bil';
+
+  @override
+  String get broadbandUpdateWithinThreeDays => 'Dalam tempoh 3 hari bekerja';
+
+  @override
+  String get broadbandContinue => 'Teruskan';
+
+  @override
+  String get broadbandInformation => 'Makluman';
+
+  @override
+  String get broadbandOk => 'OK';
+
+  @override
+  String get broadbandEnterPaymentAmount => 'Masukkan Jumlah Bayaran';
+
+  @override
+  String get broadbandCancel => 'Batal';
+
+  @override
+  String get broadbandDone => 'Selesai';
+
+  @override
+  String get broadbandAccountNotFound => 'Akaun jalur lebar tidak ditemui.';
+
+  @override
+  String broadbandMinimumPayment(String amount) {
+    return 'Jumlah bayaran minimum ialah $amount.';
+  }
+
+  @override
+  String broadbandMaximumPayment(String amount) {
+    return 'Jumlah bayaran maksimum ialah $amount.';
+  }
+
+  @override
+  String get broadbandProductCodeRequired => 'Kod produk jalur lebar diperlukan.';
+
+  @override
+  String get broadbandAccountNumberRequired => 'Nombor akaun jalur lebar diperlukan.';
+
+  @override
+  String get broadbandApiKeyMissing => 'Kunci API jalur lebar tidak ditetapkan.';
+
+  @override
+  String get broadbandHmacSecretMissing => 'Rahsia HMAC jalur lebar tidak ditetapkan.';
+
+  @override
+  String get broadbandInvalidHmacBase64 => 'Rahsia HMAC jalur lebar bukan Base64 yang sah.';
+
+  @override
+  String get broadbandInquiryTimeout => 'Semakan bil jalur lebar mengambil masa terlalu lama. Sila cuba lagi.';
+
+  @override
+  String get broadbandUnableToConnect => 'Tidak dapat menyambung ke perkhidmatan bil jalur lebar.';
+
+  @override
+  String get broadbandEmptyApiResponse => 'Perkhidmatan jalur lebar memulangkan respons kosong.';
+
+  @override
+  String get broadbandInvalidJsonObject => 'Perkhidmatan jalur lebar memulangkan respons JSON yang tidak sah.';
+
+  @override
+  String get broadbandNoBillRecordFound => 'Tiada rekod bil jalur lebar ditemui.';
+
+  @override
+  String get broadbandInvalidAccount => 'Nombor akaun jalur lebar tidak sah.';
+
+  @override
+  String get broadbandProviderTimeout => 'Pembekal jalur lebar mengambil masa terlalu lama untuk memberi respons. Sila cuba lagi kemudian.';
+
+  @override
+  String broadbandInquiryHttpFailed(int statusCode) {
+    return 'Semakan jalur lebar gagal dengan kod status $statusCode.';
+  }
+
+  @override
+  String broadbandInvalidServerResponse(String error) {
+    return 'Respons pelayan jalur lebar tidak sah: $error';
+  }
+
+  @override
+  String broadbandInquiryFailed(String error) {
+    return 'Semakan bil jalur lebar gagal: $error';
+  }
+
+  @override
+  String get broadbandAccountRequired => 'Sila masukkan nombor akaun jalur lebar.';
 }
