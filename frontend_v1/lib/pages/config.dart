@@ -22,7 +22,7 @@ class Config {
   static String waktusolaturl = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=SGR01&period=today";
 
   //for iot hub
-  static const String iotHubSharedAccessKey ='9APQME52StSCTSBh/Jo4NhkLFo+AAo2pBpd8FOQYzoQ=';
+  static const String iotHubSharedAccessKey ='cAdzDjTzU9ZbHRk/odz7XiL41rtSug7xPN0WJop+gY0=';
 
 
 }
