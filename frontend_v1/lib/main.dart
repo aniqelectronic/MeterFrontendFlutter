@@ -954,60 +954,43 @@ void _showIdleWarning() {
       routes: {
         routeHome: (context) => const P1BentongPage(),
       },
-      // builder: (context, child) {
-      //   final mediaQuery = MediaQuery.of(context);
-
-      //   return Listener(
-      //     behavior: HitTestBehavior.translucent,
-      //     onPointerDown: (_) {
-      //       _handleUserTouch();
-      //     },
-      //     onPointerMove: (_) {
-      //       _handleUserTouch();
-      //     },
-      //     child: MediaQuery(
-      //       data: mediaQuery.copyWith(textScaleFactor: 1.3),
-      //       child: OnscreenKeyboard(child: child!),
-      //     ),
-      //   );
-      // },
-
-builder: (context, child) {
+      builder: (context, child) {
   final realMediaQuery = MediaQuery.of(context);
 
-  // Your existing fixed design canvas. This keeps all existing
-  // pages designed for portrait 1080 x 1920 scaled to the screen.
+  // =========================================================
+  // ORIGINAL FIXED DESIGN CANVAS
+  // =========================================================
+  //
+  // The physical kiosk screen is 800 x 1280, but every page in
+  // this project was designed using a 1080 x 1920 canvas.
+  //
+  // Keep this scaling exactly as before. Kiosk mode must only
+  // control the native Linux window and must not change the UI
+  // coordinate system used by existing pages.
   const Size designSize = Size(1080, 1920);
 
-  return PopScope(
-    // Prevent a Linux/system back event from closing the root route.
-    canPop: false,
-    onPopInvokedWithResult: (didPop, result) {
-      if (!didPop) {
-        debugPrint('Root system-back request blocked by kiosk mode.');
-      }
-    },
-    child: Listener(
-      // Keep your existing global touch detection for idle timers
-      // and brightness restoration.
-      behavior: HitTestBehavior.translucent,
-      onPointerDown: (_) => _handleUserTouch(),
-      onPointerMove: (_) => _handleUserTouch(),
-      child: SizedBox.expand(
-        child: FittedBox(
-          fit: BoxFit.fill,
-          alignment: Alignment.topLeft,
-          child: SizedBox(
-            width: designSize.width,
-            height: designSize.height,
-            child: MediaQuery(
-              data: realMediaQuery.copyWith(
-                size: designSize,
-                textScaler: TextScaler.noScaling,
-              ),
-              // Keep your existing on-screen keyboard wrapper.
-              child: OnscreenKeyboard(child: child!),
+  return Listener(
+    // Keep the existing global touch listener for brightness and
+    // idle-timer reset behavior.
+    behavior: HitTestBehavior.translucent,
+    onPointerDown: (_) => _handleUserTouch(),
+    onPointerMove: (_) => _handleUserTouch(),
+    child: SizedBox.expand(
+      child: FittedBox(
+        // Stretch the complete 1080 x 1920 design so it fills the
+        // real 800 x 1280 portrait display without clipping.
+        fit: BoxFit.fill,
+        alignment: Alignment.topLeft,
+        child: SizedBox(
+          width: designSize.width,
+          height: designSize.height,
+          child: MediaQuery(
+            data: realMediaQuery.copyWith(
+              size: designSize,
+              textScaleFactor: 1.0,
             ),
+            // Keep the existing on-screen keyboard wrapper.
+            child: OnscreenKeyboard(child: child!),
           ),
         ),
       ),
