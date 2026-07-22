@@ -74,164 +74,29 @@ class AppRouteObserver extends NavigatorObserver {
   }
 }
 
-// ============================================================
-// UBUNTU KIOSK SHELL SETTINGS
-// ============================================================
-//
-// This does not change the Flutter layout or screen scaling.
-//
-// It:
-// - disables the Ubuntu side dock;
-// - prevents notification banners;
-// - disables the top-left hot corner;
-// - disables lock-screen notifications;
-// - prevents screen blanking and automatic suspend.
-//
-// The Flutter fullscreen window will cover the GNOME top panel.
-
-Future<void> enableUbuntuKioskShell() async {
-  try {
-    const String command = r'''
-export DISPLAY=:0
-export XAUTHORITY=/home/orin_nano/.Xauthority
-
-# Required when Flutter starts through systemd.
-export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
-
-echo "[KIOSK] Applying Ubuntu kiosk settings..."
-
-# ------------------------------------------------------------
-# 1. Disable notification popup banners.
-# ------------------------------------------------------------
-gsettings set org.gnome.desktop.notifications show-banners false 2>/dev/null || true
-
-# Do not show notifications on the lock screen.
-gsettings set org.gnome.desktop.notifications show-in-lock-screen false 2>/dev/null || true
-
-# ------------------------------------------------------------
-# 2. Disable the top-left Activities hot corner.
-# ------------------------------------------------------------
-gsettings set org.gnome.desktop.interface enable-hot-corners false 2>/dev/null || true
-
-# ------------------------------------------------------------
-# 3. Disable the Ubuntu side dock completely.
-#
-# Different Ubuntu versions may use either extension ID.
-# Commands safely continue when one ID is unavailable.
-# ------------------------------------------------------------
-if command -v gnome-extensions >/dev/null 2>&1; then
-  gnome-extensions disable ubuntu-dock@ubuntu.com 2>/dev/null || true
-  gnome-extensions disable dash-to-dock@micxgx.gmail.com 2>/dev/null || true
-fi
-
-# ------------------------------------------------------------
-# 4. Disable screen blanking and automatic suspend.
-# ------------------------------------------------------------
-gsettings set org.gnome.desktop.session idle-delay 0 2>/dev/null || true
-
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing' 2>/dev/null || true
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'nothing' 2>/dev/null || true
-
-# ------------------------------------------------------------
-# 5. Disable screen locking.
-# ------------------------------------------------------------
-gsettings set org.gnome.desktop.screensaver lock-enabled false 2>/dev/null || true
-gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false 2>/dev/null || true
-
-echo "[KIOSK] Ubuntu kiosk settings applied."
-''';
-
-    final result = await Process.run(
-      'bash',
-      ['-c', command],
-    );
-
-    final stdoutText = result.stdout.toString().trim();
-    final stderrText = result.stderr.toString().trim();
-
-    if (stdoutText.isNotEmpty) {
-      print(stdoutText);
-    }
-
-    if (stderrText.isNotEmpty) {
-      print('[KIOSK] Shell warning: $stderrText');
-    }
-
-    print(
-      '[KIOSK] Ubuntu shell command exit code: '
-      '${result.exitCode}',
-    );
-  } catch (e) {
-    print('[KIOSK] Failed to configure Ubuntu shell: $e');
-  }
-}
-
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await windowManager.ensureInitialized();
 
-  // Hide Ubuntu dock, notification banners, hot corner,
-  // screen locking and automatic suspend.
-  //
-  // This runs before Flutter is displayed, reducing the chance
-  // that the Ubuntu dock appears briefly.
-  await enableUbuntuKioskShell();
-
   const windowOptions = WindowOptions(
-    // Physical screen/window size.
-    //
-    // Your pages remain designed at 1080 x 1920 and continue
-    // using the existing FittedBox builder.
+    // size: Size(1080, 1920),
+    // minimumSize: Size(1080, 1920),
+    // maximumSize: Size(1080, 1920),
     size: Size(800, 1280),
     minimumSize: Size(800, 1280),
     maximumSize: Size(800, 1280),
-
     center: false,
     backgroundColor: Colors.black,
     titleBarStyle: TitleBarStyle.hidden,
-
-    // Hides the Flutter application's own taskbar entry.
     skipTaskbar: true,
   );
 
-  windowManager.waitUntilReadyToShow(
-    windowOptions,
-    () async {
-      // Keep the existing physical size configuration.
-      await windowManager.setSize(
-        const Size(800, 1280),
-      );
-
-      await windowManager.setMinimumSize(
-        const Size(800, 1280),
-      );
-
-      await windowManager.setMaximumSize(
-        const Size(800, 1280),
-      );
-
-      // Prevent resizing.
-      await windowManager.setResizable(false);
-
-      // Remove the native Linux title bar and buttons.
-      await windowManager.setTitleBarStyle(
-        TitleBarStyle.hidden,
-        windowButtonVisibility: false,
-      );
-
-      // Keep the app out of the Ubuntu taskbar.
-      await windowManager.setSkipTaskbar(true);
-
-      await windowManager.show();
-
-      // Fullscreen covers the Ubuntu top panel containing:
-      // clock, Wi-Fi, power and settings.
-      await windowManager.setFullScreen(true);
-
-      await windowManager.focus();
-    },
-  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+    await windowManager.setFullScreen(true);
+  });
 
   await windowManager.setPreventClose(true);
 
@@ -314,98 +179,6 @@ class _AppState extends State<App> {
     iotHubService.stop();
     super.dispose();
   }
-
-  // ============================================================
-// UBUNTU KIOSK SHELL SETTINGS
-// ============================================================
-//
-// This does not change the Flutter layout or screen scaling.
-//
-// It:
-// - disables the Ubuntu side dock;
-// - prevents notification banners;
-// - disables the top-left hot corner;
-// - disables lock-screen notifications;
-// - prevents screen blanking and automatic suspend.
-//
-// The Flutter fullscreen window will cover the GNOME top panel.
-
-Future<void> enableUbuntuKioskShell() async {
-  try {
-    const String command = r'''
-export DISPLAY=:0
-export XAUTHORITY=/home/orin_nano/.Xauthority
-
-# Required when Flutter starts through systemd.
-export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
-
-echo "[KIOSK] Applying Ubuntu kiosk settings..."
-
-# ------------------------------------------------------------
-# 1. Disable notification popup banners.
-# ------------------------------------------------------------
-gsettings set org.gnome.desktop.notifications show-banners false 2>/dev/null || true
-
-# Do not show notifications on the lock screen.
-gsettings set org.gnome.desktop.notifications show-in-lock-screen false 2>/dev/null || true
-
-# ------------------------------------------------------------
-# 2. Disable the top-left Activities hot corner.
-# ------------------------------------------------------------
-gsettings set org.gnome.desktop.interface enable-hot-corners false 2>/dev/null || true
-
-# ------------------------------------------------------------
-# 3. Disable the Ubuntu side dock completely.
-#
-# Different Ubuntu versions may use either extension ID.
-# Commands safely continue when one ID is unavailable.
-# ------------------------------------------------------------
-if command -v gnome-extensions >/dev/null 2>&1; then
-  gnome-extensions disable ubuntu-dock@ubuntu.com 2>/dev/null || true
-  gnome-extensions disable dash-to-dock@micxgx.gmail.com 2>/dev/null || true
-fi
-
-# ------------------------------------------------------------
-# 4. Disable screen blanking and automatic suspend.
-# ------------------------------------------------------------
-gsettings set org.gnome.desktop.session idle-delay 0 2>/dev/null || true
-
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing' 2>/dev/null || true
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'nothing' 2>/dev/null || true
-
-# ------------------------------------------------------------
-# 5. Disable screen locking.
-# ------------------------------------------------------------
-gsettings set org.gnome.desktop.screensaver lock-enabled false 2>/dev/null || true
-gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false 2>/dev/null || true
-
-echo "[KIOSK] Ubuntu kiosk settings applied."
-''';
-
-    final result = await Process.run(
-      'bash',
-      ['-c', command],
-    );
-
-    final stdoutText = result.stdout.toString().trim();
-    final stderrText = result.stderr.toString().trim();
-
-    if (stdoutText.isNotEmpty) {
-      print(stdoutText);
-    }
-
-    if (stderrText.isNotEmpty) {
-      print('[KIOSK] Shell warning: $stderrText');
-    }
-
-    print(
-      '[KIOSK] Ubuntu shell command exit code: '
-      '${result.exitCode}',
-    );
-  } catch (e) {
-    print('[KIOSK] Failed to configure Ubuntu shell: $e');
-  }
-}
 
   // ================= ROUTE CHANGE =================
   void _onRouteChanged() {
