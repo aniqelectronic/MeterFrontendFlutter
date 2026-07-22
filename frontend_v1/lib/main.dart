@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_onscreen_keyboard/flutter_onscreen_keyboard.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:frontend_v1/pages/home/p1bentong.dart';
@@ -13,6 +14,11 @@ import 'package:frontend_v1/services/iot_hub_services.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 String currentRouteName = '/p1';
+
+// True only while the separate native PegePay QR WebView window is open.
+// The kiosk guard checks this flag so it does not restore, fullscreen,
+// or raise the Flutter window above the QR payment window.
+bool isExternalPaymentWindowOpen = false;
 
 class AppRouteObserver extends NavigatorObserver {
   final VoidCallback onRouteChanged;
@@ -74,31 +80,59 @@ class AppRouteObserver extends NavigatorObserver {
   }
 }
 
-void main() async {
+// =========================================================
+// APPLICATION ENTRY POINT
+// =========================================================
+// Initializes Flutter and configures the Linux window before
+// showing the application. The window is borderless, hidden
+// from the taskbar, fixed in size, and launched fullscreen.
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Required before using any window_manager function.
   await windowManager.ensureInitialized();
 
   const windowOptions = WindowOptions(
-    // size: Size(1080, 1920),
-    // minimumSize: Size(1080, 1920),
-    // maximumSize: Size(1080, 1920),
+    // The actual Linux window size. Your UI is later scaled from
+    // the 1080 x 1920 design canvas inside MaterialApp.builder.
     size: Size(800, 1280),
     minimumSize: Size(800, 1280),
     maximumSize: Size(800, 1280),
+
+    // Keep your existing positioning behavior.
     center: false,
+
+    // Prevent a white flash while Flutter is starting.
     backgroundColor: Colors.black,
+
+    // Remove the normal Linux title bar and window buttons.
     titleBarStyle: TitleBarStyle.hidden,
+
+    // Do not show the Flutter application in the taskbar/dock.
     skipTaskbar: true,
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    await windowManager.focus();
-    await windowManager.setFullScreen(true);
-  });
+    // Prevent users from resizing the kiosk window.
+    await windowManager.setResizable(false);
 
-  await windowManager.setPreventClose(true);
+    // Hide title-bar buttons if the current plugin version supports it.
+    await windowManager.setTitleBarStyle(
+      TitleBarStyle.hidden,
+      windowButtonVisibility: false,
+    );
+
+    // Hide the application from the taskbar/dock.
+    await windowManager.setSkipTaskbar(true);
+
+    // Prevent normal close requests such as Alt+F4.
+    await windowManager.setPreventClose(true);
+
+    // Show, fullscreen, and focus the kiosk application.
+    await windowManager.show();
+    await windowManager.setFullScreen(true);
+    await windowManager.focus();
+  });
 
   runApp(const App());
 }
@@ -115,7 +149,7 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with WindowListener {
   // ================= IDLE CONFIG =================
   static const Duration dimDuration = Duration(minutes: 1);
   static const Duration warningDuration = Duration(minutes: 3);
@@ -139,6 +173,22 @@ class _AppState extends State<App> {
   bool _dimmed = false;
   bool _restoringBrightness = false;
 
+  // ================= KIOSK WINDOW GUARD =================
+  // Rechecks the main window periodically in case the desktop
+  // environment removes fullscreen or minimizes the application.
+  Timer? _kioskGuardTimer;
+
+  // Stops the guard only when an administrator uses the hidden
+  // physical-keyboard maintenance shortcut.
+  bool _maintenanceExitRequested = false;
+
+  // Prevents overlapping fullscreen/restore calls.
+  bool _restoringKioskWindow = false;
+
+  // A short interval makes accidental minimize/fullscreen changes
+  // recover quickly without continuously using CPU.
+  static const Duration kioskGuardInterval = Duration(seconds: 3);
+
   // ================= ROUTES =================
   static const String routeHome = '/p1';
   static const String routePayment = '/payment';
@@ -155,29 +205,211 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
 
+    // Listen for Linux window events such as minimize and close.
+    windowManager.addListener(this);
+
+    // Listen for the hidden administrator keyboard shortcut.
+    HardwareKeyboard.instance.addHandler(_handleMaintenanceKeyboard);
+
+    // Keep your existing route observer and idle behavior.
     _routeObserver = AppRouteObserver(
       onRouteChanged: _onRouteChanged,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // Keep your existing internet monitoring.
       InternetGuard().start(navigatorKey);
 
-       iotHubService.connect();
+      // Keep your existing Azure IoT Hub connection.
+      iotHubService.connect();
 
+      // Keep your existing home route and idle timer startup.
       currentRouteName = routeHome;
       _resetIdleTimers();
+
+      // Reapply the kiosk window rules after the first Flutter frame.
+      await _activateKioskWindow();
+      _startKioskGuard();
     });
   }
 
   @override
   void dispose() {
+    // Keep your existing timer cleanup.
     _dimTimer?.cancel();
     _warningTimer?.cancel();
     _countdownTimer?.cancel();
     _homeDimTimer?.cancel();
 
+    // Stop the kiosk protection timer.
+    _kioskGuardTimer?.cancel();
+
+    // Remove keyboard and window listeners.
+    HardwareKeyboard.instance.removeHandler(_handleMaintenanceKeyboard);
+    windowManager.removeListener(this);
+
+    // Keep your existing IoT Hub cleanup.
     iotHubService.stop();
+
     super.dispose();
+  }
+
+  // =========================================================
+  // KIOSK WINDOW PROTECTION
+  // =========================================================
+
+  // Applies the main kiosk window rules again whenever needed.
+  Future<void> _activateKioskWindow() async {
+    // Do not touch the main Flutter window while the separate native
+    // PegePay QR WebView is open. Reapplying fullscreen here can raise
+    // Flutter above the QR window on Linux.
+    if (_maintenanceExitRequested ||
+        _restoringKioskWindow ||
+        isExternalPaymentWindowOpen) {
+      return;
+    }
+
+    _restoringKioskWindow = true;
+
+    try {
+      // Block normal close requests and window resizing.
+      await windowManager.setPreventClose(true);
+      await windowManager.setResizable(false);
+
+      // Keep the application hidden from the taskbar and borderless.
+      await windowManager.setSkipTaskbar(true);
+      await windowManager.setTitleBarStyle(
+        TitleBarStyle.hidden,
+        windowButtonVisibility: false,
+      );
+
+      // Restore the application if the desktop minimized it.
+      final bool minimized = await windowManager.isMinimized();
+      if (minimized) {
+        await windowManager.restore();
+      }
+
+      // Re-enter real fullscreen if it was removed.
+      final bool fullScreen = await windowManager.isFullScreen();
+      if (!fullScreen) {
+        await windowManager.setFullScreen(true);
+      }
+
+      // Do not steal focus while your separate QR payment WebView
+      // is open, because it needs to remain above the main window.
+      if (currentRouteName != routePayment) {
+        await windowManager.focus();
+      }
+    } catch (e) {
+      debugPrint('Kiosk window restore error: $e');
+    } finally {
+      _restoringKioskWindow = false;
+    }
+  }
+
+  // Periodically verifies that the kiosk is still fullscreen.
+  void _startKioskGuard() {
+    _kioskGuardTimer?.cancel();
+
+    _kioskGuardTimer = Timer.periodic(
+      kioskGuardInterval,
+      (_) {
+        if (_maintenanceExitRequested) return;
+
+        // Keep the kiosk guard paused while the external PegePay QR
+        // window is visible. It resumes automatically after QR closes.
+        if (isExternalPaymentWindowOpen) return;
+
+        unawaited(_activateKioskWindow());
+      },
+    );
+  }
+
+  // Hidden administrator exit shortcut:
+  // Ctrl + Alt + Shift + K using a physical keyboard.
+  bool _handleMaintenanceKeyboard(KeyEvent event) {
+    if (event is! KeyDownEvent) return false;
+
+    final keyboard = HardwareKeyboard.instance;
+
+    final bool maintenanceShortcut =
+        keyboard.isControlPressed &&
+        keyboard.isAltPressed &&
+        keyboard.isShiftPressed &&
+        event.logicalKey == LogicalKeyboardKey.keyK;
+
+    if (maintenanceShortcut) {
+      unawaited(_exitKioskForMaintenance());
+      return true;
+    }
+
+    // Block common keys that can leave fullscreen or trigger back.
+    // Operating-system global shortcuts such as Alt+Tab and Super
+    // must still be disabled at the Jetson OS level.
+    if (event.logicalKey == LogicalKeyboardKey.escape ||
+        event.logicalKey == LogicalKeyboardKey.goBack ||
+        event.logicalKey == LogicalKeyboardKey.browserBack ||
+        event.logicalKey == LogicalKeyboardKey.f11) {
+      return true;
+    }
+
+    return false;
+  }
+
+  // Safely closes the application for maintenance only.
+  Future<void> _exitKioskForMaintenance() async {
+    if (_maintenanceExitRequested) return;
+
+    _maintenanceExitRequested = true;
+    _kioskGuardTimer?.cancel();
+
+    try {
+      // Temporarily release all kiosk protections before closing.
+      await windowManager.setPreventClose(false);
+      await windowManager.setFullScreen(false);
+      await windowManager.setSkipTaskbar(false);
+      await windowManager.destroy();
+    } catch (e) {
+      debugPrint('Maintenance exit failed: $e');
+
+      // If closing failed, protect the kiosk again.
+      _maintenanceExitRequested = false;
+      _startKioskGuard();
+      await _activateKioskWindow();
+    }
+  }
+
+  // =========================================================
+  // WINDOW MANAGER EVENTS
+  // =========================================================
+
+  @override
+  void onWindowClose() {
+    // Ignore normal closing. Only the maintenance shortcut is allowed.
+    if (_maintenanceExitRequested) return;
+    unawaited(windowManager.setPreventClose(true));
+    unawaited(_activateKioskWindow());
+  }
+
+  @override
+  void onWindowMinimize() {
+    // Restore the kiosk immediately after a minimize attempt.
+    if (_maintenanceExitRequested) return;
+    unawaited(_activateKioskWindow());
+  }
+
+  @override
+  void onWindowUnmaximize() {
+    // Return to fullscreen if the window manager unmaximizes it.
+    if (_maintenanceExitRequested) return;
+    unawaited(_activateKioskWindow());
+  }
+
+  @override
+  void onWindowLeaveFullScreen() {
+    // Return to fullscreen if F11 or the desktop removes fullscreen.
+    if (_maintenanceExitRequested) return;
+    unawaited(_activateKioskWindow());
   }
 
   // ================= ROUTE CHANGE =================
@@ -743,25 +975,39 @@ void _showIdleWarning() {
 builder: (context, child) {
   final realMediaQuery = MediaQuery.of(context);
 
+  // Your existing fixed design canvas. This keeps all existing
+  // pages designed for portrait 1080 x 1920 scaled to the screen.
   const Size designSize = Size(1080, 1920);
 
-  return Listener(
-    behavior: HitTestBehavior.translucent,
-    onPointerDown: (_) => _handleUserTouch(),
-    onPointerMove: (_) => _handleUserTouch(),
-    child: SizedBox.expand(
-      child: FittedBox(
-        fit: BoxFit.fill,
-        alignment: Alignment.topLeft,
-        child: SizedBox(
-          width: designSize.width,
-          height: designSize.height,
-          child: MediaQuery(
-            data: realMediaQuery.copyWith(
-              size: designSize,
-              textScaleFactor: 1.0,
+  return PopScope(
+    // Prevent a Linux/system back event from closing the root route.
+    canPop: false,
+    onPopInvokedWithResult: (didPop, result) {
+      if (!didPop) {
+        debugPrint('Root system-back request blocked by kiosk mode.');
+      }
+    },
+    child: Listener(
+      // Keep your existing global touch detection for idle timers
+      // and brightness restoration.
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (_) => _handleUserTouch(),
+      onPointerMove: (_) => _handleUserTouch(),
+      child: SizedBox.expand(
+        child: FittedBox(
+          fit: BoxFit.fill,
+          alignment: Alignment.topLeft,
+          child: SizedBox(
+            width: designSize.width,
+            height: designSize.height,
+            child: MediaQuery(
+              data: realMediaQuery.copyWith(
+                size: designSize,
+                textScaler: TextScaler.noScaling,
+              ),
+              // Keep your existing on-screen keyboard wrapper.
+              child: OnscreenKeyboard(child: child!),
             ),
-            child: OnscreenKeyboard(child: child!),
           ),
         ),
       ),

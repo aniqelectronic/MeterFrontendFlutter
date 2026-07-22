@@ -37,6 +37,40 @@ class PegePayWebViewHelper {
   }) async {
     print('[PegePay] Opening QR for order: $orderNo');
 
+    // ============================================================
+    // PREPARE FLUTTER WINDOW FOR EXTERNAL QR WINDOW
+    // ============================================================
+    //
+    // Do not hide the Flutter window here.
+    //
+    // Hiding Flutter before the native QR WebView is ready causes
+    // the Linux desktop/background to flash briefly.
+    //
+    // Instead:
+    // 1. Pause the kiosk fullscreen guard.
+    // 2. Remove Flutter's always-on-top state.
+    // 3. Keep Flutter visible behind the QR WebView.
+    // 4. Raise the QR WebView after it has been created.
+
+    isExternalPaymentWindowOpen = true;
+    currentRouteName = '/payment';
+
+    try {
+      await windowManager.setAlwaysOnTop(false);
+
+      // Keep Flutter visible as the background while the QR native
+      // window is being created. This prevents desktop flashing.
+      await windowManager.show();
+
+      print(
+        '[PegePay] Flutter kept visible behind QR window',
+      );
+    } catch (e) {
+      print(
+        '[PegePay] Failed to prepare Flutter window: $e',
+      );
+    }
+
     /*
      * Invalidate every callback belonging to the previous WebView
      * before closing that previous window.
@@ -93,6 +127,9 @@ class PegePayWebViewHelper {
       _currentWebview = webview;
     } catch (e) {
       print('[PegePay] Failed to create WebView: $e');
+
+      // Creation failed, so immediately release the kiosk guard pause.
+      isExternalPaymentWindowOpen = false;
 
       if (sessionId == _activeSessionId) {
         finished = true;
@@ -727,26 +764,43 @@ done
 
   static Future<void> _restoreFlutterWindow() async {
     try {
-      await Future.delayed(
-        const Duration(milliseconds: 200),
-      );
-
-      await windowManager.show();
-      await windowManager.setFullScreen(true);
-      await windowManager.setAlwaysOnTop(true);
-      await windowManager.focus();
+      // The native QR window is now closed. Allow the main.dart kiosk
+      // guard to protect the Flutter window again.
+      isExternalPaymentWindowOpen = false;
+      currentRouteName = '/payment';
 
       await Future.delayed(
         const Duration(milliseconds: 250),
       );
 
-      await windowManager.focus();
-      await windowManager.setAlwaysOnTop(false);
+      // Restore the main kiosk window only after the QR WebView closes.
+      await windowManager.show();
 
-      currentRouteName = '/payment';
+      final bool minimized = await windowManager.isMinimized();
+      if (minimized) {
+        await windowManager.restore();
+      }
+
+      await windowManager.setFullScreen(true);
+
+      // Raise Flutter once after payment closes, then remove always-on-top
+      // so a future PegePay WebView can appear above it normally.
+      await windowManager.setAlwaysOnTop(true);
+      await windowManager.focus();
+
+      await Future.delayed(
+        const Duration(milliseconds: 300),
+      );
+
+      await windowManager.setAlwaysOnTop(false);
+      await windowManager.focus();
 
       print('[PegePay] Flutter window restored');
     } catch (e) {
+      // Never leave the kiosk guard permanently paused, even when a
+      // Linux window-manager command fails.
+      isExternalPaymentWindowOpen = false;
+
       print(
         '[PegePay] Failed to restore Flutter window: $e',
       );
