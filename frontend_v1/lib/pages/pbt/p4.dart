@@ -1100,24 +1100,258 @@ void _showAlert(
             ),
           ),
 
-          if (_isLoading)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: Container(
-                  color: Colors.black.withOpacity(0.08),
-                  child: const Center(
-                    child: SizedBox(
-                      width: 90,
-                      height: 90,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 8,
-                        color: Color.fromARGB(255, 3, 89, 210),
+        // ===================================================
+        // LOADING OVERLAY
+        // ===================================================
+
+        if (_isLoading)
+          Positioned.fill(
+            child: AbsorbPointer(
+              absorbing: true,
+              child: Container(
+                color: const Color(0xFF07182E).withOpacity(0.72),
+                child: Center(
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween<double>(begin: 0.96, end: 1.0),
+                    duration: const Duration(milliseconds: 700),
+                    curve: Curves.easeOutBack,
+                    builder: (context, scale, child) {
+                      return Transform.scale(
+                        scale: scale,
+                        child: child,
+                      );
+                    },
+                    child: Container(
+                      width: 760,
+                      margin: const EdgeInsets.symmetric(horizontal: 60),
+                      padding: const EdgeInsets.fromLTRB(55, 55, 55, 48),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(42),
+                        border: Border.all(
+                          color: const Color(0xFFBBD9FF),
+                          width: 3,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.35),
+                            blurRadius: 45,
+                            offset: const Offset(0, 22),
+                          ),
+                          BoxShadow(
+                            color: const Color(0xFF1976D2).withOpacity(0.20),
+                            blurRadius: 55,
+                            spreadRadius: 3,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // ==========================================
+                          // LOADING ICON
+                          // ==========================================
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                width: 175,
+                                height: 175,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: const Color(0xFFEAF4FF),
+                                  border: Border.all(
+                                    color: const Color(0xFFBBD9FF),
+                                    width: 3,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFF1976D2)
+                                          .withOpacity(0.18),
+                                      blurRadius: 28,
+                                      spreadRadius: 4,
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              const SizedBox(
+                                width: 145,
+                                height: 145,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 9,
+                                  backgroundColor: Color(0xFFD8E9FF),
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Color(0xFF1565C0),
+                                  ),
+                                  strokeCap: StrokeCap.round,
+                                ),
+                              ),
+
+                              Container(
+                                width: 105,
+                                height: 105,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Color(0xFF42A5F5),
+                                      Color(0xFF0D47A1),
+                                    ],
+                                  ),
+                                ),
+                                child: const Icon(
+                                  Icons.manage_search_rounded,
+                                  size: 62,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(height: 38),
+
+                          // ==========================================
+                          // TITLE
+                          // ==========================================
+                          Text(
+                            AppLocalizations.of(context)!.loadingTitle,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Color(0xFF123B70),
+                              fontSize: 52,
+                              fontWeight: FontWeight.w900,
+                              height: 1.1,
+                            ),
+                          ),
+
+                          const SizedBox(height: 18),
+
+                          Container(
+                            width: 110,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFF42A5F5),
+                                  Color(0xFF0D47A1),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+
+                          const SizedBox(height: 30),
+
+                          // ==========================================
+                          // MESSAGE
+                          // ==========================================
+                          Text(
+                            AppLocalizations.of(context)!.loadingMessage,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Color(0xFF4E5968),
+                              fontSize: 35,
+                              fontWeight: FontWeight.w600,
+                              height: 1.45,
+                            ),
+                          ),
+
+                          const SizedBox(height: 38),
+
+                          // ==========================================
+                          // PROCESSING STATUS
+                          // ==========================================
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 28,
+                              vertical: 22,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF3F8FF),
+                              borderRadius: BorderRadius.circular(22),
+                              border: Border.all(
+                                color: const Color(0xFFD2E6FF),
+                                width: 2,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 18,
+                                  height: 18,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF22A45D),
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color(0xFF22A45D)
+                                            .withOpacity(0.35),
+                                        blurRadius: 10,
+                                        spreadRadius: 3,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                const SizedBox(width: 18),
+
+                                Flexible(
+                                  child: Text(
+                                    AppLocalizations.of(context)!
+                                        .loadingStatusMessage,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      color: Color(0xFF31547C),
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          const SizedBox(height: 30),
+
+                          // ==========================================
+                          // SECURITY / DO NOT CLOSE NOTICE
+                          // ==========================================
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.lock_outline_rounded,
+                                size: 29,
+                                color: Color(0xFF7890AA),
+                              ),
+                              const SizedBox(width: 12),
+                              Flexible(
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .loadingDoNotClose,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    color: Color(0xFF7890AA),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
               ),
             ),
+          ),
 
           Positioned(
             bottom: 100,

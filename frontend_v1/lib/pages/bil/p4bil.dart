@@ -22,10 +22,17 @@ import 'package:frontend_v1/controllers/broadband/broadband_bill_service.dart';
 
 import 'package:frontend_v1/pages/bil/broadband/p5_broadband_bill_result.dart';
 
+import 'package:frontend_v1/controllers/entertainment/entertainment_bill_controller.dart';
+import 'package:frontend_v1/controllers/entertainment/entertainment_bill_exception.dart';
+import 'package:frontend_v1/controllers/entertainment/entertainment_bill_service.dart';
+import 'package:frontend_v1/pages/bil/entertainment/p5_astro_bill_result.dart';
+
+
 enum BillServiceType {
   electric,
   water,
   broadband,
+  entertainment,
 }
 
 class P4BILPAGE extends StatefulWidget {
@@ -80,6 +87,9 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
         case BillServiceType.broadband:
           return const Color(0xFF6A1B9A);
+
+        case BillServiceType.entertainment:
+          return const Color(0xFFD81B60);
       }
     }
 
@@ -93,6 +103,9 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
         case BillServiceType.broadband:
           return const Color(0xFF4A148C);
+
+        case BillServiceType.entertainment:
+          return const Color(0xFF880E4F);
       }
     }
 
@@ -106,6 +119,9 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
         case BillServiceType.broadband:
           return const Color(0xFFAB47BC);
+
+        case BillServiceType.entertainment:
+          return const Color(0xFFF06292);
       }
     }
 
@@ -119,6 +135,9 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
         case BillServiceType.broadband:
           return Icons.router_rounded;
+
+        case BillServiceType.entertainment:
+          return Icons.live_tv_rounded;
       }
     }
 
@@ -158,6 +177,10 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
       case 'UNB':
         return 30;
 
+      // ENTERTAINMENT
+      case 'ASB':
+        return 20;
+
       default:
         return 30;
     }
@@ -171,6 +194,11 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
     if (_isLoading) return;
 
     if (_controller.text.length >= _maximumInputLength) {
+      return;
+    }
+
+    if (widget.serviceType == BillServiceType.entertainment &&
+        !RegExp(r'^[0-9]$').hasMatch(value)) {
       return;
     }
 
@@ -420,6 +448,10 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
         case BillServiceType.broadband:
           message = loc.broadbandAccountRequired;
           break;
+
+        case BillServiceType.entertainment:
+          message = loc.entertainmentAccountRequired;
+          break;
       }
 
       _showAlert(
@@ -429,6 +461,17 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
         iconColor: _primaryColor,
       );
 
+      return;
+    }
+
+    if (widget.serviceType == BillServiceType.entertainment &&
+        !RegExp(r'^[0-9]{8,20}$').hasMatch(accountNumber)) {
+      _showAlert(
+        loc.alertTitle,
+        loc.entertainmentAccountInvalid,
+        icon: _serviceIcon,
+        iconColor: Colors.orange,
+      );
       return;
     }
 
@@ -456,6 +499,13 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
         case BillServiceType.broadband:
           await _handleBroadbandInquiry(
+            accountNumber: accountNumber,
+            loc: loc,
+          );
+          break;
+
+        case BillServiceType.entertainment:
+          await _handleEntertainmentInquiry(
             accountNumber: accountNumber,
             loc: loc,
           );
@@ -500,8 +550,20 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
         icon: Icons.cloud_off_rounded,
         iconColor: Colors.red,
       );
+    } on EntertainmentBillException catch (error) {
+      if (!mounted) return;
 
-   }catch (error, stackTrace) {
+      debugPrint(
+        'EntertainmentBillException: ${error.message}',
+      );
+
+      _showAlert(
+        loc.alertTitle,
+        error.message,
+        icon: Icons.cloud_off_rounded,
+        iconColor: Colors.red,
+      );
+    } catch (error, stackTrace) {
       if (!mounted) return;
 
       debugPrint(
@@ -765,6 +827,84 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
     ),
   );
 }
+
+
+  Future<void> _handleEntertainmentInquiry({
+    required String accountNumber,
+    required AppLocalizations loc,
+  }) async {
+    final result =
+        await EntertainmentBillService.inquiryBill(
+      productCode: widget.productCode,
+      billerName: widget.billerName,
+      accountNumber: accountNumber,
+      loc: loc,
+    );
+
+    if (!mounted) return;
+
+    if (!result.success || result.bill == null) {
+      _showAlert(
+        loc.alertTitle,
+        result.message.isNotEmpty
+            ? result.message
+            : loc.entertainmentAccountNotFound,
+        icon: Icons.search_off_rounded,
+        iconColor: Colors.orange,
+      );
+      return;
+    }
+
+    final bill = result.bill!;
+
+    EntertainmentBillController.setSelectedBill(bill);
+
+    CatalogPricing catalogPricing =
+        const CatalogPricing.empty();
+
+    try {
+      final catalogJson =
+          await IimmpactCatalogService.getCatalog();
+
+      catalogPricing =
+          CatalogPricing.fromCatalogResponse(
+        catalogJson: catalogJson,
+        productCode: widget.productCode,
+      );
+
+      debugPrint(
+        'Entertainment catalog pricing loaded for '
+        '${widget.productCode}: '
+        'discount='
+        '${catalogPricing.providerDiscount?.displayValue ?? '-'}, '
+        'adjustment='
+        '${catalogPricing.priceAdjustment?.displayValue ?? '-'}',
+      );
+    } on IimmpactCatalogException catch (error) {
+      debugPrint(
+        'Entertainment catalog pricing unavailable for '
+        '${widget.productCode}: ${error.message}',
+      );
+    } catch (error, stackTrace) {
+      debugPrint(
+        'Unexpected entertainment catalog pricing error for '
+        '${widget.productCode}: $error',
+      );
+      debugPrintStack(stackTrace: stackTrace);
+    }
+
+    if (!mounted) return;
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => P5AstroResultPage(
+          bill: bill,
+          catalogPricing: catalogPricing,
+        ),
+      ),
+    );
+  }
 
   // =========================================================
   // DISPOSE
@@ -1152,17 +1292,17 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                         );
                       }),
 
-                      const SizedBox(height: 35),
+                        const SizedBox(height: 35),
 
-                      Container(
-                        width: 850,
-                        height: 2,
-                        color: Colors.grey.shade400,
-                      ),
+                        Container(
+                          width: 850,
+                          height: 2,
+                          color: Colors.grey.shade400,
+                        ),
 
-                      const SizedBox(height: 35),
+                        const SizedBox(height: 35),
 
-                      ...keyboardRows.skip(5).map((row) {
+                     ...keyboardRows.skip(5).map((row) {
                         return Padding(
                           padding:
                               const EdgeInsets.only(
@@ -1488,30 +1628,237 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
             ),
           ),
 
-          // ===================================================
-          // LOADING OVERLAY
-          // ===================================================
+            // ===================================================
+            // LOADING OVERLAY
+            // ===================================================
 
-          if (_isLoading)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: Container(
-                  color:
-                      Colors.black.withOpacity(0.08),
-                  child: Center(
-                    child: SizedBox(
-                      width: 90,
-                      height: 90,
-                      child:
-                          CircularProgressIndicator(
-                        strokeWidth: 8,
-                        color: _primaryColor,
+            if (_isLoading)
+              Positioned.fill(
+                child: AbsorbPointer(
+                  absorbing: true,
+                  child: Container(
+                    color: Colors.black.withOpacity(0.72),
+                    child: Center(
+                      child: TweenAnimationBuilder<double>(
+                        tween: Tween(begin: 0.96, end: 1.0),
+                        duration: const Duration(milliseconds: 700),
+                        curve: Curves.easeOutBack,
+                        builder: (context, scale, child) {
+                          return Transform.scale(
+                            scale: scale,
+                            child: child,
+                          );
+                        },
+                        child: Container(
+                          width: 760,
+                          padding: const EdgeInsets.fromLTRB(
+                            55,
+                            55,
+                            55,
+                            50,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(40),
+                            border: Border.all(
+                              color: _primaryColor.withOpacity(.20),
+                              width: 3,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(.35),
+                                blurRadius: 45,
+                                offset: const Offset(0, 20),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+
+                              // =====================================
+                              // Animated Loader
+                              // =====================================
+
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+
+                                  Container(
+                                    width: 180,
+                                    height: 180,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: _primaryColor.withOpacity(.08),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: _primaryColor.withOpacity(.18),
+                                          blurRadius: 30,
+                                          spreadRadius: 6,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  SizedBox(
+                                    width: 145,
+                                    height: 145,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 9,
+                                      strokeCap: StrokeCap.round,
+                                      backgroundColor:
+                                          _primaryColor.withOpacity(.15),
+                                      color: _primaryColor,
+                                    ),
+                                  ),
+
+                                  Container(
+                                    width: 95,
+                                    height: 95,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          _lightColor,
+                                          _darkColor,
+                                        ],
+                                      ),
+                                    ),
+                                    child: Icon(
+                                      _serviceIcon,
+                                      color: Colors.white,
+                                      size: 54,
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              const SizedBox(height: 38),
+
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .loadingTitle,
+                                style: const TextStyle(
+                                  fontSize: 50,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xFF123B70),
+                                ),
+                              ),
+
+                              const SizedBox(height: 18),
+
+                              Container(
+                                width: 110,
+                                height: 6,
+                                decoration: BoxDecoration(
+                                  color: _primaryColor,
+                                  borderRadius:
+                                      BorderRadius.circular(30),
+                                ),
+                              ),
+
+                              const SizedBox(height: 28),
+
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .loadingMessage,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 34,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF5A6472),
+                                  height: 1.5,
+                                ),
+                              ),
+
+                              const SizedBox(height: 35),
+
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 25,
+                                  vertical: 20,
+                                ),
+                                decoration: BoxDecoration(
+                                  color:
+                                      _primaryColor.withOpacity(.07),
+                                  borderRadius:
+                                      BorderRadius.circular(20),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                  children: [
+
+                                    Container(
+                                      width: 16,
+                                      height: 16,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFF2EBD59),
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+
+                                    const SizedBox(width: 15),
+
+                                    Flexible(
+                                      child: Text(
+                                        AppLocalizations.of(context)!
+                                            .loadingStatusMessage,
+                                        textAlign:
+                                            TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                          fontWeight:
+                                              FontWeight.w800,
+                                          color: _darkColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              const SizedBox(height: 26),
+
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                children: [
+
+                                  Icon(
+                                    Icons.lock_outline_rounded,
+                                    color: Colors.grey.shade600,
+                                    size: 28,
+                                  ),
+
+                                  const SizedBox(width: 10),
+
+                                  Flexible(
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .loadingDoNotClose,
+                                      textAlign:
+                                          TextAlign.center,
+                                      style: TextStyle(
+                                        color:
+                                            Colors.grey.shade700,
+                                        fontWeight:
+                                            FontWeight.w600,
+                                        fontSize: 24,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
 
           // ===================================================
           // FOOTER

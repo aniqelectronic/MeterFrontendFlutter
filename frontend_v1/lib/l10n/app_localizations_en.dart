@@ -3848,4 +3848,157 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get broadbandAccountRequired => 'Please enter your broadband account number.';
+
+  @override
+  String get billEntertainmentButton => 'Entertainment Bill';
+
+  @override
+  String get entertainmentBillTitle => 'ENTERTAINMENT BILL';
+
+  @override
+  String get astroButton => 'Astro';
+
+  @override
+  String get entertainmentAccountTitle => 'Enter Astro Account Number';
+
+  @override
+  String get entertainmentAccountHint => 'Enter 8 to 20 digit Astro account number';
+
+  @override
+  String get entertainmentAccountRequired => 'Please enter the Astro account number.';
+
+  @override
+  String get entertainmentAccountInvalid => 'Enter a valid Astro account number containing 8 to 20 digits.';
+
+  @override
+  String get entertainmentAccountNotFound => 'Astro account information could not be found.';
+
+  @override
+  String get entertainmentProductUnavailable => 'This entertainment bill provider is currently unavailable.';
+
+  @override
+  String entertainmentInquiryFailed(String error) {
+    return 'Astro bill inquiry failed: $error';
+  }
+
+  @override
+  String entertainmentMaximumPayment(String amount) {
+    return 'The maximum payment amount is $amount.';
+  }
+
+  @override
+  String entertainmentMinimumPayment(String amount) {
+    return 'The minimum payment amount is $amount.';
+  }
+
+  @override
+  String get entertainmentNoOutstandingBalance => 'There is no outstanding Astro balance.';
+
+  @override
+  String get entertainmentInformation => 'Information';
+
+  @override
+  String get entertainmentOk => 'OK';
+
+  @override
+  String get entertainmentKeyboard => 'Payment amount keypad';
+
+  @override
+  String get entertainmentEnterPaymentAmount => 'Enter Payment Amount';
+
+  @override
+  String get entertainmentUseKeypad => 'Use the keypad to enter the amount.';
+
+  @override
+  String get entertainmentMinimumMaximum => 'Minimum RM1.00 • Maximum RM10,000.00';
+
+  @override
+  String get entertainmentClear => 'Clear';
+
+  @override
+  String get entertainmentDone => 'Done';
+
+  @override
+  String get entertainmentCancel => 'Cancel';
+
+  @override
+  String get entertainmentAmountToPay => 'Outstanding Amount';
+
+  @override
+  String get entertainmentReviewDetailsTitle => 'Review Astro Bill';
+
+  @override
+  String get entertainmentReviewDetailsSubtitle => 'Please verify the Astro account and bill information before continuing.';
+
+  @override
+  String get entertainmentBillPayment => 'ASTRO BILL PAYMENT';
+
+  @override
+  String get entertainmentBillInformation => 'Astro Bill Information';
+
+  @override
+  String get entertainmentOutstandingAmount => 'Outstanding Amount';
+
+  @override
+  String get entertainmentDueDate => 'Due Date';
+
+  @override
+  String get entertainmentCustomerName => 'Customer Name';
+
+  @override
+  String get entertainmentServiceAddress => 'Billing Address';
+
+  @override
+  String get entertainmentCreditNotice => 'This Astro account currently has a credit balance.';
+
+  @override
+  String get entertainmentAccountNumber => 'Astro Account Number';
+
+  @override
+  String get entertainmentSelectPaymentAmount => 'Select Payment Amount';
+
+  @override
+  String get entertainmentAmountInstruction => 'Tap the amount field or use the plus and minus buttons.';
+
+  @override
+  String get entertainmentIncreaseDecreaseInstruction => 'Use the buttons to increase or decrease the amount by RM1.00.';
+
+  @override
+  String get entertainmentAmountLimit => 'Allowed payment amount: RM1.00 to RM10,000.00.';
+
+  @override
+  String get entertainmentFull => 'Full Amount';
+
+  @override
+  String get entertainmentOrderSummary => 'Order Summary';
+
+  @override
+  String get entertainmentServiceFee => 'Service Fee';
+
+  @override
+  String get entertainmentServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get entertainmentTotalAmount => 'Total Amount';
+
+  @override
+  String get entertainmentPaymentUpdateTime => 'Payment Update Time';
+
+  @override
+  String get entertainmentUpdateInstant => 'INSTANT';
+
+  @override
+  String get entertainmentContinue => 'Continue';
+
+  @override
+  String get loadingTitle => 'Please Wait';
+
+  @override
+  String get loadingMessage => 'We are retrieving and processing your information.\nThis may take a few moments.';
+
+  @override
+  String get loadingStatusMessage => 'Processing your request securely';
+
+  @override
+  String get loadingDoNotClose => 'Please remain on this screen';
 }

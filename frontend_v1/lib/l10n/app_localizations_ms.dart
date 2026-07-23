@@ -3842,4 +3842,157 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get broadbandAccountRequired => 'Sila masukkan nombor akaun jalur lebar.';
+
+  @override
+  String get billEntertainmentButton => 'Bil Hiburan';
+
+  @override
+  String get entertainmentBillTitle => 'BIL HIBURAN';
+
+  @override
+  String get astroButton => 'Astro';
+
+  @override
+  String get entertainmentAccountTitle => 'Masukkan Nombor Akaun Astro';
+
+  @override
+  String get entertainmentAccountHint => 'Masukkan nombor akaun Astro 8 hingga 20 digit';
+
+  @override
+  String get entertainmentAccountRequired => 'Sila masukkan nombor akaun Astro.';
+
+  @override
+  String get entertainmentAccountInvalid => 'Masukkan nombor akaun Astro yang sah, mengandungi 8 hingga 20 digit.';
+
+  @override
+  String get entertainmentAccountNotFound => 'Maklumat akaun Astro tidak dapat ditemukan.';
+
+  @override
+  String get entertainmentProductUnavailable => 'Penyedia bil hiburan ini tidak tersedia buat masa ini.';
+
+  @override
+  String entertainmentInquiryFailed(String error) {
+    return 'Semakan bil Astro gagal: $error';
+  }
+
+  @override
+  String entertainmentMaximumPayment(String amount) {
+    return 'Jumlah bayaran maksimum ialah $amount.';
+  }
+
+  @override
+  String entertainmentMinimumPayment(String amount) {
+    return 'Jumlah bayaran minimum ialah $amount.';
+  }
+
+  @override
+  String get entertainmentNoOutstandingBalance => 'Tiada baki tertunggak Astro.';
+
+  @override
+  String get entertainmentInformation => 'Maklumat';
+
+  @override
+  String get entertainmentOk => 'OK';
+
+  @override
+  String get entertainmentKeyboard => 'Pad kekunci jumlah bayaran';
+
+  @override
+  String get entertainmentEnterPaymentAmount => 'Masukkan Jumlah Bayaran';
+
+  @override
+  String get entertainmentUseKeypad => 'Gunakan pad kekunci untuk memasukkan jumlah.';
+
+  @override
+  String get entertainmentMinimumMaximum => 'Minimum RM1.00 • Maksimum RM10,000.00';
+
+  @override
+  String get entertainmentClear => 'Padam';
+
+  @override
+  String get entertainmentDone => 'Selesai';
+
+  @override
+  String get entertainmentCancel => 'Batal';
+
+  @override
+  String get entertainmentAmountToPay => 'Jumlah Tertunggak';
+
+  @override
+  String get entertainmentReviewDetailsTitle => 'Semak Bil Astro';
+
+  @override
+  String get entertainmentReviewDetailsSubtitle => 'Sila semak akaun Astro dan maklumat bil sebelum meneruskan.';
+
+  @override
+  String get entertainmentBillPayment => 'BAYARAN BIL ASTRO';
+
+  @override
+  String get entertainmentBillInformation => 'Maklumat Bil Astro';
+
+  @override
+  String get entertainmentOutstandingAmount => 'Jumlah Tertunggak';
+
+  @override
+  String get entertainmentDueDate => 'Tarikh Akhir Bayaran';
+
+  @override
+  String get entertainmentCustomerName => 'Nama Pelanggan';
+
+  @override
+  String get entertainmentServiceAddress => 'Alamat Bil';
+
+  @override
+  String get entertainmentCreditNotice => 'Akaun Astro ini mempunyai baki kredit.';
+
+  @override
+  String get entertainmentAccountNumber => 'Nombor Akaun Astro';
+
+  @override
+  String get entertainmentSelectPaymentAmount => 'Pilih Jumlah Bayaran';
+
+  @override
+  String get entertainmentAmountInstruction => 'Tekan ruangan jumlah atau gunakan butang tambah dan tolak.';
+
+  @override
+  String get entertainmentIncreaseDecreaseInstruction => 'Gunakan butang untuk menambah atau mengurangkan jumlah sebanyak RM1.00.';
+
+  @override
+  String get entertainmentAmountLimit => 'Jumlah bayaran dibenarkan: RM1.00 hingga RM10,000.00.';
+
+  @override
+  String get entertainmentFull => 'Jumlah Penuh';
+
+  @override
+  String get entertainmentOrderSummary => 'Ringkasan Pesanan';
+
+  @override
+  String get entertainmentServiceFee => 'Caj Perkhidmatan';
+
+  @override
+  String get entertainmentServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get entertainmentTotalAmount => 'Jumlah Keseluruhan';
+
+  @override
+  String get entertainmentPaymentUpdateTime => 'Masa Kemas Kini Bayaran';
+
+  @override
+  String get entertainmentUpdateInstant => 'SERTA-MERTA';
+
+  @override
+  String get entertainmentContinue => 'Teruskan';
+
+  @override
+  String get loadingTitle => 'Sila Tunggu Sebentar';
+
+  @override
+  String get loadingMessage => 'Maklumat anda sedang diperoleh dan diproses.\nProses ini mungkin mengambil sedikit masa.';
+
+  @override
+  String get loadingStatusMessage => 'Permintaan anda sedang diproses dengan selamat';
+
+  @override
+  String get loadingDoNotClose => 'Sila kekal pada skrin ini';
 }

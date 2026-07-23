@@ -7624,6 +7624,300 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter your broadband account number.'**
   String get broadbandAccountRequired;
+
+  /// No description provided for @billEntertainmentButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Entertainment Bill'**
+  String get billEntertainmentButton;
+
+  /// No description provided for @entertainmentBillTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'ENTERTAINMENT BILL'**
+  String get entertainmentBillTitle;
+
+  /// No description provided for @astroButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Astro'**
+  String get astroButton;
+
+  /// No description provided for @entertainmentAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Astro Account Number'**
+  String get entertainmentAccountTitle;
+
+  /// No description provided for @entertainmentAccountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 8 to 20 digit Astro account number'**
+  String get entertainmentAccountHint;
+
+  /// No description provided for @entertainmentAccountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the Astro account number.'**
+  String get entertainmentAccountRequired;
+
+  /// No description provided for @entertainmentAccountInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid Astro account number containing 8 to 20 digits.'**
+  String get entertainmentAccountInvalid;
+
+  /// No description provided for @entertainmentAccountNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Astro account information could not be found.'**
+  String get entertainmentAccountNotFound;
+
+  /// No description provided for @entertainmentProductUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This entertainment bill provider is currently unavailable.'**
+  String get entertainmentProductUnavailable;
+
+  /// No description provided for @entertainmentInquiryFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Astro bill inquiry failed: {error}'**
+  String entertainmentInquiryFailed(String error);
+
+  /// No description provided for @entertainmentMaximumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'The maximum payment amount is {amount}.'**
+  String entertainmentMaximumPayment(String amount);
+
+  /// No description provided for @entertainmentMinimumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'The minimum payment amount is {amount}.'**
+  String entertainmentMinimumPayment(String amount);
+
+  /// No description provided for @entertainmentNoOutstandingBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no outstanding Astro balance.'**
+  String get entertainmentNoOutstandingBalance;
+
+  /// No description provided for @entertainmentInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get entertainmentInformation;
+
+  /// No description provided for @entertainmentOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get entertainmentOk;
+
+  /// No description provided for @entertainmentKeyboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment amount keypad'**
+  String get entertainmentKeyboard;
+
+  /// No description provided for @entertainmentEnterPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Payment Amount'**
+  String get entertainmentEnterPaymentAmount;
+
+  /// No description provided for @entertainmentUseKeypad.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the keypad to enter the amount.'**
+  String get entertainmentUseKeypad;
+
+  /// No description provided for @entertainmentMinimumMaximum.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum RM1.00 • Maximum RM10,000.00'**
+  String get entertainmentMinimumMaximum;
+
+  /// No description provided for @entertainmentClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get entertainmentClear;
+
+  /// No description provided for @entertainmentDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get entertainmentDone;
+
+  /// No description provided for @entertainmentCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get entertainmentCancel;
+
+  /// No description provided for @entertainmentAmountToPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding Amount'**
+  String get entertainmentAmountToPay;
+
+  /// No description provided for @entertainmentReviewDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Astro Bill'**
+  String get entertainmentReviewDetailsTitle;
+
+  /// No description provided for @entertainmentReviewDetailsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please verify the Astro account and bill information before continuing.'**
+  String get entertainmentReviewDetailsSubtitle;
+
+  /// No description provided for @entertainmentBillPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'ASTRO BILL PAYMENT'**
+  String get entertainmentBillPayment;
+
+  /// No description provided for @entertainmentBillInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Astro Bill Information'**
+  String get entertainmentBillInformation;
+
+  /// No description provided for @entertainmentOutstandingAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding Amount'**
+  String get entertainmentOutstandingAmount;
+
+  /// No description provided for @entertainmentDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get entertainmentDueDate;
+
+  /// No description provided for @entertainmentCustomerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Name'**
+  String get entertainmentCustomerName;
+
+  /// No description provided for @entertainmentServiceAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Billing Address'**
+  String get entertainmentServiceAddress;
+
+  /// No description provided for @entertainmentCreditNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'This Astro account currently has a credit balance.'**
+  String get entertainmentCreditNotice;
+
+  /// No description provided for @entertainmentAccountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Astro Account Number'**
+  String get entertainmentAccountNumber;
+
+  /// No description provided for @entertainmentSelectPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Payment Amount'**
+  String get entertainmentSelectPaymentAmount;
+
+  /// No description provided for @entertainmentAmountInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the amount field or use the plus and minus buttons.'**
+  String get entertainmentAmountInstruction;
+
+  /// No description provided for @entertainmentIncreaseDecreaseInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the buttons to increase or decrease the amount by RM1.00.'**
+  String get entertainmentIncreaseDecreaseInstruction;
+
+  /// No description provided for @entertainmentAmountLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed payment amount: RM1.00 to RM10,000.00.'**
+  String get entertainmentAmountLimit;
+
+  /// No description provided for @entertainmentFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Amount'**
+  String get entertainmentFull;
+
+  /// No description provided for @entertainmentOrderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get entertainmentOrderSummary;
+
+  /// No description provided for @entertainmentServiceFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fee'**
+  String get entertainmentServiceFee;
+
+  /// No description provided for @entertainmentServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get entertainmentServiceAdjustment;
+
+  /// No description provided for @entertainmentTotalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get entertainmentTotalAmount;
+
+  /// No description provided for @entertainmentPaymentUpdateTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Update Time'**
+  String get entertainmentPaymentUpdateTime;
+
+  /// No description provided for @entertainmentUpdateInstant.
+  ///
+  /// In en, this message translates to:
+  /// **'INSTANT'**
+  String get entertainmentUpdateInstant;
+
+  /// No description provided for @entertainmentContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get entertainmentContinue;
+
+  /// Title displayed while processing a request
+  ///
+  /// In en, this message translates to:
+  /// **'Please Wait'**
+  String get loadingTitle;
+
+  /// Message displayed while processing a request
+  ///
+  /// In en, this message translates to:
+  /// **'We are retrieving and processing your information.\nThis may take a few moments.'**
+  String get loadingMessage;
+
+  /// Status displayed in the loading card
+  ///
+  /// In en, this message translates to:
+  /// **'Processing your request securely'**
+  String get loadingStatusMessage;
+
+  /// Instruction displayed during processing
+  ///
+  /// In en, this message translates to:
+  /// **'Please remain on this screen'**
+  String get loadingDoNotClose;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

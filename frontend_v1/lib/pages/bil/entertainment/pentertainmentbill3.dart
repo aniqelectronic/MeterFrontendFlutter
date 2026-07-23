@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
-import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/bil/p4bil.dart';
+import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbil3.dart';
 import 'package:frontend_v1/services/iimmpact_network_status_service.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
-enum BroadbandBillerStatus {
+enum BillerStatus {
   loading,
   healthy,
   interruption,
   unavailable,
 }
 
-class PBROADBANDBILL3PAGE extends StatefulWidget {
-  const PBROADBANDBILL3PAGE({super.key});
+class PENTERTAINMENTBILL3PAGE extends StatefulWidget {
+  const PENTERTAINMENTBILL3PAGE({super.key});
 
   @override
-  State<PBROADBANDBILL3PAGE> createState() =>
-      _PBROADBANDBILL3PAGEState();
+  State<PENTERTAINMENTBILL3PAGE> createState() =>
+      _PENTERTAINMENTBILL3PAGEState();
 }
 
-class _PBROADBANDBILL3PAGEState
-    extends State<PBROADBANDBILL3PAGE> {
-  final Map<String, BroadbandBillerStatus>
-      _billerStatuses = {
-    'TM': BroadbandBillerStatus.loading,
-    'UNB': BroadbandBillerStatus.loading,
+class _PENTERTAINMENTBILL3PAGEState
+    extends State<PENTERTAINMENTBILL3PAGE> {
+  static const String _astroProductCode = 'ASB';
+  static const String _astroBillerName = 'ASTRO';
+
+  final Map<String, BillerStatus> _billerStatuses = {
+    _astroProductCode: BillerStatus.loading,
   };
 
   final Map<String, String?> _lastUpdated = {};
@@ -36,24 +37,17 @@ class _PBROADBANDBILL3PAGEState
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadInitialNetworkStatuses();
+      _refreshNetworkStatus(_astroProductCode);
     });
   }
 
-  Future<void> _loadInitialNetworkStatuses() async {
-    await Future.wait([
-      _refreshNetworkStatus('TM'),
-      _refreshNetworkStatus('UNB'),
-    ]);
-  }
-
-  Future<BroadbandBillerStatus> _refreshNetworkStatus(
+  Future<BillerStatus> _refreshNetworkStatus(
     String productCode,
   ) async {
     if (mounted) {
       setState(() {
         _billerStatuses[productCode] =
-            BroadbandBillerStatus.loading;
+            BillerStatus.loading;
       });
     }
 
@@ -63,33 +57,31 @@ class _PBROADBANDBILL3PAGEState
         productCode: productCode,
       );
 
-      final status = result.isHealthy
-          ? BroadbandBillerStatus.healthy
-          : BroadbandBillerStatus.interruption;
+      final BillerStatus status = result.isHealthy
+          ? BillerStatus.healthy
+          : BillerStatus.interruption;
 
       if (mounted) {
         setState(() {
           _billerStatuses[productCode] = status;
-          _lastUpdated[productCode] =
-              result.lastUpdated;
+          _lastUpdated[productCode] = result.lastUpdated;
         });
       }
 
       return status;
     } catch (error) {
       debugPrint(
-        'Broadband network status error for '
-        '$productCode: $error',
+        'Astro network status error: $error',
       );
 
       if (mounted) {
         setState(() {
           _billerStatuses[productCode] =
-              BroadbandBillerStatus.unavailable;
+              BillerStatus.unavailable;
         });
       }
 
-      return BroadbandBillerStatus.unavailable;
+      return BillerStatus.unavailable;
     }
   }
 
@@ -99,7 +91,7 @@ class _PBROADBANDBILL3PAGEState
   }) async {
     final loc = AppLocalizations.of(context)!;
 
-    final result = await showDialog<bool>(
+    final bool? result = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
       builder: (dialogContext) {
@@ -189,7 +181,7 @@ class _PBROADBANDBILL3PAGEState
                           },
                           style: OutlinedButton.styleFrom(
                             backgroundColor:
-                                const Color(0xFFE53935),
+                                const Color(0xFFF80202),
                             foregroundColor: Colors.white,
                             side: const BorderSide(
                               color: Color(0xFFB9C7D8),
@@ -254,23 +246,21 @@ class _PBROADBANDBILL3PAGEState
     return result ?? false;
   }
 
-  Future<void> _handleBillerTap({
-    required String productCode,
-    required String billerName,
-  }) async {
-    final status =
-        await _refreshNetworkStatus(productCode);
+  Future<void> _handleAstroTap() async {
+    final BillerStatus status =
+        await _refreshNetworkStatus(
+      _astroProductCode,
+    );
 
     if (!mounted) {
       return;
     }
 
-    if (status ==
-        BroadbandBillerStatus.interruption) {
-      final shouldContinue =
+    if (status == BillerStatus.interruption) {
+      final bool shouldContinue =
           await _showInterruptionWarning(
-        billerName: billerName,
-        productCode: productCode,
+        billerName: _astroBillerName,
+        productCode: _astroProductCode,
       );
 
       if (!shouldContinue) {
@@ -288,13 +278,11 @@ class _PBROADBANDBILL3PAGEState
       context,
       MaterialPageRoute(
         builder: (_) => P4BILPAGE(
-          title: loc.broadbandAccountTitle,
-          hint: loc.broadbandAccountHint,
-          productCode: productCode,
-          billerName: billerName,
-
-          // Add broadband to BillServiceType first.
-          serviceType: BillServiceType.broadband,
+          title: loc.entertainmentAccountTitle,
+          hint: loc.entertainmentAccountHint,
+          productCode: _astroProductCode,
+          billerName: _astroBillerName,
+          serviceType: BillServiceType.entertainment,
         ),
       ),
     );
@@ -307,6 +295,9 @@ class _PBROADBANDBILL3PAGEState
     return Scaffold(
       body: Stack(
         children: [
+          // =========================================================
+          // BACKGROUND
+          // =========================================================
           const Positioned.fill(
             child: DecoratedBox(
               decoration: BoxDecoration(
@@ -320,88 +311,85 @@ class _PBROADBANDBILL3PAGEState
             ),
           ),
 
+          // =========================================================
+          // TITLE
+          // =========================================================
           Positioned(
             top: 120,
-            left: 0,
-            right: 0,
+            left: 30,
+            right: 30,
             child: Text(
-              loc.broadbandSelectionTitle,
+              loc.entertainmentBillTitle,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Color(0xFF0359D2),
+                color: Color.fromARGB(
+                  255,
+                  3,
+                  89,
+                  210,
+                ),
                 fontSize: 70,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
 
+          // =========================================================
+          // SUBTITLE
+          // =========================================================
           Positioned(
             top: 240,
-            left: 0,
-            right: 0,
+            left: 30,
+            right: 30,
             child: Text(
               loc.pbil3Subtitle,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Color(0xFF3E3E3E),
+                color: Color.fromARGB(
+                  255,
+                  62,
+                  62,
+                  62,
+                ),
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
 
+          // =========================================================
+          // ASTRO BUTTON
+          // =========================================================
           Positioned(
-            top: -150,
-            left: 70,
-            right: 70,
-            bottom: 350,
+            top: 400,
+            left: -500,
+            right: 0,
             child: Center(
-              child: Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 70,
-                runSpacing: 60,
-                children: [
-                  _BroadbandButton(
-                    width: 400,
-                    height: 500,
-                    imagePath:
-                        'lib/images/broadband/tm.png',
-                    label: loc.tmBroadbandButton,
-                    networkStatus:
-                        _billerStatuses['TM'] ??
-                            BroadbandBillerStatus.loading,
-                    networkLabel: loc.networkLabel,
-                    onPressed: () {
-                      _handleBillerTap(
-                        productCode: 'TM',
-                        billerName:
-                            'TELEKOM MALAYSIA',
-                      );
-                    },
-                  ),
+              child: _KioskMainButton(
+                width: 400,
+                height: 450,
 
-                  _BroadbandButton(
-                    width: 400,
-                    height: 500,
-                    imagePath:
-                        'lib/images/broadband/unb.png',
-                    label: loc.unbBroadbandButton,
-                    networkStatus:
-                        _billerStatuses['UNB'] ??
-                            BroadbandBillerStatus.loading,
-                    networkLabel: loc.networkLabel,
-                    onPressed: () {
-                      _handleBillerTap(
-                        productCode: 'UNB',
-                        billerName: 'UNIFI',
-                      );
-                    },
-                  ),
-                ],
+                // Use this when you have downloaded the Astro logo.
+                imagePath:
+                    'lib/images/entertainment/ASB.png',
+
+                // Or replace imagePath above with:
+                // icon: Icons.live_tv_rounded,
+                // iconColor: Colors.pink,
+
+                label: loc.astroButton,
+                networkStatus:
+                    _billerStatuses[_astroProductCode] ??
+                        BillerStatus.loading,
+                networkLabel: loc.networkLabel,
+                onPressed: _handleAstroTap,
               ),
             ),
           ),
 
+          // =========================================================
+          // BACK BUTTON
+          // =========================================================
           Positioned(
             bottom: 100,
             left: 300,
@@ -411,25 +399,29 @@ class _PBROADBANDBILL3PAGEState
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (_) =>
-                        const PBIL3PAGE(),
+                    builder: (_) => const PBIL3PAGE(),
                   ),
                 );
               },
             ),
           ),
 
+          // =========================================================
+          // FOOTER
+          // =========================================================
           Positioned(
             bottom: 20,
             left: 0,
             right: 0,
-            child: Text(
-              Data.copyrightText,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
+            child: Center(
+              child: Text(
+                Data.copyrightText,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ),
@@ -439,32 +431,42 @@ class _PBROADBANDBILL3PAGEState
   }
 }
 
-class _BroadbandButton extends StatefulWidget {
-  final String imagePath;
+/// =================================================================
+/// ASTRO KIOSK BUTTON
+/// =================================================================
+class _KioskMainButton extends StatefulWidget {
+  final IconData? icon;
+  final Color? iconColor;
+  final String? imagePath;
   final String label;
   final VoidCallback onPressed;
   final double width;
   final double height;
-  final BroadbandBillerStatus networkStatus;
+  final BillerStatus networkStatus;
   final String networkLabel;
 
-  const _BroadbandButton({
-    required this.imagePath,
+  const _KioskMainButton({
+    this.icon,
+    this.iconColor,
+    this.imagePath,
     required this.label,
     required this.onPressed,
     required this.networkStatus,
     required this.networkLabel,
     this.width = 400,
     this.height = 500,
-  });
+  }) : assert(
+          icon != null || imagePath != null,
+          'Either icon or imagePath must be supplied.',
+        );
 
   @override
-  State<_BroadbandButton> createState() =>
-      _BroadbandButtonState();
+  State<_KioskMainButton> createState() =>
+      _KioskMainButtonState();
 }
 
-class _BroadbandButtonState
-    extends State<_BroadbandButton> {
+class _KioskMainButtonState
+    extends State<_KioskMainButton> {
   bool _isPressed = false;
 
   @override
@@ -488,9 +490,7 @@ class _BroadbandButtonState
       onTap: widget.onPressed,
       child: AnimatedScale(
         scale: _isPressed ? 0.95 : 1,
-        duration: const Duration(
-          milliseconds: 100,
-        ),
+        duration: const Duration(milliseconds: 100),
         child: Container(
           width: widget.width,
           height: widget.height,
@@ -519,11 +519,12 @@ class _BroadbandButtonState
                   ],
           ),
           child: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.all(20),
+                width: 210,
+                height: 210,
+                padding: const EdgeInsets.all(25),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
@@ -531,13 +532,27 @@ class _BroadbandButtonState
                     color: Colors.black,
                     width: 3,
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.10),
+                      offset: const Offset(0, 4),
+                      blurRadius: 4,
+                    ),
+                  ],
                 ),
-                child: Image.asset(
-                  widget.imagePath,
-                  width: 200,
-                  height: 200,
-                  fit: BoxFit.contain,
-                ),
+                child: widget.icon != null
+                    ? Icon(
+                        widget.icon,
+                        size: 140,
+                        color: widget.iconColor ??
+                            Colors.black,
+                      )
+                    : Image.asset(
+                        widget.imagePath!,
+                        width: 160,
+                        height: 160,
+                        fit: BoxFit.contain,
+                      ),
               ),
 
               const SizedBox(height: 20),
@@ -546,19 +561,23 @@ class _BroadbandButtonState
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                 ),
-                child: Text(
-                  widget.label.toUpperCase(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 38,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.black,
-                    letterSpacing: 1.5,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    widget.label.toUpperCase(),
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    style: const TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black,
+                      letterSpacing: 2,
+                    ),
                   ),
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
 
               _NetworkStatusBadge(
                 status: widget.networkStatus,
@@ -572,8 +591,11 @@ class _BroadbandButtonState
   }
 }
 
+/// =================================================================
+/// NETWORK STATUS BADGE
+/// =================================================================
 class _NetworkStatusBadge extends StatelessWidget {
-  final BroadbandBillerStatus status;
+  final BillerStatus status;
   final String label;
 
   const _NetworkStatusBadge({
@@ -591,39 +613,31 @@ class _NetworkStatusBadge extends StatelessWidget {
     late final IconData icon;
 
     switch (status) {
-      case BroadbandBillerStatus.loading:
+      case BillerStatus.loading:
         statusText = loc.networkStatusChecking;
-        backgroundColor =
-            const Color(0xFFE8EEF6);
-        foregroundColor =
-            const Color(0xFF455A64);
+        backgroundColor = const Color(0xFFE8EEF6);
+        foregroundColor = const Color(0xFF455A64);
         icon = Icons.sync_rounded;
         break;
 
-      case BroadbandBillerStatus.healthy:
+      case BillerStatus.healthy:
         statusText = loc.networkStatusGood;
-        backgroundColor =
-            const Color(0xFFDDF7E8);
-        foregroundColor =
-            const Color(0xFF08783E);
+        backgroundColor = const Color(0xFFDDF7E8);
+        foregroundColor = const Color(0xFF08783E);
         icon = Icons.check_circle_rounded;
         break;
 
-      case BroadbandBillerStatus.interruption:
+      case BillerStatus.interruption:
         statusText = loc.networkStatusSlow;
-        backgroundColor =
-            const Color(0xFFFFE8C2);
-        foregroundColor =
-            const Color(0xFFB75B00);
+        backgroundColor = const Color(0xFFFFE8C2);
+        foregroundColor = const Color(0xFFB75B00);
         icon = Icons.warning_amber_rounded;
         break;
 
-      case BroadbandBillerStatus.unavailable:
+      case BillerStatus.unavailable:
         statusText = loc.networkStatusUnknown;
-        backgroundColor =
-            const Color(0xFFE8E8E8);
-        foregroundColor =
-            const Color(0xFF555555);
+        backgroundColor = const Color(0xFFE8E8E8);
+        foregroundColor = const Color(0xFF555555);
         icon = Icons.help_outline_rounded;
         break;
     }
@@ -644,8 +658,7 @@ class _NetworkStatusBadge extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (status ==
-              BroadbandBillerStatus.loading)
+          if (status == BillerStatus.loading)
             SizedBox(
               width: 21,
               height: 21,
@@ -663,16 +676,13 @@ class _NetworkStatusBadge extends StatelessWidget {
 
           const SizedBox(width: 10),
 
-          Flexible(
-            child: Text(
-              '$label: $statusText',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: foregroundColor,
-                fontSize: 18,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 1,
-              ),
+          Text(
+            '$label: $statusText',
+            style: TextStyle(
+              color: foregroundColor,
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 1,
             ),
           ),
         ],

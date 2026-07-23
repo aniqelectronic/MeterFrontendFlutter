@@ -8,6 +8,9 @@ import 'package:frontend_v1/pages/bil/broadband/pbroadbandbill3.dart';
 
 import 'p2.dart';
 
+import 'package:frontend_v1/pages/bil/entertainment/pentertainmentbill3.dart';
+
+
 class PBIL3PAGE extends StatefulWidget {
   const PBIL3PAGE({super.key});
 
@@ -198,7 +201,7 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                   bottom: 40,
                 ),
                 child: SizedBox(
-                  height: 1350,
+                  height: 2000, //scroll distance
                   child: Stack(
                     children: [
                       // =================================================
@@ -282,12 +285,38 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                       ),
 
                       // =================================================
-                      // TELCO BUTTON
+                      // ENTERTAINMENT BILL BUTTON
                       // =================================================
                       Positioned(
                         top: 540,
                         left: 0,
                         right: -500,
+                        child: _KioskMainButton(
+                          width: 400,
+                          height: 400,
+                          icon:Icons.live_tv_rounded,
+                          iconColor: Colors.pink,
+                          label: loc.billEntertainmentButton,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    const PENTERTAINMENTBILL3PAGE(),
+                              ),
+                            );
+                          },
+                          comingSoon: false,
+                        ),
+                      ),
+
+                      // =================================================
+                      // TELCO BUTTON
+                      // =================================================
+                      Positioned(
+                        top: 1040,
+                        left: -500,
+                        right: 0,
                         child: _KioskMainButton(
                           width: 400,
                           height: 400,

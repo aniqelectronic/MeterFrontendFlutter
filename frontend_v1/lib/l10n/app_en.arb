@@ -1916,6 +1916,112 @@
   }
 },
 
-"broadbandAccountRequired": "Please enter your broadband account number."
+"broadbandAccountRequired": "Please enter your broadband account number.",
+
+
+"billEntertainmentButton": "ENTERTAINMENT BILL",
+"entertainmentBillTitle": "ENTERTAINMENT BILL",
+"astroButton": "Astro",
+"entertainmentAccountTitle": "Enter Astro Account Number",
+"entertainmentAccountHint": "Enter 8 to 20 digit Astro account number",
+
+"billEntertainmentButton": "Entertainment Bill",
+"entertainmentBillTitle": "ENTERTAINMENT BILL",
+"astroButton": "Astro",
+"entertainmentAccountTitle": "Enter Astro Account Number",
+"entertainmentAccountHint": "Enter 8 to 20 digit Astro account number",
+"entertainmentAccountRequired": "Please enter the Astro account number.",
+"entertainmentAccountInvalid": "Enter a valid Astro account number containing 8 to 20 digits.",
+"entertainmentAccountNotFound": "Astro account information could not be found.",
+"entertainmentProductUnavailable": "This entertainment bill provider is currently unavailable.",
+"entertainmentInquiryFailed": "Astro bill inquiry failed: {error}",
+"@entertainmentInquiryFailed": {
+  "placeholders": {
+    "error": {
+      "type": "String"
+    }
+  }
+},
+
+"entertainmentMaximumPayment": "The maximum payment amount is {amount}.",
+"@entertainmentMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+"entertainmentMinimumPayment": "The minimum payment amount is {amount}.",
+"@entertainmentMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+"entertainmentNoOutstandingBalance": "There is no outstanding Astro balance.",
+"entertainmentInformation": "Information",
+"entertainmentOk": "OK",
+"entertainmentKeyboard": "Payment amount keypad",
+"entertainmentEnterPaymentAmount": "Enter Payment Amount",
+"entertainmentUseKeypad": "Use the keypad to enter the amount.",
+"entertainmentMinimumMaximum": "Minimum RM1.00 • Maximum RM10,000.00",
+"entertainmentClear": "Clear",
+"entertainmentDone": "Done",
+"entertainmentCancel": "Cancel",
+"entertainmentAmountToPay": "Outstanding Amount",
+"entertainmentReviewDetailsTitle": "Review Astro Bill",
+"entertainmentReviewDetailsSubtitle": "Please verify the Astro account and bill information before continuing.",
+"entertainmentBillPayment": "ASTRO BILL PAYMENT",
+"entertainmentBillInformation": "Astro Bill Information",
+"entertainmentOutstandingAmount": "Outstanding Amount",
+"entertainmentDueDate": "Due Date",
+"entertainmentCustomerName": "Customer Name",
+"entertainmentServiceAddress": "Billing Address",
+"entertainmentCreditNotice": "This Astro account currently has a credit balance.",
+"entertainmentAccountNumber": "Astro Account Number",
+"entertainmentSelectPaymentAmount": "Select Payment Amount",
+"entertainmentAmountInstruction": "Tap the amount field or use the plus and minus buttons.",
+"entertainmentIncreaseDecreaseInstruction": "Use the buttons to increase or decrease the amount by RM1.00.",
+"entertainmentAmountLimit": "Allowed payment amount: RM1.00 to RM10,000.00.",
+"entertainmentFull": "Full Amount",
+"entertainmentOrderSummary": "Order Summary",
+"entertainmentServiceFee": "Service Fee",
+"entertainmentServiceAdjustment": "Service Adjustment",
+"entertainmentTotalAmount": "Total Amount",
+"entertainmentPaymentUpdateTime": "Payment Update Time",
+"entertainmentUpdateInstant": "INSTANT",
+"entertainmentContinue": "Continue",
+
+"loadingTitle": "Please Wait",
+"@loadingTitle": {
+  "description": "Loading dialog title"
+},
+
+"loadingMessage": "Your request is being processed.\n\nThis may take a few moments.\nPlease do not leave this screen.",
+"@loadingMessage": {
+  "description": "Loading dialog message"
+},
+
+"loadingTitle": "Please Wait",
+"@loadingTitle": {
+  "description": "Title displayed while processing a request"
+},
+
+"loadingMessage": "We are retrieving and processing your information.\nThis may take a few moments.",
+"@loadingMessage": {
+  "description": "Message displayed while processing a request"
+},
+
+"loadingStatusMessage": "Processing your request securely",
+"@loadingStatusMessage": {
+  "description": "Status displayed in the loading card"
+},
+
+"loadingDoNotClose": "Please remain on this screen",
+"@loadingDoNotClose": {
+  "description": "Instruction displayed during processing"
+}
+
 
 }

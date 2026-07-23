@@ -1938,6 +1938,112 @@
   }
 },
 
-"broadbandAccountRequired": "Sila masukkan nombor akaun jalur lebar."
+"broadbandAccountRequired": "Sila masukkan nombor akaun jalur lebar.",
+
+"billEntertainmentButton": "BIL HIBURAN",
+"entertainmentBillTitle": "BIL HIBURAN",
+"astroButton": "Astro",
+"entertainmentAccountTitle": "Masukkan Nombor Akaun Astro",
+"entertainmentAccountHint": "Masukkan nombor akaun Astro 8 hingga 20 digit",
+
+"billEntertainmentButton": "Bil Hiburan",
+"entertainmentBillTitle": "BIL HIBURAN",
+"astroButton": "Astro",
+"entertainmentAccountTitle": "Masukkan Nombor Akaun Astro",
+"entertainmentAccountHint": "Masukkan nombor akaun Astro 8 hingga 20 digit",
+"entertainmentAccountRequired": "Sila masukkan nombor akaun Astro.",
+"entertainmentAccountInvalid": "Masukkan nombor akaun Astro yang sah, mengandungi 8 hingga 20 digit.",
+"entertainmentAccountNotFound": "Maklumat akaun Astro tidak dapat ditemukan.",
+"entertainmentProductUnavailable": "Penyedia bil hiburan ini tidak tersedia buat masa ini.",
+"entertainmentInquiryFailed": "Semakan bil Astro gagal: {error}",
+"@entertainmentInquiryFailed": {
+  "placeholders": {
+    "error": {
+      "type": "String"
+    }
+  }
+},
+
+
+"entertainmentMaximumPayment": "Jumlah bayaran maksimum ialah {amount}.",
+"@entertainmentMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+"entertainmentMinimumPayment": "Jumlah bayaran minimum ialah {amount}.",
+"@entertainmentMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"entertainmentNoOutstandingBalance": "Tiada baki tertunggak Astro.",
+"entertainmentInformation": "Maklumat",
+"entertainmentOk": "OK",
+"entertainmentKeyboard": "Pad kekunci jumlah bayaran",
+"entertainmentEnterPaymentAmount": "Masukkan Jumlah Bayaran",
+"entertainmentUseKeypad": "Gunakan pad kekunci untuk memasukkan jumlah.",
+"entertainmentMinimumMaximum": "Minimum RM1.00 • Maksimum RM10,000.00",
+"entertainmentClear": "Padam",
+"entertainmentDone": "Selesai",
+"entertainmentCancel": "Batal",
+"entertainmentAmountToPay": "Jumlah Tertunggak",
+"entertainmentReviewDetailsTitle": "Semak Bil Astro",
+"entertainmentReviewDetailsSubtitle": "Sila semak akaun Astro dan maklumat bil sebelum meneruskan.",
+"entertainmentBillPayment": "BAYARAN BIL ASTRO",
+"entertainmentBillInformation": "Maklumat Bil Astro",
+"entertainmentOutstandingAmount": "Jumlah Tertunggak",
+"entertainmentDueDate": "Tarikh Akhir Bayaran",
+"entertainmentCustomerName": "Nama Pelanggan",
+"entertainmentServiceAddress": "Alamat Bil",
+"entertainmentCreditNotice": "Akaun Astro ini mempunyai baki kredit.",
+"entertainmentAccountNumber": "Nombor Akaun Astro",
+"entertainmentSelectPaymentAmount": "Pilih Jumlah Bayaran",
+"entertainmentAmountInstruction": "Tekan ruangan jumlah atau gunakan butang tambah dan tolak.",
+"entertainmentIncreaseDecreaseInstruction": "Gunakan butang untuk menambah atau mengurangkan jumlah sebanyak RM1.00.",
+"entertainmentAmountLimit": "Jumlah bayaran dibenarkan: RM1.00 hingga RM10,000.00.",
+"entertainmentFull": "Jumlah Penuh",
+"entertainmentOrderSummary": "Ringkasan Pesanan",
+"entertainmentServiceFee": "Caj Perkhidmatan",
+"entertainmentServiceAdjustment": "Pelarasan Perkhidmatan",
+"entertainmentTotalAmount": "Jumlah Keseluruhan",
+"entertainmentPaymentUpdateTime": "Masa Kemas Kini Bayaran",
+"entertainmentUpdateInstant": "SERTA-MERTA",
+"entertainmentContinue": "Teruskan",
+
+"loadingTitle": "Sila Tunggu",
+"@loadingTitle": {
+  "description": "Tajuk dialog memuatkan"
+},
+
+"loadingMessage": "Permintaan anda sedang diproses.\n\nProses ini mungkin mengambil sedikit masa.\nSila jangan tinggalkan skrin ini.",
+"@loadingMessage": {
+  "description": "Mesej dialog memuatkan"
+},
+
+"loadingTitle": "Sila Tunggu Sebentar",
+"@loadingTitle": {
+  "description": "Tajuk yang dipaparkan semasa permintaan diproses"
+},
+
+"loadingMessage": "Maklumat anda sedang diperoleh dan diproses.\nProses ini mungkin mengambil sedikit masa.",
+"@loadingMessage": {
+  "description": "Mesej yang dipaparkan semasa permintaan diproses"
+},
+
+"loadingStatusMessage": "Permintaan anda sedang diproses dengan selamat",
+"@loadingStatusMessage": {
+  "description": "Status yang dipaparkan pada kad pemprosesan"
+},
+
+"loadingDoNotClose": "Sila kekal pada skrin ini",
+"@loadingDoNotClose": {
+  "description": "Arahan yang dipaparkan semasa pemprosesan"
+}
 
 }

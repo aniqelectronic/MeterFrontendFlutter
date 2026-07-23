@@ -3,9 +3,9 @@ import 'dart:ffi';
 // This class is used to store the configuration of the terminal ( that will not change )
 class Config {
   //backend base url
-  static const String baseUrl = "http://4.194.122.32:8000";
+  static const String baseUrl = "http://tipintar.juaraipasifik.com:8000";
   //for qr payment
-  static String terminalId = "TEST03";
+  static String terminalId = "TEST02";
   static String storeId = "Kiosk_Terminal";
   static String shiftId = "DAY_SHIFT";
   static int qrValidity = 300;
@@ -22,7 +22,7 @@ class Config {
   static String waktusolaturl = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=SGR01&period=today";
 
   //for iot hub
-  static const String iotHubSharedAccessKey ='cAdzDjTzU9ZbHRk/odz7XiL41rtSug7xPN0WJop+gY0=';
+  static const String iotHubSharedAccessKey ='9APQME52StSCTSBh/Jo4NhkLFo+AAo2pBpd8FOQYzoQ=';
 
 
 }
