@@ -693,7 +693,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get masa => 'Masa';
 
   @override
-  String get viewDetails => 'Lihat Butiran';
+  String get viewDetails => 'Sentuh untuk lihat maklumat';
 
   @override
   String get multiCompoundHeaderDate => 'Tarikh';
@@ -752,7 +752,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get copyright => 'HAK CIPTA © 2025 SEMUA HAK TERPELIHARA.';
 
   @override
-  String get jomKeBentongGallery => 'GALERI BENTONG';
+  String get jomKeBentongGallery => 'Galeri Bentong';
 
   @override
   String get jomKeBentongDesc => 'Tempat bersejarah di Bentong';
@@ -761,7 +761,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get jomKeBentongFull => 'Galeri Jom Ke Bentong memperkenalkan sejarah dan warisan Bentong melalui gambar lama, peralatan tradisional dan kisah perkembangan bandar Bentong.';
 
   @override
-  String get jandaBaikTitle => 'JANDA BAIK, PAHANG';
+  String get jandaBaikTitle => 'Janda Baik, Pahang';
 
   @override
   String get jandaBaikDesc => 'Mari terokai keindahan Janda Baik';
@@ -779,13 +779,13 @@ class AppLocalizationsMs extends AppLocalizations {
   String get bentongWalkFull => 'Bentong Walk ialah kawasan awam moden dengan gerai makanan, kafe dan ruang acara yang menjadi tumpuan pengunjung.';
 
   @override
-  String get lemangTokKiTitle => 'LEMANG TOK KI';
+  String get lemangTokKiTitle => 'Lemang Tok\'Ki';
 
   @override
   String get lemangTokKiDesc => 'Lemang terkenal di Bentong';
 
   @override
-  String get lemangTokKiFull => 'Lemang Tok Ki terkenal dengan lemang tradisional yang dimasak dalam buluh menggunakan beras pulut dan santan.';
+  String get lemangTokKiFull => 'Lemang Tok\'Ki terkenal dengan lemang tradisional yang dimasak dalam buluh menggunakan beras pulut dan santan.';
 
   @override
   String get alorsetarExplorationTitle => 'Eksplorasi Alor Setar';
@@ -4003,4 +4003,169 @@ class AppLocalizationsMs extends AppLocalizations {
   String selectedAccountCount(int count) {
     return '$count Akaun Dipilih';
   }
+
+  @override
+  String get prayerLocation => 'LOKASI';
+
+  @override
+  String get prayerDate => 'TARIKH';
+
+  @override
+  String get prayerHijriDate => 'TARIKH HIJRI';
+
+  @override
+  String get prayerNextPrayer => 'WAKTU SOLAT SETERUSNYA';
+
+  @override
+  String get prayerCountdown => 'MASA BERBAKI';
+
+  @override
+  String get prayerCurrentBadge => 'SEMASA';
+
+  @override
+  String get prayerNextBadge => 'SETERUSNYA';
+
+  @override
+  String get prayerLoading => 'Sedang memuatkan waktu solat...';
+
+  @override
+  String get prayerLoadFailed => 'Waktu solat tidak dapat dimuatkan.';
+
+  @override
+  String get prayerRetry => 'CUBA SEMULA';
+
+  @override
+  String get prayerImsak => 'IMSAK';
+
+  @override
+  String get prayerSubuh => 'SUBUH';
+
+  @override
+  String get prayerSyuruk => 'SYURUK';
+
+  @override
+  String get prayerDhuha => 'DHUHA';
+
+  @override
+  String get prayerZohor => 'ZOHOR';
+
+  @override
+  String get prayerAsar => 'ASAR';
+
+  @override
+  String get prayerMaghrib => 'MAGHRIB';
+
+  @override
+  String get prayerIsyak => 'ISYAK';
+
+  @override
+  String get scanGoogleMaps => 'Buka dalam Google Maps';
+
+  @override
+  String get scanGoogleMapsInstruction => 'Imbas kod QR ini menggunakan telefon anda untuk melihat lokasi dan arah perjalanan.';
+
+  @override
+  String get adventureParkColmarTitle => 'Adventure Park by Colmar Tropicale';
+
+  @override
+  String get adventureParkColmarDesc => 'Destinasi pengembaraan luar yang menawarkan pelbagai aktiviti rekreasi menarik di kawasan tanah tinggi Bukit Tinggi.';
+
+  @override
+  String get adventureParkColmarFull => 'Adventure Park by Colmar Tropicale menawarkan pelbagai aktiviti luar yang dikelilingi suasana nyaman tanah tinggi Bukit Tinggi. Pengunjung boleh menikmati pengalaman pengembaraan yang sesuai untuk keluarga, kumpulan dan peminat aktiviti luar sambil menikmati pemandangan alam semula jadi.';
+
+  @override
+  String get bukitTinggiHorseTrailTitle => 'Bukit Tinggi Horse Trail Rides';
+
+  @override
+  String get bukitTinggiHorseTrailDesc => 'Nikmati pengalaman menunggang kuda dalam suasana nyaman dan pemandangan indah Bukit Tinggi.';
+
+  @override
+  String get bukitTinggiHorseTrailFull => 'Bukit Tinggi Horse Trail Rides memberi peluang kepada pengunjung untuk menerokai keindahan landskap tanah tinggi dengan menunggang kuda. Aktiviti ini sesuai untuk penunggang baharu dan berpengalaman serta menawarkan pengalaman santai menikmati alam semula jadi Bukit Tinggi.';
+
+  @override
+  String get rabbitFarmBukitTinggiTitle => 'Rabbit Farm (Bukit Tinggi)';
+
+  @override
+  String get rabbitFarmBukitTinggiDesc => 'Tarikan mesra keluarga yang membolehkan pengunjung melihat dan berinteraksi dengan arnab.';
+
+  @override
+  String get rabbitFarmBukitTinggiFull => 'Rabbit Farm di Bukit Tinggi ialah tarikan mesra keluarga yang membolehkan pengunjung melihat, memberi makan dan berinteraksi dengan arnab. Ladang ini menawarkan pengalaman yang menyeronokkan dan mendidik untuk kanak-kanak serta keluarga dalam suasana tanah tinggi yang nyaman.';
+
+  @override
+  String get bilutExtremeParkTitle => 'Bilut Extreme Park';
+
+  @override
+  String get bilutExtremeParkDesc => 'Taman rekreasi luar yang menawarkan aktiviti mencabar untuk peminat pengembaraan.';
+
+  @override
+  String get bilutExtremeParkFull => 'Bilut Extreme Park ialah destinasi rekreasi luar yang menawarkan pelbagai aktiviti menarik dan mencabar untuk pengunjung yang meminati pengembaraan. Dikelilingi pemandangan semula jadi, taman ini sesuai untuk kumpulan, keluarga dan mereka yang gemar melakukan aktiviti luar.';
+
+  @override
+  String get bilutValleyBeeFarmTitle => 'Bilut Valley Bee Farm';
+
+  @override
+  String get bilutValleyBeeFarmDesc => 'Kenali dunia penternakan lebah, penghasilan madu dan kepentingan lebah kepada ekosistem.';
+
+  @override
+  String get bilutValleyBeeFarmFull => 'Bilut Valley Bee Farm menawarkan pengalaman pendidikan mengenai lebah, penternakan lebah dan proses penghasilan madu. Pengunjung boleh mengetahui peranan penting lebah dalam ekosistem serta mengenali produk madu tempatan dan produk berkaitan.';
+
+  @override
+  String get swatPaintballJandaBaikTitle => 'SWAT Paintball Kg Janda Baik';
+
+  @override
+  String get swatPaintballJandaBaikDesc => 'Aktiviti paintball yang mendebarkan dalam persekitaran semula jadi Kampung Janda Baik.';
+
+  @override
+  String get swatPaintballJandaBaikFull => 'SWAT Paintball Kg Janda Baik menawarkan pengalaman paintball berkumpulan yang menarik dalam suasana indah Janda Baik. Aktiviti ini sesuai untuk kumpulan, program korporat, rakan-rakan dan pengunjung yang mencari cabaran luar yang aktif.';
+
+  @override
+  String get japaneseGardenTitle => 'Japanese Garden';
+
+  @override
+  String get japaneseGardenDesc => 'Taman berkonsepkan Jepun yang tenang dan dikelilingi suasana nyaman tanah tinggi Bukit Tinggi.';
+
+  @override
+  String get japaneseGardenFull => 'Japanese Garden di Bukit Tinggi menampilkan landskap taman yang tersusun, seni bina berinspirasikan Jepun, laluan batu dan persekitaran semula jadi yang menenangkan. Pengunjung boleh berjalan santai, menikmati pemandangan dan merasai suasana damai berkonsepkan taman Jepun.';
+
+  @override
+  String get lemangToki2Title => 'Lemang To\'ki 2';
+
+  @override
+  String get lemangToki2Desc => 'Destinasi makanan tempatan yang terkenal dengan lemang tradisional dan pelbagai hidangan Malaysia.';
+
+  @override
+  String get lemangToki2Full => 'Lemang To\'ki 2 ialah destinasi makanan popular di Bentong yang terkenal dengan lemang tradisional dan masakan tempatan Malaysia. Pengunjung boleh menikmati pelbagai hidangan dalam suasana santai yang sesuai untuk keluarga, kumpulan dan pelancong.';
+
+  @override
+  String get udangGalahLubukHantuTitle => 'Restoran Udang Galah Lubuk Hantu';
+
+  @override
+  String get udangGalahLubukHantuDesc => 'Restoran tempatan yang terkenal dengan hidangan udang galah dan pelbagai masakan Malaysia.';
+
+  @override
+  String get udangGalahLubukHantuFull => 'Restoran Udang Galah Lubuk Hantu menawarkan pelbagai hidangan Malaysia dengan udang galah sebagai antara pilihan popular. Restoran ini sesuai untuk pengunjung yang ingin menikmati makanan tempatan dalam suasana santai dan selesa.';
+
+  @override
+  String get cintaRasaAirenaTitle => 'Restoran Cinta Rasa Airena (AAA) Bentong';
+
+  @override
+  String get cintaRasaAirenaDesc => 'Restoran mesra keluarga yang menawarkan pelbagai hidangan tempatan dengan cita rasa Malaysia.';
+
+  @override
+  String get cintaRasaAirenaFull => 'Restoran Cinta Rasa Airena, yang turut dikenali sebagai AAA Bentong, menyajikan pelbagai hidangan tempatan Malaysia dalam suasana yang selesa. Restoran ini sesuai untuk keluarga, kumpulan dan pengunjung yang mencari tempat makan di Bentong.';
+
+  @override
+  String get pineyardTitle => 'Pineyard';
+
+  @override
+  String get pineyardDesc => 'Tempat makan bergaya yang dikelilingi kehijauan serta menawarkan suasana tenang dan pemandangan menarik.';
+
+  @override
+  String get pineyardFull => 'Pineyard ialah destinasi makanan moden yang terkenal dengan suasana santai, persekitaran semula jadi dan pemandangan yang menarik. Pengunjung boleh menikmati makanan serta minuman dalam suasana tenang yang sesuai untuk makan santai, berkumpul dan mengambil gambar.';
+
+  @override
+  String get fetchingPrayerTime => 'Memuatkan Waktu Solat';
+
+  @override
+  String get fetchingPrayerTimeDesc => 'Sila tunggu sebentar sementara waktu solat terkini sedang diperoleh.';
 }

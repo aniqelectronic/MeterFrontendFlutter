@@ -288,11 +288,11 @@
   "bentongExplorationTitle": "Bentong Exploration",
   "copyright": "COPYRIGHT © 2025 ALL RIGHTS RESERVED.",
 
-  "jomKeBentongGallery": "BENTONG GALLERY",
+  "jomKeBentongGallery": "Galeri Bentong",
   "jomKeBentongDesc": "Historical place in Bentong",
   "jomKeBentongFull": "Jom Ke Bentong Gallery is a cultural and historical gallery that introduces visitors to the heritage of Bentong. It showcases old photographs, traditional tools, and stories about the town’s development from a mining settlement into a modern district.",
 
-  "jandaBaikTitle": "JANDA BAIK, PAHANG",
+  "jandaBaikTitle": "Janda Baik, Pahang",
   "jandaBaikDesc": "Let’s explore the scenery in Janda Baik",
   "jandaBaikFull": "Janda Baik is a peaceful eco-tourism village surrounded by rainforest, rivers, and waterfalls. It is popular for homestays, jungle trekking, and nature activities, offering visitors a calm escape from busy city life.",
 
@@ -300,9 +300,9 @@
   "bentongWalkDesc": "Let’s take a walk at Bentong Walk",
   "bentongWalkFull": "Bentong Walk is a modern public space with food stalls, cafes, and event areas. It is a popular gathering spot, especially during weekends and evenings.",
 
-  "lemangTokKiTitle": "LEMANG TOK KI",
+  "lemangTokKiTitle": "Lemang Tok'Ki",
   "lemangTokKiDesc": "Famous lemang in Bentong",
-  "lemangTokKiFull": "Lemang Tok Ki is famous for traditional bamboo-cooked lemang made with glutinous rice and coconut milk. It is a must-visit food destination in Bentong.",
+  "lemangTokKiFull": "Lemang Tok'Ki is famous for traditional bamboo-cooked lemang made with glutinous rice and coconut milk. It is a must-visit food destination in Bentong.",
 
 
   "alorsetarExplorationTitle": "Alor Setar Eksploration",
@@ -2031,7 +2031,79 @@
       "type": "int"
     }
   }
-}
+},
+
+  "prayerLocation": "LOCATION",
+  "prayerDate": "DATE",
+  "prayerHijriDate": "HIJRI DATE",
+  "prayerNextPrayer": "NEXT PRAYER",
+  "prayerCountdown": "TIME REMAINING",
+  "prayerCurrentBadge": "CURRENT",
+  "prayerNextBadge": "NEXT",
+  "prayerLoading": "Loading prayer times...",
+  "prayerLoadFailed": "Prayer times could not be loaded.",
+  "prayerRetry": "TRY AGAIN",
+
+  "prayerImsak": "IMSAK",
+  "prayerSubuh": "FAJR",
+  "prayerSyuruk": "SUNRISE",
+  "prayerDhuha": "DHUHA",
+  "prayerZohor": "DHUHR",
+  "prayerAsar": "ASR",
+  "prayerMaghrib": "MAGHRIB",
+  "prayerIsyak": "ISHA",
+
+  "viewDetails": "Tap to view details",
+  "scanGoogleMaps": "Open in Google Maps",
+  "scanGoogleMapsInstruction": "Scan this QR code using your phone to view the location and directions.",
+
+  "adventureParkColmarTitle": "Adventure Park by Colmar Tropicale",
+"adventureParkColmarDesc": "An outdoor adventure destination featuring exciting recreational activities in the cool highlands of Bukit Tinggi.",
+"adventureParkColmarFull": "Adventure Park by Colmar Tropicale offers a variety of outdoor activities surrounded by the refreshing highland environment of Bukit Tinggi. Visitors can enjoy adventurous experiences suitable for families, groups and outdoor enthusiasts while taking in the beautiful natural scenery.",
+
+"bukitTinggiHorseTrailTitle": "Bukit Tinggi Horse Trail Rides",
+"bukitTinggiHorseTrailDesc": "Enjoy a peaceful horse riding experience through the scenic surroundings of Bukit Tinggi.",
+"bukitTinggiHorseTrailFull": "Bukit Tinggi Horse Trail Rides offers visitors the opportunity to explore the beautiful highland landscape on horseback. The activity is suitable for beginners and experienced riders and provides a relaxing way to enjoy the natural surroundings of Bukit Tinggi.",
+
+"rabbitFarmBukitTinggiTitle": "Rabbit Farm (Bukit Tinggi)",
+"rabbitFarmBukitTinggiDesc": "A family-friendly attraction where visitors can interact with rabbits in a relaxing highland setting.",
+"rabbitFarmBukitTinggiFull": "Rabbit Farm at Bukit Tinggi is a family-friendly attraction where visitors can see, feed and interact with rabbits. The farm provides an enjoyable and educational experience for children and families in the cool and peaceful highland environment.",
+
+"bilutExtremeParkTitle": "Bilut Extreme Park",
+"bilutExtremeParkDesc": "An outdoor recreational park offering thrilling activities for adventure seekers.",
+"bilutExtremeParkFull": "Bilut Extreme Park is an outdoor recreation destination that offers exciting and challenging activities for visitors seeking adventure. Surrounded by natural scenery, the park is suitable for groups, families and visitors who enjoy active outdoor experiences.",
+
+"bilutValleyBeeFarmTitle": "Bilut Valley Bee Farm",
+"bilutValleyBeeFarmDesc": "Discover beekeeping, honey production and the importance of bees in the natural ecosystem.",
+"bilutValleyBeeFarmFull": "Bilut Valley Bee Farm provides visitors with an educational experience about bees, beekeeping and honey production. Visitors can learn about the important role bees play in the ecosystem and explore locally produced honey and related products.",
+
+"swatPaintballJandaBaikTitle": "SWAT Paintball Kg Janda Baik",
+"swatPaintballJandaBaikDesc": "A thrilling paintball attraction surrounded by the natural environment of Janda Baik.",
+"swatPaintballJandaBaikFull": "SWAT Paintball Kg Janda Baik offers an exciting team-based paintball experience in the scenic surroundings of Janda Baik. It is suitable for groups, corporate activities, friends and visitors looking for an energetic outdoor challenge.",
+
+"japaneseGardenTitle": "Japanese Garden",
+"japaneseGardenDesc": "A peaceful Japanese-inspired garden surrounded by the cool and beautiful highlands of Bukit Tinggi.",
+"japaneseGardenFull": "The Japanese Garden in Bukit Tinggi features carefully landscaped gardens, traditional Japanese-inspired architecture, stone pathways and tranquil natural surroundings. Visitors can enjoy a peaceful walk, appreciate the scenery and experience a relaxing atmosphere inspired by Japanese garden design.",
+
+"lemangToki2Title": "Lemang To'ki 2",
+"lemangToki2Desc": "A popular local dining destination serving traditional lemang and a variety of Malaysian dishes.",
+"lemangToki2Full": "Lemang To'ki 2 is a popular dining destination in Bentong known for its traditional lemang and local Malaysian cuisine. Visitors can enjoy a selection of familiar dishes in a relaxed setting suitable for families, groups and travellers.",
+
+"udangGalahLubukHantuTitle": "Restoran Udang Galah Lubuk Hantu",
+"udangGalahLubukHantuDesc": "A local restaurant known for freshwater prawns and a selection of flavourful Malaysian dishes.",
+"udangGalahLubukHantuFull": "Restoran Udang Galah Lubuk Hantu offers a variety of Malaysian dishes, with freshwater prawns among its popular choices. The restaurant is suitable for visitors looking to enjoy a local meal in a casual and comfortable atmosphere.",
+
+"cintaRasaAirenaTitle": "Restoran Cinta Rasa Airena (AAA) Bentong",
+"cintaRasaAirenaDesc": "A family-friendly restaurant offering a variety of local dishes and satisfying Malaysian flavours.",
+"cintaRasaAirenaFull": "Restoran Cinta Rasa Airena, also known as AAA Bentong, serves a variety of local Malaysian dishes in a welcoming environment. It is a suitable dining choice for families, groups and visitors looking for a convenient meal in Bentong.",
+
+"pineyardTitle": "Pineyard",
+"pineyardDesc": "A stylish dining spot surrounded by greenery, offering a relaxing atmosphere and scenic views.",
+"pineyardFull": "Pineyard is a modern dining destination known for its relaxing setting, natural surroundings and attractive scenery. Visitors can enjoy food and refreshments in a calm environment that is suitable for casual dining, gatherings and photography.",
+
+
+"fetchingPrayerTime": "Loading Prayer Times",
+"fetchingPrayerTimeDesc": "Please wait while the latest prayer times are being retrieved."
 
 
 }

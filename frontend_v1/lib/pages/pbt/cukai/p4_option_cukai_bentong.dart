@@ -53,7 +53,7 @@ import '../p4.dart';
                 AppLocalizations.of(context)!.semakanWarningTitle,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 34,
+                  fontSize: 40,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF0359D2),
                 ),
@@ -65,7 +65,7 @@ import '../p4.dart';
                 AppLocalizations.of(context)!.semakanWarningMessage,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 24,
+                  fontSize: 30,
                   height: 1.5,
                   color: Colors.black87,
                 ),
@@ -83,6 +83,10 @@ import '../p4.dart';
                           Navigator.pop(context);
                         },
                         style: OutlinedButton.styleFrom(
+                          side: const BorderSide(
+                            color: Color(0xFF0359D2),
+                            width: 2,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18),
                           ),
@@ -92,6 +96,7 @@ import '../p4.dart';
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
+                            color: Color(0xFF0359D2),
                           ),
                         ),
                       ),
@@ -229,9 +234,9 @@ class P4OPTIONCUKAIBENTONG extends StatelessWidget {
                               ),
                             ),
                           );
-              },
-            ),
-          ),
+                        },
+                      ),
+                    ),
           
                      
           //MEMBUAT SEMAKAN BAYARAN Button
@@ -248,7 +253,6 @@ class P4OPTIONCUKAIBENTONG extends StatelessWidget {
             },
             ),
           ),
-
 
 
             // Back Button

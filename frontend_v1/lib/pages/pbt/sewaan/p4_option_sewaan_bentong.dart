@@ -59,7 +59,7 @@ void _showSemakanSewaanWarning(BuildContext context) {
                 AppLocalizations.of(context)!.semakanSewaanWarningTitle,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 34,
+                  fontSize: 40,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF0359D2),
                 ),
@@ -71,7 +71,7 @@ void _showSemakanSewaanWarning(BuildContext context) {
                 AppLocalizations.of(context)!.semakanSewaanWarningMessage,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 24,
+                  fontSize: 30,
                   height: 1.5,
                   color: Colors.black87,
                 ),

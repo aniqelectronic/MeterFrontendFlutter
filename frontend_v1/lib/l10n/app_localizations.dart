@@ -1406,7 +1406,7 @@ abstract class AppLocalizations {
   /// No description provided for @viewDetails.
   ///
   /// In en, this message translates to:
-  /// **'View Details'**
+  /// **'Tap to view details'**
   String get viewDetails;
 
   /// No description provided for @multiCompoundHeaderDate.
@@ -1520,7 +1520,7 @@ abstract class AppLocalizations {
   /// No description provided for @jomKeBentongGallery.
   ///
   /// In en, this message translates to:
-  /// **'BENTONG GALLERY'**
+  /// **'Galeri Bentong'**
   String get jomKeBentongGallery;
 
   /// No description provided for @jomKeBentongDesc.
@@ -1538,7 +1538,7 @@ abstract class AppLocalizations {
   /// No description provided for @jandaBaikTitle.
   ///
   /// In en, this message translates to:
-  /// **'JANDA BAIK, PAHANG'**
+  /// **'Janda Baik, Pahang'**
   String get jandaBaikTitle;
 
   /// No description provided for @jandaBaikDesc.
@@ -1574,7 +1574,7 @@ abstract class AppLocalizations {
   /// No description provided for @lemangTokKiTitle.
   ///
   /// In en, this message translates to:
-  /// **'LEMANG TOK KI'**
+  /// **'Lemang Tok\'Ki'**
   String get lemangTokKiTitle;
 
   /// No description provided for @lemangTokKiDesc.
@@ -1586,7 +1586,7 @@ abstract class AppLocalizations {
   /// No description provided for @lemangTokKiFull.
   ///
   /// In en, this message translates to:
-  /// **'Lemang Tok Ki is famous for traditional bamboo-cooked lemang made with glutinous rice and coconut milk. It is a must-visit food destination in Bentong.'**
+  /// **'Lemang Tok\'Ki is famous for traditional bamboo-cooked lemang made with glutinous rice and coconut milk. It is a must-visit food destination in Bentong.'**
   String get lemangTokKiFull;
 
   /// No description provided for @alorsetarExplorationTitle.
@@ -7930,6 +7930,336 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} Account(s) Selected'**
   String selectedAccountCount(int count);
+
+  /// No description provided for @prayerLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'LOCATION'**
+  String get prayerLocation;
+
+  /// No description provided for @prayerDate.
+  ///
+  /// In en, this message translates to:
+  /// **'DATE'**
+  String get prayerDate;
+
+  /// No description provided for @prayerHijriDate.
+  ///
+  /// In en, this message translates to:
+  /// **'HIJRI DATE'**
+  String get prayerHijriDate;
+
+  /// No description provided for @prayerNextPrayer.
+  ///
+  /// In en, this message translates to:
+  /// **'NEXT PRAYER'**
+  String get prayerNextPrayer;
+
+  /// No description provided for @prayerCountdown.
+  ///
+  /// In en, this message translates to:
+  /// **'TIME REMAINING'**
+  String get prayerCountdown;
+
+  /// No description provided for @prayerCurrentBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'CURRENT'**
+  String get prayerCurrentBadge;
+
+  /// No description provided for @prayerNextBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'NEXT'**
+  String get prayerNextBadge;
+
+  /// No description provided for @prayerLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading prayer times...'**
+  String get prayerLoading;
+
+  /// No description provided for @prayerLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer times could not be loaded.'**
+  String get prayerLoadFailed;
+
+  /// No description provided for @prayerRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'TRY AGAIN'**
+  String get prayerRetry;
+
+  /// No description provided for @prayerImsak.
+  ///
+  /// In en, this message translates to:
+  /// **'IMSAK'**
+  String get prayerImsak;
+
+  /// No description provided for @prayerSubuh.
+  ///
+  /// In en, this message translates to:
+  /// **'FAJR'**
+  String get prayerSubuh;
+
+  /// No description provided for @prayerSyuruk.
+  ///
+  /// In en, this message translates to:
+  /// **'SUNRISE'**
+  String get prayerSyuruk;
+
+  /// No description provided for @prayerDhuha.
+  ///
+  /// In en, this message translates to:
+  /// **'DHUHA'**
+  String get prayerDhuha;
+
+  /// No description provided for @prayerZohor.
+  ///
+  /// In en, this message translates to:
+  /// **'DHUHR'**
+  String get prayerZohor;
+
+  /// No description provided for @prayerAsar.
+  ///
+  /// In en, this message translates to:
+  /// **'ASR'**
+  String get prayerAsar;
+
+  /// No description provided for @prayerMaghrib.
+  ///
+  /// In en, this message translates to:
+  /// **'MAGHRIB'**
+  String get prayerMaghrib;
+
+  /// No description provided for @prayerIsyak.
+  ///
+  /// In en, this message translates to:
+  /// **'ISHA'**
+  String get prayerIsyak;
+
+  /// No description provided for @scanGoogleMaps.
+  ///
+  /// In en, this message translates to:
+  /// **'Open in Google Maps'**
+  String get scanGoogleMaps;
+
+  /// No description provided for @scanGoogleMapsInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan this QR code using your phone to view the location and directions.'**
+  String get scanGoogleMapsInstruction;
+
+  /// No description provided for @adventureParkColmarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Adventure Park by Colmar Tropicale'**
+  String get adventureParkColmarTitle;
+
+  /// No description provided for @adventureParkColmarDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'An outdoor adventure destination featuring exciting recreational activities in the cool highlands of Bukit Tinggi.'**
+  String get adventureParkColmarDesc;
+
+  /// No description provided for @adventureParkColmarFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Adventure Park by Colmar Tropicale offers a variety of outdoor activities surrounded by the refreshing highland environment of Bukit Tinggi. Visitors can enjoy adventurous experiences suitable for families, groups and outdoor enthusiasts while taking in the beautiful natural scenery.'**
+  String get adventureParkColmarFull;
+
+  /// No description provided for @bukitTinggiHorseTrailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bukit Tinggi Horse Trail Rides'**
+  String get bukitTinggiHorseTrailTitle;
+
+  /// No description provided for @bukitTinggiHorseTrailDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Enjoy a peaceful horse riding experience through the scenic surroundings of Bukit Tinggi.'**
+  String get bukitTinggiHorseTrailDesc;
+
+  /// No description provided for @bukitTinggiHorseTrailFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Bukit Tinggi Horse Trail Rides offers visitors the opportunity to explore the beautiful highland landscape on horseback. The activity is suitable for beginners and experienced riders and provides a relaxing way to enjoy the natural surroundings of Bukit Tinggi.'**
+  String get bukitTinggiHorseTrailFull;
+
+  /// No description provided for @rabbitFarmBukitTinggiTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rabbit Farm (Bukit Tinggi)'**
+  String get rabbitFarmBukitTinggiTitle;
+
+  /// No description provided for @rabbitFarmBukitTinggiDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A family-friendly attraction where visitors can interact with rabbits in a relaxing highland setting.'**
+  String get rabbitFarmBukitTinggiDesc;
+
+  /// No description provided for @rabbitFarmBukitTinggiFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Rabbit Farm at Bukit Tinggi is a family-friendly attraction where visitors can see, feed and interact with rabbits. The farm provides an enjoyable and educational experience for children and families in the cool and peaceful highland environment.'**
+  String get rabbitFarmBukitTinggiFull;
+
+  /// No description provided for @bilutExtremeParkTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bilut Extreme Park'**
+  String get bilutExtremeParkTitle;
+
+  /// No description provided for @bilutExtremeParkDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'An outdoor recreational park offering thrilling activities for adventure seekers.'**
+  String get bilutExtremeParkDesc;
+
+  /// No description provided for @bilutExtremeParkFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Bilut Extreme Park is an outdoor recreation destination that offers exciting and challenging activities for visitors seeking adventure. Surrounded by natural scenery, the park is suitable for groups, families and visitors who enjoy active outdoor experiences.'**
+  String get bilutExtremeParkFull;
+
+  /// No description provided for @bilutValleyBeeFarmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bilut Valley Bee Farm'**
+  String get bilutValleyBeeFarmTitle;
+
+  /// No description provided for @bilutValleyBeeFarmDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover beekeeping, honey production and the importance of bees in the natural ecosystem.'**
+  String get bilutValleyBeeFarmDesc;
+
+  /// No description provided for @bilutValleyBeeFarmFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Bilut Valley Bee Farm provides visitors with an educational experience about bees, beekeeping and honey production. Visitors can learn about the important role bees play in the ecosystem and explore locally produced honey and related products.'**
+  String get bilutValleyBeeFarmFull;
+
+  /// No description provided for @swatPaintballJandaBaikTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'SWAT Paintball Kg Janda Baik'**
+  String get swatPaintballJandaBaikTitle;
+
+  /// No description provided for @swatPaintballJandaBaikDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A thrilling paintball attraction surrounded by the natural environment of Janda Baik.'**
+  String get swatPaintballJandaBaikDesc;
+
+  /// No description provided for @swatPaintballJandaBaikFull.
+  ///
+  /// In en, this message translates to:
+  /// **'SWAT Paintball Kg Janda Baik offers an exciting team-based paintball experience in the scenic surroundings of Janda Baik. It is suitable for groups, corporate activities, friends and visitors looking for an energetic outdoor challenge.'**
+  String get swatPaintballJandaBaikFull;
+
+  /// No description provided for @japaneseGardenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Japanese Garden'**
+  String get japaneseGardenTitle;
+
+  /// No description provided for @japaneseGardenDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A peaceful Japanese-inspired garden surrounded by the cool and beautiful highlands of Bukit Tinggi.'**
+  String get japaneseGardenDesc;
+
+  /// No description provided for @japaneseGardenFull.
+  ///
+  /// In en, this message translates to:
+  /// **'The Japanese Garden in Bukit Tinggi features carefully landscaped gardens, traditional Japanese-inspired architecture, stone pathways and tranquil natural surroundings. Visitors can enjoy a peaceful walk, appreciate the scenery and experience a relaxing atmosphere inspired by Japanese garden design.'**
+  String get japaneseGardenFull;
+
+  /// No description provided for @lemangToki2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Lemang To\'ki 2'**
+  String get lemangToki2Title;
+
+  /// No description provided for @lemangToki2Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'A popular local dining destination serving traditional lemang and a variety of Malaysian dishes.'**
+  String get lemangToki2Desc;
+
+  /// No description provided for @lemangToki2Full.
+  ///
+  /// In en, this message translates to:
+  /// **'Lemang To\'ki 2 is a popular dining destination in Bentong known for its traditional lemang and local Malaysian cuisine. Visitors can enjoy a selection of familiar dishes in a relaxed setting suitable for families, groups and travellers.'**
+  String get lemangToki2Full;
+
+  /// No description provided for @udangGalahLubukHantuTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoran Udang Galah Lubuk Hantu'**
+  String get udangGalahLubukHantuTitle;
+
+  /// No description provided for @udangGalahLubukHantuDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A local restaurant known for freshwater prawns and a selection of flavourful Malaysian dishes.'**
+  String get udangGalahLubukHantuDesc;
+
+  /// No description provided for @udangGalahLubukHantuFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoran Udang Galah Lubuk Hantu offers a variety of Malaysian dishes, with freshwater prawns among its popular choices. The restaurant is suitable for visitors looking to enjoy a local meal in a casual and comfortable atmosphere.'**
+  String get udangGalahLubukHantuFull;
+
+  /// No description provided for @cintaRasaAirenaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoran Cinta Rasa Airena (AAA) Bentong'**
+  String get cintaRasaAirenaTitle;
+
+  /// No description provided for @cintaRasaAirenaDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A family-friendly restaurant offering a variety of local dishes and satisfying Malaysian flavours.'**
+  String get cintaRasaAirenaDesc;
+
+  /// No description provided for @cintaRasaAirenaFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoran Cinta Rasa Airena, also known as AAA Bentong, serves a variety of local Malaysian dishes in a welcoming environment. It is a suitable dining choice for families, groups and visitors looking for a convenient meal in Bentong.'**
+  String get cintaRasaAirenaFull;
+
+  /// No description provided for @pineyardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pineyard'**
+  String get pineyardTitle;
+
+  /// No description provided for @pineyardDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A stylish dining spot surrounded by greenery, offering a relaxing atmosphere and scenic views.'**
+  String get pineyardDesc;
+
+  /// No description provided for @pineyardFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Pineyard is a modern dining destination known for its relaxing setting, natural surroundings and attractive scenery. Visitors can enjoy food and refreshments in a calm environment that is suitable for casual dining, gatherings and photography.'**
+  String get pineyardFull;
+
+  /// No description provided for @fetchingPrayerTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Prayer Times'**
+  String get fetchingPrayerTime;
+
+  /// No description provided for @fetchingPrayerTimeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while the latest prayer times are being retrieved.'**
+  String get fetchingPrayerTimeDesc;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
