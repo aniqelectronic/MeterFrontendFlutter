@@ -197,10 +197,10 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
       return;
     }
 
-    if (widget.serviceType == BillServiceType.entertainment &&
-        !RegExp(r'^[0-9]$').hasMatch(value)) {
-      return;
-    }
+    // if (widget.serviceType == BillServiceType.entertainment &&
+    //     !RegExp(r'^[0-9]$').hasMatch(value)) {
+    //   return;
+    // }
 
     setState(() {
       _controller.text += value;

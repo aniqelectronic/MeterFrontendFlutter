@@ -501,74 +501,105 @@ Widget _contactRow(IconData icon, String label, String value) {
             ),
           ),
 
-          Positioned(
-            bottom: 160,
-            left: 100,
-            right: 100,
-            child: Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => P4PAGE(
-                            title: loc.parkirButton,
-                            type: "PBT",
-                            hint: loc.inputPlateHint,
-                            biz: "PARKING",
+            Positioned(
+              bottom: 160,
+              left: 100,
+              right: 100,
+              child: Row(
+                children: [
+                  // ================= BACK =================
+                  Expanded(
+                    child: SizedBox(
+                      height: 105,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => P4PAGE(
+                                title: loc.parkirButton,
+                                type: "PBT",
+                                hint: loc.inputPlateHint,
+                                biz: "PARKING",
+                              ),
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back_rounded,
+                          size: 42,
+                        ),
+                        label: Text(
+                          loc.backButton,
+                          style: const TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey[300],
-                      foregroundColor: Colors.black,
-                      side: const BorderSide(color: Colors.black, width: 2),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30),
-                      child: Text(
-                        loc.backButton,
-                        style: const TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFE0E0E0),
+                          foregroundColor: Colors.black,
+                          elevation: 0,
+                          side: const BorderSide(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 100),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => _showConfirmation(context, loc),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      side: const BorderSide(color: Colors.black, width: 2),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30),
-                      child: Text(
-                        loc.continueButton,
-                        style: const TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
+
+                  const SizedBox(width: 50),
+
+                  // ================= CONTINUE =================
+                  Expanded(
+                    child: SizedBox(
+                      height: 105,
+                      child: ElevatedButton(
+                        onPressed: () => _showConfirmation(context, loc),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF16813B),
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          side: const BorderSide(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                loc.continueButton,
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                style: const TextStyle(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                  height: 1.05,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 15),
+                            const Icon(
+                              Icons.arrow_forward_rounded,
+                              size: 42,
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
 
           Positioned(
             bottom: 70,

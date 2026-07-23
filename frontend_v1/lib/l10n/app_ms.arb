@@ -72,12 +72,12 @@
   "semakanWarningTitle": "Notis Penting",
   "semakanWarningMessage": "Semakan bayaran hanya tersedia untuk transaksi yang dibuat melalui kiosk ini. Bayaran yang dibuat melalui saluran lain mungkin tidak dipaparkan.",
   "cancelButton": "Batal",
-  "continueButton": "Teruskan",
+  "continueButton": "TERUSKAN",
 
   "semakanSewaanWarningTitle": "Notis Penting",
   "semakanSewaanWarningMessage": "Semakan bayaran sewaan hanya tersedia untuk transaksi yang dibuat melalui kiosk ini. Bayaran yang dibuat melalui saluran lain mungkin tidak dipaparkan.",
   "cancelButton": "Batal",
-  "continueButton": "Teruskan",
+  "continueButton": "TERUSKAN",
 
 
   "pwaktusolattitle": "WAKTU SOLAT",
@@ -118,7 +118,7 @@
   "backButton": "KEMBALI",
   "continueButton": "TERUSKAN", 
   "alertTitle": "Makluman",
-  "alertEnterInfo": "Sila masukkan info sebelum teruskan.",
+  "alertEnterInfo": "Sila masukkan info sebelum TERUSKAN.",
   "alertEnterIC": "Sila masukkan No. IC.",
   "alertNoTaxRecord": "Tiada rekod cukai dijumpai.",
   "alertNoLicenseRecord": "Tiada rekod lesen dijumpai.",
@@ -440,7 +440,7 @@
   },
 
   "idleTitle": "Masih menggunakan perkhidmatan ini?",
-  "idleContinue": "Teruskan",
+  "idleContinue": "TERUSKAN",
   "idleGoHome": "Laman Utama",
   "idleMessage": "Anda akan kembali ke laman utama dalam {seconds} saat.",
   "@idleMessage": {
@@ -1308,7 +1308,7 @@
 "info": "Info",
 "close": "Tutup",
 "back": "Kembali",
-"continueText": "Teruskan",
+"continueText": "TERUSKAN",
 
 "rentalMonthly": "Sewa Bulanan",
 "rentalPlace": "Tempat Sewaan",
@@ -1462,7 +1462,7 @@
   "pinFailureNextStep": "Anda akan dikembalikan ke halaman pembayaran sebentar lagi.",
   "pinReferenceCode": "Kod rujukan",
 
-  "pinTestingModeNotice": "MOD UJIAN: Proses sebenar pembaca kad sedang dijalankan, tetapi setiap keputusan akhir akan diteruskan sebagai berjaya.",
+  "pinTestingModeNotice": "MOD UJIAN: Proses sebenar pembaca kad sedang dijalankan, tetapi setiap keputusan akhir akan diTERUSKAN sebagai berjaya.",
 
   "pinFailureDeclined": "Pembayaran tidak diluluskan. Sila gunakan kad atau kaedah pembayaran yang lain.",
   "pinFailureInsufficientFunds": "Pembayaran tidak dapat diselesaikan. Sila semak baki tersedia atau gunakan kaedah pembayaran yang lain.",
@@ -1564,7 +1564,7 @@
 
   "networkInterruptionTitle": "Gangguan Perkhidmatan",
   "networkLastUpdated": "Kemaskini terakhir",
-  "continueButton": "Teruskan",
+  "continueButton": "TERUSKAN",
 
  
   "networkInterruptionMessage": "{biller} sedang mengalami gangguan. Transaksi anda mungkin perlahan atau tidak berjaya. Anda masih boleh meneruskan pembayaran.",
@@ -1728,7 +1728,7 @@
   "waterTotalAmount": "Jumlah Keseluruhan",
   "waterPaymentUpdateTime": "Tempoh Kemas Kini Bil",
   "waterUpdateWithinThreeDays": "Dalam tempoh 3 hari bekerja",
-  "waterContinue": "Teruskan",
+  "waterContinue": "TERUSKAN",
   "waterInformation": "Makluman",
   "waterOk": "OK",
   "waterEnterPaymentAmount": "Masukkan Jumlah Bayaran",
@@ -1871,7 +1871,7 @@
 "broadbandTotalAmount": "Jumlah Keseluruhan",
 "broadbandPaymentUpdateTime": "Tempoh Kemas Kini Bil",
 "broadbandUpdateWithinThreeDays": "Dalam tempoh 3 hari bekerja",
-"broadbandContinue": "Teruskan",
+"broadbandContinue": "TERUSKAN",
 "broadbandInformation": "Makluman",
 "broadbandOk": "OK",
 "broadbandEnterPaymentAmount": "Masukkan Jumlah Bayaran",
@@ -1944,13 +1944,13 @@
 "entertainmentBillTitle": "BIL HIBURAN",
 "astroButton": "Astro",
 "entertainmentAccountTitle": "Masukkan Nombor Akaun Astro",
-"entertainmentAccountHint": "Masukkan nombor akaun Astro 8 hingga 20 digit",
+"entertainmentAccountHint": "Masukkan nombor akaun Astro",
 
 "billEntertainmentButton": "Bil Hiburan",
 "entertainmentBillTitle": "BIL HIBURAN",
 "astroButton": "Astro",
 "entertainmentAccountTitle": "Masukkan Nombor Akaun Astro",
-"entertainmentAccountHint": "Masukkan nombor akaun Astro 8 hingga 20 digit",
+"entertainmentAccountHint": "Masukkan nombor akaun Astro",
 "entertainmentAccountRequired": "Sila masukkan nombor akaun Astro.",
 "entertainmentAccountInvalid": "Masukkan nombor akaun Astro yang sah, mengandungi 8 hingga 20 digit.",
 "entertainmentAccountNotFound": "Maklumat akaun Astro tidak dapat ditemukan.",
@@ -2014,7 +2014,7 @@
 "entertainmentTotalAmount": "Jumlah Keseluruhan",
 "entertainmentPaymentUpdateTime": "Masa Kemas Kini Bayaran",
 "entertainmentUpdateInstant": "SERTA-MERTA",
-"entertainmentContinue": "Teruskan",
+"entertainmentContinue": "TERUSKAN",
 
 "loadingTitle": "Sila Tunggu",
 "@loadingTitle": {
@@ -2044,6 +2044,16 @@
 "loadingDoNotClose": "Sila kekal pada skrin ini",
 "@loadingDoNotClose": {
   "description": "Arahan yang dipaparkan semasa pemprosesan"
+},
+
+"amountPayable": "Jumlah Perlu Dibayar",
+"selectedAccountCount": "{count} Akaun Dipilih",
+"@selectedAccountCount": {
+  "placeholders": {
+    "count": {
+      "type": "int"
+    }
+  }
 }
 
 }

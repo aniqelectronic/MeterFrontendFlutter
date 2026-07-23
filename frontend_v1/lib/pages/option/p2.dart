@@ -490,15 +490,22 @@ class _KioskMainButtonState extends State<_KioskMainButton> {
                             ? Icon(widget.icon, size: 140, color: Colors.black)
                             : Image.asset(widget.imagePath!, height: 140),
                       ),
-                      const SizedBox(height: 15),
-                      Text(
-                        widget.label.toUpperCase(),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.black,
-                          letterSpacing: 2.0,
+                      const SizedBox(height: 30),
+                      SizedBox(
+                        width: widget.width - 40,
+                        child: Text(
+                          widget.label.toUpperCase(),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.visible,
+                          softWrap: true,
+                          style: const TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.black,
+                            letterSpacing: 1.2,
+                            height: 1.15,
+                          ),
                         ),
                       ),
                     ],

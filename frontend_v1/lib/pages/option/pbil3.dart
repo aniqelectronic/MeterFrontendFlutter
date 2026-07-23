@@ -585,7 +585,7 @@ class _KioskMainButtonState extends State<_KioskMainButton> {
                                 TextAlign.center,
                             maxLines: 2,
                             style: const TextStyle(
-                              fontSize: 40,
+                              fontSize: 35,
                               fontWeight:
                                   FontWeight.w900,
                               color: Colors.black,

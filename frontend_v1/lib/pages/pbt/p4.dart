@@ -686,14 +686,21 @@ void _showAlert(
           alignment: Alignment.center,
           children: [
             Center(
-              child: Text(
-                widget.title,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 110),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    widget.title,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 48,
+                      fontWeight: FontWeight.w900,
+                      height: 1.1,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -1008,97 +1015,153 @@ void _showAlert(
               ),
             ),
 
-          Positioned(
-            bottom: 200,
-            left: 100,
-            right: 100,
-            child: Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: _isLoading
-                        ? null
-                        : () {
-                            if (widget.type == "PBT") {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const PBT3PAGE(),
-                                ),
-                              );
-                            }
+            // ===================================================
+            // BACK AND CONTINUE BUTTONS
+            // ===================================================
 
-                            if (widget.type == "OTHERS") {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const P2Page(),
-                                ),
-                              );
-                            }
-                          },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey[300],
-                      foregroundColor: Colors.black,
-                      disabledBackgroundColor: Colors.grey[400],
-                      disabledForegroundColor: Colors.black54,
-                      side: const BorderSide(color: Colors.black, width: 2),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30),
-                      child: Text(
-                        AppLocalizations.of(context)!.buttonBack,
-                        style: const TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
+            Positioned(
+              bottom: 200,
+              left: 100,
+              right: 100,
+              child: Row(
+                children: [
+                  // ================= BACK BUTTON =================
+                  Expanded(
+                    child: SizedBox(
+                      height: 105,
+                      child: ElevatedButton.icon(
+                        onPressed: _isLoading
+                            ? null
+                            : () {
+                                if (widget.type == "PBT") {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const PBT3PAGE(),
+                                    ),
+                                  );
+                                  return;
+                                }
+
+                                if (widget.type == "OTHERS") {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const P2Page(),
+                                    ),
+                                  );
+                                  return;
+                                }
+
+                                Navigator.pop(context);
+                              },
+                        icon: const Icon(
+                          Icons.arrow_back_rounded,
+                          size: 42,
+                        ),
+                        label: Text(
+                          AppLocalizations.of(context)!.buttonBack,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color(0xFFE0E0E0),
+                          foregroundColor: Colors.black,
+                          disabledBackgroundColor:
+                              Colors.grey[400],
+                          disabledForegroundColor:
+                              Colors.black54,
+                          elevation: 0,
+                          side: const BorderSide(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(18),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-                const SizedBox(width: 80),
+                  const SizedBox(width: 50),
 
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: _isLoading ? null : _handleContinue,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.white,
-                      disabledBackgroundColor: Colors.green.shade300,
-                      disabledForegroundColor: Colors.white,
-                      side: const BorderSide(color: Colors.black, width: 2),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                  // ================= CONTINUE BUTTON =================
+                  Expanded(
+                    child: SizedBox(
+                      height: 105,
+                      child: ElevatedButton(
+                        onPressed:
+                            _isLoading ? null : _handleContinue,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color(0xFF16813B),
+                          foregroundColor: Colors.white,
+                          disabledBackgroundColor:
+                              Colors.green.shade300,
+                          disabledForegroundColor:
+                              Colors.white,
+                          elevation: 0,
+                          side: const BorderSide(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(18),
+                          ),
+                        ),
+                        child: _isLoading
+                            ? const SizedBox(
+                                width: 50,
+                                height: 50,
+                                child:
+                                    CircularProgressIndicator(
+                                  strokeWidth: 6,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      AppLocalizations.of(
+                                        context,
+                                      )!
+                                          .buttonContinue,
+                                      textAlign:
+                                          TextAlign.center,
+                                      maxLines: 2,
+                                      style:
+                                          const TextStyle(
+                                        fontSize: 40,
+                                        fontWeight:
+                                            FontWeight.bold,
+                                        height: 1.05,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 15),
+                                  const Icon(
+                                    Icons
+                                        .arrow_forward_rounded,
+                                    size: 42,
+                                  ),
+                                ],
+                              ),
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30),
-                      child: _isLoading
-                          ? const SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 6,
-                                color: Colors.white,
-                              ),
-                            )
-                          : Text(
-                              AppLocalizations.of(context)!.buttonContinue,
-                              style: const TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
 
         // ===================================================
         // LOADING OVERLAY

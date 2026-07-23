@@ -195,7 +195,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelButton => 'CANCEL';
 
   @override
-  String get continueButton => 'Continue';
+  String get continueButton => 'CONTINUE';
 
   @override
   String get semakanSewaanWarningTitle => 'Important Notice';
@@ -376,8 +376,8 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       hours,
       locale: localeName,
-      other: '# Hours',
-      one: '# Hour',
+      other: '$hours Hours',
+      one: '$hours Hour',
     );
     return '$_temp0';
   }
@@ -1033,7 +1033,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get idleTitle => 'Are you still using this service?';
 
   @override
-  String get idleContinue => 'Continue';
+  String get idleContinue => 'CONTINUE';
 
   @override
   String get idleGoHome => 'Go to Home';
@@ -2709,7 +2709,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get total => 'Total';
 
   @override
-  String get continueText => 'Continue';
+  String get continueText => 'CONTINUE';
 
   @override
   String get rentalMonthly => 'Monthly Rental';
@@ -3575,7 +3575,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get waterUpdateWithinThreeDays => 'Within 3 working days';
 
   @override
-  String get waterContinue => 'Continue';
+  String get waterContinue => 'CONTINUE';
 
   @override
   String get waterInformation => 'Information';
@@ -3765,7 +3765,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get broadbandUpdateWithinThreeDays => 'Within 3 working days';
 
   @override
-  String get broadbandContinue => 'Continue';
+  String get broadbandContinue => 'CONTINUE';
 
   @override
   String get broadbandInformation => 'Information';
@@ -3862,7 +3862,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get entertainmentAccountTitle => 'Enter Astro Account Number';
 
   @override
-  String get entertainmentAccountHint => 'Enter 8 to 20 digit Astro account number';
+  String get entertainmentAccountHint => 'Enter Astro account number';
 
   @override
   String get entertainmentAccountRequired => 'Please enter the Astro account number.';
@@ -3988,7 +3988,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get entertainmentUpdateInstant => 'INSTANT';
 
   @override
-  String get entertainmentContinue => 'Continue';
+  String get entertainmentContinue => 'CONTINUE';
 
   @override
   String get loadingTitle => 'Please Wait';
@@ -4001,4 +4001,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loadingDoNotClose => 'Please remain on this screen';
+
+  @override
+  String get amountPayable => 'Total Amount Payable';
+
+  @override
+  String selectedAccountCount(int count) {
+    return '$count Account(s) Selected';
+  }
 }

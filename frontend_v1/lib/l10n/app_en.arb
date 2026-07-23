@@ -73,12 +73,12 @@
   "semakanWarningTitle": "Important Notice",
   "semakanWarningMessage": "Payment checking is only available for transactions made through this kiosk. Payments made through other channels may not be displayed.",
   "cancelButton": "Cancel",
-  "continueButton": "Continue",
+  "continueButton": "CONTINUE",
 
   "semakanSewaanWarningTitle": "Important Notice",
   "semakanSewaanWarningMessage": "Rental payment checking is only available for transactions made through this kiosk. Payments made through other channels may not be displayed.",
   "cancelButton": "Cancel",
-  "continueButton": "Continue",
+  "continueButton": "CONTINUE",
 
   "pwaktusolattitle": "PRAYER TIME",
   "textsolat1":"NEXT PRAYER : ",
@@ -141,7 +141,7 @@
   "p5parkingTotalAmount": "TOTAL AMOUNT = RM {amount}",
   "parkingStartTimeDisclaimer": "Disclaimer: The parking session start time will begin only after your payment has been successfully completed.",
 
-  "receiptDurationValue": "{hours, plural, =1{# Hour} other{# Hours}}",
+  "receiptDurationValue": "{hours, plural, =1{{hours} Hour} other{{hours} Hours}}",
   "@receiptDurationValue": {
     "placeholders": {
       "hours": {
@@ -424,7 +424,7 @@
   },
 
   "idleTitle": "Are you still using this service?",
-  "idleContinue": "Continue",
+  "idleContinue": "CONTINUE",
   "idleGoHome": "Go to Home",
   "idleMessage": "You will be returned to the main menu in {seconds} seconds.",
   "@idleMessage": {
@@ -1288,7 +1288,7 @@
 "info": "Info",
 "close": "Close",
 "back": "Back",
-"continueText": "Continue",
+"continueText": "CONTINUE",
 
 "rentalMonthly": "Monthly Rental",
 "rentalPlace": "Rental Place",
@@ -1545,7 +1545,7 @@
 
   "networkInterruptionTitle": "Service Interruption",
   "networkLastUpdated": "Last updated",
-  "continueButton": "Continue",
+  "continueButton": "CONTINUE",
 
   "networkInterruptionMessage": "{biller} is currently experiencing an interruption. Your transaction may be slow or may not go through. You may still continue with your payment.",
   "@networkInterruptionMessage": {
@@ -1707,7 +1707,7 @@
   "waterTotalAmount": "Total Amount",
   "waterPaymentUpdateTime": "Bill Update Time",
   "waterUpdateWithinThreeDays": "Within 3 working days",
-  "waterContinue": "Continue",
+  "waterContinue": "CONTINUE",
   "waterInformation": "Information",
   "waterOk": "OK",
   "waterEnterPaymentAmount": "Enter Payment Amount",
@@ -1849,7 +1849,7 @@
 "broadbandTotalAmount": "Total Amount",
 "broadbandPaymentUpdateTime": "Bill Update Time",
 "broadbandUpdateWithinThreeDays": "Within 3 working days",
-"broadbandContinue": "Continue",
+"broadbandContinue": "CONTINUE",
 "broadbandInformation": "Information",
 "broadbandOk": "OK",
 "broadbandEnterPaymentAmount": "Enter Payment Amount",
@@ -1923,13 +1923,13 @@
 "entertainmentBillTitle": "ENTERTAINMENT BILL",
 "astroButton": "Astro",
 "entertainmentAccountTitle": "Enter Astro Account Number",
-"entertainmentAccountHint": "Enter 8 to 20 digit Astro account number",
+"entertainmentAccountHint": "Enter Astro account number",
 
 "billEntertainmentButton": "Entertainment Bill",
 "entertainmentBillTitle": "ENTERTAINMENT BILL",
 "astroButton": "Astro",
 "entertainmentAccountTitle": "Enter Astro Account Number",
-"entertainmentAccountHint": "Enter 8 to 20 digit Astro account number",
+"entertainmentAccountHint": "Enter Astro account number",
 "entertainmentAccountRequired": "Please enter the Astro account number.",
 "entertainmentAccountInvalid": "Enter a valid Astro account number containing 8 to 20 digits.",
 "entertainmentAccountNotFound": "Astro account information could not be found.",
@@ -1991,7 +1991,7 @@
 "entertainmentTotalAmount": "Total Amount",
 "entertainmentPaymentUpdateTime": "Payment Update Time",
 "entertainmentUpdateInstant": "INSTANT",
-"entertainmentContinue": "Continue",
+"entertainmentContinue": "CONTINUE",
 
 "loadingTitle": "Please Wait",
 "@loadingTitle": {
@@ -2021,6 +2021,16 @@
 "loadingDoNotClose": "Please remain on this screen",
 "@loadingDoNotClose": {
   "description": "Instruction displayed during processing"
+},
+
+"amountPayable": "Total Amount Payable",
+"selectedAccountCount": "{count} Account(s) Selected",
+"@selectedAccountCount": {
+  "placeholders": {
+    "count": {
+      "type": "int"
+    }
+  }
 }
 
 

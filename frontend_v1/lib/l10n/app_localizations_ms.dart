@@ -195,7 +195,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get cancelButton => 'BATAL';
 
   @override
-  String get continueButton => 'Teruskan';
+  String get continueButton => 'TERUSKAN';
 
   @override
   String get semakanSewaanWarningTitle => 'Notis Penting';
@@ -306,7 +306,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get alertTitle => 'Makluman';
 
   @override
-  String get alertEnterInfo => 'Sila masukkan info sebelum teruskan.';
+  String get alertEnterInfo => 'Sila masukkan info sebelum TERUSKAN.';
 
   @override
   String get alertEnterIC => 'Sila masukkan No. IC.';
@@ -1027,7 +1027,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get idleTitle => 'Masih menggunakan perkhidmatan ini?';
 
   @override
-  String get idleContinue => 'Teruskan';
+  String get idleContinue => 'TERUSKAN';
 
   @override
   String get idleGoHome => 'Laman Utama';
@@ -2703,7 +2703,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get total => 'Jumlah';
 
   @override
-  String get continueText => 'Teruskan';
+  String get continueText => 'TERUSKAN';
 
   @override
   String get rentalMonthly => 'Sewa Bulanan';
@@ -3035,7 +3035,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get pinReferenceCode => 'Kod rujukan';
 
   @override
-  String get pinTestingModeNotice => 'MOD UJIAN: Proses sebenar pembaca kad sedang dijalankan, tetapi setiap keputusan akhir akan diteruskan sebagai berjaya.';
+  String get pinTestingModeNotice => 'MOD UJIAN: Proses sebenar pembaca kad sedang dijalankan, tetapi setiap keputusan akhir akan diTERUSKAN sebagai berjaya.';
 
   @override
   String get pinFailureDeclined => 'Pembayaran tidak diluluskan. Sila gunakan kad atau kaedah pembayaran yang lain.';
@@ -3569,7 +3569,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get waterUpdateWithinThreeDays => 'Dalam tempoh 3 hari bekerja';
 
   @override
-  String get waterContinue => 'Teruskan';
+  String get waterContinue => 'TERUSKAN';
 
   @override
   String get waterInformation => 'Makluman';
@@ -3759,7 +3759,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get broadbandUpdateWithinThreeDays => 'Dalam tempoh 3 hari bekerja';
 
   @override
-  String get broadbandContinue => 'Teruskan';
+  String get broadbandContinue => 'TERUSKAN';
 
   @override
   String get broadbandInformation => 'Makluman';
@@ -3856,7 +3856,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get entertainmentAccountTitle => 'Masukkan Nombor Akaun Astro';
 
   @override
-  String get entertainmentAccountHint => 'Masukkan nombor akaun Astro 8 hingga 20 digit';
+  String get entertainmentAccountHint => 'Masukkan nombor akaun Astro';
 
   @override
   String get entertainmentAccountRequired => 'Sila masukkan nombor akaun Astro.';
@@ -3982,7 +3982,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get entertainmentUpdateInstant => 'SERTA-MERTA';
 
   @override
-  String get entertainmentContinue => 'Teruskan';
+  String get entertainmentContinue => 'TERUSKAN';
 
   @override
   String get loadingTitle => 'Sila Tunggu Sebentar';
@@ -3995,4 +3995,12 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get loadingDoNotClose => 'Sila kekal pada skrin ini';
+
+  @override
+  String get amountPayable => 'Jumlah Perlu Dibayar';
+
+  @override
+  String selectedAccountCount(int count) {
+    return '$count Akaun Dipilih';
+  }
 }

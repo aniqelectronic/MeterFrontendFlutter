@@ -570,18 +570,25 @@ class _KioskMainButtonState extends State<_KioskMainButton> {
                                 ),
                       ),
 
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 30),
 
-                      Text(
+                    SizedBox(
+                      width: widget.width - 40,
+                      child: Text(
                         widget.label.toUpperCase(),
                         textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.visible,
+                        softWrap: true,
                         style: const TextStyle(
-                          fontSize: 40,
+                          fontSize: 35,
                           fontWeight: FontWeight.w900,
                           color: Colors.black,
-                          letterSpacing: 2.0,
+                          letterSpacing: 1.2,
+                          height: 1.15,
                         ),
                       ),
+                    ),
                     ],
                   ),
                 ),

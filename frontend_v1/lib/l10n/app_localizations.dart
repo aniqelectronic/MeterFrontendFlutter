@@ -470,7 +470,7 @@ abstract class AppLocalizations {
   /// No description provided for @continueButton.
   ///
   /// In en, this message translates to:
-  /// **'Continue'**
+  /// **'CONTINUE'**
   String get continueButton;
 
   /// No description provided for @semakanSewaanWarningTitle.
@@ -812,7 +812,7 @@ abstract class AppLocalizations {
   /// No description provided for @receiptDurationValue.
   ///
   /// In en, this message translates to:
-  /// **'{hours, plural, =1{# Hour} other{# Hours}}'**
+  /// **'{hours, plural, =1{{hours} Hour} other{{hours} Hours}}'**
   String receiptDurationValue(int hours);
 
   /// No description provided for @p5parkingNumberPlate.
@@ -2066,7 +2066,7 @@ abstract class AppLocalizations {
   /// No description provided for @idleContinue.
   ///
   /// In en, this message translates to:
-  /// **'Continue'**
+  /// **'CONTINUE'**
   String get idleContinue;
 
   /// No description provided for @idleGoHome.
@@ -5414,7 +5414,7 @@ abstract class AppLocalizations {
   /// No description provided for @continueText.
   ///
   /// In en, this message translates to:
-  /// **'Continue'**
+  /// **'CONTINUE'**
   String get continueText;
 
   /// No description provided for @rentalMonthly.
@@ -7118,7 +7118,7 @@ abstract class AppLocalizations {
   /// No description provided for @waterContinue.
   ///
   /// In en, this message translates to:
-  /// **'Continue'**
+  /// **'CONTINUE'**
   String get waterContinue;
 
   /// No description provided for @waterInformation.
@@ -7478,7 +7478,7 @@ abstract class AppLocalizations {
   /// No description provided for @broadbandContinue.
   ///
   /// In en, this message translates to:
-  /// **'Continue'**
+  /// **'CONTINUE'**
   String get broadbandContinue;
 
   /// No description provided for @broadbandInformation.
@@ -7652,7 +7652,7 @@ abstract class AppLocalizations {
   /// No description provided for @entertainmentAccountHint.
   ///
   /// In en, this message translates to:
-  /// **'Enter 8 to 20 digit Astro account number'**
+  /// **'Enter Astro account number'**
   String get entertainmentAccountHint;
 
   /// No description provided for @entertainmentAccountRequired.
@@ -7892,7 +7892,7 @@ abstract class AppLocalizations {
   /// No description provided for @entertainmentContinue.
   ///
   /// In en, this message translates to:
-  /// **'Continue'**
+  /// **'CONTINUE'**
   String get entertainmentContinue;
 
   /// Title displayed while processing a request
@@ -7918,6 +7918,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please remain on this screen'**
   String get loadingDoNotClose;
+
+  /// No description provided for @amountPayable.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount Payable'**
+  String get amountPayable;
+
+  /// No description provided for @selectedAccountCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Account(s) Selected'**
+  String selectedAccountCount(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

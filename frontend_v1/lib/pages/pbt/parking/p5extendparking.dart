@@ -184,43 +184,44 @@ class _P5EXTENDPARKINGSTATE extends State<P5EXTENDPARKINGPAGE> {
             left: 0,
             right: 0,
             child: Center(
-              child: SizedBox(
-                width: 400,
-                child: ElevatedButton(
+              child:SizedBox(
+                width: 450,
+                height: 105,
+                child: ElevatedButton.icon(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (_) => P4PAGE(
-                          title:
-                              AppLocalizations.of(context)!.parkirButton,
+                          title: AppLocalizations.of(context)!.parkirButton,
                           type: "PBT",
-                          hint: AppLocalizations.of(context)!
-                              .inputPlateHint,
+                          hint: AppLocalizations.of(context)!.inputPlateHint,
                           biz: "PARKING",
                         ),
                       ),
                     );
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[300],
-                    foregroundColor: Colors.black,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    side: const BorderSide(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 40),
+                  icon: const Icon(
+                    Icons.arrow_back_rounded,
+                    size: 42,
                   ),
-                  child: Text(
+                  label: Text(
                     AppLocalizations.of(context)!.backText,
                     style: const TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFE0E0E0),
+                    foregroundColor: Colors.black,
+                    elevation: 0,
+                    side: const BorderSide(
+                      color: Colors.black,
+                      width: 2,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
                     ),
                   ),
                 ),
