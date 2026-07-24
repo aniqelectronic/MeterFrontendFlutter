@@ -2103,7 +2103,76 @@
 
 
 "fetchingPrayerTime": "Loading Prayer Times",
-"fetchingPrayerTimeDesc": "Please wait while the latest prayer times are being retrieved."
+"fetchingPrayerTimeDesc": "Please wait while the latest prayer times are being retrieved.",
+
+  "serviceSelectionLabel": "SERVICE SELECTION",
+  "pbtSupportingText": "Local authority services",
+  "billSupportingText": "Check and pay utility bills",
+  "touristSupportingText": "Explore nearby attractions and facilities",
+
+    "tourismServiceLabel": "TOURISM SERVICES",
+  "explorationSupportingText": "Discover interesting places and local attractions",
+  "mapSupportingText": "View locations and navigate using the interactive map",
+  "prayerTimeSupportingText": "Check the latest daily prayer times",
+
+    "pbtServiceLabel": "LOCAL AUTHORITY SERVICES",
+  "parkingSupportingText": "Pay parking charges and manage parking sessions",
+  "compoundSupportingText": "Check and pay vehicle compounds",
+  "taxSupportingText": "Check and pay assessment tax accounts",
+  "licenseSupportingText": "Check and pay business licence accounts",
+  "rentalSupportingText": "Check and pay municipal rental accounts",
+
+    "compoundServiceLabel": "COMPOUND SERVICES",
+  "singleCompoundSupportingText": "Search and pay using a single compound number",
+  "multiCompoundSupportingText": "Check all compounds and pay using the vehicle plate number",
+
+    "assessmentTaxServiceLabel": "ASSESSMENT TAX SERVICES",
+  "paymentTaxSupportingText": "Check outstanding assessment tax and make payment",
+  "checkTaxSupportingText": "Check assessment tax payments made at this kiosk",
+
+    "rentalServiceLabel": "MUNICIPAL RENTAL SERVICES",
+  "paymentRentalSupportingText": "Check outstanding municipal rental charges and make payment",
+  "checkRentalSupportingText": "Check municipal rental payments made at this kiosk",
+
+    "parkingManagementLabel": "PARKING MANAGEMENT",
+  "extendParkingSupportingText": "Add more time to the current parking session",
+  "parkingReceiptSupportingText": "View and download the parking payment receipt",
+
+    "billPaymentServiceLabel": "BILL PAYMENT SERVICES",
+  "electricityBillSupportingText": "Check and pay electricity bills from supported providers",
+  "waterBillSupportingText": "Check and pay water bills from supported providers",
+  "broadbandBillSupportingText": "Check and pay broadband and internet service bills",
+  "entertainmentBillSupportingText": "Check and pay television and entertainment service bills",
+  "telcoBillSupportingText": "Check and pay mobile and telecommunication bills",
+
+  "mapInteractiveBadge": "INTERACTIVE MAP",
+"mapSearchingLocation": "Searching location...",
+"mapDistanceAway": "{distance} km away",
+"@mapDistanceAway": {
+  "placeholders": {
+    "distance": {
+      "type": "String"
+    }
+  }
+},
+"mapKeyboardTitle": "Kiosk Keyboard",
+"mapZoomIn": "Zoom In",
+"mapZoomOut": "Zoom Out",
+"mapReset": "Reset Map",
+
+"receiptPaymentTitle": "PAYMENT RECEIPT",
+"receiptSummonsTitle": "SUMMONS PAYMENT RECEIPT",
+"receiptPaymentSuccessful": "Payment Successful",
+"receiptThankYouMessage": "Thank you. Your payment has been completed successfully.",
+"receiptTransactionDetailsTitle": "Transaction Details",
+"receiptDigitalReceiptTitle": "Digital Receipt",
+"receiptOrderNumberLabel": "Order Number",
+"receiptBankTransactionLabel": "Bank Transaction Number",
+"receiptPaymentStatusLabel": "Payment Status",
+"receiptQrInstruction": "Scan the QR code using your phone to view or download the receipt.",
+"receiptQrLoading": "Preparing your digital receipt...",
+"receiptQrLoadFailed": "The receipt QR code could not be loaded.",
+"receiptTryAgain": "Try Again"
 
 
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_v1/pages/config.dart';
+import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/pages/option/p2.dart';
+import 'package:frontend_v1/pages/pbt/compound/p4optioncompound.dart';
 import 'package:frontend_v1/pages/pbt/cukai/p4_option_cukai_bentong.dart';
+import 'package:frontend_v1/pages/pbt/p4.dart';
 import 'package:frontend_v1/pages/pbt/sewaan/p4_option_sewaan_bentong.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
-import 'p2.dart';
-import '../pbt/compound/p4optioncompound.dart';
-import '../pbt/p4.dart';
-import 'package:frontend_v1/l10n/app_localizations.dart';
 
 class PBT3PAGE extends StatefulWidget {
   const PBT3PAGE({super.key});
@@ -22,7 +21,6 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
   bool showScrollUp = false;
   bool showScrollDown = true;
 
-
   @override
   void initState() {
     super.initState();
@@ -35,21 +33,13 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
   }
 
   void _handleScroll() {
-    if (!_scrollController.hasClients || !mounted) {
-      return;
-    }
+    if (!_scrollController.hasClients || !mounted) return;
 
-    final maxScroll =
-        _scrollController.position.maxScrollExtent;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final current = _scrollController.offset;
 
-    final current =
-        _scrollController.offset;
-
-    final newShowScrollUp =
-        current > 10;
-
-    final newShowScrollDown =
-        current < maxScroll - 10;
+    final newShowScrollUp = current > 10;
+    final newShowScrollDown = current < maxScroll - 10;
 
     if (showScrollUp != newShowScrollUp ||
         showScrollDown != newShowScrollDown) {
@@ -61,40 +51,34 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
   }
 
   void _scrollUp() {
-    if (!_scrollController.hasClients) {
-      return;
-    }
+    if (!_scrollController.hasClients) return;
 
-    final destination =
-        (_scrollController.offset - 600).clamp(
+    final destination = (_scrollController.offset - 600).clamp(
       0.0,
       _scrollController.position.maxScrollExtent,
     );
 
     _scrollController.animateTo(
       destination,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 450),
+      curve: Curves.easeOutCubic,
     );
   }
 
   void _scrollDown() {
-    if (!_scrollController.hasClients) {
-      return;
-    }
+    if (!_scrollController.hasClients) return;
 
-    final destination =
-        (_scrollController.offset + 600).clamp(
+    final destination = (_scrollController.offset + 600).clamp(
       0.0,
       _scrollController.position.maxScrollExtent,
     );
 
     _scrollController.animateTo(
       destination,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 450),
+      curve: Curves.easeOutCubic,
     );
-  } 
+  }
 
   @override
   void dispose() {
@@ -105,260 +89,286 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Stack(
         children: [
-          // ================= BACKGROUND =================
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("lib/images/pnew.png"),
-                fit: BoxFit.cover,
-              ),
+          // ============================================================
+          // BACKGROUND
+          // ============================================================
+          Positioned.fill(
+            child: Image.asset(
+              'lib/images/pnew.png',
+              fit: BoxFit.cover,
             ),
           ),
 
-          // ================= TITLE =================
-          Positioned(
-            top: 80,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
-                AppLocalizations.of(context)!.p3Title,
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 3, 89, 210),
-                  fontSize: 60,
-                  fontWeight: FontWeight.bold,
+          // ============================================================
+          // SOFT BACKGROUND OVERLAY
+          // ============================================================
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.white.withOpacity(0.05),
+                    Colors.white.withOpacity(0.16),
+                    Colors.white.withOpacity(0.08),
+                  ],
                 ),
               ),
             ),
           ),
 
-          // ================= SUBTITLE =================
+          // ============================================================
+          // MODERN HEADER
+          // ============================================================
           Positioned(
-            top: 200,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
-                AppLocalizations.of(context)!.p3Subtitle,
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 62, 62, 62),
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+            top: 90,
+            left: 65,
+            right: 65,
+            child: _ModernPageHeader(
+              badgeText: loc.pbtServiceLabel,
+              title: loc.p3Title,
+              subtitle: loc.p3Subtitle,
             ),
           ),
 
-          // ================= ONLY BUTTON AREA SCROLL =================
+          // ============================================================
+          // SCROLLABLE SERVICE BUTTON AREA
+          // ============================================================
           Positioned(
-            top: 350,
-            left: 0,
-            right: 0,
-            bottom: 400,
-          child: Scrollbar(
-            controller: _scrollController,
-            thumbVisibility: true,
-            trackVisibility: true,
-            thickness: 12,
-            radius: const Radius.circular(20),
-            child: SingleChildScrollView(
+            top: 385,
+            left: 60,
+            right: 60,
+            bottom: 340,
+            child: Scrollbar(
               controller: _scrollController,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.only(right: 20),
-              child: SizedBox(
-                height: 1520,
-                child: Stack(
+              thumbVisibility: true,
+              trackVisibility: false,
+              thickness: 8,
+              radius: const Radius.circular(20),
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
+                padding: const EdgeInsets.only(
+                  top: 30,
+                  right: 24,
+                  bottom: 100,
+                ),
+                child: Column(
                   children: [
-                    // ================= PARKING BUTTON =================
-                    Positioned(
-                      top: 50,
-                      left: -500,
-                      right: 0,
-                      child: _KioskMainButton(
-                        width: 400,
-                        height: 400,
-                        icon: const IconData(
-                          0xe39d,
-                          fontFamily: 'MaterialIcons',
+                    // ==================================================
+                    // FIRST ROW
+                    // ==================================================
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _ModernServiceButton(
+                            height: 420,
+                            icon: Icons.local_parking_rounded,
+                            label: loc.parkirButton,
+                            supportingText:
+                                loc.parkingSupportingText,
+                            accentColor: const Color(0xFF1469E8),
+                            accentLightColor:
+                                const Color(0xFFE6F0FF),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => P4PAGE(
+                                    title: loc.parkirButton,
+                                    type: 'PBT',
+                                    hint: loc.inputPlateHint,
+                                    biz: 'PARKING',
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                        label: AppLocalizations.of(context)!.parkirButton,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => P4PAGE(
-                                title:
-                                    AppLocalizations.of(context)!.parkirButton,
-                                type: "PBT",
-                                hint:
-                                    AppLocalizations.of(context)!
-                                        .inputPlateHint,
-                                biz: "PARKING",
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-
-                    // ================= KOMPAUN BUTTON =================
-                    Positioned(
-                      top: 50,
-                      left: 0,
-                      right: -500,
-                      child: _KioskMainButton(
-                        width: 400,
-                        height: 400,
-                        icon: const IconData(
-                          0xf03d3,
-                          fontFamily: 'MaterialIcons',
+                        const SizedBox(width: 38),
+                        Expanded(
+                          child: _ModernServiceButton(
+                            height: 420,
+                            icon: Icons.gavel_rounded,
+                            label: loc.compoundButton,
+                            supportingText:
+                                loc.compoundSupportingText,
+                            accentColor: const Color(0xFFE34E45),
+                            accentLightColor:
+                                const Color(0xFFFFE7E5),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      const P4OPTIONCOMPOUND(),
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                        label:
-                            AppLocalizations.of(context)!.compoundButton,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) =>
-                                  const P4OPTIONCOMPOUND(),
-                            ),
-                          );
-                        },
-                      ),
+                      ],
                     ),
 
-                    // ================= CUKAI BUTTON =================
-                    Positioned(
-                      top: 550,
-                      left: -500,
-                      right: 0,
-                      child: _KioskMainButton(
-                        width: 400,
-                        height: 400,
-                        icon: const IconData(
-                          0xe63c,
-                          fontFamily: 'MaterialIcons',
+                    const SizedBox(height: 42),
+
+                    // ==================================================
+                    // SECOND ROW
+                    // ==================================================
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _ModernServiceButton(
+                            height: 420,
+                            icon: Icons.account_balance_rounded,
+                            label: loc.taxButton,
+                            supportingText: loc.taxSupportingText,
+                            accentColor: const Color(0xFF7B4DE3),
+                            accentLightColor:
+                                const Color(0xFFF0E9FF),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      const P4OPTIONCUKAIBENTONG(),
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                        label: AppLocalizations.of(context)!.taxButton,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) =>
-                                  const P4OPTIONCUKAIBENTONG(),
-                            ),
-                          );
-                        },
-                      ),
+                        const SizedBox(width: 38),
+                        Expanded(
+                          child: _ModernServiceButton(
+                            height: 420,
+                            icon: Icons.badge_rounded,
+                            label: loc.licenseButton,
+                            supportingText:
+                                loc.licenseSupportingText,
+                            accentColor: const Color(0xFFE56C16),
+                            accentLightColor:
+                                const Color(0xFFFFEBDC),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => P4PAGE(
+                                    title: loc.licenseButton,
+                                    type: 'PBT',
+                                    hint: loc.inputICHint,
+                                    biz: 'LESEN',
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
 
-                    // ================= LESEN BUTTON =================
-                    Positioned(
-                      top: 550,
-                      left: 0,
-                      right: -500,
-                      child: _KioskMainButton(
-                        width: 400,
-                        height: 400,
-                        // imagePath: "lib/images/lesen.png",
-                        icon:Icons.assignment_ind,
-                        label:
-                            AppLocalizations.of(context)!.licenseButton,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => P4PAGE(
-                                title:
-                                    AppLocalizations.of(context)!
-                                        .licenseButton,
-                                type: "PBT",
-                                hint:
-                                    AppLocalizations.of(context)!
-                                        .inputICHint,
-                                biz: "LESEN",
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    const SizedBox(height: 42),
 
-                    // ================= SEWAAN PBT BUTTON =================
-                    Positioned(
-                      top: 1050,
-                      left: -500,
-                      right: 0,
-                      child: _KioskMainButton(
-                        width: 400,
-                        height: 400,
-                        icon: Icons.home_work,
-                        label: AppLocalizations.of(context)!.rentPBTText,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => P4OPTIONSEWAANBENTONG(
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                    // ==================================================
+                    // THIRD ROW
+                    // ==================================================
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _ModernServiceButton(
+                            height: 420,
+                            icon: Icons.home_work_rounded,
+                            label: loc.rentPBTText,
+                            supportingText:
+                                loc.rentalSupportingText,
+                            accentColor: const Color(0xFF008F72),
+                            accentLightColor:
+                                const Color(0xFFE0F8F1),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      const P4OPTIONSEWAANBENTONG(),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 38),
+
+                        // Keeps the final card aligned to the left.
+                        const Expanded(
+                          child: SizedBox(
+                            height: 420,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-              ),
             ),
           ),
 
-        // ================= TOP SCROLL INDICATOR =================
-        if (showScrollUp)
-          Positioned(
-            right: 25,
-            top: 370,
-            child: _ScrollIndicatorButton(
-              icon: Icons.keyboard_arrow_up_rounded,
-              label: AppLocalizations.of(context)!.scrollup,
-              onPressed: _scrollUp,
-            ),
-          ),
-
-        // ================= BOTTOM SCROLL INDICATOR =================
-        if (showScrollDown)
-          Positioned(
-            right: 25,
-            bottom: 350,
-            child: _ScrollIndicatorButton(
-              icon: Icons.keyboard_arrow_down_rounded,
-              label: AppLocalizations.of(context)!.scrolldown,
-              onPressed: _scrollDown,
-              iconBelowText: true,
-            ),
-          ),
-          // ================= BACK BUTTON FIXED =================
+          // ============================================================
+          // TOP SCROLL INDICATOR
+          // ============================================================
+          if (showScrollUp)
             Positioned(
-              bottom: 100,
-              left: 300,
-              right: 300,
-              child: KioskBackButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const P2Page(),
-                    ),
-                  );
-                },
+              right: 20,
+              top: 405,
+              child: _ScrollIndicatorButton(
+                icon: Icons.keyboard_arrow_up_rounded,
+                label: loc.scrollup,
+                onPressed: _scrollUp,
               ),
             ),
 
-          // ================= FOOTER FIXED =================
+          // ============================================================
+          // BOTTOM SCROLL INDICATOR
+          // ============================================================
+          if (showScrollDown)
+            Positioned(
+              right: 20,
+              bottom: 345,
+              child: _ScrollIndicatorButton(
+                icon: Icons.keyboard_arrow_down_rounded,
+                label: loc.scrolldown,
+                onPressed: _scrollDown,
+                iconBelowText: true,
+              ),
+            ),
+
+          // ============================================================
+          // BACK BUTTON
+          // ============================================================
+          Positioned(
+            bottom: 100,
+            left: 300,
+            right: 300,
+            child: KioskBackButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const P2Page(),
+                  ),
+                );
+              },
+            ),
+          ),
+
+          // ============================================================
+          // FOOTER
+          // ============================================================
           Positioned(
             bottom: 20,
             left: 0,
@@ -367,7 +377,7 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
               child: Text(
                 Data.copyrightText,
                 style: const TextStyle(
-                  color: Colors.black,
+                  color: Color(0xFF26364A),
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
                 ),
@@ -380,6 +390,470 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
   }
 }
 
+// ============================================================================
+// MODERN PAGE HEADER
+// ============================================================================
+class _ModernPageHeader extends StatelessWidget {
+  final String badgeText;
+  final String title;
+  final String subtitle;
+
+  const _ModernPageHeader({
+    required this.badgeText,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24,
+            vertical: 11,
+          ),
+          decoration: BoxDecoration(
+            color: const Color(0xFF1469E8).withOpacity(0.10),
+            borderRadius: BorderRadius.circular(100),
+            border: Border.all(
+              color: const Color(0xFF1469E8).withOpacity(0.22),
+              width: 1.5,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.account_balance_rounded,
+                size: 25,
+                color: Color(0xFF1469E8),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                badgeText.toUpperCase(),
+                style: const TextStyle(
+                  color: Color(0xFF1469E8),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 1.4,
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 20),
+
+        ShaderMask(
+          blendMode: BlendMode.srcIn,
+          shaderCallback: (bounds) {
+            return const LinearGradient(
+              colors: [
+                Color(0xFF064CAC),
+                Color(0xFF1987EB),
+              ],
+            ).createShader(bounds);
+          },
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 64,
+              fontWeight: FontWeight.w900,
+              letterSpacing: -1.2,
+              height: 1.05,
+            ),
+          ),
+        ),
+
+        const SizedBox(height: 16),
+
+        Container(
+          constraints: const BoxConstraints(
+            maxWidth: 860,
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 32,
+            vertical: 16,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.88),
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: Colors.black.withOpacity(0.18),
+              width: 1.5,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF113968).withOpacity(0.10),
+                blurRadius: 24,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          child: Text(
+            subtitle,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(0xFF435166),
+              fontSize: 31,
+              fontWeight: FontWeight.w700,
+              height: 1.25,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ============================================================================
+// MODERN MAIN SERVICE BUTTON
+// ============================================================================
+class _ModernServiceButton extends StatefulWidget {
+  final IconData? icon;
+  final String? imagePath;
+  final String label;
+  final String supportingText;
+  final VoidCallback onPressed;
+  final double height;
+  final bool comingSoon;
+  final Color accentColor;
+  final Color accentLightColor;
+
+  const _ModernServiceButton({
+    super.key,
+    this.icon,
+    this.imagePath,
+    required this.label,
+    required this.supportingText,
+    required this.onPressed,
+    required this.accentColor,
+    required this.accentLightColor,
+    this.height = 420,
+    this.comingSoon = false,
+  });
+
+  @override
+  State<_ModernServiceButton> createState() =>
+      _ModernServiceButtonState();
+}
+
+class _ModernServiceButtonState
+    extends State<_ModernServiceButton> {
+  bool _isPressed = false;
+
+  void _setPressed(bool value) {
+    if (!mounted || widget.comingSoon) return;
+
+    setState(() {
+      _isPressed = value;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isEnabled = !widget.comingSoon;
+
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTapDown: isEnabled ? (_) => _setPressed(true) : null,
+      onTapUp: isEnabled ? (_) => _setPressed(false) : null,
+      onTapCancel:
+          isEnabled ? () => _setPressed(false) : null,
+      onTap: isEnabled ? widget.onPressed : null,
+      child: AnimatedScale(
+        scale: _isPressed ? 0.965 : 1,
+        duration: const Duration(milliseconds: 130),
+        curve: Curves.easeOut,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          curve: Curves.easeOut,
+          height: widget.height,
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(
+              widget.comingSoon ? 0.65 : 0.94,
+            ),
+            borderRadius: BorderRadius.circular(40),
+
+            // Black border for clearer visibility.
+            border: Border.all(
+              color: _isPressed
+                  ? widget.accentColor
+                  : Colors.black,
+              width: _isPressed ? 4 : 3,
+            ),
+
+            boxShadow: _isPressed
+                ? [
+                    BoxShadow(
+                      color:
+                          widget.accentColor.withOpacity(0.18),
+                      blurRadius: 18,
+                      offset: const Offset(0, 8),
+                    ),
+                  ]
+                : [
+                    BoxShadow(
+                      color: const Color(0xFF19375C)
+                          .withOpacity(0.16),
+                      blurRadius: 32,
+                      spreadRadius: 1,
+                      offset: const Offset(0, 16),
+                    ),
+                    BoxShadow(
+                      color: Colors.white.withOpacity(0.85),
+                      blurRadius: 4,
+                      offset: const Offset(0, -2),
+                    ),
+                  ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(37),
+            child: Stack(
+              children: [
+                // Large decorative circle.
+                Positioned(
+                  right: -45,
+                  top: -45,
+                  child: AnimatedContainer(
+                    duration:
+                        const Duration(milliseconds: 180),
+                    width: _isPressed ? 205 : 190,
+                    height: _isPressed ? 205 : 190,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: widget.accentLightColor
+                          .withOpacity(0.88),
+                    ),
+                  ),
+                ),
+
+                // Smaller decorative circle.
+                Positioned(
+                  right: 105,
+                  top: 78,
+                  child: Container(
+                    width: 38,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: widget.accentColor
+                          .withOpacity(0.08),
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                    34,
+                    34,
+                    30,
+                    30,
+                  ),
+                  child: Opacity(
+                    opacity:
+                        widget.comingSoon ? 0.5 : 1,
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                          children: [
+                            AnimatedContainer(
+                              duration: const Duration(
+                                milliseconds: 160,
+                              ),
+                              width: 132,
+                              height: 132,
+                              decoration: BoxDecoration(
+                                color:
+                                    widget.accentLightColor,
+                                borderRadius:
+                                    BorderRadius.circular(34),
+                                border: Border.all(
+                                  color: widget.accentColor
+                                      .withOpacity(0.18),
+                                  width: 1.5,
+                                ),
+                              ),
+                              child: Center(
+                                child: widget.icon != null
+                                    ? Icon(
+                                        widget.icon,
+                                        size: _isPressed
+                                            ? 77
+                                            : 72,
+                                        color:
+                                            widget.accentColor,
+                                      )
+                                    : Image.asset(
+                                        widget.imagePath!,
+                                        height: 76,
+                                        width: 76,
+                                        fit: BoxFit.contain,
+                                      ),
+                              ),
+                            ),
+
+                            AnimatedContainer(
+                              duration: const Duration(
+                                milliseconds: 160,
+                              ),
+                              transform:
+                                  Matrix4.translationValues(
+                                _isPressed ? 6 : 0,
+                                0,
+                                0,
+                              ),
+                              width: 58,
+                              height: 58,
+                              decoration: BoxDecoration(
+                                color: widget.accentColor,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: widget
+                                        .accentColor
+                                        .withOpacity(0.24),
+                                    blurRadius: 14,
+                                    offset:
+                                        const Offset(0, 7),
+                                  ),
+                                ],
+                              ),
+                              child: const Icon(
+                                Icons.arrow_forward_rounded,
+                                color: Colors.white,
+                                size: 32,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const Spacer(),
+
+                        Text(
+                          widget.label.toUpperCase(),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Color(0xFF15253A),
+                            fontSize: 39,
+                            fontWeight: FontWeight.w900,
+                            height: 1.08,
+                            letterSpacing: 0.4,
+                          ),
+                        ),
+
+                        const SizedBox(height: 14),
+
+                        Text(
+                          widget.supportingText,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Color(0xFF647187),
+                            fontSize: 25,
+                            fontWeight: FontWeight.w600,
+                            height: 1.28,
+                          ),
+                        ),
+
+                        const SizedBox(height: 23),
+
+                        Row(
+                          children: [
+                            Container(
+                              width: 58,
+                              height: 7,
+                              decoration: BoxDecoration(
+                                color: widget.accentColor,
+                                borderRadius:
+                                    BorderRadius.circular(50),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Container(
+                              width: 12,
+                              height: 7,
+                              decoration: BoxDecoration(
+                                color: widget.accentColor
+                                    .withOpacity(0.28),
+                                borderRadius:
+                                    BorderRadius.circular(50),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Coming soon overlay.
+                if (widget.comingSoon)
+                  Positioned.fill(
+                    child: Container(
+                      color: Colors.white.withOpacity(0.28),
+                      alignment: Alignment.center,
+                      child: Transform.rotate(
+                        angle: -0.12,
+                        child: Container(
+                          padding:
+                              const EdgeInsets.symmetric(
+                            horizontal: 34,
+                            vertical: 15,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFE74343),
+                            borderRadius:
+                                BorderRadius.circular(18),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black
+                                    .withOpacity(0.20),
+                                blurRadius: 18,
+                                offset:
+                                    const Offset(0, 8),
+                              ),
+                            ],
+                          ),
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .comingsoonText
+                                .toUpperCase(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 29,
+                              fontWeight:
+                                  FontWeight.w900,
+                              letterSpacing: 2,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ============================================================================
+// SCROLL INDICATOR BUTTON
+// ============================================================================
 class _ScrollIndicatorButton extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -397,30 +871,32 @@ class _ScrollIndicatorButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final iconWidget = Icon(
       icon,
-      size: 58,
-      color: Colors.black,
+      size: 54,
+      color: const Color(0xFF175EB9),
     );
 
     final textWidget = Text(
       label,
       textAlign: TextAlign.center,
       style: const TextStyle(
-        fontSize: 18,
+        fontSize: 17,
         fontWeight: FontWeight.w900,
-        color: Colors.black,
+        color: Color(0xFF24405F),
       ),
     );
 
     return Material(
-      color: Colors.white.withOpacity(0.90),
+      color: Colors.white.withOpacity(0.94),
       borderRadius: BorderRadius.circular(22),
-      elevation: 4,
+      elevation: 5,
+      shadowColor:
+          const Color(0xFF14345A).withOpacity(0.25),
       child: InkWell(
         onTap: onPressed,
         borderRadius: BorderRadius.circular(22),
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 12,
+            horizontal: 13,
             vertical: 10,
           ),
           child: Column(
@@ -434,213 +910,6 @@ class _ScrollIndicatorButton extends StatelessWidget {
                     iconWidget,
                     textWidget,
                   ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// =======================================================
-/// REUSABLE KIOSK BUTTON
-/// =======================================================
-class _KioskMainButton extends StatefulWidget {
-  final IconData? icon;
-  final String? imagePath;
-  final String label;
-  final VoidCallback onPressed;
-  final double width;
-  final double height;
-  final bool comingSoon;
-
-  const _KioskMainButton({
-    super.key,
-    this.icon,
-    this.imagePath,
-    required this.label,
-    required this.onPressed,
-    this.width = 200,
-    this.height = 150,
-    this.comingSoon = false,
-  });
-
-  @override
-  State<_KioskMainButton> createState() =>
-      _KioskMainButtonState();
-}
-
-class _KioskMainButtonState extends State<_KioskMainButton> {
-  bool _isPressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final bool isEnabled = !widget.comingSoon;
-
-    return Center(
-      child: GestureDetector(
-        onTapDown:
-            (_) => isEnabled
-                ? setState(() => _isPressed = true)
-                : null,
-        onTapUp:
-            (_) => isEnabled
-                ? setState(() => _isPressed = false)
-                : null,
-        onTapCancel:
-            () => setState(() => _isPressed = false),
-        onTap: isEnabled ? widget.onPressed : null,
-        child: AnimatedScale(
-          scale: _isPressed ? 0.95 : 1.0,
-          duration: const Duration(milliseconds: 100),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                width: widget.width,
-                height: widget.height,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(45),
-                  border: Border.all(
-                    color:
-                        widget.comingSoon
-                            ? Colors.grey
-                            : Colors.black,
-                    width: 4,
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors:
-                        widget.comingSoon
-                            ? [
-                              const Color(0xFFE0E0E0),
-                              const Color(0xFFBDBDBD),
-                            ]
-                            : [
-                              const Color(0xFFF4F8FF),
-                              const Color(0xFFCCD9F2),
-                            ],
-                  ),
-                  boxShadow:
-                      _isPressed || widget.comingSoon
-                          ? []
-                          : [
-                            const BoxShadow(
-                              color: Colors.black,
-                              offset: Offset(0, 12),
-                              blurRadius: 0,
-                            ),
-                          ],
-                ),
-                child: Opacity(
-                  opacity:
-                      widget.comingSoon ? 0.5 : 1.0,
-                  child: Column(
-                    mainAxisAlignment:
-                        MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 3,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black
-                                  .withOpacity(0.1),
-                              offset: const Offset(0, 4),
-                              blurRadius: 4,
-                            ),
-                          ],
-                        ),
-                        child:
-                            widget.icon != null
-                                ? Icon(
-                                  widget.icon,
-                                  size: 140,
-                                  color: Colors.black,
-                                )
-                                : Image.asset(
-                                  widget.imagePath!,
-                                  height: 140,
-                                ),
-                      ),
-
-                      const SizedBox(height: 30),
-
-                    SizedBox(
-                      width: widget.width - 40,
-                      child: Text(
-                        widget.label.toUpperCase(),
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.visible,
-                        softWrap: true,
-                        style: const TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.black,
-                          letterSpacing: 1.2,
-                          height: 1.15,
-                        ),
-                      ),
-                    ),
-                    ],
-                  ),
-                ),
-              ),
-
-              if (widget.comingSoon)
-                Positioned.fill(
-                  child: Center(
-                    child: Transform.rotate(
-                      angle: -0.2,
-                      child: Container(
-                        width: widget.width * 1.1,
-                        padding:
-                            const EdgeInsets.symmetric(
-                              vertical: 12,
-                            ),
-                        decoration: BoxDecoration(
-                          color: Colors.red.withOpacity(
-                            0.9,
-                          ),
-                          borderRadius:
-                              BorderRadius.circular(8),
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 3,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black
-                                  .withOpacity(0.3),
-                              blurRadius: 10,
-                              offset: const Offset(0, 5),
-                            ),
-                          ],
-                        ),
-                        child: Text(
-                          AppLocalizations.of(context)!
-                              .comingsoonText
-                              .toUpperCase(),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            letterSpacing: 4,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-            ],
           ),
         ),
       ),

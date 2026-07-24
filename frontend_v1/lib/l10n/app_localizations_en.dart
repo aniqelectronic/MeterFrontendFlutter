@@ -4174,4 +4174,162 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fetchingPrayerTimeDesc => 'Please wait while the latest prayer times are being retrieved.';
+
+  @override
+  String get serviceSelectionLabel => 'SERVICE SELECTION';
+
+  @override
+  String get pbtSupportingText => 'Local authority services';
+
+  @override
+  String get billSupportingText => 'Check and pay utility bills';
+
+  @override
+  String get touristSupportingText => 'Explore nearby attractions and facilities';
+
+  @override
+  String get tourismServiceLabel => 'TOURISM SERVICES';
+
+  @override
+  String get explorationSupportingText => 'Discover interesting places and local attractions';
+
+  @override
+  String get mapSupportingText => 'View locations and navigate using the interactive map';
+
+  @override
+  String get prayerTimeSupportingText => 'Check the latest daily prayer times';
+
+  @override
+  String get pbtServiceLabel => 'LOCAL AUTHORITY SERVICES';
+
+  @override
+  String get parkingSupportingText => 'Pay parking charges and manage parking sessions';
+
+  @override
+  String get compoundSupportingText => 'Check and pay vehicle compounds';
+
+  @override
+  String get taxSupportingText => 'Check and pay assessment tax accounts';
+
+  @override
+  String get licenseSupportingText => 'Check and pay business licence accounts';
+
+  @override
+  String get rentalSupportingText => 'Check and pay municipal rental accounts';
+
+  @override
+  String get compoundServiceLabel => 'COMPOUND SERVICES';
+
+  @override
+  String get singleCompoundSupportingText => 'Search and pay using a single compound number';
+
+  @override
+  String get multiCompoundSupportingText => 'Check all compounds and pay using the vehicle plate number';
+
+  @override
+  String get assessmentTaxServiceLabel => 'ASSESSMENT TAX SERVICES';
+
+  @override
+  String get paymentTaxSupportingText => 'Check outstanding assessment tax and make payment';
+
+  @override
+  String get checkTaxSupportingText => 'Check assessment tax payments made at this kiosk';
+
+  @override
+  String get rentalServiceLabel => 'MUNICIPAL RENTAL SERVICES';
+
+  @override
+  String get paymentRentalSupportingText => 'Check outstanding municipal rental charges and make payment';
+
+  @override
+  String get checkRentalSupportingText => 'Check municipal rental payments made at this kiosk';
+
+  @override
+  String get parkingManagementLabel => 'PARKING MANAGEMENT';
+
+  @override
+  String get extendParkingSupportingText => 'Add more time to the current parking session';
+
+  @override
+  String get parkingReceiptSupportingText => 'View and download the parking payment receipt';
+
+  @override
+  String get billPaymentServiceLabel => 'BILL PAYMENT SERVICES';
+
+  @override
+  String get electricityBillSupportingText => 'Check and pay electricity bills from supported providers';
+
+  @override
+  String get waterBillSupportingText => 'Check and pay water bills from supported providers';
+
+  @override
+  String get broadbandBillSupportingText => 'Check and pay broadband and internet service bills';
+
+  @override
+  String get entertainmentBillSupportingText => 'Check and pay television and entertainment service bills';
+
+  @override
+  String get telcoBillSupportingText => 'Check and pay mobile and telecommunication bills';
+
+  @override
+  String get mapInteractiveBadge => 'INTERACTIVE MAP';
+
+  @override
+  String get mapSearchingLocation => 'Searching location...';
+
+  @override
+  String mapDistanceAway(String distance) {
+    return '$distance km away';
+  }
+
+  @override
+  String get mapKeyboardTitle => 'Kiosk Keyboard';
+
+  @override
+  String get mapZoomIn => 'Zoom In';
+
+  @override
+  String get mapZoomOut => 'Zoom Out';
+
+  @override
+  String get mapReset => 'Reset Map';
+
+  @override
+  String get receiptPaymentTitle => 'PAYMENT RECEIPT';
+
+  @override
+  String get receiptSummonsTitle => 'SUMMONS PAYMENT RECEIPT';
+
+  @override
+  String get receiptPaymentSuccessful => 'Payment Successful';
+
+  @override
+  String get receiptThankYouMessage => 'Thank you. Your payment has been completed successfully.';
+
+  @override
+  String get receiptTransactionDetailsTitle => 'Transaction Details';
+
+  @override
+  String get receiptDigitalReceiptTitle => 'Digital Receipt';
+
+  @override
+  String get receiptOrderNumberLabel => 'Order Number';
+
+  @override
+  String get receiptBankTransactionLabel => 'Bank Transaction Number';
+
+  @override
+  String get receiptPaymentStatusLabel => 'Payment Status';
+
+  @override
+  String get receiptQrInstruction => 'Scan the QR code using your phone to view or download the receipt.';
+
+  @override
+  String get receiptQrLoading => 'Preparing your digital receipt...';
+
+  @override
+  String get receiptQrLoadFailed => 'The receipt QR code could not be loaded.';
+
+  @override
+  String get receiptTryAgain => 'Try Again';
 }

@@ -4168,4 +4168,162 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get fetchingPrayerTimeDesc => 'Sila tunggu sebentar sementara waktu solat terkini sedang diperoleh.';
+
+  @override
+  String get serviceSelectionLabel => 'PILIHAN PERKHIDMATAN';
+
+  @override
+  String get pbtSupportingText => 'Perkhidmatan pihak berkuasa tempatan';
+
+  @override
+  String get billSupportingText => 'Semakan dan pembayaran bil perkhidmatan';
+
+  @override
+  String get touristSupportingText => 'Terokai lokasi menarik dan kemudahan sekitar';
+
+  @override
+  String get tourismServiceLabel => 'PERKHIDMATAN PELANCONGAN';
+
+  @override
+  String get explorationSupportingText => 'Terokai tempat menarik dan tarikan tempatan';
+
+  @override
+  String get mapSupportingText => 'Lihat lokasi dan navigasi menggunakan peta interaktif';
+
+  @override
+  String get prayerTimeSupportingText => 'Semak waktu solat harian terkini';
+
+  @override
+  String get pbtServiceLabel => 'PERKHIDMATAN PIHAK BERKUASA TEMPATAN';
+
+  @override
+  String get parkingSupportingText => 'Bayar caj parkir dan urus sesi parkir';
+
+  @override
+  String get compoundSupportingText => 'Semak dan bayar kompaun kenderaan';
+
+  @override
+  String get taxSupportingText => 'Semak dan bayar akaun cukai taksiran';
+
+  @override
+  String get licenseSupportingText => 'Semak dan bayar akaun lesen perniagaan';
+
+  @override
+  String get rentalSupportingText => 'Semak dan bayar akaun sewaan majlis';
+
+  @override
+  String get compoundServiceLabel => 'PERKHIDMATAN KOMPAUN';
+
+  @override
+  String get singleCompoundSupportingText => 'Semak dan bayar menggunakan satu nombor kompaun';
+
+  @override
+  String get multiCompoundSupportingText => 'Semak semua kompaun dan bayar menggunakan nombor plat kenderaan';
+
+  @override
+  String get assessmentTaxServiceLabel => 'PERKHIDMATAN CUKAI TAKSIRAN';
+
+  @override
+  String get paymentTaxSupportingText => 'Semak tunggakan cukai taksiran dan buat pembayaran';
+
+  @override
+  String get checkTaxSupportingText => 'Semak pembayaran cukai taksiran yang dibuat di kiosk ini';
+
+  @override
+  String get rentalServiceLabel => 'PERKHIDMATAN SEWAAN MAJLIS';
+
+  @override
+  String get paymentRentalSupportingText => 'Semak tunggakan sewaan majlis dan buat pembayaran';
+
+  @override
+  String get checkRentalSupportingText => 'Semak pembayaran sewaan majlis yang dibuat di kiosk ini';
+
+  @override
+  String get parkingManagementLabel => 'PENGURUSAN PARKIR';
+
+  @override
+  String get extendParkingSupportingText => 'Tambah tempoh untuk sesi parkir semasa';
+
+  @override
+  String get parkingReceiptSupportingText => 'Lihat dan muat turun resit pembayaran parkir';
+
+  @override
+  String get billPaymentServiceLabel => 'PERKHIDMATAN PEMBAYARAN BIL';
+
+  @override
+  String get electricityBillSupportingText => 'Semak dan bayar bil elektrik daripada penyedia yang disokong';
+
+  @override
+  String get waterBillSupportingText => 'Semak dan bayar bil air daripada penyedia yang disokong';
+
+  @override
+  String get broadbandBillSupportingText => 'Semak dan bayar bil jalur lebar serta perkhidmatan internet';
+
+  @override
+  String get entertainmentBillSupportingText => 'Semak dan bayar bil televisyen serta perkhidmatan hiburan';
+
+  @override
+  String get telcoBillSupportingText => 'Semak dan bayar bil mudah alih serta telekomunikasi';
+
+  @override
+  String get mapInteractiveBadge => 'PETA INTERAKTIF';
+
+  @override
+  String get mapSearchingLocation => 'Mencari lokasi...';
+
+  @override
+  String mapDistanceAway(String distance) {
+    return '$distance km dari lokasi anda';
+  }
+
+  @override
+  String get mapKeyboardTitle => 'Papan Kekunci';
+
+  @override
+  String get mapZoomIn => 'Zum Masuk';
+
+  @override
+  String get mapZoomOut => 'Zum Keluar';
+
+  @override
+  String get mapReset => 'Tetapkan Semula Peta';
+
+  @override
+  String get receiptPaymentTitle => 'RESIT PEMBAYARAN';
+
+  @override
+  String get receiptSummonsTitle => 'RESIT PEMBAYARAN SAMAN';
+
+  @override
+  String get receiptPaymentSuccessful => 'Pembayaran Berjaya';
+
+  @override
+  String get receiptThankYouMessage => 'Terima kasih. Pembayaran anda telah berjaya diselesaikan.';
+
+  @override
+  String get receiptTransactionDetailsTitle => 'Butiran Transaksi';
+
+  @override
+  String get receiptDigitalReceiptTitle => 'Resit Digital';
+
+  @override
+  String get receiptOrderNumberLabel => 'Nombor Pesanan';
+
+  @override
+  String get receiptBankTransactionLabel => 'Nombor Transaksi Bank';
+
+  @override
+  String get receiptPaymentStatusLabel => 'Status Pembayaran';
+
+  @override
+  String get receiptQrInstruction => 'Imbas kod QR menggunakan telefon untuk melihat atau memuat turun resit.';
+
+  @override
+  String get receiptQrLoading => 'Resit digital anda sedang disediakan...';
+
+  @override
+  String get receiptQrLoadFailed => 'Kod QR resit tidak dapat dimuatkan.';
+
+  @override
+  String get receiptTryAgain => 'Cuba Lagi';
 }

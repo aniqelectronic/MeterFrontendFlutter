@@ -1220,7 +1220,7 @@ class _PWAKTUSOLATPAGEState
                           "https://www.e-solat.gov.my/",
                       version:
                           QrVersions.auto,
-                      size: 115,
+                      size: 150,
                       backgroundColor:
                           Colors.white,
                     ),
@@ -1238,8 +1238,8 @@ class _PWAKTUSOLATPAGEState
                         Row(
                           children: [
                             Container(
-                              width: 45,
-                              height: 45,
+                              width: 60,
+                              height: 60,
                               decoration:
                                   BoxDecoration(
                                 color:
@@ -1258,7 +1258,7 @@ class _PWAKTUSOLATPAGEState
                                     Color(
                                   0xFF1976D2,
                                 ),
-                                size: 28,
+                                size: 40,
                               ),
                             ),
 
@@ -1271,7 +1271,7 @@ class _PWAKTUSOLATPAGEState
                                 loc.prayerTimeDisclaimerTitle,
                                 style:
                                     const TextStyle(
-                                  fontSize: 27,
+                                  fontSize: 35,
                                   fontWeight:
                                       FontWeight.w900,
                                   color:
@@ -1292,7 +1292,7 @@ class _PWAKTUSOLATPAGEState
                           loc.prayerTimeDisclaimer,
                           style:
                               const TextStyle(
-                            fontSize: 20,
+                            fontSize: 25,
                             height: 1.35,
                             fontWeight:
                                 FontWeight.w600,
@@ -1311,7 +1311,7 @@ class _PWAKTUSOLATPAGEState
                           loc.prayerTimeQrInstruction,
                           style:
                               const TextStyle(
-                            fontSize: 18,
+                            fontSize: 25,
                             color:
                                 Color(
                               0xFF63758A,

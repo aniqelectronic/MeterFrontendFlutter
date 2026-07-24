@@ -2125,6 +2125,76 @@
 "pineyardFull": "Pineyard ialah destinasi makanan moden yang terkenal dengan suasana santai, persekitaran semula jadi dan pemandangan yang menarik. Pengunjung boleh menikmati makanan serta minuman dalam suasana tenang yang sesuai untuk makan santai, berkumpul dan mengambil gambar.",
 
 "fetchingPrayerTime": "Memuatkan Waktu Solat",
-"fetchingPrayerTimeDesc": "Sila tunggu sebentar sementara waktu solat terkini sedang diperoleh."
+"fetchingPrayerTimeDesc": "Sila tunggu sebentar sementara waktu solat terkini sedang diperoleh.",
+
+  "serviceSelectionLabel": "PILIHAN PERKHIDMATAN",
+  "pbtSupportingText": "Perkhidmatan pihak berkuasa tempatan",
+  "billSupportingText": "Semakan dan pembayaran bil perkhidmatan",
+  "touristSupportingText": "Terokai lokasi menarik dan kemudahan sekitar",
+
+    "tourismServiceLabel": "PERKHIDMATAN PELANCONGAN",
+  "explorationSupportingText": "Terokai tempat menarik dan tarikan tempatan",
+  "mapSupportingText": "Lihat lokasi dan navigasi menggunakan peta interaktif",
+  "prayerTimeSupportingText": "Semak waktu solat harian terkini",
+
+    "pbtServiceLabel": "PERKHIDMATAN PIHAK BERKUASA TEMPATAN",
+  "parkingSupportingText": "Bayar caj parkir dan urus sesi parkir",
+  "compoundSupportingText": "Semak dan bayar kompaun kenderaan",
+  "taxSupportingText": "Semak dan bayar akaun cukai taksiran",
+  "licenseSupportingText": "Semak dan bayar akaun lesen perniagaan",
+  "rentalSupportingText": "Semak dan bayar akaun sewaan majlis",
+
+    "compoundServiceLabel": "PERKHIDMATAN KOMPAUN",
+  "singleCompoundSupportingText": "Semak dan bayar menggunakan satu nombor kompaun",
+  "multiCompoundSupportingText": "Semak semua kompaun dan bayar menggunakan nombor plat kenderaan",
+
+    "assessmentTaxServiceLabel": "PERKHIDMATAN CUKAI TAKSIRAN",
+  "paymentTaxSupportingText": "Semak tunggakan cukai taksiran dan buat pembayaran",
+  "checkTaxSupportingText": "Semak pembayaran cukai taksiran yang dibuat di kiosk ini",
+
+    "rentalServiceLabel": "PERKHIDMATAN SEWAAN MAJLIS",
+  "paymentRentalSupportingText": "Semak tunggakan sewaan majlis dan buat pembayaran",
+  "checkRentalSupportingText": "Semak pembayaran sewaan majlis yang dibuat di kiosk ini",
+
+    "parkingManagementLabel": "PENGURUSAN PARKIR",
+  "extendParkingSupportingText": "Tambah tempoh untuk sesi parkir semasa",
+  "parkingReceiptSupportingText": "Lihat dan muat turun resit pembayaran parkir",
+
+    "billPaymentServiceLabel": "PERKHIDMATAN PEMBAYARAN BIL",
+  "electricityBillSupportingText": "Semak dan bayar bil elektrik daripada penyedia yang disokong",
+  "waterBillSupportingText": "Semak dan bayar bil air daripada penyedia yang disokong",
+  "broadbandBillSupportingText": "Semak dan bayar bil jalur lebar serta perkhidmatan internet",
+  "entertainmentBillSupportingText": "Semak dan bayar bil televisyen serta perkhidmatan hiburan",
+  "telcoBillSupportingText": "Semak dan bayar bil mudah alih serta telekomunikasi",
+
+  "mapInteractiveBadge": "PETA INTERAKTIF",
+"mapSearchingLocation": "Mencari lokasi...",
+"mapDistanceAway": "{distance} km dari lokasi anda",
+"@mapDistanceAway": {
+  "placeholders": {
+    "distance": {
+      "type": "String"
+    }
+  }
+},
+"mapKeyboardTitle": "Papan Kekunci",
+"mapZoomIn": "Zum Masuk",
+"mapZoomOut": "Zum Keluar",
+"mapReset": "Tetapkan Semula Peta",
+
+"receiptPaymentTitle": "RESIT PEMBAYARAN",
+"receiptSummonsTitle": "RESIT PEMBAYARAN SAMAN",
+"receiptPaymentSuccessful": "Pembayaran Berjaya",
+"receiptThankYouMessage": "Terima kasih. Pembayaran anda telah berjaya diselesaikan.",
+"receiptTransactionDetailsTitle": "Butiran Transaksi",
+"receiptDigitalReceiptTitle": "Resit Digital",
+"receiptOrderNumberLabel": "Nombor Pesanan",
+"receiptBankTransactionLabel": "Nombor Transaksi Bank",
+"receiptPaymentStatusLabel": "Status Pembayaran",
+"receiptQrInstruction": "Imbas kod QR menggunakan telefon untuk melihat atau memuat turun resit.",
+"receiptQrLoading": "Resit digital anda sedang disediakan...",
+"receiptQrLoadFailed": "Kod QR resit tidak dapat dimuatkan.",
+"receiptTryAgain": "Cuba Lagi"
+
 
 }

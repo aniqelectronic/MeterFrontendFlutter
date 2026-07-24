@@ -13,9 +13,16 @@ class SirimTime {
   ];
 
   static Future<bool> sync() async {
+    _hasSynced = false;
+
     for (final host in _hosts) {
       try {
-        final offsetMilliseconds = await NTP.getNtpOffset(
+        debugPrint(
+          '[SirimTime] Connecting to $host...',
+        );
+
+        final offsetMilliseconds =
+            await NTP.getNtpOffset(
           lookUpAddress: host,
           timeout: const Duration(seconds: 3),
         );
@@ -48,7 +55,7 @@ class SirimTime {
     return false;
   }
 
-  /// Use SirimTime.now() on other pages instead of DateTime.now().
+  /// Use SirimTime.now() instead of DateTime.now().
   static DateTime now() {
     return DateTime.now().add(_offset);
   }

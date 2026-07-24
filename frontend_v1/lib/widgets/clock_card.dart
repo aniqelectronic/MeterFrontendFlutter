@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:frontend_v1/services/internet_guard.dart';
 import 'package:frontend_v1/services/sirim_time.dart';
 
 class ClockCard extends StatefulWidget {
@@ -23,26 +24,40 @@ class _ClockCardState extends State<ClockCard> {
   Timer? _ticker;
   Timer? _resyncTimer;
 
+  bool _hasInternet = true;
+  bool _syncInProgress = false;
+
   int _syncStatus = 1;
 
   // 0 = green  = SIRIM synchronized
   // 1 = yellow = synchronizing
-  // 2 = red    = synchronization failed
+  // 2 = red    = no internet or synchronization failed
 
-  static const Duration _resyncInterval = Duration(minutes: 15);
-  static const Duration _retryInterval = Duration(minutes: 2);
+  /// After a successful sync, check again after 15 minutes.
+  static const Duration _resyncInterval =
+      Duration(minutes: 15);
+
+  /// If NTP synchronization fails, retry every 5 seconds.
+  static const Duration _retryInterval =
+      Duration(seconds: 5);
 
   @override
   void initState() {
     super.initState();
+
+    _hasInternet = InternetGuard().hasInternet;
+
+    InternetGuard().internetAvailable.addListener(
+      _handleInternetStatusChanged,
+    );
+
     _startClock();
   }
 
   Future<void> _startClock() async {
-    // Display the currently available time first.
     _updateTime();
 
-    // Start the clock before waiting for the SIRIM server.
+    // Update the displayed clock every second.
     _ticker = Timer.periodic(
       const Duration(seconds: 1),
       (_) {
@@ -50,23 +65,120 @@ class _ClockCardState extends State<ClockCard> {
       },
     );
 
-    // Synchronize the shared SirimTime function.
-    await _syncWithSirim();
+    if (!_hasInternet) {
+      _showUnavailableTime();
+      return;
+    }
 
-    // Schedule the next synchronization attempt.
-    _scheduleNextSync();
+    await _synchronizeAndSchedule();
   }
 
-  Future<void> _syncWithSirim() async {
+  void _handleInternetStatusChanged() {
     if (!mounted) return;
+
+    final hasInternet = InternetGuard().hasInternet;
+
+    if (_hasInternet == hasInternet) {
+      return;
+    }
+
+    setState(() {
+      _hasInternet = hasInternet;
+    });
+
+    if (!hasInternet) {
+      debugPrint(
+        '[ClockCard] Internet lost. Hiding clock.',
+      );
+
+      // Stop all pending NTP retry timers.
+      _resyncTimer?.cancel();
+      _resyncTimer = null;
+
+      setState(() {
+        _syncStatus = 2;
+      });
+
+      _showUnavailableTime();
+    } else {
+      debugPrint(
+        '[ClockCard] Internet restored. '
+        'Synchronizing with SIRIM immediately.',
+      );
+
+      setState(() {
+        _syncStatus = 1;
+      });
+
+      _updateTime();
+
+      // Synchronize immediately after internet returns.
+      _synchronizeAndSchedule();
+    }
+  }
+
+  Future<void> _synchronizeAndSchedule() async {
+    if (!mounted || !_hasInternet) {
+      return;
+    }
+
+    final success = await _syncWithSirim();
+
+    if (!mounted || !_hasInternet) {
+      return;
+    }
+
+    _scheduleNextSync(success: success);
+  }
+
+  Future<bool> _syncWithSirim() async {
+    if (!mounted || !_hasInternet) {
+      return false;
+    }
+
+    // Prevent multiple NTP requests from running together.
+    if (_syncInProgress) {
+      debugPrint(
+        '[ClockCard] SIRIM synchronization already running.',
+      );
+
+      return SirimTime.hasSynced;
+    }
+
+    _syncInProgress = true;
 
     setState(() {
       _syncStatus = 1;
     });
 
-    final success = await SirimTime.sync();
+    bool success = false;
 
-    if (!mounted) return;
+    try {
+      success = await SirimTime.sync();
+    } catch (error) {
+      debugPrint(
+        '[ClockCard] Unexpected SIRIM error: $error',
+      );
+
+      success = false;
+    } finally {
+      _syncInProgress = false;
+    }
+
+    if (!mounted) {
+      return success;
+    }
+
+    // Internet may have disconnected while waiting for NTP.
+    if (!_hasInternet) {
+      setState(() {
+        _syncStatus = 2;
+      });
+
+      _showUnavailableTime();
+
+      return false;
+    }
 
     setState(() {
       _syncStatus = success ? 0 : 2;
@@ -75,47 +187,85 @@ class _ClockCardState extends State<ClockCard> {
     _updateTime();
 
     if (success) {
-      debugPrint('[ClockCard] SIRIM time synchronized successfully.');
+      debugPrint(
+        '[ClockCard] SIRIM time synchronized successfully.',
+      );
     } else {
       debugPrint(
         '[ClockCard] SIRIM synchronization failed. '
-        'The displayed time is using the available device time.',
+        'Retrying in 5 seconds.',
       );
     }
+
+    return success;
   }
 
-  void _scheduleNextSync() {
+  void _scheduleNextSync({
+    required bool success,
+  }) {
     _resyncTimer?.cancel();
+    _resyncTimer = null;
 
-    final interval = _syncStatus == 0
+    if (!mounted || !_hasInternet) {
+      return;
+    }
+
+    final interval = success
         ? _resyncInterval
         : _retryInterval;
 
-    _resyncTimer = Timer(interval, () async {
-      await _syncWithSirim();
+    debugPrint(
+      success
+          ? '[ClockCard] Next SIRIM sync in 15 minutes.'
+          : '[ClockCard] Retrying SIRIM sync in 5 seconds.',
+    );
 
-      if (!mounted) return;
+    _resyncTimer = Timer(
+      interval,
+      () async {
+        if (!mounted || !_hasInternet) {
+          return;
+        }
 
-      _scheduleNextSync();
-    });
+        await _synchronizeAndSchedule();
+      },
+    );
   }
 
   void _updateTime() {
     if (!mounted) return;
 
-    // Use this instead of DateTime.now().
+    // Hide all time information when internet is unavailable.
+    if (!_hasInternet) {
+      _showUnavailableTime();
+      return;
+    }
+
     final currentTime = SirimTime.now();
 
     setState(() {
       _time =
-          '${_twoDigits(currentTime.hour)}:${_twoDigits(currentTime.minute)}';
+          '${_twoDigits(currentTime.hour)}:'
+          '${_twoDigits(currentTime.minute)}';
 
       _date =
           '${_twoDigits(currentTime.day)} '
           '${_monthName(currentTime.month)} '
           '${currentTime.year}';
 
-      _weekday = _weekdayName(currentTime.weekday);
+      _weekday = _weekdayName(
+        currentTime.weekday,
+      );
+    });
+  }
+
+  void _showUnavailableTime() {
+    if (!mounted) return;
+
+    setState(() {
+      _time = '--:--';
+      _date = '-- -- ----';
+      _weekday = '';
     });
   }
 
@@ -194,6 +344,10 @@ class _ClockCardState extends State<ClockCard> {
 
   @override
   void dispose() {
+    InternetGuard().internetAvailable.removeListener(
+      _handleInternetStatusChanged,
+    );
+
     _ticker?.cancel();
     _resyncTimer?.cancel();
 
@@ -212,12 +366,16 @@ class _ClockCardState extends State<ClockCard> {
 
     return Center(
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(38 * scale),
+        borderRadius: BorderRadius.circular(
+          38 * scale,
+        ),
         child: Container(
           width: 620 * scale,
           padding: EdgeInsets.all(8 * scale),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(38 * scale),
+            borderRadius: BorderRadius.circular(
+              38 * scale,
+            ),
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -250,7 +408,9 @@ class _ClockCardState extends State<ClockCard> {
             ),
             decoration: BoxDecoration(
               color: cardWhite,
-              borderRadius: BorderRadius.circular(32 * scale),
+              borderRadius: BorderRadius.circular(
+                32 * scale,
+              ),
               border: Border.all(
                 color: primaryBlue.withOpacity(0.12),
                 width: 1.4,
@@ -266,7 +426,9 @@ class _ClockCardState extends State<ClockCard> {
                     horizontal: 20 * scale,
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(28 * scale),
+                    borderRadius: BorderRadius.circular(
+                      28 * scale,
+                    ),
                     gradient: const LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -296,10 +458,16 @@ class _ClockCardState extends State<ClockCard> {
                           vertical: 12 * scale,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.85),
-                          borderRadius: BorderRadius.circular(18 * scale),
+                          color:
+                              Colors.white.withOpacity(0.85),
+                          borderRadius:
+                              BorderRadius.circular(
+                            18 * scale,
+                          ),
                           border: Border.all(
-                            color: primaryBlue.withOpacity(0.15),
+                            color: primaryBlue.withOpacity(
+                              0.15,
+                            ),
                           ),
                         ),
                         child: Row(
@@ -309,24 +477,30 @@ class _ClockCardState extends State<ClockCard> {
                               _weekday,
                               style: TextStyle(
                                 fontSize: 40 * scale,
-                                fontWeight: FontWeight.w900,
+                                fontWeight:
+                                    FontWeight.w900,
                                 color: primaryBlue,
                                 letterSpacing: 0.5,
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(
+                              margin:
+                                  EdgeInsets.symmetric(
                                 horizontal: 18 * scale,
                               ),
                               width: 1.5,
                               height: 26 * scale,
-                              color: primaryBlue.withOpacity(0.18),
+                              color:
+                                  primaryBlue.withOpacity(
+                                0.18,
+                              ),
                             ),
                             Text(
                               _date,
                               style: TextStyle(
-                                fontSize: 40 * scale,
-                                fontWeight: FontWeight.w700,
+                                fontSize: 36 * scale,
+                                fontWeight:
+                                    FontWeight.w700,
                                 color: darkNavy,
                               ),
                             ),
@@ -338,7 +512,8 @@ class _ClockCardState extends State<ClockCard> {
                 ),
                 SizedBox(height: 24 * scale),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment:
+                      MainAxisAlignment.center,
                   children: [
                     Icon(
                       _statusIcon(),

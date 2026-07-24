@@ -629,103 +629,157 @@ void _closeCardSuccessDialog() {
             ),
           ),
 
-          // Title
-          Positioned(
-            top: 80,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
-                AppLocalizations.of(context)!.paymentTitle,
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 3, 89, 210),
-                  fontSize: 70,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-
-          // First Text
-          Positioned(
-            top: 230,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
-                AppLocalizations.of(context)!.paymentSubtitle,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 40,
-                  fontWeight: FontWeight.w500,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-
-// Second Text (amount)
-Positioned(
-  top: 380,
-  left: 0,
-  right: 0,
-  child: Center(
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 35),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 15,
-            spreadRadius: 2,
-            offset: const Offset(0, 6),
-          )
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            AppLocalizations.of(context)!.totalAmountText,
-            style: const TextStyle(
-              color: Colors.black54,
-              fontSize: 40,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 10),
-
-          Row(
-            mainAxisSize: MainAxisSize.min,
+        // ============================================================
+        // MODERN HEADER TITLE
+        // ============================================================
+        Positioned(
+          top: 90,
+          left: 65,
+          right: 65,
+          child: Column(
             children: [
-              // const Icon(
-              //   Icons.payments,
-              //   size: 40,
-              //   color: Color.fromARGB(255, 3, 89, 210),
-              // ),
-              // const SizedBox(width: 15),
-              Text(
-                "RM $displayedAmount",
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 3, 89, 210),
-                  fontSize: 90,
-                  fontWeight: FontWeight.bold,
+              ShaderMask(
+                blendMode: BlendMode.srcIn,
+                shaderCallback: (bounds) {
+                  return const LinearGradient(
+                    colors: [
+                      Color(0xFF064CAC),
+                      Color(0xFF1987EB),
+                    ],
+                  ).createShader(bounds);
+                },
+                child: Text(
+                  AppLocalizations.of(context)!.paymentTitle,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 64,
+                    fontWeight: FontWeight.w900,
+                    height: 1.05,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 60),
+
+              Container(
+                constraints: const BoxConstraints(
+                  maxWidth: 850,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 15,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.90),
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(
+                    color: Colors.black.withOpacity(0.18),
+                    width: 1.5,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF113968).withOpacity(0.10),
+                      blurRadius: 24,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  AppLocalizations.of(context)!.paymentSubtitle,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Color(0xFF435166),
+                    fontSize: 29,
+                    fontWeight: FontWeight.w700,
+                    height: 1.25,
+                  ),
                 ),
               ),
             ],
           ),
-        ],
-      ),
-    ),
-  ),
-),
+        ),
+
+        // ============================================================
+        // MODERN TOTAL AMOUNT CARD
+        // ============================================================
+        Positioned(
+          top: 380,
+          left: 200,
+          right: 200,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 45,
+              vertical: 28,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.96),
+              borderRadius: BorderRadius.circular(32),
+              border: Border.all(
+                color: Colors.black,
+                width: 3,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF19375C).withOpacity(0.16),
+                  blurRadius: 30,
+                  offset: const Offset(0, 15),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                // Container(
+                //   width: 105,
+                //   height: 105,
+                //   decoration: BoxDecoration(
+                //     color: const Color(0xFFE5F0FF),
+                //     borderRadius: BorderRadius.circular(28),
+                //   ),
+                //   child: const Icon(
+                //     Icons.account_balance_wallet_rounded,
+                //     color: Color(0xFF1469E8),
+                //     size: 58,
+                //   ),
+                // ),
+
+                const SizedBox(width: 28),
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.totalAmountText,
+                        style: const TextStyle(
+                          color: Color(0xFF647187),
+                          fontSize: 26,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+
+                      const SizedBox(height: 5),
+
+                      Text(
+                        'RM $displayedAmount',
+                        style: const TextStyle(
+                          color: Color(0xFF1469E8),
+                          fontSize: 65,
+                          fontWeight: FontWeight.w900,
+                          height: 1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
 
           // CARD READER Button
           Positioned(
-            top: 750,
+            top: 700,
             left: -500,
             right: 0,
             child: Center(
@@ -1305,7 +1359,7 @@ Positioned(
 
                       // QR PAYMENT Button
                       Positioned(
-                        top: 750,
+                        top: 700,
                         left: 0,
                         right: -500,
                         child: Center(
@@ -1876,7 +1930,7 @@ Positioned(
 /// =======================================================
 /// PAYMENT BUTTON STYLE (SAME AS PBT3)
 /// =======================================================
-class _PaymentKioskButton extends StatelessWidget {
+class _PaymentKioskButton extends StatefulWidget {
   final IconData icon;
   final String label;
   final VoidCallback onPressed;
@@ -1888,71 +1942,174 @@ class _PaymentKioskButton extends StatelessWidget {
   });
 
   @override
+  State<_PaymentKioskButton> createState() =>
+      _PaymentKioskButtonState();
+}
+
+class _PaymentKioskButtonState
+    extends State<_PaymentKioskButton> {
+  bool _isPressed = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        width: 400,
-        height: 400,
-        child: DecoratedBox(
+    final bool isQr =
+        widget.label.toLowerCase().contains('qr');
+
+    final Color accentColor = isQr
+        ? const Color(0xFF15946B)
+        : const Color(0xFF1469E8);
+
+    final Color lightColor = isQr
+        ? const Color(0xFFE2F7EF)
+        : const Color(0xFFE5F0FF);
+
+    return GestureDetector(
+      onTapDown: (_) {
+        setState(() {
+          _isPressed = true;
+        });
+      },
+      onTapUp: (_) {
+        setState(() {
+          _isPressed = false;
+        });
+      },
+      onTapCancel: () {
+        setState(() {
+          _isPressed = false;
+        });
+      },
+      onTap: widget.onPressed,
+      child: AnimatedScale(
+        scale: _isPressed ? 0.965 : 1,
+        duration: const Duration(milliseconds: 130),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          width: 400,
+          height: 430,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            gradient: const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFFF6F9FF),
-                Color(0xFFD1DFF3),
-              ],
+            color: Colors.white.withOpacity(0.96),
+            borderRadius: BorderRadius.circular(40),
+            border: Border.all(
+              color: _isPressed
+                  ? accentColor
+                  : Colors.black,
+              width: _isPressed ? 4 : 3,
             ),
             boxShadow: [
               BoxShadow(
-                offset: const Offset(0, 8),
-                color: Colors.black.withOpacity(0.35),
-                blurRadius: 16,
+                color: const Color(0xFF19375C)
+                    .withOpacity(_isPressed ? 0.08 : 0.18),
+                blurRadius: _isPressed ? 15 : 30,
+                offset: Offset(
+                  0,
+                  _isPressed ? 7 : 16,
+                ),
               ),
             ],
-            border: Border.all(color: Colors.black, width: 2),
           ),
-          child: ElevatedButton(
-            onPressed: onPressed,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              shadowColor: Colors.transparent,
-              foregroundColor: Colors.black,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(37),
+            child: Stack(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 6,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Icon(
-                    icon,
-                    size: 160,
-                    color: Colors.black,
+                Positioned(
+                  right: -45,
+                  top: -45,
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: lightColor,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 20),
-                Text(
-                  label,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
+
+                Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 135,
+                            height: 125,
+                            decoration: BoxDecoration(
+                              color: lightColor,
+                              borderRadius:
+                                  BorderRadius.circular(32),
+                              border: Border.all(
+                                color:
+                                    accentColor.withOpacity(0.20),
+                              ),
+                            ),
+                            child: Icon(
+                              widget.icon,
+                              size: 72,
+                              color: accentColor,
+                            ),
+                          ),
+
+                          Container(
+                            width: 58,
+                            height: 58,
+                            decoration: BoxDecoration(
+                              color: accentColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.arrow_forward_rounded,
+                              color: Colors.white,
+                              size: 32,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const Spacer(),
+
+                      Text(
+                        widget.label.toUpperCase(),
+                        maxLines: 3,
+                        style: const TextStyle(
+                          color: Color(0xFF15253A),
+                          fontSize: 38,
+                          fontWeight: FontWeight.w900,
+                          height: 1.08,
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      Row(
+                        children: [
+                          Container(
+                            width: 58,
+                            height: 7,
+                            decoration: BoxDecoration(
+                              color: accentColor,
+                              borderRadius:
+                                  BorderRadius.circular(50),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Container(
+                            width: 12,
+                            height: 7,
+                            decoration: BoxDecoration(
+                              color:
+                                  accentColor.withOpacity(0.28),
+                              borderRadius:
+                                  BorderRadius.circular(50),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],

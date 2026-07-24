@@ -8260,6 +8260,318 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please wait while the latest prayer times are being retrieved.'**
   String get fetchingPrayerTimeDesc;
+
+  /// No description provided for @serviceSelectionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'SERVICE SELECTION'**
+  String get serviceSelectionLabel;
+
+  /// No description provided for @pbtSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Local authority services'**
+  String get pbtSupportingText;
+
+  /// No description provided for @billSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and pay utility bills'**
+  String get billSupportingText;
+
+  /// No description provided for @touristSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore nearby attractions and facilities'**
+  String get touristSupportingText;
+
+  /// No description provided for @tourismServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'TOURISM SERVICES'**
+  String get tourismServiceLabel;
+
+  /// No description provided for @explorationSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover interesting places and local attractions'**
+  String get explorationSupportingText;
+
+  /// No description provided for @mapSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'View locations and navigate using the interactive map'**
+  String get mapSupportingText;
+
+  /// No description provided for @prayerTimeSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the latest daily prayer times'**
+  String get prayerTimeSupportingText;
+
+  /// No description provided for @pbtServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'LOCAL AUTHORITY SERVICES'**
+  String get pbtServiceLabel;
+
+  /// No description provided for @parkingSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay parking charges and manage parking sessions'**
+  String get parkingSupportingText;
+
+  /// No description provided for @compoundSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and pay vehicle compounds'**
+  String get compoundSupportingText;
+
+  /// No description provided for @taxSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and pay assessment tax accounts'**
+  String get taxSupportingText;
+
+  /// No description provided for @licenseSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and pay business licence accounts'**
+  String get licenseSupportingText;
+
+  /// No description provided for @rentalSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and pay municipal rental accounts'**
+  String get rentalSupportingText;
+
+  /// No description provided for @compoundServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'COMPOUND SERVICES'**
+  String get compoundServiceLabel;
+
+  /// No description provided for @singleCompoundSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Search and pay using a single compound number'**
+  String get singleCompoundSupportingText;
+
+  /// No description provided for @multiCompoundSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check all compounds and pay using the vehicle plate number'**
+  String get multiCompoundSupportingText;
+
+  /// No description provided for @assessmentTaxServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'ASSESSMENT TAX SERVICES'**
+  String get assessmentTaxServiceLabel;
+
+  /// No description provided for @paymentTaxSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check outstanding assessment tax and make payment'**
+  String get paymentTaxSupportingText;
+
+  /// No description provided for @checkTaxSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check assessment tax payments made at this kiosk'**
+  String get checkTaxSupportingText;
+
+  /// No description provided for @rentalServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'MUNICIPAL RENTAL SERVICES'**
+  String get rentalServiceLabel;
+
+  /// No description provided for @paymentRentalSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check outstanding municipal rental charges and make payment'**
+  String get paymentRentalSupportingText;
+
+  /// No description provided for @checkRentalSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check municipal rental payments made at this kiosk'**
+  String get checkRentalSupportingText;
+
+  /// No description provided for @parkingManagementLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PARKING MANAGEMENT'**
+  String get parkingManagementLabel;
+
+  /// No description provided for @extendParkingSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Add more time to the current parking session'**
+  String get extendParkingSupportingText;
+
+  /// No description provided for @parkingReceiptSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'View and download the parking payment receipt'**
+  String get parkingReceiptSupportingText;
+
+  /// No description provided for @billPaymentServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'BILL PAYMENT SERVICES'**
+  String get billPaymentServiceLabel;
+
+  /// No description provided for @electricityBillSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and pay electricity bills from supported providers'**
+  String get electricityBillSupportingText;
+
+  /// No description provided for @waterBillSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and pay water bills from supported providers'**
+  String get waterBillSupportingText;
+
+  /// No description provided for @broadbandBillSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and pay broadband and internet service bills'**
+  String get broadbandBillSupportingText;
+
+  /// No description provided for @entertainmentBillSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and pay television and entertainment service bills'**
+  String get entertainmentBillSupportingText;
+
+  /// No description provided for @telcoBillSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and pay mobile and telecommunication bills'**
+  String get telcoBillSupportingText;
+
+  /// No description provided for @mapInteractiveBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'INTERACTIVE MAP'**
+  String get mapInteractiveBadge;
+
+  /// No description provided for @mapSearchingLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching location...'**
+  String get mapSearchingLocation;
+
+  /// No description provided for @mapDistanceAway.
+  ///
+  /// In en, this message translates to:
+  /// **'{distance} km away'**
+  String mapDistanceAway(String distance);
+
+  /// No description provided for @mapKeyboardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Kiosk Keyboard'**
+  String get mapKeyboardTitle;
+
+  /// No description provided for @mapZoomIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom In'**
+  String get mapZoomIn;
+
+  /// No description provided for @mapZoomOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom Out'**
+  String get mapZoomOut;
+
+  /// No description provided for @mapReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Map'**
+  String get mapReset;
+
+  /// No description provided for @receiptPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT RECEIPT'**
+  String get receiptPaymentTitle;
+
+  /// No description provided for @receiptSummonsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'SUMMONS PAYMENT RECEIPT'**
+  String get receiptSummonsTitle;
+
+  /// No description provided for @receiptPaymentSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Successful'**
+  String get receiptPaymentSuccessful;
+
+  /// No description provided for @receiptThankYouMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you. Your payment has been completed successfully.'**
+  String get receiptThankYouMessage;
+
+  /// No description provided for @receiptTransactionDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Details'**
+  String get receiptTransactionDetailsTitle;
+
+  /// No description provided for @receiptDigitalReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Receipt'**
+  String get receiptDigitalReceiptTitle;
+
+  /// No description provided for @receiptOrderNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Number'**
+  String get receiptOrderNumberLabel;
+
+  /// No description provided for @receiptBankTransactionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction Number'**
+  String get receiptBankTransactionLabel;
+
+  /// No description provided for @receiptPaymentStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Status'**
+  String get receiptPaymentStatusLabel;
+
+  /// No description provided for @receiptQrInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan the QR code using your phone to view or download the receipt.'**
+  String get receiptQrInstruction;
+
+  /// No description provided for @receiptQrLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your digital receipt...'**
+  String get receiptQrLoading;
+
+  /// No description provided for @receiptQrLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The receipt QR code could not be loaded.'**
+  String get receiptQrLoadFailed;
+
+  /// No description provided for @receiptTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get receiptTryAgain;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
