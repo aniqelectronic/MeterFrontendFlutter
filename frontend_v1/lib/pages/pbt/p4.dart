@@ -46,7 +46,6 @@ class _P4PAGEState extends State<P4PAGE> {
   final TextEditingController _controller = TextEditingController();
 
   String? _activeKey;
-  Offset? _activeKeyPosition;
 
   bool _isLoading = false;
 
@@ -622,6 +621,93 @@ void _showAlert(
     }
   }
 
+
+  Widget _buildAttachedKeyPreview({
+    required String key,
+    required String backspaceKey,
+    required String clearAllKey,
+    required double keyHeight,
+  }) {
+    return Positioned(
+      // The popup belongs to the key's own Stack, so it stays attached
+      // even when the whole app is resized by main.dart.
+      bottom: keyHeight - 2,
+      child: IgnorePointer(
+        child: TweenAnimationBuilder<double>(
+          key: ValueKey<String>('preview-$key'),
+          tween: Tween<double>(begin: 0.72, end: 1.0),
+          duration: const Duration(milliseconds: 140),
+          curve: Curves.easeOutBack,
+          builder: (context, scale, child) {
+            return Transform.scale(
+              scale: scale,
+              alignment: Alignment.bottomCenter,
+              child: child,
+            );
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFF42A5F5),
+                      Color(0xFF0D47A1),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 3,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF0D47A1).withOpacity(0.38),
+                      blurRadius: 18,
+                      spreadRadius: 1,
+                      offset: const Offset(0, 7),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: key == backspaceKey
+                      ? const Icon(
+                          Icons.backspace_outlined,
+                          color: Colors.white,
+                          size: 52,
+                        )
+                      : Text(
+                          key,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: key == clearAllKey ? 22 : 70,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                ),
+              ),
+              Transform.translate(
+                offset: const Offset(0, -2),
+                child: CustomPaint(
+                  size: const Size(30, 15),
+                  painter: DrawTriangle(
+                    Color.fromARGB(255, 3, 89, 210),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     const horizontalPadding = 80.0;
@@ -770,6 +856,7 @@ void _showAlert(
               child: Opacity(
                 opacity: _isLoading ? 0.5 : 1.0,
                 child: SingleChildScrollView(
+                  clipBehavior: Clip.none,
                   physics: const ClampingScrollPhysics(),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -785,98 +872,144 @@ void _showAlert(
                               final bool isActionKey =
                                   key == backspaceKey || key == clearAllKey;
 
+                              final double currentKeyWidth = key == backspaceKey
+                                  ? keyWidth * 1.3
+                                  : key == clearAllKey
+                                      ? keyWidth * 1.8
+                                      : keyWidth;
+
                               return Padding(
                                 padding: const EdgeInsets.only(right: keySpacing),
-                                child: Builder(
-                                  builder: (btnContext) {
-                                    return Listener(
-                                      onPointerDown: (details) {
-                                        if (_isLoading) return;
+                                child: SizedBox(
+                                  width: currentKeyWidth,
+                                  height: keyHeight,
+                                  child: Stack(
+                                    clipBehavior: Clip.none,
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Listener(
+                                        behavior: HitTestBehavior.opaque,
+                                        onPointerDown: (_) {
+                                          if (_isLoading) return;
+                                          setState(() => _activeKey = key);
+                                        },
+                                        onPointerUp: (_) {
+                                          if (_isLoading) return;
 
-                                        final RenderBox box =
-                                            btnContext.findRenderObject() as RenderBox;
-                                        final position =
-                                            box.localToGlobal(Offset.zero);
+                                          setState(() => _activeKey = null);
 
-                                        setState(() {
-                                          _activeKey = key;
-                                          _activeKeyPosition = position;
-                                        });
-                                      },
-                                      onPointerUp: (details) {
-                                        if (_isLoading) return;
-
-                                        setState(() => _activeKey = null);
-
-                                        if (key == backspaceKey) {
-                                          _backspace();
-                                        } else if (key == clearAllKey) {
-                                          _clearAll();
-                                        } else {
-                                          _addText(key);
-                                        }
-                                      },
-                                      onPointerCancel: (details) {
-                                        if (_isLoading) return;
-                                        setState(() => _activeKey = null);
-                                      },
-                                      child: Container(
-                                        width: key == backspaceKey
-                                            ? keyWidth * 1.3
-                                            : key == clearAllKey
-                                                ? keyWidth * 1.8
-                                                : keyWidth,
-                                        height: keyHeight,
-                                        decoration: BoxDecoration(
-                                          color: isActionKey
-                                              ? const Color.fromARGB(255, 3, 89, 210)
-                                              : (_activeKey == key
-                                                  ? Colors.grey[300]
-                                                  : Colors.white),
-                                          borderRadius: BorderRadius.circular(10),
-                                          border: Border.all(
-                                            color: Colors.black,
-                                            width: 2,
-                                          ),
-                                          boxShadow: _activeKey == key
-                                              ? []
-                                              : const [
-                                                  BoxShadow(
-                                                    color: Colors.black26,
-                                                    offset: Offset(0, 4),
-                                                    blurRadius: 2,
+                                          if (key == backspaceKey) {
+                                            _backspace();
+                                          } else if (key == clearAllKey) {
+                                            _clearAll();
+                                          } else {
+                                            _addText(key);
+                                          }
+                                        },
+                                        onPointerCancel: (_) {
+                                          if (_isLoading) return;
+                                          setState(() => _activeKey = null);
+                                        },
+                                        child: AnimatedContainer(
+                                          duration: const Duration(milliseconds: 110),
+                                          curve: Curves.easeOut,
+                                          width: currentKeyWidth,
+                                          height: keyHeight,
+                                          transform: Matrix4.identity()
+                                            ..scale(_activeKey == key ? 0.94 : 1.0),
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            gradient: isActionKey
+                                                ? const LinearGradient(
+                                                    begin: Alignment.topLeft,
+                                                    end: Alignment.bottomRight,
+                                                    colors: [
+                                                      Color(0xFF2F80ED),
+                                                      Color(0xFF0D47A1),
+                                                    ],
+                                                  )
+                                                : LinearGradient(
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment.bottomCenter,
+                                                    colors: _activeKey == key
+                                                        ? const [
+                                                            Color(0xFFDCE8F4),
+                                                            Color(0xFFC8D8E8),
+                                                          ]
+                                                        : const [
+                                                            Color(0xFFFFFFFF),
+                                                            Color(0xFFF2F6FA),
+                                                          ],
                                                   ),
-                                                ],
-                                        ),
-                                        child: Center(
-                                          child: key == backspaceKey
-                                              ? const Icon(
-                                                  Icons.backspace_outlined,
-                                                  color: Colors.white,
-                                                  size: 45,
-                                                )
-                                              : key == clearAllKey
-                                                  ? Text(
-                                                      clearAllKey,
-                                                      textAlign: TextAlign.center,
-                                                      style: const TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 23,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    )
-                                                  : Text(
-                                                      key,
-                                                      style: const TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 50,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
+                                            borderRadius: BorderRadius.circular(24),
+                                            border: Border.all(
+                                              color: isActionKey
+                                                  ? const Color(0xFF0A3E82)
+                                                  : (_activeKey == key
+                                                      ? const Color(0xFF5E86AD)
+                                                      : const Color(0xFFB8C7D6)),
+                                              width: _activeKey == key ? 3 : 2,
+                                            ),
+                                            boxShadow: _activeKey == key
+                                                ? [
+                                                    BoxShadow(
+                                                      color: const Color(0xFF1B4E7A)
+                                                          .withOpacity(0.16),
+                                                      blurRadius: 5,
+                                                      offset: const Offset(0, 2),
                                                     ),
+                                                  ]
+                                                : [
+                                                    BoxShadow(
+                                                      color: Colors.black.withOpacity(0.16),
+                                                      blurRadius: 12,
+                                                      offset: const Offset(0, 7),
+                                                    ),
+                                                    BoxShadow(
+                                                      color: Colors.white.withOpacity(0.85),
+                                                      blurRadius: 3,
+                                                      offset: const Offset(0, -2),
+                                                    ),
+                                                  ],
+                                          ),
+                                          child: Center(
+                                            child: key == backspaceKey
+                                                ? const Icon(
+                                                    Icons.backspace_outlined,
+                                                    color: Colors.white,
+                                                    size: 45,
+                                                  )
+                                                : key == clearAllKey
+                                                    ? Text(
+                                                        clearAllKey,
+                                                        textAlign: TextAlign.center,
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 23,
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
+                                                      )
+                                                    : Text(
+                                                        key,
+                                                        style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 50,
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
+                                                      ),
+                                          ),
                                         ),
                                       ),
-                                    );
-                                  },
+
+                                      if (_activeKey == key && !_isLoading)
+                                        _buildAttachedKeyPreview(
+                                          key: key,
+                                          backspaceKey: backspaceKey,
+                                          clearAllKey: clearAllKey,
+                                          keyHeight: keyHeight,
+                                        ),
+                                    ],
+                                  ),
                                 ),
                               );
                             }).toList(),
@@ -889,8 +1022,17 @@ void _showAlert(
 
                       Container(
                         width: 850,
-                        height: 2,
-                        color: Colors.grey.shade400,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.transparent,
+                              const Color(0xFF7894AE).withOpacity(0.80),
+                              Colors.transparent,
+                            ],
+                          ),
+                        ),
                       ),
 
                       const SizedBox(height: 35),
@@ -902,63 +1044,103 @@ void _showAlert(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: row.map((key) {
-                              final bool isActionKey =
-                                  key == backspaceKey || key == clearAllKey;
-
                               return Padding(
                                 padding: const EdgeInsets.only(right: keySpacing),
-                                child: Builder(
-                                  builder: (btnContext) {
-                                    return Listener(
-                                      onPointerDown: (details) {
-                                        if (_isLoading) return;
+                                child: SizedBox(
+                                  width: keyWidth,
+                                  height: keyHeight,
+                                  child: Stack(
+                                    clipBehavior: Clip.none,
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Listener(
+                                        behavior: HitTestBehavior.opaque,
+                                        onPointerDown: (_) {
+                                          if (_isLoading) return;
+                                          setState(() => _activeKey = key);
+                                        },
+                                        onPointerUp: (_) {
+                                          if (_isLoading) return;
 
-                                        final RenderBox box =
-                                            btnContext.findRenderObject() as RenderBox;
-                                        final position =
-                                            box.localToGlobal(Offset.zero);
-
-                                        setState(() {
-                                          _activeKey = key;
-                                          _activeKeyPosition = position;
-                                        });
-                                      },
-                                      onPointerUp: (details) {
-                                        if (_isLoading) return;
-
-                                        setState(() => _activeKey = null);
-
-                                        _addText(key);
-                                      },
-                                      onPointerCancel: (details) {
-                                        if (_isLoading) return;
-                                        setState(() => _activeKey = null);
-                                      },
-                                      child: Container(
-                                        width: keyWidth,
-                                        height: keyHeight,
-                                        decoration: BoxDecoration(
-                                          color: (_activeKey == key)
-                                              ? Colors.grey[300]
-                                              : Colors.white,
-                                          borderRadius: BorderRadius.circular(10),
-                                          border: Border.all(
-                                            color: Colors.black,
-                                            width: 2,
+                                          setState(() => _activeKey = null);
+                                          _addText(key);
+                                        },
+                                        onPointerCancel: (_) {
+                                          if (_isLoading) return;
+                                          setState(() => _activeKey = null);
+                                        },
+                                        child: AnimatedContainer(
+                                          duration: const Duration(milliseconds: 110),
+                                          curve: Curves.easeOut,
+                                          width: keyWidth,
+                                          height: keyHeight,
+                                          transform: Matrix4.identity()
+                                            ..scale(_activeKey == key ? 0.94 : 1.0),
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              colors: _activeKey == key
+                                                  ? const [
+                                                      Color(0xFFDCE8F4),
+                                                      Color(0xFFC8D8E8),
+                                                    ]
+                                                  : const [
+                                                      Color(0xFFFFFFFF),
+                                                      Color(0xFFF2F6FA),
+                                                    ],
+                                            ),
+                                            borderRadius: BorderRadius.circular(24),
+                                            border: Border.all(
+                                              color: _activeKey == key
+                                                  ? const Color(0xFF5E86AD)
+                                                  : const Color(0xFFB8C7D6),
+                                              width: _activeKey == key ? 3 : 2,
+                                            ),
+                                            boxShadow: _activeKey == key
+                                                ? [
+                                                    BoxShadow(
+                                                      color: const Color(0xFF1B4E7A)
+                                                          .withOpacity(0.16),
+                                                      blurRadius: 5,
+                                                      offset: const Offset(0, 2),
+                                                    ),
+                                                  ]
+                                                : [
+                                                    BoxShadow(
+                                                      color: Colors.black.withOpacity(0.16),
+                                                      blurRadius: 12,
+                                                      offset: const Offset(0, 7),
+                                                    ),
+                                                    BoxShadow(
+                                                      color: Colors.white.withOpacity(0.85),
+                                                      blurRadius: 3,
+                                                      offset: const Offset(0, -2),
+                                                    ),
+                                                  ],
                                           ),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            key,
-                                            style: const TextStyle(
-                                              fontSize: 50,
-                                              fontWeight: FontWeight.bold,
+                                          child: Center(
+                                            child: Text(
+                                              key,
+                                              style: const TextStyle(
+                                                fontSize: 50,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    );
-                                  },
+
+                                      if (_activeKey == key && !_isLoading)
+                                        _buildAttachedKeyPreview(
+                                          key: key,
+                                          backspaceKey: backspaceKey,
+                                          clearAllKey: clearAllKey,
+                                          keyHeight: keyHeight,
+                                        ),
+                                    ],
+                                  ),
                                 ),
                               );
                             }).toList(),
@@ -971,49 +1153,6 @@ void _showAlert(
               ),
             ),
           ),
-
-          if (_activeKey != null && _activeKeyPosition != null && !_isLoading)
-            Positioned(
-              left: _activeKeyPosition!.dx - 10,
-              top: _activeKeyPosition!.dy - 130,
-              child: IgnorePointer(
-                child: Column(
-                  children: [
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 3, 89, 210),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(
-                          _activeKey!,
-                          style: const TextStyle(
-                            fontSize: 70,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    CustomPaint(
-                      size: const Size(30, 15),
-                      painter: DrawTriangle(
-                        const Color.fromARGB(255, 3, 89, 210),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
 
             // ===================================================
             // BACK AND CONTINUE BUTTONS

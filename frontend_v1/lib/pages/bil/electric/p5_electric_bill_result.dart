@@ -87,7 +87,7 @@ double _getInitialPaymentAmount() {
     );
   }
 
-  return 0.0;
+  return _minimumAmount;
 }
 
 String _formatAmount(double amount) {
@@ -274,50 +274,201 @@ String _formatSignedAmount(double amount) {
 
     final loc = AppLocalizations.of(context)!;
 
-    showDialog<void>(
+    showGeneralDialog<void>(
       context: context,
-      builder: (dialogContext) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          title: Row(
-            children: [
-              const Icon(
-                Icons.info_outline_rounded,
-                color: Color(0xFF1976D2),
-                size: 36,
-              ),
-              const SizedBox(width: 14),
-              Text(
-                loc.electricInformation,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w900,
+      barrierDismissible: false,
+      barrierLabel: loc.electricInformation,
+      barrierColor: const Color(0xFF07182E).withOpacity(0.72),
+      transitionDuration: const Duration(milliseconds: 280),
+      pageBuilder: (
+        dialogContext,
+        animation,
+        secondaryAnimation,
+      ) {
+        return SafeArea(
+          child: Center(
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                width: 760,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 70,
+                  vertical: 120,
+                ),
+                padding: const EdgeInsets.fromLTRB(
+                  46,
+                  42,
+                  46,
+                  40,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(38),
+                  border: Border.all(
+                    color: const Color(0xFFBBD9FF),
+                    width: 3,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.35),
+                      blurRadius: 45,
+                      offset: const Offset(0, 22),
+                    ),
+                    BoxShadow(
+                      color: const Color(0xFF1976D2).withOpacity(0.22),
+                      blurRadius: 55,
+                      spreadRadius: 4,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xFF42A5F5),
+                            Color(0xFF0D47A1),
+                          ],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF1976D2)
+                                .withOpacity(0.28),
+                            blurRadius: 24,
+                            spreadRadius: 3,
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.info_outline_rounded,
+                        color: Colors.white,
+                        size: 72,
+                      ),
+                    ),
+
+                    const SizedBox(height: 28),
+
+                    Text(
+                      loc.electricInformation,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Color(0xFF123B70),
+                        fontSize: 46,
+                        fontWeight: FontWeight.w900,
+                        height: 1.1,
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    Container(
+                      width: 120,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFF42A5F5),
+                            Color(0xFF0D47A1),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+
+                    const SizedBox(height: 28),
+
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 28,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF3F8FF),
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: const Color(0xFFD2E6FF),
+                          width: 2,
+                        ),
+                      ),
+                      child: Text(
+                        message,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Color(0xFF4E5968),
+                          fontSize: 31,
+                          fontWeight: FontWeight.w700,
+                          height: 1.45,
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 34),
+
+                    SizedBox(
+                      width: double.infinity,
+                      height: 92,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.pop(dialogContext);
+                        },
+                        icon: const Icon(
+                          Icons.check_circle_rounded,
+                          size: 38,
+                        ),
+                        label: Text(
+                          loc.electricOk,
+                          style: const TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF1976D2),
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(22),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-          content: Text(
-            message,
-            style: const TextStyle(
-              fontSize: 22,
-              height: 1.4,
             ),
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(dialogContext);
-              },
-              child: Text(
-                loc.electricOk,
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-            ),
-          ],
+        );
+      },
+      transitionBuilder: (
+        context,
+        animation,
+        secondaryAnimation,
+        child,
+      ) {
+        final curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOutBack,
+          reverseCurve: Curves.easeIn,
+        );
+
+        return FadeTransition(
+          opacity: animation,
+          child: ScaleTransition(
+            scale: Tween<double>(
+              begin: 0.82,
+              end: 1.0,
+            ).animate(curvedAnimation),
+            child: child,
+          ),
         );
       },
     );

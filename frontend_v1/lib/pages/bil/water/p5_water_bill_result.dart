@@ -67,7 +67,7 @@ class _P5WaterBillResultPageState
             _minimumAmount,
             _maximumAmount,
           )
-        : 0.0;
+        : _minimumAmount;
 
     _selectedAmount = initialAmount;
     _amountController.text =
@@ -231,52 +231,205 @@ class _P5WaterBillResultPageState
   }
 
   void _showMessage(String message) {
+    if (!mounted) return;
+
     final loc = AppLocalizations.of(context)!;
 
-    showDialog<void>(
+    showGeneralDialog<void>(
       context: context,
-      builder: (dialogContext) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          title: Row(
-            children: [
-              const Icon(
-                Icons.info_outline_rounded,
-                color: Color(0xFF0277BD),
-                size: 38,
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Text(
-                  loc.waterInformation,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w900,
+      barrierDismissible: false,
+      barrierLabel: loc.waterInformation,
+      barrierColor: const Color(0xFF07182E).withOpacity(0.72),
+      transitionDuration: const Duration(milliseconds: 280),
+      pageBuilder: (
+        dialogContext,
+        animation,
+        secondaryAnimation,
+      ) {
+        return SafeArea(
+          child: Center(
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                width: 760,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 70,
+                  vertical: 120,
+                ),
+                padding: const EdgeInsets.fromLTRB(
+                  46,
+                  42,
+                  46,
+                  40,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(38),
+                  border: Border.all(
+                    color: const Color(0xFFB2EBF2),
+                    width: 3,
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.35),
+                      blurRadius: 45,
+                      offset: const Offset(0, 22),
+                    ),
+                    BoxShadow(
+                      color: const Color(0xFF00838F).withOpacity(0.24),
+                      blurRadius: 55,
+                      spreadRadius: 4,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xFF26C6DA),
+                            Color(0xFF006064),
+                          ],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF00838F)
+                                .withOpacity(0.30),
+                            blurRadius: 24,
+                            spreadRadius: 3,
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.info_outline_rounded,
+                        color: Colors.white,
+                        size: 72,
+                      ),
+                    ),
+
+                    const SizedBox(height: 28),
+
+                    Text(
+                      loc.waterInformation,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Color(0xFF006064),
+                        fontSize: 46,
+                        fontWeight: FontWeight.w900,
+                        height: 1.1,
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    Container(
+                      width: 120,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFF26C6DA),
+                            Color(0xFF006064),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+
+                    const SizedBox(height: 28),
+
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 28,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF0FCFD),
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: const Color(0xFFB2EBF2),
+                          width: 2,
+                        ),
+                      ),
+                      child: Text(
+                        message,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Color(0xFF445B63),
+                          fontSize: 31,
+                          fontWeight: FontWeight.w700,
+                          height: 1.45,
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 34),
+
+                    SizedBox(
+                      width: double.infinity,
+                      height: 92,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.pop(dialogContext);
+                        },
+                        icon: const Icon(
+                          Icons.check_circle_rounded,
+                          size: 38,
+                        ),
+                        label: Text(
+                          loc.waterOk,
+                          style: const TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF00838F),
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(22),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-          content: Text(
-            message,
-            style: const TextStyle(
-              fontSize: 24,
-              height: 1.4,
             ),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext),
-              child: Text(
-                loc.waterOk,
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-            ),
-          ],
+        );
+      },
+      transitionBuilder: (
+        context,
+        animation,
+        secondaryAnimation,
+        child,
+      ) {
+        final curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOutBack,
+          reverseCurve: Curves.easeIn,
+        );
+
+        return FadeTransition(
+          opacity: animation,
+          child: ScaleTransition(
+            scale: Tween<double>(
+              begin: 0.82,
+              end: 1.0,
+            ).animate(curvedAnimation),
+            child: child,
+          ),
         );
       },
     );

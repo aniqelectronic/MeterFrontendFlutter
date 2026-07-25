@@ -63,7 +63,6 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
       TextEditingController();
 
   String? _activeKey;
-  Offset? _activeKeyPosition;
 
   bool _isLoading = false;
 
@@ -918,6 +917,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
   // =========================================================
   // UI
+  // Matches the visual design of P4PAGE while preserving the
+  // bill-specific colors, icons, validations, and API logic.
   // =========================================================
 
   @override
@@ -969,8 +970,7 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
             child: Container(
               height: 110,
               decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(30),
                 gradient: LinearGradient(
                   colors: [
                     _darkColor,
@@ -982,10 +982,11 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Positioned.fill(
-                    left: 110,
-                    right: 40,
-                    child: Center(
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 110,
+                      ),
                       child: AutoSizeText(
                         widget.billerName,
                         textAlign: TextAlign.center,
@@ -995,7 +996,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 48,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w900,
+                          height: 1.1,
                         ),
                       ),
                     ),
@@ -1006,15 +1008,13 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                       width: 70,
                       height: 70,
                       decoration: BoxDecoration(
-                        color:
-                            Colors.white.withOpacity(0.15),
-                        borderRadius:
-                            BorderRadius.circular(18),
+                        color: Colors.white.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(18),
                       ),
                       child: Icon(
                         _serviceIcon,
                         color: Colors.white,
-                        size: 45,
+                        size: 42,
                       ),
                     ),
                   ),
@@ -1028,11 +1028,11 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
           // ===================================================
 
           Positioned(
-            top: 200,
+            top: 230,
             left: horizontalPadding,
             right: horizontalPadding,
             child: SizedBox(
-              height: 130,
+              height: 400,
               child: TextField(
                 controller: _controller,
                 readOnly: true,
@@ -1051,26 +1051,22 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                   fillColor: Colors.white,
                   hintText: widget.hint,
                   hintStyle: const TextStyle(
-                    fontSize: 32,
+                    fontSize: 35,
                     fontWeight: FontWeight.bold,
                     color: Colors.black45,
                   ),
-                  contentPadding:
-                      const EdgeInsets.symmetric(
-                    horizontal: 35,
-                    vertical: 30,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(100),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(40),
+                    borderRadius: BorderRadius.circular(100),
                     borderSide: BorderSide(
                       color: _primaryColor,
                       width: 3,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(40),
+                    borderRadius: BorderRadius.circular(100),
                     borderSide: BorderSide(
                       color: _darkColor,
                       width: 4,
@@ -1086,15 +1082,16 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
           // ===================================================
 
           Positioned(
-            top: 410,
+            top: 400,
             left: 20,
             right: 20,
-            bottom: 380,
+            bottom: 120,
             child: AbsorbPointer(
               absorbing: _isLoading,
               child: Opacity(
                 opacity: _isLoading ? 0.5 : 1.0,
                 child: SingleChildScrollView(
+                  clipBehavior: Clip.none,
                   physics:
                       const ClampingScrollPhysics(),
                   child: Column(
@@ -1141,32 +1138,133 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                 child: Builder(
                                   builder:
                                       (buttonContext) {
-                                    return Listener(
+                                    return Stack(
+                                      clipBehavior: Clip.none,
+                                      alignment: Alignment.center,
+                                      children: [
+                                        if (_activeKey == key)
+                                          Positioned(
+                                            bottom: keyHeight - 6,
+                                            child: IgnorePointer(
+                                              child: TweenAnimationBuilder<double>(
+                                                key: ValueKey(key),
+                                                tween: Tween<double>(
+                                                  begin: 0.72,
+                                                  end: 1.0,
+                                                ),
+                                                duration: const Duration(
+                                                  milliseconds: 140,
+                                                ),
+                                                curve: Curves.easeOutBack,
+                                                builder: (
+                                                  context,
+                                                  scale,
+                                                  child,
+                                                ) {
+                                                  return Transform.scale(
+                                                    scale: scale,
+                                                    alignment:
+                                                        Alignment.bottomCenter,
+                                                    child: child,
+                                                  );
+                                                },
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Container(
+                                                      width: 120,
+                                                      height: 120,
+                                                      decoration:
+                                                          BoxDecoration(
+                                                        gradient:
+                                                            LinearGradient(
+                                                          begin: Alignment
+                                                              .topLeft,
+                                                          end: Alignment
+                                                              .bottomRight,
+                                                          colors: [
+                                                            _lightColor,
+                                                            _darkColor,
+                                                          ],
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30),
+                                                        border: Border.all(
+                                                          color: Colors.white,
+                                                          width: 3,
+                                                        ),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                              0.30,
+                                                            ),
+                                                            blurRadius: 12,
+                                                            offset:
+                                                                const Offset(
+                                                              0,
+                                                              6,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      child: Center(
+                                                        child: isBackspace
+                                                            ? const Icon(
+                                                                Icons
+                                                                    .backspace_outlined,
+                                                                color:
+                                                                    Colors.white,
+                                                                size: 50,
+                                                              )
+                                                            : Text(
+                                                                key,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: key ==
+                                                                          clearAllKey
+                                                                      ? 22
+                                                                      : 70,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                              ),
+                                                      ),
+                                                    ),
+                                                    Transform.translate(
+                                                      offset:
+                                                          const Offset(0, -2),
+                                                      child: CustomPaint(
+                                                        size: const Size(
+                                                          30,
+                                                          15,
+                                                        ),
+                                                        painter: DrawTriangle(
+                                                          _primaryColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        Listener(
                                       onPointerDown:
                                           (details) {
                                         if (_isLoading) {
                                           return;
                                         }
-
-                                        final renderObject =
-                                            buttonContext
-                                                .findRenderObject();
-
-                                        if (renderObject
-                                            is! RenderBox) {
-                                          return;
-                                        }
-
-                                        final position =
-                                            renderObject
-                                                .localToGlobal(
-                                          Offset.zero,
-                                        );
-
-                                        setState(() {
+setState(() {
                                           _activeKey = key;
-                                          _activeKeyPosition =
-                                              position;
                                         });
                                       },
                                       onPointerUp:
@@ -1203,45 +1301,122 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                           AnimatedContainer(
                                         duration:
                                             const Duration(
-                                          milliseconds:
-                                              80,
+                                          milliseconds: 110,
                                         ),
-                                        width:
-                                            currentKeyWidth,
+                                        curve: Curves.easeOut,
+                                        width: currentKeyWidth,
                                         height: keyHeight,
+                                        transform:
+                                            Matrix4.identity()
+                                              ..scale(
+                                                _activeKey == key
+                                                    ? 0.94
+                                                    : 1.0,
+                                              ),
+                                        alignment:
+                                            Alignment.center,
                                         decoration:
                                             BoxDecoration(
-                                          color: isActionKey
-                                              ? _primaryColor
-                                              : _activeKey ==
-                                                      key
-                                                  ? Colors
-                                                      .grey[300]
-                                                  : Colors
-                                                      .white,
+                                          gradient: isActionKey
+                                              ? LinearGradient(
+                                                  begin:
+                                                      Alignment.topLeft,
+                                                  end: Alignment
+                                                      .bottomRight,
+                                                  colors: [
+                                                    _lightColor,
+                                                    _darkColor,
+                                                  ],
+                                                )
+                                              : LinearGradient(
+                                                  begin: Alignment
+                                                      .topCenter,
+                                                  end: Alignment
+                                                      .bottomCenter,
+                                                  colors:
+                                                      _activeKey ==
+                                                              key
+                                                          ? const [
+                                                              Color(
+                                                                0xFFDCE8F4,
+                                                              ),
+                                                              Color(
+                                                                0xFFC8D8E8,
+                                                              ),
+                                                            ]
+                                                          : const [
+                                                              Color(
+                                                                0xFFFFFFFF,
+                                                              ),
+                                                              Color(
+                                                                0xFFF2F6FA,
+                                                              ),
+                                                            ],
+                                                ),
                                           borderRadius:
-                                              BorderRadius
-                                                  .circular(
-                                            10,
+                                              BorderRadius.circular(
+                                            24,
                                           ),
-                                          border:
-                                              Border.all(
-                                            color:
-                                                Colors.black,
-                                            width: 2,
+                                          border: Border.all(
+                                            color: isActionKey
+                                                ? _darkColor
+                                                : (_activeKey ==
+                                                        key
+                                                    ? const Color(
+                                                        0xFF5E86AD,
+                                                      )
+                                                    : const Color(
+                                                        0xFFB8C7D6,
+                                                      )),
+                                            width:
+                                                _activeKey == key
+                                                    ? 3
+                                                    : 2,
                                           ),
                                           boxShadow:
-                                              _activeKey ==
-                                                      key
-                                                  ? []
-                                                  : const [
+                                              _activeKey == key
+                                                  ? [
                                                       BoxShadow(
                                                         color:
-                                                            Colors.black26,
+                                                            const Color(
+                                                          0xFF1B4E7A,
+                                                        ).withOpacity(
+                                                          0.16,
+                                                        ),
+                                                        blurRadius: 5,
                                                         offset:
-                                                            Offset(0, 4),
-                                                        blurRadius:
-                                                            2,
+                                                            const Offset(
+                                                          0,
+                                                          2,
+                                                        ),
+                                                      ),
+                                                    ]
+                                                  : [
+                                                      BoxShadow(
+                                                        color: Colors
+                                                            .black
+                                                            .withOpacity(
+                                                          0.16,
+                                                        ),
+                                                        blurRadius: 12,
+                                                        offset:
+                                                            const Offset(
+                                                          0,
+                                                          7,
+                                                        ),
+                                                      ),
+                                                      BoxShadow(
+                                                        color: Colors
+                                                            .white
+                                                            .withOpacity(
+                                                          0.85,
+                                                        ),
+                                                        blurRadius: 3,
+                                                        offset:
+                                                            const Offset(
+                                                          0,
+                                                          -2,
+                                                        ),
                                                       ),
                                                     ],
                                         ),
@@ -1283,6 +1458,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                                     ),
                                         ),
                                       ),
+                                        ),
+                                      ],
                                     );
                                   },
                                 ),
@@ -1294,11 +1471,20 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
                         const SizedBox(height: 35),
 
-                        Container(
-                          width: 850,
-                          height: 2,
-                          color: Colors.grey.shade400,
+                      Container(
+                        width: 850,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.transparent,
+                              const Color(0xFF7894AE).withOpacity(0.80),
+                              Colors.transparent,
+                            ],
+                          ),
                         ),
+                      ),
 
                         const SizedBox(height: 35),
 
@@ -1320,32 +1506,133 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                 child: Builder(
                                   builder:
                                       (buttonContext) {
-                                    return Listener(
+                                    return Stack(
+                                      clipBehavior: Clip.none,
+                                      alignment: Alignment.center,
+                                      children: [
+                                        if (_activeKey == key)
+                                          Positioned(
+                                            bottom: keyHeight - 6,
+                                            child: IgnorePointer(
+                                              child: TweenAnimationBuilder<double>(
+                                                key: ValueKey(key),
+                                                tween: Tween<double>(
+                                                  begin: 0.72,
+                                                  end: 1.0,
+                                                ),
+                                                duration: const Duration(
+                                                  milliseconds: 140,
+                                                ),
+                                                curve: Curves.easeOutBack,
+                                                builder: (
+                                                  context,
+                                                  scale,
+                                                  child,
+                                                ) {
+                                                  return Transform.scale(
+                                                    scale: scale,
+                                                    alignment:
+                                                        Alignment.bottomCenter,
+                                                    child: child,
+                                                  );
+                                                },
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Container(
+                                                      width: 120,
+                                                      height: 120,
+                                                      decoration:
+                                                          BoxDecoration(
+                                                        gradient:
+                                                            LinearGradient(
+                                                          begin: Alignment
+                                                              .topLeft,
+                                                          end: Alignment
+                                                              .bottomRight,
+                                                          colors: [
+                                                            _lightColor,
+                                                            _darkColor,
+                                                          ],
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30),
+                                                        border: Border.all(
+                                                          color: Colors.white,
+                                                          width: 3,
+                                                        ),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                              0.30,
+                                                            ),
+                                                            blurRadius: 12,
+                                                            offset:
+                                                                const Offset(
+                                                              0,
+                                                              6,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      child: Center(
+                                                        child: false
+                                                            ? const Icon(
+                                                                Icons
+                                                                    .backspace_outlined,
+                                                                color:
+                                                                    Colors.white,
+                                                                size: 50,
+                                                              )
+                                                            : Text(
+                                                                key,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: key ==
+                                                                          clearAllKey
+                                                                      ? 22
+                                                                      : 70,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                              ),
+                                                      ),
+                                                    ),
+                                                    Transform.translate(
+                                                      offset:
+                                                          const Offset(0, -2),
+                                                      child: CustomPaint(
+                                                        size: const Size(
+                                                          30,
+                                                          15,
+                                                        ),
+                                                        painter: DrawTriangle(
+                                                          _primaryColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        Listener(
                                       onPointerDown:
                                           (details) {
                                         if (_isLoading) {
                                           return;
                                         }
-
-                                        final renderObject =
-                                            buttonContext
-                                                .findRenderObject();
-
-                                        if (renderObject
-                                            is! RenderBox) {
-                                          return;
-                                        }
-
-                                        final position =
-                                            renderObject
-                                                .localToGlobal(
-                                          Offset.zero,
-                                        );
-
-                                        setState(() {
+setState(() {
                                           _activeKey = key;
-                                          _activeKeyPosition =
-                                              position;
                                         });
                                       },
                                       onPointerUp:
@@ -1376,42 +1663,109 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                           AnimatedContainer(
                                         duration:
                                             const Duration(
-                                          milliseconds:
-                                              80,
+                                          milliseconds: 110,
                                         ),
+                                        curve: Curves.easeOut,
                                         width: keyWidth,
                                         height: keyHeight,
+                                        transform:
+                                            Matrix4.identity()
+                                              ..scale(
+                                                _activeKey == key
+                                                    ? 0.94
+                                                    : 1.0,
+                                              ),
+                                        alignment:
+                                            Alignment.center,
                                         decoration:
                                             BoxDecoration(
-                                          color: _activeKey ==
-                                                  key
-                                              ? Colors
-                                                  .grey[300]
-                                              : Colors
-                                                  .white,
-                                          borderRadius:
-                                              BorderRadius
-                                                  .circular(
-                                            10,
+                                          gradient:
+                                              LinearGradient(
+                                            begin: Alignment
+                                                .topCenter,
+                                            end: Alignment
+                                                .bottomCenter,
+                                            colors:
+                                                _activeKey == key
+                                                    ? const [
+                                                        Color(
+                                                          0xFFDCE8F4,
+                                                        ),
+                                                        Color(
+                                                          0xFFC8D8E8,
+                                                        ),
+                                                      ]
+                                                    : const [
+                                                        Color(
+                                                          0xFFFFFFFF,
+                                                        ),
+                                                        Color(
+                                                          0xFFF2F6FA,
+                                                        ),
+                                                      ],
                                           ),
-                                          border:
-                                              Border.all(
+                                          borderRadius:
+                                              BorderRadius.circular(
+                                            24,
+                                          ),
+                                          border: Border.all(
                                             color:
-                                                Colors.black,
-                                            width: 2,
+                                                _activeKey == key
+                                                    ? const Color(
+                                                        0xFF5E86AD,
+                                                      )
+                                                    : const Color(
+                                                        0xFFB8C7D6,
+                                                      ),
+                                            width:
+                                                _activeKey == key
+                                                    ? 3
+                                                    : 2,
                                           ),
                                           boxShadow:
-                                              _activeKey ==
-                                                      key
-                                                  ? []
-                                                  : const [
+                                              _activeKey == key
+                                                  ? [
                                                       BoxShadow(
                                                         color:
-                                                            Colors.black26,
+                                                            const Color(
+                                                          0xFF1B4E7A,
+                                                        ).withOpacity(
+                                                          0.16,
+                                                        ),
+                                                        blurRadius: 5,
                                                         offset:
-                                                            Offset(0, 4),
-                                                        blurRadius:
-                                                            2,
+                                                            const Offset(
+                                                          0,
+                                                          2,
+                                                        ),
+                                                      ),
+                                                    ]
+                                                  : [
+                                                      BoxShadow(
+                                                        color: Colors
+                                                            .black
+                                                            .withOpacity(
+                                                          0.16,
+                                                        ),
+                                                        blurRadius: 12,
+                                                        offset:
+                                                            const Offset(
+                                                          0,
+                                                          7,
+                                                        ),
+                                                      ),
+                                                      BoxShadow(
+                                                        color: Colors
+                                                            .white
+                                                            .withOpacity(
+                                                          0.85,
+                                                        ),
+                                                        blurRadius: 3,
+                                                        offset:
+                                                            const Offset(
+                                                          0,
+                                                          -2,
+                                                        ),
                                                       ),
                                                     ],
                                         ),
@@ -1428,6 +1782,8 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                           ),
                                         ),
                                       ),
+                                        ),
+                                      ],
                                     );
                                   },
                                 ),
@@ -1442,69 +1798,6 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
               ),
             ),
           ),
-
-          // ===================================================
-          // KEY PRESS PREVIEW
-          // ===================================================
-
-          if (_activeKey != null &&
-              _activeKeyPosition != null &&
-              !_isLoading)
-            Positioned(
-              left: _activeKeyPosition!.dx - 10,
-              top: _activeKeyPosition!.dy - 130,
-              child: IgnorePointer(
-                child: Column(
-                  children: [
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: _primaryColor,
-                        borderRadius:
-                            BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black
-                                .withOpacity(0.3),
-                            blurRadius: 10,
-                            offset:
-                                const Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: _activeKey ==
-                                backspaceKey
-                            ? const Icon(
-                                Icons
-                                    .backspace_outlined,
-                                color: Colors.white,
-                                size: 50,
-                              )
-                            : Text(
-                                _activeKey!,
-                                textAlign:
-                                    TextAlign.center,
-                                style:
-                                    const TextStyle(
-                                  fontSize: 50,
-                                  color: Colors.white,
-                                  fontWeight:
-                                      FontWeight.bold,
-                                ),
-                              ),
-                      ),
-                    ),
-                    CustomPaint(
-                      size: const Size(30, 15),
-                      painter:
-                          DrawTriangle(_primaryColor),
-                    ),
-                  ],
-                ),
-              ),
-            ),
 
           // ===================================================
           // BACK AND CONTINUE BUTTONS
@@ -1601,16 +1894,22 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                                   MainAxisAlignment
                                       .center,
                               children: [
-                                Text(
-                                  AppLocalizations.of(
-                                    context,
-                                  )!
-                                      .buttonContinue,
-                                  style:
-                                      const TextStyle(
-                                    fontSize: 40,
-                                    fontWeight:
-                                        FontWeight.bold,
+                                Flexible(
+                                  child: Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    )!
+                                        .buttonContinue,
+                                    textAlign:
+                                        TextAlign.center,
+                                    maxLines: 2,
+                                    style:
+                                        const TextStyle(
+                                      fontSize: 40,
+                                      fontWeight:
+                                          FontWeight.bold,
+                                      height: 1.05,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(width: 15),
@@ -1637,7 +1936,7 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                 child: AbsorbPointer(
                   absorbing: true,
                   child: Container(
-                    color: Colors.black.withOpacity(0.72),
+                    color: const Color(0xFF07182E).withOpacity(0.72),
                     child: Center(
                       child: TweenAnimationBuilder<double>(
                         tween: Tween(begin: 0.96, end: 1.0),
@@ -1659,7 +1958,7 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
                           ),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(42),
                             border: Border.all(
                               color: _primaryColor.withOpacity(.20),
                               width: 3,
