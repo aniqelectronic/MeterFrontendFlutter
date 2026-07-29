@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/controllers/compound/multiple_compound_controller.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
@@ -109,6 +110,75 @@ class _RESITSTATE extends State<RESITPAGE> {
   bool _isQrLoading = true;
   bool _qrLoadFailed = false;
 
+  // ==========================================================================
+  // HMAC HELPERS
+  // ==========================================================================
+  String _createBodyHash(String body) {
+    final digest = sha256.convert(
+      utf8.encode(body),
+    );
+
+    return base64Encode(digest.bytes);
+  }
+
+  String _createCanonicalQuery(Uri uri) {
+    final queryItems = <MapEntry<String, String>>[];
+
+    uri.queryParametersAll.forEach((key, values) {
+      for (final value in values) {
+        queryItems.add(MapEntry(key, value));
+      }
+    });
+
+    queryItems.sort((a, b) {
+      final keyCompare = a.key.compareTo(b.key);
+
+      if (keyCompare != 0) {
+        return keyCompare;
+      }
+
+      return a.value.compareTo(b.value);
+    });
+
+    return queryItems.map((item) {
+      final encodedKey = Uri.encodeQueryComponent(item.key);
+      final encodedValue = Uri.encodeQueryComponent(item.value);
+
+      return '$encodedKey=$encodedValue';
+    }).join('&');
+  }
+
+  Map<String, String> _createHeaders({
+    required String method,
+    required Uri uri,
+    String body = '',
+    String accept = 'application/json',
+  }) {
+    final bodyHash = _createBodyHash(body);
+    final canonicalQuery = _createCanonicalQuery(uri);
+
+    final canonicalString = [
+      method.toUpperCase(),
+      uri.path,
+      canonicalQuery,
+      bodyHash,
+    ].join('\n');
+
+    final signatureDigest = Hmac(
+      sha256,
+      utf8.encode(Config.hmacSecret),
+    ).convert(
+      utf8.encode(canonicalString),
+    );
+
+    return {
+      'Accept': accept,
+      'Content-Type': 'application/json',
+      'X-API-Key': Config.apiKey,
+      'X-Signature': 'v1=${signatureDigest.toString()}',
+    };
+  }
+
   @override
   void initState() {
     super.initState();
@@ -150,7 +220,13 @@ class _RESITSTATE extends State<RESITPAGE> {
 
       final Uri url = Uri.parse(urlString);
 
-      final http.Response response = await http.get(url);
+      final http.Response response = await http.get(
+        url,
+        headers: _createHeaders(
+          method: 'GET',
+          uri: url,
+        ),
+      );
 
       if (!mounted) {
         return;
@@ -308,9 +384,16 @@ class _RESITSTATE extends State<RESITPAGE> {
       // PARKING
       // ----------------------------------------------------------------------
       if (widget.biz == 'PARKING') {
+        final Uri uri = Uri.parse(
+          '$baseUrl/transactions/latest/qr',
+        );
+
         response = await http.get(
-          Uri.parse(
-            '$baseUrl/transactions/latest/qr',
+          uri,
+          headers: _createHeaders(
+            method: 'GET',
+            uri: uri,
+            accept: 'image/png',
           ),
         );
       }
@@ -327,17 +410,23 @@ class _RESITSTATE extends State<RESITPAGE> {
           return;
         }
 
+        final Uri uri = Uri.parse(
+          '$baseUrl/license/receipt/qr/multi',
+        );
+
+        final String body = jsonEncode({
+          'licenses': licenseNos,
+        });
+
         response = await http.post(
-          Uri.parse(
-            '$baseUrl/license/receipt/qr/multi',
+          uri,
+          headers: _createHeaders(
+            method: 'POST',
+            uri: uri,
+            body: body,
+            accept: 'image/png',
           ),
-          headers: const {
-            'Content-Type': 'application/json',
-            'Accept': 'image/png',
-          },
-          body: jsonEncode({
-            'licenses': licenseNos,
-          }),
+          body: body,
         );
       }
 
@@ -345,9 +434,16 @@ class _RESITSTATE extends State<RESITPAGE> {
       // SAMAN
       // ----------------------------------------------------------------------
       else if (widget.biz == 'SAMAN') {
+        final Uri uri = Uri.parse(
+          '$baseUrl/saman/latest/qr',
+        );
+
         response = await http.get(
-          Uri.parse(
-            '$baseUrl/saman/latest/qr',
+          uri,
+          headers: _createHeaders(
+            method: 'GET',
+            uri: uri,
+            accept: 'image/png',
           ),
         );
       }
@@ -380,29 +476,33 @@ class _RESITSTATE extends State<RESITPAGE> {
           },
         ).toList();
 
+        final Uri uri = Uri.parse(
+          '$baseUrl/tax/receipt/qr/bentong',
+        );
+
+        final String body = jsonEncode({
+          'order_no':
+              pegeOrderNo ??
+              widget.data.pegeOrderNo ??
+              '0',
+          'paid_date': DateTime.now().toIso8601String(),
+          'payment_method': widget.data.typePayment ?? ' ',
+          'bank_trx_no':
+              pegeBankTrxNo ??
+              widget.data.pegeBankTrxNo ??
+              '',
+          'tax_items': taxItemsPayload,
+        });
+
         response = await http.post(
-          Uri.parse(
-            '$baseUrl/tax/receipt/qr/bentong',
+          uri,
+          headers: _createHeaders(
+            method: 'POST',
+            uri: uri,
+            body: body,
+            accept: 'image/png',
           ),
-          headers: const {
-            'Content-Type': 'application/json',
-            'Accept': 'image/png',
-          },
-          body: jsonEncode({
-            'order_no':
-                pegeOrderNo ??
-                widget.data.pegeOrderNo ??
-                '0',
-            'paid_date':
-                DateTime.now().toIso8601String(),
-            'payment_method':
-                widget.data.typePayment ?? ' ',
-            'bank_trx_no':
-                pegeBankTrxNo ??
-                widget.data.pegeBankTrxNo ??
-                '',
-            'tax_items': taxItemsPayload,
-          }),
+          body: body,
         );
       }
 
@@ -441,29 +541,33 @@ class _RESITSTATE extends State<RESITPAGE> {
           },
         ).toList();
 
+        final Uri uri = Uri.parse(
+          '$baseUrl/sewaan/receipt/qr/bentong',
+        );
+
+        final String body = jsonEncode({
+          'order_no':
+              pegeOrderNo ??
+              widget.data.pegeOrderNo ??
+              '0',
+          'paid_date': DateTime.now().toIso8601String(),
+          'payment_method': widget.data.typePayment ?? 'QR',
+          'bank_trx_no':
+              pegeBankTrxNo ??
+              widget.data.pegeBankTrxNo ??
+              '',
+          'sewaan_items': sewaanItemsPayload,
+        });
+
         response = await http.post(
-          Uri.parse(
-            '$baseUrl/sewaan/receipt/qr/bentong',
+          uri,
+          headers: _createHeaders(
+            method: 'POST',
+            uri: uri,
+            body: body,
+            accept: 'image/png',
           ),
-          headers: const {
-            'Content-Type': 'application/json',
-            'Accept': 'image/png',
-          },
-          body: jsonEncode({
-            'order_no':
-                pegeOrderNo ??
-                widget.data.pegeOrderNo ??
-                '0',
-            'paid_date':
-                DateTime.now().toIso8601String(),
-            'payment_method':
-                widget.data.typePayment ?? 'QR',
-            'bank_trx_no':
-                pegeBankTrxNo ??
-                widget.data.pegeBankTrxNo ??
-                '',
-            'sewaan_items': sewaanItemsPayload,
-          }),
+          body: body,
         );
       }
 
@@ -503,18 +607,24 @@ class _RESITSTATE extends State<RESITPAGE> {
           },
         ).toList();
 
+        final Uri uri = Uri.parse(
+          '$baseUrl/compound/receipt/qr/multi',
+        );
+
+        final String body = jsonEncode({
+          'compounds': compoundsPayload,
+          'total_amount': totalAmount,
+        });
+
         response = await http.post(
-          Uri.parse(
-            '$baseUrl/compound/receipt/qr/multi',
+          uri,
+          headers: _createHeaders(
+            method: 'POST',
+            uri: uri,
+            body: body,
+            accept: 'image/png',
           ),
-          headers: const {
-            'Content-Type': 'application/json',
-            'Accept': 'image/png',
-          },
-          body: jsonEncode({
-            'compounds': compoundsPayload,
-            'total_amount': totalAmount,
-          }),
+          body: body,
         );
       }
 
@@ -557,17 +667,23 @@ class _RESITSTATE extends State<RESITPAGE> {
           'amount': totalAmount,
         };
 
+        final Uri uri = Uri.parse(
+          '$baseUrl/compound/receipt/qr/single',
+        );
+
+        final String body = jsonEncode(
+          singleCompoundPayload,
+        );
+
         response = await http.post(
-          Uri.parse(
-            '$baseUrl/compound/receipt/qr/single',
+          uri,
+          headers: _createHeaders(
+            method: 'POST',
+            uri: uri,
+            body: body,
+            accept: 'image/png',
           ),
-          headers: const {
-            'Content-Type': 'application/json',
-            'Accept': 'image/png',
-          },
-          body: jsonEncode(
-            singleCompoundPayload,
-          ),
+          body: body,
         );
       } else {
         _setQrFailure();

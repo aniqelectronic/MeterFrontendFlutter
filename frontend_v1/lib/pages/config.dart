@@ -5,12 +5,22 @@ class Config {
   //backend base url
   static const String baseUrl = "https://tipintar.juaraipasifik.com";
     // API version
-  static const String apiVersion = "/api/v1";
+  static const String apiVersion = "/api/v2";
     // Full API URL
   static const String apiBaseUrl = "$baseUrl$apiVersion";
 
+    // Public backend URL used by the WebView.
+  static const String apiPublicBaseUrl =
+      "https://tipintar.juaraipasifik.com";
+
+  static const apiKey =
+      "c826e49b1a0672e028907329d5171431";
+
+  static const hmacSecret =
+      "4e4b114e9a4e146706c9e5a258856051835638f87493227e69f2c30c5691e794";
+
   //for qr payment
-  static String terminalId = "TEST02";
+  static String terminalId = "TEST03";
   static String storeId = "Kiosk_Terminal";
   static String shiftId = "DAY_SHIFT";
   static int qrValidity = 300;
@@ -27,7 +37,7 @@ class Config {
   static String waktusolaturl = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=SGR01&period=today";
 
   //for iot hub
-  static const String iotHubSharedAccessKey ='9APQME52StSCTSBh/Jo4NhkLFo+AAo2pBpd8FOQYzoQ=';
+  static const String iotHubSharedAccessKey ='cAdzDjTzU9ZbHRk/odz7XiL41rtSug7xPN0WJop+gY0=';
 
 
 }

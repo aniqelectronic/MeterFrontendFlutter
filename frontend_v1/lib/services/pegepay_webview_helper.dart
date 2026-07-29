@@ -220,13 +220,14 @@ class PegePayWebViewHelper {
     // ==========================================================
 
     final wrapperUrl = Uri.parse(
-      '${Config.apiBaseUrl}/pegepay/iframe-wrapper',
+      '${Config.apiPublicBaseUrl}/pegepay/iframe-wrapper',
     ).replace(
       queryParameters: {
         'iframe_url': iframeUrl,
       },
     ).toString();
 
+    print('[PegePay] Wrapper URL: $wrapperUrl');
     // ==========================================================
     // LAUNCH WEBVIEW
     // ==========================================================
