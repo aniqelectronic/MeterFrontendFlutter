@@ -69,7 +69,7 @@ class _PegePayQRPageDesktopWebViewState
 
 
 _webview!.launch(
-  "${Config.baseUrl}/pegepay/iframe-wrapper?iframe_url=${Uri.encodeComponent(widget.iframeUrl)}",
+  "${Config.apiBaseUrl}/pegepay/iframe-wrapper?iframe_url=${Uri.encodeComponent(widget.iframeUrl)}",
 );
   }
 

@@ -6,6 +6,7 @@ import 'package:frontend_v1/pages/option/p2.dart';
 import 'package:frontend_v1/pages/tourist/eksplorasi/pbentongexploration.dart';
 import 'package:frontend_v1/pages/tourist/map/pmapgoogle.dart';
 import 'package:frontend_v1/pages/tourist/waktusolat/pwaktusolat.dart';
+import 'package:frontend_v1/pages/tourist/weather/pweather_bentong.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
 class PTOURISTPAGE extends StatelessWidget {
@@ -18,19 +19,12 @@ class PTOURISTPAGE extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // ============================================================
-          // BACKGROUND
-          // ============================================================
           Positioned.fill(
             child: Image.asset(
               'lib/images/pnew.png',
               fit: BoxFit.cover,
             ),
           ),
-
-          // ============================================================
-          // SOFT BACKGROUND OVERLAY
-          // ============================================================
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -46,10 +40,6 @@ class PTOURISTPAGE extends StatelessWidget {
               ),
             ),
           ),
-
-          // ============================================================
-          // MODERN HEADER
-          // ============================================================
           Positioned(
             top: 105,
             left: 65,
@@ -60,10 +50,6 @@ class PTOURISTPAGE extends StatelessWidget {
               subtitle: loc.p3othersSubtitle,
             ),
           ),
-
-          // ============================================================
-          // MAIN BUTTON AREA
-          // ============================================================
           Positioned(
             top: 430,
             left: 60,
@@ -77,9 +63,6 @@ class PTOURISTPAGE extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  // ====================================================
-                  // FIRST ROW
-                  // ====================================================
                   Row(
                     children: [
                       Expanded(
@@ -123,12 +106,7 @@ class PTOURISTPAGE extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 42),
-
-                  // ====================================================
-                  // SECOND ROW
-                  // ====================================================
                   Row(
                     children: [
                       Expanded(
@@ -151,11 +129,22 @@ class PTOURISTPAGE extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 38),
-
-                      // Empty area to preserve two-column layout.
-                      const Expanded(
-                        child: SizedBox(
+                      Expanded(
+                        child: _ModernServiceButton(
                           height: 420,
+                          icon: Icons.cloud_rounded,
+                          label: loc.weatherButton,
+                          supportingText: loc.weatherSupportingText,
+                          accentColor: const Color(0xFF0B7894),
+                          accentLightColor: const Color(0xFFE1F7FB),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PWeatherPageBentong(),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
@@ -164,10 +153,6 @@ class PTOURISTPAGE extends StatelessWidget {
               ),
             ),
           ),
-
-          // ============================================================
-          // BACK BUTTON
-          // ============================================================
           Positioned(
             bottom: 120,
             left: 300,
@@ -183,10 +168,6 @@ class PTOURISTPAGE extends StatelessWidget {
               },
             ),
           ),
-
-          // ============================================================
-          // FOOTER
-          // ============================================================
           Positioned(
             bottom: 35,
             left: 0,
@@ -208,9 +189,6 @@ class PTOURISTPAGE extends StatelessWidget {
   }
 }
 
-// ============================================================================
-// MODERN HEADER
-// ============================================================================
 class _ModernPageHeader extends StatelessWidget {
   final String badgeText;
   final String title;
@@ -226,7 +204,6 @@ class _ModernPageHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Small category badge.
         Container(
           padding: const EdgeInsets.symmetric(
             horizontal: 24,
@@ -261,10 +238,7 @@ class _ModernPageHeader extends StatelessWidget {
             ],
           ),
         ),
-
         const SizedBox(height: 20),
-
-        // Gradient title.
         ShaderMask(
           blendMode: BlendMode.srcIn,
           shaderCallback: (bounds) {
@@ -288,14 +262,9 @@ class _ModernPageHeader extends StatelessWidget {
             ),
           ),
         ),
-
         const SizedBox(height: 16),
-
-        // Subtitle capsule.
         Container(
-          constraints: const BoxConstraints(
-            maxWidth: 860,
-          ),
+          constraints: const BoxConstraints(maxWidth: 860),
           padding: const EdgeInsets.symmetric(
             horizontal: 32,
             vertical: 16,
@@ -331,9 +300,6 @@ class _ModernPageHeader extends StatelessWidget {
   }
 }
 
-// ============================================================================
-// MODERN MAIN SERVICE BUTTON
-// ============================================================================
 class _ModernServiceButton extends StatefulWidget {
   final IconData? icon;
   final String? imagePath;
@@ -368,10 +334,7 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
 
   void _setPressed(bool value) {
     if (!mounted || widget.comingSoon) return;
-
-    setState(() {
-      _isPressed = value;
-    });
+    setState(() => _isPressed = value);
   }
 
   @override
@@ -397,15 +360,10 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
               widget.comingSoon ? 0.65 : 0.94,
             ),
             borderRadius: BorderRadius.circular(40),
-
-            // Black border for better visibility.
             border: Border.all(
-              color: _isPressed
-                  ? widget.accentColor
-                  : Colors.black,
+              color: _isPressed ? widget.accentColor : Colors.black,
               width: _isPressed ? 4 : 3,
             ),
-
             boxShadow: _isPressed
                 ? [
                     BoxShadow(
@@ -432,7 +390,6 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
             borderRadius: BorderRadius.circular(37),
             child: Stack(
               children: [
-                // Large decorative circle.
                 Positioned(
                   right: -45,
                   top: -45,
@@ -446,8 +403,6 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                     ),
                   ),
                 ),
-
-                // Small decorative circle.
                 Positioned(
                   right: 105,
                   top: 78,
@@ -460,20 +415,13 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                     ),
                   ),
                 ),
-
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    34,
-                    34,
-                    30,
-                    30,
-                  ),
+                  padding: const EdgeInsets.fromLTRB(34, 34, 30, 30),
                   child: Opacity(
                     opacity: widget.comingSoon ? 0.5 : 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Icon and arrow.
                         Row(
                           mainAxisAlignment:
                               MainAxisAlignment.spaceBetween,
@@ -506,7 +454,6 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                                       ),
                               ),
                             ),
-
                             AnimatedContainer(
                               duration: const Duration(milliseconds: 160),
                               transform: Matrix4.translationValues(
@@ -521,8 +468,7 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color:
-                                        widget.accentColor.withOpacity(0.24),
+                                    color: widget.accentColor.withOpacity(0.24),
                                     blurRadius: 14,
                                     offset: const Offset(0, 7),
                                   ),
@@ -536,10 +482,7 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                             ),
                           ],
                         ),
-
                         const Spacer(),
-
-                        // Main label.
                         Text(
                           widget.label.toUpperCase(),
                           maxLines: 2,
@@ -552,10 +495,7 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                             letterSpacing: 0.4,
                           ),
                         ),
-
                         const SizedBox(height: 14),
-
-                        // Supporting description.
                         Text(
                           widget.supportingText,
                           maxLines: 2,
@@ -567,10 +507,7 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                             height: 1.28,
                           ),
                         ),
-
                         const SizedBox(height: 23),
-
-                        // Bottom color accent.
                         Row(
                           children: [
                             Container(
@@ -586,8 +523,7 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                               width: 12,
                               height: 7,
                               decoration: BoxDecoration(
-                                color:
-                                    widget.accentColor.withOpacity(0.28),
+                                color: widget.accentColor.withOpacity(0.28),
                                 borderRadius: BorderRadius.circular(50),
                               ),
                             ),
@@ -597,8 +533,6 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                     ),
                   ),
                 ),
-
-                // Coming soon overlay.
                 if (widget.comingSoon)
                   Positioned.fill(
                     child: Container(
@@ -614,13 +548,6 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                           decoration: BoxDecoration(
                             color: const Color(0xFFE74343),
                             borderRadius: BorderRadius.circular(18),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.20),
-                                blurRadius: 18,
-                                offset: const Offset(0, 8),
-                              ),
-                            ],
                           ),
                           child: Text(
                             AppLocalizations.of(context)!

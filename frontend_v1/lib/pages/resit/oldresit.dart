@@ -147,7 +147,7 @@ class _RESITSTATE extends State<OLDRESITPAGE> {
 
 
 
-  final String baseUrl = Config.baseUrl;
+  final String baseUrl = Config.apiBaseUrl;
 
 
 

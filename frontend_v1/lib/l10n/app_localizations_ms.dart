@@ -87,7 +87,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get p3ruangniagaButton => 'RUANG NIAGA';
 
   @override
-  String get p3othersTitle => 'PILIHAN LAIN-LAIN';
+  String get p3othersTitle => 'PILIHAN PERKHIDMATAN PELANCONGAN';
 
   @override
   String get p3othersSubtitle => 'SILA PILIH PILIHAN ANDA';
@@ -2969,7 +2969,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get parkingCouncilHotline => 'Talian Aduan Majlis';
 
   @override
-  String get parkingCityCarParkHotline => 'Talian Aduan CityCarPark';
+  String get parkingCityCarParkHotline => 'Talian Aduan Operasi';
 
   @override
   String get parkingInfoOk => 'OK';
@@ -4326,4 +4326,186 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get receiptTryAgain => 'Cuba Lagi';
+
+  @override
+  String get parkingDurationGuide => 'Pilih tempoh parkir. Tekan butang − atau + untuk mengubah bilangan jam.';
+
+  @override
+  String get parkingDecreaseDuration => 'Kurangkan tempoh parkir';
+
+  @override
+  String get parkingIncreaseDuration => 'Tambah tempoh parkir';
+
+  @override
+  String parkingMaximumUntil(String time) {
+    return 'Maksimum sehingga $time';
+  }
+
+  @override
+  String get extendParkingDurationGuide => 'Pilih tempoh tambahan. Tekan butang − atau + untuk mengubah bilangan jam.';
+
+  @override
+  String get extendParkingSelectDuration => 'PILIH TEMPOH TAMBAHAN';
+
+  @override
+  String get extendParkingInfoTitle => 'MAKLUMAT TAMBAH WAKTU';
+
+  @override
+  String get extendParkingInfoSubtitle => 'Tambah waktu untuk sesi parkir semasa anda.';
+
+  @override
+  String get extendParkingNotice => 'Waktu tambahan akan bermula daripada waktu tamat parkir semasa. Waktu parkir tidak boleh melebihi 6:00 PM.';
+
+  @override
+  String get extendParkingConfirmTitle => 'SAHKAN TAMBAH WAKTU';
+
+  @override
+  String get extendParkingConfirmationNotice => 'Sila pastikan waktu tamat parkir baharu dan jumlah bayaran adalah betul sebelum meneruskan.';
+
+  @override
+  String get faqButton => 'SOALAN LAZIM';
+
+  @override
+  String get faqSupportingText => 'Bantuan penggunaan kiosk, pembayaran dan resit';
+
+  @override
+  String get faqTitle => 'SOALAN LAZIM';
+
+  @override
+  String get faqSubtitle => 'Sentuh soalan di bawah untuk melihat jawapan';
+
+  @override
+  String get faqWhatIsKioskTitle => 'Apakah Kiosk TIP?';
+
+  @override
+  String get faqWhatIsKioskContent => 'Terminal Integrasi Pintar (TIP) ialah kiosk layan diri yang disediakan untuk memudahkan orang ramai mendapatkan maklumat, membuat semakan dan melakukan pembayaran dengan lebih cepat, mudah dan selamat.\n\nKiosk ini menyediakan perkhidmatan daripada Majlis Perbandaran, Majlis Daerah atau Majlis Bandaraya seperti parkir, kompaun, cukai taksiran, sewaan dan perkhidmatan lain yang disediakan oleh pihak Majlis.';
+
+  @override
+  String get faqCouncilServicesTitle => 'Apakah Perkhidmatan Majlis Yang Disediakan?';
+
+  @override
+  String get faqCouncilServicesContent => 'Antara perkhidmatan Majlis yang boleh disediakan melalui kiosk ini ialah:\n\n• Pembayaran parkir\n• Semakan dan pembayaran kompaun\n• Semakan dan pembayaran cukai taksiran\n• Semakan dan pembayaran sewaan Majlis\n• Pembayaran lesen\n• Perkhidmatan lain yang disediakan oleh Majlis\n\nSenarai perkhidmatan mungkin berbeza mengikut Majlis.';
+
+  @override
+  String get faqBillServicesTitle => 'Apakah Perkhidmatan Bil Yang Disediakan?';
+
+  @override
+  String get faqBillServicesContent => 'Selain perkhidmatan Majlis, kiosk ini turut menyediakan semakan dan pembayaran bil utiliti serta perkhidmatan digital seperti:\n\n• Bil elektrik\n• Bil air\n• Bil TM dan Unifi\n• Bil Astro\n• Tambah nilai telco\n• Perkhidmatan lain yang disokong';
+
+  @override
+  String get faqReceiptTitle => 'Di Manakah Resit Pembayaran Saya?';
+
+  @override
+  String get faqReceiptContent => 'Kiosk TIP menggunakan Resit Digital atau E-Receipt.\n\nSelepas pembayaran berjaya:\n\n1. Kod QR akan dipaparkan pada skrin.\n2. Imbas kod QR menggunakan telefon anda.\n3. Halaman resit akan dibuka melalui pelayar web.\n4. Anda boleh melihat butiran pembayaran.\n5. Anda boleh memuat turun resit dalam format PDF.\n\nSila simpan resit digital sebagai bukti pembayaran.';
+
+  @override
+  String get faqPaymentMethodsTitle => 'Apakah Kaedah Pembayaran Yang Diterima?';
+
+  @override
+  String get faqPaymentMethodsContent => 'Anda boleh membuat pembayaran menggunakan:\n\nKAD DEBIT / KAD KREDIT\n• Visa\n• Mastercard\n• MyDebit\n• Kad tanpa sentuh\n\nPEMBAYARAN NFC\n• Apple Pay\n• Samsung Pay\n• Google Wallet / Google Pay\n• Perkhidmatan NFC lain yang disokong\n\nDUITNOW QR\n• Aplikasi bank\n• Touch ‘n Go eWallet\n• Boost\n• ShopeePay\n• MAE\n• Mana-mana aplikasi yang menyokong DuitNow QR';
+
+  @override
+  String get faqPaymentFailedTitle => 'Pembayaran Dibatalkan atau Ditolak';
+
+  @override
+  String get faqPaymentFailedContent => 'Sekiranya pembayaran dibatalkan, gagal atau ditolak, sila:\n\n• Semak baki akaun anda.\n• Pastikan had transaksi belum melebihi had yang ditetapkan.\n• Cuba semula selepas beberapa ketika.\n• Gunakan kad pembayaran yang lain.\n• Gunakan aplikasi pembayaran yang lain.\n• Pastikan sambungan internet telefon stabil ketika menggunakan DuitNow QR.\n\nJika transaksi masih gagal, sila hubungi pihak bank atau penyedia pembayaran anda.';
+
+  @override
+  String get faqPaymentSafetyTitle => 'Adakah Pembayaran Saya Selamat?';
+
+  @override
+  String get faqPaymentSafetyContent => 'Ya. Semua transaksi diproses melalui saluran pembayaran yang selamat dan penyedia pembayaran yang sah.\n\nMaklumat penuh kad pembayaran anda tidak disimpan di dalam kiosk.';
+
+  @override
+  String get faqUpdateTimeTitle => 'Bilakah Pembayaran Akan Dikemas Kini?';
+
+  @override
+  String get faqUpdateTimeContent => 'Kebanyakan pembayaran akan dikemas kini dalam tempoh yang singkat.\n\nWalau bagaimanapun, sesetengah Majlis, agensi atau penyedia perkhidmatan mungkin memerlukan sedikit masa sebelum rekod pembayaran dipaparkan dalam sistem mereka.\n\nSila simpan resit digital sebagai bukti pembayaran.';
+
+  @override
+  String get faqTipsTitle => 'Tip Sebelum Membuat Pembayaran';
+
+  @override
+  String get faqTipsContent => '• Pastikan nombor akaun atau nombor rujukan dimasukkan dengan betul.\n• Semak nama pelanggan dan butiran bil sebelum meneruskan.\n• Semak jumlah pembayaran sebelum membuat transaksi.\n• Jangan tutup halaman resit sebelum mengimbas kod QR.\n• Simpan resit digital sebagai rujukan.\n• Jangan berkongsi maklumat pembayaran dengan pihak yang tidak dikenali.';
+
+  @override
+  String get faqHelpTitle => 'PENYELESAIAN MASALAH & BANTUAN';
+
+  @override
+  String get faqHelpContent => 'Sekiranya skrin tidak bertindak balas, skrin kosong, pembayaran tergendala, kod QR tidak dipaparkan atau berlaku sebarang masalah lain, sila hubungi:';
+
+  @override
+  String get weatherButton => 'Cuaca';
+
+  @override
+  String get weatherSupportingText => 'Lihat ramalan cuaca rasmi Bentong untuk 7 hari';
+
+  @override
+  String get weatherPageTitle => 'Cuaca Bentong';
+
+  @override
+  String get weatherPageSubtitle => 'Ramalan rasmi 7 hari daripada MET Malaysia melalui data.gov.my';
+
+  @override
+  String get weatherLoadingTitle => 'Memuatkan Cuaca';
+
+  @override
+  String get weatherLoadingMessage => 'Sila tunggu sementara ramalan terkini disediakan.';
+
+  @override
+  String get weatherUnavailableTitle => 'Cuaca Tidak Tersedia';
+
+  @override
+  String get weatherUnavailableMessage => 'Ramalan terkini tidak dapat dimuatkan sekarang. Sila cuba lagi.';
+
+  @override
+  String get weatherTryAgain => 'Cuba Lagi';
+
+  @override
+  String get weatherSevenDayForecast => 'Ramalan 7 Hari';
+
+  @override
+  String get weatherUpdated => 'Dikemas kini';
+
+  @override
+  String get weatherCachedData => 'Data simpanan';
+
+  @override
+  String get weatherMinimumShort => 'min';
+
+  @override
+  String get weatherRefresh => 'Muat semula cuaca';
+
+  @override
+  String get weatherMorning => 'Pagi';
+
+  @override
+  String get weatherAfternoon => 'Petang';
+
+  @override
+  String get weatherNight => 'Malam';
+
+  @override
+  String get weatherDisclaimerTitle => 'Penafian';
+
+  @override
+  String get weatherDisclaimerText => 'Ramalan rasmi 7 hari daripada MET Malaysia melalui laman web data.gov.my.';
+
+  @override
+  String get weatherScrollHint => 'Leret ke atas atau ke bawah untuk melihat ramalan seterusnya';
+
+  @override
+  String get weatherToday => 'Hari Ini';
+
+  @override
+  String get taksiranPaymentPeriodQuestion => 'Anda mahu membuat pembayaran jumlah sepenggal atau jumlah setahun?';
+
+  @override
+  String get taksiranHalfYearAmount => 'Jumlah Sepenggal';
+
+  @override
+  String get taksiranAnnualAmount => 'Jumlah Setahun';
+
+  @override
+  String get scrollForMoreInformation => 'Skrol untuk maklumat lanjut';
 }

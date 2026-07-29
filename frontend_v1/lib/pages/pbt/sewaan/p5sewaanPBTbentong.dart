@@ -1777,12 +1777,12 @@ class _P5SewaanPBTbentongScreenState
                             bold: true,
                           ),
 
-                          _modernDetailRow(
-                            loc.annualTotal,
-                            "RM ${_money("jumlah_setahun")}",
-                            Icons
-                                .calendar_today,
-                          ),
+                          // _modernDetailRow(
+                          //   loc.annualTotal,
+                          //   "RM ${_money("jumlah_setahun")}",
+                          //   Icons
+                          //       .calendar_today,
+                          // ),
                         ],
                       ),
                     ),

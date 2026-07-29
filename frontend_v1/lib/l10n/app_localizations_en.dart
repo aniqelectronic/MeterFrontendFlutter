@@ -87,7 +87,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get p3ruangniagaButton => 'COMMERCIAL SPACES';
 
   @override
-  String get p3othersTitle => 'OTHERS OPTIONS';
+  String get p3othersTitle => 'TOURISM SERVICES OPTIONS';
 
   @override
   String get p3othersSubtitle => 'PLEASE SELECT YOUR OPTION';
@@ -2975,7 +2975,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get parkingCouncilHotline => 'Municipal Council Hotline';
 
   @override
-  String get parkingCityCarParkHotline => 'CityCarPark Hotline';
+  String get parkingCityCarParkHotline => 'operations Hotline';
 
   @override
   String get parkingInfoOk => 'OK';
@@ -4332,4 +4332,186 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get receiptTryAgain => 'Try Again';
+
+  @override
+  String get parkingDurationGuide => 'Select your parking duration. Press − or + to change the number of hours.';
+
+  @override
+  String get parkingDecreaseDuration => 'Decrease parking duration';
+
+  @override
+  String get parkingIncreaseDuration => 'Increase parking duration';
+
+  @override
+  String parkingMaximumUntil(String time) {
+    return 'Maximum until $time';
+  }
+
+  @override
+  String get extendParkingDurationGuide => 'Select the additional duration. Press − or + to change the number of hours.';
+
+  @override
+  String get extendParkingSelectDuration => 'SELECT ADDITIONAL DURATION';
+
+  @override
+  String get extendParkingInfoTitle => 'EXTEND PARKING INFORMATION';
+
+  @override
+  String get extendParkingInfoSubtitle => 'Add more time to your current parking session.';
+
+  @override
+  String get extendParkingNotice => 'The additional time will begin from the current parking end time. Parking cannot be extended beyond 6:00 PM.';
+
+  @override
+  String get extendParkingConfirmTitle => 'CONFIRM PARKING EXTENSION';
+
+  @override
+  String get extendParkingConfirmationNotice => 'Please make sure the new parking end time and payment amount are correct before continuing.';
+
+  @override
+  String get faqButton => 'FREQUENTLY ASKED QUESTIONS';
+
+  @override
+  String get faqSupportingText => 'Help with kiosk usage, payments and receipts';
+
+  @override
+  String get faqTitle => 'FREQUENTLY ASKED QUESTIONS';
+
+  @override
+  String get faqSubtitle => 'Touch a question below to view the answer';
+
+  @override
+  String get faqWhatIsKioskTitle => 'What Is the TIP Kiosk?';
+
+  @override
+  String get faqWhatIsKioskContent => 'Terminal Integrasi Pintar (TIP) is a self-service kiosk that helps the public obtain information, perform checks and make payments quickly, conveniently and securely.\n\nThe kiosk provides services from Municipal Councils, District Councils or City Councils, including parking, compounds, assessment tax, council rental and other services provided by the Council.';
+
+  @override
+  String get faqCouncilServicesTitle => 'Which Council Services Are Available?';
+
+  @override
+  String get faqCouncilServicesContent => 'Council services that may be available through this kiosk include:\n\n• Parking payment\n• Compound checking and payment\n• Assessment tax checking and payment\n• Council rental checking and payment\n• Licence payment\n• Other services provided by the Council\n\nAvailable services may differ by Council.';
+
+  @override
+  String get faqBillServicesTitle => 'Which Bill Services Are Available?';
+
+  @override
+  String get faqBillServicesContent => 'In addition to Council services, the kiosk may provide utility bill checking and payment, as well as digital services such as:\n\n• Electricity bills\n• Water bills\n• TM and Unifi bills\n• Astro bills\n• Telco prepaid top-up\n• Other supported services';
+
+  @override
+  String get faqReceiptTitle => 'Where Is My Payment Receipt?';
+
+  @override
+  String get faqReceiptContent => 'The TIP kiosk uses a Digital Receipt or E-Receipt.\n\nAfter a successful payment:\n\n1. A QR code will appear on the screen.\n2. Scan the QR code using your phone.\n3. The receipt page will open in a web browser.\n4. You can view the payment details.\n5. You can download the receipt in PDF format.\n\nKeep the digital receipt as proof of payment.';
+
+  @override
+  String get faqPaymentMethodsTitle => 'Which Payment Methods Are Accepted?';
+
+  @override
+  String get faqPaymentMethodsContent => 'You can make payment using:\n\nDEBIT / CREDIT CARD\n• Visa\n• Mastercard\n• MyDebit\n• Contactless cards\n\nNFC PAYMENT\n• Apple Pay\n• Samsung Pay\n• Google Wallet / Google Pay\n• Other supported NFC services\n\nDUITNOW QR\n• Banking applications\n• Touch ‘n Go eWallet\n• Boost\n• ShopeePay\n• MAE\n• Any application that supports DuitNow QR';
+
+  @override
+  String get faqPaymentFailedTitle => 'Payment Was Cancelled or Declined';
+
+  @override
+  String get faqPaymentFailedContent => 'If your payment is cancelled, unsuccessful or declined:\n\n• Check your account balance.\n• Ensure the transaction limit has not been exceeded.\n• Try again after a short while.\n• Use a different payment card.\n• Use a different payment application.\n• Ensure your phone has a stable internet connection when using DuitNow QR.\n\nIf the transaction still fails, contact your bank or payment provider.';
+
+  @override
+  String get faqPaymentSafetyTitle => 'Is My Payment Secure?';
+
+  @override
+  String get faqPaymentSafetyContent => 'Yes. Transactions are processed through secure payment channels and authorised payment providers.\n\nYour full payment card information is not stored in the kiosk.';
+
+  @override
+  String get faqUpdateTimeTitle => 'When Will My Payment Be Updated?';
+
+  @override
+  String get faqUpdateTimeContent => 'Most payments are updated within a short period.\n\nHowever, some Councils, agencies or service providers may require additional time before the payment appears in their system.\n\nKeep your digital receipt as proof of payment.';
+
+  @override
+  String get faqTipsTitle => 'Tips Before Making Payment';
+
+  @override
+  String get faqTipsContent => '• Ensure the account or reference number is entered correctly.\n• Check the customer name and bill details before continuing.\n• Check the payment amount before completing the transaction.\n• Do not close the receipt page before scanning the QR code.\n• Keep the digital receipt for reference.\n• Do not share payment information with unknown parties.';
+
+  @override
+  String get faqHelpTitle => 'TROUBLESHOOTING & HELP';
+
+  @override
+  String get faqHelpContent => 'If the screen is unresponsive or blank, the payment is interrupted, the QR code does not appear, or another problem occurs, please contact:';
+
+  @override
+  String get weatherButton => 'Weather';
+
+  @override
+  String get weatherSupportingText => 'View Bentong\'s official 7-day weather forecast';
+
+  @override
+  String get weatherPageTitle => 'Bentong Weather';
+
+  @override
+  String get weatherPageSubtitle => 'Official 7-day forecast provided by MET Malaysia through data.gov.my';
+
+  @override
+  String get weatherLoadingTitle => 'Loading Weather';
+
+  @override
+  String get weatherLoadingMessage => 'Please wait while the latest forecast is being prepared.';
+
+  @override
+  String get weatherUnavailableTitle => 'Weather Unavailable';
+
+  @override
+  String get weatherUnavailableMessage => 'The latest forecast cannot be loaded right now. Please try again.';
+
+  @override
+  String get weatherTryAgain => 'Try Again';
+
+  @override
+  String get weatherSevenDayForecast => '7-Day Forecast';
+
+  @override
+  String get weatherUpdated => 'Updated';
+
+  @override
+  String get weatherCachedData => 'Saved data';
+
+  @override
+  String get weatherMinimumShort => 'min';
+
+  @override
+  String get weatherRefresh => 'Refresh weather';
+
+  @override
+  String get weatherMorning => 'Morning';
+
+  @override
+  String get weatherAfternoon => 'Afternoon';
+
+  @override
+  String get weatherNight => 'Night';
+
+  @override
+  String get weatherDisclaimerTitle => 'Disclaimer';
+
+  @override
+  String get weatherDisclaimerText => 'Official 7-day forecast from MET Malaysia through the data.gov.my website.';
+
+  @override
+  String get weatherScrollHint => 'Swipe up or down to view the next forecast';
+
+  @override
+  String get weatherToday => 'Today';
+
+  @override
+  String get taksiranPaymentPeriodQuestion => 'Would you like to pay the half-year amount or the annual amount?';
+
+  @override
+  String get taksiranHalfYearAmount => 'Half-Year Amount';
+
+  @override
+  String get taksiranAnnualAmount => 'Annual Amount';
+
+  @override
+  String get scrollForMoreInformation => 'Scroll for more information';
 }

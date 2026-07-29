@@ -3,7 +3,7 @@ import 'package:frontend_v1/pages/config.dart';
 import 'package:http/http.dart' as http;
 
 class PegePayService {
-  static const String baseUrl = Config.baseUrl;
+  static const String baseUrl = Config.apiBaseUrl;
 
   static Future<Map<String, dynamic>> createOrder(
     double amount,

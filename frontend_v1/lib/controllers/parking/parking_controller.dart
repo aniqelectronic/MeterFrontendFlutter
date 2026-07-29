@@ -13,7 +13,7 @@ class ParkingController {
 
   static Future<bool> checkActiveParking(String plate) async {
     try {
-      final url = Uri.parse("${Config.baseUrl}/parking/check/$plate");
+      final url = Uri.parse("${Config.apiBaseUrl}/parking/check/$plate");
       final response = await http.get(url);
 
       if (response.statusCode != 200) {
@@ -108,7 +108,7 @@ class ParkingService {
       };
 
       final uri = Uri.parse(
-        "${Config.baseUrl}/parking/$plate/${Config.terminalId}/extend",
+        "${Config.apiBaseUrl}/parking/$plate/${Config.terminalId}/extend",
       );
 
       final response = await http.put(
@@ -145,7 +145,7 @@ class ParkingService {
         "bank_trx_no": bankTrxNo,
       };
 
-      final uri = Uri.parse("${Config.baseUrl}/parking/pay");
+      final uri = Uri.parse("${Config.apiBaseUrl}/parking/pay");
 
       final response = await http.post(
         uri,

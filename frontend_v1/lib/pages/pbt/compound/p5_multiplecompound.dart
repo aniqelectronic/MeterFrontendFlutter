@@ -118,24 +118,108 @@ class _P5MultipleCompoundScreenState extends State<P5MULTIPLECompoundScreen> {
 
   }
 
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isWide = size.width >= 900;
+    final loc = AppLocalizations.of(context)!;
 
-    final titleSize = isWide ? 70.0 : 30.0;
-    final subtitleSize = isWide ? 40.0 : 18.0;
-    final rowTextSize = isWide ? 25.0 : 10.0;
-    final totalSize = isWide ? 40.0 : 20.0;
+    if (loading) {
+      return Scaffold(
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("lib/images/pnew.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: const Center(
+            child: CircularProgressIndicator(
+              strokeWidth: 7,
+              color: Color(0xFF1976D2),
+            ),
+          ),
+        ),
+      );
+    }
 
-    const double bottomPanelHeight = 800;
+    if (compounds.isEmpty) {
+      return Scaffold(
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("lib/images/pnew.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: Container(
+              width: 760,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 45,
+                vertical: 55,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.97),
+                borderRadius: BorderRadius.circular(35),
+                border: Border.all(
+                  color: const Color(0xFFBBD9FF),
+                  width: 3,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.16),
+                    blurRadius: 30,
+                    offset: const Offset(0, 15),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 130,
+                    height: 130,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF0359D2).withOpacity(0.10),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.gavel_rounded,
+                      size: 76,
+                      color: Color(0xFF0359D2),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  Text(
+                    loc.alertNoCompoundRecord,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 38,
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF163A65),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
 
+    final screenWidth = MediaQuery.of(context).size.width;
+    final rowTextSize = screenWidth >= 900 ? 25.0 : 14.0;
 
     return Scaffold(
       body: Stack(
         children: [
-          /// BACKGROUND
           Container(
+            width: double.infinity,
+            height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("lib/images/pnew.png"),
@@ -146,51 +230,178 @@ class _P5MultipleCompoundScreenState extends State<P5MULTIPLECompoundScreen> {
 
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.fromLTRB(
+                35,
+                40,
+                35,
+                470,
+              ),
               child: Column(
                 children: [
-                  const SizedBox(height: 80),
-
-                  Text(
-                    AppLocalizations.of(context)!.p5MultiCompoundTitle,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: titleSize,
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 3, 89, 210),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 38,
+                      vertical: 28,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFF0D47A1),
+                          Color(0xFF1976D2),
+                          Color(0xFF42A5F5),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(32),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF0D47A1).withOpacity(0.25),
+                          blurRadius: 25,
+                          offset: const Offset(0, 12),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.16),
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.25),
+                              width: 2,
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.gavel_rounded,
+                            color: Colors.white,
+                            size: 58,
+                          ),
+                        ),
+                        const SizedBox(width: 28),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                loc.p5MultiCompoundTitle,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 48,
+                                  fontWeight: FontWeight.w900,
+                                  height: 1.05,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                loc.p5MultiCompoundSubtitle,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.90),
+                                  fontSize: 29,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.2,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 25,
+                            vertical: 18,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.14),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                "${selectedCompounds.length}",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 42,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                              Text(
+                                loc.total,
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.90),
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
 
-                  Text(
-                    AppLocalizations.of(context)!.p5MultiCompoundSubtitle,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: subtitleSize,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-
-                  const SizedBox(height: 50),
-
-                  _tableHeader(rowTextSize),
-
-                  /// LIST
-                  SizedBox(
-                  height: MediaQuery.of(context).size.height
-                      - bottomPanelHeight
-                      - 250, // 👈 header + title + padding compensation
-                    child: Scrollbar(
-                      controller: _scrollController,
-                      thumbVisibility: true,
-                      thickness: 20,
-                      radius: const Radius.circular(10),
-                      child: ListView.builder(
-                        controller: _scrollController,
-                        itemCount: compounds.length,
-                        itemBuilder: (_, i) =>
-                            _compoundRow(compounds[i], rowTextSize),
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.96),
+                        borderRadius: BorderRadius.circular(28),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.10),
+                            blurRadius: 22,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(26),
+                        child: Column(
+                          children: [
+                            _tableHeader(rowTextSize),
+                            Expanded(
+                              child: Scrollbar(
+                                controller: _scrollController,
+                                thumbVisibility: true,
+                                trackVisibility: true,
+                                thickness: 16,
+                                radius: const Radius.circular(20),
+                                child: ListView.separated(
+                                  controller: _scrollController,
+                                  padding: const EdgeInsets.fromLTRB(
+                                    18,
+                                    20,
+                                    30,
+                                    25,
+                                  ),
+                                  itemCount: compounds.length,
+                                  separatorBuilder: (_, __) =>
+                                      const SizedBox(height: 14),
+                                  itemBuilder: (_, index) {
+                                    return _compoundRow(
+                                      compounds[index],
+                                      rowTextSize,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -199,81 +410,235 @@ class _P5MultipleCompoundScreenState extends State<P5MULTIPLECompoundScreen> {
             ),
           ),
 
-          /// SELECT ALL + TOTAL + BUTTONS (same style as TAX)
           Positioned(
-            bottom: 200,
-            left: 24,
-            right: 24,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Transform.scale(
-                      scale: 2,
-                      child: Checkbox(
-                        value: selectAll,
-                        onChanged: (v) => _toggleSelectAll(v!),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        selectAll
-                            ? AppLocalizations.of(context)!
-                                .multiCompoundUnselectAll
-                            : AppLocalizations.of(context)!
-                                .multiCompoundSelectAll,
-                        style: TextStyle(fontSize: rowTextSize,
-                        fontWeight: FontWeight.bold,),
-                      ),
-                    ),
-                    Text(
-                      'RM ${total.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: totalSize,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+            left: 35,
+            right: 35,
+            bottom: 80,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(
+                30,
+                24,
+                30,
+                28,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.98),
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 2,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.18),
+                    blurRadius: 28,
+                    offset: const Offset(0, 14),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 28,
+                      vertical: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFFF1F8F4),
+                          Color(0xFFE3F5E9),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(22),
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 2,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 62,
+                          height: 62,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF16813B),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.account_balance_wallet_rounded,
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                loc.amountPayable,
+                                style: const TextStyle(
+                                  color: Color(0xFF567064),
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              Text(
+                                "${selectedCompounds.length} ${loc.compoundButton}",
+                                style: const TextStyle(
+                                  color: Color(0xFF273E34),
+                                  fontSize: 21,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          "RM ${total.toStringAsFixed(2)}",
+                          textAlign: TextAlign.right,
+                          style: const TextStyle(
+                            color: Color(0xFF16813B),
+                            fontSize: 46,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
 
-                const SizedBox(height: 12),
+                  const SizedBox(height: 18),
 
-                Row(
-                  children: [
-                    Expanded(
-                      child: _bigButton(
-                        AppLocalizations.of(context)!.backButton,
-                        Colors.grey.shade300,
-                        rowTextSize,
-                        () => Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => P4PAGE(
-                              title: AppLocalizations.of(context)!
-                                  .multicompoundTitle,
-                              type:"PBT",
-                              hint: AppLocalizations.of(context)!
-                                  .inputPlateHint,
-                              biz: "MULTICOMPOUND",
+                  Row(
+                    children: [
+                      Transform.scale(
+                        scale: 1.6,
+                        child: Checkbox(
+                          value: selectAll,
+                          activeColor: const Color(0xFF1976D2),
+                          onChanged: compounds.isEmpty
+                              ? null
+                              : (value) => _toggleSelectAll(value ?? false),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          selectAll
+                              ? loc.multiCompoundUnselectAll
+                              : loc.multiCompoundSelectAll,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
+                            color: Color(0xFF2D3743),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 18),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 105,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => P4PAGE(
+                                    title: loc.multicompoundTitle,
+                                    type: "PBT",
+                                    hint: loc.inputPlateHint,
+                                    biz: "MULTICOMPOUND",
+                                  ),
+                                ),
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back_rounded,
+                              size: 42,
+                            ),
+                            label: Text(
+                              loc.backButton,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              style: const TextStyle(
+                                fontSize: 38,
+                                fontWeight: FontWeight.bold,
+                                height: 1.05,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFE0E0E0),
+                              foregroundColor: Colors.black,
+                              elevation: 0,
+                              side: const BorderSide(
+                                color: Colors.black,
+                                width: 2,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
                             ),
                           ),
                         ),
-                        textColor: Colors.black,
                       ),
-                    ),
-                    const SizedBox(width: 100),
-                    Expanded(
-                      child: _bigButton(
-                        AppLocalizations.of(context)!.continueButton,
-                        Colors.green,
-                        rowTextSize,
-                        _proceed,
-                        textColor: Colors.white,
+
+                      const SizedBox(width: 50),
+
+                      Expanded(
+                        child: SizedBox(
+                          height: 105,
+                          child: ElevatedButton(
+                            onPressed: _proceed,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF16813B),
+                              foregroundColor: Colors.white,
+                              elevation: 0,
+                              side: const BorderSide(
+                                color: Colors.black,
+                                width: 2,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    loc.continueButton,
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    style: const TextStyle(
+                                      fontSize: 38,
+                                      fontWeight: FontWeight.bold,
+                                      height: 1.05,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 15),
+                                const Icon(
+                                  Icons.arrow_forward_rounded,
+                                  size: 42,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -281,168 +646,296 @@ class _P5MultipleCompoundScreenState extends State<P5MULTIPLECompoundScreen> {
     );
   }
 
-  /// ================= TABLE =================
+  Widget _tableHeader(double fontSize) {
+    final loc = AppLocalizations.of(context)!;
 
-Widget _tableHeader(double fontSize) {
-  return Container(
-    height: 120,
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [
-          const Color(0xFF0359D2).withOpacity(0.85),
-          const Color(0xFF0359D2).withOpacity(0.65),
+    return Container(
+      height: 105,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color(0xFF0D47A1),
+            Color(0xFF1976D2),
+            Color(0xFF42A5F5),
+          ],
+        ),
+      ),
+      child: Row(
+        children: [
+          const SizedBox(
+            width: 90,
+            child: Center(
+              child: Icon(
+                Icons.check_circle_outline_rounded,
+                color: Colors.white,
+                size: 35,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 22,
+            child: _responsiveHeader(
+              loc.multiCompoundHeaderNo,
+              fontSize,
+            ),
+          ),
+          Expanded(
+            flex: 24,
+            child: _responsiveHeader(
+              loc.multiCompoundHeaderOffense,
+              fontSize,
+            ),
+          ),
+          Expanded(
+            flex: 16,
+            child: _responsiveHeader(
+              loc.multiCompoundHeaderDate,
+              fontSize,
+            ),
+          ),
+          Expanded(
+            flex: 16,
+            child: _responsiveHeader(
+              loc.multiCompoundHeaderAmount,
+              fontSize,
+            ),
+          ),
+          Expanded(
+            flex: 10,
+            child: _responsiveHeader(
+              loc.info,
+              fontSize,
+            ),
+          ),
         ],
       ),
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(12),
-      ),
-    ),
-    child: Row(
-      children: [
-        const SizedBox(width: 80),
-        _fixedHeader(
-          AppLocalizations.of(context)!.multiCompoundHeaderNo,
-          _noKompaunWidth,
-          fontSize,
-        ),
-        _fixedHeader(
-          AppLocalizations.of(context)!.multiCompoundHeaderOffense,
-          250,
-          fontSize,
-        ),
-        _fixedHeader(
-          AppLocalizations.of(context)!.multiCompoundHeaderDate,
-          160,
-          fontSize,
-        ),
-        _fixedHeader(
-          AppLocalizations.of(context)!.multiCompoundHeaderAmount,
-          180,
-          fontSize,
-        ),
-      ],
-    ),
-  );
-}
+    );
+  }
 
-Widget _fixedHeader(String text, double width, double size) {
-  return SizedBox(
-    width: width,
-    child: Center(
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: size,
-          fontWeight: FontWeight.w800,
-          color: Colors.white,
-          letterSpacing: 1.2,
-        ),
-      ),
-    ),
-  );
-}
+  Widget _compoundRow(
+    MultiCompoundModel c,
+    double fontSize,
+  ) {
+    final selected = selectedCompounds.contains(c.compoundNum);
 
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(22),
+        onTap: () {
+          _toggleCompound(
+            c.compoundNum,
+            !selected,
+          );
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          curve: Curves.easeOut,
+          constraints: const BoxConstraints(minHeight: 120),
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          decoration: BoxDecoration(
+            color: selected
+                ? const Color(0xFFE7F2FF)
+                : Colors.white,
+            borderRadius: BorderRadius.circular(22),
+            border: Border.all(
+              color: selected
+                  ? const Color(0xFF1565C0)
+                  : Colors.black,
+              width: selected ? 3 : 2,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.12),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 90,
+                child: Center(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 180),
+                    width: 58,
+                    height: 58,
+                    decoration: BoxDecoration(
+                      color: selected
+                          ? const Color(0xFF1976D2)
+                          : const Color(0xFFF1F4F8),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: selected
+                            ? const Color(0xFF1976D2)
+                            : const Color(0xFFB8C4D1),
+                        width: 2,
+                      ),
+                    ),
+                    child: Icon(
+                      selected
+                          ? Icons.check_rounded
+                          : Icons.circle_outlined,
+                      color: selected
+                          ? Colors.white
+                          : const Color(0xFF7A8A9A),
+                      size: 36,
+                    ),
+                  ),
+                ),
+              ),
 
-Widget _compoundRow(MultiCompoundModel c, double fontSize) {
-  final selected = selectedCompounds.contains(c.compoundNum);
+              Expanded(
+                flex: 22,
+                child: _responsiveCell(
+                  c.compoundNum,
+                  fontSize,
+                  bold: true,
+                ),
+              ),
 
-  return AnimatedContainer(
-    duration: const Duration(milliseconds: 200),
-    margin: const EdgeInsets.symmetric(vertical: 10),
-    padding: const EdgeInsets.symmetric(vertical: 16),
-    constraints: const BoxConstraints(minHeight: 120),
-    decoration: BoxDecoration(
-      color: selected ? const Color(0xFFE8F1FF) : Colors.white,
-      borderRadius: BorderRadius.circular(14),
-      border: Border.all(
-        color: selected
-            ? const Color(0xFF0359D2)
-            : Colors.black12,
-        width: selected ? 2 : 1,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.08),
-          blurRadius: 12,
-          offset: const Offset(0, 6),
-        ),
-      ],
-    ),
-child: Row(
-  children: [
-    SizedBox(
-      width: 80,
-      height: 80,
-      child: Center(
-        child: Transform.scale(
-          scale: 2.2,
-          child: Checkbox(
-            value: selected,
-            activeColor: const Color(0xFF0359D2),
-            onChanged: (v) =>
-                _toggleCompound(c.compoundNum, v!),
+              Expanded(
+                flex: 24,
+                child: _responsiveCell(
+                  c.perintah ?? "-",
+                  fontSize,
+                ),
+              ),
+
+              Expanded(
+                flex: 16,
+                child: _responsiveCell(
+                  c.date ?? "-",
+                  fontSize,
+                ),
+              ),
+
+              Expanded(
+                flex: 16,
+                child: Center(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 12,
+                    ),
+                    decoration: BoxDecoration(
+                      color: selected
+                          ? const Color(0xFFE2F3E8)
+                          : const Color(0xFFF1F7F3),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        "RM ${c.amount.toStringAsFixed(2)}",
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: fontSize + 2,
+                          fontWeight: FontWeight.w900,
+                          color: const Color(0xFF16813B),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              Expanded(
+                flex: 10,
+                child: Center(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(50),
+                    onTap: () {
+                      _showDetailPopup(c);
+                    },
+                    child: Container(
+                      width: 55,
+                      height: 55,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFF1976D2),
+                            Color(0xFF42A5F5),
+                          ],
+                        ),
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF1976D2).withOpacity(0.25),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.info_outline_rounded,
+                        size: 31,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
-    ),
+    );
+  }
 
-    _fixedCell(c.compoundNum, 280, fontSize),
-    _fixedCell(c.perintah ?? '-', 220, fontSize, wrap: true),
-    _fixedCell(c.date ?? '-', 180, fontSize),
-
-    SizedBox(
-      width: 180,
+  Widget _responsiveHeader(
+    String text,
+    double fontSize,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Center(
         child: Text(
-          c.amount.toStringAsFixed(2),
+          text,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
-            fontSize: fontSize + 2,
-            fontWeight: FontWeight.bold,
+            fontSize: fontSize,
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+            height: 1.1,
           ),
         ),
       ),
-    ),
+    );
+  }
 
-    /// 👁️ ADD THIS
-SizedBox(
-  width: 90,
-  child: Center(
-    child: Tooltip(
-      message: AppLocalizations.of(context)!.viewDetails, 
-      textStyle: const TextStyle(fontSize: 18, color: Colors.white),
-      decoration: BoxDecoration(
-        color: const Color(0xFF0359D2),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(50),
-          onTap: () => _showDetailPopup(c),
-          child: Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF0359D2), Color(0xFF4A90E2)],
-              ),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.info_outline,
-              size: 34,
-              color: Colors.white,
-            ),
+  Widget _responsiveCell(
+    String text,
+    double fontSize, {
+    bool bold = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Center(
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: bold
+                ? FontWeight.w800
+                : FontWeight.w600,
+            color: const Color(0xFF2D3743),
+            height: 1.15,
           ),
         ),
       ),
-    ),
-  ),
-),
-  ],
-),
-  );
-}
+    );
+  }
 
 void _showDetailPopup(MultiCompoundModel c) {
   showDialog(
@@ -616,7 +1109,7 @@ Widget _modernDetailRow(String label, String value, IconData icon,
   );
 }
 
-Widget _detailRow(String label, String? value, {bool bold = false}) {
+  Widget _detailRow(String label, String? value, {bool bold = false}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 10),
     child: Row(
@@ -644,59 +1137,4 @@ Widget _detailRow(String label, String? value, {bool bold = false}) {
     ),
   );
 }
-Widget _fixedCell(
-  String text,
-  double width,
-  double size, {
-  bool wrap = false,
-}) {
-  return SizedBox(
-    width: width,
-    child: Center(
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        softWrap: wrap,
-        maxLines: wrap ? null : 1,
-        overflow: wrap ? TextOverflow.visible : TextOverflow.ellipsis,
-        style: TextStyle(
-          fontSize: size,
-          fontWeight: FontWeight.w600,
-          color: Colors.black87,
-        ),
-      ),
-    ),
-  );
-}
-
-
-  Widget _bigButton(
-    String text,
-    Color color,
-    double fontSize,
-    VoidCallback onTap, {
-    required Color textColor,
-  }) {
-    return SizedBox(
-      height: 120,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          side: const BorderSide(color: Colors.black, width: 2),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-        onPressed: onTap,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: fontSize,
-            fontWeight: FontWeight.bold,
-            color: textColor,
-          ),
-        ),
-      ),
-    );
-  }
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/controllers/taksiran/taksiran_service_bentong.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
+import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/pbt/p4.dart';
 import 'package:frontend_v1/pages/payment/payment.dart';
 import 'package:frontend_v1/model/taksiran/taksiran_payment_item.dart';
+
+enum TaksiranPaymentPeriod { sepenggal, setahun }
 
 class P5TaksiranBentongScreen extends StatefulWidget {
   const P5TaksiranBentongScreen({super.key});
@@ -15,10 +18,17 @@ class P5TaksiranBentongScreen extends StatefulWidget {
 
 class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
   final ScrollController _scrollController = ScrollController();
+  final ScrollController _detailScrollController = ScrollController();
 
   List<Map<String, dynamic>> taksiranList = [];
   Set<String> selectedAccounts = {};
   double total = 0.0;
+  TaksiranPaymentPeriod selectedPeriod = TaksiranPaymentPeriod.setahun;
+
+  String get _selectedAmountKey =>
+      selectedPeriod == TaksiranPaymentPeriod.sepenggal
+          ? "jumlah_sepenggal"
+          : "jumlah_setahun";
 
   @override
   void initState() {
@@ -29,6 +39,7 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _detailScrollController.dispose();
     super.dispose();
   }
 
@@ -54,7 +65,16 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
   void _updateTotal() {
     total = taksiranList
         .where((item) => selectedAccounts.contains(_value(item, "account_no")))
-        .fold(0.0, (sum, item) => sum + _amount(item, "jumlah_sepenggal"));
+        .fold(0.0, (sum, item) => sum + _amount(item, _selectedAmountKey));
+  }
+
+  void _changePaymentPeriod(TaksiranPaymentPeriod period) {
+    if (selectedPeriod == period) return;
+
+    setState(() {
+      selectedPeriod = period;
+      _updateTotal();
+    });
   }
 
   void _toggleTaksiran(String accountNo, bool value) {
@@ -93,7 +113,7 @@ void _proceed() {
         (item) => TaksiranPaymentItem(
           noPendaftaran: _value(item, "pdaftaran"),
           accountNo: _value(item, "account_no"),
-          amount: _amount(item, "jumlah_sepenggal"),
+          amount: _amount(item, _selectedAmountKey),
           ownerName: _value(item, "name"),
           propertyAddress: [
             _value(item, "no_rumah"),
@@ -517,7 +537,11 @@ void _proceed() {
                       ),
                     ),
 
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 24),
+
+                    _paymentPeriodSelector(),
+
+                    const SizedBox(height: 24),
 
                     // ===============================================
                     // TABLE CARD
@@ -591,7 +615,7 @@ void _proceed() {
             Positioned(
               left: 35,
               right: 35,
-              bottom: 80,
+              bottom: 120,
               child: Container(
                 padding: const EdgeInsets.fromLTRB(
                   30,
@@ -809,10 +833,158 @@ void _proceed() {
                 ),
               ),
             ),
+
+            // ============================================================
+            // FOOTER
+            // ============================================================
+            Positioned(
+              bottom: 45,
+              left: 0,
+              right: 0,
+              child: IgnorePointer(
+                child: Center(
+                  child: Text(
+                    Data.copyrightText,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF26364A),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       );
     }
+
+  Widget _paymentPeriodSelector() {
+    final loc = AppLocalizations.of(context)!;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(26, 22, 26, 24),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.98),
+        borderRadius: BorderRadius.circular(26),
+        border: Border.all(color: Colors.black, width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.10),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Text(
+            loc.taksiranPaymentPeriodQuestion,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(0xFF163A65),
+              fontSize: 29,
+              fontWeight: FontWeight.w800,
+              height: 1.2,
+            ),
+          ),
+          const SizedBox(height: 18),
+          Row(
+            children: [
+              Expanded(
+                child: _periodButton(
+                  label: loc.taksiranHalfYearAmount,
+                  icon: Icons.receipt_long_rounded,
+                  selected:
+                      selectedPeriod == TaksiranPaymentPeriod.sepenggal,
+                  onTap: () => _changePaymentPeriod(
+                    TaksiranPaymentPeriod.sepenggal,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: _periodButton(
+                  label: loc.taksiranAnnualAmount,
+                  icon: Icons.calendar_month_rounded,
+                  selected:
+                      selectedPeriod == TaksiranPaymentPeriod.setahun,
+                  onTap: () => _changePaymentPeriod(
+                    TaksiranPaymentPeriod.setahun,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _periodButton({
+    required String label,
+    required IconData icon,
+    required bool selected,
+    required VoidCallback onTap,
+  }) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 180),
+      height: 88,
+      decoration: BoxDecoration(
+        color: selected ? const Color(0xFF16813B) : const Color(0xFFF2F4F7),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: selected ? const Color(0xFF16813B) : Colors.black,
+          width: selected ? 3 : 2,
+        ),
+        boxShadow: selected
+            ? [
+                BoxShadow(
+                  color: const Color(0xFF16813B).withOpacity(0.25),
+                  blurRadius: 14,
+                  offset: const Offset(0, 7),
+                ),
+              ]
+            : null,
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  selected ? Icons.check_circle_rounded : icon,
+                  color: selected ? Colors.white : const Color(0xFF263238),
+                  size: 34,
+                ),
+                const SizedBox(width: 12),
+                Flexible(
+                  child: Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    style: TextStyle(
+                      color: selected ? Colors.white : const Color(0xFF263238),
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
+                      height: 1.05,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
 Widget _tableHeader(double fontSize) {
   final loc = AppLocalizations.of(context)!;
@@ -893,10 +1065,7 @@ Widget _tableHeader(double fontSize) {
   ) {
     final accountNo = _value(item, "account_no");
     final selected = selectedAccounts.contains(accountNo);
-    final amount = _amount(
-      item,
-      "jumlah_sepenggal",
-    );
+    final amount = _amount(item, _selectedAmountKey);
 
     return Material(
       color: Colors.transparent,
@@ -1046,8 +1215,7 @@ Widget _tableHeader(double fontSize) {
                         style: TextStyle(
                           fontSize: fontSize + 2,
                           fontWeight: FontWeight.w900,
-                          color:
-                              const Color(0xFF16813B),
+                          color: const Color(0xFF16813B),
                         ),
                       ),
                     ),
@@ -1144,224 +1312,298 @@ Widget _tableHeader(double fontSize) {
       builder: (_) {
         return Dialog(
           backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: 35,
+            vertical: 45,
+          ),
           child: Center(
             child: Container(
               width: 900,
+              constraints: const BoxConstraints(
+                maxHeight: 1080,
+              ),
               padding: const EdgeInsets.all(30),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(25),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.28),
+                    blurRadius: 30,
+                    offset: const Offset(0, 14),
+                  ),
+                ],
               ),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF0359D2), Color(0xFF4A90E2)],
-                        ),
-                        borderRadius: BorderRadius.circular(15),
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFF0359D2),
+                          Color(0xFF4A90E2),
+                        ],
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.home_work,
-                            size: 40,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.home_work,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 10),
+                        Flexible(
+                          child: Text(
                             loc.taksiranDetailsTitle,
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 38,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
                           ),
-                        ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFEAF3FF),
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(
+                        color: const Color(0xFF90CAF9),
                       ),
                     ),
-
-                    const SizedBox(height: 25),
-
-                    Container(
-                      padding: const EdgeInsets.all(25),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF5F8FF),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        children: [
-                          _modernDetailRow(
-                            loc.accountNo,
-                            _value(item, "account_no"),
-                            Icons.confirmation_number,
-                          ),
-                          _modernDetailRow(
-                            loc.oldAccountNo,
-                            _value(item, "old_account_no"),
-                            Icons.history,
-                          ),
-                          _modernDetailRow(
-                            loc.invoiceNo,
-                            _value(item, "invoice_no"),
-                            Icons.receipt,
-                          ),
-                          _modernDetailRow(
-                            loc.name,
-                            _value(item, "name"),
-                            Icons.person,
-                          ),
-                          _modernDetailRow(
-                            loc.icNo,
-                            _value(item, "pdaftaran"),
-                            Icons.badge,
-                          ),
-                          _modernDetailRow(
-                            loc.startDate,
-                            _value(item, "start_date"),
-                            Icons.calendar_month,
-                          ),
-                          _modernDetailRow(
-                            loc.endDate,
-                            _value(item, "end_date"),
-                            Icons.event,
-                          ),
-                          _modernDetailRow(
-                            loc.propertyAddress,
-                            "${_value(item, "no_rumah")} ${_value(item, "lorong_name")} ${_value(item, "jalan_name")}",
-                            Icons.home,
-                          ),
-                          _modernDetailRow(
-                            loc.propertyPostcode,
-                            _value(item, "postcode"),
-                            Icons.markunread_mailbox,
-                          ),
-                          _modernDetailRow(
-                            loc.propertyCity,
-                            _value(item, "prop_pekan_name"),
-                            Icons.location_city,
-                          ),
-                          _modernDetailRow(
-                            loc.state,
-                            _value(item, "negeri"),
-                            Icons.map,
-                          ),
-                          _modernDetailRow(
-                            loc.mukim,
-                            _value(item, "mukim"),
-                            Icons.location_on,
-                          ),
-                          _modernDetailRow(
-                            loc.lotNo,
-                            _value(item, "no_lot"),
-                            Icons.place,
-                          ),
-                          _modernDetailRow(
-                            loc.titleNo,
-                            _value(item, "no_hakmilik"),
-                            Icons.article,
-                          ),
-                          _modernDetailRow(
-                            loc.ownerAddress,
-                            "${_value(item, "address1")} ${_value(item, "address2")} ${_value(item, "address3")}",
-                            Icons.person_pin_circle,
-                          ),
-                          _modernDetailRow(
-                            loc.telephone,
-                            _value(item, "telephone"),
-                            Icons.phone,
-                          ),
-                          _modernDetailRow(
-                            loc.email,
-                            _value(item, "email"),
-                            Icons.email,
-                          ),
-                          _modernDetailRow(
-                            loc.annualValue,
-                            "RM ${_value(item, "nilai_tahunan")}",
-                            Icons.payments,
-                          ),
-                          _modernDetailRow(
-                            loc.rate,
-                            "${_value(item, "kadar")}%",
-                            Icons.percent,
-                          ),
-                          _modernDetailRow(
-                            loc.annualTax,
-                            "RM ${_money(item, "cukai_setahun")}",
-                            Icons.calendar_today,
-                          ),
-                          _modernDetailRow(
-                            loc.halfYearTax,
-                            "RM ${_money(item, "cukai_sepenggal")}",
-                            Icons.receipt_long,
-                          ),
-                          _modernDetailRow(
-                            loc.currentTax,
-                            "RM ${_money(item, "cukai_semasa")}",
-                            Icons.payments,
-                            bold: true,
-                          ),
-                          _modernDetailRow(
-                            loc.taxArrears,
-                            "RM ${_money(item, "tunggakan_cukai")}",
-                            Icons.warning_amber,
-                            bold: true,
-                          ),
-                          _modernDetailRow(
-                            loc.noticeE,
-                            "RM ${_value(item, "notis_e")}",
-                            Icons.notifications,
-                            bold: true,
-                          ),
-                          _modernDetailRow(
-                            loc.waranLod,
-                            _value(item, "waran_lod"),
-                            Icons.gavel,
-                          ),
-                          _modernDetailRow(
-                            loc.halfYearTotal,
-                            "RM ${_money(item, "jumlah_sepenggal")}",
-                            Icons.receipt,
-                            bold: true,
-                          ),
-                          _modernDetailRow(
-                            loc.annualTotal,
-                            "RM ${_money(item, "jumlah_setahun")}",
-                            Icons.calendar_month,
-                      
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(height: 25),
-
-                    SizedBox(
-                      width: 250,
-                      height: 60,
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.redAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.swipe_up_alt_rounded,
+                          color: Color(0xFF1976D2),
+                          size: 30,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          loc.scrollForMoreInformation,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800,
+                            color: Color(0xFF1976D2),
                           ),
                         ),
-                        icon: const Icon(Icons.close),
-                        label: Text(
-                          loc.close,
-                          style: const TextStyle(fontSize: 22),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  Expanded(
+                    child: Scrollbar(
+                      controller: _detailScrollController,
+                      thumbVisibility: true,
+                      trackVisibility: true,
+                      thickness: 16,
+                      radius: const Radius.circular(20),
+                      child: SingleChildScrollView(
+                        controller: _detailScrollController,
+                        padding: const EdgeInsets.only(right: 22),
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(25),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF5F8FF),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            children: [
+                              _modernDetailRow(
+                                loc.accountNo,
+                                _value(item, 'account_no'),
+                                Icons.confirmation_number,
+                              ),
+                              _modernDetailRow(
+                                loc.oldAccountNo,
+                                _value(item, 'old_account_no'),
+                                Icons.history,
+                              ),
+                              _modernDetailRow(
+                                loc.invoiceNo,
+                                _value(item, 'invoice_no'),
+                                Icons.receipt,
+                              ),
+                              _modernDetailRow(
+                                loc.name,
+                                _value(item, 'name'),
+                                Icons.person,
+                              ),
+                              _modernDetailRow(
+                                loc.icNo,
+                                _value(item, 'pdaftaran'),
+                                Icons.badge,
+                              ),
+                              _modernDetailRow(
+                                loc.startDate,
+                                _value(item, 'start_date'),
+                                Icons.calendar_month,
+                              ),
+                              _modernDetailRow(
+                                loc.endDate,
+                                _value(item, 'end_date'),
+                                Icons.event,
+                              ),
+                              _modernDetailRow(
+                                loc.propertyAddress,
+                                _joinValues(item, [
+                                  'no_rumah',
+                                  'lorong_name',
+                                  'jalan_name',
+                                ]),
+                                Icons.home,
+                              ),
+                              _modernDetailRow(
+                                loc.propertyPostcode,
+                                _value(item, 'postcode'),
+                                Icons.markunread_mailbox,
+                              ),
+                              _modernDetailRow(
+                                loc.propertyCity,
+                                _value(item, 'prop_pekan_name'),
+                                Icons.location_city,
+                              ),
+                              _modernDetailRow(
+                                loc.state,
+                                _value(item, 'negeri'),
+                                Icons.map,
+                              ),
+                              _modernDetailRow(
+                                loc.mukim,
+                                _value(item, 'mukim'),
+                                Icons.location_on,
+                              ),
+                              _modernDetailRow(
+                                loc.lotNo,
+                                _value(item, 'no_lot'),
+                                Icons.place,
+                              ),
+                              _modernDetailRow(
+                                loc.titleNo,
+                                _value(item, 'no_hakmilik'),
+                                Icons.article,
+                              ),
+                              _modernDetailRow(
+                                loc.ownerAddress,
+                                _joinValues(item, [
+                                  'address1',
+                                  'address2',
+                                  'address3',
+                                ]),
+                                Icons.person_pin_circle,
+                              ),
+                              _modernDetailRow(
+                                loc.telephone,
+                                _value(item, 'telephone'),
+                                Icons.phone,
+                              ),
+                              _modernDetailRow(
+                                loc.email,
+                                _value(item, 'email'),
+                                Icons.email,
+                              ),
+                              _modernDetailRow(
+                                loc.annualValue,
+                                _moneyDisplay(item, 'nilai_tahunan'),
+                                Icons.payments,
+                              ),
+                              _modernDetailRow(
+                                loc.rate,
+                                _percentDisplay(item, 'kadar'),
+                                Icons.percent,
+                              ),
+                              _modernDetailRow(
+                                loc.annualTax,
+                                _moneyDisplay(item, 'cukai_setahun'),
+                                Icons.calendar_today,
+                              ),
+                              _modernDetailRow(
+                                loc.halfYearTax,
+                                _moneyDisplay(item, 'cukai_sepenggal'),
+                                Icons.receipt_long,
+                              ),
+                              _modernDetailRow(
+                                loc.currentTax,
+                                _moneyDisplay(item, 'cukai_semasa'),
+                                Icons.payments,
+                              ),
+                              _modernDetailRow(
+                                loc.taxArrears,
+                                _moneyDisplay(item, 'tunggakan_cukai'),
+                                Icons.warning_amber,
+                              ),
+                              _modernDetailRow(
+                                loc.noticeE,
+                                _moneyDisplay(item, 'notis_e'),
+                                Icons.notifications,
+                              ),
+                              _modernDetailRow(
+                                loc.waranLod,
+                                _value(item, 'waran_lod'),
+                                Icons.gavel,
+                              ),
+                              _modernDetailRow(
+                                loc.halfYearTotal,
+                                _moneyDisplay(item, 'jumlah_sepenggal'),
+                                Icons.receipt,
+                                bold: selectedPeriod ==
+                                    TaksiranPaymentPeriod.sepenggal,
+                              ),
+                              _modernDetailRow(
+                                loc.annualTotal,
+                                _moneyDisplay(item, 'jumlah_setahun'),
+                                Icons.calendar_month,
+                                bold: selectedPeriod ==
+                                    TaksiranPaymentPeriod.setahun,
+                              ),
+                            ],
+                          ),
                         ),
-                        onPressed: () => Navigator.pop(context),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  SizedBox(
+                    width: 250,
+                    height: 65,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.redAccent,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      icon: const Icon(Icons.close),
+                      label: Text(
+                        loc.close,
+                        style: const TextStyle(fontSize: 22),
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -1455,15 +1697,69 @@ Widget _tableHeader(double fontSize) {
     );
   }
 
+  bool _isMissingValue(String value) {
+    final normalized = value.trim().toLowerCase();
+
+    if (normalized.isEmpty ||
+        normalized == '-' ||
+        normalized == 'null' ||
+        normalized == 'n/a' ||
+        normalized == 'none') {
+      return true;
+    }
+
+    final cleaned = normalized
+        .replaceAll('rm', '')
+        .replaceAll('%', '')
+        .replaceAll('-', '')
+        .trim();
+
+    return cleaned.isEmpty || cleaned == 'null';
+  }
+
+  String _joinValues(
+    Map<String, dynamic> item,
+    List<String> keys,
+  ) {
+    final parts = keys
+        .map((key) => _value(item, key).trim())
+        .where((value) => !_isMissingValue(value))
+        .toList();
+
+    return parts.isEmpty ? '-' : parts.join(' ');
+  }
+
+  String _moneyDisplay(Map<String, dynamic> item, String key) {
+    final raw = item[key]?.toString().trim() ?? '';
+    if (_isMissingValue(raw)) return '-';
+
+    final parsed = double.tryParse(raw.replaceAll(',', ''));
+    if (parsed == null) return '-';
+
+    return 'RM ${parsed.toStringAsFixed(2)}';
+  }
+
+  String _percentDisplay(Map<String, dynamic> item, String key) {
+    final raw = item[key]?.toString().trim() ?? '';
+    if (_isMissingValue(raw)) return '-';
+
+    return '$raw%';
+  }
+
   Widget _modernDetailRow(
     String label,
     String value,
     IconData icon, {
     bool bold = false,
   }) {
+    if (_isMissingValue(value)) {
+      return const SizedBox.shrink();
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 45,
@@ -1472,7 +1768,11 @@ Widget _tableHeader(double fontSize) {
               color: const Color(0xFF0359D2).withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: const Color(0xFF0359D2), size: 24),
+            child: Icon(
+              icon,
+              color: const Color(0xFF0359D2),
+              size: 24,
+            ),
           ),
           const SizedBox(width: 15),
           SizedBox(
@@ -1490,8 +1790,11 @@ Widget _tableHeader(double fontSize) {
               value,
               style: TextStyle(
                 fontSize: 22,
-                fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-                color: bold ? Colors.redAccent : Colors.black87,
+                fontWeight:
+                    bold ? FontWeight.bold : FontWeight.normal,
+                color: bold
+                    ? const Color(0xFF16813B)
+                    : Colors.black87,
               ),
             ),
           ),

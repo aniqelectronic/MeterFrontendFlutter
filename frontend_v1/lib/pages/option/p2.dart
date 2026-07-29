@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/language/pbahasa.dart';
 import 'package:frontend_v1/pages/tourist/ptourist3.dart';
+import 'package:frontend_v1/pages/faq/faq_page.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 
@@ -236,10 +237,27 @@ class _P2PageState extends State<P2Page> {
                         ),
                         const SizedBox(width: 38),
 
-                        // Empty space to keep the two-column layout.
-                        const Expanded(
-                          child: SizedBox(
+                        Expanded(
+                          child: _ModernServiceButton(
                             height: 420,
+                            icon: Icons.help_outline_rounded,
+                            label: loc.faqButton,
+                            supportingText: loc.faqSupportingText,
+                            accentColor: const Color(0xFF7A4DD8),
+                            accentLightColor: const Color(0xFFF0E9FF),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => FaqPage(
+                                    councilHotlineNumber:
+                                        Data.aduanMajlisBentong,
+                                    operationsHotlineNumber:
+                                        Data.telefonNo,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],

@@ -93,7 +93,7 @@ class RESITPAGE extends StatefulWidget {
 class _RESITSTATE extends State<RESITPAGE> {
   static const int _countdownDuration = 150;
 
-  final String baseUrl = Config.baseUrl;
+  final String baseUrl = Config.apiBaseUrl;
 
   String startTimeStr = 'Loading...';
   String endTimeStr = 'Loading...';

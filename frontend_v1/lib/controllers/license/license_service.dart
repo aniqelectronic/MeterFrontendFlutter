@@ -13,7 +13,7 @@ class LicenseService {
     if (ic.trim().isEmpty) return [];
 
     try {
-      final uri = Uri.parse('${Config.baseUrl}/license/by-ic/${ic.trim()}');
+      final uri = Uri.parse('${Config.apiBaseUrl}/license/by-ic/${ic.trim()}');
       final response = await http
           .get(uri, headers: {'Accept': 'application/json'})
           .timeout(_timeout);
@@ -50,7 +50,7 @@ class LicenseService {
 static Future<bool> payMultipleLicenses(List<String> licenseNos) async {
   if (licenseNos.isEmpty) return false;
 
-  final uri = Uri.parse('${Config.baseUrl}/license/pay-multi');
+  final uri = Uri.parse('${Config.apiBaseUrl}/license/pay-multi');
 
   try {
     final response = await http.post(

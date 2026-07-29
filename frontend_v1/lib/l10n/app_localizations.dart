@@ -254,7 +254,7 @@ abstract class AppLocalizations {
   /// No description provided for @p3othersTitle.
   ///
   /// In en, this message translates to:
-  /// **'OTHERS OPTIONS'**
+  /// **'TOURISM SERVICES OPTIONS'**
   String get p3othersTitle;
 
   /// No description provided for @p3othersSubtitle.
@@ -5942,7 +5942,7 @@ abstract class AppLocalizations {
   /// No description provided for @parkingCityCarParkHotline.
   ///
   /// In en, this message translates to:
-  /// **'CityCarPark Hotline'**
+  /// **'operations Hotline'**
   String get parkingCityCarParkHotline;
 
   /// No description provided for @parkingInfoOk.
@@ -8572,6 +8572,366 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try Again'**
   String get receiptTryAgain;
+
+  /// Instruction shown on the parking duration selection card
+  ///
+  /// In en, this message translates to:
+  /// **'Select your parking duration. Press − or + to change the number of hours.'**
+  String get parkingDurationGuide;
+
+  /// Accessibility label for the decrease parking duration button
+  ///
+  /// In en, this message translates to:
+  /// **'Decrease parking duration'**
+  String get parkingDecreaseDuration;
+
+  /// Accessibility label for the increase parking duration button
+  ///
+  /// In en, this message translates to:
+  /// **'Increase parking duration'**
+  String get parkingIncreaseDuration;
+
+  /// Information showing the latest permitted parking end time
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum until {time}'**
+  String parkingMaximumUntil(String time);
+
+  /// Instruction for selecting an additional parking duration
+  ///
+  /// In en, this message translates to:
+  /// **'Select the additional duration. Press − or + to change the number of hours.'**
+  String get extendParkingDurationGuide;
+
+  /// Title for the additional parking duration selection section
+  ///
+  /// In en, this message translates to:
+  /// **'SELECT ADDITIONAL DURATION'**
+  String get extendParkingSelectDuration;
+
+  /// Title of the extend parking information dialog
+  ///
+  /// In en, this message translates to:
+  /// **'EXTEND PARKING INFORMATION'**
+  String get extendParkingInfoTitle;
+
+  /// Short explanation in the extend parking information dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Add more time to your current parking session.'**
+  String get extendParkingInfoSubtitle;
+
+  /// Important notice for the extend parking process
+  ///
+  /// In en, this message translates to:
+  /// **'The additional time will begin from the current parking end time. Parking cannot be extended beyond 6:00 PM.'**
+  String get extendParkingNotice;
+
+  /// Title of the extend parking confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'CONFIRM PARKING EXTENSION'**
+  String get extendParkingConfirmTitle;
+
+  /// Review notice before paying for a parking extension
+  ///
+  /// In en, this message translates to:
+  /// **'Please make sure the new parking end time and payment amount are correct before continuing.'**
+  String get extendParkingConfirmationNotice;
+
+  /// No description provided for @faqButton.
+  ///
+  /// In en, this message translates to:
+  /// **'FREQUENTLY ASKED QUESTIONS'**
+  String get faqButton;
+
+  /// No description provided for @faqSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Help with kiosk usage, payments and receipts'**
+  String get faqSupportingText;
+
+  /// No description provided for @faqTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'FREQUENTLY ASKED QUESTIONS'**
+  String get faqTitle;
+
+  /// No description provided for @faqSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Touch a question below to view the answer'**
+  String get faqSubtitle;
+
+  /// No description provided for @faqWhatIsKioskTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What Is the TIP Kiosk?'**
+  String get faqWhatIsKioskTitle;
+
+  /// No description provided for @faqWhatIsKioskContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Terminal Integrasi Pintar (TIP) is a self-service kiosk that helps the public obtain information, perform checks and make payments quickly, conveniently and securely.\n\nThe kiosk provides services from Municipal Councils, District Councils or City Councils, including parking, compounds, assessment tax, council rental and other services provided by the Council.'**
+  String get faqWhatIsKioskContent;
+
+  /// No description provided for @faqCouncilServicesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Which Council Services Are Available?'**
+  String get faqCouncilServicesTitle;
+
+  /// No description provided for @faqCouncilServicesContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Council services that may be available through this kiosk include:\n\n• Parking payment\n• Compound checking and payment\n• Assessment tax checking and payment\n• Council rental checking and payment\n• Licence payment\n• Other services provided by the Council\n\nAvailable services may differ by Council.'**
+  String get faqCouncilServicesContent;
+
+  /// No description provided for @faqBillServicesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Which Bill Services Are Available?'**
+  String get faqBillServicesTitle;
+
+  /// No description provided for @faqBillServicesContent.
+  ///
+  /// In en, this message translates to:
+  /// **'In addition to Council services, the kiosk may provide utility bill checking and payment, as well as digital services such as:\n\n• Electricity bills\n• Water bills\n• TM and Unifi bills\n• Astro bills\n• Telco prepaid top-up\n• Other supported services'**
+  String get faqBillServicesContent;
+
+  /// No description provided for @faqReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where Is My Payment Receipt?'**
+  String get faqReceiptTitle;
+
+  /// No description provided for @faqReceiptContent.
+  ///
+  /// In en, this message translates to:
+  /// **'The TIP kiosk uses a Digital Receipt or E-Receipt.\n\nAfter a successful payment:\n\n1. A QR code will appear on the screen.\n2. Scan the QR code using your phone.\n3. The receipt page will open in a web browser.\n4. You can view the payment details.\n5. You can download the receipt in PDF format.\n\nKeep the digital receipt as proof of payment.'**
+  String get faqReceiptContent;
+
+  /// No description provided for @faqPaymentMethodsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Which Payment Methods Are Accepted?'**
+  String get faqPaymentMethodsTitle;
+
+  /// No description provided for @faqPaymentMethodsContent.
+  ///
+  /// In en, this message translates to:
+  /// **'You can make payment using:\n\nDEBIT / CREDIT CARD\n• Visa\n• Mastercard\n• MyDebit\n• Contactless cards\n\nNFC PAYMENT\n• Apple Pay\n• Samsung Pay\n• Google Wallet / Google Pay\n• Other supported NFC services\n\nDUITNOW QR\n• Banking applications\n• Touch ‘n Go eWallet\n• Boost\n• ShopeePay\n• MAE\n• Any application that supports DuitNow QR'**
+  String get faqPaymentMethodsContent;
+
+  /// No description provided for @faqPaymentFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Was Cancelled or Declined'**
+  String get faqPaymentFailedTitle;
+
+  /// No description provided for @faqPaymentFailedContent.
+  ///
+  /// In en, this message translates to:
+  /// **'If your payment is cancelled, unsuccessful or declined:\n\n• Check your account balance.\n• Ensure the transaction limit has not been exceeded.\n• Try again after a short while.\n• Use a different payment card.\n• Use a different payment application.\n• Ensure your phone has a stable internet connection when using DuitNow QR.\n\nIf the transaction still fails, contact your bank or payment provider.'**
+  String get faqPaymentFailedContent;
+
+  /// No description provided for @faqPaymentSafetyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Is My Payment Secure?'**
+  String get faqPaymentSafetyTitle;
+
+  /// No description provided for @faqPaymentSafetyContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes. Transactions are processed through secure payment channels and authorised payment providers.\n\nYour full payment card information is not stored in the kiosk.'**
+  String get faqPaymentSafetyContent;
+
+  /// No description provided for @faqUpdateTimeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'When Will My Payment Be Updated?'**
+  String get faqUpdateTimeTitle;
+
+  /// No description provided for @faqUpdateTimeContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Most payments are updated within a short period.\n\nHowever, some Councils, agencies or service providers may require additional time before the payment appears in their system.\n\nKeep your digital receipt as proof of payment.'**
+  String get faqUpdateTimeContent;
+
+  /// No description provided for @faqTipsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tips Before Making Payment'**
+  String get faqTipsTitle;
+
+  /// No description provided for @faqTipsContent.
+  ///
+  /// In en, this message translates to:
+  /// **'• Ensure the account or reference number is entered correctly.\n• Check the customer name and bill details before continuing.\n• Check the payment amount before completing the transaction.\n• Do not close the receipt page before scanning the QR code.\n• Keep the digital receipt for reference.\n• Do not share payment information with unknown parties.'**
+  String get faqTipsContent;
+
+  /// No description provided for @faqHelpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'TROUBLESHOOTING & HELP'**
+  String get faqHelpTitle;
+
+  /// No description provided for @faqHelpContent.
+  ///
+  /// In en, this message translates to:
+  /// **'If the screen is unresponsive or blank, the payment is interrupted, the QR code does not appear, or another problem occurs, please contact:'**
+  String get faqHelpContent;
+
+  /// No description provided for @weatherButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather'**
+  String get weatherButton;
+
+  /// No description provided for @weatherSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'View Bentong\'s official 7-day weather forecast'**
+  String get weatherSupportingText;
+
+  /// No description provided for @weatherPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bentong Weather'**
+  String get weatherPageTitle;
+
+  /// No description provided for @weatherPageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Official 7-day forecast provided by MET Malaysia through data.gov.my'**
+  String get weatherPageSubtitle;
+
+  /// No description provided for @weatherLoadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Weather'**
+  String get weatherLoadingTitle;
+
+  /// No description provided for @weatherLoadingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while the latest forecast is being prepared.'**
+  String get weatherLoadingMessage;
+
+  /// No description provided for @weatherUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather Unavailable'**
+  String get weatherUnavailableTitle;
+
+  /// No description provided for @weatherUnavailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The latest forecast cannot be loaded right now. Please try again.'**
+  String get weatherUnavailableMessage;
+
+  /// No description provided for @weatherTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get weatherTryAgain;
+
+  /// No description provided for @weatherSevenDayForecast.
+  ///
+  /// In en, this message translates to:
+  /// **'7-Day Forecast'**
+  String get weatherSevenDayForecast;
+
+  /// No description provided for @weatherUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated'**
+  String get weatherUpdated;
+
+  /// No description provided for @weatherCachedData.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved data'**
+  String get weatherCachedData;
+
+  /// No description provided for @weatherMinimumShort.
+  ///
+  /// In en, this message translates to:
+  /// **'min'**
+  String get weatherMinimumShort;
+
+  /// No description provided for @weatherRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh weather'**
+  String get weatherRefresh;
+
+  /// No description provided for @weatherMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning'**
+  String get weatherMorning;
+
+  /// No description provided for @weatherAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Afternoon'**
+  String get weatherAfternoon;
+
+  /// No description provided for @weatherNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Night'**
+  String get weatherNight;
+
+  /// No description provided for @weatherDisclaimerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Disclaimer'**
+  String get weatherDisclaimerTitle;
+
+  /// No description provided for @weatherDisclaimerText.
+  ///
+  /// In en, this message translates to:
+  /// **'Official 7-day forecast from MET Malaysia through the data.gov.my website.'**
+  String get weatherDisclaimerText;
+
+  /// No description provided for @weatherScrollHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe up or down to view the next forecast'**
+  String get weatherScrollHint;
+
+  /// No description provided for @weatherToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get weatherToday;
+
+  /// Question asking the user to select the assessment tax payment period
+  ///
+  /// In en, this message translates to:
+  /// **'Would you like to pay the half-year amount or the annual amount?'**
+  String get taksiranPaymentPeriodQuestion;
+
+  /// Button label for paying the half-year assessment tax amount
+  ///
+  /// In en, this message translates to:
+  /// **'Half-Year Amount'**
+  String get taksiranHalfYearAmount;
+
+  /// Button label for paying the annual assessment tax amount
+  ///
+  /// In en, this message translates to:
+  /// **'Annual Amount'**
+  String get taksiranAnnualAmount;
+
+  /// No description provided for @scrollForMoreInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Scroll for more information'**
+  String get scrollForMoreInformation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

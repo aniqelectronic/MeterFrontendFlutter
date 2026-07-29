@@ -4,7 +4,7 @@ import 'package:frontend_v1/pages/config.dart';
 import 'package:http/http.dart' as http;
 
 class TaxService {
-  static const String baseUrl = Config.baseUrl;
+  static const String baseUrl = Config.apiBaseUrl;
 
   /// ===============================
   /// Fetch taxes by owner IC

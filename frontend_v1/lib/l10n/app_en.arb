@@ -33,7 +33,7 @@
   "p3geraiButton": "STALL",
   "p3ruangniagaButton": "COMMERCIAL SPACES",
 
-  "p3othersTitle": "OTHERS OPTIONS",
+  "p3othersTitle": "TOURISM SERVICES OPTIONS",
   "p3othersSubtitle": "PLEASE SELECT YOUR OPTION",
   "p3aduanButton": "COMPLAINT",
   "p3eksplorasiButton": "EXPLORATION",
@@ -1412,7 +1412,7 @@
 },
 "parkingContactTitle": "If you experience any issues, please contact:",
 "parkingCouncilHotline": "Municipal Council Hotline",
-"parkingCityCarParkHotline": "CityCarPark Hotline",
+"parkingCityCarParkHotline": "operations Hotline",
 "parkingInfoOk": "OK",
 
   "pinConnectingTitle": "PREPARING CARD PAYMENT",
@@ -2172,7 +2172,135 @@
 "receiptQrInstruction": "Scan the QR code using your phone to view or download the receipt.",
 "receiptQrLoading": "Preparing your digital receipt...",
 "receiptQrLoadFailed": "The receipt QR code could not be loaded.",
-"receiptTryAgain": "Try Again"
+"receiptTryAgain": "Try Again",
+
+
+  "parkingDurationGuide": "Select your parking duration. Press − or + to change the number of hours.",
+  "@parkingDurationGuide": {
+    "description": "Instruction shown on the parking duration selection card"
+  },
+
+  "parkingDecreaseDuration": "Decrease parking duration",
+  "@parkingDecreaseDuration": {
+    "description": "Accessibility label for the decrease parking duration button"
+  },
+
+  "parkingIncreaseDuration": "Increase parking duration",
+  "@parkingIncreaseDuration": {
+    "description": "Accessibility label for the increase parking duration button"
+  },
+
+  "parkingMaximumUntil": "Maximum until {time}",
+  "@parkingMaximumUntil": {
+    "description": "Information showing the latest permitted parking end time",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+
+  "extendParkingDurationGuide": "Select the additional duration. Press − or + to change the number of hours.",
+  "@extendParkingDurationGuide": {
+    "description": "Instruction for selecting an additional parking duration"
+  },
+
+  "extendParkingSelectDuration": "SELECT ADDITIONAL DURATION",
+  "@extendParkingSelectDuration": {
+    "description": "Title for the additional parking duration selection section"
+  },
+
+  "extendParkingInfoTitle": "EXTEND PARKING INFORMATION",
+  "@extendParkingInfoTitle": {
+    "description": "Title of the extend parking information dialog"
+  },
+
+  "extendParkingInfoSubtitle": "Add more time to your current parking session.",
+  "@extendParkingInfoSubtitle": {
+    "description": "Short explanation in the extend parking information dialog"
+  },
+
+  "extendParkingNotice": "The additional time will begin from the current parking end time. Parking cannot be extended beyond 6:00 PM.",
+  "@extendParkingNotice": {
+    "description": "Important notice for the extend parking process"
+  },
+
+  "extendParkingConfirmTitle": "CONFIRM PARKING EXTENSION",
+  "@extendParkingConfirmTitle": {
+    "description": "Title of the extend parking confirmation dialog"
+  },
+
+  "extendParkingConfirmationNotice": "Please make sure the new parking end time and payment amount are correct before continuing.",
+  "@extendParkingConfirmationNotice": {
+    "description": "Review notice before paying for a parking extension"
+  },
+
+
+  "faqButton": "FREQUENTLY ASKED QUESTIONS",
+  "faqSupportingText": "Help with kiosk usage, payments and receipts",
+  "faqTitle": "FREQUENTLY ASKED QUESTIONS",
+  "faqSubtitle": "Touch a question below to view the answer",
+  "faqWhatIsKioskTitle": "What Is the TIP Kiosk?",
+  "faqWhatIsKioskContent": "Terminal Integrasi Pintar (TIP) is a self-service kiosk that helps the public obtain information, perform checks and make payments quickly, conveniently and securely.\n\nThe kiosk provides services from Municipal Councils, District Councils or City Councils, including parking, compounds, assessment tax, council rental and other services provided by the Council.",
+  "faqCouncilServicesTitle": "Which Council Services Are Available?",
+  "faqCouncilServicesContent": "Council services that may be available through this kiosk include:\n\n• Parking payment\n• Compound checking and payment\n• Assessment tax checking and payment\n• Council rental checking and payment\n• Licence payment\n• Other services provided by the Council\n\nAvailable services may differ by Council.",
+  "faqBillServicesTitle": "Which Bill Services Are Available?",
+  "faqBillServicesContent": "In addition to Council services, the kiosk may provide utility bill checking and payment, as well as digital services such as:\n\n• Electricity bills\n• Water bills\n• TM and Unifi bills\n• Astro bills\n• Telco prepaid top-up\n• Other supported services",
+  "faqReceiptTitle": "Where Is My Payment Receipt?",
+  "faqReceiptContent": "The TIP kiosk uses a Digital Receipt or E-Receipt.\n\nAfter a successful payment:\n\n1. A QR code will appear on the screen.\n2. Scan the QR code using your phone.\n3. The receipt page will open in a web browser.\n4. You can view the payment details.\n5. You can download the receipt in PDF format.\n\nKeep the digital receipt as proof of payment.",
+  "faqPaymentMethodsTitle": "Which Payment Methods Are Accepted?",
+  "faqPaymentMethodsContent": "You can make payment using:\n\nDEBIT / CREDIT CARD\n• Visa\n• Mastercard\n• MyDebit\n• Contactless cards\n\nNFC PAYMENT\n• Apple Pay\n• Samsung Pay\n• Google Wallet / Google Pay\n• Other supported NFC services\n\nDUITNOW QR\n• Banking applications\n• Touch ‘n Go eWallet\n• Boost\n• ShopeePay\n• MAE\n• Any application that supports DuitNow QR",
+  "faqPaymentFailedTitle": "Payment Was Cancelled or Declined",
+  "faqPaymentFailedContent": "If your payment is cancelled, unsuccessful or declined:\n\n• Check your account balance.\n• Ensure the transaction limit has not been exceeded.\n• Try again after a short while.\n• Use a different payment card.\n• Use a different payment application.\n• Ensure your phone has a stable internet connection when using DuitNow QR.\n\nIf the transaction still fails, contact your bank or payment provider.",
+  "faqPaymentSafetyTitle": "Is My Payment Secure?",
+  "faqPaymentSafetyContent": "Yes. Transactions are processed through secure payment channels and authorised payment providers.\n\nYour full payment card information is not stored in the kiosk.",
+  "faqUpdateTimeTitle": "When Will My Payment Be Updated?",
+  "faqUpdateTimeContent": "Most payments are updated within a short period.\n\nHowever, some Councils, agencies or service providers may require additional time before the payment appears in their system.\n\nKeep your digital receipt as proof of payment.",
+  "faqTipsTitle": "Tips Before Making Payment",
+  "faqTipsContent": "• Ensure the account or reference number is entered correctly.\n• Check the customer name and bill details before continuing.\n• Check the payment amount before completing the transaction.\n• Do not close the receipt page before scanning the QR code.\n• Keep the digital receipt for reference.\n• Do not share payment information with unknown parties.",
+  "faqHelpTitle": "TROUBLESHOOTING & HELP",
+  "faqHelpContent": "If the screen is unresponsive or blank, the payment is interrupted, the QR code does not appear, or another problem occurs, please contact:",
+
+    "weatherButton": "Weather",
+  "weatherSupportingText": "View Bentong's official 7-day weather forecast",
+  "weatherPageTitle": "Bentong Weather",
+  "weatherPageSubtitle": "Official 7-day forecast provided by MET Malaysia through data.gov.my",
+  "weatherLoadingTitle": "Loading Weather",
+  "weatherLoadingMessage": "Please wait while the latest forecast is being prepared.",
+  "weatherUnavailableTitle": "Weather Unavailable",
+  "weatherUnavailableMessage": "The latest forecast cannot be loaded right now. Please try again.",
+  "weatherTryAgain": "Try Again",
+  "weatherSevenDayForecast": "7-Day Forecast",
+  "weatherUpdated": "Updated",
+  "weatherCachedData": "Saved data",
+  "weatherMinimumShort": "min",
+  "weatherRefresh": "Refresh weather",
+  "weatherMorning": "Morning",
+  "weatherAfternoon": "Afternoon",
+  "weatherNight": "Night",
+
+    "weatherDisclaimerTitle": "Disclaimer",
+  "weatherDisclaimerText": "Official 7-day forecast from MET Malaysia through the data.gov.my website.",
+  "weatherScrollHint": "Swipe up or down to view the next forecast",
+  "weatherToday": "Today",
+
+
+  "taksiranPaymentPeriodQuestion": "Would you like to pay the half-year amount or the annual amount?",
+"@taksiranPaymentPeriodQuestion": {
+  "description": "Question asking the user to select the assessment tax payment period"
+},
+"taksiranHalfYearAmount": "Half-Year Amount",
+"@taksiranHalfYearAmount": {
+  "description": "Button label for paying the half-year assessment tax amount"
+},
+"taksiranAnnualAmount": "Annual Amount",
+"@taksiranAnnualAmount": {
+  "description": "Button label for paying the annual assessment tax amount"
+},
+
+"scrollForMoreInformation": "Scroll for more information"
+
 
 
 }

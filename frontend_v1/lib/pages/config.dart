@@ -3,7 +3,12 @@ import 'dart:ffi';
 // This class is used to store the configuration of the terminal ( that will not change )
 class Config {
   //backend base url
-  static const String baseUrl = "http://tipintar.juaraipasifik.com:8000";
+  static const String baseUrl = "https://tipintar.juaraipasifik.com";
+    // API version
+  static const String apiVersion = "/api/v1";
+    // Full API URL
+  static const String apiBaseUrl = "$baseUrl$apiVersion";
+
   //for qr payment
   static String terminalId = "TEST02";
   static String storeId = "Kiosk_Terminal";
