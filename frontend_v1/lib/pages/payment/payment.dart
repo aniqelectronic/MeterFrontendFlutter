@@ -1727,15 +1727,26 @@ void _closeCardSuccessDialog() {
                             //         );
 
                             currentRouteName = '/payment';
-                        await PegePayWebViewHelper.open(
+await PegePayWebViewHelper.open(
                             iframeUrl: iframeUrl,
                             orderNo: orderNo,
 
+                            onQrWindowOpened: () async {
+                              // The native PegePay QR window is now visible.
+                              // Remove the opening overlay immediately so it
+                              // cannot remain stuck if the QR window is minimized.
+                              qrOverlay?.remove();
+                              qrOverlay = null;
+                              await WidgetsBinding.instance.endOfFrame;
+                            },
+
                             onPaymentDetected: () async {
-                              // The QR WebView is still active at this point.
-                              // Prepare the Flutter overlay behind it so that
-                              // Flutter immediately shows payment success when
-                              // the QR window closes.
+                              // Recreate the overlay only after payment is
+                              // confirmed, then show receipt processing.
+                              qrOverlay ??= showQrTransitionOverlay(
+                                context,
+                                amount: widget.data.amount ?? '0.00',
+                              );
                               qrOverlay?.showSuccess();
                               await WidgetsBinding.instance.endOfFrame;
                             },
@@ -2090,32 +2101,17 @@ void _closeCardSuccessDialog() {
                             onCancel: () async {
                               print("User cancelled QR payment");
 
-                              /*
-                               * Keep the existing overlay visible while the
-                               * native QR window finishes closing. Only change
-                               * its content to a clear closing message.
-                               */
-                              qrOverlay?.showClosing();
-
-                              await WidgetsBinding.instance.endOfFrame;
+                              // Usually already removed by onQrWindowOpened.
+                              // Keep this cleanup for launch failure, X close,
+                              // backend cancel, or any early cancellation.
+                              qrOverlay?.remove();
+                              qrOverlay = null;
 
                               currentRouteName = '/payment';
 
                               await windowManager.show();
                               await windowManager.focus();
                               await windowManager.setFullScreen(true);
-
-                              /*
-                               * Give the user a short, intentional transition
-                               * instead of briefly showing the old opening text.
-                               */
-                              await Future.delayed(
-                                const Duration(milliseconds: 700),
-                              );
-
-                              qrOverlay?.remove();
-
-                              qrOverlay = null;
 
                               if (!context.mounted) {
                                 return;
