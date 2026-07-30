@@ -10,6 +10,7 @@ import 'package:window_manager/window_manager.dart';
 class PegePayWebViewHelper {
   static Webview? _currentWebview;
   static Timer? _statusTimer;
+  static Timer? _minimizeTimer;
 
   /// Every newly opened QR receives a different session ID.
   ///
@@ -119,6 +120,9 @@ class PegePayWebViewHelper {
         '[PegePay] onClose received for session $sessionId',
       );
 
+      _stopMinimizeMonitor();
+
+
       /*
        * Very important:
        *
@@ -135,6 +139,8 @@ class PegePayWebViewHelper {
 
       _statusTimer?.cancel();
       _statusTimer = null;
+
+      _stopMinimizeMonitor();
 
       if (identical(_currentWebview, webview)) {
         _currentWebview = null;
@@ -268,6 +274,33 @@ class PegePayWebViewHelper {
         sessionId: sessionId,
       ),
     );
+
+    _startMinimizeMonitor(
+  sessionId: sessionId,
+  onMinimized: () {
+    if (finished || _isClosing) {
+      return;
+    }
+
+    print('[PegePay] QR window minimized - cancelling payment');
+
+    finished = true;
+
+    unawaited(
+      _handleCancel(
+        sessionId: sessionId,
+        onCancel: () {
+          if (cancelCallbackCalled) {
+            return;
+          }
+
+          cancelCallbackCalled = true;
+          onCancel();
+        },
+      ),
+    );
+  },
+);
 
     // ==========================================================
     // CHECK PAYMENT STATUS
@@ -485,6 +518,8 @@ class PegePayWebViewHelper {
   // ============================================================
 
   static Future<void> _closeOldWebView() async {
+    _stopMinimizeMonitor();
+
     _statusTimer?.cancel();
     _statusTimer = null;
 
@@ -739,6 +774,141 @@ done
       );
     }
   }
+
+  // ============================================================
+// DETECT QR WINDOW MINIMIZE
+// ============================================================
+
+static void _startMinimizeMonitor({
+  required int sessionId,
+  required void Function() onMinimized,
+}) {
+  _stopMinimizeMonitor();
+
+  /*
+   * Give Linux time to create and fullscreen the WebView.
+   * This avoids detecting temporary startup window states.
+   */
+  Future.delayed(
+    const Duration(seconds: 2),
+    () {
+      if (sessionId != _activeSessionId ||
+          _isClosing ||
+          _currentWebview == null) {
+        return;
+      }
+
+      bool checkRunning = false;
+
+      _minimizeTimer = Timer.periodic(
+        const Duration(milliseconds: 700),
+        (timer) async {
+          if (sessionId != _activeSessionId ||
+              _isClosing ||
+              _currentWebview == null) {
+            timer.cancel();
+
+            if (identical(_minimizeTimer, timer)) {
+              _minimizeTimer = null;
+            }
+
+            return;
+          }
+
+          if (checkRunning) {
+            return;
+          }
+
+          checkRunning = true;
+
+          try {
+            final minimized = await _isPegePayWindowMinimized();
+
+            if (sessionId != _activeSessionId ||
+                _isClosing ||
+                _currentWebview == null) {
+              return;
+            }
+
+            if (!minimized) {
+              return;
+            }
+
+            timer.cancel();
+
+            if (identical(_minimizeTimer, timer)) {
+              _minimizeTimer = null;
+            }
+
+            onMinimized();
+          } catch (e) {
+            print(
+              '[PegePay] Minimize detection failed: $e',
+            );
+          } finally {
+            checkRunning = false;
+          }
+        },
+      );
+    },
+  );
+}
+
+static void _stopMinimizeMonitor() {
+  _minimizeTimer?.cancel();
+  _minimizeTimer = null;
+}
+
+static Future<bool> _isPegePayWindowMinimized() async {
+  try {
+    final result = await Process.run(
+      'bash',
+      [
+        '-c',
+        r'''
+export DISPLAY=:0
+export XAUTHORITY=/home/orin_nano/.Xauthority
+
+WIN_ID=$(xdotool search --name "^PegePayQR$" 2>/dev/null | tail -n 1)
+
+if [ -z "$WIN_ID" ]; then
+  WIN_ID=$(xdotool search --name "PegePay QR Payment" 2>/dev/null | tail -n 1)
+fi
+
+if [ -z "$WIN_ID" ]; then
+  WIN_ID=$(wmctrl -l 2>/dev/null \
+    | grep -E "PegePayQR|PegePay QR Payment" \
+    | tail -n 1 \
+    | awk '{print $1}')
+fi
+
+if [ -z "$WIN_ID" ]; then
+  echo "NOT_FOUND"
+  exit 0
+fi
+
+WINDOW_STATE=$(xprop -id "$WIN_ID" _NET_WM_STATE 2>/dev/null)
+
+if echo "$WINDOW_STATE" | grep -q "_NET_WM_STATE_HIDDEN"; then
+  echo "MINIMIZED"
+else
+  echo "VISIBLE"
+fi
+''',
+      ],
+    );
+
+    final output = result.stdout.toString().trim();
+
+    return output == 'MINIMIZED';
+  } catch (e) {
+    print(
+      '[PegePay] Unable to read QR window state: $e',
+    );
+
+    return false;
+  }
+}
 
   // ============================================================
   // RESTORE MAIN FLUTTER WINDOW
