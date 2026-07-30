@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/controllers/license/license_service.dart';
 import 'package:frontend_v1/controllers/parking/parking_controller.dart';
@@ -391,298 +389,169 @@ void showPINEntryDialog(BuildContext context) {
 }
 
 
-
-enum QrTransitionStage {
-  opening,
-  success,
-  closing,
-}
-
-class QrTransitionOverlayController {
-  final ValueNotifier<QrTransitionStage> stage;
-  final OverlayEntry entry;
-
-  bool _removed = false;
-
-  QrTransitionOverlayController({
-    required this.stage,
-    required this.entry,
-  });
-
-  void showSuccess() {
-    if (_removed) return;
-    stage.value = QrTransitionStage.success;
-  }
-
-  void showClosing() {
-    if (_removed) return;
-    stage.value = QrTransitionStage.closing;
-  }
-
-  void remove() {
-    if (_removed) return;
-    _removed = true;
-
-    try {
-      entry.remove();
-    } catch (_) {
-      // The overlay may already have been removed.
-    }
-
-    stage.dispose();
-  }
-}
-
-QrTransitionOverlayController showQrTransitionOverlay(
+OverlayEntry showQrPaymentSuccessOverlay(
   BuildContext context, {
   required String amount,
 }) {
   final l10n = AppLocalizations.of(context)!;
 
-  final stageNotifier = ValueNotifier<QrTransitionStage>(
-    QrTransitionStage.opening,
-  );
-
-  late final OverlayEntry entry;
-
-  entry = OverlayEntry(
+  final entry = OverlayEntry(
     builder: (_) => Positioned.fill(
       child: Material(
-        color: const Color(0xFF071A2F),
+        color: const Color(0xFF071A2F).withOpacity(0.78),
         child: PopScope(
           canPop: false,
-          child: ValueListenableBuilder<QrTransitionStage>(
-            valueListenable: stageNotifier,
-            builder: (context, stage, child) {
-              final bool paymentSuccess =
-                  stage == QrTransitionStage.success;
-              final bool paymentClosing =
-                  stage == QrTransitionStage.closing;
-
-              final Color accentColor = paymentSuccess
-                  ? const Color(0xFF169B62)
-                  : paymentClosing
-                      ? const Color(0xFFE58B17)
-                      : const Color(0xFF0359D2);
-
-              final Color borderColor = paymentSuccess
-                  ? const Color(0xFFB9D8C7)
-                  : paymentClosing
-                      ? const Color(0xFFF0D2A7)
-                      : const Color(0xFFB7CAE8);
-
-              final Color panelColor = paymentSuccess
-                  ? const Color(0xFFE7F8EE)
-                  : paymentClosing
-                      ? const Color(0xFFFFF4E3)
-                      : const Color(0xFFF2F7FD);
-
-              final String title = paymentSuccess
-                  ? l10n.qrPaymentSuccessTitle
-                  : paymentClosing
-                      ? l10n.qrClosingPaymentTitle
-                      : l10n.qrOpeningPayment;
-
-              final String message = paymentSuccess
-                  ? l10n.qrPaymentSuccessMessage
-                  : paymentClosing
-                      ? l10n.qrClosingPaymentMessage
-                      : l10n.qrOpeningPaymentMessage;
-
-              return Center(
-                child: Container(
-                  width: 660,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 46,
-                    vertical: 44,
+          child: Center(
+            child: Container(
+              width: 660,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 46,
+                vertical: 44,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(32),
+                border: Border.all(
+                  color: const Color(0xFFB9D8C7),
+                  width: 2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.34),
+                    blurRadius: 36,
+                    spreadRadius: 4,
+                    offset: const Offset(0, 16),
                   ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(32),
-                    border: Border.all(
-                      color: borderColor,
-                      width: 2,
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 138,
+                    height: 138,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE7F8EE),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: const Color(0xFF169B62),
+                        width: 5,
+                      ),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.35),
-                        blurRadius: 36,
-                        spreadRadius: 4,
-                        offset: const Offset(0, 16),
-                      ),
-                    ],
+                    child: const Icon(
+                      Icons.check_rounded,
+                      size: 96,
+                      color: Color(0xFF169B62),
+                    ),
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 250),
-                        child: paymentSuccess
-                            ? Container(
-                                key: const ValueKey('qr-success'),
-                                width: 138,
-                                height: 138,
-                                decoration: BoxDecoration(
-                                  color: panelColor,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: accentColor,
-                                    width: 5,
-                                  ),
-                                ),
-                                child: Icon(
-                                  Icons.check_rounded,
-                                  size: 96,
-                                  color: accentColor,
-                                ),
-                              )
-                            : SizedBox(
-                                key: ValueKey(
-                                  paymentClosing
-                                      ? 'qr-closing'
-                                      : 'qr-opening',
-                                ),
-                                width: 100,
-                                height: 100,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 8,
-                                  color: accentColor,
-                                ),
-                              ),
+                  const SizedBox(height: 28),
+                  Text(
+                    l10n.cardPaymentSuccessTitle,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF087443),
+                      fontSize: 43,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    l10n.cardPaymentSuccessMessage,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF24364B),
+                      fontSize: 27,
+                      fontWeight: FontWeight.w700,
+                      height: 1.35,
+                    ),
+                  ),
+                  const SizedBox(height: 26),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 28,
+                      vertical: 19,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF2F7FD),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: const Color(0xFFB7CAE8),
+                        width: 2,
                       ),
-
-                      const SizedBox(height: 28),
-
-                      Text(
-                        title,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: paymentSuccess
-                              ? const Color(0xFF087443)
-                              : paymentClosing
-                                  ? const Color(0xFFB86800)
-                                  : const Color(0xFF0359D2),
-                          fontSize: 42,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      Text(
-                        message,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Color(0xFF24364B),
-                          fontSize: 26,
-                          fontWeight: FontWeight.w700,
-                          height: 1.35,
-                        ),
-                      ),
-
-                      const SizedBox(height: 26),
-
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 28,
-                          vertical: 19,
-                        ),
-                        decoration: BoxDecoration(
-                          color: panelColor,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: borderColor,
-                            width: 2,
-                          ),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              l10n.qrTotalAmount,
-                              style: const TextStyle(
-                                color: Color(0xFF53657A),
-                                fontSize: 23,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const SizedBox(height: 7),
-                            Text(
-                              'RM $amount',
-                              style: TextStyle(
-                                color: accentColor,
-                                fontSize: 50,
-                                fontWeight: FontWeight.w900,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      if (paymentSuccess) ...[
-                        const SizedBox(height: 27),
-                        const SizedBox(
-                          width: 62,
-                          height: 62,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 6,
-                            color: Color(0xFF0359D2),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
+                    ),
+                    child: Column(
+                      children: [
                         Text(
-                          l10n.qrPreparingReceipt,
-                          textAlign: TextAlign.center,
+                          l10n.totalAmountText,
                           style: const TextStyle(
-                            color: Color(0xFF0359D2),
-                            fontSize: 25,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          l10n.qrPleaseWaitNotice,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Color(0xFF5A6878),
-                            fontSize: 21,
+                            color: Color(0xFF53657A),
+                            fontSize: 23,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                      ],
-
-                      if (paymentClosing) ...[
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 7),
                         Text(
-                          l10n.qrClosingPleaseWait,
-                          textAlign: TextAlign.center,
+                          'RM $amount',
                           style: const TextStyle(
-                            color: Color(0xFF7B5A2C),
-                            fontSize: 22,
-                            fontWeight: FontWeight.w800,
+                            color: Color(0xFF0359D2),
+                            fontSize: 50,
+                            fontWeight: FontWeight.w900,
                           ),
                         ),
                       ],
-                    ],
+                    ),
                   ),
-                ),
-              );
-            },
+                  const SizedBox(height: 27),
+                  const SizedBox(
+                    width: 62,
+                    height: 62,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 6,
+                      color: Color(0xFF0359D2),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    l10n.cardPreparingReceipt,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF0359D2),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    l10n.cardPleaseWaitNotice,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF5A6878),
+                      fontSize: 21,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
     ),
   );
 
-  Overlay.of(
-    context,
-    rootOverlay: true,
-  ).insert(entry);
+  Overlay.of(context, rootOverlay: true).insert(entry);
+  return entry;
+}
 
-  return QrTransitionOverlayController(
-    stage: stageNotifier,
-    entry: entry,
-  );
+void removeQrPaymentSuccessOverlay(OverlayEntry? entry) {
+  if (entry == null) return;
+
+  try {
+    entry.remove();
+  } catch (_) {
+    // The overlay may already have been removed.
+  }
 }
 
 
@@ -1664,62 +1533,26 @@ void _closeCardSuccessDialog() {
                         icon: IconData(0xe4f5, fontFamily: 'MaterialIcons'),
                         label: AppLocalizations.of(context)!.qrButton,
                         onPressed: () async {
-                          QrTransitionOverlayController? qrOverlay;
+                          //double amount = double.tryParse(data.amount ?? "0.00") ?? 0.00;
+                          showLoadingDialog(context); 
 
-                          // Keep RM0.01 for testing.
-                          const double testing = 0.01;
-
-                          // REAL DEPLOYMENT AMOUNT:
-                          // final double amount = double.tryParse(
-                          //   widget.data.amount ?? "0.00",
-                          // ) ?? 0.00;
-
-                          // Show one QR transition overlay immediately.
-
-                          // IMPORTANT: create this overlay only once.
-
-                          qrOverlay = showQrTransitionOverlay(
-
-                            context,
-
-                            amount: widget.data.amount ?? '0.00',
-
-                          );
-
-                          // Failsafe: guarantee removal even if bash-based window
-                          // detection (xdotool/wmctrl) never succeeds on this device.
-                          Timer(const Duration(seconds: 2), () {
-                            if (qrOverlay != null) {
-                              print('[PAYMENTPAGE] Failsafe: force-removing opening overlay');
-                              qrOverlay?.remove();
-                              qrOverlay = null;
-                            }
-                          });
-
-
-                          await WidgetsBinding.instance.endOfFrame;
-
-
+                          double testing = 0.01;
+                        
                           try {
-
                             final result = await PegePayService.createOrder(
                               testing,
-
-                              // FOR REAL DEPLOYMENT, replace `testing` above
-                              // with `amount` after enabling the declaration.
-                              // amount,
-
+                              //amount,
                               Config.storeId,
                               Config.terminalId,
                               Config.shiftId,
                             );
+
+                             Navigator.pop(context);
+                        
                             final iframeUrl = result["iframe_url"];
                             final orderNo = result["order_no"];
                         
                             if (iframeUrl == null || orderNo == null) {
-                              qrOverlay?.remove();
-                              qrOverlay = null;
-
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text("Failed to create PegePay order.")),
                               );
@@ -1739,29 +1572,9 @@ void _closeCardSuccessDialog() {
                             //         );
 
                             currentRouteName = '/payment';
-                  await PegePayWebViewHelper.open(
+                            await PegePayWebViewHelper.open(
                             iframeUrl: iframeUrl,
                             orderNo: orderNo,
-
-                            onQrWindowOpened: () async {
-                              // The native PegePay QR window is now visible.
-                              // Remove the opening overlay immediately so it
-                              // cannot remain stuck if the QR window is minimized.
-                              qrOverlay?.remove();
-                              qrOverlay = null;
-                              await WidgetsBinding.instance.endOfFrame;
-                            },
-
-                            onPaymentDetected: () async {
-                              // Recreate the overlay only after payment is
-                              // confirmed, then show receipt processing.
-                              qrOverlay ??= showQrTransitionOverlay(
-                                context,
-                                amount: widget.data.amount ?? '0.00',
-                              );
-                              qrOverlay?.showSuccess();
-                              await WidgetsBinding.instance.endOfFrame;
-                            },
 
                             onSuccess: (Map<String, dynamic> paymentResult) async {
                               final pegeOrderNo =
@@ -1769,7 +1582,25 @@ void _closeCardSuccessDialog() {
                               final pegeBankTrxNo =
                                   paymentResult["bank_trx_no"] ?? "";
 
-/* ======================= */
+                              // IMPORTANT:
+                              // Use a root OverlayEntry instead of showDialog().
+                              // It covers the payment-option page immediately on the
+                              // first Flutter frame after the external QR window closes.
+                              final qrSuccessOverlay =
+                                  showQrPaymentSuccessOverlay(
+                                context,
+                                amount: widget.data.amount ?? '0.00',
+                              );
+
+                              // Ensure the success overlay is painted before starting
+                              // receipt/API processing.
+                              await WidgetsBinding.instance.endOfFrame;
+                              await Future<void>.delayed(
+                                const Duration(milliseconds: 120),
+                              );
+
+
+                                  /* ======================= */
                                   /* ===== PARKING QR PAYMENT ===== */
                                   /* ======================= */
                                   
@@ -1784,7 +1615,7 @@ void _closeCardSuccessDialog() {
                                   
                                     if (result != null && !result.startsWith("Error")) {
 
-                                      qrOverlay?.remove();
+                                      removeQrPaymentSuccessOverlay(qrSuccessOverlay);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -1820,7 +1651,7 @@ void _closeCardSuccessDialog() {
                                
                                  if (result != null && !result.startsWith("Error")) {
 
-                                  qrOverlay?.remove();
+                                  removeQrPaymentSuccessOverlay(qrSuccessOverlay);
                                    Navigator.push(
                                      context,
                                      MaterialPageRoute(
@@ -1839,7 +1670,7 @@ void _closeCardSuccessDialog() {
                                      ),
                                    );
                                  } else {
-                                   qrOverlay?.remove();
+                                   removeQrPaymentSuccessOverlay(qrSuccessOverlay);
 
                                    ScaffoldMessenger.of(context).showSnackBar(
                                      SnackBar(content: Text(result ?? "Extend parking failed")),
@@ -1885,7 +1716,7 @@ void _closeCardSuccessDialog() {
 
                                   if (items.isEmpty) {
 
-                                      qrOverlay?.remove();
+                                      removeQrPaymentSuccessOverlay(qrSuccessOverlay);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text("Tiada cukai dipilih")),
                                     );
@@ -1907,7 +1738,9 @@ void _closeCardSuccessDialog() {
                                     );
 
                                     if (!updateSuccess) {
-                                      qrOverlay?.remove();
+                                      removeQrPaymentSuccessOverlay(
+                                        qrSuccessOverlay,
+                                      );
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           content: Text("Cukai payment saved to MPB, but local update failed"),
@@ -1916,7 +1749,7 @@ void _closeCardSuccessDialog() {
                                       return;
                                     }
 
-                                    qrOverlay?.remove();
+                                    removeQrPaymentSuccessOverlay(qrSuccessOverlay);
 
                                     Navigator.push(
                                       context,
@@ -1935,7 +1768,7 @@ void _closeCardSuccessDialog() {
                                       ),
                                     );
                                   } else {
-                                    qrOverlay?.remove();
+                                    removeQrPaymentSuccessOverlay(qrSuccessOverlay);
 
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text("Cukai payment update failed")),
@@ -1949,7 +1782,7 @@ void _closeCardSuccessDialog() {
                                       final items = widget.data.sewaanItems ?? [];
 
                                       if (items.isEmpty) {
-                                          qrOverlay?.remove();
+                                          removeQrPaymentSuccessOverlay(qrSuccessOverlay);
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           const SnackBar(content: Text("Tiada sewaan dipilih")),
                                         );
@@ -1971,8 +1804,6 @@ void _closeCardSuccessDialog() {
                                         );
 
                                         if (!updateSuccess) {
-                                          qrOverlay?.remove();
-
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             const SnackBar(
                                               content: Text("Sewaan payment saved to MPB, but local update failed"),
@@ -1980,7 +1811,7 @@ void _closeCardSuccessDialog() {
                                           );
                                           return;
                                         }
-                                        qrOverlay?.remove();
+                                        removeQrPaymentSuccessOverlay(qrSuccessOverlay);
 
                                         Navigator.push(
                                           context,
@@ -1999,8 +1830,6 @@ void _closeCardSuccessDialog() {
                                           ),
                                         );
                                       } else {
-                                        qrOverlay?.remove();
-
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           const SnackBar(
                                             content: Text("Sewaan payment update failed"),
@@ -2018,7 +1847,9 @@ void _closeCardSuccessDialog() {
 
                                  
                                    if (licenseNos.isEmpty) {
-                                     qrOverlay?.remove();
+                                     removeQrPaymentSuccessOverlay(
+                                       qrSuccessOverlay,
+                                     );
                                      ScaffoldMessenger.of(context).showSnackBar(
                                        const SnackBar(content: Text("Tiada lesen dipilih")),
                                      );
@@ -2029,7 +1860,7 @@ void _closeCardSuccessDialog() {
                                        await LicenseService.payMultipleLicenses(licenseNos);
                                  
                                    if (success) {
-                                    qrOverlay?.remove();
+                                    removeQrPaymentSuccessOverlay(qrSuccessOverlay);
                                      Navigator.push(
                                        context,
                                        MaterialPageRoute(
@@ -2047,7 +1878,7 @@ void _closeCardSuccessDialog() {
                                        ),
                                      );
                                    } else {
-                                     qrOverlay?.remove();
+                                     removeQrPaymentSuccessOverlay(qrSuccessOverlay);
                                      
                                      ScaffoldMessenger.of(context).showSnackBar(
                                        const SnackBar(content: Text("Pembayaran lesen gagal")),
@@ -2064,7 +1895,7 @@ void _closeCardSuccessDialog() {
                                    // Just go to receipt page ✅
                                 //Navigator.pop(context);
 
-                                 qrOverlay?.remove();
+                                 removeQrPaymentSuccessOverlay(qrSuccessOverlay);
                                    Navigator.push(
                                      context,
                                      MaterialPageRoute(
@@ -2084,7 +1915,7 @@ void _closeCardSuccessDialog() {
                                  }
                                   
                                 else if (widget.biz == "SINGLECOMPOUND") {
-                                  qrOverlay?.remove();
+                                  removeQrPaymentSuccessOverlay(qrSuccessOverlay);
                                  Navigator.push(
                                    context,
                                    MaterialPageRoute(
@@ -2113,29 +1944,14 @@ void _closeCardSuccessDialog() {
                             onCancel: () async {
                               print("User cancelled QR payment");
 
-                              // Usually already removed by onQrWindowOpened.
-                              // Keep this cleanup for launch failure, X close,
-                              // backend cancel, or any early cancellation.
-                              qrOverlay?.remove();
-                              qrOverlay = null;
-
                               currentRouteName = '/payment';
 
                               await windowManager.show();
                               await windowManager.focus();
                               await windowManager.setFullScreen(true);
 
-                              if (!context.mounted) {
-                                return;
-                              }
-
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    AppLocalizations.of(context)!
-                                        .qrPaymentCancelled,
-                                  ),
-                                ),
+                                const SnackBar(content: Text("Payment cancelled")),
                               );
                             },
                             );
@@ -2144,22 +1960,11 @@ void _closeCardSuccessDialog() {
                             //   ),
                             // );
                           } catch (e) {
-                            qrOverlay?.remove();
-                            qrOverlay = null;
-
+                            Navigator.pop(context);
                             currentRouteName = '/payment';
                             print("PegePay createOrder error: $e");
-
-                            if (!context.mounted) {
-                              return;
-                            }
-
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  "Error creating PegePay order.",
-                                ),
-                              ),
+                              const SnackBar(content: Text("Error creating PegePay order.")),
                             );
                           }
                         },
