@@ -140,7 +140,6 @@ class PegePayWebViewHelper {
       _statusTimer?.cancel();
       _statusTimer = null;
 
-      _stopMinimizeMonitor();
 
       if (identical(_currentWebview, webview)) {
         _currentWebview = null;
@@ -465,6 +464,8 @@ class PegePayWebViewHelper {
 
     _isClosing = true;
     _programmaticClosingSessionId = sessionId;
+
+    _stopMinimizeMonitor();
 
     _statusTimer?.cancel();
     _statusTimer = null;
