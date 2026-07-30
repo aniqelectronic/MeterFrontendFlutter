@@ -278,32 +278,193 @@ Future<void> showCardPaymentSuccessDialog(
   );
 }
 
-void showLoadingDialog(BuildContext context, {String message = "Loading..."}) {
-  showDialog(
+void showLoadingDialog(
+  BuildContext context, {
+  String? message,
+}) {
+  final l10n = AppLocalizations.of(context)!;
+
+  showDialog<void>(
     context: context,
     barrierDismissible: false,
-    builder: (_) => Center(
-      child: Container(
-        width: 300,
-        height: 300,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const CircularProgressIndicator(),
-            const SizedBox(height: 15),
-            Text(
-              message,
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black,),
-              textAlign: TextAlign.center,
+    useRootNavigator: true,
+    builder: (_) {
+      return PopScope(
+        canPop: false,
+        child: Material(
+          color: const Color(0xFF071A2F).withOpacity(0.82),
+          child: Center(
+            child: Container(
+              width: 650,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 46,
+                vertical: 44,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(32),
+                border: Border.all(
+                  color: const Color(0xFFB7CAE8),
+                  width: 2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.35),
+                    blurRadius: 36,
+                    spreadRadius: 4,
+                    offset: const Offset(0, 16),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // QR icon container
+                  Container(
+                    width: 138,
+                    height: 138,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE8F2FF),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: const Color(0xFF1469E8),
+                        width: 5,
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.qr_code_2_rounded,
+                      size: 88,
+                      color: Color(0xFF1469E8),
+                    ),
+                  ),
+
+                  const SizedBox(height: 28),
+
+                  // Localized title
+                  Text(
+                    l10n.loadingTitle,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF0359D2),
+                      fontSize: 43,
+                      fontWeight: FontWeight.w900,
+                      height: 1.15,
+                    ),
+                  ),
+
+                  const SizedBox(height: 18),
+
+                  // Uses custom message when supplied.
+                  // Otherwise uses the existing ARB loadingMessage.
+                  Text(
+                    message ?? l10n.loadingMessage,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF24364B),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w700,
+                      height: 1.4,
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  // Processing status panel
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 28,
+                      vertical: 22,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF2F7FD),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: const Color(0xFFB7CAE8),
+                        width: 2,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 62,
+                          height: 62,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFE1EDFF),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.security_rounded,
+                            color: Color(0xFF1469E8),
+                            size: 37,
+                          ),
+                        ),
+
+                        const SizedBox(width: 20),
+
+                        Expanded(
+                          child: Text(
+                            l10n.loadingStatusMessage,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              color: Color(0xFF294A73),
+                              fontSize: 23,
+                              fontWeight: FontWeight.w800,
+                              height: 1.3,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  // Loading indicator
+                  const SizedBox(
+                    width: 72,
+                    height: 72,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 7,
+                      color: Color(0xFF1469E8),
+                      backgroundColor: Color(0xFFDCE9FA),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // Localized instruction
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.touch_app_outlined,
+                        color: Color(0xFF647187),
+                        size: 28,
+                      ),
+
+                      const SizedBox(width: 12),
+
+                      Flexible(
+                        child: Text(
+                          l10n.loadingDoNotClose,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Color(0xFF647187),
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
+          ),
         ),
-      ),
-    ),
+      );
+    },
   );
 }
 
