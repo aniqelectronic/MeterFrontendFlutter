@@ -11,6 +11,7 @@ class PegePayWebViewHelper {
   static Webview? _currentWebview;
   static Timer? _statusTimer;
   static Timer? _minimizeTimer;
+  static String? _linuxWindowId;
 
   /// Every newly opened QR receives a different session ID.
   ///
@@ -45,7 +46,7 @@ class PegePayWebViewHelper {
      */
     final int sessionId = ++_activeSessionId;
 
-     currentRouteName = '/payment';
+    currentRouteName = '/payment';
 
     await _closeOldWebView();
 
@@ -498,6 +499,7 @@ class PegePayWebViewHelper {
      * Remove any Linux QR window that failed to close normally.
      */
     await _forceClosePegePayWindows();
+    _linuxWindowId = null;
 
     _isClosing = false;
 
@@ -543,6 +545,7 @@ class PegePayWebViewHelper {
     }
 
     await _forceClosePegePayWindows();
+    _linuxWindowId = null;
   }
 
   // ============================================================
@@ -558,7 +561,7 @@ class PegePayWebViewHelper {
      * - the title may change after HTML loads
      */
     for (int attempt = 1; attempt <= 40; attempt++) {
-      if (sessionId != _activeSessionId) {
+      if (sessionId != _activeSessionId || _isClosing) {
         return;
       }
 
@@ -623,6 +626,11 @@ fi
         final output = result.stdout.toString().trim();
 
         if (output.startsWith('FOUND:')) {
+          final foundId = output.substring('FOUND:'.length).trim();
+          if (foundId.isNotEmpty) {
+            _linuxWindowId = foundId;
+          }
+
           print(
             '[PegePay] Linux WebView fullscreen enabled: '
             '$output',
@@ -637,7 +645,7 @@ fi
             const Duration(milliseconds: 1000),
           );
 
-          if (sessionId == _activeSessionId) {
+          if (sessionId == _activeSessionId && !_isClosing) {
             await _reapplyFullscreen();
           }
 
@@ -747,32 +755,28 @@ fi
 
   static Future<void> _forceClosePegePayWindows() async {
     try {
-      await Process.run(
-        'bash',
-        [
-          '-c',
-          r'''
+      final storedWindowId = _linuxWindowId ?? '';
+      final script = r'''
 export DISPLAY=:0
 export XAUTHORITY=/home/orin_nano/.Xauthority
-
+STORED_WIN_ID="__STORED_WIN_ID__"
 {
-  xdotool search --name "PegePayQR" 2>/dev/null
+  if [ -n "$STORED_WIN_ID" ]; then echo "$STORED_WIN_ID"; fi
+  xdotool search --name "^PegePayQR$" 2>/dev/null
   xdotool search --name "PegePay QR Payment" 2>/dev/null
 } | sort -u | while read -r WIN_ID; do
   if [ -n "$WIN_ID" ]; then
-    wmctrl -ir "$WIN_ID" -b remove,fullscreen 2>/dev/null
-    xdotool windowclose "$WIN_ID" 2>/dev/null
+    wmctrl -ir "$WIN_ID" -b remove,fullscreen,above 2>/dev/null || true
+    xdotool windowmap "$WIN_ID" 2>/dev/null || true
+    xdotool windowclose "$WIN_ID" 2>/dev/null || true
   fi
 done
-''',
-        ],
-      );
+'''.replaceAll('__STORED_WIN_ID__', storedWindowId);
 
+      await Process.run('bash', ['-c', script]);
       print('[PegePay] Leftover QR windows cleaned');
     } catch (e) {
-      print(
-        '[PegePay] Failed to clean leftover windows: $e',
-      );
+      print('[PegePay] Failed to clean leftover windows: $e');
     }
   }
 
@@ -802,7 +806,7 @@ static void _startMinimizeMonitor({
       bool checkRunning = false;
 
       _minimizeTimer = Timer.periodic(
-        const Duration(milliseconds: 700),
+        const Duration(milliseconds: 400),
         (timer) async {
           if (sessionId != _activeSessionId ||
               _isClosing ||
@@ -862,51 +866,58 @@ static void _stopMinimizeMonitor() {
 
 static Future<bool> _isPegePayWindowMinimized() async {
   try {
-    final result = await Process.run(
-      'bash',
-      [
-        '-c',
-        r'''
+    final storedWindowId = _linuxWindowId ?? '';
+    final script = r'''
 export DISPLAY=:0
 export XAUTHORITY=/home/orin_nano/.Xauthority
+WIN_ID="__STORED_WIN_ID__"
 
-WIN_ID=$(xdotool search --name "^PegePayQR$" 2>/dev/null | tail -n 1)
-
+if [ -n "$WIN_ID" ] && ! xprop -id "$WIN_ID" WM_STATE >/dev/null 2>&1; then
+  WIN_ID=""
+fi
+if [ -z "$WIN_ID" ]; then
+  WIN_ID=$(xdotool search --name "^PegePayQR$" 2>/dev/null | tail -n 1)
+fi
 if [ -z "$WIN_ID" ]; then
   WIN_ID=$(xdotool search --name "PegePay QR Payment" 2>/dev/null | tail -n 1)
 fi
-
 if [ -z "$WIN_ID" ]; then
-  WIN_ID=$(wmctrl -l 2>/dev/null \
-    | grep -E "PegePayQR|PegePay QR Payment" \
-    | tail -n 1 \
-    | awk '{print $1}')
+  WIN_ID=$(wmctrl -l 2>/dev/null | grep -E "PegePayQR|PegePay QR Payment" | tail -n 1 | awk '{print $1}')
 fi
-
 if [ -z "$WIN_ID" ]; then
   echo "NOT_FOUND"
   exit 0
 fi
 
-WINDOW_STATE=$(xprop -id "$WIN_ID" _NET_WM_STATE 2>/dev/null)
+NET_STATE=$(xprop -id "$WIN_ID" _NET_WM_STATE 2>/dev/null)
+WM_STATE=$(xprop -id "$WIN_ID" WM_STATE 2>/dev/null)
+MAP_STATE=$(xwininfo -id "$WIN_ID" 2>/dev/null | grep "Map State:")
 
-if echo "$WINDOW_STATE" | grep -q "_NET_WM_STATE_HIDDEN"; then
-  echo "MINIMIZED"
+if echo "$NET_STATE" | grep -q "_NET_WM_STATE_HIDDEN"; then
+  echo "MINIMIZED:$WIN_ID"
+elif echo "$WM_STATE" | grep -qi "Iconic"; then
+  echo "MINIMIZED:$WIN_ID"
+elif echo "$MAP_STATE" | grep -qi "IsUnMapped"; then
+  echo "MINIMIZED:$WIN_ID"
 else
-  echo "VISIBLE"
+  echo "VISIBLE:$WIN_ID"
 fi
-''',
-      ],
-    );
+'''.replaceAll('__STORED_WIN_ID__', storedWindowId);
 
+    final result = await Process.run('bash', ['-c', script]);
     final output = result.stdout.toString().trim();
+    print('[PegePay] QR window state: $output');
 
-    return output == 'MINIMIZED';
+    if (output.contains(':')) {
+      final reportedId = output.split(':').last.trim();
+      if (reportedId.isNotEmpty) {
+        _linuxWindowId = reportedId;
+      }
+    }
+
+    return output.startsWith('MINIMIZED:');
   } catch (e) {
-    print(
-      '[PegePay] Unable to read QR window state: $e',
-    );
-
+    print('[PegePay] Unable to read QR window state: $e');
     return false;
   }
 }
@@ -933,7 +944,7 @@ fi
       await windowManager.focus();
       await windowManager.setAlwaysOnTop(false);
 
-      currentRouteName = '/payment';
+     currentRouteName = '/payment';
 
       print('[PegePay] Flutter window restored');
     } catch (e) {
@@ -943,179 +954,3 @@ fi
     }
   }
 }
-
-
-
-// import 'dart:async';
-// import 'dart:io';
-// import 'dart:ui';
-// import 'package:desktop_webview_window/desktop_webview_window.dart';
-// import 'package:frontend_v1/main.dart';
-// import 'package:frontend_v1/services/pegepay_service.dart';
-// import 'package:frontend_v1/pages/config.dart';
-// import 'package:window_manager/window_manager.dart';
-
-// class PegePayWebViewHelper {
-//   static Webview? _currentWebview;
-
-// static Future<void> _removeWebViewDecoration() async {
-//   await Future.delayed(const Duration(milliseconds: 50));
-
-//   try {
-//     await Process.run('bash', [
-//       '-c',
-//       '''
-//       export DISPLAY=:0
-//       export XAUTHORITY=/home/orin_nano/.Xauthority
-
-//       WIN_ID=\$(xdotool search --name "PegePayQR" | tail -n 1)
-
-//       if [ ! -z "\$WIN_ID" ]; then
-//         xprop -id \$WIN_ID -f _MOTIF_WM_HINTS 32c \
-//         -set _MOTIF_WM_HINTS "0x2, 0x0, 0x0, 0x0, 0x0"
-
-//         wmctrl -ir \$WIN_ID -b add,fullscreen
-//       fi
-//       '''
-//     ]);
-//   } catch (e) {
-//     print("Failed to remove WebView decoration: $e");
-//   }
-// }
-
-// static Future<void> _cleanupOldWebViews() async {
-//   try {
-//     await Process.run('bash', [
-//       '-c',
-//       '''
-//       export DISPLAY=:0
-//       export XAUTHORITY=/home/orin_nano/.Xauthority
-
-//       for WIN_ID in \$(xdotool search --name "PegePayQR" 2>/dev/null); do
-//         wmctrl -ir \$WIN_ID -b remove,fullscreen
-//         xdotool windowkill \$WIN_ID
-//       done
-//       '''
-//     ]);
-//   } catch (e) {
-//     print("Failed to cleanup old WebViews: $e");
-//   }
-// }
-
-
-//   static Future<void> open({
-//     required String iframeUrl,
-//     required String orderNo,
-//     required Function(Map<String, dynamic>) onSuccess,
-//     required Function onCancel,
-//   }) async {
-//     if (_currentWebview != null) {
-//       try {
-//         _currentWebview!.close();
-//       } catch (_) {}
-//       _currentWebview = null;
-//     }
-
-//     final screenSize = await windowManager.getSize();
-
-//    // await _cleanupOldWebViews();
-
-//     final webview = await WebviewWindow.create(
-//       configuration: const CreateConfiguration(
-//         title: "PegePayQR",
-//         windowWidth: 800,
-//         windowHeight: 1320,
-//         windowPosX: 0,
-//         windowPosY: -40,
-//         useWindowPositionAndSize: true,
-//         openMaximized: false,
-//       ),
-//     );
-
-//     _currentWebview = webview;
-//     Future.delayed(const Duration(milliseconds: 500), () {
-//   _removeWebViewDecoration();
-//     });
-
-//     bool completed = false;
-
-//     webview.onClose.whenComplete(() {
-//       print("WEBVIEW CLOSED BY X");
-
-//       currentRouteName = '/payment';
-
-//       completed = true;
-//       _currentWebview = null;
-
-//       // Future.delayed(const Duration(milliseconds: 300), () {
-//       //   onCancel();
-//       // });
-//     });
-
-//     // webview.addOnUrlRequestCallback((url) {
-//     //   if (url.startsWith("app://cancelPayment")) {
-//     //     if (!completed) {
-//     //       completed = true;
-//     //       _currentWebview?.close();
-//     //       _currentWebview = null;
-//     //       onCancel();
-//     //     }
-//     //   }
-//     // });
-
-// webview.addOnUrlRequestCallback((url) {
-//   if (url.startsWith("app://cancelPayment")) {
-//     if (!completed) {
-//       completed = true;
-
-//       _currentWebview = null;
-
-//       Future.delayed(const Duration(milliseconds: 300), ()async  {
-//         await windowManager.show();
-//         await windowManager.focus();
-//         await windowManager.setFullScreen(true);
-//         onCancel();
-//       });
-//     }
-//   }
-// });
-
-//     Timer.periodic(const Duration(seconds: 2), (timer) async {
-//       if (completed) {
-//         timer.cancel();
-//         return;
-//       }
-
-//       try {
-//         final paid = await PegePayService.checkStatus(orderNo);
-
-//         if (paid) {
-//           completed = true;
-//           timer.cancel();
-
-//           final paymentResult =
-//               await PegePayService.checkStatusDetails(orderNo);
-
-//           // _currentWebview?.close();
-
-//           _currentWebview = null;
-
-
-//           await windowManager.show();
-//           await windowManager.focus();
-//           await windowManager.setFullScreen(true);
-
-
-//           onSuccess(paymentResult);
-//         }
-//       } catch (_) {}
-//     });
-
-//     webview.launch(
-//       "${Config.apiBaseUrl}/pegepay/iframe-wrapper?iframe_url=${Uri.encodeComponent(iframeUrl)}",
-//     );
-//   }
-  
-// }
-
-
