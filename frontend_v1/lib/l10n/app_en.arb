@@ -2299,7 +2299,34 @@
   "description": "Button label for paying the annual assessment tax amount"
 },
 
-"scrollForMoreInformation": "Scroll for more information"
+"scrollForMoreInformation": "Scroll for more information",
+
+"qrPaymentSuccessTitle": "Payment Successful",
+"qrPaymentSuccessMessage": "Your QR payment has been received successfully.",
+"qrPreparingReceipt": "Preparing your receipt",
+"qrPleaseWaitNotice": "Please wait. Do not leave this page.",
+"qrTotalAmount": "Total Amount",
+
+  "qrOpeningPayment": "Opening QR Payment",
+  "qrOpeningPaymentMessage": "Please complete the payment on the QR payment screen.",
+  "qrPaymentSuccessTitle": "Payment Successful",
+  "qrPaymentSuccessMessage": "Your QR payment has been received successfully.",
+  "qrPreparingReceipt": "Preparing your receipt",
+  "qrPleaseWaitNotice": "Please wait. Do not leave this page.",
+  "qrTotalAmount": "Total Amount",
+
+  "qrOpeningPayment": "Opening QR Payment",
+"qrOpeningPaymentMessage": "Please complete the payment on the QR payment screen.",
+"qrPaymentSuccessTitle": "Payment Successful",
+"qrPaymentSuccessMessage": "Your QR payment has been received successfully.",
+"qrPreparingReceipt": "Preparing your receipt",
+"qrPleaseWaitNotice": "Please wait. Do not leave this page.",
+"qrTotalAmount": "Total Amount",
+
+"qrClosingPaymentTitle": "Closing QR Payment",
+"qrClosingPaymentMessage": "Returning to the payment menu.",
+"qrClosingPleaseWait": "Please wait while the QR payment screen closes.",
+"qrPaymentCancelled": "Payment cancelled"
 
 
 

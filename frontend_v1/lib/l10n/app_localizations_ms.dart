@@ -4508,4 +4508,37 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get scrollForMoreInformation => 'Skrol untuk maklumat lanjut';
+
+  @override
+  String get qrPaymentSuccessTitle => 'Pembayaran Berjaya';
+
+  @override
+  String get qrPaymentSuccessMessage => 'Pembayaran QR anda telah berjaya diterima.';
+
+  @override
+  String get qrPreparingReceipt => 'Resit anda sedang disediakan';
+
+  @override
+  String get qrPleaseWaitNotice => 'Sila tunggu. Jangan tinggalkan halaman ini.';
+
+  @override
+  String get qrTotalAmount => 'Jumlah Keseluruhan';
+
+  @override
+  String get qrOpeningPayment => 'Membuka Pembayaran QR';
+
+  @override
+  String get qrOpeningPaymentMessage => 'Sila lengkapkan pembayaran pada skrin pembayaran QR.';
+
+  @override
+  String get qrClosingPaymentTitle => 'Menutup Pembayaran QR';
+
+  @override
+  String get qrClosingPaymentMessage => 'Kembali ke menu pembayaran.';
+
+  @override
+  String get qrClosingPleaseWait => 'Sila tunggu sementara skrin pembayaran QR ditutup.';
+
+  @override
+  String get qrPaymentCancelled => 'Pembayaran dibatalkan';
 }

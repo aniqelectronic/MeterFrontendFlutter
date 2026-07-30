@@ -277,7 +277,7 @@ class PegePayWebViewHelper {
     bool statusRequestRunning = false;
 
     _statusTimer = Timer.periodic(
-      const Duration(seconds: 2),
+      const Duration(milliseconds: 700),
       (timer) async {
         if (sessionId != _activeSessionId || finished) {
           timer.cancel();
@@ -326,21 +326,55 @@ class PegePayWebViewHelper {
           }
 
           /*
-           * Close only the QR WebView.
+           * Notify the payment page immediately, before closing
+           * the native QR WebView.
+           *
+           * The payment page already inserted its transition
+           * overlay before this WebView opened. Calling onSuccess
+           * now changes that existing overlay to the successful
+           * state while the QR WebView is still covering it.
+           *
+           * Do not await the full callback because it also performs
+           * council API updates and receipt generation. Those tasks
+           * should continue while this helper closes the QR window.
+           */
+          try {
+            final callbackResult = onSuccess(paymentResult);
+
+            if (callbackResult is Future) {
+              unawaited(
+                callbackResult.catchError((Object error) {
+                  print(
+                    '[PegePay] Async onSuccess callback failed: '
+                    '$error',
+                  );
+                }),
+              );
+            }
+          } catch (e) {
+            print(
+              '[PegePay] onSuccess callback failed: $e',
+            );
+          }
+
+          /*
+           * Give Flutter one short moment to paint the success
+           * state behind the QR window. This prevents the payment
+           * option page from flashing when the native window closes.
+           */
+          await Future.delayed(
+            const Duration(milliseconds: 100),
+          );
+
+          /*
+           * Close only the QR WebView, then restore the main
+           * Flutter kiosk window.
            */
           await _closeCurrentWebView(
             sessionId: sessionId,
           );
 
           await _restoreFlutterWindow();
-
-          try {
-            onSuccess(paymentResult);
-          } catch (e) {
-            print(
-              '[PegePay] onSuccess callback failed: $e',
-            );
-          }
         } catch (e) {
           print('[PegePay] Status check error: $e');
         } finally {

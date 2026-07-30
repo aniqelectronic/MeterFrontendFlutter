@@ -396,11 +396,13 @@ class _P5LicenseScreenState extends State<P5LicenseScreen> {
 
           SafeArea(
             child: Padding(
+              // Reserve enough space for the fixed bottom action card.
+              // This keeps the license table fully above the card.
               padding: const EdgeInsets.fromLTRB(
                 35,
                 40,
                 35,
-                470,
+                555,
               ),
               child: Column(
                 children: [
@@ -552,6 +554,9 @@ class _P5LicenseScreenState extends State<P5LicenseScreen> {
                                 controller: _scrollController,
                                 thumbVisibility: true,
                                 trackVisibility: true,
+                                interactive: true,
+                                scrollbarOrientation:
+                                    ScrollbarOrientation.right,
                                 thickness: 16,
                                 radius: const Radius.circular(20),
                                 child: ListView.separated(
@@ -587,7 +592,7 @@ class _P5LicenseScreenState extends State<P5LicenseScreen> {
           Positioned(
             left: 35,
             right: 35,
-            bottom: 80,
+            bottom: 35,
             child: Container(
               padding: const EdgeInsets.fromLTRB(
                 30,
@@ -835,7 +840,7 @@ class _P5LicenseScreenState extends State<P5LicenseScreen> {
     final loc = AppLocalizations.of(context)!;
 
     return Container(
-      height: 105,
+      height: 92,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
@@ -921,7 +926,7 @@ class _P5LicenseScreenState extends State<P5LicenseScreen> {
           duration: const Duration(milliseconds: 180),
           curve: Curves.easeOut,
           constraints: const BoxConstraints(
-            minHeight: 120,
+            minHeight: 105,
           ),
           padding: const EdgeInsets.symmetric(
             vertical: 14,

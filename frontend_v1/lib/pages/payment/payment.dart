@@ -389,6 +389,301 @@ void showPINEntryDialog(BuildContext context) {
 }
 
 
+
+enum QrTransitionStage {
+  opening,
+  success,
+  closing,
+}
+
+class QrTransitionOverlayController {
+  final ValueNotifier<QrTransitionStage> stage;
+  final OverlayEntry entry;
+
+  bool _removed = false;
+
+  QrTransitionOverlayController({
+    required this.stage,
+    required this.entry,
+  });
+
+  void showSuccess() {
+    if (_removed) return;
+    stage.value = QrTransitionStage.success;
+  }
+
+  void showClosing() {
+    if (_removed) return;
+    stage.value = QrTransitionStage.closing;
+  }
+
+  void remove() {
+    if (_removed) return;
+    _removed = true;
+
+    try {
+      entry.remove();
+    } catch (_) {
+      // The overlay may already have been removed.
+    }
+
+    stage.dispose();
+  }
+}
+
+QrTransitionOverlayController showQrTransitionOverlay(
+  BuildContext context, {
+  required String amount,
+}) {
+  final l10n = AppLocalizations.of(context)!;
+
+  final stageNotifier = ValueNotifier<QrTransitionStage>(
+    QrTransitionStage.opening,
+  );
+
+  late final OverlayEntry entry;
+
+  entry = OverlayEntry(
+    builder: (_) => Positioned.fill(
+      child: Material(
+        color: const Color(0xFF071A2F),
+        child: PopScope(
+          canPop: false,
+          child: ValueListenableBuilder<QrTransitionStage>(
+            valueListenable: stageNotifier,
+            builder: (context, stage, child) {
+              final bool paymentSuccess =
+                  stage == QrTransitionStage.success;
+              final bool paymentClosing =
+                  stage == QrTransitionStage.closing;
+
+              final Color accentColor = paymentSuccess
+                  ? const Color(0xFF169B62)
+                  : paymentClosing
+                      ? const Color(0xFFE58B17)
+                      : const Color(0xFF0359D2);
+
+              final Color borderColor = paymentSuccess
+                  ? const Color(0xFFB9D8C7)
+                  : paymentClosing
+                      ? const Color(0xFFF0D2A7)
+                      : const Color(0xFFB7CAE8);
+
+              final Color panelColor = paymentSuccess
+                  ? const Color(0xFFE7F8EE)
+                  : paymentClosing
+                      ? const Color(0xFFFFF4E3)
+                      : const Color(0xFFF2F7FD);
+
+              final String title = paymentSuccess
+                  ? l10n.qrPaymentSuccessTitle
+                  : paymentClosing
+                      ? l10n.qrClosingPaymentTitle
+                      : l10n.qrOpeningPayment;
+
+              final String message = paymentSuccess
+                  ? l10n.qrPaymentSuccessMessage
+                  : paymentClosing
+                      ? l10n.qrClosingPaymentMessage
+                      : l10n.qrOpeningPaymentMessage;
+
+              return Center(
+                child: Container(
+                  width: 660,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 46,
+                    vertical: 44,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(32),
+                    border: Border.all(
+                      color: borderColor,
+                      width: 2,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.35),
+                        blurRadius: 36,
+                        spreadRadius: 4,
+                        offset: const Offset(0, 16),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 250),
+                        child: paymentSuccess
+                            ? Container(
+                                key: const ValueKey('qr-success'),
+                                width: 138,
+                                height: 138,
+                                decoration: BoxDecoration(
+                                  color: panelColor,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: accentColor,
+                                    width: 5,
+                                  ),
+                                ),
+                                child: Icon(
+                                  Icons.check_rounded,
+                                  size: 96,
+                                  color: accentColor,
+                                ),
+                              )
+                            : SizedBox(
+                                key: ValueKey(
+                                  paymentClosing
+                                      ? 'qr-closing'
+                                      : 'qr-opening',
+                                ),
+                                width: 100,
+                                height: 100,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 8,
+                                  color: accentColor,
+                                ),
+                              ),
+                      ),
+
+                      const SizedBox(height: 28),
+
+                      Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: paymentSuccess
+                              ? const Color(0xFF087443)
+                              : paymentClosing
+                                  ? const Color(0xFFB86800)
+                                  : const Color(0xFF0359D2),
+                          fontSize: 42,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      Text(
+                        message,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Color(0xFF24364B),
+                          fontSize: 26,
+                          fontWeight: FontWeight.w700,
+                          height: 1.35,
+                        ),
+                      ),
+
+                      const SizedBox(height: 26),
+
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 28,
+                          vertical: 19,
+                        ),
+                        decoration: BoxDecoration(
+                          color: panelColor,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: borderColor,
+                            width: 2,
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              l10n.qrTotalAmount,
+                              style: const TextStyle(
+                                color: Color(0xFF53657A),
+                                fontSize: 23,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(height: 7),
+                            Text(
+                              'RM $amount',
+                              style: TextStyle(
+                                color: accentColor,
+                                fontSize: 50,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      if (paymentSuccess) ...[
+                        const SizedBox(height: 27),
+                        const SizedBox(
+                          width: 62,
+                          height: 62,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 6,
+                            color: Color(0xFF0359D2),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          l10n.qrPreparingReceipt,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Color(0xFF0359D2),
+                            fontSize: 25,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          l10n.qrPleaseWaitNotice,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Color(0xFF5A6878),
+                            fontSize: 21,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+
+                      if (paymentClosing) ...[
+                        const SizedBox(height: 24),
+                        Text(
+                          l10n.qrClosingPleaseWait,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Color(0xFF7B5A2C),
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    ),
+  );
+
+  Overlay.of(
+    context,
+    rootOverlay: true,
+  ).insert(entry);
+
+  return QrTransitionOverlayController(
+    stage: stageNotifier,
+    entry: entry,
+  );
+}
+
+
 class PAYMENTPAGE extends StatefulWidget {
   final String biz;
   final PaymentData data;
@@ -1367,26 +1662,52 @@ void _closeCardSuccessDialog() {
                         icon: IconData(0xe4f5, fontFamily: 'MaterialIcons'),
                         label: AppLocalizations.of(context)!.qrButton,
                         onPressed: () async {
-                          //double amount = double.tryParse(data.amount ?? "0.00") ?? 0.00;
-                          showLoadingDialog(context); 
+                          QrTransitionOverlayController? qrOverlay;
 
-                          double testing = 0.01;
-                        
+                          // Keep RM0.01 for testing.
+                          const double testing = 0.01;
+
+                          // REAL DEPLOYMENT AMOUNT:
+                          // final double amount = double.tryParse(
+                          //   widget.data.amount ?? "0.00",
+                          // ) ?? 0.00;
+
+                          // Show one QR transition overlay immediately.
+
+                          // IMPORTANT: create this overlay only once.
+
+                          qrOverlay = showQrTransitionOverlay(
+
+                            context,
+
+                            amount: widget.data.amount ?? '0.00',
+
+                          );
+
+
+                          await WidgetsBinding.instance.endOfFrame;
+
+
                           try {
+
                             final result = await PegePayService.createOrder(
                               testing,
-                              //amount,
+
+                              // FOR REAL DEPLOYMENT, replace `testing` above
+                              // with `amount` after enabling the declaration.
+                              // amount,
+
                               Config.storeId,
                               Config.terminalId,
                               Config.shiftId,
                             );
-
-                             Navigator.pop(context);
-                        
                             final iframeUrl = result["iframe_url"];
                             final orderNo = result["order_no"];
                         
                             if (iframeUrl == null || orderNo == null) {
+                              qrOverlay?.remove();
+                              qrOverlay = null;
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text("Failed to create PegePay order.")),
                               );
@@ -1406,25 +1727,24 @@ void _closeCardSuccessDialog() {
                             //         );
 
                             currentRouteName = '/payment';
-                            await PegePayWebViewHelper.open(
+await PegePayWebViewHelper.open(
                             iframeUrl: iframeUrl,
                             orderNo: orderNo,
 
                             onSuccess: (Map<String, dynamic> paymentResult) async {
-                            final pegeOrderNo = paymentResult["order_no"] ?? orderNo;
-                            final pegeBankTrxNo = paymentResult["bank_trx_no"] ?? "";
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Payment successful!")),
-                              );
+                              final pegeOrderNo =
+                                  paymentResult["order_no"] ?? orderNo;
+                              final pegeBankTrxNo =
+                                  paymentResult["bank_trx_no"] ?? "";
+                              // The overlay already exists behind the PegePay
+                              // window. Change it immediately to success.
+                              qrOverlay?.showSuccess();
 
-                              showProcessingDialog(
-                                context,
-                                message:
-                                    AppLocalizations.of(context)!.processingReceipt,
-                              );
+                              // Ensure the success state is painted before
+                              // starting receipt/API processing.
+                              await WidgetsBinding.instance.endOfFrame;
 
-
-                                  /* ======================= */
+/* ======================= */
                                   /* ===== PARKING QR PAYMENT ===== */
                                   /* ======================= */
                                   
@@ -1439,9 +1759,7 @@ void _closeCardSuccessDialog() {
                                   
                                     if (result != null && !result.startsWith("Error")) {
 
-                                      if (Navigator.canPop(context)) {
-                                        Navigator.pop(context); // close processing dialog
-                                      }
+                                      qrOverlay?.remove();
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -1477,9 +1795,7 @@ void _closeCardSuccessDialog() {
                                
                                  if (result != null && !result.startsWith("Error")) {
 
-                                  if (Navigator.canPop(context)) {
-                                    Navigator.pop(context); // close processing dialog
-                                  }
+                                  qrOverlay?.remove();
                                    Navigator.push(
                                      context,
                                      MaterialPageRoute(
@@ -1498,7 +1814,7 @@ void _closeCardSuccessDialog() {
                                      ),
                                    );
                                  } else {
-                                   _closeCardSuccessDialog();
+                                   qrOverlay?.remove();
 
                                    ScaffoldMessenger.of(context).showSnackBar(
                                      SnackBar(content: Text(result ?? "Extend parking failed")),
@@ -1544,9 +1860,7 @@ void _closeCardSuccessDialog() {
 
                                   if (items.isEmpty) {
 
-                                      if (Navigator.canPop(context)) {
-                                      Navigator.pop(context);
-                                    }
+                                      qrOverlay?.remove();
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text("Tiada cukai dipilih")),
                                     );
@@ -1568,6 +1882,7 @@ void _closeCardSuccessDialog() {
                                     );
 
                                     if (!updateSuccess) {
+                                      qrOverlay?.remove();
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                           content: Text("Cukai payment saved to MPB, but local update failed"),
@@ -1576,9 +1891,7 @@ void _closeCardSuccessDialog() {
                                       return;
                                     }
 
-                                    if (Navigator.canPop(context)) {
-                                        Navigator.pop(context); // close processing dialog
-                                      }
+                                    qrOverlay?.remove();
 
                                     Navigator.push(
                                       context,
@@ -1597,7 +1910,7 @@ void _closeCardSuccessDialog() {
                                       ),
                                     );
                                   } else {
-                                    _closeCardSuccessDialog();
+                                    qrOverlay?.remove();
 
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text("Cukai payment update failed")),
@@ -1611,9 +1924,7 @@ void _closeCardSuccessDialog() {
                                       final items = widget.data.sewaanItems ?? [];
 
                                       if (items.isEmpty) {
-                                          if (Navigator.canPop(context)) {
-                                                Navigator.pop(context);
-                                              }
+                                          qrOverlay?.remove();
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           const SnackBar(content: Text("Tiada sewaan dipilih")),
                                         );
@@ -1635,6 +1946,8 @@ void _closeCardSuccessDialog() {
                                         );
 
                                         if (!updateSuccess) {
+                                          qrOverlay?.remove();
+
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             const SnackBar(
                                               content: Text("Sewaan payment saved to MPB, but local update failed"),
@@ -1642,9 +1955,7 @@ void _closeCardSuccessDialog() {
                                           );
                                           return;
                                         }
-                                        if (Navigator.canPop(context)) {
-                                          Navigator.pop(context); // close processing dialog
-                                        }
+                                        qrOverlay?.remove();
 
                                         Navigator.push(
                                           context,
@@ -1663,6 +1974,8 @@ void _closeCardSuccessDialog() {
                                           ),
                                         );
                                       } else {
+                                        qrOverlay?.remove();
+
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           const SnackBar(
                                             content: Text("Sewaan payment update failed"),
@@ -1680,6 +1993,7 @@ void _closeCardSuccessDialog() {
 
                                  
                                    if (licenseNos.isEmpty) {
+                                     qrOverlay?.remove();
                                      ScaffoldMessenger.of(context).showSnackBar(
                                        const SnackBar(content: Text("Tiada lesen dipilih")),
                                      );
@@ -1690,9 +2004,7 @@ void _closeCardSuccessDialog() {
                                        await LicenseService.payMultipleLicenses(licenseNos);
                                  
                                    if (success) {
-                                    if (Navigator.canPop(context)) {
-                                      Navigator.pop(context); // close processing dialog
-                                    }
+                                    qrOverlay?.remove();
                                      Navigator.push(
                                        context,
                                        MaterialPageRoute(
@@ -1710,7 +2022,7 @@ void _closeCardSuccessDialog() {
                                        ),
                                      );
                                    } else {
-                                     _closeCardSuccessDialog();
+                                     qrOverlay?.remove();
                                      
                                      ScaffoldMessenger.of(context).showSnackBar(
                                        const SnackBar(content: Text("Pembayaran lesen gagal")),
@@ -1727,9 +2039,7 @@ void _closeCardSuccessDialog() {
                                    // Just go to receipt page ✅
                                 //Navigator.pop(context);
 
-                                 if (Navigator.canPop(context)) {
-                                    Navigator.pop(context); // close processing dialog
-                                  }
+                                 qrOverlay?.remove();
                                    Navigator.push(
                                      context,
                                      MaterialPageRoute(
@@ -1749,9 +2059,7 @@ void _closeCardSuccessDialog() {
                                  }
                                   
                                 else if (widget.biz == "SINGLECOMPOUND") {
-                                  if (Navigator.canPop(context)) {
-                                    Navigator.pop(context);
-                                  }
+                                  qrOverlay?.remove();
                                  Navigator.push(
                                    context,
                                    MaterialPageRoute(
@@ -1780,14 +2088,44 @@ void _closeCardSuccessDialog() {
                             onCancel: () async {
                               print("User cancelled QR payment");
 
+                              /*
+                               * Keep the existing overlay visible while the
+                               * native QR window finishes closing. Only change
+                               * its content to a clear closing message.
+                               */
+                              qrOverlay?.showClosing();
+
+                              await WidgetsBinding.instance.endOfFrame;
+
                               currentRouteName = '/payment';
 
                               await windowManager.show();
                               await windowManager.focus();
                               await windowManager.setFullScreen(true);
 
+                              /*
+                               * Give the user a short, intentional transition
+                               * instead of briefly showing the old opening text.
+                               */
+                              await Future.delayed(
+                                const Duration(milliseconds: 700),
+                              );
+
+                              qrOverlay?.remove();
+
+                              qrOverlay = null;
+
+                              if (!context.mounted) {
+                                return;
+                              }
+
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Payment cancelled")),
+                                SnackBar(
+                                  content: Text(
+                                    AppLocalizations.of(context)!
+                                        .qrPaymentCancelled,
+                                  ),
+                                ),
                               );
                             },
                             );
@@ -1796,11 +2134,22 @@ void _closeCardSuccessDialog() {
                             //   ),
                             // );
                           } catch (e) {
-                            Navigator.pop(context);
+                            qrOverlay?.remove();
+                            qrOverlay = null;
+
                             currentRouteName = '/payment';
                             print("PegePay createOrder error: $e");
+
+                            if (!context.mounted) {
+                              return;
+                            }
+
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Error creating PegePay order.")),
+                              const SnackBar(
+                                content: Text(
+                                  "Error creating PegePay order.",
+                                ),
+                              ),
                             );
                           }
                         },

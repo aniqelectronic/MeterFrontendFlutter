@@ -2323,7 +2323,35 @@
   "description": "Label butang untuk pembayaran jumlah cukai taksiran setahun"
 },
 
-"scrollForMoreInformation": "Skrol untuk maklumat lanjut"
+"scrollForMoreInformation": "Skrol untuk maklumat lanjut",
+
+"qrPaymentSuccessTitle": "Pembayaran Berjaya",
+"qrPaymentSuccessMessage": "Pembayaran QR anda telah berjaya diterima.",
+"qrPreparingReceipt": "Resit anda sedang disediakan",
+"qrPleaseWaitNotice": "Sila tunggu. Jangan tinggalkan halaman ini.",
+"qrTotalAmount": "Jumlah Keseluruhan",
+
+  "qrOpeningPayment": "Membuka Pembayaran QR",
+  "qrOpeningPaymentMessage": "Sila lengkapkan pembayaran pada skrin pembayaran QR.",
+  "qrPaymentSuccessTitle": "Pembayaran Berjaya",
+  "qrPaymentSuccessMessage": "Pembayaran QR anda telah berjaya diterima.",
+  "qrPreparingReceipt": "Resit anda sedang disediakan",
+  "qrPleaseWaitNotice": "Sila tunggu. Jangan tinggalkan halaman ini.",
+  "qrTotalAmount": "Jumlah Keseluruhan",
+
+
+"qrOpeningPayment": "Membuka Pembayaran QR",
+"qrOpeningPaymentMessage": "Sila lengkapkan pembayaran pada skrin pembayaran QR.",
+"qrPaymentSuccessTitle": "Pembayaran Berjaya",
+"qrPaymentSuccessMessage": "Pembayaran QR anda telah berjaya diterima.",
+"qrPreparingReceipt": "Resit anda sedang disediakan",
+"qrPleaseWaitNotice": "Sila tunggu. Jangan tinggalkan halaman ini.",
+"qrTotalAmount": "Jumlah Keseluruhan",
+
+"qrClosingPaymentTitle": "Menutup Pembayaran QR",
+"qrClosingPaymentMessage": "Kembali ke menu pembayaran.",
+"qrClosingPleaseWait": "Sila tunggu sementara skrin pembayaran QR ditutup.",
+"qrPaymentCancelled": "Pembayaran dibatalkan"
 
 
 

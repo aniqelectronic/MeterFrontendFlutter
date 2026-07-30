@@ -8932,6 +8932,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Scroll for more information'**
   String get scrollForMoreInformation;
+
+  /// No description provided for @qrPaymentSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Successful'**
+  String get qrPaymentSuccessTitle;
+
+  /// No description provided for @qrPaymentSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your QR payment has been received successfully.'**
+  String get qrPaymentSuccessMessage;
+
+  /// No description provided for @qrPreparingReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your receipt'**
+  String get qrPreparingReceipt;
+
+  /// No description provided for @qrPleaseWaitNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait. Do not leave this page.'**
+  String get qrPleaseWaitNotice;
+
+  /// No description provided for @qrTotalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get qrTotalAmount;
+
+  /// No description provided for @qrOpeningPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening QR Payment'**
+  String get qrOpeningPayment;
+
+  /// No description provided for @qrOpeningPaymentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please complete the payment on the QR payment screen.'**
+  String get qrOpeningPaymentMessage;
+
+  /// No description provided for @qrClosingPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Closing QR Payment'**
+  String get qrClosingPaymentTitle;
+
+  /// No description provided for @qrClosingPaymentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Returning to the payment menu.'**
+  String get qrClosingPaymentMessage;
+
+  /// No description provided for @qrClosingPleaseWait.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while the QR payment screen closes.'**
+  String get qrClosingPleaseWait;
+
+  /// No description provided for @qrPaymentCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment cancelled'**
+  String get qrPaymentCancelled;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

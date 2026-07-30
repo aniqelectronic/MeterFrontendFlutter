@@ -92,12 +92,15 @@ class FaqPage extends StatelessWidget {
     ];
   }
 
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final faqItems = _items(loc);
+    final ScrollController pageScrollController = ScrollController();
 
     return Scaffold(
+      backgroundColor: const Color(0xFFF4F7FB),
       body: Stack(
         children: [
           Positioned.fill(
@@ -106,6 +109,7 @@ class FaqPage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
+
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -113,161 +117,210 @@ class FaqPage extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.white.withOpacity(0.05),
-                    Colors.white.withOpacity(0.16),
-                    Colors.white.withOpacity(0.08),
+                    Colors.white.withOpacity(0.90),
+                    const Color(0xFFF2F6FB).withOpacity(0.97),
+                    Colors.white.withOpacity(0.94),
                   ],
                 ),
               ),
             ),
           ),
 
-          // ============================================================
-          // HEADER
-          // ============================================================
-          Positioned(
-            top: 65,
-            left: 55,
-            right: 55,
-            child: Column(
-              children: [
-                Text(
-                  loc.faqTitle,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: primaryBlue,
-                    fontSize: 58,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 1,
-                    height: 1.05,
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(28, 28, 28, 26),
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.fromLTRB(30, 24, 30, 24),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFF083B8C),
+                          Color(0xFF0B63D8),
+                          Color(0xFF2196F3),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF083B8C).withOpacity(0.34),
+                          blurRadius: 34,
+                          offset: const Offset(0, 14),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 92,
+                          height: 92,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.20),
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.48),
+                              width: 2,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.12),
+                                blurRadius: 18,
+                                spreadRadius: 2,
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.help_center_rounded,
+                            color: Colors.white,
+                            size: 50,
+                          ),
+                        ),
+                        const SizedBox(width: 24),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                loc.faqTitle,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 46,
+                                  fontWeight: FontWeight.w900,
+                                  letterSpacing: 0.3,
+                                  height: 1.05,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                loc.faqSubtitle,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.90),
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.25,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  width: 105,
-                  height: 6,
-                  decoration: BoxDecoration(
-                    color: primaryBlue,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  loc.faqSubtitle,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Color(0xFF4F6075),
-                    fontSize: 34,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
-          ),
 
-          // ============================================================
-          // FIXED FAQ GRID - NO PAGE SCROLL
-          // ============================================================
-          Positioned(
-            top: 235,
-            left: 42,
-            right: 42,
-            bottom: 220,
-            child: Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.97),
-                borderRadius: BorderRadius.circular(34),
-                border: Border.all(
-                  color: primaryBlue,
-                  width: 2.5,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: darkBlue.withOpacity(0.17),
-                    blurRadius: 28,
-                    offset: const Offset(0, 14),
+                  const SizedBox(height: 60),
+
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.fromLTRB(18, 18, 10, 18),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.99),
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          color: const Color(0xFFB9C9DA),
+                          width: 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF173459).withOpacity(0.18),
+                            blurRadius: 28,
+                            offset: const Offset(0, 12),
+                          ),
+                        ],
+                      ),
+                      child: Scrollbar(
+                        controller: pageScrollController,
+                        thumbVisibility: true,
+                        trackVisibility: true,
+                        interactive: true,
+                        scrollbarOrientation: ScrollbarOrientation.right,
+                        thickness: 14,
+                        radius: const Radius.circular(20),
+                        child: GridView.builder(
+                          controller: pageScrollController,
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.only(right: 14),
+                          itemCount: faqItems.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 14,
+                            crossAxisSpacing: 14,
+                            childAspectRatio: 1.78,
+                          ),
+                          itemBuilder: (context, index) {
+                            final item = faqItems[index];
+
+                            return _FaqQuestionCard(
+                              item: item,
+                              onTap: () {
+                                _showFaqDialog(
+                                  context,
+                                  loc,
+                                  item,
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 60),
+
+                  SizedBox(
+                    width: double.infinity,
+                    height: 88,
+                    child: ElevatedButton.icon(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(
+                        Icons.arrow_back_rounded,
+                        size: 36,
+                      ),
+                      label: Text(
+                        loc.backButton,
+                        style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: const Color(0xFF102A43),
+                        elevation: 4,
+                        shadowColor: const Color(0xFF173459).withOpacity(0.20),
+                        side: const BorderSide(
+                          color: Color(0xFF8FA6BE),
+                          width: 2.2,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  Text(
+                    Data.copyrightText,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF34465D),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ],
-              ),
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: faqItems.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  childAspectRatio: 1.72,
-                ),
-                itemBuilder: (context, index) {
-                  return _FaqQuestionCard(
-                    item: faqItems[index],
-                    onTap: () {
-                      _showFaqDialog(
-                        context,
-                        loc,
-                        faqItems[index],
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ),
-
-          // ============================================================
-          // BACK BUTTON
-          // ============================================================
-          Positioned(
-            bottom: 95,
-            left: 165,
-            right: 165,
-            child: SizedBox(
-              height: 92,
-              child: ElevatedButton.icon(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(
-                  Icons.arrow_back_rounded,
-                  size: 38,
-                ),
-                label: Text(
-                  loc.backButton,
-                  style: const TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF2F3F5),
-                  foregroundColor: const Color(0xFF20242A),
-                  elevation: 8,
-                  shadowColor: Colors.black.withOpacity(0.25),
-                  side: const BorderSide(
-                    color: Color(0xFF5D6269),
-                    width: 2,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(22),
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-          // ============================================================
-          // FOOTER
-          // ============================================================
-          Positioned(
-            bottom: 28,
-            left: 20,
-            right: 20,
-            child: Text(
-              Data.copyrightText,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
               ),
             ),
           ),
@@ -297,7 +350,7 @@ class FaqPage extends StatelessWidget {
               child: Container(
                 width: 770,
                 constraints: const BoxConstraints(
-                  maxHeight: 1030,
+                  maxHeight: 980,
                 ),
                 margin: const EdgeInsets.symmetric(
                   horizontal: 42,
@@ -305,10 +358,10 @@ class FaqPage extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(34),
+                  borderRadius: BorderRadius.circular(30),
                   border: Border.all(
-                    color: item.accentColor,
-                    width: 3,
+                    color: const Color(0xFFB9C9DA),
+                    width: 2,
                   ),
                   boxShadow: [
                     BoxShadow(
@@ -319,7 +372,7 @@ class FaqPage extends StatelessWidget {
                   ],
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(31),
+                  borderRadius: BorderRadius.circular(28),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -342,8 +395,8 @@ class FaqPage extends StatelessWidget {
                         child: Row(
                           children: [
                             Container(
-                              width: 120,
-                              height: 120,
+                              width: 96,
+                              height: 96,
                               decoration: BoxDecoration(
                                 color: item.accentColor,
                                 borderRadius: BorderRadius.circular(22),
@@ -358,7 +411,7 @@ class FaqPage extends StatelessWidget {
                               child: Icon(
                                 item.icon,
                                 color: Colors.white,
-                                size: 56,
+                                size: 46,
                               ),
                             ),
                             const SizedBox(width: 20),
@@ -367,7 +420,7 @@ class FaqPage extends StatelessWidget {
                                 item.title,
                                 style: const TextStyle(
                                   color: darkBlue,
-                                  fontSize: 42,
+                                  fontSize: 36,
                                   fontWeight: FontWeight.w900,
                                   height: 1.15,
                                 ),
@@ -420,10 +473,10 @@ class FaqPage extends StatelessWidget {
                                     : Text(
                                         item.content,
                                         style: const TextStyle(
-                                          color: Color(0xFF34465D),
-                                          fontSize: 31,
-                                          fontWeight: FontWeight.w600,
-                                          height: 1.52,
+                                          color: Color(0xFF1E2F43),
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.50,
                                         ),
                                       ),
                               ),
@@ -514,7 +567,7 @@ class FaqPage extends StatelessWidget {
           opacity: animation,
           child: ScaleTransition(
             scale: Tween<double>(
-              begin: 0.90,
+              begin: 0.94,
               end: 1.0,
             ).animate(curved),
             child: child,
@@ -601,7 +654,7 @@ class FaqPage extends StatelessWidget {
                   title,
                   style: const TextStyle(
                     color: Color(0xFF73502D),
-                    fontSize: 28,
+                    fontSize: 25,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -657,80 +710,138 @@ class _FaqQuestionCardState extends State<_FaqQuestionCard> {
       onTapCancel: () => setPressed(false),
       onTap: widget.onTap,
       child: AnimatedScale(
-        scale: isPressed ? 0.965 : 1,
-        duration: const Duration(milliseconds: 130),
-        curve: Curves.easeOut,
+        scale: isPressed ? 0.975 : 1,
+        duration: const Duration(milliseconds: 120),
+        curve: Curves.easeOutCubic,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 160),
-          padding: const EdgeInsets.fromLTRB(
-            18,
-            16,
-            15,
-            16,
-          ),
+          curve: Curves.easeOutCubic,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: isPressed
+                ? widget.item.softColor.withOpacity(0.92)
+                : Colors.white,
             borderRadius: BorderRadius.circular(22),
             border: Border.all(
-              color:
-                  isPressed ? widget.item.accentColor : const Color(0xFFD5DEE9),
-              width: isPressed ? 2.8 : 1.7,
+              color: isPressed
+                  ? widget.item.accentColor
+                  : widget.item.accentColor.withOpacity(0.34),
+              width: isPressed ? 2.8 : 1.8,
             ),
             boxShadow: [
               BoxShadow(
                 color: isPressed
-                    ? widget.item.accentColor.withOpacity(0.15)
-                    : const Color(0xFF1B3B63).withOpacity(0.09),
-                blurRadius: isPressed ? 16 : 12,
+                    ? widget.item.accentColor.withOpacity(0.28)
+                    : const Color(0xFF173459).withOpacity(0.12),
+                blurRadius: isPressed ? 20 : 13,
                 offset: const Offset(0, 7),
               ),
             ],
           ),
-          child: Row(
-            children: [
-              Container(
-                width: 62,
-                height: 62,
-                decoration: BoxDecoration(
-                  color: widget.item.softColor,
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                child: Icon(
-                  widget.item.icon,
-                  color: widget.item.accentColor,
-                  size: 35,
-                ),
-              ),
-              const SizedBox(width: 15),
-              Expanded(
-                child: Text(
-                  widget.item.title,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: FaqPage.darkBlue,
-                    fontSize: 28,
-                    fontWeight: FontWeight.w900,
-                    height: 1.18,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 160),
+                    width: isPressed ? 10 : 7,
+                    color: widget.item.accentColor,
                   ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 160),
-                width: 42,
-                height: 42,
-                decoration: BoxDecoration(
-                  color: widget.item.accentColor,
-                  shape: BoxShape.circle,
+                Positioned(
+                  top: -28,
+                  right: -22,
+                  child: Container(
+                    width: 96,
+                    height: 96,
+                    decoration: BoxDecoration(
+                      color: widget.item.softColor.withOpacity(0.80),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                 ),
-                child: const Icon(
-                  Icons.arrow_forward_rounded,
-                  color: Colors.white,
-                  size: 24,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 16, 14, 16),
+                  child: Row(
+                    children: [
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 160),
+                        width: 64,
+                        height: 64,
+                        decoration: BoxDecoration(
+                          color: isPressed
+                              ? widget.item.accentColor
+                              : widget.item.softColor,
+                          borderRadius: BorderRadius.circular(19),
+                          border: Border.all(
+                            color: widget.item.accentColor.withOpacity(0.28),
+                            width: 1.5,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: widget.item.accentColor.withOpacity(0.18),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          widget.item.icon,
+                          color: isPressed
+                              ? Colors.white
+                              : widget.item.accentColor,
+                          size: 33,
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      Expanded(
+                        child: Text(
+                          widget.item.title,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Color(0xFF102A43),
+                            fontSize: 26,
+                            fontWeight: FontWeight.w900,
+                            height: 1.14,
+                            letterSpacing: 0.1,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 160),
+                        width: isPressed ? 48 : 44,
+                        height: isPressed ? 48 : 44,
+                        decoration: BoxDecoration(
+                          color: widget.item.accentColor,
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: widget.item.accentColor.withOpacity(0.34),
+                              blurRadius: 12,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.arrow_forward_rounded,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

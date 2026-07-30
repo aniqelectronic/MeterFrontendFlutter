@@ -4514,4 +4514,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scrollForMoreInformation => 'Scroll for more information';
+
+  @override
+  String get qrPaymentSuccessTitle => 'Payment Successful';
+
+  @override
+  String get qrPaymentSuccessMessage => 'Your QR payment has been received successfully.';
+
+  @override
+  String get qrPreparingReceipt => 'Preparing your receipt';
+
+  @override
+  String get qrPleaseWaitNotice => 'Please wait. Do not leave this page.';
+
+  @override
+  String get qrTotalAmount => 'Total Amount';
+
+  @override
+  String get qrOpeningPayment => 'Opening QR Payment';
+
+  @override
+  String get qrOpeningPaymentMessage => 'Please complete the payment on the QR payment screen.';
+
+  @override
+  String get qrClosingPaymentTitle => 'Closing QR Payment';
+
+  @override
+  String get qrClosingPaymentMessage => 'Returning to the payment menu.';
+
+  @override
+  String get qrClosingPleaseWait => 'Please wait while the QR payment screen closes.';
+
+  @override
+  String get qrPaymentCancelled => 'Payment cancelled';
 }
