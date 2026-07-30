@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/controllers/license/license_service.dart';
 import 'package:frontend_v1/controllers/parking/parking_controller.dart';
@@ -1684,6 +1686,16 @@ void _closeCardSuccessDialog() {
 
                           );
 
+                          // Failsafe: guarantee removal even if bash-based window
+                          // detection (xdotool/wmctrl) never succeeds on this device.
+                          Timer(const Duration(seconds: 2), () {
+                            if (qrOverlay != null) {
+                              print('[PAYMENTPAGE] Failsafe: force-removing opening overlay');
+                              qrOverlay?.remove();
+                              qrOverlay = null;
+                            }
+                          });
+
 
                           await WidgetsBinding.instance.endOfFrame;
 
@@ -1727,7 +1739,7 @@ void _closeCardSuccessDialog() {
                             //         );
 
                             currentRouteName = '/payment';
-await PegePayWebViewHelper.open(
+                  await PegePayWebViewHelper.open(
                             iframeUrl: iframeUrl,
                             orderNo: orderNo,
 
