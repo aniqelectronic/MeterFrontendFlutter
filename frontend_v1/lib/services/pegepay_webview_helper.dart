@@ -34,6 +34,7 @@ class PegePayWebViewHelper {
     required String orderNo,
     required Function(Map<String, dynamic>) onSuccess,
     required Function onCancel,
+    FutureOr<void> Function()? onPaymentDetected,
   }) async {
     print('[PegePay] Opening QR for order: $orderNo');
 
@@ -326,7 +327,22 @@ class PegePayWebViewHelper {
           }
 
           /*
-           * Close only the QR WebView.
+           * Update the Flutter transition overlay before closing
+           * the native QR window. The overlay is behind the WebView,
+           * so when Flutter becomes visible it already shows success.
+           */
+          if (onPaymentDetected != null) {
+            try {
+              await onPaymentDetected();
+            } catch (e) {
+              print(
+                '[PegePay] onPaymentDetected callback failed: $e',
+              );
+            }
+          }
+
+          /*
+           * Keep the existing safe Linux close/restore sequence.
            */
           await _closeCurrentWebView(
             sessionId: sessionId,

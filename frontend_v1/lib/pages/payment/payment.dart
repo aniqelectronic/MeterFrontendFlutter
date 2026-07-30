@@ -1727,22 +1727,24 @@ void _closeCardSuccessDialog() {
                             //         );
 
                             currentRouteName = '/payment';
-await PegePayWebViewHelper.open(
+                        await PegePayWebViewHelper.open(
                             iframeUrl: iframeUrl,
                             orderNo: orderNo,
+
+                            onPaymentDetected: () async {
+                              // The QR WebView is still active at this point.
+                              // Prepare the Flutter overlay behind it so that
+                              // Flutter immediately shows payment success when
+                              // the QR window closes.
+                              qrOverlay?.showSuccess();
+                              await WidgetsBinding.instance.endOfFrame;
+                            },
 
                             onSuccess: (Map<String, dynamic> paymentResult) async {
                               final pegeOrderNo =
                                   paymentResult["order_no"] ?? orderNo;
                               final pegeBankTrxNo =
                                   paymentResult["bank_trx_no"] ?? "";
-                              // The overlay already exists behind the PegePay
-                              // window. Change it immediately to success.
-                              qrOverlay?.showSuccess();
-
-                              // Ensure the success state is painted before
-                              // starting receipt/API processing.
-                              await WidgetsBinding.instance.endOfFrame;
 
 /* ======================= */
                                   /* ===== PARKING QR PAYMENT ===== */
