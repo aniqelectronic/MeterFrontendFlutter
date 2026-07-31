@@ -11,17 +11,21 @@ class LinuxKioskService {
   static Timer? _popupGuardTimer;
 
   static bool _isRestoringWindow = false;
+  static bool _windowGuardTickRunning = false;
   static bool _allowSecondaryWindow = false;
 
-  /// Call this before opening the PegePay QR WebView.
+  /// Call this immediately before opening a separate native window,
+  /// such as the PegePay QR WebView.
   static void allowSecondaryWindow() {
     _allowSecondaryWindow = true;
+    debugPrint('[KIOSK] Secondary window allowed');
   }
 
-  /// Call this after the PegePay QR WebView closes.
+  /// Call this only after the separate native window has closed.
   static Future<void> restoreFlutterWindow() async {
     _allowSecondaryWindow = false;
-    await _restoreWindow();
+    debugPrint('[KIOSK] Secondary window closed; restoring Flutter');
+    await _restoreWindow(forceFocus: true);
   }
 
   static Future<void> initialize() async {
@@ -45,7 +49,6 @@ class LinuxKioskService {
       await windowManager.show();
       await windowManager.focus();
 
-      // Give GNOME time to finish creating the window.
       await Future<void>.delayed(
         const Duration(milliseconds: 300),
       );
@@ -62,7 +65,6 @@ class LinuxKioskService {
 
   static Future<void> _applyGnomeKioskSettings() async {
     const commands = <List<String>>[
-      // Disable notification banners.
       [
         'gsettings',
         'set',
@@ -77,8 +79,6 @@ class LinuxKioskService {
         'show-in-lock-screen',
         'false',
       ],
-
-      // Disable hot corner.
       [
         'gsettings',
         'set',
@@ -86,8 +86,6 @@ class LinuxKioskService {
         'enable-hot-corners',
         'false',
       ],
-
-      // Disable dynamic workspaces.
       [
         'gsettings',
         'set',
@@ -102,8 +100,6 @@ class LinuxKioskService {
         'num-workspaces',
         '1',
       ],
-
-      // Disable Activities overview shortcuts.
       [
         'gsettings',
         'set',
@@ -118,8 +114,6 @@ class LinuxKioskService {
         'toggle-application-view',
         '[]',
       ],
-
-      // Disable application switching.
       [
         'gsettings',
         'set',
@@ -148,8 +142,6 @@ class LinuxKioskService {
         'switch-windows-backward',
         '[]',
       ],
-
-      // Disable workspace switching.
       [
         'gsettings',
         'set',
@@ -178,8 +170,6 @@ class LinuxKioskService {
         'switch-to-workspace-down',
         '[]',
       ],
-
-      // Disable showing desktop.
       [
         'gsettings',
         'set',
@@ -187,8 +177,6 @@ class LinuxKioskService {
         'show-desktop',
         '[]',
       ],
-
-      // Disable Alt+F2.
       [
         'gsettings',
         'set',
@@ -196,8 +184,6 @@ class LinuxKioskService {
         'panel-run-dialog',
         '[]',
       ],
-
-      // Disable window closing and minimizing shortcuts.
       [
         'gsettings',
         'set',
@@ -212,8 +198,6 @@ class LinuxKioskService {
         'minimize',
         '[]',
       ],
-
-      // Disable screen locking.
       [
         'gsettings',
         'set',
@@ -221,8 +205,6 @@ class LinuxKioskService {
         'disable-lock-screen',
         'true',
       ],
-
-      // Disable screen blanking.
       [
         'gsettings',
         'set',
@@ -230,8 +212,6 @@ class LinuxKioskService {
         'idle-delay',
         'uint32 0',
       ],
-
-      // Disable automatic suspend while plugged in.
       [
         'gsettings',
         'set',
@@ -239,8 +219,6 @@ class LinuxKioskService {
         'sleep-inactive-ac-type',
         'nothing',
       ],
-
-      // Disable automatic suspend on battery.
       [
         'gsettings',
         'set',
@@ -292,17 +270,68 @@ class LinuxKioskService {
     _windowGuardTimer = Timer.periodic(
       const Duration(milliseconds: 700),
       (_) async {
-        if (_allowSecondaryWindow) {
+        if (_windowGuardTickRunning) {
           return;
         }
 
-        await _restoreWindow();
+        _windowGuardTickRunning = true;
+
+        try {
+          if (_allowSecondaryWindow) {
+            return;
+          }
+
+          // Extra protection: even if allowSecondaryWindow() was missed,
+          // never steal focus while the native PegePay window exists.
+          if (await _isPegePayWindowOpen()) {
+            return;
+          }
+
+          await _restoreWindow();
+        } finally {
+          _windowGuardTickRunning = false;
+        }
       },
     );
   }
 
-  static Future<void> _restoreWindow() async {
+  static Future<bool> _isPegePayWindowOpen() async {
+    if (!Platform.isLinux) {
+      return false;
+    }
+
+    try {
+      final result = await Process.run(
+        'bash',
+        <String>[
+          '-c',
+          r'''
+wmctrl -l 2>/dev/null \
+  | grep -Eiq 'PegePayQR|PegePay QR Payment'
+''',
+        ],
+        environment: _linuxEnvironment,
+      );
+
+      return result.exitCode == 0;
+    } catch (error) {
+      debugPrint(
+        '[KIOSK] Could not check PegePay window: $error',
+      );
+      return false;
+    }
+  }
+
+  static Future<void> _restoreWindow({
+    bool forceFocus = false,
+  }) async {
     if (_isRestoringWindow || !Platform.isLinux) {
+      return;
+    }
+
+    // Never bring Flutter forward while PegePay is still open.
+    if (!forceFocus &&
+        (_allowSecondaryWindow || await _isPegePayWindowOpen())) {
       return;
     }
 
@@ -321,17 +350,15 @@ class LinuxKioskService {
         await windowManager.setFullScreen(true);
       }
 
-      if (!isFocused) {
-        await windowManager.setAlwaysOnTop(true);
+      await windowManager.setAlwaysOnTop(true);
+      await windowManager.setSkipTaskbar(true);
+
+      if (forceFocus || !isFocused) {
         await windowManager.show();
         await windowManager.focus();
       }
-
-      await windowManager.setSkipTaskbar(true);
     } catch (error) {
-      debugPrint(
-        '[KIOSK] Window guard failed: $error',
-      );
+      debugPrint('[KIOSK] Window guard failed: $error');
     } finally {
       _isRestoringWindow = false;
     }
@@ -381,5 +408,7 @@ class LinuxKioskService {
 
     _windowGuardTimer = null;
     _popupGuardTimer = null;
+    _windowGuardTickRunning = false;
+    _allowSecondaryWindow = false;
   }
 }

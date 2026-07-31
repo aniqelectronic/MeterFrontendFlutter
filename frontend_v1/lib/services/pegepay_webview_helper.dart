@@ -6,6 +6,7 @@ import 'package:frontend_v1/main.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/services/pegepay_service.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:frontend_v1/services/linux_kiosk_service.dart';
 
 class PegePayWebViewHelper {
   static Webview? _currentWebview;
@@ -45,7 +46,11 @@ class PegePayWebViewHelper {
      */
     final int sessionId = ++_activeSessionId;
 
-     currentRouteName = '/payment';
+    // Pause the Linux kiosk focus guard before creating the
+    // separate native PegePay QR window.
+    LinuxKioskService.allowSecondaryWindow();
+
+    currentRouteName = '/payment';
 
     await _closeOldWebView();
 
@@ -773,23 +778,15 @@ done
 
   static Future<void> _restoreFlutterWindow() async {
     try {
-      await Future.delayed(
+      await Future<void>.delayed(
         const Duration(milliseconds: 200),
       );
 
-      await windowManager.show();
-      await windowManager.setFullScreen(true);
-      await windowManager.setAlwaysOnTop(true);
-      await windowManager.focus();
-
-      await Future.delayed(
-        const Duration(milliseconds: 250),
-      );
-
-      await windowManager.focus();
-      await windowManager.setAlwaysOnTop(false);
-
       currentRouteName = '/payment';
+
+      // Re-enable the kiosk guard and restore the main Flutter
+      // window only after the PegePay QR window has closed.
+      await LinuxKioskService.restoreFlutterWindow();
 
       print('[PegePay] Flutter window restored');
     } catch (e) {
