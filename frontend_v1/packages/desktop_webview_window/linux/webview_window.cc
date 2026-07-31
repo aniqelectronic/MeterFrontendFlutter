@@ -64,6 +64,8 @@ WebviewWindow::WebviewWindow(
 
   window_ = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_decorated(GTK_WINDOW(window_), FALSE);
+  gtk_window_set_keep_above(GTK_WINDOW(window_), TRUE);
+  gtk_window_fullscreen(GTK_WINDOW(window_));
   g_signal_connect(G_OBJECT(window_), "destroy",
                    G_CALLBACK(+[](GtkWidget *, gpointer arg) {
                      auto *window = static_cast<WebviewWindow *>(arg);
