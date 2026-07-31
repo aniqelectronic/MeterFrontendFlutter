@@ -9,6 +9,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:frontend_v1/services/internet_guard.dart';
 import 'package:frontend_v1/services/iot_hub_services.dart';
+import 'services/linux_kiosk_service.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -74,31 +75,57 @@ class AppRouteObserver extends NavigatorObserver {
   }
 }
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await windowManager.ensureInitialized();
+  if (Platform.isLinux) {
+    await windowManager.ensureInitialized();
 
-  const windowOptions = WindowOptions(
-    // size: Size(1080, 1920),
-    // minimumSize: Size(1080, 1920),
-    // maximumSize: Size(1080, 1920),
-    size: Size(800, 1280),
-    minimumSize: Size(800, 1280),
-    maximumSize: Size(800, 1280),
-    center: false,
-    backgroundColor: Colors.black,
-    titleBarStyle: TitleBarStyle.hidden,
-    skipTaskbar: true,
-  );
+    const windowOptions = WindowOptions(
+      size: Size(800, 1280),
+      minimumSize: Size(800, 1280),
+      maximumSize: Size(800, 1280),
 
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    await windowManager.focus();
-    await windowManager.setFullScreen(true);
-  });
+      // Do not wait for manual window positioning.
+      center: true,
 
-  await windowManager.setPreventClose(true);
+      // Black while Flutter is rendering its first frame.
+      backgroundColor: Colors.black,
+
+      // Remove Linux title bar.
+      titleBarStyle: TitleBarStyle.hidden,
+
+      // Do not show the app in Ubuntu taskbar.
+      skipTaskbar: true,
+
+      // Start in fullscreen immediately.
+      fullScreen: true,
+    );
+
+    await windowManager.waitUntilReadyToShow(
+      windowOptions,
+      () async {
+        // Apply settings before displaying the window.
+        await windowManager.setSkipTaskbar(true);
+        await windowManager.setAlwaysOnTop(true);
+        await windowManager.setFullScreen(true);
+        await windowManager.setPreventClose(true);
+
+        // Show and focus the kiosk automatically.
+        await windowManager.show();
+        await windowManager.focus();
+
+        // Reapply after GNOME finishes creating the window.
+        await Future<void>.delayed(
+          const Duration(milliseconds: 300),
+        );
+
+        await windowManager.setFullScreen(true);
+        await windowManager.setAlwaysOnTop(true);
+        await windowManager.focus();
+      },
+    );
+  }
 
   runApp(const App());
 }
@@ -159,10 +186,15 @@ class _AppState extends State<App> {
       onRouteChanged: _onRouteChanged,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // Apply Linux kiosk restrictions after Flutter's first frame.
+      if (Platform.isLinux) {
+        await LinuxKioskService.initialize();
+      }
+
       InternetGuard().start(navigatorKey);
 
-       iotHubService.connect();
+      iotHubService.connect();
 
       currentRouteName = routeHome;
       _resetIdleTimers();
@@ -176,7 +208,10 @@ class _AppState extends State<App> {
     _countdownTimer?.cancel();
     _homeDimTimer?.cancel();
 
+    LinuxKioskService.dispose();
+
     iotHubService.stop();
+
     super.dispose();
   }
 
@@ -710,6 +745,8 @@ void _showIdleWarning() {
       navigatorKey: navigatorKey,
       navigatorObservers: [_routeObserver],
       debugShowCheckedModeBanner: false,
+      // Prevent white/transparent startup flash.
+      color: Colors.black,
       locale: _locale,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
@@ -769,6 +806,7 @@ builder: (context, child) {
   );
 },
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.black,
         visualDensity: VisualDensity.standard,
         textTheme: const TextTheme(
           bodyLarge: TextStyle(fontSize: 22),
