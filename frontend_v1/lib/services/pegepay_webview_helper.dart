@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:desktop_webview_window/desktop_webview_window.dart';
@@ -7,6 +8,10 @@ import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/services/pegepay_service.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:frontend_v1/services/linux_kiosk_service.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:frontend_v1/services/api_hmac_helper.dart';
 
 class PegePayWebViewHelper {
   static Webview? _currentWebview;
@@ -225,24 +230,99 @@ class PegePayWebViewHelper {
     });
 
     // ==========================================================
-    // WRAPPER URL
+    // AUTHENTICATED WRAPPER REQUEST
     // ==========================================================
 
-    final wrapperUrl = Uri.parse(
-      '${Config.apiPublicBaseUrl}/pegepay/iframe-wrapper',
+    final wrapperUri = Uri.parse(
+      '${Config.apiBaseUrl}/pegepay/iframe-wrapper',
     ).replace(
       queryParameters: {
         'iframe_url': iframeUrl,
       },
-    ).toString();
+    );
 
-    print('[PegePay] Wrapper URL: $wrapperUrl');
+    print('[PegePay] Wrapper URL: $wrapperUri');
+
+    String localWrapperUrl;
+
+    try {
+      final wrapperResponse = await http
+          .get(
+            wrapperUri,
+            headers: ApiHmacHelper.createHeaders(
+              method: 'GET',
+              uri: wrapperUri,
+              body: '',
+              accept: 'text/html',
+            ),
+          )
+          .timeout(
+            const Duration(seconds: 20),
+          );
+
+      print(
+        '[PegePay] Wrapper response status: '
+        '${wrapperResponse.statusCode}',
+      );
+
+      if (wrapperResponse.statusCode != 200) {
+        throw Exception(
+          'Failed to load PegePay wrapper: '
+          '${wrapperResponse.statusCode} '
+          '${wrapperResponse.body}',
+        );
+      }
+
+      final temporaryDirectory =
+          await getTemporaryDirectory();
+
+      final wrapperFile = File(
+        '${temporaryDirectory.path}'
+        '${Platform.pathSeparator}'
+        'pegepay_wrapper_$sessionId.html',
+      );
+
+      await wrapperFile.writeAsString(
+        wrapperResponse.body,
+        encoding: utf8,
+        flush: true,
+      );
+
+      localWrapperUrl = wrapperFile.uri.toString();
+
+      print(
+        '[PegePay] Local wrapper URL: '
+        '$localWrapperUrl',
+      );
+    } catch (e) {
+      print(
+        '[PegePay] Failed to download wrapper HTML: $e',
+      );
+
+      if (sessionId == _activeSessionId) {
+        finished = true;
+
+        await _closeCurrentWebView(
+          sessionId: sessionId,
+        );
+
+        await _restoreFlutterWindow();
+
+        if (!cancelCallbackCalled) {
+          cancelCallbackCalled = true;
+          onCancel();
+        }
+      }
+
+      return;
+    }
+
     // ==========================================================
-    // LAUNCH WEBVIEW
+    // LAUNCH LOCAL AUTHENTICATED HTML
     // ==========================================================
 
     try {
-      webview.launch(wrapperUrl);
+      webview.launch(localWrapperUrl);
     } catch (e) {
       print('[PegePay] Failed to launch WebView: $e');
 
