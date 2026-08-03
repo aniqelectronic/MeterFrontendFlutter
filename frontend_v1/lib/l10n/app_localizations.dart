@@ -8998,6 +8998,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Payment cancelled'**
   String get qrPaymentCancelled;
+
+  /// No description provided for @didYouKnowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Did You Know?'**
+  String get didYouKnowTitle;
+
+  /// No description provided for @didYouKnowSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover something new while exploring our services.'**
+  String get didYouKnowSubtitle;
+
+  /// No description provided for @knowledgeFact01.
+  ///
+  /// In en, this message translates to:
+  /// **'Octopuses have three hearts, and their blood appears blue because it contains a copper-based protein called hemocyanin.'**
+  String get knowledgeFact01;
+
+  /// No description provided for @knowledgeFact02.
+  ///
+  /// In en, this message translates to:
+  /// **'A day on Venus is longer than a year on Venus because the planet rotates extremely slowly.'**
+  String get knowledgeFact02;
+
+  /// No description provided for @knowledgeFact03.
+  ///
+  /// In en, this message translates to:
+  /// **'Honey can remain edible for a very long time when it is sealed properly and protected from moisture.'**
+  String get knowledgeFact03;
+
+  /// No description provided for @knowledgeFact04.
+  ///
+  /// In en, this message translates to:
+  /// **'The human brain contains around 86 billion neurons that work together to process information.'**
+  String get knowledgeFact04;
+
+  /// No description provided for @knowledgeFact05.
+  ///
+  /// In en, this message translates to:
+  /// **'Lightning can heat the surrounding air to temperatures hotter than the surface of the Sun.'**
+  String get knowledgeFact05;
+
+  /// No description provided for @knowledgeFact06.
+  ///
+  /// In en, this message translates to:
+  /// **'Malaysia is one of the world\'s most biodiverse countries and is home to thousands of plant and animal species.'**
+  String get knowledgeFact06;
+
+  /// No description provided for @knowledgeFact07.
+  ///
+  /// In en, this message translates to:
+  /// **'Mangrove forests help protect coastlines by reducing wave energy and limiting coastal erosion.'**
+  String get knowledgeFact07;
+
+  /// No description provided for @knowledgeFact08.
+  ///
+  /// In en, this message translates to:
+  /// **'Trees can help cool urban areas by providing shade and releasing water vapour through transpiration.'**
+  String get knowledgeFact08;
+
+  /// No description provided for @knowledgeFact09.
+  ///
+  /// In en, this message translates to:
+  /// **'The largest known animal on Earth is the blue whale, which can grow longer than a city bus.'**
+  String get knowledgeFact09;
+
+  /// No description provided for @knowledgeFact10.
+  ///
+  /// In en, this message translates to:
+  /// **'The Moon moves approximately 3.8 centimetres farther away from Earth every year.'**
+  String get knowledgeFact10;
+
+  /// No description provided for @knowledgeFact11.
+  ///
+  /// In en, this message translates to:
+  /// **'A group of flamingos is called a flamboyance.'**
+  String get knowledgeFact11;
+
+  /// No description provided for @knowledgeFact12.
+  ///
+  /// In en, this message translates to:
+  /// **'Bananas are botanically classified as berries, while strawberries are not true berries.'**
+  String get knowledgeFact12;
+
+  /// No description provided for @knowledgeFact13.
+  ///
+  /// In en, this message translates to:
+  /// **'The fingerprints of koalas are remarkably similar to human fingerprints.'**
+  String get knowledgeFact13;
+
+  /// No description provided for @knowledgeFact14.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound travels faster through water than through air because particles are packed more closely together.'**
+  String get knowledgeFact14;
+
+  /// No description provided for @knowledgeFact15.
+  ///
+  /// In en, this message translates to:
+  /// **'The Amazon rainforest helps influence rainfall patterns across large parts of South America.'**
+  String get knowledgeFact15;
+
+  /// No description provided for @knowledgeFact16.
+  ///
+  /// In en, this message translates to:
+  /// **'Recycling aluminium uses far less energy than producing new aluminium from raw materials.'**
+  String get knowledgeFact16;
+
+  /// No description provided for @knowledgeFact17.
+  ///
+  /// In en, this message translates to:
+  /// **'The International Space Station travels around Earth at approximately 28,000 kilometres per hour.'**
+  String get knowledgeFact17;
+
+  /// No description provided for @knowledgeFact18.
+  ///
+  /// In en, this message translates to:
+  /// **'Coral reefs support a large variety of marine life even though they cover only a small part of the ocean floor.'**
+  String get knowledgeFact18;
+
+  /// No description provided for @knowledgeFact19.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular walking can help improve cardiovascular fitness, balance and overall well-being.'**
+  String get knowledgeFact19;
+
+  /// No description provided for @knowledgeFact20.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital receipts can reduce paper usage and make transaction records easier to keep and retrieve.'**
+  String get knowledgeFact20;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

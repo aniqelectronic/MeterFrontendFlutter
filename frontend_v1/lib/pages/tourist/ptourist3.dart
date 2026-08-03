@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
@@ -9,12 +11,92 @@ import 'package:frontend_v1/pages/tourist/waktusolat/pwaktusolat.dart';
 import 'package:frontend_v1/pages/tourist/weather/pweather_bentong.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
-class PTOURISTPAGE extends StatelessWidget {
+class PTOURISTPAGE extends StatefulWidget {
   const PTOURISTPAGE({super.key});
+
+  @override
+  State<PTOURISTPAGE> createState() => _PTOURISTPAGEState();
+}
+
+class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
+  static const Duration _slideDuration = Duration(seconds: 8);
+
+  final PageController _knowledgeController = PageController();
+  Timer? _knowledgeTimer;
+  int _currentKnowledgeIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _startKnowledgeTimer();
+  }
+
+  @override
+  void dispose() {
+    _knowledgeTimer?.cancel();
+    _knowledgeController.dispose();
+    super.dispose();
+  }
+
+  void _startKnowledgeTimer() {
+    _knowledgeTimer?.cancel();
+    _knowledgeTimer = Timer.periodic(_slideDuration, (_) {
+      if (!mounted || !_knowledgeController.hasClients) return;
+      _goToKnowledge(_currentKnowledgeIndex + 1);
+    });
+  }
+
+  void _goToKnowledge(int index) {
+    final int normalizedIndex = index % 20;
+
+    _knowledgeController.animateToPage(
+      normalizedIndex,
+      duration: const Duration(milliseconds: 520),
+      curve: Curves.easeInOutCubic,
+    );
+
+    _startKnowledgeTimer();
+  }
+
+  void _previousKnowledge() {
+    final int previousIndex =
+        (_currentKnowledgeIndex - 1 + 20) % 20;
+    _goToKnowledge(previousIndex);
+  }
+
+  void _nextKnowledge() {
+    _goToKnowledge(_currentKnowledgeIndex + 1);
+  }
+
+  List<String> _knowledgeItems(AppLocalizations loc) {
+    return [
+      loc.knowledgeFact01,
+      loc.knowledgeFact02,
+      loc.knowledgeFact03,
+      loc.knowledgeFact04,
+      loc.knowledgeFact05,
+      loc.knowledgeFact06,
+      loc.knowledgeFact07,
+      loc.knowledgeFact08,
+      loc.knowledgeFact09,
+      loc.knowledgeFact10,
+      loc.knowledgeFact11,
+      loc.knowledgeFact12,
+      loc.knowledgeFact13,
+      loc.knowledgeFact14,
+      loc.knowledgeFact15,
+      loc.knowledgeFact16,
+      loc.knowledgeFact17,
+      loc.knowledgeFact18,
+      loc.knowledgeFact19,
+      loc.knowledgeFact20,
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final knowledgeItems = _knowledgeItems(loc);
 
     return Scaffold(
       body: Stack(
@@ -32,34 +114,65 @@ class PTOURISTPAGE extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.white.withOpacity(0.05),
-                    Colors.white.withOpacity(0.16),
                     Colors.white.withOpacity(0.08),
+                    Colors.white.withOpacity(0.19),
+                    Colors.white.withOpacity(0.10),
                   ],
                 ),
               ),
             ),
           ),
+
+          // =========================
+          // PAGE HEADER
+          // =========================
           Positioned(
-            top: 105,
-            left: 65,
-            right: 65,
+            top: 68,
+            left: 58,
+            right: 58,
             child: _ModernPageHeader(
               badgeText: loc.tourismServiceLabel,
               title: loc.p3othersTitle,
               subtitle: loc.p3othersSubtitle,
             ),
           ),
+
+          // =========================
+          // DID YOU KNOW SLIDER
+          // =========================
           Positioned(
-            top: 430,
-            left: 60,
-            right: 60,
-            bottom: 370,
+            top: 330,
+            left: 58,
+            right: 58,
+            child: _KnowledgeSlider(
+              controller: _knowledgeController,
+              title: loc.didYouKnowTitle,
+              subtitle: loc.didYouKnowSubtitle,
+              items: knowledgeItems,
+              currentIndex: _currentKnowledgeIndex,
+              onPageChanged: (index) {
+                setState(() => _currentKnowledgeIndex = index);
+                _startKnowledgeTimer();
+              },
+              onPrevious: _previousKnowledge,
+              onNext: _nextKnowledge,
+              onIndicatorPressed: _goToKnowledge,
+            ),
+          ),
+
+          // =========================
+          // SERVICE BUTTONS
+          // =========================
+          Positioned(
+            top: 620,
+            left: 52,
+            right: 52,
+            bottom: 255,
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.only(
-                top: 20,
-                bottom: 80,
+                top: 12,
+                bottom: 35,
               ),
               child: Column(
                 children: [
@@ -67,7 +180,7 @@ class PTOURISTPAGE extends StatelessWidget {
                     children: [
                       Expanded(
                         child: _ModernServiceButton(
-                          height: 420,
+                          height: 330,
                           icon: Icons.travel_explore_rounded,
                           label: loc.p3eksplorasiButton,
                           supportingText: loc.explorationSupportingText,
@@ -84,10 +197,10 @@ class PTOURISTPAGE extends StatelessWidget {
                           },
                         ),
                       ),
-                      const SizedBox(width: 38),
+                      const SizedBox(width: 28),
                       Expanded(
                         child: _ModernServiceButton(
-                          height: 420,
+                          height: 330,
                           icon: Icons.map_rounded,
                           label: loc.p3map,
                           supportingText: loc.mapSupportingText,
@@ -106,12 +219,12 @@ class PTOURISTPAGE extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 42),
+                  const SizedBox(height: 28),
                   Row(
                     children: [
                       Expanded(
                         child: _ModernServiceButton(
-                          height: 420,
+                          height: 330,
                           icon: FlutterIslamicIcons.mosque,
                           label: loc.p3waktusolat,
                           supportingText: loc.prayerTimeSupportingText,
@@ -128,10 +241,10 @@ class PTOURISTPAGE extends StatelessWidget {
                           },
                         ),
                       ),
-                      const SizedBox(width: 38),
+                      const SizedBox(width: 28),
                       Expanded(
                         child: _ModernServiceButton(
-                          height: 420,
+                          height: 330,
                           icon: Icons.cloud_rounded,
                           label: loc.weatherButton,
                           supportingText: loc.weatherSupportingText,
@@ -141,7 +254,8 @@ class PTOURISTPAGE extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const PWeatherPageBentong(),
+                                builder: (_) =>
+                                    const PWeatherPageBentong(),
                               ),
                             );
                           },
@@ -153,10 +267,11 @@ class PTOURISTPAGE extends StatelessWidget {
               ),
             ),
           ),
+
           Positioned(
-            bottom: 120,
-            left: 300,
-            right: 300,
+            bottom: 93,
+            left: 210,
+            right: 210,
             child: KioskBackButton(
               onPressed: () {
                 Navigator.pushReplacement(
@@ -169,7 +284,7 @@ class PTOURISTPAGE extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 35,
+            bottom: 26,
             left: 0,
             right: 0,
             child: Center(
@@ -177,13 +292,288 @@ class PTOURISTPAGE extends StatelessWidget {
                 Data.copyrightText,
                 style: const TextStyle(
                   color: Color(0xFF26364A),
-                  fontSize: 20,
+                  fontSize: 17,
                   fontWeight: FontWeight.w800,
                 ),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _KnowledgeSlider extends StatelessWidget {
+  final PageController controller;
+  final String title;
+  final String subtitle;
+  final List<String> items;
+  final int currentIndex;
+  final ValueChanged<int> onPageChanged;
+  final VoidCallback onPrevious;
+  final VoidCallback onNext;
+  final ValueChanged<int> onIndicatorPressed;
+
+  const _KnowledgeSlider({
+    required this.controller,
+    required this.title,
+    required this.subtitle,
+    required this.items,
+    required this.currentIndex,
+    required this.onPageChanged,
+    required this.onPrevious,
+    required this.onNext,
+    required this.onIndicatorPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 255,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(34),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF063D91),
+            Color(0xFF126BD4),
+            Color(0xFF1A8BE6),
+          ],
+        ),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.80),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF073E87).withOpacity(0.26),
+            blurRadius: 28,
+            offset: const Offset(0, 13),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(32),
+        child: Stack(
+          children: [
+            Positioned(
+              right: -60,
+              top: -70,
+              child: Container(
+                width: 260,
+                height: 260,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white.withOpacity(0.08),
+                ),
+              ),
+            ),
+            Positioned(
+              left: -25,
+              bottom: -65,
+              child: Container(
+                width: 170,
+                height: 170,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xFFFFC85A).withOpacity(0.15),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(26, 22, 24, 18),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 58,
+                        height: 58,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFFC84B),
+                          borderRadius: BorderRadius.circular(18),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.16),
+                              blurRadius: 12,
+                              offset: const Offset(0, 6),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.lightbulb_rounded,
+                          color: Color(0xFF633C00),
+                          size: 34,
+                        ),
+                      ),
+                      const SizedBox(width: 17),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title.toUpperCase(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 27,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 0.8,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              subtitle,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.82),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      _RoundNavigationButton(
+                        icon: Icons.chevron_left_rounded,
+                        onPressed: onPrevious,
+                      ),
+                      const SizedBox(width: 10),
+                      _RoundNavigationButton(
+                        icon: Icons.chevron_right_rounded,
+                        onPressed: onNext,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  Expanded(
+                    child: PageView.builder(
+                      controller: controller,
+                      itemCount: items.length,
+                      onPageChanged: onPageChanged,
+                      itemBuilder: (context, index) {
+                        return AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 350),
+                          child: Align(
+                            key: ValueKey(index),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              items[index],
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 23,
+                                fontWeight: FontWeight.w700,
+                                height: 1.32,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        '${currentIndex + 1}/${items.length}',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.84),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            items.length,
+                            (index) {
+                              final bool isActive =
+                                  index == currentIndex;
+
+                              return GestureDetector(
+                                onTap: () =>
+                                    onIndicatorPressed(index),
+                                child: AnimatedContainer(
+                                  duration:
+                                      const Duration(milliseconds: 220),
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 3),
+                                  width: isActive ? 24 : 7,
+                                  height: 7,
+                                  decoration: BoxDecoration(
+                                    color: isActive
+                                        ? const Color(0xFFFFD166)
+                                        : Colors.white.withOpacity(0.38),
+                                    borderRadius:
+                                        BorderRadius.circular(20),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 40),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RoundNavigationButton extends StatefulWidget {
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  const _RoundNavigationButton({
+    required this.icon,
+    required this.onPressed,
+  });
+
+  @override
+  State<_RoundNavigationButton> createState() =>
+      _RoundNavigationButtonState();
+}
+
+class _RoundNavigationButtonState
+    extends State<_RoundNavigationButton> {
+  bool _pressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _pressed = true),
+      onTapUp: (_) => setState(() => _pressed = false),
+      onTapCancel: () => setState(() => _pressed = false),
+      onTap: widget.onPressed,
+      child: AnimatedScale(
+        scale: _pressed ? 0.90 : 1,
+        duration: const Duration(milliseconds: 120),
+        child: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(_pressed ? 0.28 : 0.16),
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: Colors.white.withOpacity(0.45),
+              width: 1.5,
+            ),
+          ),
+          child: Icon(
+            widget.icon,
+            color: Colors.white,
+            size: 35,
+          ),
+        ),
       ),
     );
   }
@@ -206,8 +596,8 @@ class _ModernPageHeader extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 11,
+            horizontal: 21,
+            vertical: 9,
           ),
           decoration: BoxDecoration(
             color: const Color(0xFFE56C16).withOpacity(0.10),
@@ -222,23 +612,23 @@ class _ModernPageHeader extends StatelessWidget {
             children: [
               const Icon(
                 Icons.explore_rounded,
-                size: 25,
+                size: 22,
                 color: Color(0xFFE56C16),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 9),
               Text(
                 badgeText.toUpperCase(),
                 style: const TextStyle(
                   color: Color(0xFFE56C16),
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.w900,
-                  letterSpacing: 1.4,
+                  letterSpacing: 1.2,
                 ),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 12),
         ShaderMask(
           blendMode: BlendMode.srcIn,
           shaderCallback: (bounds) {
@@ -255,32 +645,32 @@ class _ModernPageHeader extends StatelessWidget {
             maxLines: 2,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 64,
+              fontSize: 48,
               fontWeight: FontWeight.w900,
-              letterSpacing: -1.2,
-              height: 1.05,
+              letterSpacing: -0.8,
+              height: 1.02,
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 11),
         Container(
-          constraints: const BoxConstraints(maxWidth: 860),
+          constraints: const BoxConstraints(maxWidth: 700),
           padding: const EdgeInsets.symmetric(
-            horizontal: 32,
-            vertical: 16,
+            horizontal: 25,
+            vertical: 11,
           ),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.88),
-            borderRadius: BorderRadius.circular(24),
+            color: Colors.white.withOpacity(0.90),
+            borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: Colors.black.withOpacity(0.18),
-              width: 1.5,
+              color: Colors.black.withOpacity(0.15),
+              width: 1.3,
             ),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF113968).withOpacity(0.10),
-                blurRadius: 24,
-                offset: const Offset(0, 10),
+                color: const Color(0xFF113968).withOpacity(0.09),
+                blurRadius: 18,
+                offset: const Offset(0, 8),
               ),
             ],
           ),
@@ -289,9 +679,9 @@ class _ModernPageHeader extends StatelessWidget {
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF435166),
-              fontSize: 31,
+              fontSize: 23,
               fontWeight: FontWeight.w700,
-              height: 1.25,
+              height: 1.20,
             ),
           ),
         ),
@@ -320,7 +710,7 @@ class _ModernServiceButton extends StatefulWidget {
     required this.onPressed,
     required this.accentColor,
     required this.accentLightColor,
-    this.height = 420,
+    this.height = 330,
     this.comingSoon = false,
   });
 
@@ -357,12 +747,12 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
           height: widget.height,
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(
-              widget.comingSoon ? 0.65 : 0.94,
+              widget.comingSoon ? 0.65 : 0.95,
             ),
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(32),
             border: Border.all(
               color: _isPressed ? widget.accentColor : Colors.black,
-              width: _isPressed ? 4 : 3,
+              width: _isPressed ? 4 : 2.5,
             ),
             boxShadow: _isPressed
                 ? [
@@ -374,49 +764,31 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                   ]
                 : [
                     BoxShadow(
-                      color: const Color(0xFF19375C).withOpacity(0.16),
-                      blurRadius: 32,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 16),
-                    ),
-                    BoxShadow(
-                      color: Colors.white.withOpacity(0.85),
-                      blurRadius: 4,
-                      offset: const Offset(0, -2),
+                      color: const Color(0xFF19375C).withOpacity(0.15),
+                      blurRadius: 25,
+                      offset: const Offset(0, 12),
                     ),
                   ],
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(37),
+            borderRadius: BorderRadius.circular(29),
             child: Stack(
               children: [
                 Positioned(
-                  right: -45,
-                  top: -45,
+                  right: -38,
+                  top: -38,
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 180),
-                    width: _isPressed ? 205 : 190,
-                    height: _isPressed ? 205 : 190,
+                    width: _isPressed ? 170 : 158,
+                    height: _isPressed ? 170 : 158,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: widget.accentLightColor.withOpacity(0.88),
                     ),
                   ),
                 ),
-                Positioned(
-                  right: 105,
-                  top: 78,
-                  child: Container(
-                    width: 38,
-                    height: 38,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: widget.accentColor.withOpacity(0.08),
-                    ),
-                  ),
-                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(34, 34, 30, 30),
+                  padding: const EdgeInsets.fromLTRB(26, 25, 24, 23),
                   child: Opacity(
                     opacity: widget.comingSoon ? 0.5 : 1,
                     child: Column(
@@ -425,17 +797,20 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                         Row(
                           mainAxisAlignment:
                               MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
                           children: [
                             AnimatedContainer(
-                              duration: const Duration(milliseconds: 160),
-                              width: 132,
-                              height: 132,
+                              duration:
+                                  const Duration(milliseconds: 160),
+                              width: 100,
+                              height: 100,
                               decoration: BoxDecoration(
                                 color: widget.accentLightColor,
-                                borderRadius: BorderRadius.circular(34),
+                                borderRadius: BorderRadius.circular(27),
                                 border: Border.all(
-                                  color: widget.accentColor.withOpacity(0.18),
+                                  color: widget.accentColor
+                                      .withOpacity(0.18),
                                   width: 1.5,
                                 ),
                               ),
@@ -443,41 +818,43 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                                 child: widget.icon != null
                                     ? Icon(
                                         widget.icon,
-                                        size: _isPressed ? 77 : 72,
+                                        size: _isPressed ? 61 : 57,
                                         color: widget.accentColor,
                                       )
                                     : Image.asset(
                                         widget.imagePath!,
-                                        height: 76,
-                                        width: 76,
+                                        height: 60,
+                                        width: 60,
                                         fit: BoxFit.contain,
                                       ),
                               ),
                             ),
                             AnimatedContainer(
-                              duration: const Duration(milliseconds: 160),
+                              duration:
+                                  const Duration(milliseconds: 160),
                               transform: Matrix4.translationValues(
-                                _isPressed ? 6 : 0,
+                                _isPressed ? 5 : 0,
                                 0,
                                 0,
                               ),
-                              width: 58,
-                              height: 58,
+                              width: 49,
+                              height: 49,
                               decoration: BoxDecoration(
                                 color: widget.accentColor,
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: widget.accentColor.withOpacity(0.24),
-                                    blurRadius: 14,
-                                    offset: const Offset(0, 7),
+                                    color: widget.accentColor
+                                        .withOpacity(0.24),
+                                    blurRadius: 12,
+                                    offset: const Offset(0, 6),
                                   ),
                                 ],
                               ),
                               child: const Icon(
                                 Icons.arrow_forward_rounded,
                                 color: Colors.white,
-                                size: 32,
+                                size: 27,
                               ),
                             ),
                           ],
@@ -489,42 +866,45 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: Color(0xFF15253A),
-                            fontSize: 39,
+                            fontSize: 30,
                             fontWeight: FontWeight.w900,
-                            height: 1.08,
-                            letterSpacing: 0.4,
+                            height: 1.05,
+                            letterSpacing: 0.3,
                           ),
                         ),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: 9),
                         Text(
                           widget.supportingText,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: Color(0xFF647187),
-                            fontSize: 25,
+                            fontSize: 19,
                             fontWeight: FontWeight.w600,
-                            height: 1.28,
+                            height: 1.22,
                           ),
                         ),
-                        const SizedBox(height: 23),
+                        const SizedBox(height: 15),
                         Row(
                           children: [
                             Container(
-                              width: 58,
-                              height: 7,
+                              width: 50,
+                              height: 6,
                               decoration: BoxDecoration(
                                 color: widget.accentColor,
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius:
+                                    BorderRadius.circular(50),
                               ),
                             ),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 7),
                             Container(
-                              width: 12,
-                              height: 7,
+                              width: 11,
+                              height: 6,
                               decoration: BoxDecoration(
-                                color: widget.accentColor.withOpacity(0.28),
-                                borderRadius: BorderRadius.circular(50),
+                                color: widget.accentColor
+                                    .withOpacity(0.28),
+                                borderRadius:
+                                    BorderRadius.circular(50),
                               ),
                             ),
                           ],
@@ -533,37 +913,6 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                     ),
                   ),
                 ),
-                if (widget.comingSoon)
-                  Positioned.fill(
-                    child: Container(
-                      color: Colors.white.withOpacity(0.28),
-                      alignment: Alignment.center,
-                      child: Transform.rotate(
-                        angle: -0.12,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 34,
-                            vertical: 15,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE74343),
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          child: Text(
-                            AppLocalizations.of(context)!
-                                .comingsoonText
-                                .toUpperCase(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 29,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 2,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
               ],
             ),
           ),

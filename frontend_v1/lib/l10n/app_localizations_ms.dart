@@ -4541,4 +4541,70 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get qrPaymentCancelled => 'Pembayaran dibatalkan';
+
+  @override
+  String get didYouKnowTitle => 'Tahukah Anda?';
+
+  @override
+  String get didYouKnowSubtitle => 'Temui ilmu baharu sambil meneroka perkhidmatan kami.';
+
+  @override
+  String get knowledgeFact01 => 'Sotong kurita mempunyai tiga jantung dan darahnya kelihatan biru kerana mengandungi protein berasaskan kuprum yang dipanggil hemosianin.';
+
+  @override
+  String get knowledgeFact02 => 'Satu hari di planet Zuhrah lebih panjang daripada satu tahunnya kerana planet itu berputar dengan sangat perlahan.';
+
+  @override
+  String get knowledgeFact03 => 'Madu boleh kekal selamat dimakan untuk tempoh yang sangat lama apabila disimpan dengan baik dan terlindung daripada kelembapan.';
+
+  @override
+  String get knowledgeFact04 => 'Otak manusia mengandungi kira-kira 86 bilion neuron yang bekerjasama untuk memproses maklumat.';
+
+  @override
+  String get knowledgeFact05 => 'Kilat boleh memanaskan udara di sekelilingnya sehingga mencapai suhu yang lebih panas daripada permukaan Matahari.';
+
+  @override
+  String get knowledgeFact06 => 'Malaysia merupakan antara negara yang mempunyai biodiversiti tertinggi di dunia dengan ribuan spesies tumbuhan dan haiwan.';
+
+  @override
+  String get knowledgeFact07 => 'Hutan bakau membantu melindungi kawasan pantai dengan mengurangkan tenaga ombak dan hakisan pantai.';
+
+  @override
+  String get knowledgeFact08 => 'Pokok membantu menyejukkan kawasan bandar melalui teduhan dan pembebasan wap air menerusi proses transpirasi.';
+
+  @override
+  String get knowledgeFact09 => 'Haiwan terbesar yang diketahui di Bumi ialah paus biru, yang boleh membesar lebih panjang daripada sebuah bas bandar.';
+
+  @override
+  String get knowledgeFact10 => 'Bulan bergerak kira-kira 3.8 sentimeter semakin jauh daripada Bumi pada setiap tahun.';
+
+  @override
+  String get knowledgeFact11 => 'Sekumpulan burung flamingo dikenali dalam bahasa Inggeris sebagai \'flamboyance\'.';
+
+  @override
+  String get knowledgeFact12 => 'Pisang secara botani diklasifikasikan sebagai beri, manakala strawberi bukanlah beri sebenar.';
+
+  @override
+  String get knowledgeFact13 => 'Cap jari koala mempunyai corak yang sangat menyerupai cap jari manusia.';
+
+  @override
+  String get knowledgeFact14 => 'Bunyi bergerak lebih pantas di dalam air berbanding udara kerana zarah air tersusun lebih rapat.';
+
+  @override
+  String get knowledgeFact15 => 'Hutan hujan Amazon membantu mempengaruhi corak hujan di kawasan yang luas di Amerika Selatan.';
+
+  @override
+  String get knowledgeFact16 => 'Kitar semula aluminium menggunakan tenaga yang jauh lebih rendah berbanding menghasilkan aluminium baharu daripada bahan mentah.';
+
+  @override
+  String get knowledgeFact17 => 'Stesen Angkasa Antarabangsa bergerak mengelilingi Bumi pada kelajuan kira-kira 28,000 kilometer sejam.';
+
+  @override
+  String get knowledgeFact18 => 'Terumbu karang menyokong pelbagai hidupan laut walaupun hanya meliputi sebahagian kecil dasar lautan.';
+
+  @override
+  String get knowledgeFact19 => 'Berjalan kaki secara berkala boleh membantu meningkatkan kecergasan jantung, keseimbangan dan kesejahteraan keseluruhan.';
+
+  @override
+  String get knowledgeFact20 => 'Resit digital membantu mengurangkan penggunaan kertas serta memudahkan rekod transaksi disimpan dan dicapai semula.';
 }

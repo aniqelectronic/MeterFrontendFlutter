@@ -4547,4 +4547,70 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get qrPaymentCancelled => 'Payment cancelled';
+
+  @override
+  String get didYouKnowTitle => 'Did You Know?';
+
+  @override
+  String get didYouKnowSubtitle => 'Discover something new while exploring our services.';
+
+  @override
+  String get knowledgeFact01 => 'Octopuses have three hearts, and their blood appears blue because it contains a copper-based protein called hemocyanin.';
+
+  @override
+  String get knowledgeFact02 => 'A day on Venus is longer than a year on Venus because the planet rotates extremely slowly.';
+
+  @override
+  String get knowledgeFact03 => 'Honey can remain edible for a very long time when it is sealed properly and protected from moisture.';
+
+  @override
+  String get knowledgeFact04 => 'The human brain contains around 86 billion neurons that work together to process information.';
+
+  @override
+  String get knowledgeFact05 => 'Lightning can heat the surrounding air to temperatures hotter than the surface of the Sun.';
+
+  @override
+  String get knowledgeFact06 => 'Malaysia is one of the world\'s most biodiverse countries and is home to thousands of plant and animal species.';
+
+  @override
+  String get knowledgeFact07 => 'Mangrove forests help protect coastlines by reducing wave energy and limiting coastal erosion.';
+
+  @override
+  String get knowledgeFact08 => 'Trees can help cool urban areas by providing shade and releasing water vapour through transpiration.';
+
+  @override
+  String get knowledgeFact09 => 'The largest known animal on Earth is the blue whale, which can grow longer than a city bus.';
+
+  @override
+  String get knowledgeFact10 => 'The Moon moves approximately 3.8 centimetres farther away from Earth every year.';
+
+  @override
+  String get knowledgeFact11 => 'A group of flamingos is called a flamboyance.';
+
+  @override
+  String get knowledgeFact12 => 'Bananas are botanically classified as berries, while strawberries are not true berries.';
+
+  @override
+  String get knowledgeFact13 => 'The fingerprints of koalas are remarkably similar to human fingerprints.';
+
+  @override
+  String get knowledgeFact14 => 'Sound travels faster through water than through air because particles are packed more closely together.';
+
+  @override
+  String get knowledgeFact15 => 'The Amazon rainforest helps influence rainfall patterns across large parts of South America.';
+
+  @override
+  String get knowledgeFact16 => 'Recycling aluminium uses far less energy than producing new aluminium from raw materials.';
+
+  @override
+  String get knowledgeFact17 => 'The International Space Station travels around Earth at approximately 28,000 kilometres per hour.';
+
+  @override
+  String get knowledgeFact18 => 'Coral reefs support a large variety of marine life even though they cover only a small part of the ocean floor.';
+
+  @override
+  String get knowledgeFact19 => 'Regular walking can help improve cardiovascular fitness, balance and overall well-being.';
+
+  @override
+  String get knowledgeFact20 => 'Digital receipts can reduce paper usage and make transaction records easier to keep and retrieve.';
 }
