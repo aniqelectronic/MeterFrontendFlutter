@@ -180,7 +180,7 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
                     children: [
                       Expanded(
                         child: _ModernServiceButton(
-                          height: 330,
+                          height: 450,
                           icon: Icons.travel_explore_rounded,
                           label: loc.p3eksplorasiButton,
                           supportingText: loc.explorationSupportingText,
@@ -200,7 +200,7 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
                       const SizedBox(width: 28),
                       Expanded(
                         child: _ModernServiceButton(
-                          height: 330,
+                          height: 450,
                           icon: Icons.map_rounded,
                           label: loc.p3map,
                           supportingText: loc.mapSupportingText,
@@ -224,7 +224,7 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
                     children: [
                       Expanded(
                         child: _ModernServiceButton(
-                          height: 330,
+                          height: 450,
                           icon: FlutterIslamicIcons.mosque,
                           label: loc.p3waktusolat,
                           supportingText: loc.prayerTimeSupportingText,
@@ -244,7 +244,7 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
                       const SizedBox(width: 28),
                       Expanded(
                         child: _ModernServiceButton(
-                          height: 330,
+                          height: 450,
                           icon: Icons.cloud_rounded,
                           label: loc.weatherButton,
                           supportingText: loc.weatherSupportingText,
@@ -866,7 +866,7 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: Color(0xFF15253A),
-                            fontSize: 30,
+                            fontSize: 40,
                             fontWeight: FontWeight.w900,
                             height: 1.05,
                             letterSpacing: 0.3,
@@ -879,7 +879,7 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: Color(0xFF647187),
-                            fontSize: 19,
+                            fontSize: 25,
                             fontWeight: FontWeight.w600,
                             height: 1.22,
                           ),

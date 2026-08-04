@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/language/pbahasa.dart';
@@ -17,7 +19,13 @@ class P2Page extends StatefulWidget {
 }
 
 class _P2PageState extends State<P2Page> {
+  static const Duration _knowledgeSlideDuration = Duration(seconds: 8);
+
   final ScrollController _scrollController = ScrollController();
+  final PageController _knowledgeController = PageController();
+
+  Timer? _knowledgeTimer;
+  int _currentKnowledgeIndex = 0;
 
   bool showScrollUp = false;
   bool showScrollDown = true;
@@ -26,6 +34,7 @@ class _P2PageState extends State<P2Page> {
   void initState() {
     super.initState();
 
+    _startKnowledgeTimer();
     _scrollController.addListener(_handleScroll);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -51,9 +60,50 @@ class _P2PageState extends State<P2Page> {
 
   @override
   void dispose() {
+    _knowledgeTimer?.cancel();
+    _knowledgeController.dispose();
+
     _scrollController.removeListener(_handleScroll);
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void _startKnowledgeTimer() {
+    _knowledgeTimer?.cancel();
+    _knowledgeTimer = Timer.periodic(_knowledgeSlideDuration, (_) {
+      if (!mounted || !_knowledgeController.hasClients) return;
+      _goToKnowledge(_currentKnowledgeIndex + 1);
+    });
+  }
+
+  void _goToKnowledge(int index) {
+    final normalizedIndex = index % 20;
+    _knowledgeController.animateToPage(
+      normalizedIndex,
+      duration: const Duration(milliseconds: 520),
+      curve: Curves.easeInOutCubic,
+    );
+    _startKnowledgeTimer();
+  }
+
+  void _previousKnowledge() {
+    _goToKnowledge((_currentKnowledgeIndex - 1 + 20) % 20);
+  }
+
+  void _nextKnowledge() {
+    _goToKnowledge(_currentKnowledgeIndex + 1);
+  }
+
+  List<String> _knowledgeItems(AppLocalizations loc) {
+    return [
+      loc.knowledgeFact01, loc.knowledgeFact02, loc.knowledgeFact03,
+      loc.knowledgeFact04, loc.knowledgeFact05, loc.knowledgeFact06,
+      loc.knowledgeFact07, loc.knowledgeFact08, loc.knowledgeFact09,
+      loc.knowledgeFact10, loc.knowledgeFact11, loc.knowledgeFact12,
+      loc.knowledgeFact13, loc.knowledgeFact14, loc.knowledgeFact15,
+      loc.knowledgeFact16, loc.knowledgeFact17, loc.knowledgeFact18,
+      loc.knowledgeFact19, loc.knowledgeFact20,
+    ];
   }
 
   void _scrollUp() {
@@ -89,6 +139,7 @@ class _P2PageState extends State<P2Page> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final knowledgeItems = _knowledgeItems(loc);
 
     return Scaffold(
       body: Stack(
@@ -127,7 +178,7 @@ class _P2PageState extends State<P2Page> {
           // MODERN HEADER
           // ============================================================
           Positioned(
-            top: 105,
+            top: 58,
             left: 65,
             right: 65,
             child: _ModernPageHeader(
@@ -136,14 +187,34 @@ class _P2PageState extends State<P2Page> {
             ),
           ),
 
+          Positioned(
+            top: 330,
+            left: 58,
+            right: 58,
+            child: _KnowledgeSlider(
+              controller: _knowledgeController,
+              title: loc.didYouKnowTitle,
+              subtitle: loc.didYouKnowSubtitle,
+              items: knowledgeItems,
+              currentIndex: _currentKnowledgeIndex,
+              onPageChanged: (index) {
+                setState(() => _currentKnowledgeIndex = index);
+                _startKnowledgeTimer();
+              },
+              onPrevious: _previousKnowledge,
+              onNext: _nextKnowledge,
+              onIndicatorPressed: _goToKnowledge,
+            ),
+          ),
+
           // ============================================================
           // SCROLLABLE SERVICE AREA
           // ============================================================
           Positioned(
-            top: 450,
+            top: 610,
             left: 60,
             right: 60,
-            bottom: 340,
+            bottom: 320,
             child: Scrollbar(
               controller: _scrollController,
               thumbVisibility: true,
@@ -156,9 +227,9 @@ class _P2PageState extends State<P2Page> {
                   parent: AlwaysScrollableScrollPhysics(),
                 ),
                 padding: const EdgeInsets.only(
-                  top: 30,
+                  top: 18,
                   right: 24,
-                  bottom: 100,
+                  bottom: 88,
                 ),
                 child: Column(
                   children: [
@@ -169,7 +240,7 @@ class _P2PageState extends State<P2Page> {
                       children: [
                         Expanded(
                           child: _ModernServiceButton(
-                            height: 420,
+                            height: 450,
                             icon: Icons.account_balance_rounded,
                             label: loc.pbtText,
                             supportingText:
@@ -186,10 +257,10 @@ class _P2PageState extends State<P2Page> {
                             },
                           ),
                         ),
-                        const SizedBox(width: 38),
+                        const SizedBox(width: 28),
                         Expanded(
                           child: _ModernServiceButton(
-                            height: 420,
+                            height: 450,
                             icon: Icons.receipt_long_rounded,
                             label: loc.bilText,
                             supportingText:
@@ -209,7 +280,7 @@ class _P2PageState extends State<P2Page> {
                       ],
                     ),
 
-                    const SizedBox(height: 42),
+                    const SizedBox(height: 28),
 
                     // ==================================================
                     // SECOND ROW
@@ -218,7 +289,7 @@ class _P2PageState extends State<P2Page> {
                       children: [
                         Expanded(
                           child: _ModernServiceButton(
-                            height: 420,
+                            height: 450,
                             icon: Icons.travel_explore_rounded,
                             label: loc.touristText,
                             supportingText:
@@ -235,11 +306,11 @@ class _P2PageState extends State<P2Page> {
                             },
                           ),
                         ),
-                        const SizedBox(width: 38),
+                        const SizedBox(width: 28),
 
                         Expanded(
                           child: _ModernServiceButton(
-                            height: 420,
+                            height: 450,
                             icon: Icons.help_outline_rounded,
                             label: loc.faqButton,
                             supportingText: loc.faqSupportingText,
@@ -274,7 +345,7 @@ class _P2PageState extends State<P2Page> {
           if (showScrollUp)
             Positioned(
               right: 20,
-              top: 400,
+              top: 565,
               child: _ScrollIndicatorButton(
                 icon: Icons.keyboard_arrow_up_rounded,
                 label: loc.scrollup,
@@ -288,7 +359,7 @@ class _P2PageState extends State<P2Page> {
           if (showScrollDown)
             Positioned(
               right: 20,
-              bottom: 345,
+              bottom: 325,
               child: _ScrollIndicatorButton(
                 icon: Icons.keyboard_arrow_down_rounded,
                 label: loc.scrolldown,
@@ -302,8 +373,8 @@ class _P2PageState extends State<P2Page> {
           // ============================================================
           Positioned(
             bottom: 100,
-            left: 300,
-            right: 300,
+            left: 220,
+            right: 220,
             child: KioskBackButton(
               onPressed: () {
                 Navigator.pushReplacement(
@@ -320,7 +391,7 @@ class _P2PageState extends State<P2Page> {
           // FOOTER
           // ============================================================
           Positioned(
-            bottom: 20,
+            bottom: 22,
             left: 0,
             right: 0,
             child: Center(
@@ -335,6 +406,238 @@ class _P2PageState extends State<P2Page> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// ============================================================================
+// DID YOU KNOW / TAHUKAH ANDA SLIDER
+// ============================================================================
+class _KnowledgeSlider extends StatelessWidget {
+  final PageController controller;
+  final String title;
+  final String subtitle;
+  final List<String> items;
+  final int currentIndex;
+  final ValueChanged<int> onPageChanged;
+  final VoidCallback onPrevious;
+  final VoidCallback onNext;
+  final ValueChanged<int> onIndicatorPressed;
+
+  const _KnowledgeSlider({
+    required this.controller,
+    required this.title,
+    required this.subtitle,
+    required this.items,
+    required this.currentIndex,
+    required this.onPageChanged,
+    required this.onPrevious,
+    required this.onNext,
+    required this.onIndicatorPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 250,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(34),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF063D91), Color(0xFF126BD4), Color(0xFF1A8BE6)],
+        ),
+        border: Border.all(color: Colors.white.withOpacity(0.80), width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF073E87).withOpacity(0.26),
+            blurRadius: 28,
+            offset: const Offset(0, 13),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(32),
+        child: Stack(
+          children: [
+            Positioned(
+              right: -60,
+              top: -70,
+              child: Container(
+                width: 260,
+                height: 260,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white.withOpacity(0.08),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(26, 20, 24, 16),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 56,
+                        height: 56,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFFC84B),
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        child: const Icon(
+                          Icons.lightbulb_rounded,
+                          color: Color(0xFF633C00),
+                          size: 33,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title.toUpperCase(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 26,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 0.8,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              subtitle,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.82),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      _KnowledgeNavigationButton(
+                        icon: Icons.chevron_left_rounded,
+                        onPressed: onPrevious,
+                      ),
+                      const SizedBox(width: 10),
+                      _KnowledgeNavigationButton(
+                        icon: Icons.chevron_right_rounded,
+                        onPressed: onNext,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Expanded(
+                    child: PageView.builder(
+                      controller: controller,
+                      itemCount: items.length,
+                      onPageChanged: onPageChanged,
+                      itemBuilder: (context, index) {
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            items[index],
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              height: 1.30,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        '${currentIndex + 1}/${items.length}',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.84),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(items.length, (index) {
+                            final isActive = index == currentIndex;
+                            return GestureDetector(
+                              onTap: () => onIndicatorPressed(index),
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 220),
+                                margin: const EdgeInsets.symmetric(horizontal: 3),
+                                width: isActive ? 23 : 7,
+                                height: 7,
+                                decoration: BoxDecoration(
+                                  color: isActive
+                                      ? const Color(0xFFFFD166)
+                                      : Colors.white.withOpacity(0.38),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                      ),
+                      const SizedBox(width: 35),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _KnowledgeNavigationButton extends StatefulWidget {
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  const _KnowledgeNavigationButton({required this.icon, required this.onPressed});
+
+  @override
+  State<_KnowledgeNavigationButton> createState() =>
+      _KnowledgeNavigationButtonState();
+}
+
+class _KnowledgeNavigationButtonState
+    extends State<_KnowledgeNavigationButton> {
+  bool _pressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _pressed = true),
+      onTapUp: (_) => setState(() => _pressed = false),
+      onTapCancel: () => setState(() => _pressed = false),
+      onTap: widget.onPressed,
+      child: AnimatedScale(
+        scale: _pressed ? 0.90 : 1,
+        duration: const Duration(milliseconds: 120),
+        child: Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(_pressed ? 0.28 : 0.16),
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: Colors.white.withOpacity(0.45),
+              width: 1.5,
+            ),
+          ),
+          child: Icon(widget.icon, color: Colors.white, size: 34),
+        ),
       ),
     );
   }

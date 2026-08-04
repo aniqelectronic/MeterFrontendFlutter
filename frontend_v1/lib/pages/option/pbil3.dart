@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/bil/broadband/pbroadbandbill3.dart';
@@ -17,7 +19,13 @@ class PBIL3PAGE extends StatefulWidget {
 }
 
 class _PBIL3PAGEState extends State<PBIL3PAGE> {
+  static const Duration _knowledgeSlideDuration = Duration(seconds: 8);
+
   final ScrollController _scrollController = ScrollController();
+  final PageController _knowledgeController = PageController();
+
+  Timer? _knowledgeTimer;
+  int _currentKnowledgeIndex = 0;
 
   bool showScrollUp = false;
   bool showScrollDown = true;
@@ -26,11 +34,69 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
   void initState() {
     super.initState();
 
+    _startKnowledgeTimer();
     _scrollController.addListener(_handleScroll);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _handleScroll();
     });
+  }
+
+  void _startKnowledgeTimer() {
+    _knowledgeTimer?.cancel();
+
+    _knowledgeTimer = Timer.periodic(
+      _knowledgeSlideDuration,
+      (_) {
+        if (!mounted || !_knowledgeController.hasClients) return;
+        _goToKnowledge(_currentKnowledgeIndex + 1);
+      },
+    );
+  }
+
+  void _goToKnowledge(int index) {
+    final int normalizedIndex = index % 20;
+
+    _knowledgeController.animateToPage(
+      normalizedIndex,
+      duration: const Duration(milliseconds: 520),
+      curve: Curves.easeInOutCubic,
+    );
+
+    _startKnowledgeTimer();
+  }
+
+  void _previousKnowledge() {
+    _goToKnowledge((_currentKnowledgeIndex - 1 + 20) % 20);
+  }
+
+  void _nextKnowledge() {
+    _goToKnowledge(_currentKnowledgeIndex + 1);
+  }
+
+  List<String> _knowledgeItems(AppLocalizations loc) {
+    return [
+      loc.knowledgeFact01,
+      loc.knowledgeFact02,
+      loc.knowledgeFact03,
+      loc.knowledgeFact04,
+      loc.knowledgeFact05,
+      loc.knowledgeFact06,
+      loc.knowledgeFact07,
+      loc.knowledgeFact08,
+      loc.knowledgeFact09,
+      loc.knowledgeFact10,
+      loc.knowledgeFact11,
+      loc.knowledgeFact12,
+      loc.knowledgeFact13,
+      loc.knowledgeFact14,
+      loc.knowledgeFact15,
+      loc.knowledgeFact16,
+      loc.knowledgeFact17,
+      loc.knowledgeFact18,
+      loc.knowledgeFact19,
+      loc.knowledgeFact20,
+    ];
   }
 
   void _handleScroll() {
@@ -40,13 +106,9 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
 
     final double maxScroll =
         _scrollController.position.maxScrollExtent;
+    final double currentScroll = _scrollController.offset;
 
-    final double currentScroll =
-        _scrollController.offset;
-
-    final bool shouldShowScrollUp =
-        currentScroll > 10;
-
+    final bool shouldShowScrollUp = currentScroll > 10;
     final bool shouldShowScrollDown =
         currentScroll < maxScroll - 10;
 
@@ -60,9 +122,7 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
   }
 
   void _scrollUp() {
-    if (!_scrollController.hasClients) {
-      return;
-    }
+    if (!_scrollController.hasClients) return;
 
     final double destination =
         (_scrollController.offset - 600).clamp(
@@ -78,9 +138,7 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
   }
 
   void _scrollDown() {
-    if (!_scrollController.hasClients) {
-      return;
-    }
+    if (!_scrollController.hasClients) return;
 
     final double destination =
         (_scrollController.offset + 600).clamp(
@@ -97,6 +155,9 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
 
   @override
   void dispose() {
+    _knowledgeTimer?.cancel();
+    _knowledgeController.dispose();
+
     _scrollController.removeListener(_handleScroll);
     _scrollController.dispose();
 
@@ -106,21 +167,17 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final knowledgeItems = _knowledgeItems(loc);
 
     return Scaffold(
       body: Stack(
         children: [
-          // ============================================================
-          // BACKGROUND
-          // ============================================================
           Positioned.fill(
             child: Image.asset(
               'lib/images/pnew.png',
               fit: BoxFit.cover,
             ),
           ),
-
-          // Soft background overlay.
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -137,11 +194,9 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
             ),
           ),
 
-          // ============================================================
           // HEADER
-          // ============================================================
           Positioned(
-            top: 90,
+            top: 45,
             left: 65,
             right: 65,
             child: _ModernPageHeader(
@@ -151,11 +206,30 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
             ),
           ),
 
-          // ============================================================
-          // SCROLLABLE SERVICE AREA
-          // ============================================================
+          // KNOWLEDGE SLIDER
           Positioned(
-            top: 410,
+            top: 300,
+            left: 58,
+            right: 58,
+            child: _KnowledgeSlider(
+              controller: _knowledgeController,
+              title: loc.didYouKnowTitle,
+              subtitle: loc.didYouKnowSubtitle,
+              items: knowledgeItems,
+              currentIndex: _currentKnowledgeIndex,
+              onPageChanged: (index) {
+                setState(() => _currentKnowledgeIndex = index);
+                _startKnowledgeTimer();
+              },
+              onPrevious: _previousKnowledge,
+              onNext: _nextKnowledge,
+              onIndicatorPressed: _goToKnowledge,
+            ),
+          ),
+
+          // SERVICE AREA
+          Positioned(
+            top: 605,
             left: 45,
             right: 45,
             bottom: 300,
@@ -175,9 +249,6 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                 ),
                 child: Column(
                   children: [
-                    // ==================================================
-                    // FIRST ROW
-                    // ==================================================
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -188,10 +259,8 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                             label: loc.electricitybutton,
                             supportingText:
                                 loc.electricityBillSupportingText,
-                            accentColor:
-                                const Color(0xFFE0A100),
-                            accentLightColor:
-                                const Color(0xFFFFF4D0),
+                            accentColor: const Color(0xFFE0A100),
+                            accentLightColor: const Color(0xFFFFF4D0),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -203,9 +272,7 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                             },
                           ),
                         ),
-
                         const SizedBox(width: 34),
-
                         Expanded(
                           child: _ModernServiceCard(
                             height: 455,
@@ -213,10 +280,8 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                             label: loc.waterButton,
                             supportingText:
                                 loc.waterBillSupportingText,
-                            accentColor:
-                                const Color(0xFF1687D9),
-                            accentLightColor:
-                                const Color(0xFFE3F3FF),
+                            accentColor: const Color(0xFF1687D9),
+                            accentLightColor: const Color(0xFFE3F3FF),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -230,36 +295,31 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                         ),
                       ],
                     ),
-
                     const SizedBox(height: 34),
-
-                    // ==================================================
-                    // SECOND ROW
-                    // ==================================================
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child:_ModernServiceCard(
-                        height: 455,
-                        icon: Icons.router_rounded,
-                        label: loc.billbroadbandButton,
-                        supportingText: loc.broadbandBillSupportingText,
-                        accentColor: const Color(0xFF7356D8),
-                        accentLightColor: const Color(0xFFEDE9FF),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const PBROADBANDBILL3PAGE(),
-                            ),
-                          );
-                        },
-                      ),
+                          child: _ModernServiceCard(
+                            height: 455,
+                            icon: Icons.router_rounded,
+                            label: loc.billbroadbandButton,
+                            supportingText:
+                                loc.broadbandBillSupportingText,
+                            accentColor: const Color(0xFF7356D8),
+                            accentLightColor: const Color(0xFFEDE9FF),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      const PBROADBANDBILL3PAGE(),
+                                ),
+                              );
+                            },
+                          ),
                         ),
-
                         const SizedBox(width: 34),
-
                         Expanded(
                           child: _ModernServiceCard(
                             height: 455,
@@ -267,10 +327,8 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                             label: loc.billEntertainmentButton,
                             supportingText:
                                 loc.entertainmentBillSupportingText,
-                            accentColor:
-                                const Color(0xFFD64D8B),
-                            accentLightColor:
-                                const Color(0xFFFFE6F2),
+                            accentColor: const Color(0xFFD64D8B),
+                            accentLightColor: const Color(0xFFFFE6F2),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -284,12 +342,7 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                         ),
                       ],
                     ),
-
                     const SizedBox(height: 34),
-
-                    // ==================================================
-                    // THIRD ROW
-                    // ==================================================
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -300,21 +353,14 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                             label: loc.telkoButton,
                             supportingText:
                                 loc.telcoBillSupportingText,
-                            accentColor:
-                                const Color(0xFF15946B),
-                            accentLightColor:
-                                const Color(0xFFE2F7EF),
+                            accentColor: const Color(0xFF15946B),
+                            accentLightColor: const Color(0xFFE2F7EF),
                             onPressed: () {},
                             comingSoon: true,
                           ),
                         ),
-
                         const SizedBox(width: 34),
-
-                        // Empty space to keep the grid balanced.
-                        const Expanded(
-                          child: SizedBox(),
-                        ),
+                        const Expanded(child: SizedBox()),
                       ],
                     ),
                   ],
@@ -323,13 +369,10 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
             ),
           ),
 
-          // ============================================================
-          // SCROLL-UP BUTTON
-          // ============================================================
           if (showScrollUp)
             Positioned(
               right: 18,
-              top: 375,
+              top: 625,
               child: _ScrollIndicatorButton(
                 icon: Icons.keyboard_arrow_up_rounded,
                 label: loc.scrollup,
@@ -337,9 +380,6 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
               ),
             ),
 
-          // ============================================================
-          // SCROLL-DOWN BUTTON
-          // ============================================================
           if (showScrollDown)
             Positioned(
               right: 18,
@@ -352,9 +392,6 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
               ),
             ),
 
-          // ============================================================
-          // BACK BUTTON
-          // ============================================================
           Positioned(
             bottom: 105,
             left: 300,
@@ -371,9 +408,6 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
             ),
           ),
 
-          // ============================================================
-          // FOOTER
-          // ============================================================
           Positioned(
             bottom: 25,
             left: 0,
@@ -391,6 +425,283 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// ============================================================================
+// KNOWLEDGE SLIDER
+// ============================================================================
+class _KnowledgeSlider extends StatelessWidget {
+  final PageController controller;
+  final String title;
+  final String subtitle;
+  final List<String> items;
+  final int currentIndex;
+  final ValueChanged<int> onPageChanged;
+  final VoidCallback onPrevious;
+  final VoidCallback onNext;
+  final ValueChanged<int> onIndicatorPressed;
+
+  const _KnowledgeSlider({
+    required this.controller,
+    required this.title,
+    required this.subtitle,
+    required this.items,
+    required this.currentIndex,
+    required this.onPageChanged,
+    required this.onPrevious,
+    required this.onNext,
+    required this.onIndicatorPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 250,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(34),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF063D91),
+            Color(0xFF126BD4),
+            Color(0xFF1A8BE6),
+          ],
+        ),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.80),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF073E87).withOpacity(0.26),
+            blurRadius: 28,
+            offset: const Offset(0, 13),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(32),
+        child: Stack(
+          children: [
+            Positioned(
+              right: -60,
+              top: -70,
+              child: Container(
+                width: 260,
+                height: 260,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white.withOpacity(0.08),
+                ),
+              ),
+            ),
+            Positioned(
+              left: -25,
+              bottom: -65,
+              child: Container(
+                width: 170,
+                height: 170,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xFFFFC85A).withOpacity(0.15),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(26, 20, 24, 16),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 56,
+                        height: 56,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFFC84B),
+                          borderRadius: BorderRadius.circular(18),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.16),
+                              blurRadius: 12,
+                              offset: const Offset(0, 6),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.lightbulb_rounded,
+                          color: Color(0xFF633C00),
+                          size: 33,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title.toUpperCase(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 26,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 0.8,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              subtitle,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.82),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      _KnowledgeNavigationButton(
+                        icon: Icons.chevron_left_rounded,
+                        onPressed: onPrevious,
+                      ),
+                      const SizedBox(width: 10),
+                      _KnowledgeNavigationButton(
+                        icon: Icons.chevron_right_rounded,
+                        onPressed: onNext,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Expanded(
+                    child: PageView.builder(
+                      controller: controller,
+                      itemCount: items.length,
+                      onPageChanged: onPageChanged,
+                      itemBuilder: (context, index) {
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            items[index],
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              height: 1.30,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        '${currentIndex + 1}/${items.length}',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.84),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            items.length,
+                            (index) {
+                              final bool isActive =
+                                  index == currentIndex;
+
+                              return GestureDetector(
+                                onTap: () =>
+                                    onIndicatorPressed(index),
+                                child: AnimatedContainer(
+                                  duration:
+                                      const Duration(milliseconds: 220),
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 3,
+                                  ),
+                                  width: isActive ? 23 : 7,
+                                  height: 7,
+                                  decoration: BoxDecoration(
+                                    color: isActive
+                                        ? const Color(0xFFFFD166)
+                                        : Colors.white.withOpacity(0.38),
+                                    borderRadius:
+                                        BorderRadius.circular(20),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 35),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _KnowledgeNavigationButton extends StatefulWidget {
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  const _KnowledgeNavigationButton({
+    required this.icon,
+    required this.onPressed,
+  });
+
+  @override
+  State<_KnowledgeNavigationButton> createState() =>
+      _KnowledgeNavigationButtonState();
+}
+
+class _KnowledgeNavigationButtonState
+    extends State<_KnowledgeNavigationButton> {
+  bool _pressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _pressed = true),
+      onTapUp: (_) => setState(() => _pressed = false),
+      onTapCancel: () => setState(() => _pressed = false),
+      onTap: widget.onPressed,
+      child: AnimatedScale(
+        scale: _pressed ? 0.90 : 1,
+        duration: const Duration(milliseconds: 120),
+        child: Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(
+              _pressed ? 0.28 : 0.16,
+            ),
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: Colors.white.withOpacity(0.45),
+              width: 1.5,
+            ),
+          ),
+          child: Icon(
+            widget.icon,
+            color: Colors.white,
+            size: 34,
+          ),
+        ),
       ),
     );
   }
@@ -453,9 +764,7 @@ class _ModernPageHeader extends StatelessWidget {
             ],
           ),
         ),
-
         const SizedBox(height: 18),
-
         ShaderMask(
           blendMode: BlendMode.srcIn,
           shaderCallback: (bounds) {
@@ -480,13 +789,9 @@ class _ModernPageHeader extends StatelessWidget {
             ),
           ),
         ),
-
         const SizedBox(height: 15),
-
         Container(
-          constraints: const BoxConstraints(
-            maxWidth: 860,
-          ),
+          constraints: const BoxConstraints(maxWidth: 860),
           padding: const EdgeInsets.symmetric(
             horizontal: 32,
             vertical: 15,
@@ -500,8 +805,7 @@ class _ModernPageHeader extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
-                color:
-                    const Color(0xFF113968).withOpacity(0.10),
+                color: const Color(0xFF113968).withOpacity(0.10),
                 blurRadius: 24,
                 offset: const Offset(0, 10),
               ),
@@ -525,6 +829,7 @@ class _ModernPageHeader extends StatelessWidget {
 
 // ============================================================================
 // MODERN SERVICE CARD
+// Button size and text styling are maintained from your original code.
 // ============================================================================
 class _ModernServiceCard extends StatefulWidget {
   final IconData? icon;
@@ -560,13 +865,8 @@ class _ModernServiceCardState
   bool _isPressed = false;
 
   void _setPressed(bool value) {
-    if (!mounted || widget.comingSoon) {
-      return;
-    }
-
-    setState(() {
-      _isPressed = value;
-    });
+    if (!mounted || widget.comingSoon) return;
+    setState(() => _isPressed = value);
   }
 
   @override
@@ -603,16 +903,15 @@ class _ModernServiceCardState
             boxShadow: _isPressed || widget.comingSoon
                 ? [
                     BoxShadow(
-                      color:
-                          widget.accentColor.withOpacity(0.16),
+                      color: widget.accentColor.withOpacity(0.16),
                       blurRadius: 18,
                       offset: const Offset(0, 8),
                     ),
                   ]
                 : [
                     BoxShadow(
-                      color:
-                          const Color(0xFF19375C).withOpacity(0.16),
+                      color: const Color(0xFF19375C)
+                          .withOpacity(0.16),
                       blurRadius: 32,
                       spreadRadius: 1,
                       offset: const Offset(0, 16),
@@ -637,11 +936,11 @@ class _ModernServiceCardState
                     height: _isPressed ? 220 : 205,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: widget.accentLightColor.withOpacity(0.90),
+                      color:
+                          widget.accentLightColor.withOpacity(0.90),
                     ),
                   ),
                 ),
-
                 Positioned(
                   right: 120,
                   top: 100,
@@ -650,12 +949,10 @@ class _ModernServiceCardState
                     height: 40,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color:
-                          widget.accentColor.withOpacity(0.08),
+                      color: widget.accentColor.withOpacity(0.08),
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.fromLTRB(
                     34,
@@ -701,7 +998,6 @@ class _ModernServiceCardState
                                       fit: BoxFit.contain,
                                     ),
                             ),
-
                             AnimatedContainer(
                               duration:
                                   const Duration(milliseconds: 160),
@@ -721,8 +1017,7 @@ class _ModernServiceCardState
                                     color: widget.accentColor
                                         .withOpacity(0.24),
                                     blurRadius: 14,
-                                    offset:
-                                        const Offset(0, 7),
+                                    offset: const Offset(0, 7),
                                   ),
                                 ],
                               ),
@@ -734,9 +1029,7 @@ class _ModernServiceCardState
                             ),
                           ],
                         ),
-
                         const Spacer(),
-
                         Text(
                           widget.label.toUpperCase(),
                           maxLines: 3,
@@ -749,9 +1042,7 @@ class _ModernServiceCardState
                             letterSpacing: 0.3,
                           ),
                         ),
-
                         const SizedBox(height: 14),
-
                         Text(
                           widget.supportingText,
                           maxLines: 3,
@@ -763,9 +1054,7 @@ class _ModernServiceCardState
                             height: 1.28,
                           ),
                         ),
-
                         const SizedBox(height: 22),
-
                         Row(
                           children: [
                             Container(
@@ -794,7 +1083,6 @@ class _ModernServiceCardState
                     ),
                   ),
                 ),
-
                 if (widget.comingSoon)
                   Positioned.fill(
                     child: Container(
@@ -813,15 +1101,16 @@ class _ModernServiceCardState
                           ),
                           decoration: BoxDecoration(
                             color: const Color(0xFFE74343),
-                            borderRadius: BorderRadius.circular(18),
+                            borderRadius:
+                                BorderRadius.circular(18),
                             border: Border.all(
                               color: Colors.white,
                               width: 3,
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color:
-                                    Colors.black.withOpacity(0.20),
+                                color: Colors.black
+                                    .withOpacity(0.20),
                                 blurRadius: 18,
                                 offset: const Offset(0, 8),
                               ),
@@ -853,7 +1142,7 @@ class _ModernServiceCardState
 }
 
 // ============================================================================
-// SCROLL INDICATOR BUTTON
+// SCROLL INDICATOR
 // ============================================================================
 class _ScrollIndicatorButton extends StatelessWidget {
   final IconData icon;
