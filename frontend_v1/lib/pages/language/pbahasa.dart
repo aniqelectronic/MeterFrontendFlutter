@@ -6,10 +6,24 @@ import 'package:frontend_v1/pages/home/p1bentong.dart';
 import 'package:frontend_v1/pages/option/p2.dart';
 import 'package:frontend_v1/widgets/kiosk_home_button.dart';
 
-class PBAHASAPAGE extends StatelessWidget {
+class PBAHASAPAGE extends StatefulWidget {
   const PBAHASAPAGE({
     super.key,
   });
+
+  @override
+  State<PBAHASAPAGE> createState() => _PBAHASAPAGEState();
+}
+
+class _PBAHASAPAGEState extends State<PBAHASAPAGE> {
+  final ScrollController _languageScrollController =
+      ScrollController();
+
+  @override
+  void dispose() {
+    _languageScrollController.dispose();
+    super.dispose();
+  }
 
   // ==========================================================================
   // NAVIGATION
@@ -98,14 +112,15 @@ class PBAHASAPAGE extends StatelessWidget {
           // LANGUAGE SELECTION PANEL
           // ==================================================================
           Positioned(
-            top: 430,
+            top: 400,
             left: 65,
             right: 65,
+            bottom: 400,
             child: Container(
               padding: const EdgeInsets.fromLTRB(
                 36,
                 40,
-                36,
+                26,
                 44,
               ),
               decoration: BoxDecoration(
@@ -151,62 +166,144 @@ class PBAHASAPAGE extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   // ==========================================================
-                  // BAHASA MELAYU
+                  // SCROLLABLE LANGUAGE LIST
                   // ==========================================================
-                  _languageButton(
-                    title: 'BAHASA MELAYU',
-                    subtitle:
-                        'Tekan untuk meneruskan',
-                    languageCode: 'BM',
-                    icon: Icons.flag_rounded,
-                    mainColor:
-                        const Color(0xFF9A6A23),
-                    lightColor:
-                        const Color(0xFFFFF2D6),
-                    onTap: () {
-                      App.setLocale(
-                        context,
-                        const Locale('ms'),
-                      );
+                  Expanded(
+                    child: Scrollbar(
+                      controller: _languageScrollController,
+                      thumbVisibility: true,
+                      trackVisibility: true,
+                      thickness: 9,
+                      radius: const Radius.circular(30),
+                      interactive: true,
+                      child: SingleChildScrollView(
+                        controller: _languageScrollController,
+                        physics:
+                            const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.only(
+                          right: 14,
+                          bottom: 4,
+                        ),
+                        child: Column(
+                          children: [
+                            // ================================================
+                            // BAHASA MELAYU
+                            // ================================================
+                            _languageButton(
+                              title: 'BAHASA MELAYU',
+                              subtitle:
+                                  'Tekan untuk meneruskan',
+                              languageCode: 'BM',
+                              icon: Icons.flag_rounded,
+                              mainColor:
+                                  const Color(0xFF9A6A23),
+                              lightColor:
+                                  const Color(0xFFFFF2D6),
+                              onTap: () {
+                                App.setLocale(
+                                  context,
+                                  const Locale('ms'),
+                                );
 
-                      _navigate(
-                        context,
-                        const P2Page(),
-                      );
-                    },
-                  ),
+                                _navigate(
+                                  context,
+                                  const P2Page(),
+                                );
+                              },
+                            ),
 
-                  const SizedBox(height: 28),
+                            const SizedBox(height: 28),
 
-                  // ==========================================================
-                  // ENGLISH
-                  // ==========================================================
-                  _languageButton(
-                    title: 'ENGLISH',
-                    subtitle:
-                        'Press to continue',
-                    languageCode: 'EN',
-                    icon: Icons.public_rounded,
-                    mainColor:
-                        const Color(0xFF405C73),
-                    lightColor:
-                        const Color(0xFFE8F0F5),
-                    onTap: () {
-                      App.setLocale(
-                        context,
-                        const Locale('en'),
-                      );
+                            // ================================================
+                            // ENGLISH
+                            // ================================================
+                            _languageButton(
+                              title: 'ENGLISH',
+                              subtitle:
+                                  'Press to continue',
+                              languageCode: 'EN',
+                              icon: Icons.public_rounded,
+                              mainColor:
+                                  const Color(0xFF405C73),
+                              lightColor:
+                                  const Color(0xFFE8F0F5),
+                              onTap: () {
+                                App.setLocale(
+                                  context,
+                                  const Locale('en'),
+                                );
 
-                      _navigate(
-                        context,
-                        const P2Page(),
-                      );
-                    },
+                                _navigate(
+                                  context,
+                                  const P2Page(),
+                                );
+                              },
+                            ),
+
+                            const SizedBox(height: 28),
+
+                            // ================================================
+                            // MALAYSIAN MANDARIN
+                            // ================================================
+                            _languageButton(
+                              title: '中文',
+                              subtitle: '轻触以继续',
+                              languageCode: '中文',
+                              icon:
+                                  Icons.translate_rounded,
+                              mainColor:
+                                  const Color(0xFFB63A3A),
+                              lightColor:
+                                  const Color(0xFFFFEAEA),
+                              onTap: () {
+                                App.setLocale(
+                                  context,
+                                  const Locale('zh'),
+                                );
+
+                                _navigate(
+                                  context,
+                                  const P2Page(),
+                                );
+                              },
+                            ),
+
+
+                            const SizedBox(height: 28),
+
+                           // ================================================
+                           // TAMIL
+                           // ================================================
+                           _languageButton(
+                             title: 'தமிழ்',
+                             subtitle: 'தொடர இங்கே தொடவும்',
+                             languageCode: 'தமிழ்',
+                             icon: Icons.translate_rounded,
+                             mainColor: const Color(0xFF6A1B9A),
+                             lightColor: const Color(0xFFF3E5F5),
+                             onTap: () {
+                               App.setLocale(
+                                 context,
+                                 const Locale('ta'),
+                               );
+                           
+                               _navigate(
+                                 context,
+                                 const P2Page(),
+                               );
+                             },
+                           ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
+
+          
 
           // ==================================================================
           // HOME BUTTON
@@ -503,8 +600,8 @@ class _PremiumLanguageButtonState
                       widget.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: const Color(0xFF1F2E3D),
+                      style: const TextStyle(
+                        color: Color(0xFF1F2E3D),
                         fontSize: 43,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 0.5,
@@ -515,8 +612,8 @@ class _PremiumLanguageButtonState
 
                     Text(
                       widget.subtitle,
-                      style: TextStyle(
-                        color: const Color(0xFF5F6D7C),
+                      style: const TextStyle(
+                        color: Color(0xFF5F6D7C),
                         fontSize: 25,
                         fontWeight: FontWeight.w600,
                       ),
@@ -577,7 +674,10 @@ class _PremiumLanguageButtonState
                         color: widget.mainColor,
                         fontSize: 19,
                         fontWeight: FontWeight.w900,
-                        letterSpacing: 1.3,
+                        letterSpacing:
+                            widget.languageCode == '中文'
+                                ? 0
+                                : 1.3,
                       ),
                     ),
                   ),

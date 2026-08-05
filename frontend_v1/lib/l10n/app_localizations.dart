@@ -7,6 +7,8 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
 import 'app_localizations_ms.dart';
+import 'app_localizations_ta.dart';
+import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -92,7 +94,9 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('ms')
+    Locale('ms'),
+    Locale('ta'),
+    Locale('zh')
   ];
 
   /// No description provided for @bilText.
@@ -9141,7 +9145,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'ms'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'ms', 'ta', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -9154,6 +9158,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en': return AppLocalizationsEn();
     case 'ms': return AppLocalizationsMs();
+    case 'ta': return AppLocalizationsTa();
+    case 'zh': return AppLocalizationsZh();
   }
 
   throw FlutterError(

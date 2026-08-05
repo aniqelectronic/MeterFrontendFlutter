@@ -816,7 +816,7 @@ class _ModernPageHeader extends StatelessWidget {
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF435166),
-              fontSize: 29,
+              fontSize: 25,
               fontWeight: FontWeight.w700,
               height: 1.25,
             ),
