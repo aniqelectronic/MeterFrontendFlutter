@@ -4,19 +4,19 @@ import 'package:intl/intl.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/weather/weather_forecast.dart';
 import 'package:frontend_v1/pages/data.dart';
-import 'package:frontend_v1/services/weather/weather_service_bentong.dart';
+import 'package:frontend_v1/services/weather/weather_service_ipoh.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
-class PWeatherPageBentong extends StatefulWidget {
-  const PWeatherPageBentong({super.key});
+class PWeatherPageIpoh extends StatefulWidget {
+  const PWeatherPageIpoh({super.key});
 
   @override
-  State<PWeatherPageBentong> createState() =>
-      _PWeatherPageBentongState();
+  State<PWeatherPageIpoh> createState() =>
+      _PWeatherPageIpohState();
 }
 
-class _PWeatherPageBentongState
-    extends State<PWeatherPageBentong> {
+class _PWeatherPageIpohState
+    extends State<PWeatherPageIpoh> {
   final ScrollController _forecastScrollController =
       ScrollController();
 
@@ -55,7 +55,7 @@ class _PWeatherPageBentongState
 
     try {
       final result =
-          await WeatherService.instance.getBentongForecast(
+          await WeatherServiceIpoh.instance.getIpohForecast(
         forceRefresh: forceRefresh,
       );
 
@@ -148,9 +148,7 @@ class _PWeatherPageBentongState
             left: 48,
             right: 48,
             child: _ModernWeatherHeader(
-              title: _localizedBentongPageTitle(
-                Localizations.localeOf(context).languageCode,
-              ),
+              title: loc.weatherPageTitle,
               subtitle: loc.weatherPageSubtitle,
             ),
           ),
@@ -664,7 +662,7 @@ class _CurrentSummaryCard extends StatelessWidget {
                       CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _localizedBentongLocation(localeName),
+                      loc.weatherIpohLocation,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 39,
@@ -1296,35 +1294,6 @@ IconData _weatherIcon(String forecast) {
 
 // ============================================================================
 // FORECAST TRANSLATION
-// ============================================================================
-String _localizedBentongPageTitle(String languageCode) {
-  switch (languageCode) {
-    case 'ms':
-      return 'Cuaca Bentong, Pahang';
-    case 'zh':
-      return '彭亨州文冬天气';
-    case 'ta':
-      return 'பெந்தோங், பகாங் வானிலை';
-    default:
-      return 'Bentong, Pahang Weather';
-  }
-}
-
-String _localizedBentongLocation(String languageCode) {
-  switch (languageCode) {
-    case 'ms':
-      return 'Bentong, Pahang';
-    case 'zh':
-      return '彭亨州文冬';
-    case 'ta':
-      return 'பெந்தோங், பகாங்';
-    default:
-      return 'Bentong, Pahang';
-  }
-}
-
-// ============================================================================
-// INTL DATE LOCALE
 // ============================================================================
 String _intlLocale(String languageCode) {
   switch (languageCode) {

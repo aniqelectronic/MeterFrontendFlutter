@@ -4699,4 +4699,7 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get paymentSectionTitle => 'Pembayaran';
+
+  @override
+  String get weatherIpohLocation => 'Ipoh, Perak';
 }

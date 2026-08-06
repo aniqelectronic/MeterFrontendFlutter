@@ -4444,25 +4444,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weatherButton => 'Weather';
 
   @override
-  String get weatherSupportingText => 'View Bentong\'s official 7-day weather forecast';
+  String get weatherSupportingText => 'View the official 7-day weather forecast for Ipoh, Perak';
 
   @override
-  String get weatherPageTitle => 'Bentong Weather';
+  String get weatherPageTitle => 'Ipoh, Perak Weather';
 
   @override
-  String get weatherPageSubtitle => 'Official 7-day forecast provided by MET Malaysia through data.gov.my';
+  String get weatherPageSubtitle => 'Official 7-day forecast from MET Malaysia through data.gov.my';
 
   @override
   String get weatherLoadingTitle => 'Loading Weather';
 
   @override
-  String get weatherLoadingMessage => 'Please wait while the latest forecast is being prepared.';
+  String get weatherLoadingMessage => 'Please wait while the latest forecast is prepared.';
 
   @override
   String get weatherUnavailableTitle => 'Weather Unavailable';
 
   @override
-  String get weatherUnavailableMessage => 'The latest forecast cannot be loaded right now. Please try again.';
+  String get weatherUnavailableMessage => 'The latest forecast cannot be loaded now. Please try again.';
 
   @override
   String get weatherTryAgain => 'Try Again';
@@ -4474,7 +4474,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weatherUpdated => 'Updated';
 
   @override
-  String get weatherCachedData => 'Saved data';
+  String get weatherCachedData => 'Cached data';
 
   @override
   String get weatherMinimumShort => 'min';
@@ -4705,4 +4705,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get paymentSectionTitle => 'Payment';
+
+  @override
+  String get weatherIpohLocation => 'Ipoh, Perak';
 }

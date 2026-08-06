@@ -2303,6 +2303,30 @@
 "billReceiptProcessingLocked": "请勿返回或再次按下付款按钮。",
 
 "billInformationTitle": "账单资料",
-"paymentSectionTitle": "付款"
+"paymentSectionTitle": "付款",
+
+
+"weatherButton": "天气",
+"weatherSupportingText": "查看霹雳州怡保未来7天的官方天气预报",
+"weatherPageTitle": "霹雳州怡保天气",
+"weatherPageSubtitle": "由马来西亚气象局通过 data.gov.my 提供的7天官方预报",
+"weatherIpohLocation": "霹雳州怡保",
+"weatherLoadingTitle": "正在加载天气",
+"weatherLoadingMessage": "请稍候，正在获取最新天气预报。",
+"weatherUnavailableTitle": "天气资料暂不可用",
+"weatherUnavailableMessage": "目前无法加载最新天气预报，请重试。",
+"weatherTryAgain": "重试",
+"weatherSevenDayForecast": "7天天气预报",
+"weatherUpdated": "更新时间",
+"weatherCachedData": "缓存数据",
+"weatherMinimumShort": "最低",
+"weatherRefresh": "刷新天气",
+"weatherMorning": "早上",
+"weatherAfternoon": "下午",
+"weatherNight": "晚上",
+"weatherDisclaimerTitle": "免责声明",
+"weatherDisclaimerText": "本7天官方天气预报由马来西亚气象局通过 data.gov.my 网站提供。",
+"weatherScrollHint": "向上或向下滑动以查看更多预报",
+"weatherToday": "今天"
 
 }

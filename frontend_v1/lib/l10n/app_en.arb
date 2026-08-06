@@ -2411,7 +2411,30 @@
 "billReceiptProcessingLocked": "Please do not go back or press the payment button again.",
 
 "billInformationTitle": "Bill Information",
-"paymentSectionTitle": "Payment"
+"paymentSectionTitle": "Payment",
+
+"weatherButton": "Weather",
+"weatherSupportingText": "View the official 7-day weather forecast for Ipoh, Perak",
+"weatherPageTitle": "Ipoh, Perak Weather",
+"weatherPageSubtitle": "Official 7-day forecast from MET Malaysia through data.gov.my",
+"weatherIpohLocation": "Ipoh, Perak",
+"weatherLoadingTitle": "Loading Weather",
+"weatherLoadingMessage": "Please wait while the latest forecast is prepared.",
+"weatherUnavailableTitle": "Weather Unavailable",
+"weatherUnavailableMessage": "The latest forecast cannot be loaded now. Please try again.",
+"weatherTryAgain": "Try Again",
+"weatherSevenDayForecast": "7-Day Forecast",
+"weatherUpdated": "Updated",
+"weatherCachedData": "Cached data",
+"weatherMinimumShort": "min",
+"weatherRefresh": "Refresh weather",
+"weatherMorning": "Morning",
+"weatherAfternoon": "Afternoon",
+"weatherNight": "Night",
+"weatherDisclaimerTitle": "Disclaimer",
+"weatherDisclaimerText": "Official 7-day forecast from MET Malaysia through the data.gov.my website.",
+"weatherScrollHint": "Swipe up or down to view the next forecast",
+"weatherToday": "Today"
 
 
 

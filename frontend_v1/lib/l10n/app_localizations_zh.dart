@@ -4438,31 +4438,31 @@ class AppLocalizationsZh extends AppLocalizations {
   String get weatherButton => '天气';
 
   @override
-  String get weatherSupportingText => '查看文冬7天官方天气预报';
+  String get weatherSupportingText => '查看霹雳州怡保未来7天的官方天气预报';
 
   @override
-  String get weatherPageTitle => '文冬天气';
+  String get weatherPageTitle => '霹雳州怡保天气';
 
   @override
-  String get weatherPageSubtitle => '透过data.gov.my提供的马来西亚气象局官方7天预报';
+  String get weatherPageSubtitle => '由马来西亚气象局通过 data.gov.my 提供的7天官方预报';
 
   @override
   String get weatherLoadingTitle => '正在加载天气';
 
   @override
-  String get weatherLoadingMessage => '请稍候，最新预报正在准备中。';
+  String get weatherLoadingMessage => '请稍候，正在获取最新天气预报。';
 
   @override
-  String get weatherUnavailableTitle => '天气数据暂不可用';
+  String get weatherUnavailableTitle => '天气资料暂不可用';
 
   @override
-  String get weatherUnavailableMessage => '目前无法加载最新预报，请重试。';
+  String get weatherUnavailableMessage => '目前无法加载最新天气预报，请重试。';
 
   @override
   String get weatherTryAgain => '重试';
 
   @override
-  String get weatherSevenDayForecast => '7天预报';
+  String get weatherSevenDayForecast => '7天天气预报';
 
   @override
   String get weatherUpdated => '更新时间';
@@ -4489,10 +4489,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get weatherDisclaimerTitle => '免责声明';
 
   @override
-  String get weatherDisclaimerText => '透过data.gov.my网站提供的马来西亚气象局官方7天预报。';
+  String get weatherDisclaimerText => '本7天官方天气预报由马来西亚气象局通过 data.gov.my 网站提供。';
 
   @override
-  String get weatherScrollHint => '向上或向下滑动以查看接下来的预报';
+  String get weatherScrollHint => '向上或向下滑动以查看更多预报';
 
   @override
   String get weatherToday => '今天';
@@ -4699,4 +4699,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get paymentSectionTitle => '付款';
+
+  @override
+  String get weatherIpohLocation => '霹雳州怡保';
 }

@@ -4438,28 +4438,28 @@ class AppLocalizationsTa extends AppLocalizations {
   String get weatherButton => 'வானிலை';
 
   @override
-  String get weatherSupportingText => 'பெந்தோங் 7 நாள் வானிலை முன்னறிவிப்பு';
+  String get weatherSupportingText => 'ஈப்போ, பேராக்கிற்கான அதிகாரப்பூர்வ 7 நாள் வானிலை முன்னறிவிப்பைப் பார்க்கவும்';
 
   @override
-  String get weatherPageTitle => 'பெந்தோங் வானிலை';
+  String get weatherPageTitle => 'ஈப்போ, பேராக் வானிலை';
 
   @override
-  String get weatherPageSubtitle => 'MET Malaysia வழங்கும் அதிகாரப்பூர்வ முன்னறிவிப்பு';
+  String get weatherPageSubtitle => 'data.gov.my வழியாக MET Malaysia வழங்கும் அதிகாரப்பூர்வ 7 நாள் முன்னறிவிப்பு';
 
   @override
   String get weatherLoadingTitle => 'வானிலை ஏற்றப்படுகிறது';
 
   @override
-  String get weatherLoadingMessage => 'சமீபத்திய வானிலை தகவல் பெறப்படும் வரை காத்திருக்கவும்.';
+  String get weatherLoadingMessage => 'சமீபத்திய முன்னறிவிப்பு தயாராகும் வரை காத்திருக்கவும்.';
 
   @override
   String get weatherUnavailableTitle => 'வானிலை கிடைக்கவில்லை';
 
   @override
-  String get weatherUnavailableMessage => 'தற்போது பெற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+  String get weatherUnavailableMessage => 'தற்போது சமீபத்திய முன்னறிவிப்பை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
 
   @override
-  String get weatherTryAgain => 'மீண்டும் முயற்சி செய்';
+  String get weatherTryAgain => 'மீண்டும் முயற்சி';
 
   @override
   String get weatherSevenDayForecast => '7 நாள் முன்னறிவிப்பு';
@@ -4474,25 +4474,25 @@ class AppLocalizationsTa extends AppLocalizations {
   String get weatherMinimumShort => 'குறைந்தபட்சம்';
 
   @override
-  String get weatherRefresh => 'புதுப்பி';
+  String get weatherRefresh => 'வானிலையைப் புதுப்பிக்கவும்';
 
   @override
   String get weatherMorning => 'காலை';
 
   @override
-  String get weatherAfternoon => 'மதியம்';
+  String get weatherAfternoon => 'பிற்பகல்';
 
   @override
   String get weatherNight => 'இரவு';
 
   @override
-  String get weatherDisclaimerTitle => 'பொறுப்புத் துறப்பு';
+  String get weatherDisclaimerTitle => 'மறுப்புரை';
 
   @override
-  String get weatherDisclaimerText => 'data.gov.my வழியாக மலேசிய வானிலை ஆய்வு மையத்தின் (MET Malaysia) தகவல்கள்.';
+  String get weatherDisclaimerText => 'data.gov.my இணையதளம் வழியாக MET Malaysia வழங்கும் அதிகாரப்பூர்வ 7 நாள் வானிலை முன்னறிவிப்பு.';
 
   @override
-  String get weatherScrollHint => 'அடுத்தடுத்த முன்னறிவிப்புகளைப் பார்க்க மேலே/கீழே நகரவும்';
+  String get weatherScrollHint => 'அடுத்த முன்னறிவிப்பைப் பார்க்க மேலே அல்லது கீழே ஸ்வைப் செய்யவும்';
 
   @override
   String get weatherToday => 'இன்று';
@@ -4699,4 +4699,7 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get paymentSectionTitle => 'கட்டணம்';
+
+  @override
+  String get weatherIpohLocation => 'ஈப்போ, பேராக்';
 }

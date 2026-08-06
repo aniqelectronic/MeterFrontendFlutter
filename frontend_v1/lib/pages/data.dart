@@ -15,12 +15,12 @@ class Data {
   static String aduanMajlisBentong = "1300-88-1148";
 
     //to change waktu solat for demo url justchange zone part. ps: to know the zone code is from https://www.e-solat.gov.my/
-  static String waktusolatplacedemo = "Bentong, Pahang";
-  static String waktusolaturldemo = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=PHG04&period=today";
+  static String waktusolatplacedemo = "Ipoh, Perak";
+  static String waktusolaturldemo = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=PRK02&period=today";
 
     //page map demo
-  static double latitudedemo = 3.522168; 
-  static double longitudedemo = 101.910355; 
+  static double latitudedemo = 4.59865; 
+  static double longitudedemo = 101.089914; 
 
   //iimmpact api key and secret
   static const String iimmpactApiKey =

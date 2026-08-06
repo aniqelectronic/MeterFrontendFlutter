@@ -8796,19 +8796,19 @@ abstract class AppLocalizations {
   /// No description provided for @weatherSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'View Bentong\'s official 7-day weather forecast'**
+  /// **'View the official 7-day weather forecast for Ipoh, Perak'**
   String get weatherSupportingText;
 
   /// No description provided for @weatherPageTitle.
   ///
   /// In en, this message translates to:
-  /// **'Bentong Weather'**
+  /// **'Ipoh, Perak Weather'**
   String get weatherPageTitle;
 
   /// No description provided for @weatherPageSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Official 7-day forecast provided by MET Malaysia through data.gov.my'**
+  /// **'Official 7-day forecast from MET Malaysia through data.gov.my'**
   String get weatherPageSubtitle;
 
   /// No description provided for @weatherLoadingTitle.
@@ -8820,7 +8820,7 @@ abstract class AppLocalizations {
   /// No description provided for @weatherLoadingMessage.
   ///
   /// In en, this message translates to:
-  /// **'Please wait while the latest forecast is being prepared.'**
+  /// **'Please wait while the latest forecast is prepared.'**
   String get weatherLoadingMessage;
 
   /// No description provided for @weatherUnavailableTitle.
@@ -8832,7 +8832,7 @@ abstract class AppLocalizations {
   /// No description provided for @weatherUnavailableMessage.
   ///
   /// In en, this message translates to:
-  /// **'The latest forecast cannot be loaded right now. Please try again.'**
+  /// **'The latest forecast cannot be loaded now. Please try again.'**
   String get weatherUnavailableMessage;
 
   /// No description provided for @weatherTryAgain.
@@ -8856,7 +8856,7 @@ abstract class AppLocalizations {
   /// No description provided for @weatherCachedData.
   ///
   /// In en, this message translates to:
-  /// **'Saved data'**
+  /// **'Cached data'**
   String get weatherCachedData;
 
   /// No description provided for @weatherMinimumShort.
@@ -9314,6 +9314,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Payment'**
   String get paymentSectionTitle;
+
+  /// No description provided for @weatherIpohLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Ipoh, Perak'**
+  String get weatherIpohLocation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
