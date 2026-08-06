@@ -778,9 +778,20 @@ void _showIdleWarning() {
       // },
 
 builder: (context, child) {
-  final realMediaQuery = MediaQuery.of(context);
+  final MediaQueryData realMediaQuery =
+      MediaQuery.of(context);
 
   const Size designSize = Size(1080, 1920);
+
+  const TextStyle multilingualFallbackStyle =
+      TextStyle(
+    fontFamily: 'Noto Sans',
+    fontFamilyFallback: <String>[
+      'Noto Sans Tamil',
+      'Noto Sans CJK SC',
+      'Noto Sans',
+    ],
+  );
 
   return Listener(
     behavior: HitTestBehavior.translucent,
@@ -796,9 +807,14 @@ builder: (context, child) {
           child: MediaQuery(
             data: realMediaQuery.copyWith(
               size: designSize,
-              textScaleFactor: 1.0,
+              textScaler: TextScaler.noScaling,
             ),
-            child: OnscreenKeyboard(child: child!),
+            child: DefaultTextStyle.merge(
+              style: multilingualFallbackStyle,
+              child: OnscreenKeyboard(
+                child: child!,
+              ),
+            ),
           ),
         ),
       ),
@@ -808,20 +824,57 @@ builder: (context, child) {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
         visualDensity: VisualDensity.standard,
+
+        // Existing layout and sizes are unchanged.
+        // These font settings only add Tamil and Chinese fallback.
+        fontFamily: 'Noto Sans',
+
         textTheme: const TextTheme(
-          bodyLarge: TextStyle(fontSize: 22),
-          bodyMedium: TextStyle(fontSize: 20),
-          titleLarge: TextStyle(fontSize: 28),
+          bodyLarge: TextStyle(
+            fontSize: 22,
+            fontFamily: 'Noto Sans',
+            fontFamilyFallback: <String>[
+              'Noto Sans Tamil',
+              'Noto Sans CJK SC',
+              'Noto Sans',
+            ],
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 20,
+            fontFamily: 'Noto Sans',
+            fontFamilyFallback: <String>[
+              'Noto Sans Tamil',
+              'Noto Sans CJK SC',
+              'Noto Sans',
+            ],
+          ),
+          titleLarge: TextStyle(
+            fontSize: 28,
+            fontFamily: 'Noto Sans',
+            fontFamilyFallback: <String>[
+              'Noto Sans Tamil',
+              'Noto Sans CJK SC',
+              'Noto Sans',
+            ],
+          ),
         ),
+
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(260, 80),
             textStyle: const TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w600,
+              fontFamily: 'Noto Sans',
+              fontFamilyFallback: <String>[
+                'Noto Sans Tamil',
+                'Noto Sans CJK SC',
+                'Noto Sans',
+              ],
             ),
           ),
         ),
+
         iconTheme: const IconThemeData(size: 32),
       ),
     );
