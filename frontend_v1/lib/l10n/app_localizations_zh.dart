@@ -4441,7 +4441,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get weatherSupportingText => '查看霹雳州怡保未来7天的官方天气预报';
 
   @override
-  String get weatherPageTitle => '霹雳州怡保天气';
+  String get weatherPageTitle => '天气';
 
   @override
   String get weatherPageSubtitle => '由马来西亚气象局通过 data.gov.my 提供的7天官方预报';

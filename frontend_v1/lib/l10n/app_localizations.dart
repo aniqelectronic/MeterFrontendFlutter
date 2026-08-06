@@ -8802,7 +8802,7 @@ abstract class AppLocalizations {
   /// No description provided for @weatherPageTitle.
   ///
   /// In en, this message translates to:
-  /// **'Ipoh, Perak Weather'**
+  /// **'Weather'**
   String get weatherPageTitle;
 
   /// No description provided for @weatherPageSubtitle.

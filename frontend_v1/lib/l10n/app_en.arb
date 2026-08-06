@@ -2264,7 +2264,7 @@
 
     "weatherButton": "Weather",
   "weatherSupportingText": "View Bentong's official 7-day weather forecast",
-  "weatherPageTitle": "Bentong Weather",
+  "weatherPageTitle": "Weather",
   "weatherPageSubtitle": "Official 7-day forecast provided by MET Malaysia through data.gov.my",
   "weatherLoadingTitle": "Loading Weather",
   "weatherLoadingMessage": "Please wait while the latest forecast is being prepared.",
@@ -2415,7 +2415,6 @@
 
 "weatherButton": "Weather",
 "weatherSupportingText": "View the official 7-day weather forecast for Ipoh, Perak",
-"weatherPageTitle": "Ipoh, Perak Weather",
 "weatherPageSubtitle": "Official 7-day forecast from MET Malaysia through data.gov.my",
 "weatherIpohLocation": "Ipoh, Perak",
 "weatherLoadingTitle": "Loading Weather",

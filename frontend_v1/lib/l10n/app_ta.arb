@@ -2122,7 +2122,7 @@
 
   "weatherButton": "வானிலை",
   "weatherSupportingText": "பெந்தோங் 7 நாள் வானிலை முன்னறிவிப்பு",
-  "weatherPageTitle": "பெந்தோங் வானிலை",
+  "weatherPageTitle": "வானிலை",
   "weatherPageSubtitle": "MET Malaysia வழங்கும் அதிகாரப்பூர்வ முன்னறிவிப்பு",
   "weatherLoadingTitle": "வானிலை ஏற்றப்படுகிறது",
   "weatherLoadingMessage": "சமீபத்திய வானிலை தகவல் பெறப்படும் வரை காத்திருக்கவும்.",
@@ -2251,7 +2251,6 @@
 
 "weatherButton": "வானிலை",
 "weatherSupportingText": "ஈப்போ, பேராக்கிற்கான அதிகாரப்பூர்வ 7 நாள் வானிலை முன்னறிவிப்பைப் பார்க்கவும்",
-"weatherPageTitle": "ஈப்போ, பேராக் வானிலை",
 "weatherPageSubtitle": "data.gov.my வழியாக MET Malaysia வழங்கும் அதிகாரப்பூர்வ 7 நாள் முன்னறிவிப்பு",
 "weatherIpohLocation": "ஈப்போ, பேராக்",
 "weatherLoadingTitle": "வானிலை ஏற்றப்படுகிறது",

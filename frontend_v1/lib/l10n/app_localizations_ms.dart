@@ -4441,7 +4441,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get weatherSupportingText => 'Lihat ramalan cuaca rasmi Bentong untuk 7 hari';
 
   @override
-  String get weatherPageTitle => 'Cuaca Bentong';
+  String get weatherPageTitle => 'Cuaca';
 
   @override
   String get weatherPageSubtitle => 'Ramalan rasmi 7 hari daripada MET Malaysia melalui data.gov.my';

@@ -4447,7 +4447,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weatherSupportingText => 'View the official 7-day weather forecast for Ipoh, Perak';
 
   @override
-  String get weatherPageTitle => 'Ipoh, Perak Weather';
+  String get weatherPageTitle => 'Weather';
 
   @override
   String get weatherPageSubtitle => 'Official 7-day forecast from MET Malaysia through data.gov.my';

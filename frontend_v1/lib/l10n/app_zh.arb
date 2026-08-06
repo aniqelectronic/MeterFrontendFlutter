@@ -2167,7 +2167,7 @@
 
   "weatherButton": "天气",
   "weatherSupportingText": "查看文冬7天官方天气预报",
-  "weatherPageTitle": "文冬天气",
+  "weatherPageTitle": "天气",
   "weatherPageSubtitle": "透过data.gov.my提供的马来西亚气象局官方7天预报",
   "weatherLoadingTitle": "正在加载天气",
   "weatherLoadingMessage": "请稍候，最新预报正在准备中。",
@@ -2308,7 +2308,6 @@
 
 "weatherButton": "天气",
 "weatherSupportingText": "查看霹雳州怡保未来7天的官方天气预报",
-"weatherPageTitle": "霹雳州怡保天气",
 "weatherPageSubtitle": "由马来西亚气象局通过 data.gov.my 提供的7天官方预报",
 "weatherIpohLocation": "霹雳州怡保",
 "weatherLoadingTitle": "正在加载天气",

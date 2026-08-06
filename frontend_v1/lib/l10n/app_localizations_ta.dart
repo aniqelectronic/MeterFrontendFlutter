@@ -4441,7 +4441,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get weatherSupportingText => 'ஈப்போ, பேராக்கிற்கான அதிகாரப்பூர்வ 7 நாள் வானிலை முன்னறிவிப்பைப் பார்க்கவும்';
 
   @override
-  String get weatherPageTitle => 'ஈப்போ, பேராக் வானிலை';
+  String get weatherPageTitle => 'வானிலை';
 
   @override
   String get weatherPageSubtitle => 'data.gov.my வழியாக MET Malaysia வழங்கும் அதிகாரப்பூர்வ 7 நாள் முன்னறிவிப்பு';
