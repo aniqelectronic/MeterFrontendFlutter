@@ -61,9 +61,13 @@ class BilQrPaymentPage extends StatefulWidget {
 
 class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
   bool _isCreatingOrder = false;
+  bool _isProcessingReceipt = false;
   bool _paymentCompleted = false;
 
   String? _errorMessage;
+
+  bool get _isBusy =>
+      _isCreatingOrder || _isProcessingReceipt;
 
   String get _safeBillType {
     final value = widget.billType.trim();
@@ -106,7 +110,7 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
   }
 
   Future<void> _startQrPayment() async {
-    if (_isCreatingOrder || _paymentCompleted) {
+    if (_isBusy || _paymentCompleted) {
       return;
     }
 
@@ -197,38 +201,61 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
           if (!mounted) {
             return;
           }
-        setState(() {
-          _paymentCompleted = true;
-          _isCreatingOrder = false;
-        });
+          setState(() {
+            _paymentCompleted = true;
+            _isCreatingOrder = false;
+            _isProcessingReceipt = true;
+          });
 
-      await _restoreFlutterWindow();
+          await _restoreFlutterWindow();
 
-      if (!mounted) {
-        return;
-      }
+          if (!mounted) {
+            return;
+          }
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          settings: const RouteSettings(
-            name: '/receipt',
-          ),
-          builder: (_) => BillReceiptPage(
-            data: BillReceiptData(
-              billType: widget.billType,
-              billCode: widget.billCode,
-              accountNumber: widget.accountNumber,
-              billAmount: widget.billAmount,
-              totalAmount: widget.totalAmount,
-              orderNo: successfulOrderNo,
-              bankTransactionNo: bankTransactionNo,
-              paymentMethod: 'DuitNow QR',
-              paidAt: DateTime.now(),
+          _showReceiptProcessingDialog(
+            orderNo: successfulOrderNo,
+          );
+
+          await Future<void>.delayed(
+            const Duration(milliseconds: 1600),
+          );
+
+          if (!mounted) {
+            return;
+          }
+
+          Navigator.of(
+            context,
+            rootNavigator: true,
+          ).pop();
+
+          if (!mounted) {
+            return;
+          }
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              settings: const RouteSettings(
+                name: '/receipt',
+              ),
+              builder: (_) => BillReceiptPage(
+                data: BillReceiptData(
+                  billType: widget.billType,
+                  billCode: widget.billCode,
+                  accountNumber: widget.accountNumber,
+                  billAmount: widget.billAmount,
+                  totalAmount: widget.totalAmount,
+                  orderNo: successfulOrderNo,
+                  bankTransactionNo:
+                      bankTransactionNo,
+                  paymentMethod: 'DuitNow QR',
+                  paidAt: DateTime.now(),
+                ),
+              ),
             ),
-          ),
-        ),
-      );
+          );
         },
         onCancel: () async {
           await _restoreFlutterWindow();
@@ -239,6 +266,7 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
 
           setState(() {
             _isCreatingOrder = false;
+            _isProcessingReceipt = false;
           });
 
           final loc = AppLocalizations.of(context)!;
@@ -274,6 +302,7 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
 
       setState(() {
         _isCreatingOrder = false;
+        _isProcessingReceipt = false;
         _errorMessage = loc.unableToCreateQr;
       });
 
@@ -283,6 +312,183 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
         isError: true,
       );
     }
+  }
+
+
+  void _showReceiptProcessingDialog({
+    required String orderNo,
+  }) {
+    final loc = AppLocalizations.of(context)!;
+
+    showDialog<void>(
+      context: context,
+      useRootNavigator: true,
+      barrierDismissible: false,
+      builder: (_) {
+        return PopScope(
+          canPop: false,
+          child: Material(
+            color: const Color(0xFF061425).withOpacity(0.88),
+            child: Center(
+              child: Container(
+                width: 700,
+                padding: const EdgeInsets.fromLTRB(
+                  48,
+                  46,
+                  48,
+                  42,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(36),
+                  border: Border.all(
+                    color: const Color(0xFFA7DCC4),
+                    width: 3,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.38),
+                      blurRadius: 42,
+                      spreadRadius: 5,
+                      offset: const Offset(0, 18),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        const SizedBox(
+                          width: 148,
+                          height: 148,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 8,
+                            color: Color(0xFF118762),
+                            backgroundColor:
+                                Color(0xFFDDF2E9),
+                          ),
+                        ),
+                        Container(
+                          width: 108,
+                          height: 108,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFE8F8F1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.receipt_long_rounded,
+                            color: Color(0xFF118762),
+                            size: 66,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    Text(
+                      loc.billReceiptProcessingTitle,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Color(0xFF0B6A4D),
+                        fontSize: 42,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    Text(
+                      loc.billReceiptProcessingMessage,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Color(0xFF5B6B7B),
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700,
+                        height: 1.4,
+                      ),
+                    ),
+                    const SizedBox(height: 28),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 26,
+                        vertical: 20,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF5F8FC),
+                        borderRadius: BorderRadius.circular(22),
+                        border: Border.all(
+                          color: const Color(0xFFD4E1ED),
+                          width: 2,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            _safeBillType,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Color(0xFF17324D),
+                              fontSize: 29,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          const SizedBox(height: 9),
+                          Text(
+                            _formatAmount(widget.totalAmount),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Color(0xFF0D6D4D),
+                              fontSize: 40,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          const SizedBox(height: 9),
+                          Text(
+                            orderNo,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Color(0xFF718096),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 22),
+                    Row(
+                      mainAxisAlignment:
+                          MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.lock_outline_rounded,
+                          color: Color(0xFF118762),
+                          size: 26,
+                        ),
+                        const SizedBox(width: 10),
+                        Flexible(
+                          child: Text(
+                            loc.billReceiptProcessingLocked,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Color(0xFF407565),
+                              fontSize: 21,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Future<void> _restoreFlutterWindow() async {
@@ -717,10 +923,11 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: !_isCreatingOrder,
+      canPop: !_isBusy,
       child: Scaffold(
         body: Stack(
           children: [
@@ -728,10 +935,22 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(
-                      'lib/images/pnew.png',
-                    ),
+                    image: AssetImage('lib/images/pnew.png'),
                     fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.white.withOpacity(0.04),
+                      Colors.white.withOpacity(0.22),
+                    ],
                   ),
                 ),
               ),
@@ -741,55 +960,74 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
                 children: [
                   _buildHeader(),
                   Expanded(
-                    child: SingleChildScrollView(
-                      padding: const EdgeInsets.fromLTRB(
-                        70,
-                        50,
-                        70,
-                        24,
-                      ),
-                      child: Column(
-                        children: [
-                          _buildPaymentCard(),
-                          if (_errorMessage != null) ...[
-                            const SizedBox(height: 26),
-                            _buildErrorCard(),
-                          ],
-                        ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 18),
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        trackVisibility: true,
+                        thickness: 10,
+                        radius: const Radius.circular(20),
+                        child: SingleChildScrollView(
+                          padding: const EdgeInsets.fromLTRB(
+                            62,
+                            34,
+                            62,
+                            26,
+                          ),
+                          child: Column(
+                            children: [
+                              _buildBillInformationCard(),
+                              const SizedBox(height: 26),
+                              _buildTotalPaymentCard(),
+                              const SizedBox(height: 26),
+                              _buildPaymentActionCard(),
+                              if (_errorMessage != null) ...[
+                                const SizedBox(height: 22),
+                                _buildErrorCard(),
+                              ],
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(
                       70,
-                      18,
+                      14,
                       70,
-                      40,
+                      34,
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
-                          width: 640,
-                          height: 105,
-                          child: KioskBackButton(
-                            onPressed: () {
-                              if (_isCreatingOrder) {
-                                return;
-                              }
+                        IgnorePointer(
+                          ignoring: _isBusy,
+                          child: AnimatedOpacity(
+                            duration:
+                                const Duration(milliseconds: 180),
+                            opacity: _isBusy ? 0.45 : 1,
+                            child: SizedBox(
+                              width: 620,
+                              height: 98,
+                              child: KioskBackButton(
+                                onPressed: () {
+                                  if (_isBusy) {
+                                    return;
+                                  }
 
-                              Navigator.pop(context);
-                            },
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
                           ),
                         ),
-
-                        const SizedBox(height: 100),
-
+                        const SizedBox(height: 28),
                         Text(
                           Data.copyrightText,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Color(0xFF17375E),
-                            fontSize: 22,
+                            fontSize: 21,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
@@ -799,279 +1037,90 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
                 ],
               ),
             ),
+            if (_isBusy)
+              const Positioned.fill(
+                child: AbsorbPointer(
+                  absorbing: true,
+                  child: ColoredBox(
+                    color: Colors.transparent,
+                  ),
+                ),
+              ),
           ],
         ),
       ),
     );
   }
+
 
   Widget _buildHeader() {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(
-        70,
-        30,
-        70,
-        0,
-      ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 34,
-        vertical: 26,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(28),
-        gradient: const LinearGradient(
-          colors: [
-            Color(0xFF0D47A1),
-            Color(0xFF1976D2),
-            Color(0xFF42A5F5),
-          ],
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.15),
-            blurRadius: 18,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.billPayment.toUpperCase(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 38,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-
-              ],
-            ),
-          ),
-          Icon(
-            Icons.receipt_long_rounded,
-            color: Colors.white,
-            size: 70,
-          ),
-        ],
-      ),
-    );
-  }
-
-
-  Widget _buildPaymentCard() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(28),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.97),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(
-          color: const Color(0xFF0097B2),
-          width: 3,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.12),
-            blurRadius: 28,
-            offset: const Offset(0, 12),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-
-          const SizedBox(height: 10),
-
-          _buildInformationRow(
-            icon: Icons.business_rounded,
-            label: AppLocalizations.of(context)!.billProvider,
-            value: _safeBillType,
-          ),
-          const Divider(height: 50),
-          _buildInformationRow(
-            icon: Icons.code_rounded,
-            label: AppLocalizations.of(context)!.billCode,
-            value: _safeBillCode,
-          ),
-          const Divider(height: 50),
-          _buildInformationRow(
-            icon: Icons.numbers_rounded,
-            label: AppLocalizations.of(context)!.accountNumber,
-            value: _safeAccountNumber,
-          ),
-          const SizedBox(height: 80),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 30,
-              vertical: 26,
-            ),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  Color(0xFFE8F5E9),
-                  Color(0xFFF5FFF6),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(26),
-              border: Border.all(
-                color: const Color(0xFF66BB6A),
-                width: 3,
-              ),
-            ),
-            child: Column(
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.totalPaymentAmount.toUpperCase(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFF39724A),
-                    fontSize: 30,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-
-                const SizedBox(height: 14),
-                Text(
-                  _formatAmount(
-                    widget.totalAmount,
-                  ),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Color(0xFF1B5E20),
-                    fontSize: 76,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 40),
-
-          _buildQrInstruction(),
-
-          const SizedBox(height: 40),
-
-          if (!_paymentCompleted)
-            _buildModernQrPaymentButton(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInformationRow({
-    required IconData icon,
-    required String label,
-    required String value,
-  }) {
-    return Row(
-      children: [
-        Container(
-          width: 88,
-          height: 88,
-          decoration: BoxDecoration(
-            color: const Color(0xFFEAF4FF),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Icon(
-            icon,
-            color: const Color(0xFF1976D2),
-            size: 48,
-          ),
-        ),
-        const SizedBox(width: 24),
-        Expanded(
-          child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  color: Color(0xFF63758A),
-                  fontSize: 25,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 7),
-              Text(
-                value,
-                style: const TextStyle(
-                  color: Color(0xFF102A43),
-                  fontSize: 36,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-
-  Widget _buildQrInstruction() {
     final loc = AppLocalizations.of(context)!;
 
     return Container(
-      width: double.infinity,
+      margin: const EdgeInsets.fromLTRB(62, 28, 62, 0),
       padding: const EdgeInsets.symmetric(
-        horizontal: 28,
-        vertical: 24,
+        horizontal: 30,
+        vertical: 22,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFFF2FBF7),
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(
-          color: const Color(0xFFB3E2D1),
-          width: 2,
+        borderRadius: BorderRadius.circular(30),
+        gradient: const LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color(0xFF0E3B73),
+            Color(0xFF1769B8),
+            Color(0xFF45A9F2),
+          ],
         ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF0D47A1).withOpacity(0.25),
+            blurRadius: 24,
+            offset: const Offset(0, 11),
+          ),
+        ],
       ),
       child: Row(
         children: [
           Container(
-            width: 84,
-            height: 84,
+            width: 66,
+            height: 66,
             decoration: BoxDecoration(
-              color: const Color(0xFFE4F8F1),
-              borderRadius: BorderRadius.circular(18),
+              color: Colors.white.withOpacity(0.16),
+              borderRadius: BorderRadius.circular(19),
             ),
             child: const Icon(
-              Icons.qr_code_scanner_rounded,
-              color: Color(0xFF118762),
-              size: 52,
+              Icons.payments_rounded,
+              color: Colors.white,
+              size: 40,
             ),
           ),
           const SizedBox(width: 20),
           Expanded(
             child: Text(
-              loc.scanQrInstruction,
+              loc.billPayment.toUpperCase(),
+              textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Color(0xFF155D49),
-                fontSize: 25,
-                height: 1.4,
-                fontWeight: FontWeight.w700,
+                color: Colors.white,
+                fontSize: 40,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 0.5,
               ),
             ),
           ),
-          const SizedBox(width: 14),
+          const SizedBox(width: 20),
           Container(
-            width: 56,
-            height: 56,
-            decoration: const BoxDecoration(
-              color: Color(0xFFE4F8F1),
-              shape: BoxShape.circle,
+            width: 66,
+            height: 66,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.16),
+              borderRadius: BorderRadius.circular(19),
             ),
             child: const Icon(
-              Icons.arrow_downward_rounded,
-              color: Color(0xFF118762),
-              size: 34,
+              Icons.shield_outlined,
+              color: Colors.white,
+              size: 39,
             ),
           ),
         ],
@@ -1080,56 +1129,58 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
   }
 
 
-  Widget _buildModernQrPaymentButton() {
+
+
+  Widget _buildBillInformationCard() {
     final loc = AppLocalizations.of(context)!;
 
-    return Semantics(
-      button: true,
-      enabled: !_isCreatingOrder,
-      label: loc.payWithDuitNowQr,
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: _isCreatingOrder ? null : _startQrPayment,
-          borderRadius: BorderRadius.circular(24),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeOut,
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(
+        28,
+        28,
+        28,
+        30,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.99),
+        borderRadius: BorderRadius.circular(34),
+        border: Border.all(
+          color: const Color(0xFFD2DFEC),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF17375E).withOpacity(0.13),
+            blurRadius: 28,
+            offset: const Offset(0, 13),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildCardTitle(
+            icon: Icons.description_rounded,
+            title: loc.billInformationTitle,
+            accentColor: const Color(0xFF1976D2),
+            iconBackground: const Color(0xFFE7F1FC),
+          ),
+          const SizedBox(height: 24),
+          Container(
             width: double.infinity,
-            height: 126,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 16,
-            ),
+            padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: _isCreatingOrder
-                    ? const [
-                        Color(0xFF76B5A1),
-                        Color(0xFF589782),
-                      ]
-                    : const [
-                        Color(0xFF12A878),
-                        Color(0xFF07845D),
-                        Color(0xFF056B4D),
-                      ],
+                colors: [
+                  Color(0xFF123E70),
+                  Color(0xFF1769B8),
+                  Color(0xFF3C9FEA),
+                ],
               ),
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(
-                color: Colors.white.withOpacity(0.72),
-                width: 2,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF087C5A).withOpacity(
-                    _isCreatingOrder ? 0.15 : 0.30,
-                  ),
-                  blurRadius: 22,
-                  offset: const Offset(0, 11),
-                ),
-              ],
+              borderRadius: BorderRadius.circular(28),
             ),
             child: Row(
               children: [
@@ -1137,108 +1188,527 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
                   width: 90,
                   height: 90,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.12),
-                        blurRadius: 10,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
+                    color: Colors.white.withOpacity(0.16),
+                    borderRadius: BorderRadius.circular(25),
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.24),
+                      width: 1.5,
+                    ),
                   ),
-                  child: _isCreatingOrder
-                      ? const Padding(
-                          padding: EdgeInsets.all(20),
-                          child: CircularProgressIndicator(
-                            strokeWidth: 4,
-                            color: Color(0xFF087C5A),
-                          ),
-                        )
-                      : const Icon(
-                          Icons.qr_code_2_rounded,
-                          color: Color(0xFF087C5A),
-                          size: 62,
-                        ),
+                  child: const Icon(
+                    Icons.receipt_long_rounded,
+                    color: Colors.white,
+                    size: 52,
+                  ),
                 ),
-                const SizedBox(width: 24),
+                const SizedBox(width: 22),
                 Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _isCreatingOrder
-                            ? loc.preparingQr.toUpperCase()
-                            : loc.payWithDuitNowQr.toUpperCase(),
+                        loc.billProvider,
+                        style: TextStyle(
+                          color:
+                              Colors.white.withOpacity(0.78),
+                          fontSize: 23,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 7),
+                      Text(
+                        _safeBillType,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 31,
+                          fontSize: 38,
+                          height: 1.08,
                           fontWeight: FontWeight.w900,
-                          height: 1.05,
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Icon(
-                            _isCreatingOrder
-                                ? Icons.hourglass_top_rounded
-                                : Icons.lock_outline_rounded,
-                            color: Colors.white.withOpacity(0.92),
-                            size: 21,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              _isCreatingOrder
-                                  ? loc.pleaseDoNotClose
-                                  : _formatAmount(widget.totalAmount),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(0.95),
-                                fontSize: 24,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                     ],
-                  ),
-                ),
-                const SizedBox(width: 20),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  width: 66,
-                  height: 66,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(
-                      _isCreatingOrder ? 0.18 : 1,
-                    ),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    _isCreatingOrder
-                        ? Icons.hourglass_top_rounded
-                        : Icons.arrow_forward_rounded,
-                    color: _isCreatingOrder
-                        ? Colors.white
-                        : const Color(0xFF087C5A),
-                    size: 39,
                   ),
                 ),
               ],
             ),
           ),
-        ),
+          const SizedBox(height: 22),
+          Row(
+            children: [
+              Expanded(
+                child: _buildInfoTile(
+                  icon: Icons.code_rounded,
+                  label: loc.billCode,
+                  value: _safeBillCode,
+                ),
+              ),
+              const SizedBox(width: 18),
+              Expanded(
+                child: _buildInfoTile(
+                  icon: Icons.numbers_rounded,
+                  label: loc.accountNumber,
+                  value: _safeAccountNumber,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 
+  Widget _buildTotalPaymentCard() {
+    final loc = AppLocalizations.of(context)!;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        28,
+        30,
+        30,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF5FCF8),
+        borderRadius: BorderRadius.circular(34),
+        border: Border.all(
+          color: const Color(0xFF7BCC9D),
+          width: 2.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF118762).withOpacity(0.11),
+            blurRadius: 24,
+            offset: const Offset(0, 11),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _buildCardTitle(
+            icon: Icons.account_balance_wallet_rounded,
+            title: loc.totalPaymentAmount,
+            accentColor: const Color(0xFF118762),
+            iconBackground: const Color(0xFFE1F5EB),
+            centered: true,
+          ),
+          const SizedBox(height: 22),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              _formatAmount(widget.totalAmount),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color(0xFF125B2D),
+                fontSize: 86,
+                height: 1,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPaymentActionCard() {
+    final loc = AppLocalizations.of(context)!;
+    final bool disabled =
+        _isBusy || _paymentCompleted;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(
+        28,
+        28,
+        28,
+        30,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.99),
+        borderRadius: BorderRadius.circular(34),
+        border: Border.all(
+          color: const Color(0xFFD2DFEC),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF17375E).withOpacity(0.13),
+            blurRadius: 28,
+            offset: const Offset(0, 13),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _buildCardTitle(
+            icon: Icons.qr_code_2_rounded,
+            title: loc.paymentSectionTitle,
+            accentColor: const Color(0xFF1976D2),
+            iconBackground: const Color(0xFFE7F1FC),
+            centered: true,
+          ),
+          const SizedBox(height: 24),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 24,
+            ),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF6FAFD),
+              borderRadius: BorderRadius.circular(26),
+              border: Border.all(
+                color: const Color(0xFFD7E3EE),
+                width: 1.8,
+              ),
+            ),
+            child: Column(
+              children: [
+                Container(
+                  width: 116,
+                  height: 116,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFF16A277),
+                        Color(0xFF087C5A),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF087C5A)
+                            .withOpacity(0.22),
+                        blurRadius: 18,
+                        offset: const Offset(0, 9),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.qr_code_scanner_rounded,
+                    color: Colors.white,
+                    size: 70,
+                  ),
+                ),
+                const SizedBox(height: 22),
+                Text(
+                  loc.scanQrInstruction,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Color(0xFF35536A),
+                    fontSize: 25,
+                    height: 1.4,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+          Container(
+            height: 1.5,
+            width: double.infinity,
+            color: const Color(0xFFDDE6EF),
+          ),
+          const SizedBox(height: 24),
+          Semantics(
+            button: true,
+            enabled: !disabled,
+            label: loc.payWithDuitNowQr,
+            child: IgnorePointer(
+              ignoring: disabled,
+              child: AnimatedOpacity(
+                duration:
+                    const Duration(milliseconds: 180),
+                opacity: disabled ? 0.55 : 1,
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: disabled
+                        ? null
+                        : _startQrPayment,
+                    borderRadius:
+                        BorderRadius.circular(28),
+                    child: AnimatedContainer(
+                      duration:
+                          const Duration(milliseconds: 220),
+                      width: double.infinity,
+                      height: 126,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: disabled
+                              ? const [
+                                  Color(0xFF79B5A2),
+                                  Color(0xFF5E9A86),
+                                ]
+                              : const [
+                                  Color(0xFF13A979),
+                                  Color(0xFF07855E),
+                                  Color(0xFF056B4D),
+                                ],
+                        ),
+                        borderRadius:
+                            BorderRadius.circular(28),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF087C5A)
+                                .withOpacity(
+                              disabled ? 0.12 : 0.30,
+                            ),
+                            blurRadius: 24,
+                            offset:
+                                const Offset(0, 12),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 90,
+                            height: 90,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.circular(24),
+                            ),
+                            child: _isBusy
+                                ? const Padding(
+                                    padding:
+                                        EdgeInsets.all(22),
+                                    child:
+                                        CircularProgressIndicator(
+                                      strokeWidth: 4,
+                                      color:
+                                          Color(0xFF087C5A),
+                                    ),
+                                  )
+                                : const Icon(
+                                    Icons.qr_code_2_rounded,
+                                    color:
+                                        Color(0xFF087C5A),
+                                    size: 62,
+                                  ),
+                          ),
+                          const SizedBox(width: 22),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _isBusy
+                                      ? loc.preparingQr
+                                          .toUpperCase()
+                                      : loc.payWithDuitNowQr
+                                          .toUpperCase(),
+                                  maxLines: 2,
+                                  overflow:
+                                      TextOverflow.ellipsis,
+                                  style:
+                                      const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight:
+                                        FontWeight.w900,
+                                    height: 1.05,
+                                  ),
+                                ),
+                                const SizedBox(height: 9),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      _isBusy
+                                          ? Icons
+                                              .hourglass_top_rounded
+                                          : Icons
+                                              .lock_outline_rounded,
+                                      color: Colors.white
+                                          .withOpacity(0.94),
+                                      size: 22,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        _isBusy
+                                            ? loc
+                                                .pleaseDoNotClose
+                                            : _formatAmount(
+                                                widget
+                                                    .totalAmount,
+                                              ),
+                                        maxLines: 1,
+                                        overflow:
+                                            TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.white
+                                              .withOpacity(0.94),
+                                          fontSize: 23,
+                                          fontWeight:
+                                              FontWeight.w800,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 18),
+                          Container(
+                            width: 64,
+                            height: 64,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(
+                                disabled ? 0.20 : 1,
+                              ),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              _isBusy
+                                  ? Icons
+                                      .hourglass_top_rounded
+                                  : Icons
+                                      .arrow_forward_rounded,
+                              color: disabled
+                                  ? Colors.white
+                                  : const Color(
+                                      0xFF087C5A,
+                                    ),
+                              size: 37,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCardTitle({
+    required IconData icon,
+    required String title,
+    required Color accentColor,
+    required Color iconBackground,
+    bool centered = false,
+  }) {
+    final row = Row(
+      mainAxisSize:
+          centered ? MainAxisSize.min : MainAxisSize.max,
+      children: [
+        Container(
+          width: 58,
+          height: 58,
+          decoration: BoxDecoration(
+            color: iconBackground,
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: Icon(
+            icon,
+            color: accentColor,
+            size: 34,
+          ),
+        ),
+        const SizedBox(width: 15),
+        Flexible(
+          child: Text(
+            title.toUpperCase(),
+            style: const TextStyle(
+              color: Color(0xFF193A5A),
+              fontSize: 29,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ),
+      ],
+    );
+
+    if (centered) {
+      return Center(child: row);
+    }
+
+    return row;
+  }
+
+  Widget _buildInfoTile({
+    required IconData icon,
+    required String label,
+    required String value,
+  }) {
+    return Container(
+      constraints: const BoxConstraints(
+        minHeight: 150,
+      ),
+      padding: const EdgeInsets.all(22),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF5F8FC),
+        borderRadius: BorderRadius.circular(26),
+        border: Border.all(
+          color: const Color(0xFFD9E3EE),
+          width: 1.7,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              color: const Color(0xFFE6F1FC),
+              borderRadius: BorderRadius.circular(17),
+            ),
+            child: Icon(
+              icon,
+              color: const Color(0xFF1976D2),
+              size: 33,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            label,
+            style: const TextStyle(
+              color: Color(0xFF6B7B8D),
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 7),
+          Text(
+            value,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: Color(0xFF182D43),
+              fontSize: 30,
+              height: 1.12,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildErrorCard() {
     return Container(

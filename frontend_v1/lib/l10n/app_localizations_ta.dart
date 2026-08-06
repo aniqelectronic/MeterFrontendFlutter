@@ -4684,4 +4684,19 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get receiptPaymentMethodLabel => 'கட்டண முறை';
+
+  @override
+  String get billReceiptProcessingTitle => 'உங்கள் ரசீது தயாராகிறது';
+
+  @override
+  String get billReceiptProcessingMessage => 'உங்கள் கட்டணம் வெற்றிகரமாக முடிந்தது. உங்கள் மின்னணு ரசீது தயாராகும் வரை காத்திருக்கவும்.';
+
+  @override
+  String get billReceiptProcessingLocked => 'தயவுசெய்து பின்செல்ல வேண்டாம் அல்லது கட்டண பொத்தானை மீண்டும் அழுத்த வேண்டாம்.';
+
+  @override
+  String get billInformationTitle => 'கட்டண விவரங்கள்';
+
+  @override
+  String get paymentSectionTitle => 'கட்டணம்';
 }

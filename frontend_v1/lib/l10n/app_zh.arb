@@ -2296,6 +2296,13 @@
   "billReceiptQrError": "无法加载电子收据二维码，请重试。",
   "billReceiptQrRetry": "重试",
 
-  "receiptPaymentMethodLabel": "付款方式"
+  "receiptPaymentMethodLabel": "付款方式",
+
+  "billReceiptProcessingTitle": "正在准备您的收据",
+"billReceiptProcessingMessage": "付款已成功。请稍候，我们正在准备您的电子收据。",
+"billReceiptProcessingLocked": "请勿返回或再次按下付款按钮。",
+
+"billInformationTitle": "账单资料",
+"paymentSectionTitle": "付款"
 
 }

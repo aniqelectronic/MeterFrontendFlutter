@@ -4690,4 +4690,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get receiptPaymentMethodLabel => 'Payment Method';
+
+  @override
+  String get billReceiptProcessingTitle => 'Preparing Your Receipt';
+
+  @override
+  String get billReceiptProcessingMessage => 'Your payment was successful. Please wait while we prepare your digital receipt.';
+
+  @override
+  String get billReceiptProcessingLocked => 'Please do not go back or press the payment button again.';
+
+  @override
+  String get billInformationTitle => 'Bill Information';
+
+  @override
+  String get paymentSectionTitle => 'Payment';
 }

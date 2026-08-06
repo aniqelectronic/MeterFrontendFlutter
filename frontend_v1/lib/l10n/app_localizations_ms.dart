@@ -4684,4 +4684,19 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get receiptPaymentMethodLabel => 'Kaedah Pembayaran';
+
+  @override
+  String get billReceiptProcessingTitle => 'Menyediakan Resit Anda';
+
+  @override
+  String get billReceiptProcessingMessage => 'Pembayaran anda berjaya. Sila tunggu sementara kami menyediakan resit digital anda.';
+
+  @override
+  String get billReceiptProcessingLocked => 'Sila jangan kembali atau tekan butang pembayaran sekali lagi.';
+
+  @override
+  String get billInformationTitle => 'Maklumat Bil';
+
+  @override
+  String get paymentSectionTitle => 'Pembayaran';
 }

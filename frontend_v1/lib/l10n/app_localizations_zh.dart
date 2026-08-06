@@ -4684,4 +4684,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get receiptPaymentMethodLabel => '付款方式';
+
+  @override
+  String get billReceiptProcessingTitle => '正在准备您的收据';
+
+  @override
+  String get billReceiptProcessingMessage => '付款已成功。请稍候，我们正在准备您的电子收据。';
+
+  @override
+  String get billReceiptProcessingLocked => '请勿返回或再次按下付款按钮。';
+
+  @override
+  String get billInformationTitle => '账单资料';
+
+  @override
+  String get paymentSectionTitle => '付款';
 }

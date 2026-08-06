@@ -2240,6 +2240,13 @@
   "billReceiptQrError": "மின்னணு ரசீது QR குறியீட்டை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
   "billReceiptQrRetry": "மீண்டும் முயற்சிக்கவும்",
 
-  "receiptPaymentMethodLabel": "கட்டண முறை"
+  "receiptPaymentMethodLabel": "கட்டண முறை",
+
+  "billReceiptProcessingTitle": "உங்கள் ரசீது தயாராகிறது",
+"billReceiptProcessingMessage": "உங்கள் கட்டணம் வெற்றிகரமாக முடிந்தது. உங்கள் மின்னணு ரசீது தயாராகும் வரை காத்திருக்கவும்.",
+"billReceiptProcessingLocked": "தயவுசெய்து பின்செல்ல வேண்டாம் அல்லது கட்டண பொத்தானை மீண்டும் அழுத்த வேண்டாம்.",
+
+"billInformationTitle": "கட்டண விவரங்கள்",
+"paymentSectionTitle": "கட்டணம்"
 
 }

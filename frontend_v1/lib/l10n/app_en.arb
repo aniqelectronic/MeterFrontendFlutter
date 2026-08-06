@@ -2404,7 +2404,14 @@
   "billReceiptQrError": "The digital receipt QR could not be loaded. Please try again.",
   "billReceiptQrRetry": "Try Again",
 
-  "receiptPaymentMethodLabel": "Payment Method"
+  "receiptPaymentMethodLabel": "Payment Method",
+
+  "billReceiptProcessingTitle": "Preparing Your Receipt",
+"billReceiptProcessingMessage": "Your payment was successful. Please wait while we prepare your digital receipt.",
+"billReceiptProcessingLocked": "Please do not go back or press the payment button again.",
+
+"billInformationTitle": "Bill Information",
+"paymentSectionTitle": "Payment"
 
 
 

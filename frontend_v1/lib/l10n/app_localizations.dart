@@ -9284,6 +9284,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Payment Method'**
   String get receiptPaymentMethodLabel;
+
+  /// No description provided for @billReceiptProcessingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing Your Receipt'**
+  String get billReceiptProcessingTitle;
+
+  /// No description provided for @billReceiptProcessingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment was successful. Please wait while we prepare your digital receipt.'**
+  String get billReceiptProcessingMessage;
+
+  /// No description provided for @billReceiptProcessingLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Please do not go back or press the payment button again.'**
+  String get billReceiptProcessingLocked;
+
+  /// No description provided for @billInformationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill Information'**
+  String get billInformationTitle;
+
+  /// No description provided for @paymentSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment'**
+  String get paymentSectionTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
