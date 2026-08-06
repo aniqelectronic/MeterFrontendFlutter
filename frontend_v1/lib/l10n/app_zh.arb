@@ -2239,5 +2239,63 @@
   "knowledgeFact17": "国际空间站以每小时约28,000公里的速度绕地球运行。",
   "knowledgeFact18": "尽管珊瑚礁仅覆盖海底的一小部分，却支撑着多样化的海洋生物。",
   "knowledgeFact19": "定期步行有助于提升心脏健康、平衡能力及整体身心健康。",
-  "knowledgeFact20": "电子收据有助于减少纸张使用，并使交易记录更容易保存与检索。"
+  "knowledgeFact20": "电子收据有助于减少纸张使用，并使交易记录更容易保存与检索。",
+
+
+
+  "billPayment": "账单付款",
+
+  "paymentForBill": "支付 {billType} 账单",
+  "@paymentForBill": {
+    "placeholders": {
+      "billType": {}
+    }
+  },
+
+  "billProvider": "账单机构",
+  "billCode": "账单代码",
+  "accountNumber": "账户号码",
+
+  "totalPaymentAmount": "付款总额",
+
+  "payWithDuitNowQr": "使用 DuitNow QR 付款",
+  "preparingQr": "正在生成二维码...",
+
+  "scanQrInstruction": "点击“使用 DuitNow QR 付款”，然后使用您的银行应用扫描二维码。",
+
+  "preparingQrPayment": "正在准备二维码付款",
+
+  "pleaseDoNotClose": "请不要关闭此页面。",
+
+  "paymentSuccessful": "付款成功",
+
+  "amount": "金额",
+
+  "orderNumber": "订单编号",
+
+  "bankTransaction": "银行交易编号",
+
+  "continueButton": "继续",
+
+  "invalidAmount": "金额无效",
+
+  "paymentAmountMustBeMoreThanZero": "付款金额必须大于 RM 0.00。",
+
+  "paymentError": "付款错误",
+
+  "unableToCreateQr": "无法生成二维码付款，请重试。",
+
+  "ok": "确定",
+
+  "qrPaymentCancelled": "二维码付款已取消。",
+
+  "billReceiptDigitalTitle": "电子收据",
+  "billReceiptDigitalSubtitle": "扫描二维码以查看或下载您的正式收据。",
+  "billReceiptQrLoading": "正在生成电子收据二维码...",
+  "billReceiptQrScanInstruction": "请使用手机扫描此二维码，以查看或下载收据。",
+  "billReceiptQrError": "无法加载电子收据二维码，请重试。",
+  "billReceiptQrRetry": "重试",
+
+  "receiptPaymentMethodLabel": "付款方式"
+
 }

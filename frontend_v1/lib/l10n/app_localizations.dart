@@ -474,7 +474,7 @@ abstract class AppLocalizations {
   /// No description provided for @continueButton.
   ///
   /// In en, this message translates to:
-  /// **'CONTINUE'**
+  /// **'Continue'**
   String get continueButton;
 
   /// No description provided for @semakanSewaanWarningTitle.
@@ -1026,7 +1026,7 @@ abstract class AppLocalizations {
   /// No description provided for @paymentSuccessful.
   ///
   /// In en, this message translates to:
-  /// **'PAYMENT SUCCESSFUL'**
+  /// **'Payment Successful'**
   String get paymentSuccessful;
 
   /// No description provided for @paymentSuccessInstruction.
@@ -9000,7 +9000,7 @@ abstract class AppLocalizations {
   /// No description provided for @qrPaymentCancelled.
   ///
   /// In en, this message translates to:
-  /// **'Payment cancelled'**
+  /// **'QR payment cancelled.'**
   String get qrPaymentCancelled;
 
   /// No description provided for @didYouKnowTitle.
@@ -9134,6 +9134,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Digital receipts can reduce paper usage and make transaction records easier to keep and retrieve.'**
   String get knowledgeFact20;
+
+  /// No description provided for @billPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill Payment'**
+  String get billPayment;
+
+  /// No description provided for @paymentForBill.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment for Bill {billType}'**
+  String paymentForBill(Object billType);
+
+  /// No description provided for @billProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill Provider'**
+  String get billProvider;
+
+  /// No description provided for @billCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill Code'**
+  String get billCode;
+
+  /// No description provided for @accountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Number'**
+  String get accountNumber;
+
+  /// No description provided for @totalPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Payment Amount'**
+  String get totalPaymentAmount;
+
+  /// No description provided for @payWithDuitNowQr.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay with DuitNow QR'**
+  String get payWithDuitNowQr;
+
+  /// No description provided for @preparingQr.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing QR...'**
+  String get preparingQr;
+
+  /// No description provided for @scanQrInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Press \"Pay with DuitNow QR\", then scan the QR code using your banking application.'**
+  String get scanQrInstruction;
+
+  /// No description provided for @preparingQrPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing QR Payment'**
+  String get preparingQrPayment;
+
+  /// No description provided for @pleaseDoNotClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Please do not close this page.'**
+  String get pleaseDoNotClose;
+
+  /// No description provided for @orderNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Number'**
+  String get orderNumber;
+
+  /// No description provided for @bankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction'**
+  String get bankTransaction;
+
+  /// No description provided for @invalidAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Amount'**
+  String get invalidAmount;
+
+  /// No description provided for @paymentAmountMustBeMoreThanZero.
+  ///
+  /// In en, this message translates to:
+  /// **'The payment amount must be more than RM 0.00.'**
+  String get paymentAmountMustBeMoreThanZero;
+
+  /// No description provided for @paymentError.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Error'**
+  String get paymentError;
+
+  /// No description provided for @unableToCreateQr.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to create the QR payment. Please try again.'**
+  String get unableToCreateQr;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @billReceiptDigitalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Receipt'**
+  String get billReceiptDigitalTitle;
+
+  /// No description provided for @billReceiptDigitalSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan the QR code to view or download your official receipt.'**
+  String get billReceiptDigitalSubtitle;
+
+  /// No description provided for @billReceiptQrLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your digital receipt QR...'**
+  String get billReceiptQrLoading;
+
+  /// No description provided for @billReceiptQrScanInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan this QR code using your phone to view or download the receipt.'**
+  String get billReceiptQrScanInstruction;
+
+  /// No description provided for @billReceiptQrError.
+  ///
+  /// In en, this message translates to:
+  /// **'The digital receipt QR could not be loaded. Please try again.'**
+  String get billReceiptQrError;
+
+  /// No description provided for @billReceiptQrRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get billReceiptQrRetry;
+
+  /// No description provided for @receiptPaymentMethodLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get receiptPaymentMethodLabel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

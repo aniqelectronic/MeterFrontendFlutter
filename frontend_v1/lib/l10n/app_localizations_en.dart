@@ -195,7 +195,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelButton => 'CANCEL';
 
   @override
-  String get continueButton => 'CONTINUE';
+  String get continueButton => 'Continue';
 
   @override
   String get semakanSewaanWarningTitle => 'Important Notice';
@@ -493,7 +493,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paymentProcessingInstruction => 'Please wait while we process\nyour payment...';
 
   @override
-  String get paymentSuccessful => 'PAYMENT SUCCESSFUL';
+  String get paymentSuccessful => 'Payment Successful';
 
   @override
   String get paymentSuccessInstruction => 'Redirecting to receipt...';
@@ -4546,7 +4546,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qrClosingPleaseWait => 'Please wait while the QR payment screen closes.';
 
   @override
-  String get qrPaymentCancelled => 'Payment cancelled';
+  String get qrPaymentCancelled => 'QR payment cancelled.';
 
   @override
   String get didYouKnowTitle => 'Did You Know?';
@@ -4613,4 +4613,81 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get knowledgeFact20 => 'Digital receipts can reduce paper usage and make transaction records easier to keep and retrieve.';
+
+  @override
+  String get billPayment => 'Bill Payment';
+
+  @override
+  String paymentForBill(Object billType) {
+    return 'Payment for Bill $billType';
+  }
+
+  @override
+  String get billProvider => 'Bill Provider';
+
+  @override
+  String get billCode => 'Bill Code';
+
+  @override
+  String get accountNumber => 'Account Number';
+
+  @override
+  String get totalPaymentAmount => 'Total Payment Amount';
+
+  @override
+  String get payWithDuitNowQr => 'Pay with DuitNow QR';
+
+  @override
+  String get preparingQr => 'Preparing QR...';
+
+  @override
+  String get scanQrInstruction => 'Press \"Pay with DuitNow QR\", then scan the QR code using your banking application.';
+
+  @override
+  String get preparingQrPayment => 'Preparing QR Payment';
+
+  @override
+  String get pleaseDoNotClose => 'Please do not close this page.';
+
+  @override
+  String get orderNumber => 'Order Number';
+
+  @override
+  String get bankTransaction => 'Bank Transaction';
+
+  @override
+  String get invalidAmount => 'Invalid Amount';
+
+  @override
+  String get paymentAmountMustBeMoreThanZero => 'The payment amount must be more than RM 0.00.';
+
+  @override
+  String get paymentError => 'Payment Error';
+
+  @override
+  String get unableToCreateQr => 'Unable to create the QR payment. Please try again.';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get billReceiptDigitalTitle => 'Digital Receipt';
+
+  @override
+  String get billReceiptDigitalSubtitle => 'Scan the QR code to view or download your official receipt.';
+
+  @override
+  String get billReceiptQrLoading => 'Preparing your digital receipt QR...';
+
+  @override
+  String get billReceiptQrScanInstruction => 'Scan this QR code using your phone to view or download the receipt.';
+
+  @override
+  String get billReceiptQrError => 'The digital receipt QR could not be loaded. Please try again.';
+
+  @override
+  String get billReceiptQrRetry => 'Try Again';
+
+  @override
+  String get receiptPaymentMethodLabel => 'Payment Method';
 }

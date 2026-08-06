@@ -2185,5 +2185,61 @@
   "knowledgeFact17": "விண்வெளி மையம் மணிக்கு 28,000 கி.மீ வேகத்தில் சுற்றுகிறது.",
   "knowledgeFact18": "பவளப்பாறைகள் ஏராளமான கடல் உயிரினங்களுக்கு வாழ்விடமளிக்கிறது.",
   "knowledgeFact19": "வழக்கமான நடைபயிற்சி இதய ஆரோக்கியத்தை மேம்படுத்தும்.",
-  "knowledgeFact20": "டிஜிட்டல் ரசீதுகள் காகிதப் பயன்பாட்டைக் குறைக்க உதவுகின்றன."
+  "knowledgeFact20": "டிஜிட்டல் ரசீதுகள் காகிதப் பயன்பாட்டைக் குறைக்க உதவுகின்றன.",
+
+  "billPayment": "பில் கட்டணம்",
+
+  "paymentForBill": "{billType} பில் கட்டணம்",
+  "@paymentForBill": {
+    "placeholders": {
+      "billType": {}
+    }
+  },
+
+  "billProvider": "பில் வழங்குநர்",
+  "billCode": "பில் குறியீடு",
+  "accountNumber": "கணக்கு எண்",
+
+  "totalPaymentAmount": "மொத்த கட்டணத் தொகை",
+
+  "payWithDuitNowQr": "DuitNow QR மூலம் செலுத்தவும்",
+  "preparingQr": "QR தயாராகிறது...",
+
+  "scanQrInstruction": "\"DuitNow QR மூலம் செலுத்தவும்\" என்பதை அழுத்தி, உங்கள் வங்கி செயலியில் QR குறியீட்டை ஸ்கேன் செய்யவும்.",
+
+  "preparingQrPayment": "QR கட்டணம் தயாராகிறது",
+
+  "pleaseDoNotClose": "இந்தப் பக்கத்தை மூட வேண்டாம்.",
+
+  "paymentSuccessful": "கட்டணம் வெற்றிகரமாக முடிந்தது",
+
+  "amount": "தொகை",
+
+  "orderNumber": "ஆர்டர் எண்",
+
+  "bankTransaction": "வங்கி பரிவர்த்தனை எண்",
+
+  "continueButton": "தொடரவும்",
+
+  "invalidAmount": "தவறான தொகை",
+
+  "paymentAmountMustBeMoreThanZero": "கட்டணத் தொகை RM 0.00-ஐ விட அதிகமாக இருக்க வேண்டும்.",
+
+  "paymentError": "கட்டணப் பிழை",
+
+  "unableToCreateQr": "QR கட்டணத்தை உருவாக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+
+  "ok": "சரி",
+
+  "qrPaymentCancelled": "QR கட்டணம் ரத்து செய்யப்பட்டது.",
+
+  "billReceiptDigitalTitle": "மின்னணு ரசீது",
+  "billReceiptDigitalSubtitle": "உங்கள் அதிகாரப்பூர்வ ரசீதைப் பார்க்க அல்லது பதிவிறக்க QR குறியீட்டை ஸ்கேன் செய்யவும்.",
+  "billReceiptQrLoading": "உங்கள் மின்னணு ரசீது QR குறியீடு தயாராகிறது...",
+  "billReceiptQrScanInstruction": "ரசீதைப் பார்க்க அல்லது பதிவிறக்க இந்த QR குறியீட்டை உங்கள் தொலைபேசியில் ஸ்கேன் செய்யவும்.",
+  "billReceiptQrError": "மின்னணு ரசீது QR குறியீட்டை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+  "billReceiptQrRetry": "மீண்டும் முயற்சிக்கவும்",
+
+  "receiptPaymentMethodLabel": "கட்டண முறை"
+
 }

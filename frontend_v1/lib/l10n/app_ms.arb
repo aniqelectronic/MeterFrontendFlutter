@@ -2375,7 +2375,65 @@
   "knowledgeFact17": "Stesen Angkasa Antarabangsa bergerak mengelilingi Bumi pada kelajuan kira-kira 28,000 kilometer sejam.",
   "knowledgeFact18": "Terumbu karang menyokong pelbagai hidupan laut walaupun hanya meliputi sebahagian kecil dasar lautan.",
   "knowledgeFact19": "Berjalan kaki secara berkala boleh membantu meningkatkan kecergasan jantung, keseimbangan dan kesejahteraan keseluruhan.",
-  "knowledgeFact20": "Resit digital membantu mengurangkan penggunaan kertas serta memudahkan rekod transaksi disimpan dan dicapai semula."
+  "knowledgeFact20": "Resit digital membantu mengurangkan penggunaan kertas serta memudahkan rekod transaksi disimpan dan dicapai semula.",
+
+
+
+  "billPayment": "Pembayaran Bil",
+
+  "paymentForBill": "Pembayaran Bil {billType}",
+  "@paymentForBill": {
+    "placeholders": {
+      "billType": {}
+    }
+  },
+
+  "billProvider": "Penyedia Bil",
+  "billCode": "Kod Bil",
+  "accountNumber": "Nombor Akaun",
+
+  "totalPaymentAmount": "Jumlah Bayaran",
+
+  "payWithDuitNowQr": "Bayar dengan DuitNow QR",
+  "preparingQr": "Menyediakan QR...",
+
+  "scanQrInstruction": "Tekan \"Bayar dengan DuitNow QR\", kemudian imbas kod QR menggunakan aplikasi bank anda.",
+
+  "preparingQrPayment": "Menyediakan Bayaran QR",
+
+  "pleaseDoNotClose": "Sila jangan tutup halaman ini.",
+
+  "paymentSuccessful": "Pembayaran Berjaya",
+
+  "amount": "Jumlah",
+
+  "orderNumber": "Nombor Pesanan",
+
+  "bankTransaction": "Transaksi Bank",
+
+  "continueButton": "Teruskan",
+
+  "invalidAmount": "Jumlah Tidak Sah",
+
+  "paymentAmountMustBeMoreThanZero": "Jumlah bayaran mestilah melebihi RM 0.00.",
+
+  "paymentError": "Ralat Pembayaran",
+
+  "unableToCreateQr": "Tidak dapat menyediakan bayaran QR. Sila cuba lagi.",
+
+  "ok": "OK",
+
+  "qrPaymentCancelled": "Bayaran QR dibatalkan.",
+
+  "billReceiptDigitalTitle": "Resit Digital",
+  "billReceiptDigitalSubtitle": "Imbas kod QR untuk melihat atau memuat turun resit rasmi anda.",
+  "billReceiptQrLoading": "Sedang menyediakan kod QR resit digital anda...",
+  "billReceiptQrScanInstruction": "Imbas kod QR ini menggunakan telefon anda untuk melihat atau memuat turun resit.",
+  "billReceiptQrError": "Kod QR resit digital tidak dapat dimuatkan. Sila cuba lagi.",
+  "billReceiptQrRetry": "Cuba Lagi",
+
+  "receiptPaymentMethodLabel": "Kaedah Pembayaran"
+
 
 
 

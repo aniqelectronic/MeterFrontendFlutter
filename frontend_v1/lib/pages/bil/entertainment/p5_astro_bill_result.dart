@@ -4,6 +4,7 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/electric/electric_bill_model.dart';
 import 'package:frontend_v1/model/pricing/catalog_pricing.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/pages/payment/bil_qr_payment_page.dart';
 
 class P5AstroResultPage extends StatefulWidget {
   final ElectricBillModel bill;
@@ -240,7 +241,7 @@ String _formatSignedAmount(double amount) {
     Navigator.pop(context);
   }
 
-  void _handleContinue() {
+  Future<void> _handleContinue() async {
     _closeKeyboard();
 
     final loc = AppLocalizations.of(context)!;
@@ -263,10 +264,82 @@ String _formatSignedAmount(double amount) {
       return;
     }
 
-    Navigator.pop(
+    final result =
+        await Navigator.push<BilQrPaymentResult>(
       context,
-      _totalAmount,
+      MaterialPageRoute(
+        settings: const RouteSettings(
+          name: '/payment',
+        ),
+        builder: (_) => BilQrPaymentPage(
+          // Example:
+          // Astro or another entertainment provider.
+          billType: bill.billerName,
+
+          // Provider/product code, for example ASTRO or ASB.
+          billCode: bill.productCode,
+
+          accountNumber: bill.accountNumber,
+
+          // Actual amount selected for the provider.
+          billAmount: _selectedAmount,
+
+          // Final amount charged through PegePay.
+          totalAmount: _totalAmount,
+        ),
+      ),
     );
+
+    if (!mounted || result == null) {
+      return;
+    }
+
+    debugPrint(
+      '[ENTERTAINMENT BILL] QR payment successful',
+    );
+    debugPrint(
+      '[ENTERTAINMENT BILL] Bill type: ${result.billType}',
+    );
+    debugPrint(
+      '[ENTERTAINMENT BILL] Bill code: ${result.billCode}',
+    );
+    debugPrint(
+      '[ENTERTAINMENT BILL] Account: ${result.accountNumber}',
+    );
+    debugPrint(
+      '[ENTERTAINMENT BILL] Bill amount: ${result.billAmount}',
+    );
+    debugPrint(
+      '[ENTERTAINMENT BILL] Total charged: ${result.totalAmount}',
+    );
+    debugPrint(
+      '[ENTERTAINMENT BILL] Order number: ${result.orderNo}',
+    );
+    debugPrint(
+      '[ENTERTAINMENT BILL] Bank transaction: '
+      '${result.bankTransactionNo}',
+    );
+
+    /*
+    NEXT STEP:
+
+    Call your entertainment bill payment API here.
+
+    Example:
+
+    final success =
+        await EntertainmentBillService.payBill(
+      productCode: result.billCode,
+      accountNumber: result.accountNumber,
+      amount: result.billAmount,
+      orderNo: result.orderNo,
+      bankTransactionNo:
+          result.bankTransactionNo,
+    );
+
+    After the provider API succeeds, navigate to the
+    bill receipt page.
+    */
   }
 
   void _showMessage(String message) {

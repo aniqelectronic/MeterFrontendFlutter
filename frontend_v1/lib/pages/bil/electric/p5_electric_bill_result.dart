@@ -4,6 +4,7 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/electric/electric_bill_model.dart';
 import 'package:frontend_v1/model/pricing/catalog_pricing.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/pages/payment/bil_qr_payment_page.dart';
 
 class P5ElectricBillResultPage extends StatefulWidget {
   final ElectricBillModel bill;
@@ -240,7 +241,7 @@ String _formatSignedAmount(double amount) {
     Navigator.pop(context);
   }
 
-  void _handleContinue() {
+  Future<void> _handleContinue() async {
     _closeKeyboard();
 
     final loc = AppLocalizations.of(context)!;
@@ -263,10 +264,83 @@ String _formatSignedAmount(double amount) {
       return;
     }
 
-    Navigator.pop(
+    final result =
+        await Navigator.push<BilQrPaymentResult>(
       context,
-      _totalAmount,
+      MaterialPageRoute(
+        settings: const RouteSettings(
+          name: '/payment',
+        ),
+        builder: (_) => BilQrPaymentPage(
+          // Example:
+          // bill.billerName = "Tenaga Nasional Berhad"
+          // or "NUR Power"
+          billType: bill.billerName,
+
+          // Example:
+          // TNB, NUR, SESB, SESCO
+          billCode: bill.productCode,
+
+          accountNumber: bill.accountNumber,
+
+          // Actual amount selected for the bill provider.
+          billAmount: _selectedAmount,
+
+          // Final amount charged through PegePay.
+          totalAmount: _totalAmount,
+        ),
+      ),
     );
+
+    if (!mounted || result == null) {
+      return;
+    }
+
+    debugPrint(
+      '[ELECTRIC BILL] QR payment successful',
+    );
+    debugPrint(
+      '[ELECTRIC BILL] Bill type: ${result.billType}',
+    );
+    debugPrint(
+      '[ELECTRIC BILL] Bill code: ${result.billCode}',
+    );
+    debugPrint(
+      '[ELECTRIC BILL] Account: ${result.accountNumber}',
+    );
+    debugPrint(
+      '[ELECTRIC BILL] Bill amount: ${result.billAmount}',
+    );
+    debugPrint(
+      '[ELECTRIC BILL] Total charged: ${result.totalAmount}',
+    );
+    debugPrint(
+      '[ELECTRIC BILL] Order number: ${result.orderNo}',
+    );
+    debugPrint(
+      '[ELECTRIC BILL] Bank transaction: '
+      '${result.bankTransactionNo}',
+    );
+
+    /*
+    NEXT STEP:
+
+    Call your electric bill payment API here.
+
+    Example:
+
+    final success =
+        await ElectricBillService.payBill(
+      productCode: result.billCode,
+      accountNumber: result.accountNumber,
+      amount: result.billAmount,
+      orderNo: result.orderNo,
+      bankTransactionNo:
+          result.bankTransactionNo,
+    );
+
+    After the API succeeds, navigate to your receipt page.
+    */
   }
 
   void _showMessage(String message) {

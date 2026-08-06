@@ -4540,7 +4540,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get qrClosingPleaseWait => '请稍候，QR付款屏幕正在关闭。';
 
   @override
-  String get qrPaymentCancelled => '付款已取消';
+  String get qrPaymentCancelled => '二维码付款已取消。';
 
   @override
   String get didYouKnowTitle => '你知道吗？';
@@ -4607,4 +4607,81 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get knowledgeFact20 => '电子收据有助于减少纸张使用，并使交易记录更容易保存与检索。';
+
+  @override
+  String get billPayment => '账单付款';
+
+  @override
+  String paymentForBill(Object billType) {
+    return '支付 $billType 账单';
+  }
+
+  @override
+  String get billProvider => '账单机构';
+
+  @override
+  String get billCode => '账单代码';
+
+  @override
+  String get accountNumber => '账户号码';
+
+  @override
+  String get totalPaymentAmount => '付款总额';
+
+  @override
+  String get payWithDuitNowQr => '使用 DuitNow QR 付款';
+
+  @override
+  String get preparingQr => '正在生成二维码...';
+
+  @override
+  String get scanQrInstruction => '点击“使用 DuitNow QR 付款”，然后使用您的银行应用扫描二维码。';
+
+  @override
+  String get preparingQrPayment => '正在准备二维码付款';
+
+  @override
+  String get pleaseDoNotClose => '请不要关闭此页面。';
+
+  @override
+  String get orderNumber => '订单编号';
+
+  @override
+  String get bankTransaction => '银行交易编号';
+
+  @override
+  String get invalidAmount => '金额无效';
+
+  @override
+  String get paymentAmountMustBeMoreThanZero => '付款金额必须大于 RM 0.00。';
+
+  @override
+  String get paymentError => '付款错误';
+
+  @override
+  String get unableToCreateQr => '无法生成二维码付款，请重试。';
+
+  @override
+  String get ok => '确定';
+
+  @override
+  String get billReceiptDigitalTitle => '电子收据';
+
+  @override
+  String get billReceiptDigitalSubtitle => '扫描二维码以查看或下载您的正式收据。';
+
+  @override
+  String get billReceiptQrLoading => '正在生成电子收据二维码...';
+
+  @override
+  String get billReceiptQrScanInstruction => '请使用手机扫描此二维码，以查看或下载收据。';
+
+  @override
+  String get billReceiptQrError => '无法加载电子收据二维码，请重试。';
+
+  @override
+  String get billReceiptQrRetry => '重试';
+
+  @override
+  String get receiptPaymentMethodLabel => '付款方式';
 }

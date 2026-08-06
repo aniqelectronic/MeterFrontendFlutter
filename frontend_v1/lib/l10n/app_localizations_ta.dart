@@ -487,7 +487,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get paymentProcessingInstruction => 'பணம் செலுத்துதல் செயலாக்கப்படுகிறது...\nகாத்திருக்கவும்.';
 
   @override
-  String get paymentSuccessful => 'பணம் செலுத்துதல் வெற்றி';
+  String get paymentSuccessful => 'கட்டணம் வெற்றிகரமாக முடிந்தது';
 
   @override
   String get paymentSuccessInstruction => 'ரசீதுக்குச் செல்கிறது...';
@@ -4540,7 +4540,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get qrClosingPleaseWait => 'திரை மூடும் வரை காத்திருக்கவும்.';
 
   @override
-  String get qrPaymentCancelled => 'பணம் செலுத்துதல் ரத்து செய்யப்பட்டது';
+  String get qrPaymentCancelled => 'QR கட்டணம் ரத்து செய்யப்பட்டது.';
 
   @override
   String get didYouKnowTitle => 'உங்களுக்குத் தெரியுமா?';
@@ -4607,4 +4607,81 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get knowledgeFact20 => 'டிஜிட்டல் ரசீதுகள் காகிதப் பயன்பாட்டைக் குறைக்க உதவுகின்றன.';
+
+  @override
+  String get billPayment => 'பில் கட்டணம்';
+
+  @override
+  String paymentForBill(Object billType) {
+    return '$billType பில் கட்டணம்';
+  }
+
+  @override
+  String get billProvider => 'பில் வழங்குநர்';
+
+  @override
+  String get billCode => 'பில் குறியீடு';
+
+  @override
+  String get accountNumber => 'கணக்கு எண்';
+
+  @override
+  String get totalPaymentAmount => 'மொத்த கட்டணத் தொகை';
+
+  @override
+  String get payWithDuitNowQr => 'DuitNow QR மூலம் செலுத்தவும்';
+
+  @override
+  String get preparingQr => 'QR தயாராகிறது...';
+
+  @override
+  String get scanQrInstruction => '\"DuitNow QR மூலம் செலுத்தவும்\" என்பதை அழுத்தி, உங்கள் வங்கி செயலியில் QR குறியீட்டை ஸ்கேன் செய்யவும்.';
+
+  @override
+  String get preparingQrPayment => 'QR கட்டணம் தயாராகிறது';
+
+  @override
+  String get pleaseDoNotClose => 'இந்தப் பக்கத்தை மூட வேண்டாம்.';
+
+  @override
+  String get orderNumber => 'ஆர்டர் எண்';
+
+  @override
+  String get bankTransaction => 'வங்கி பரிவர்த்தனை எண்';
+
+  @override
+  String get invalidAmount => 'தவறான தொகை';
+
+  @override
+  String get paymentAmountMustBeMoreThanZero => 'கட்டணத் தொகை RM 0.00-ஐ விட அதிகமாக இருக்க வேண்டும்.';
+
+  @override
+  String get paymentError => 'கட்டணப் பிழை';
+
+  @override
+  String get unableToCreateQr => 'QR கட்டணத்தை உருவாக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get ok => 'சரி';
+
+  @override
+  String get billReceiptDigitalTitle => 'மின்னணு ரசீது';
+
+  @override
+  String get billReceiptDigitalSubtitle => 'உங்கள் அதிகாரப்பூர்வ ரசீதைப் பார்க்க அல்லது பதிவிறக்க QR குறியீட்டை ஸ்கேன் செய்யவும்.';
+
+  @override
+  String get billReceiptQrLoading => 'உங்கள் மின்னணு ரசீது QR குறியீடு தயாராகிறது...';
+
+  @override
+  String get billReceiptQrScanInstruction => 'ரசீதைப் பார்க்க அல்லது பதிவிறக்க இந்த QR குறியீட்டை உங்கள் தொலைபேசியில் ஸ்கேன் செய்யவும்.';
+
+  @override
+  String get billReceiptQrError => 'மின்னணு ரசீது QR குறியீட்டை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get billReceiptQrRetry => 'மீண்டும் முயற்சிக்கவும்';
+
+  @override
+  String get receiptPaymentMethodLabel => 'கட்டண முறை';
 }

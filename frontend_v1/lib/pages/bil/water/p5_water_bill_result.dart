@@ -4,6 +4,7 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/water/water_bill_model.dart';
 import 'package:frontend_v1/model/pricing/catalog_pricing.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/pages/payment/bil_qr_payment_page.dart';
 
 class P5WaterBillResultPage extends StatefulWidget {
   final WaterBillModel bill;
@@ -206,7 +207,9 @@ class _P5WaterBillResultPageState
     Navigator.pop(context);
   }
 
-  void _handleContinue() {
+  Future<void> _handleContinue() async {
+    _closeKeyboard();
+
     final loc = AppLocalizations.of(context)!;
 
     if (_selectedAmount < _minimumAmount) {
@@ -227,7 +230,83 @@ class _P5WaterBillResultPageState
       return;
     }
 
-    Navigator.pop(context, _totalAmount);
+    final result =
+        await Navigator.push<BilQrPaymentResult>(
+      context,
+      MaterialPageRoute(
+        settings: const RouteSettings(
+          name: '/payment',
+        ),
+        builder: (_) => BilQrPaymentPage(
+          // Example:
+          // Air Selangor, Ranhill SAJ, SAINS, SATU, SAP.
+          billType: bill.billerName,
+
+          // Example:
+          // AIRSELANGOR, SAJ, SAINS, SATU, SAP.
+          billCode: bill.productCode,
+
+          accountNumber: bill.accountNumber,
+
+          // Actual amount selected for the water provider.
+          billAmount: _selectedAmount,
+
+          // Final amount charged through PegePay.
+          totalAmount: _totalAmount,
+        ),
+      ),
+    );
+
+    if (!mounted || result == null) {
+      return;
+    }
+
+    debugPrint(
+      '[WATER BILL] QR payment successful',
+    );
+    debugPrint(
+      '[WATER BILL] Bill type: ${result.billType}',
+    );
+    debugPrint(
+      '[WATER BILL] Bill code: ${result.billCode}',
+    );
+    debugPrint(
+      '[WATER BILL] Account: ${result.accountNumber}',
+    );
+    debugPrint(
+      '[WATER BILL] Bill amount: ${result.billAmount}',
+    );
+    debugPrint(
+      '[WATER BILL] Total charged: ${result.totalAmount}',
+    );
+    debugPrint(
+      '[WATER BILL] Order number: ${result.orderNo}',
+    );
+    debugPrint(
+      '[WATER BILL] Bank transaction: '
+      '${result.bankTransactionNo}',
+    );
+
+    /*
+    NEXT STEP:
+
+    Call your water bill payment API here.
+
+    Example:
+
+    final success =
+        await WaterBillService.payBill(
+      productCode: result.billCode,
+      accountNumber: result.accountNumber,
+      amount: result.billAmount,
+      orderNo: result.orderNo,
+      bankTransactionNo:
+          result.bankTransactionNo,
+    );
+
+    After the provider API succeeds, navigate to the
+    bill receipt page.
+    */
   }
 
   void _showMessage(String message) {

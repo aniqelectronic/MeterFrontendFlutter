@@ -147,7 +147,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get transactionNo => 'No. Transaksi';
 
   @override
-  String get amount => 'Amaun';
+  String get amount => 'Jumlah';
 
   @override
   String get info => 'Info';
@@ -195,7 +195,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get cancelButton => 'BATAL';
 
   @override
-  String get continueButton => 'TERUSKAN';
+  String get continueButton => 'Teruskan';
 
   @override
   String get semakanSewaanWarningTitle => 'Notis Penting';
@@ -487,7 +487,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get paymentProcessingInstruction => 'Sila tunggu sementara kami memproses\npembayaran anda...';
 
   @override
-  String get paymentSuccessful => 'PEMBAYARAN BERJAYA';
+  String get paymentSuccessful => 'Pembayaran Berjaya';
 
   @override
   String get paymentSuccessInstruction => 'Sedang ke resit...';
@@ -4540,7 +4540,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get qrClosingPleaseWait => 'Sila tunggu sementara skrin pembayaran QR ditutup.';
 
   @override
-  String get qrPaymentCancelled => 'Pembayaran dibatalkan';
+  String get qrPaymentCancelled => 'Bayaran QR dibatalkan.';
 
   @override
   String get didYouKnowTitle => 'Tahukah Anda?';
@@ -4607,4 +4607,81 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get knowledgeFact20 => 'Resit digital membantu mengurangkan penggunaan kertas serta memudahkan rekod transaksi disimpan dan dicapai semula.';
+
+  @override
+  String get billPayment => 'Pembayaran Bil';
+
+  @override
+  String paymentForBill(Object billType) {
+    return 'Pembayaran Bil $billType';
+  }
+
+  @override
+  String get billProvider => 'Penyedia Bil';
+
+  @override
+  String get billCode => 'Kod Bil';
+
+  @override
+  String get accountNumber => 'Nombor Akaun';
+
+  @override
+  String get totalPaymentAmount => 'Jumlah Bayaran';
+
+  @override
+  String get payWithDuitNowQr => 'Bayar dengan DuitNow QR';
+
+  @override
+  String get preparingQr => 'Menyediakan QR...';
+
+  @override
+  String get scanQrInstruction => 'Tekan \"Bayar dengan DuitNow QR\", kemudian imbas kod QR menggunakan aplikasi bank anda.';
+
+  @override
+  String get preparingQrPayment => 'Menyediakan Bayaran QR';
+
+  @override
+  String get pleaseDoNotClose => 'Sila jangan tutup halaman ini.';
+
+  @override
+  String get orderNumber => 'Nombor Pesanan';
+
+  @override
+  String get bankTransaction => 'Transaksi Bank';
+
+  @override
+  String get invalidAmount => 'Jumlah Tidak Sah';
+
+  @override
+  String get paymentAmountMustBeMoreThanZero => 'Jumlah bayaran mestilah melebihi RM 0.00.';
+
+  @override
+  String get paymentError => 'Ralat Pembayaran';
+
+  @override
+  String get unableToCreateQr => 'Tidak dapat menyediakan bayaran QR. Sila cuba lagi.';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get billReceiptDigitalTitle => 'Resit Digital';
+
+  @override
+  String get billReceiptDigitalSubtitle => 'Imbas kod QR untuk melihat atau memuat turun resit rasmi anda.';
+
+  @override
+  String get billReceiptQrLoading => 'Sedang menyediakan kod QR resit digital anda...';
+
+  @override
+  String get billReceiptQrScanInstruction => 'Imbas kod QR ini menggunakan telefon anda untuk melihat atau memuat turun resit.';
+
+  @override
+  String get billReceiptQrError => 'Kod QR resit digital tidak dapat dimuatkan. Sila cuba lagi.';
+
+  @override
+  String get billReceiptQrRetry => 'Cuba Lagi';
+
+  @override
+  String get receiptPaymentMethodLabel => 'Kaedah Pembayaran';
 }

@@ -2350,7 +2350,62 @@
   "knowledgeFact17": "The International Space Station travels around Earth at approximately 28,000 kilometres per hour.",
   "knowledgeFact18": "Coral reefs support a large variety of marine life even though they cover only a small part of the ocean floor.",
   "knowledgeFact19": "Regular walking can help improve cardiovascular fitness, balance and overall well-being.",
-  "knowledgeFact20": "Digital receipts can reduce paper usage and make transaction records easier to keep and retrieve."
+  "knowledgeFact20": "Digital receipts can reduce paper usage and make transaction records easier to keep and retrieve.",
+
+  "billPayment": "Bill Payment",
+  "paymentForBill": "Payment for Bill {billType}",
+  "@paymentForBill": {
+    "placeholders": {
+      "billType": {}
+    }
+  },
+
+  "billProvider": "Bill Provider",
+  "billCode": "Bill Code",
+  "accountNumber": "Account Number",
+
+  "totalPaymentAmount": "Total Payment Amount",
+
+  "payWithDuitNowQr": "Pay with DuitNow QR",
+  "preparingQr": "Preparing QR...",
+
+  "scanQrInstruction": "Press \"Pay with DuitNow QR\", then scan the QR code using your banking application.",
+
+  "preparingQrPayment": "Preparing QR Payment",
+
+  "pleaseDoNotClose": "Please do not close this page.",
+
+  "paymentSuccessful": "Payment Successful",
+
+  "amount": "Amount",
+
+  "orderNumber": "Order Number",
+
+  "bankTransaction": "Bank Transaction",
+
+  "continueButton": "Continue",
+
+  "invalidAmount": "Invalid Amount",
+
+  "paymentAmountMustBeMoreThanZero": "The payment amount must be more than RM 0.00.",
+
+  "paymentError": "Payment Error",
+
+  "unableToCreateQr": "Unable to create the QR payment. Please try again.",
+
+  "ok": "OK",
+
+  "qrPaymentCancelled": "QR payment cancelled.",
+
+  "billReceiptDigitalTitle": "Digital Receipt",
+  "billReceiptDigitalSubtitle": "Scan the QR code to view or download your official receipt.",
+  "billReceiptQrLoading": "Preparing your digital receipt QR...",
+  "billReceiptQrScanInstruction": "Scan this QR code using your phone to view or download the receipt.",
+  "billReceiptQrError": "The digital receipt QR could not be loaded. Please try again.",
+  "billReceiptQrRetry": "Try Again",
+
+  "receiptPaymentMethodLabel": "Payment Method"
+
 
 
 
