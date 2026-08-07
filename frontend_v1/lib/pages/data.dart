@@ -37,5 +37,5 @@ class Data {
   static const double waterServiceFee = 1.00;
 
   //update the date the code was last updated
-  static String lastUpdatedDate = "2026-08-06 12:20:00";
+  static String lastUpdatedDate = "2026-08-07 12:20:00";
 }
