@@ -12,7 +12,7 @@ import 'package:frontend_v1/controllers/water/water_bill_service.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/pricing/catalog_pricing.dart';
 import 'package:frontend_v1/pages/data.dart';
-import 'package:frontend_v1/services/iimmpact_catalog_service.dart';
+import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 import 'package:frontend_v1/pages/bil/electric/p5_electric_bill_result.dart';
 import 'package:frontend_v1/pages/bil/water/p5_water_bill_result.dart';
 
@@ -420,6 +420,147 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
     );
   }
 
+
+    // =========================================================
+    // API ERROR -> LOCALIZED USER MESSAGE
+    // =========================================================
+
+    String _getLocalizedBillError(
+      String? apiMessage,
+      AppLocalizations loc,
+    ) {
+      final message =
+          (apiMessage ?? '').trim().toLowerCase();
+
+      debugPrint(
+        'Bill error received in P4: "$message"',
+      );
+
+      // =======================================================
+      // 1. INVALID ACCOUNT
+      //
+      // Handles:
+      // - Raw API message
+      // - Electric service localized message
+      // - Water service localized message
+      // - Broadband service localized message
+      // =======================================================
+
+      if (message.contains('invalid account no') ||
+          message.contains('invalid account number') ||
+          message.contains('invalid account') ||
+
+          message ==
+              loc.electricInvalidAccount
+                  .trim()
+                  .toLowerCase() ||
+
+          message ==
+              loc.waterInvalidAccount
+                  .trim()
+                  .toLowerCase() ||
+
+          message ==
+              loc.broadbandInvalidAccount
+                  .trim()
+                  .toLowerCase() ||
+
+          message ==
+              loc.billInvalidAccountNo
+                  .trim()
+                  .toLowerCase()) {
+        return loc.billInvalidAccountNo;
+      }
+
+      // =======================================================
+      // 2. BILL PRESENTMENT UNAVAILABLE
+      // =======================================================
+
+      if (message.contains(
+            'bill presentment is unavailable',
+          ) ||
+          message ==
+              loc.billPresentmentUnavailable
+                  .trim()
+                  .toLowerCase()) {
+        return loc.billPresentmentUnavailable;
+      }
+
+      // =======================================================
+      // 3. SERVICE UNAVAILABLE
+      // =======================================================
+
+      if (message.contains('service unavailable') ||
+          message.contains('please try again later') ||
+          message.contains(
+            'unable to get bill record',
+          ) ||
+          message ==
+              loc.billServiceUnavailable
+                  .trim()
+                  .toLowerCase()) {
+        return loc.billServiceUnavailable;
+      }
+
+      // =======================================================
+      // 4. PROVIDER / REQUEST TIMEOUT
+      // Treat as temporarily unavailable
+      // =======================================================
+
+      if (message ==
+              loc.electricInquiryTimeout
+                  .trim()
+                  .toLowerCase() ||
+
+          message ==
+              loc.waterInquiryTimeout
+                  .trim()
+                  .toLowerCase() ||
+
+          message ==
+              loc.waterProviderTimeout
+                  .trim()
+                  .toLowerCase() ||
+
+          message ==
+              loc.broadbandInquiryTimeout
+                  .trim()
+                  .toLowerCase() ||
+
+          message ==
+              loc.broadbandProviderTimeout
+                  .trim()
+                  .toLowerCase()) {
+        return loc.billServiceUnavailable;
+      }
+
+      // =======================================================
+      // 5. CONNECTION PROBLEM
+      // =======================================================
+
+      if (message ==
+              loc.electricUnableToConnect
+                  .trim()
+                  .toLowerCase() ||
+
+          message ==
+              loc.waterUnableToConnect
+                  .trim()
+                  .toLowerCase() ||
+
+          message ==
+              loc.broadbandUnableToConnect
+                  .trim()
+                  .toLowerCase()) {
+        return loc.billServiceUnavailable;
+      }
+
+      // =======================================================
+      // 6. ANY OTHER ERROR
+      // =======================================================
+
+      return loc.billUnknownError;
+    }
   // =========================================================
   // CONTINUE
   // =========================================================
@@ -519,49 +660,61 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
 
       _showAlert(
         loc.alertTitle,
-        error.message,
+        _getLocalizedBillError(
+          error.message,
+          loc,
+        ),
         icon: Icons.cloud_off_rounded,
         iconColor: Colors.red,
       );
-    } on ElectricBillException catch (error) {
-      if (!mounted) return;
+      } on ElectricBillException catch (error) {
+        if (!mounted) return;
 
-      debugPrint(
-        'ElectricBillException: ${error.message}',
-      );
+        debugPrint(
+          'ElectricBillException: ${error.message}',
+        );
 
-      _showAlert(
-        loc.alertTitle,
-        error.message,
-        icon: Icons.cloud_off_rounded,
-        iconColor: Colors.red,
-      );
-    } on BroadbandBillException catch (error) {
-      if (!mounted) return;
+        _showAlert(
+          loc.alertTitle,
+          _getLocalizedBillError(
+            error.message,
+            loc,
+          ),
+          icon: Icons.cloud_off_rounded,
+          iconColor: Colors.red,
+        );
+      } on BroadbandBillException catch (error) {
+        if (!mounted) return;
 
-      debugPrint(
-        'BroadbandBillException: ${error.message}',
-      );
+        debugPrint(
+          'BroadbandBillException: ${error.message}',
+        );
 
-      _showAlert(
-        loc.alertTitle,
-        error.message,
-        icon: Icons.cloud_off_rounded,
-        iconColor: Colors.red,
-      );
-    } on EntertainmentBillException catch (error) {
-      if (!mounted) return;
+        _showAlert(
+          loc.alertTitle,
+          _getLocalizedBillError(
+            error.message,
+            loc,
+          ),
+          icon: Icons.cloud_off_rounded,
+          iconColor: Colors.red,
+        );
+      } on EntertainmentBillException catch (error) {
+        if (!mounted) return;
 
-      debugPrint(
-        'EntertainmentBillException: ${error.message}',
-      );
+        debugPrint(
+          'EntertainmentBillException: ${error.message}',
+        );
 
-      _showAlert(
-        loc.alertTitle,
-        error.message,
-        icon: Icons.cloud_off_rounded,
-        iconColor: Colors.red,
-      );
+        _showAlert(
+          loc.alertTitle,
+          _getLocalizedBillError(
+            error.message,
+            loc,
+          ),
+          icon: Icons.cloud_off_rounded,
+          iconColor: Colors.red,
+        );
     } catch (error, stackTrace) {
       if (!mounted) return;
 
@@ -603,14 +756,19 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
     if (!mounted) return;
 
     if (!result.success || result.bill == null) {
+      final errorMessage =
+          _getLocalizedBillError(
+        result.message,
+        loc,
+      );
+
       _showAlert(
         loc.alertTitle,
-        result.message.isNotEmpty
-            ? result.message
-            : loc.electricAccountNotFound,
+        errorMessage,
         icon: Icons.search_off_rounded,
         iconColor: Colors.orange,
       );
+
       return;
     }
 
@@ -680,14 +838,19 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
     if (!mounted) return;
 
     if (!result.success || result.bill == null) {
+      final errorMessage =
+          _getLocalizedBillError(
+        result.message,
+        loc,
+      );
+
       _showAlert(
         loc.alertTitle,
-        result.message.isNotEmpty
-            ? result.message
-            : loc.waterAccountNotFound,
+        errorMessage,
         icon: Icons.search_off_rounded,
         iconColor: Colors.orange,
       );
+
       return;
     }
 
@@ -757,11 +920,15 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
   if (!mounted) return;
 
   if (!result.success || result.bill == null) {
+    final errorMessage =
+        _getLocalizedBillError(
+      result.message,
+      loc,
+    );
+
     _showAlert(
       loc.alertTitle,
-      result.message.isNotEmpty
-          ? result.message
-          : loc.broadbandAccountNotFound,
+      errorMessage,
       icon: Icons.search_off_rounded,
       iconColor: Colors.orange,
     );
@@ -843,14 +1010,19 @@ class _P4BILPAGEState extends State<P4BILPAGE> {
     if (!mounted) return;
 
     if (!result.success || result.bill == null) {
+      final errorMessage =
+          _getLocalizedBillError(
+        result.message,
+        loc,
+      );
+
       _showAlert(
         loc.alertTitle,
-        result.message.isNotEmpty
-            ? result.message
-            : loc.entertainmentAccountNotFound,
+        errorMessage,
         icon: Icons.search_off_rounded,
         iconColor: Colors.orange,
       );
+
       return;
     }
 

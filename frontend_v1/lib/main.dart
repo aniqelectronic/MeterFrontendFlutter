@@ -7,9 +7,9 @@ import 'package:frontend_v1/pages/home/p1.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'dart:async';
 import 'dart:io';
-import 'package:frontend_v1/services/internet_guard.dart';
-import 'package:frontend_v1/services/iot_hub_services.dart';
-import 'services/linux_kiosk_service.dart';
+import 'package:frontend_v1/services/internet/internet_guard.dart';
+import 'package:frontend_v1/services/iothub/iot_hub_services.dart';
+import 'services/kiosk/linux_kiosk_service.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

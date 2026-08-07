@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/pages/config.dart';
-import 'package:frontend_v1/services/pegepay_service.dart';
+import 'package:frontend_v1/services/pegepay/pegepay_service.dart';
 
 class PegePayQRPageDesktopWebView extends StatefulWidget {
   final String iframeUrl;

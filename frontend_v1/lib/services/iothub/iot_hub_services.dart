@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 import 'package:frontend_v1/pages/config.dart';
-import 'package:frontend_v1/services/internet_location_service.dart';
+import 'package:frontend_v1/services/internet/internet_location_service.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 

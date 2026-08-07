@@ -5,13 +5,13 @@ import 'dart:io';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:frontend_v1/main.dart';
 import 'package:frontend_v1/pages/config.dart';
-import 'package:frontend_v1/services/pegepay_service.dart';
+import 'package:frontend_v1/services/pegepay/pegepay_service.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:frontend_v1/services/linux_kiosk_service.dart';
+import 'package:frontend_v1/services/kiosk/linux_kiosk_service.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import 'package:frontend_v1/services/api_hmac_helper.dart';
+import 'package:frontend_v1/services/api/api_hmac_helper.dart';
 
 class PegePayWebViewHelper {
   static Webview? _currentWebview;

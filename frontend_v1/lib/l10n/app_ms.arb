@@ -2441,7 +2441,13 @@
 "billInformationTitle": "Maklumat Bil",
 "paymentSectionTitle": "Pembayaran",
 
-"weatherIpohLocation": "Ipoh, Perak"
+"weatherIpohLocation": "Ipoh, Perak",
+
+
+"billPresentmentUnavailable": "Maklumat bil buat masa ini tidak tersedia untuk perkhidmatan ini. Sila cuba lagi sebentar nanti.",
+"billServiceUnavailable": "Buat masa ini, perkhidmatan tidak tersedia. Sila cuba lagi sebentar nanti.",
+"billInvalidAccountNo": "Nombor akaun tidak sah. Sila semak nombor akaun dan cuba lagi.",
+"billUnknownError": "Permintaan anda tidak dapat diproses buat masa ini. Sila cuba lagi sebentar nanti."
 
 
 

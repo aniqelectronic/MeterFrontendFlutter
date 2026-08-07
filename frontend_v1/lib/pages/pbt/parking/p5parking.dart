@@ -7,7 +7,7 @@ import 'package:frontend_v1/pages/payment/payment.dart';
 import 'package:frontend_v1/widgets/clock_card.dart';
 
 // Change this import only if your SirimTime file is stored elsewhere.
-import 'package:frontend_v1/services/sirim_time.dart';
+import 'package:frontend_v1/services/sirim/sirim_time.dart';
 
 import '../p4.dart';
 import '../../config.dart';

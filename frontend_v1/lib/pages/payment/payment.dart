@@ -20,8 +20,8 @@ import 'package:frontend_v1/pages/resit/resit.dart';
 import 'package:frontend_v1/main.dart';
 //import 'package:frontend_v1/pages/pin_entry.dart'; // Import new PIN entry screen
 // import 'package:frontend_v1/services/pegepay_qr_page.dart';
-import 'package:frontend_v1/services/pegepay_service.dart';
-import 'package:frontend_v1/services/pegepay_webview_helper.dart';
+import 'package:frontend_v1/services/pegepay/pegepay_service.dart';
+import 'package:frontend_v1/services/pegepay/pegepay_webview_helper.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:intl/intl.dart';
 import 'package:frontend_v1/model/taksiran/taksiran_payment_item.dart';

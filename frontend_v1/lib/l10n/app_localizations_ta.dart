@@ -4702,4 +4702,16 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get weatherIpohLocation => 'ஈப்போ, பேராக்';
+
+  @override
+  String get billPresentmentUnavailable => 'இந்தச் சேவைக்கான பில் தகவல் தற்போது கிடைக்கவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get billServiceUnavailable => 'தற்போது இந்தச் சேவை கிடைக்கவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get billInvalidAccountNo => 'கணக்கு எண் செல்லுபடியாகவில்லை. கணக்கு எண்ணைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get billUnknownError => 'தற்போது உங்கள் கோரிக்கையைச் செயல்படுத்த முடியவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.';
 }

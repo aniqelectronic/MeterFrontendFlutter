@@ -4702,4 +4702,16 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get weatherIpohLocation => '霹雳州怡保';
+
+  @override
+  String get billPresentmentUnavailable => '此服务的账单信息目前暂时无法获取，请稍后再试。';
+
+  @override
+  String get billServiceUnavailable => '此服务目前暂时无法使用，请稍后再试。';
+
+  @override
+  String get billInvalidAccountNo => '账号无效。请检查账号后重试。';
+
+  @override
+  String get billUnknownError => '目前无法处理您的请求，请稍后再试。';
 }

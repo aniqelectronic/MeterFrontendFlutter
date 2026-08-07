@@ -2433,7 +2433,12 @@
 "weatherDisclaimerTitle": "Disclaimer",
 "weatherDisclaimerText": "Official 7-day forecast from MET Malaysia through the data.gov.my website.",
 "weatherScrollHint": "Swipe up or down to view the next forecast",
-"weatherToday": "Today"
+"weatherToday": "Today",
+
+"billPresentmentUnavailable": "Bill information is currently unavailable for this service. Please try again later.",
+"billServiceUnavailable": "This service is currently unavailable. Please try again later.",
+"billInvalidAccountNo": "Invalid account number. Please check the account number and try again.",
+"billUnknownError": "We are unable to process your request at the moment. Please try again later."
 
 
 

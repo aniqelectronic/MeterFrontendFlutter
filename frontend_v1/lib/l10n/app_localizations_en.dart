@@ -4708,4 +4708,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weatherIpohLocation => 'Ipoh, Perak';
+
+  @override
+  String get billPresentmentUnavailable => 'Bill information is currently unavailable for this service. Please try again later.';
+
+  @override
+  String get billServiceUnavailable => 'This service is currently unavailable. Please try again later.';
+
+  @override
+  String get billInvalidAccountNo => 'Invalid account number. Please check the account number and try again.';
+
+  @override
+  String get billUnknownError => 'We are unable to process your request at the moment. Please try again later.';
 }

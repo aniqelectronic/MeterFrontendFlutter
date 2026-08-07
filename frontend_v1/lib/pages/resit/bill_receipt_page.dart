@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/home/p1bentong.dart';
-import 'package:frontend_v1/services/bill_receipt_service.dart';
+import 'package:frontend_v1/services/iimmpact/bill_receipt_service.dart';
 import 'package:frontend_v1/widgets/kiosk_home_button.dart';
 
 class BillReceiptData {

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:frontend_v1/services/internet_guard.dart';
-import 'package:frontend_v1/services/sirim_time.dart';
+import 'package:frontend_v1/services/internet/internet_guard.dart';
+import 'package:frontend_v1/services/sirim/sirim_time.dart';
 
 class ClockCard extends StatefulWidget {
   final double fontScale;

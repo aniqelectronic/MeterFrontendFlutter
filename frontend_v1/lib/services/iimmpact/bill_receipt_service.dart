@@ -5,7 +5,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:frontend_v1/pages/config.dart';
-import 'package:frontend_v1/services/api_hmac_helper.dart';
+import 'package:frontend_v1/services/api/api_hmac_helper.dart';
 import 'package:http/http.dart' as http;
 
 class BillReceiptException implements Exception {

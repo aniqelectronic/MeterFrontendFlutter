@@ -2326,6 +2326,12 @@
 "weatherDisclaimerTitle": "免责声明",
 "weatherDisclaimerText": "本7天官方天气预报由马来西亚气象局通过 data.gov.my 网站提供。",
 "weatherScrollHint": "向上或向下滑动以查看更多预报",
-"weatherToday": "今天"
+"weatherToday": "今天",
+
+
+"billPresentmentUnavailable": "此服务的账单信息目前暂时无法获取，请稍后再试。",
+"billServiceUnavailable": "此服务目前暂时无法使用，请稍后再试。",
+"billInvalidAccountNo": "账号无效。请检查账号后重试。",
+"billUnknownError": "目前无法处理您的请求，请稍后再试。"
 
 }

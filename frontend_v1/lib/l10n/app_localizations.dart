@@ -9320,6 +9320,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ipoh, Perak'**
   String get weatherIpohLocation;
+
+  /// No description provided for @billPresentmentUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill information is currently unavailable for this service. Please try again later.'**
+  String get billPresentmentUnavailable;
+
+  /// No description provided for @billServiceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This service is currently unavailable. Please try again later.'**
+  String get billServiceUnavailable;
+
+  /// No description provided for @billInvalidAccountNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid account number. Please check the account number and try again.'**
+  String get billInvalidAccountNo;
+
+  /// No description provided for @billUnknownError.
+  ///
+  /// In en, this message translates to:
+  /// **'We are unable to process your request at the moment. Please try again later.'**
+  String get billUnknownError;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

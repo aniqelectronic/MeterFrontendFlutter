@@ -4,7 +4,7 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/bil/p4bil.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbil3.dart';
-import 'package:frontend_v1/services/iimmpact_network_status_service.dart';
+import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
 // ============================================================================
