@@ -9344,6 +9344,438 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We are unable to process your request at the moment. Please try again later.'**
   String get billUnknownError;
+
+  /// No description provided for @telcoServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Telecommunication Service'**
+  String get telcoServiceLabel;
+
+  /// No description provided for @telcoPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Telco Services'**
+  String get telcoPageTitle;
+
+  /// No description provided for @telcoPageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the telecommunication service you would like to use'**
+  String get telcoPageSubtitle;
+
+  /// No description provided for @telcoBillPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill Payment'**
+  String get telcoBillPaymentTitle;
+
+  /// No description provided for @telcoBillPaymentDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and pay your postpaid mobile or telecommunication bill'**
+  String get telcoBillPaymentDescription;
+
+  /// No description provided for @telcoMobilePinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile PIN'**
+  String get telcoMobilePinTitle;
+
+  /// No description provided for @telcoMobilePinDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase a mobile prepaid reload PIN'**
+  String get telcoMobilePinDescription;
+
+  /// No description provided for @telcoSelectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Touch one of the options above to continue'**
+  String get telcoSelectionHint;
+
+  /// No description provided for @telcoBillServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Telco Bill Payment'**
+  String get telcoBillServiceLabel;
+
+  /// No description provided for @telcoBillProviderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Telco Provider'**
+  String get telcoBillProviderTitle;
+
+  /// No description provided for @telcoBillProviderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your telecommunication provider to continue with bill payment'**
+  String get telcoBillProviderSubtitle;
+
+  /// No description provided for @mobilePinServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile PIN'**
+  String get mobilePinServiceLabel;
+
+  /// No description provided for @mobilePinProviderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Mobile PIN Provider'**
+  String get mobilePinProviderTitle;
+
+  /// No description provided for @mobilePinProviderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your mobile provider to purchase a prepaid reload PIN'**
+  String get mobilePinProviderSubtitle;
+
+  /// No description provided for @telcoBillInputService.
+  ///
+  /// In en, this message translates to:
+  /// **'Telco Bill Payment'**
+  String get telcoBillInputService;
+
+  /// No description provided for @mobilePinInputService.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile PIN'**
+  String get mobilePinInputService;
+
+  /// No description provided for @telcoBillInputTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Account or Mobile Number'**
+  String get telcoBillInputTitle;
+
+  /// No description provided for @mobilePinInputTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Mobile Number'**
+  String get mobilePinInputTitle;
+
+  /// No description provided for @telcoSelectedProviderLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Provider'**
+  String get telcoSelectedProviderLabel;
+
+  /// No description provided for @telcoBillNumberHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter account or mobile number'**
+  String get telcoBillNumberHint;
+
+  /// No description provided for @mobilePinNumberHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter mobile number'**
+  String get mobilePinNumberHint;
+
+  /// No description provided for @telcoBillInputInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the numeric keypad below to enter the number registered with your telco provider.'**
+  String get telcoBillInputInstruction;
+
+  /// No description provided for @mobilePinInputInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the mobile number that will receive the prepaid reload.'**
+  String get mobilePinInputInstruction;
+
+  /// No description provided for @telcoClearAllButton.
+  ///
+  /// In en, this message translates to:
+  /// **'CLEAR'**
+  String get telcoClearAllButton;
+
+  /// No description provided for @telcoInputAlertTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Check'**
+  String get telcoInputAlertTitle;
+
+  /// No description provided for @telcoBillNumberRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your account or mobile number.'**
+  String get telcoBillNumberRequired;
+
+  /// No description provided for @mobilePinNumberRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the mobile number.'**
+  String get mobilePinNumberRequired;
+
+  /// No description provided for @telcoNumberInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid number using 8 to 15 digits.'**
+  String get telcoNumberInvalid;
+
+  /// No description provided for @telcoProcessingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing'**
+  String get telcoProcessingTitle;
+
+  /// No description provided for @telcoProcessingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we process your request.'**
+  String get telcoProcessingMessage;
+
+  /// No description provided for @telcoInputSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Number Received'**
+  String get telcoInputSuccessTitle;
+
+  /// No description provided for @telcoInputSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The number has been accepted and is ready for the next step.'**
+  String get telcoInputSuccessMessage;
+
+  /// No description provided for @telcoOkButton.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get telcoOkButton;
+
+  /// No description provided for @telcoInvalidAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'The account or mobile number entered is not valid. Please check the number and try again.'**
+  String get telcoInvalidAccount;
+
+  /// No description provided for @telcoServiceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The telco service is temporarily unavailable. Please try again later.'**
+  String get telcoServiceUnavailable;
+
+  /// No description provided for @mobilePinComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile PIN processing will be available in the next step.'**
+  String get mobilePinComingSoon;
+
+  /// No description provided for @telcoAccountVerified.
+  ///
+  /// In en, this message translates to:
+  /// **'ACCOUNT VERIFIED'**
+  String get telcoAccountVerified;
+
+  /// No description provided for @telcoBillDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Telco Bill Details'**
+  String get telcoBillDetailsTitle;
+
+  /// No description provided for @telcoProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider'**
+  String get telcoProvider;
+
+  /// No description provided for @telcoAccountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Account / Mobile Number'**
+  String get telcoAccountNumber;
+
+  /// No description provided for @telcoOutstanding.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding Amount'**
+  String get telcoOutstanding;
+
+  /// No description provided for @telcoDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'DUE DATE'**
+  String get telcoDueDate;
+
+  /// No description provided for @telcoCustomerName.
+  ///
+  /// In en, this message translates to:
+  /// **'CUSTOMER NAME'**
+  String get telcoCustomerName;
+
+  /// No description provided for @telcoBillPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'TELCO BILL PAYMENT'**
+  String get telcoBillPayment;
+
+  /// No description provided for @telcoReviewBillDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Bill Details'**
+  String get telcoReviewBillDetails;
+
+  /// No description provided for @telcoReviewBillSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please verify your telco account information before continuing.'**
+  String get telcoReviewBillSubtitle;
+
+  /// No description provided for @telcoServiceProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'SERVICE PROVIDER'**
+  String get telcoServiceProvider;
+
+  /// No description provided for @telcoAccountMobileNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'ACCOUNT / MOBILE NUMBER'**
+  String get telcoAccountMobileNumber;
+
+  /// No description provided for @telcoOutstandingBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'OUTSTANDING BALANCE'**
+  String get telcoOutstandingBalance;
+
+  /// No description provided for @telcoPaymentAmountNextInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'You can select your preferred payment amount on the next screen.'**
+  String get telcoPaymentAmountNextInfo;
+
+  /// No description provided for @telcoChoosePaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Payment Amount'**
+  String get telcoChoosePaymentAmount;
+
+  /// No description provided for @telcoChoosePaymentSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select how much you want to pay for this telco account.'**
+  String get telcoChoosePaymentSubtitle;
+
+  /// No description provided for @telcoAmountToPay.
+  ///
+  /// In en, this message translates to:
+  /// **'AMOUNT TO PAY'**
+  String get telcoAmountToPay;
+
+  /// No description provided for @telcoSelectPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'SELECT PAYMENT AMOUNT'**
+  String get telcoSelectPaymentAmount;
+
+  /// No description provided for @telcoTapAmountKeypad.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the amount to open keypad'**
+  String get telcoTapAmountKeypad;
+
+  /// No description provided for @telcoPayFullOutstanding.
+  ///
+  /// In en, this message translates to:
+  /// **'PAY FULL OUTSTANDING'**
+  String get telcoPayFullOutstanding;
+
+  /// No description provided for @telcoProceedToPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'PROCEED TO PAYMENT'**
+  String get telcoProceedToPayment;
+
+  /// No description provided for @telcoOrderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'ORDER SUMMARY'**
+  String get telcoOrderSummary;
+
+  /// No description provided for @telcoServiceFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fee'**
+  String get telcoServiceFee;
+
+  /// No description provided for @telcoServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get telcoServiceAdjustment;
+
+  /// No description provided for @telcoTotalPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'TOTAL PAYMENT'**
+  String get telcoTotalPayment;
+
+  /// No description provided for @telcoLatestPricingInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'The final total is calculated automatically using the latest provider pricing.'**
+  String get telcoLatestPricingInfo;
+
+  /// No description provided for @telcoInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get telcoInformation;
+
+  /// No description provided for @telcoMaximumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum payment is {amount}.'**
+  String telcoMaximumPayment(String amount);
+
+  /// No description provided for @telcoMinimumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum payment is {amount}.'**
+  String telcoMinimumPayment(String amount);
+
+  /// No description provided for @telcoNoOutstandingBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no outstanding balance for this account.'**
+  String get telcoNoOutstandingBalance;
+
+  /// No description provided for @telcoEnterPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Payment Amount'**
+  String get telcoEnterPaymentAmount;
+
+  /// No description provided for @telcoKeypadInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the keypad to enter the amount'**
+  String get telcoKeypadInstruction;
+
+  /// No description provided for @telcoPaymentRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum RM 1.00 • Maximum RM 10,000.00'**
+  String get telcoPaymentRange;
+
+  /// No description provided for @telcoClear.
+  ///
+  /// In en, this message translates to:
+  /// **'CLEAR'**
+  String get telcoClear;
+
+  /// No description provided for @telcoDone.
+  ///
+  /// In en, this message translates to:
+  /// **'DONE'**
+  String get telcoDone;
+
+  /// No description provided for @telcoCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'CANCEL'**
+  String get telcoCancel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

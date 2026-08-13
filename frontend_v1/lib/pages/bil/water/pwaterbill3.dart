@@ -20,14 +20,14 @@ enum BillerStatus {
 class WaterBiller {
   final String productCode;
   final String billerName;
-  final String imagePath;
+  final String imageUrl;
   final Color accentColor;
   final Color lightAccentColor;
 
   const WaterBiller({
     required this.productCode,
     required this.billerName,
-    required this.imagePath,
+    required this.imageUrl,
     required this.accentColor,
     required this.lightAccentColor,
   });
@@ -54,109 +54,141 @@ class _PWATERBILL3PAGEState
   bool showScrollUp = false;
   bool showScrollDown = true;
 
+  // ==========================================================================
+  // WATER PROVIDERS
+  // ==========================================================================
   static const List<WaterBiller> _waterBillers = [
     WaterBiller(
       productCode: 'AKSB',
       billerName: 'Air Kelantan',
-      imagePath: 'lib/images/water/aksb.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/AKSB.png',
       accentColor: Color(0xFF1687D9),
       lightAccentColor: Color(0xFFE3F3FF),
     ),
+
     WaterBiller(
       productCode: 'IW',
       billerName: 'Indah Water Konsortium',
-      imagePath: 'lib/images/water/iw.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/IW.png',
       accentColor: Color(0xFF147A9B),
       lightAccentColor: Color(0xFFE2F5FA),
     ),
+
     WaterBiller(
       productCode: 'JBA',
       billerName: 'Jabatan Bekalan Air Labuan',
-      imagePath: 'lib/images/water/jba.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/JBA.png',
       accentColor: Color(0xFF2D74C8),
       lightAccentColor: Color(0xFFE7F0FC),
     ),
+
     WaterBiller(
       productCode: 'KWB',
       billerName: 'Kuching Water Board',
-      imagePath: 'lib/images/water/kwb.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/KWB.png',
       accentColor: Color(0xFF15946B),
       lightAccentColor: Color(0xFFE2F7EF),
     ),
+
     WaterBiller(
       productCode: 'LAKU',
       billerName: 'Lembaga Air Kuching Utara',
-      imagePath: 'lib/images/water/laku.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/LAKU.png',
       accentColor: Color(0xFF1888A8),
       lightAccentColor: Color(0xFFE1F5FA),
     ),
+
     WaterBiller(
       productCode: 'PAIP',
       billerName: 'Pengurusan Air Pahang Berhad',
-      imagePath: 'lib/images/water/paip.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/PAIP.png',
       accentColor: Color(0xFF1469E8),
       lightAccentColor: Color(0xFFE5F0FF),
     ),
+
     WaterBiller(
       productCode: 'PWB',
       billerName: 'Lembaga Air Perak',
-      imagePath: 'lib/images/water/pwb.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/PWB.png',
       accentColor: Color(0xFF5568D8),
       lightAccentColor: Color(0xFFEBEDFF),
     ),
+
     WaterBiller(
       productCode: 'SADA',
       billerName: 'Syarikat Air Darul Aman',
-      imagePath: 'lib/images/water/sada.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/SADA.png',
       accentColor: Color(0xFF0B8E78),
       lightAccentColor: Color(0xFFE1F6F1),
     ),
+
     WaterBiller(
       productCode: 'SAINS',
       billerName: 'Syarikat Air Negeri Sembilan',
-      imagePath: 'lib/images/water/sains.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/SAINS.png',
       accentColor: Color(0xFF2374B6),
       lightAccentColor: Color(0xFFE6F2FB),
     ),
+
     WaterBiller(
       productCode: 'SAJ',
       billerName: 'Ranhill SAJ',
-      imagePath: 'lib/images/water/saj.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/SAJ.png',
       accentColor: Color(0xFF0A89B6),
       lightAccentColor: Color(0xFFE2F5FC),
     ),
+
     WaterBiller(
       productCode: 'SAMB',
       billerName: 'Syarikat Air Melaka Berhad',
-      imagePath: 'lib/images/water/samb.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/SAMB.png',
       accentColor: Color(0xFF276DB4),
       lightAccentColor: Color(0xFFE8F1FB),
     ),
+
     WaterBiller(
       productCode: 'SAP',
       billerName: 'Syarikat Air Perlis',
-      imagePath: 'lib/images/water/sap.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/SAP.png',
       accentColor: Color(0xFF15946B),
       lightAccentColor: Color(0xFFE2F7EF),
     ),
+
     WaterBiller(
       productCode: 'SATU',
       billerName: 'Syarikat Air Terengganu',
-      imagePath: 'lib/images/water/satu.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/SATU.png',
       accentColor: Color(0xFF0D8DA1),
       lightAccentColor: Color(0xFFE2F6F8),
     ),
+
     WaterBiller(
       productCode: 'SWB',
       billerName: 'Sibu Water Board',
-      imagePath: 'lib/images/water/swb.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/SWB.png',
       accentColor: Color(0xFF3978C5),
       lightAccentColor: Color(0xFFE8F1FC),
     ),
+
     WaterBiller(
       productCode: 'SYABAS',
       billerName: 'Air Selangor',
-      imagePath: 'lib/images/water/syabas.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/SYABAS.png',
       accentColor: Color(0xFF1469E8),
       lightAccentColor: Color(0xFFE5F0FF),
     ),
@@ -419,6 +451,7 @@ class _PWATERBILL3PAGEState
                         productCode] !=
                     null) ...[
                   const SizedBox(height: 20),
+
                   Row(
                     mainAxisAlignment:
                         MainAxisAlignment.center,
@@ -429,7 +462,9 @@ class _PWATERBILL3PAGEState
                         color:
                             Color(0xFF758399),
                       ),
+
                       const SizedBox(width: 8),
+
                       Flexible(
                         child: Text(
                           '${loc.networkLastUpdated}: '
@@ -692,7 +727,6 @@ class _PWATERBILL3PAGEState
             ),
           ),
 
-          // Soft readability overlay.
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -714,7 +748,7 @@ class _PWATERBILL3PAGEState
           ),
 
           // ==================================================================
-          // MODERN HEADER
+          // HEADER
           // ==================================================================
           Positioned(
             top: 75,
@@ -764,18 +798,23 @@ class _PWATERBILL3PAGEState
                 thickness: 11,
                 radius:
                     const Radius.circular(20),
+
                 child: GridView.builder(
                   controller:
                       _scrollController,
+
                   padding:
                       const EdgeInsets.only(
                     right: 24,
                     bottom: 45,
                   ),
+
                   physics:
                       const BouncingScrollPhysics(),
+
                   itemCount:
                       _waterBillers.length,
+
                   gridDelegate:
                       const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -783,6 +822,7 @@ class _PWATERBILL3PAGEState
                     mainAxisSpacing: 36,
                     childAspectRatio: 1.0,
                   ),
+
                   itemBuilder: (
                     context,
                     index,
@@ -792,13 +832,16 @@ class _PWATERBILL3PAGEState
 
                     return _WaterProviderCard(
                       biller: biller,
+
                       networkStatus:
                           _billerStatuses[
                             biller.productCode
                           ] ??
                           BillerStatus.loading,
+
                       networkLabel:
                           loc.networkLabel,
+
                       onPressed: () {
                         _handleBillerTap(
                           biller: biller,
@@ -812,7 +855,7 @@ class _PWATERBILL3PAGEState
           ),
 
           // ==================================================================
-          // SCROLL-UP BUTTON
+          // SCROLL UP
           // ==================================================================
           if (showScrollUp)
             Positioned(
@@ -828,7 +871,7 @@ class _PWATERBILL3PAGEState
             ),
 
           // ==================================================================
-          // SCROLL-DOWN BUTTON
+          // SCROLL DOWN
           // ==================================================================
           if (showScrollDown)
             Positioned(
@@ -962,7 +1005,7 @@ class _ModernWaterHeader
             ).createShader(bounds);
           },
           child: Text(
-            title,
+            title.toUpperCase(),
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow:
@@ -1012,7 +1055,7 @@ class _ModernWaterHeader
             ],
           ),
           child: Text(
-            subtitle,
+            subtitle.toUpperCase(),
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF435166),
@@ -1029,7 +1072,7 @@ class _ModernWaterHeader
 }
 
 // ============================================================================
-// MODERN WATER PROVIDER CARD
+// WATER PROVIDER CARD
 // ============================================================================
 class _WaterProviderCard
     extends StatefulWidget {
@@ -1068,46 +1111,62 @@ class _WaterProviderCardState
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
+
       onTapDown: (_) {
         _setPressed(true);
       },
+
       onTapUp: (_) {
         _setPressed(false);
       },
+
       onTapCancel: () {
         _setPressed(false);
       },
+
       onTap: widget.onPressed,
+
       child: AnimatedScale(
         scale:
             _isPressed ? 0.965 : 1,
+
         duration: const Duration(
           milliseconds: 130,
         ),
+
         curve: Curves.easeOut,
+
         child: AnimatedContainer(
           duration: const Duration(
             milliseconds: 170,
           ),
+
           curve: Curves.easeOut,
+
           decoration: BoxDecoration(
             color:
                 Colors.white.withOpacity(0.96),
+
             borderRadius:
                 BorderRadius.circular(38),
+
             border: Border.all(
               color: _isPressed
                   ? widget.biller.accentColor
                   : Colors.black,
+
               width: _isPressed ? 4 : 3,
             ),
+
             boxShadow: _isPressed
                 ? [
                     BoxShadow(
                       color: widget
                           .biller.accentColor
                           .withOpacity(0.18),
+
                       blurRadius: 17,
+
                       offset:
                           const Offset(0, 8),
                     ),
@@ -1117,19 +1176,26 @@ class _WaterProviderCardState
                       color: const Color(
                         0xFF19375C,
                       ).withOpacity(0.16),
+
                       blurRadius: 28,
+
                       spreadRadius: 1,
+
                       offset:
                           const Offset(0, 14),
                     ),
                   ],
           ),
+
           child: ClipRRect(
             borderRadius:
                 BorderRadius.circular(35),
+
             child: Stack(
               children: [
-                // Decorative background circle.
+                // ==========================================================
+                // DECORATIVE BACKGROUND
+                // ==========================================================
                 Positioned(
                   right: -50,
                   top: -50,
@@ -1138,12 +1204,16 @@ class _WaterProviderCardState
                         const Duration(
                       milliseconds: 180,
                     ),
+
                     width:
                         _isPressed ? 215 : 200,
+
                     height:
                         _isPressed ? 215 : 200,
+
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
+
                       color: widget
                           .biller.lightAccentColor
                           .withOpacity(0.92),
@@ -1157,8 +1227,11 @@ class _WaterProviderCardState
                   child: Container(
                     width: 34,
                     height: 34,
-                    decoration: BoxDecoration(
+
+                    decoration:
+                        BoxDecoration(
                       shape: BoxShape.circle,
+
                       color: widget
                           .biller.accentColor
                           .withOpacity(0.08),
@@ -1174,45 +1247,57 @@ class _WaterProviderCardState
                     27,
                     25,
                   ),
+
                   child: Column(
                     children: [
-                      // ======================================================
-                      // LOGO AND ARROW
-                      // ======================================================
+                      // ====================================================
+                      // IIMMPACT LOGO + ARROW
+                      // ====================================================
                       Row(
                         mainAxisAlignment:
                             MainAxisAlignment
                                 .spaceBetween,
+
                         crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                            CrossAxisAlignment
+                                .start,
+
                         children: [
                           Container(
                             width: 210,
                             height: 170,
+
                             padding:
                                 const EdgeInsets
                                     .all(22),
+
                             decoration:
                                 BoxDecoration(
                               color: Colors.white,
+
                               borderRadius:
                                   BorderRadius
                                       .circular(32),
+
                               border: Border.all(
                                 color: widget.biller
                                     .accentColor
                                     .withOpacity(
                                   0.20,
                                 ),
+
                                 width: 1.5,
                               ),
+
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black
                                       .withOpacity(
                                     0.07,
                                   ),
+
                                   blurRadius: 15,
+
                                   offset:
                                       const Offset(
                                     0,
@@ -1221,10 +1306,59 @@ class _WaterProviderCardState
                                 ),
                               ],
                             ),
-                            child: Image.asset(
-                              widget.biller
-                                  .imagePath,
-                              fit: BoxFit.contain,
+
+                            // =============================================
+                            // LOGO FROM IIMMPACT
+                            // =============================================
+                            child: Image.network(
+                              widget.biller.imageUrl,
+
+                              fit:
+                                  BoxFit.contain,
+
+                              loadingBuilder: (
+                                context,
+                                child,
+                                loadingProgress,
+                              ) {
+                                if (loadingProgress ==
+                                    null) {
+                                  return child;
+                                }
+
+                                return Center(
+                                  child:
+                                      CircularProgressIndicator(
+                                    strokeWidth: 3,
+
+                                    color: widget
+                                        .biller
+                                        .accentColor,
+                                  ),
+                                );
+                              },
+
+                              errorBuilder: (
+                                context,
+                                error,
+                                stackTrace,
+                              ) {
+                                debugPrint(
+                                  'Failed to load water logo: '
+                                  '${widget.biller.imageUrl}',
+                                );
+
+                                return Icon(
+                                  Icons
+                                      .water_drop_rounded,
+
+                                  size: 90,
+
+                                  color: widget
+                                      .biller
+                                      .accentColor,
+                                );
+                              },
                             ),
                           ),
 
@@ -1233,20 +1367,25 @@ class _WaterProviderCardState
                                 const Duration(
                               milliseconds: 160,
                             ),
+
                             transform: Matrix4
                                 .translationValues(
                               _isPressed ? 6 : 0,
                               0,
                               0,
                             ),
+
                             width: 54,
                             height: 54,
+
                             decoration:
                                 BoxDecoration(
                               color: widget.biller
                                   .accentColor,
+
                               shape:
                                   BoxShape.circle,
+
                               boxShadow: [
                                 BoxShadow(
                                   color: widget
@@ -1255,7 +1394,9 @@ class _WaterProviderCardState
                                       .withOpacity(
                                     0.24,
                                   ),
+
                                   blurRadius: 13,
+
                                   offset:
                                       const Offset(
                                     0,
@@ -1264,10 +1405,13 @@ class _WaterProviderCardState
                                 ),
                               ],
                             ),
+
                             child: const Icon(
                               Icons
                                   .arrow_forward_rounded,
+
                               color: Colors.white,
+
                               size: 30,
                             ),
                           ),
@@ -1276,77 +1420,102 @@ class _WaterProviderCardState
 
                       const Spacer(),
 
-                      // ======================================================
+                      // ====================================================
                       // PROVIDER NAME
-                      // ======================================================
+                      // ====================================================
                       Align(
                         alignment:
                             Alignment.centerLeft,
+
                         child: Text(
                           widget.biller.billerName
                               .toUpperCase(),
+
                           textAlign:
                               TextAlign.left,
+
                           maxLines: 3,
+
                           overflow:
                               TextOverflow.ellipsis,
+
                           style:
                               const TextStyle(
                             color:
                                 Color(0xFF15253A),
+
                             fontSize: 30,
+
                             fontWeight:
                                 FontWeight.w900,
+
                             height: 1.10,
+
                             letterSpacing: 0.3,
                           ),
                         ),
                       ),
 
-                      const SizedBox(height: 18),
+                      const SizedBox(
+                        height: 18,
+                      ),
 
-                      // ======================================================
+                      // ====================================================
                       // NETWORK STATUS
-                      // ======================================================
+                      // ====================================================
                       SizedBox(
                         width: double.infinity,
+
                         child:
                             _NetworkStatusBadge(
                           status: widget
                               .networkStatus,
+
                           label:
                               widget.networkLabel,
                         ),
                       ),
 
-                      const SizedBox(height: 20),
+                      const SizedBox(
+                        height: 20,
+                      ),
 
-                      // ======================================================
+                      // ====================================================
                       // ACCENT BARS
-                      // ======================================================
+                      // ====================================================
                       Row(
                         children: [
                           Container(
                             width: 58,
                             height: 7,
+
                             decoration:
                                 BoxDecoration(
                               color: widget.biller
                                   .accentColor,
+
                               borderRadius:
                                   BorderRadius
                                       .circular(50),
                             ),
                           ),
-                          const SizedBox(width: 8),
+
+                          const SizedBox(
+                            width: 8,
+                          ),
+
                           Container(
                             width: 13,
                             height: 7,
+
                             decoration:
                                 BoxDecoration(
                               color: widget.biller
                                   .accentColor
-                                  .withOpacity(0.28),
+                                  .withOpacity(
+                                0.28,
+                              ),
+
                               borderRadius:
                                   BorderRadius
                                       .circular(50),
@@ -1394,52 +1563,72 @@ class _NetworkStatusBadge
       case BillerStatus.loading:
         statusText =
             loc.networkStatusChecking;
+
         backgroundColor =
             const Color(0xFFF0F4F8);
+
         borderColor =
             const Color(0xFFC7D2DE);
+
         foregroundColor =
             const Color(0xFF536272);
+
         icon = Icons.sync_rounded;
+
         break;
 
       case BillerStatus.healthy:
         statusText =
             loc.networkStatusGood;
+
         backgroundColor =
             const Color(0xFFE2F8EC);
+
         borderColor =
             const Color(0xFF78C99B);
+
         foregroundColor =
             const Color(0xFF08783E);
+
         icon =
             Icons.check_circle_rounded;
+
         break;
 
       case BillerStatus.interruption:
         statusText =
             loc.networkStatusSlow;
+
         backgroundColor =
             const Color(0xFFFFF0D7);
+
         borderColor =
             const Color(0xFFF1B95D);
+
         foregroundColor =
             const Color(0xFFB75B00);
+
         icon =
             Icons.warning_amber_rounded;
+
         break;
 
       case BillerStatus.unavailable:
         statusText =
             loc.networkStatusUnknown;
+
         backgroundColor =
             const Color(0xFFF1F1F1);
+
         borderColor =
             const Color(0xFFC8C8C8);
+
         foregroundColor =
             const Color(0xFF555555);
+
         icon =
             Icons.help_outline_rounded;
+
         break;
     }
 
@@ -1448,29 +1637,36 @@ class _NetworkStatusBadge
           const BoxConstraints(
         minHeight: 58,
       ),
+
       padding:
           const EdgeInsets.symmetric(
         horizontal: 18,
         vertical: 14,
       ),
+
       decoration: BoxDecoration(
         color: backgroundColor,
+
         borderRadius:
             BorderRadius.circular(22),
+
         border: Border.all(
           color: borderColor,
           width: 1.7,
         ),
       ),
+
       child: Row(
         mainAxisAlignment:
             MainAxisAlignment.center,
+
         children: [
           if (status ==
               BillerStatus.loading)
             SizedBox(
               width: 26,
               height: 26,
+
               child:
                   CircularProgressIndicator(
                 strokeWidth: 3,
@@ -1484,23 +1680,34 @@ class _NetworkStatusBadge
               color: foregroundColor,
             ),
 
-          const SizedBox(width: 8),
+          const SizedBox(
+            width: 8,
+          ),
 
           Flexible(
             child: Text(
               '$label: $statusText',
+
               textAlign:
                   TextAlign.center,
+
               maxLines: 2,
+
               overflow:
                   TextOverflow.ellipsis,
+
               style: TextStyle(
                 color: foregroundColor,
+
                 fontSize: 18,
+
                 fontWeight:
                     FontWeight.w900,
+
                 height: 1.1,
-                letterSpacing: 0.3,
+
+                letterSpacing:
+                    0.3,
               ),
             ),
           ),
@@ -1532,7 +1739,8 @@ class _ScrollIndicatorButton
     final Widget iconWidget = Icon(
       icon,
       size: 52,
-      color: const Color(0xFF1687D9),
+      color:
+          const Color(0xFF1687D9),
     );
 
     final Widget textWidget = Text(
@@ -1541,37 +1749,47 @@ class _ScrollIndicatorButton
       style: const TextStyle(
         color: Color(0xFF15253A),
         fontSize: 17,
-        fontWeight: FontWeight.w900,
+        fontWeight:
+            FontWeight.w900,
       ),
     );
 
     return Material(
       color:
           Colors.white.withOpacity(0.96),
+
       borderRadius:
           BorderRadius.circular(22),
+
       elevation: 5,
+
       child: InkWell(
         onTap: onPressed,
+
         borderRadius:
             BorderRadius.circular(22),
+
         child: Container(
           padding:
               const EdgeInsets.symmetric(
             horizontal: 13,
             vertical: 10,
           ),
+
           decoration: BoxDecoration(
             borderRadius:
                 BorderRadius.circular(22),
+
             border: Border.all(
               color: Colors.black,
               width: 2,
             ),
           ),
+
           child: Column(
             mainAxisSize:
                 MainAxisSize.min,
+
             children: iconBelowText
                 ? [
                     textWidget,

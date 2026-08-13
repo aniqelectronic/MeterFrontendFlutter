@@ -4714,4 +4714,224 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get billUnknownError => '目前无法处理您的请求，请稍后再试。';
+
+  @override
+  String get telcoServiceLabel => '电讯服务';
+
+  @override
+  String get telcoPageTitle => '电讯服务';
+
+  @override
+  String get telcoPageSubtitle => '请选择您要使用的电讯服务';
+
+  @override
+  String get telcoBillPaymentTitle => '账单缴费';
+
+  @override
+  String get telcoBillPaymentDescription => '查询并缴付您的后付移动电话或电讯账单';
+
+  @override
+  String get telcoMobilePinTitle => '手机充值码';
+
+  @override
+  String get telcoMobilePinDescription => '购买预付手机充值码';
+
+  @override
+  String get telcoSelectionHint => '点击以上其中一个选项以继续';
+
+  @override
+  String get telcoBillServiceLabel => '电讯账单缴费';
+
+  @override
+  String get telcoBillProviderTitle => '选择电讯服务商';
+
+  @override
+  String get telcoBillProviderSubtitle => '请选择您的电讯服务商以继续缴付账单';
+
+  @override
+  String get mobilePinServiceLabel => '手机充值码';
+
+  @override
+  String get mobilePinProviderTitle => '选择手机充值服务商';
+
+  @override
+  String get mobilePinProviderSubtitle => '请选择您的手机服务商以购买预付充值码';
+
+  @override
+  String get telcoBillInputService => '电讯账单缴费';
+
+  @override
+  String get mobilePinInputService => '手机充值';
+
+  @override
+  String get telcoBillInputTitle => '输入账户号码或手机号码';
+
+  @override
+  String get mobilePinInputTitle => '输入手机号码';
+
+  @override
+  String get telcoSelectedProviderLabel => '已选择的服务商';
+
+  @override
+  String get telcoBillNumberHint => '输入账户号码或手机号码';
+
+  @override
+  String get mobilePinNumberHint => '输入手机号码';
+
+  @override
+  String get telcoBillInputInstruction => '请使用下方数字键盘输入您向电讯服务商登记的号码。';
+
+  @override
+  String get mobilePinInputInstruction => '请输入将接收预付充值的手机号码。';
+
+  @override
+  String get telcoClearAllButton => '清除';
+
+  @override
+  String get telcoInputAlertTitle => '请检查';
+
+  @override
+  String get telcoBillNumberRequired => '请输入您的账户号码或手机号码。';
+
+  @override
+  String get mobilePinNumberRequired => '请输入手机号码。';
+
+  @override
+  String get telcoNumberInvalid => '请输入有效的8至15位数字号码。';
+
+  @override
+  String get telcoProcessingTitle => '处理中';
+
+  @override
+  String get telcoProcessingMessage => '请稍候，我们正在处理您的请求。';
+
+  @override
+  String get telcoInputSuccessTitle => '号码已接收';
+
+  @override
+  String get telcoInputSuccessMessage => '号码已成功接收，可以进行下一步。';
+
+  @override
+  String get telcoOkButton => '确定';
+
+  @override
+  String get telcoInvalidAccount => '输入的账户号码或手机号码无效。请检查号码后再试。';
+
+  @override
+  String get telcoServiceUnavailable => '电讯服务暂时无法使用，请稍后再试。';
+
+  @override
+  String get mobilePinComingSoon => '手机充值功能将在下一步骤提供。';
+
+  @override
+  String get telcoAccountVerified => '账户已验证';
+
+  @override
+  String get telcoBillDetailsTitle => '电讯账单详情';
+
+  @override
+  String get telcoProvider => '服务商';
+
+  @override
+  String get telcoAccountNumber => '账户 / 手机号码';
+
+  @override
+  String get telcoOutstanding => '未缴金额';
+
+  @override
+  String get telcoDueDate => '缴费截止日期';
+
+  @override
+  String get telcoCustomerName => '客户姓名';
+
+  @override
+  String get telcoBillPayment => '电讯账单缴费';
+
+  @override
+  String get telcoReviewBillDetails => '检查账单资料';
+
+  @override
+  String get telcoReviewBillSubtitle => '请确认您的电讯账户资料后再继续。';
+
+  @override
+  String get telcoServiceProvider => '电讯服务商';
+
+  @override
+  String get telcoAccountMobileNumber => '账户 / 手机号码';
+
+  @override
+  String get telcoOutstandingBalance => '未缴余额';
+
+  @override
+  String get telcoPaymentAmountNextInfo => '您可以在下一页选择要缴付的金额。';
+
+  @override
+  String get telcoChoosePaymentAmount => '选择缴费金额';
+
+  @override
+  String get telcoChoosePaymentSubtitle => '请选择您要为此电讯账户缴付的金额。';
+
+  @override
+  String get telcoAmountToPay => '缴费金额';
+
+  @override
+  String get telcoSelectPaymentAmount => '选择缴费金额';
+
+  @override
+  String get telcoTapAmountKeypad => '点击金额以打开数字键盘';
+
+  @override
+  String get telcoPayFullOutstanding => '缴清未缴余额';
+
+  @override
+  String get telcoProceedToPayment => '继续缴费';
+
+  @override
+  String get telcoOrderSummary => '缴费摘要';
+
+  @override
+  String get telcoServiceFee => '服务费';
+
+  @override
+  String get telcoServiceAdjustment => '服务调整';
+
+  @override
+  String get telcoTotalPayment => '缴费总额';
+
+  @override
+  String get telcoLatestPricingInfo => '最终金额将根据服务商的最新价格自动计算。';
+
+  @override
+  String get telcoInformation => '提示';
+
+  @override
+  String telcoMaximumPayment(String amount) {
+    return '最高缴费金额为 $amount。';
+  }
+
+  @override
+  String telcoMinimumPayment(String amount) {
+    return '最低缴费金额为 $amount。';
+  }
+
+  @override
+  String get telcoNoOutstandingBalance => '此账户目前没有未缴余额。';
+
+  @override
+  String get telcoEnterPaymentAmount => '输入缴费金额';
+
+  @override
+  String get telcoKeypadInstruction => '请使用数字键盘输入金额';
+
+  @override
+  String get telcoPaymentRange => '最低 RM 1.00 • 最高 RM 10,000.00';
+
+  @override
+  String get telcoClear => '清除';
+
+  @override
+  String get telcoDone => '完成';
+
+  @override
+  String get telcoCancel => '取消';
 }

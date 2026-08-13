@@ -8,6 +8,7 @@ import 'package:frontend_v1/pages/bil/entertainment/pentertainmentbill3.dart';
 import 'package:frontend_v1/pages/bil/water/pwaterbill3.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
+import 'package:frontend_v1/pages/bil/telco/ptelco3.dart';
 
 import 'p2.dart';
 
@@ -355,8 +356,15 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                                 loc.telcoBillSupportingText,
                             accentColor: const Color(0xFF15946B),
                             accentLightColor: const Color(0xFFE2F7EF),
-                            onPressed: () {},
-                            comingSoon: true,
+                            onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PTELCO3PAGE(),
+                              ),
+                            );
+                          },
+                            comingSoon: false,
                           ),
                         ),
                         const SizedBox(width: 34),

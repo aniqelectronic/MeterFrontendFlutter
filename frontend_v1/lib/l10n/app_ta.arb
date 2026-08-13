@@ -2275,6 +2275,118 @@
 "billPresentmentUnavailable": "இந்தச் சேவைக்கான பில் தகவல் தற்போது கிடைக்கவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
 "billServiceUnavailable": "தற்போது இந்தச் சேவை கிடைக்கவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
 "billInvalidAccountNo": "கணக்கு எண் செல்லுபடியாகவில்லை. கணக்கு எண்ணைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
-"billUnknownError": "தற்போது உங்கள் கோரிக்கையைச் செயல்படுத்த முடியவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்."
+"billUnknownError": "தற்போது உங்கள் கோரிக்கையைச் செயல்படுத்த முடியவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
+
+"telcoServiceLabel": "தொலைத்தொடர்பு சேவை",
+"telcoPageTitle": "தொலைத்தொடர்பு சேவைகள்",
+"telcoPageSubtitle": "நீங்கள் பயன்படுத்த விரும்பும் தொலைத்தொடர்பு சேவையைத் தேர்ந்தெடுக்கவும்",
+
+"telcoBillPaymentTitle": "பில் கட்டணம்",
+"telcoBillPaymentDescription": "உங்கள் போஸ்ட்பெய்ட் மொபைல் அல்லது தொலைத்தொடர்பு பில்லைச் சரிபார்த்து செலுத்துங்கள்",
+
+"telcoMobilePinTitle": "மொபைல் ரீலோட்",
+"telcoMobilePinDescription": "ப்ரீபெய்ட் மொபைல் ரீலோட் PIN வாங்குங்கள்",
+
+"telcoSelectionHint": "தொடர மேலே உள்ள ஒரு விருப்பத்தைத் தொடவும்",
+
+"telcoBillServiceLabel": "தொலைத்தொடர்பு பில் கட்டணம்",
+"telcoBillProviderTitle": "தொலைத்தொடர்பு நிறுவனத்தைத் தேர்ந்தெடுக்கவும்",
+"telcoBillProviderSubtitle": "பில் கட்டணத்தைத் தொடர உங்கள் தொலைத்தொடர்பு நிறுவனத்தைத் தேர்ந்தெடுக்கவும்",
+
+"mobilePinServiceLabel": "மொபைல் ரீலோட் PIN",
+"mobilePinProviderTitle": "மொபைல் நிறுவனத்தைத் தேர்ந்தெடுக்கவும்",
+"mobilePinProviderSubtitle": "ப்ரீபெய்ட் ரீலோட் PIN வாங்க உங்கள் மொபைல் நிறுவனத்தைத் தேர்ந்தெடுக்கவும்",
+
+"telcoBillInputService": "தொலைத்தொடர்பு பில் கட்டணம்",
+"mobilePinInputService": "மொபைல் ரீலோட்",
+
+"telcoBillInputTitle": "கணக்கு அல்லது மொபைல் எண்ணை உள்ளிடவும்",
+"mobilePinInputTitle": "மொபைல் எண்ணை உள்ளிடவும்",
+
+"telcoSelectedProviderLabel": "தேர்ந்தெடுக்கப்பட்ட சேவை வழங்குநர்",
+
+"telcoBillNumberHint": "கணக்கு அல்லது மொபைல் எண்ணை உள்ளிடவும்",
+"mobilePinNumberHint": "மொபைல் எண்ணை உள்ளிடவும்",
+
+"telcoBillInputInstruction": "உங்கள் தொலைத்தொடர்பு சேவை வழங்குநரிடம் பதிவு செய்யப்பட்ட எண்ணை கீழே உள்ள எண் விசைப்பலகையைப் பயன்படுத்தி உள்ளிடவும்.",
+"mobilePinInputInstruction": "ப்ரீபெய்ட் ரீலோட் பெற வேண்டிய மொபைல் எண்ணை உள்ளிடவும்.",
+
+"telcoClearAllButton": "அழி",
+
+"telcoInputAlertTitle": "சரிபார்க்கவும்",
+"telcoBillNumberRequired": "உங்கள் கணக்கு அல்லது மொபைல் எண்ணை உள்ளிடவும்.",
+"mobilePinNumberRequired": "மொபைல் எண்ணை உள்ளிடவும்.",
+"telcoNumberInvalid": "8 முதல் 15 இலக்கங்கள் கொண்ட செல்லுபடியாகும் எண்ணை உள்ளிடவும்.",
+
+"telcoProcessingTitle": "செயலாக்கப்படுகிறது",
+"telcoProcessingMessage": "உங்கள் கோரிக்கை செயலாக்கப்படும் வரை காத்திருக்கவும்.",
+
+"telcoInputSuccessTitle": "எண் பெறப்பட்டது",
+"telcoInputSuccessMessage": "எண் ஏற்றுக்கொள்ளப்பட்டது. அடுத்த படிக்குத் தயாராக உள்ளது.",
+
+"telcoOkButton": "சரி",
+
+"telcoInvalidAccount": "உள்ளிடப்பட்ட கணக்கு அல்லது மொபைல் எண் செல்லுபடியாகவில்லை. எண்ணைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
+"telcoServiceUnavailable": "தொலைத்தொடர்பு சேவை தற்காலிகமாக கிடைக்கவில்லை. பின்னர் மீண்டும் முயற்சிக்கவும்.",
+"mobilePinComingSoon": "மொபைல் PIN செயலாக்கம் அடுத்த படியில் கிடைக்கும்.",
+
+"telcoAccountVerified": "கணக்கு சரிபார்க்கப்பட்டது",
+"telcoBillDetailsTitle": "தொலைத்தொடர்பு பில் விவரங்கள்",
+"telcoProvider": "சேவை வழங்குநர்",
+"telcoAccountNumber": "கணக்கு / மொபைல் எண்",
+"telcoOutstanding": "நிலுவைத் தொகை",
+"telcoDueDate": "கடைசி தேதி",
+"telcoCustomerName": "வாடிக்கையாளர் பெயர்",
+
+"telcoBillPayment": "தொலைத்தொடர்பு பில் கட்டணம்",
+"telcoReviewBillDetails": "பில் விவரங்களைச் சரிபார்க்கவும்",
+"telcoReviewBillSubtitle": "தொடர்வதற்கு முன் உங்கள் தொலைத்தொடர்பு கணக்கு விவரங்களைச் சரிபார்க்கவும்.",
+"telcoServiceProvider": "சேவை வழங்குநர்",
+"telcoAccountVerified": "கணக்கு சரிபார்க்கப்பட்டது",
+"telcoAccountMobileNumber": "கணக்கு / கைபேசி எண்",
+"telcoOutstandingBalance": "நிலுவைத் தொகை",
+"telcoCustomerName": "வாடிக்கையாளர் பெயர்",
+"telcoDueDate": "கடைசி கட்டண தேதி",
+"telcoPaymentAmountNextInfo": "அடுத்த திரையில் நீங்கள் செலுத்த வேண்டிய தொகையைத் தேர்ந்தெடுக்கலாம்.",
+
+"telcoChoosePaymentAmount": "கட்டணத் தொகையைத் தேர்ந்தெடுக்கவும்",
+"telcoChoosePaymentSubtitle": "இந்த தொலைத்தொடர்பு கணக்கிற்கு செலுத்த வேண்டிய தொகையைத் தேர்ந்தெடுக்கவும்.",
+"telcoAmountToPay": "செலுத்த வேண்டிய தொகை",
+"telcoSelectPaymentAmount": "கட்டணத் தொகையைத் தேர்ந்தெடுக்கவும்",
+"telcoTapAmountKeypad": "எண் விசைப்பலகையைத் திறக்க தொகையைத் தொடவும்",
+"telcoPayFullOutstanding": "முழு நிலுவையையும் செலுத்தவும்",
+"telcoProceedToPayment": "கட்டணத்தைத் தொடரவும்",
+
+"telcoOrderSummary": "கட்டணச் சுருக்கம்",
+"telcoServiceFee": "சேவைக் கட்டணம்",
+"telcoServiceAdjustment": "சேவை சரிசெய்தல்",
+"telcoTotalPayment": "மொத்த கட்டணம்",
+"telcoLatestPricingInfo": "சேவை வழங்குநரின் சமீபத்திய விலையின் அடிப்படையில் இறுதித் தொகை தானாகக் கணக்கிடப்படும்.",
+
+"telcoInformation": "தகவல்",
+"telcoMaximumPayment": "அதிகபட்ச கட்டணம் {amount}.",
+"@telcoMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+"telcoMinimumPayment": "குறைந்தபட்ச கட்டணம் {amount}.",
+"@telcoMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+"telcoNoOutstandingBalance": "இந்தக் கணக்கில் நிலுவைத் தொகை இல்லை.",
+
+"telcoEnterPaymentAmount": "கட்டணத் தொகையை உள்ளிடவும்",
+"telcoKeypadInstruction": "தொகையை உள்ளிட எண் விசைப்பலகையைப் பயன்படுத்தவும்",
+"telcoPaymentRange": "குறைந்தபட்சம் RM 1.00 • அதிகபட்சம் RM 10,000.00",
+"telcoClear": "அழி",
+"telcoDone": "முடிந்தது",
+"telcoCancel": "ரத்து"
 
 }

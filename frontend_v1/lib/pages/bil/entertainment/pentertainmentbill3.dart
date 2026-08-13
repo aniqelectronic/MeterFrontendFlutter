@@ -23,14 +23,14 @@ enum BillerStatus {
 class EntertainmentBiller {
   final String productCode;
   final String billerName;
-  final String imagePath;
+  final String imageUrl;
   final Color accentColor;
   final Color lightAccentColor;
 
   const EntertainmentBiller({
     required this.productCode,
     required this.billerName,
-    required this.imagePath,
+    required this.imageUrl,
     required this.accentColor,
     required this.lightAccentColor,
   });
@@ -51,12 +51,15 @@ class PENTERTAINMENTBILL3PAGE extends StatefulWidget {
 
 class _PENTERTAINMENTBILL3PAGEState
     extends State<PENTERTAINMENTBILL3PAGE> {
-  // Astro provider information.
+  // ==========================================================================
+  // ASTRO PROVIDER
+  // ==========================================================================
   static const EntertainmentBiller _astroBiller =
       EntertainmentBiller(
     productCode: 'ASB',
     billerName: 'ASTRO',
-    imagePath: 'lib/images/entertainment/ASB.png',
+    imageUrl:
+        'https://dashboard.iimmpact.com/img/ASB.png',
     accentColor: Color(0xFFE32675),
     lightAccentColor: Color(0xFFFFE6F1),
   );
@@ -95,8 +98,7 @@ class _PENTERTAINMENTBILL3PAGEState
 
     try {
       final result =
-          await IimmpactNetworkStatusService
-              .getStatus(
+          await IimmpactNetworkStatusService.getStatus(
         productCode: productCode,
       );
 
@@ -107,8 +109,7 @@ class _PENTERTAINMENTBILL3PAGEState
 
       if (mounted) {
         setState(() {
-          _billerStatuses[productCode] =
-              status;
+          _billerStatuses[productCode] = status;
 
           _lastUpdated[productCode] =
               result.lastUpdated;
@@ -484,7 +485,6 @@ class _PENTERTAINMENTBILL3PAGEState
             ),
           ),
 
-          // Soft readability overlay.
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -693,7 +693,7 @@ class _ModernEntertainmentHeader
             ).createShader(bounds);
           },
           child: Text(
-            title,
+            title.toUpperCase(),
             textAlign:
                 TextAlign.center,
             maxLines: 2,
@@ -744,7 +744,7 @@ class _ModernEntertainmentHeader
             ],
           ),
           child: Text(
-            subtitle,
+            subtitle.toUpperCase(),
             textAlign:
                 TextAlign.center,
             style: const TextStyle(
@@ -804,39 +804,53 @@ class _EntertainmentProviderCardState
     return GestureDetector(
       behavior:
           HitTestBehavior.opaque,
+
       onTapDown: (_) {
         _setPressed(true);
       },
+
       onTapUp: (_) {
         _setPressed(false);
       },
+
       onTapCancel: () {
         _setPressed(false);
       },
+
       onTap: widget.onPressed,
+
       child: AnimatedScale(
         scale:
             _isPressed ? 0.965 : 1,
+
         duration: const Duration(
           milliseconds: 130,
         ),
+
         curve: Curves.easeOut,
+
         child: AnimatedContainer(
           duration: const Duration(
             milliseconds: 170,
           ),
+
           curve: Curves.easeOut,
+
           decoration: BoxDecoration(
             color:
                 Colors.white.withOpacity(0.96),
+
             borderRadius:
                 BorderRadius.circular(38),
+
             border: Border.all(
               color: _isPressed
                   ? widget.biller.accentColor
                   : Colors.black,
+
               width: _isPressed ? 4 : 3,
             ),
+
             boxShadow: _isPressed
                 ? [
                     BoxShadow(
@@ -860,12 +874,16 @@ class _EntertainmentProviderCardState
                     ),
                   ],
           ),
+
           child: ClipRRect(
             borderRadius:
                 BorderRadius.circular(35),
+
             child: Stack(
               children: [
-                // Decorative large circle.
+                // ==========================================================
+                // DECORATIVE LARGE CIRCLE
+                // ==========================================================
                 Positioned(
                   right: -50,
                   top: -50,
@@ -874,12 +892,16 @@ class _EntertainmentProviderCardState
                         const Duration(
                       milliseconds: 180,
                     ),
+
                     width:
                         _isPressed ? 215 : 200,
+
                     height:
                         _isPressed ? 215 : 200,
+
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
+
                       color: widget
                           .biller.lightAccentColor
                           .withOpacity(0.92),
@@ -887,16 +909,20 @@ class _EntertainmentProviderCardState
                   ),
                 ),
 
-                // Decorative small circle.
+                // ==========================================================
+                // DECORATIVE SMALL CIRCLE
+                // ==========================================================
                 Positioned(
                   right: 92,
                   top: 105,
                   child: Container(
                     width: 34,
                     height: 34,
+
                     decoration:
                         BoxDecoration(
                       shape: BoxShape.circle,
+
                       color: widget
                           .biller.accentColor
                           .withOpacity(0.08),
@@ -912,31 +938,38 @@ class _EntertainmentProviderCardState
                     27,
                     25,
                   ),
+
                   child: Column(
                     children: [
-                      // ======================================================
-                      // LOGO AND ARROW
-                      // ======================================================
+                      // ====================================================
+                      // IIMMPACT LOGO + ARROW
+                      // ====================================================
                       Row(
                         mainAxisAlignment:
                             MainAxisAlignment
                                 .spaceBetween,
+
                         crossAxisAlignment:
                             CrossAxisAlignment
                                 .start,
+
                         children: [
                           Container(
                             width: 210,
                             height: 170,
+
                             padding:
                                 const EdgeInsets
                                     .all(22),
+
                             decoration:
                                 BoxDecoration(
                               color: Colors.white,
+
                               borderRadius:
                                   BorderRadius
                                       .circular(32),
+
                               border: Border.all(
                                 color: widget
                                     .biller
@@ -944,15 +977,19 @@ class _EntertainmentProviderCardState
                                     .withOpacity(
                                   0.20,
                                 ),
+
                                 width: 1.5,
                               ),
+
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black
                                       .withOpacity(
                                     0.07,
                                   ),
+
                                   blurRadius: 15,
+
                                   offset:
                                       const Offset(
                                     0,
@@ -961,24 +998,56 @@ class _EntertainmentProviderCardState
                                 ),
                               ],
                             ),
-                            child: Image.asset(
-                              widget.biller
-                                  .imagePath,
-                              fit: BoxFit.contain,
 
-                              // Fallback if logo is
-                              // missing or cannot load.
+                            // =============================================
+                            // ASTRO LOGO FROM IIMMPACT
+                            // =============================================
+                            child: Image.network(
+                              widget.biller.imageUrl,
+
+                              fit:
+                                  BoxFit.contain,
+
+                              loadingBuilder: (
+                                context,
+                                child,
+                                loadingProgress,
+                              ) {
+                                if (loadingProgress ==
+                                    null) {
+                                  return child;
+                                }
+
+                                return Center(
+                                  child:
+                                      CircularProgressIndicator(
+                                    strokeWidth: 3,
+
+                                    color: widget
+                                        .biller
+                                        .accentColor,
+                                  ),
+                                );
+                              },
+
                               errorBuilder: (
                                 context,
                                 error,
                                 stackTrace,
                               ) {
+                                debugPrint(
+                                  'Failed to load entertainment logo: '
+                                  '${widget.biller.imageUrl}',
+                                );
+
                                 return Icon(
                                   Icons
                                       .live_tv_rounded,
+
                                   color: widget
                                       .biller
                                       .accentColor,
+
                                   size: 100,
                                 );
                               },
@@ -990,21 +1059,26 @@ class _EntertainmentProviderCardState
                                 const Duration(
                               milliseconds: 160,
                             ),
+
                             transform: Matrix4
                                 .translationValues(
                               _isPressed ? 6 : 0,
                               0,
                               0,
                             ),
+
                             width: 54,
                             height: 54,
+
                             decoration:
                                 BoxDecoration(
                               color: widget
                                   .biller
                                   .accentColor,
+
                               shape:
                                   BoxShape.circle,
+
                               boxShadow: [
                                 BoxShadow(
                                   color: widget
@@ -1013,7 +1087,9 @@ class _EntertainmentProviderCardState
                                       .withOpacity(
                                     0.24,
                                   ),
+
                                   blurRadius: 13,
+
                                   offset:
                                       const Offset(
                                     0,
@@ -1022,10 +1098,13 @@ class _EntertainmentProviderCardState
                                 ),
                               ],
                             ),
+
                             child: const Icon(
                               Icons
                                   .arrow_forward_rounded,
+
                               color: Colors.white,
+
                               size: 30,
                             ),
                           ),
@@ -1034,81 +1113,106 @@ class _EntertainmentProviderCardState
 
                       const Spacer(),
 
-                      // ======================================================
+                      // ====================================================
                       // PROVIDER NAME
-                      // ======================================================
+                      // ====================================================
                       Align(
                         alignment:
                             Alignment.centerLeft,
+
                         child: Text(
                           widget.biller.billerName
                               .toUpperCase(),
+
                           textAlign:
                               TextAlign.left,
+
                           maxLines: 3,
+
                           overflow:
                               TextOverflow.ellipsis,
+
                           style:
                               const TextStyle(
                             color:
                                 Color(0xFF15253A),
+
                             fontSize: 30,
+
                             fontWeight:
                                 FontWeight.w900,
+
                             height: 1.10,
-                            letterSpacing: 0.3,
+
+                            letterSpacing:
+                                0.3,
                           ),
                         ),
                       ),
 
-                      const SizedBox(height: 18),
+                      const SizedBox(
+                        height: 18,
+                      ),
 
-                      // ======================================================
+                      // ====================================================
                       // NETWORK STATUS
-                      // ======================================================
+                      // ====================================================
                       SizedBox(
-                        width: double.infinity,
+                        width:
+                            double.infinity,
+
                         child:
                             _NetworkStatusBadge(
                           status: widget
                               .networkStatus,
+
                           label:
                               widget.networkLabel,
                         ),
                       ),
 
-                      const SizedBox(height: 20),
+                      const SizedBox(
+                        height: 20,
+                      ),
 
-                      // ======================================================
+                      // ====================================================
                       // ACCENT BARS
-                      // ======================================================
+                      // ====================================================
                       Row(
                         children: [
                           Container(
                             width: 58,
                             height: 7,
+
                             decoration:
                                 BoxDecoration(
                               color: widget
                                   .biller
                                   .accentColor,
+
                               borderRadius:
                                   BorderRadius
                                       .circular(50),
                             ),
                           ),
 
-                          const SizedBox(width: 8),
+                          const SizedBox(
+                            width: 8,
+                          ),
 
                           Container(
                             width: 13,
                             height: 7,
+
                             decoration:
                                 BoxDecoration(
                               color: widget
                                   .biller
                                   .accentColor
-                                  .withOpacity(0.28),
+                                  .withOpacity(
+                                0.28,
+                              ),
+
                               borderRadius:
                                   BorderRadius
                                       .circular(50),
@@ -1156,52 +1260,73 @@ class _NetworkStatusBadge
       case BillerStatus.loading:
         statusText =
             loc.networkStatusChecking;
+
         backgroundColor =
             const Color(0xFFF0F4F8);
+
         borderColor =
             const Color(0xFFC7D2DE);
+
         foregroundColor =
             const Color(0xFF536272);
-        icon = Icons.sync_rounded;
+
+        icon =
+            Icons.sync_rounded;
+
         break;
 
       case BillerStatus.healthy:
         statusText =
             loc.networkStatusGood;
+
         backgroundColor =
             const Color(0xFFE2F8EC);
+
         borderColor =
             const Color(0xFF78C99B);
+
         foregroundColor =
             const Color(0xFF08783E);
+
         icon =
             Icons.check_circle_rounded;
+
         break;
 
       case BillerStatus.interruption:
         statusText =
             loc.networkStatusSlow;
+
         backgroundColor =
             const Color(0xFFFFF0D7);
+
         borderColor =
             const Color(0xFFF1B95D);
+
         foregroundColor =
             const Color(0xFFB75B00);
+
         icon =
             Icons.warning_amber_rounded;
+
         break;
 
       case BillerStatus.unavailable:
         statusText =
             loc.networkStatusUnknown;
+
         backgroundColor =
             const Color(0xFFF1F1F1);
+
         borderColor =
             const Color(0xFFC8C8C8);
+
         foregroundColor =
             const Color(0xFF555555);
+
         icon =
             Icons.help_outline_rounded;
+
         break;
     }
 
@@ -1210,59 +1335,83 @@ class _NetworkStatusBadge
           const BoxConstraints(
         minHeight: 58,
       ),
+
       padding:
           const EdgeInsets.symmetric(
         horizontal: 18,
         vertical: 14,
       ),
+
       decoration: BoxDecoration(
         color: backgroundColor,
+
         borderRadius:
             BorderRadius.circular(22),
+
         border: Border.all(
           color: borderColor,
           width: 1.7,
         ),
       ),
+
       child: Row(
         mainAxisAlignment:
             MainAxisAlignment.center,
+
         children: [
           if (status ==
               BillerStatus.loading)
             SizedBox(
               width: 26,
               height: 26,
+
               child:
                   CircularProgressIndicator(
                 strokeWidth: 3,
-                color: foregroundColor,
+
+                color:
+                    foregroundColor,
               ),
             )
           else
             Icon(
               icon,
+
               size: 28,
-              color: foregroundColor,
+
+              color:
+                  foregroundColor,
             ),
 
-          const SizedBox(width: 8),
+          const SizedBox(
+            width: 8,
+          ),
 
           Flexible(
             child: Text(
               '$label: $statusText',
+
               textAlign:
                   TextAlign.center,
+
               maxLines: 2,
+
               overflow:
                   TextOverflow.ellipsis,
+
               style: TextStyle(
-                color: foregroundColor,
+                color:
+                    foregroundColor,
+
                 fontSize: 18,
+
                 fontWeight:
                     FontWeight.w900,
+
                 height: 1.1,
-                letterSpacing: 0.3,
+
+                letterSpacing:
+                    0.3,
               ),
             ),
           ),

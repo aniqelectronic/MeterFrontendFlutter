@@ -2438,7 +2438,119 @@
 "billPresentmentUnavailable": "Bill information is currently unavailable for this service. Please try again later.",
 "billServiceUnavailable": "This service is currently unavailable. Please try again later.",
 "billInvalidAccountNo": "Invalid account number. Please check the account number and try again.",
-"billUnknownError": "We are unable to process your request at the moment. Please try again later."
+"billUnknownError": "We are unable to process your request at the moment. Please try again later.",
+
+"telcoServiceLabel": "Telecommunication Service",
+"telcoPageTitle": "Telco Services",
+"telcoPageSubtitle": "Select the telecommunication service you would like to use",
+
+"telcoBillPaymentTitle": "Bill Payment",
+"telcoBillPaymentDescription": "Check and pay your postpaid mobile or telecommunication bill",
+
+"telcoMobilePinTitle": "Mobile PIN",
+"telcoMobilePinDescription": "Purchase a mobile prepaid reload PIN",
+
+"telcoSelectionHint": "Touch one of the options above to continue",
+
+"telcoBillServiceLabel": "Telco Bill Payment",
+"telcoBillProviderTitle": "Select Telco Provider",
+"telcoBillProviderSubtitle": "Select your telecommunication provider to continue with bill payment",
+
+"mobilePinServiceLabel": "Mobile PIN",
+"mobilePinProviderTitle": "Select Mobile PIN Provider",
+"mobilePinProviderSubtitle": "Select your mobile provider to purchase a prepaid reload PIN",
+
+"telcoBillInputService": "Telco Bill Payment",
+"mobilePinInputService": "Mobile PIN",
+
+"telcoBillInputTitle": "Enter Your Account or Mobile Number",
+"mobilePinInputTitle": "Enter Mobile Number",
+
+"telcoSelectedProviderLabel": "Selected Provider",
+
+"telcoBillNumberHint": "Enter account or mobile number",
+"mobilePinNumberHint": "Enter mobile number",
+
+"telcoBillInputInstruction": "Use the numeric keypad below to enter the number registered with your telco provider.",
+"mobilePinInputInstruction": "Enter the mobile number that will receive the prepaid reload.",
+
+"telcoClearAllButton": "CLEAR",
+
+"telcoInputAlertTitle": "Please Check",
+"telcoBillNumberRequired": "Please enter your account or mobile number.",
+"mobilePinNumberRequired": "Please enter the mobile number.",
+"telcoNumberInvalid": "Please enter a valid number using 8 to 15 digits.",
+
+"telcoProcessingTitle": "Processing",
+"telcoProcessingMessage": "Please wait while we process your request.",
+
+"telcoInputSuccessTitle": "Number Received",
+"telcoInputSuccessMessage": "The number has been accepted and is ready for the next step.",
+
+"telcoOkButton": "OK",
+
+"telcoInvalidAccount": "The account or mobile number entered is not valid. Please check the number and try again.",
+"telcoServiceUnavailable": "The telco service is temporarily unavailable. Please try again later.",
+"mobilePinComingSoon": "Mobile PIN processing will be available in the next step.",
+
+"telcoAccountVerified": "Account Verified",
+"telcoBillDetailsTitle": "Telco Bill Details",
+"telcoProvider": "Provider",
+"telcoAccountNumber": "Account / Mobile Number",
+"telcoOutstanding": "Outstanding Amount",
+"telcoDueDate": "Due Date",
+"telcoCustomerName": "Customer Name",
+
+"telcoBillPayment": "TELCO BILL PAYMENT",
+"telcoReviewBillDetails": "Review Bill Details",
+"telcoReviewBillSubtitle": "Please verify your telco account information before continuing.",
+"telcoServiceProvider": "SERVICE PROVIDER",
+"telcoAccountVerified": "ACCOUNT VERIFIED",
+"telcoAccountMobileNumber": "ACCOUNT / MOBILE NUMBER",
+"telcoOutstandingBalance": "OUTSTANDING BALANCE",
+"telcoCustomerName": "CUSTOMER NAME",
+"telcoDueDate": "DUE DATE",
+"telcoPaymentAmountNextInfo": "You can select your preferred payment amount on the next screen.",
+
+"telcoChoosePaymentAmount": "Choose Payment Amount",
+"telcoChoosePaymentSubtitle": "Select how much you want to pay for this telco account.",
+"telcoAmountToPay": "AMOUNT TO PAY",
+"telcoSelectPaymentAmount": "SELECT PAYMENT AMOUNT",
+"telcoTapAmountKeypad": "Tap the amount to open keypad",
+"telcoPayFullOutstanding": "PAY FULL OUTSTANDING",
+"telcoProceedToPayment": "PROCEED TO PAYMENT",
+
+"telcoOrderSummary": "ORDER SUMMARY",
+"telcoServiceFee": "Service Fee",
+"telcoServiceAdjustment": "Service Adjustment",
+"telcoTotalPayment": "TOTAL PAYMENT",
+"telcoLatestPricingInfo": "The final total is calculated automatically using the latest provider pricing.",
+
+"telcoInformation": "Information",
+"telcoMaximumPayment": "Maximum payment is {amount}.",
+"@telcoMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+"telcoMinimumPayment": "Minimum payment is {amount}.",
+"@telcoMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+"telcoNoOutstandingBalance": "There is no outstanding balance for this account.",
+
+"telcoEnterPaymentAmount": "Enter Payment Amount",
+"telcoKeypadInstruction": "Use the keypad to enter the amount",
+"telcoPaymentRange": "Minimum RM 1.00 • Maximum RM 10,000.00",
+"telcoClear": "CLEAR",
+"telcoDone": "DONE",
+"telcoCancel": "CANCEL"
 
 
 

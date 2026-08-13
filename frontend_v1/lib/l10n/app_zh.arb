@@ -2332,6 +2332,118 @@
 "billPresentmentUnavailable": "此服务的账单信息目前暂时无法获取，请稍后再试。",
 "billServiceUnavailable": "此服务目前暂时无法使用，请稍后再试。",
 "billInvalidAccountNo": "账号无效。请检查账号后重试。",
-"billUnknownError": "目前无法处理您的请求，请稍后再试。"
+"billUnknownError": "目前无法处理您的请求，请稍后再试。",
+
+"telcoServiceLabel": "电讯服务",
+"telcoPageTitle": "电讯服务",
+"telcoPageSubtitle": "请选择您要使用的电讯服务",
+
+"telcoBillPaymentTitle": "账单缴费",
+"telcoBillPaymentDescription": "查询并缴付您的后付移动电话或电讯账单",
+
+"telcoMobilePinTitle": "手机充值码",
+"telcoMobilePinDescription": "购买预付手机充值码",
+
+"telcoSelectionHint": "点击以上其中一个选项以继续",
+
+"telcoBillServiceLabel": "电讯账单缴费",
+"telcoBillProviderTitle": "选择电讯服务商",
+"telcoBillProviderSubtitle": "请选择您的电讯服务商以继续缴付账单",
+
+"mobilePinServiceLabel": "手机充值码",
+"mobilePinProviderTitle": "选择手机充值服务商",
+"mobilePinProviderSubtitle": "请选择您的手机服务商以购买预付充值码",
+
+"telcoBillInputService": "电讯账单缴费",
+"mobilePinInputService": "手机充值",
+
+"telcoBillInputTitle": "输入账户号码或手机号码",
+"mobilePinInputTitle": "输入手机号码",
+
+"telcoSelectedProviderLabel": "已选择的服务商",
+
+"telcoBillNumberHint": "输入账户号码或手机号码",
+"mobilePinNumberHint": "输入手机号码",
+
+"telcoBillInputInstruction": "请使用下方数字键盘输入您向电讯服务商登记的号码。",
+"mobilePinInputInstruction": "请输入将接收预付充值的手机号码。",
+
+"telcoClearAllButton": "清除",
+
+"telcoInputAlertTitle": "请检查",
+"telcoBillNumberRequired": "请输入您的账户号码或手机号码。",
+"mobilePinNumberRequired": "请输入手机号码。",
+"telcoNumberInvalid": "请输入有效的8至15位数字号码。",
+
+"telcoProcessingTitle": "处理中",
+"telcoProcessingMessage": "请稍候，我们正在处理您的请求。",
+
+"telcoInputSuccessTitle": "号码已接收",
+"telcoInputSuccessMessage": "号码已成功接收，可以进行下一步。",
+
+"telcoOkButton": "确定",
+
+"telcoInvalidAccount": "输入的账户号码或手机号码无效。请检查号码后再试。",
+"telcoServiceUnavailable": "电讯服务暂时无法使用，请稍后再试。",
+"mobilePinComingSoon": "手机充值功能将在下一步骤提供。",
+
+"telcoAccountVerified": "账户已验证",
+"telcoBillDetailsTitle": "电讯账单详情",
+"telcoProvider": "服务商",
+"telcoAccountNumber": "账户 / 手机号码",
+"telcoOutstanding": "未缴金额",
+"telcoDueDate": "到期日",
+"telcoCustomerName": "客户姓名",
+
+"telcoBillPayment": "电讯账单缴费",
+"telcoReviewBillDetails": "检查账单资料",
+"telcoReviewBillSubtitle": "请确认您的电讯账户资料后再继续。",
+"telcoServiceProvider": "电讯服务商",
+"telcoAccountVerified": "账户已验证",
+"telcoAccountMobileNumber": "账户 / 手机号码",
+"telcoOutstandingBalance": "未缴余额",
+"telcoCustomerName": "客户姓名",
+"telcoDueDate": "缴费截止日期",
+"telcoPaymentAmountNextInfo": "您可以在下一页选择要缴付的金额。",
+
+"telcoChoosePaymentAmount": "选择缴费金额",
+"telcoChoosePaymentSubtitle": "请选择您要为此电讯账户缴付的金额。",
+"telcoAmountToPay": "缴费金额",
+"telcoSelectPaymentAmount": "选择缴费金额",
+"telcoTapAmountKeypad": "点击金额以打开数字键盘",
+"telcoPayFullOutstanding": "缴清未缴余额",
+"telcoProceedToPayment": "继续缴费",
+
+"telcoOrderSummary": "缴费摘要",
+"telcoServiceFee": "服务费",
+"telcoServiceAdjustment": "服务调整",
+"telcoTotalPayment": "缴费总额",
+"telcoLatestPricingInfo": "最终金额将根据服务商的最新价格自动计算。",
+
+"telcoInformation": "提示",
+"telcoMaximumPayment": "最高缴费金额为 {amount}。",
+"@telcoMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+"telcoMinimumPayment": "最低缴费金额为 {amount}。",
+"@telcoMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+"telcoNoOutstandingBalance": "此账户目前没有未缴余额。",
+
+"telcoEnterPaymentAmount": "输入缴费金额",
+"telcoKeypadInstruction": "请使用数字键盘输入金额",
+"telcoPaymentRange": "最低 RM 1.00 • 最高 RM 10,000.00",
+"telcoClear": "清除",
+"telcoDone": "完成",
+"telcoCancel": "取消"
 
 }

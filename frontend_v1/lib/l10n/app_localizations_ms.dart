@@ -4714,4 +4714,224 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get billUnknownError => 'Permintaan anda tidak dapat diproses buat masa ini. Sila cuba lagi sebentar nanti.';
+
+  @override
+  String get telcoServiceLabel => 'Perkhidmatan Telekomunikasi';
+
+  @override
+  String get telcoPageTitle => 'Perkhidmatan Telko';
+
+  @override
+  String get telcoPageSubtitle => 'Pilih perkhidmatan telekomunikasi yang ingin anda gunakan';
+
+  @override
+  String get telcoBillPaymentTitle => 'Pembayaran Bil';
+
+  @override
+  String get telcoBillPaymentDescription => 'Semak dan bayar bil mudah alih pascabayar atau telekomunikasi anda';
+
+  @override
+  String get telcoMobilePinTitle => 'PIN Mudah Alih';
+
+  @override
+  String get telcoMobilePinDescription => 'Beli PIN tambah nilai prabayar mudah alih';
+
+  @override
+  String get telcoSelectionHint => 'Sentuh salah satu pilihan di atas untuk meneruskan';
+
+  @override
+  String get telcoBillServiceLabel => 'Pembayaran Bil Telko';
+
+  @override
+  String get telcoBillProviderTitle => 'Pilih Penyedia Telko';
+
+  @override
+  String get telcoBillProviderSubtitle => 'Pilih penyedia telekomunikasi anda untuk meneruskan pembayaran bil';
+
+  @override
+  String get mobilePinServiceLabel => 'PIN Mudah Alih';
+
+  @override
+  String get mobilePinProviderTitle => 'Pilih Penyedia PIN Mudah Alih';
+
+  @override
+  String get mobilePinProviderSubtitle => 'Pilih penyedia mudah alih anda untuk membeli PIN tambah nilai prabayar';
+
+  @override
+  String get telcoBillInputService => 'Pembayaran Bil Telko';
+
+  @override
+  String get mobilePinInputService => 'PIN Mudah Alih';
+
+  @override
+  String get telcoBillInputTitle => 'Masukkan Nombor Akaun atau Nombor Mudah Alih';
+
+  @override
+  String get mobilePinInputTitle => 'Masukkan Nombor Mudah Alih';
+
+  @override
+  String get telcoSelectedProviderLabel => 'Penyedia Dipilih';
+
+  @override
+  String get telcoBillNumberHint => 'Masukkan nombor akaun atau nombor mudah alih';
+
+  @override
+  String get mobilePinNumberHint => 'Masukkan nombor mudah alih';
+
+  @override
+  String get telcoBillInputInstruction => 'Gunakan papan kekunci nombor di bawah untuk memasukkan nombor yang didaftarkan dengan penyedia telko anda.';
+
+  @override
+  String get mobilePinInputInstruction => 'Masukkan nombor mudah alih yang akan menerima tambah nilai prabayar.';
+
+  @override
+  String get telcoClearAllButton => 'PADAM';
+
+  @override
+  String get telcoInputAlertTitle => 'Sila Semak';
+
+  @override
+  String get telcoBillNumberRequired => 'Sila masukkan nombor akaun atau nombor mudah alih anda.';
+
+  @override
+  String get mobilePinNumberRequired => 'Sila masukkan nombor mudah alih.';
+
+  @override
+  String get telcoNumberInvalid => 'Sila masukkan nombor yang sah menggunakan 8 hingga 15 digit.';
+
+  @override
+  String get telcoProcessingTitle => 'Sedang Diproses';
+
+  @override
+  String get telcoProcessingMessage => 'Sila tunggu sementara permintaan anda diproses.';
+
+  @override
+  String get telcoInputSuccessTitle => 'Nombor Diterima';
+
+  @override
+  String get telcoInputSuccessMessage => 'Nombor telah diterima dan sedia untuk langkah seterusnya.';
+
+  @override
+  String get telcoOkButton => 'OK';
+
+  @override
+  String get telcoInvalidAccount => 'Nombor akaun atau nombor mudah alih yang dimasukkan tidak sah. Sila semak nombor dan cuba lagi.';
+
+  @override
+  String get telcoServiceUnavailable => 'Perkhidmatan telko tidak tersedia buat sementara waktu. Sila cuba lagi kemudian.';
+
+  @override
+  String get mobilePinComingSoon => 'Pemprosesan PIN mudah alih akan tersedia pada langkah seterusnya.';
+
+  @override
+  String get telcoAccountVerified => 'AKAUN DISAHKAN';
+
+  @override
+  String get telcoBillDetailsTitle => 'Butiran Bil Telko';
+
+  @override
+  String get telcoProvider => 'Penyedia';
+
+  @override
+  String get telcoAccountNumber => 'Nombor Akaun / Mudah Alih';
+
+  @override
+  String get telcoOutstanding => 'Jumlah Tertunggak';
+
+  @override
+  String get telcoDueDate => 'TARIKH AKHIR BAYARAN';
+
+  @override
+  String get telcoCustomerName => 'NAMA PELANGGAN';
+
+  @override
+  String get telcoBillPayment => 'PEMBAYARAN BIL TELCO';
+
+  @override
+  String get telcoReviewBillDetails => 'Semak Butiran Bil';
+
+  @override
+  String get telcoReviewBillSubtitle => 'Sila semak maklumat akaun telco anda sebelum meneruskan.';
+
+  @override
+  String get telcoServiceProvider => 'PENYEDIA PERKHIDMATAN';
+
+  @override
+  String get telcoAccountMobileNumber => 'NOMBOR AKAUN / TELEFON';
+
+  @override
+  String get telcoOutstandingBalance => 'BAKI TERTUNGGAK';
+
+  @override
+  String get telcoPaymentAmountNextInfo => 'Anda boleh memilih jumlah bayaran yang dikehendaki pada skrin seterusnya.';
+
+  @override
+  String get telcoChoosePaymentAmount => 'Pilih Jumlah Bayaran';
+
+  @override
+  String get telcoChoosePaymentSubtitle => 'Pilih jumlah yang ingin anda bayar untuk akaun telco ini.';
+
+  @override
+  String get telcoAmountToPay => 'JUMLAH BAYARAN';
+
+  @override
+  String get telcoSelectPaymentAmount => 'PILIH JUMLAH BAYARAN';
+
+  @override
+  String get telcoTapAmountKeypad => 'Tekan jumlah untuk membuka papan kekunci';
+
+  @override
+  String get telcoPayFullOutstanding => 'BAYAR PENUH TERTUNGGAK';
+
+  @override
+  String get telcoProceedToPayment => 'TERUSKAN PEMBAYARAN';
+
+  @override
+  String get telcoOrderSummary => 'RINGKASAN BAYARAN';
+
+  @override
+  String get telcoServiceFee => 'Caj Perkhidmatan';
+
+  @override
+  String get telcoServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get telcoTotalPayment => 'JUMLAH KESELURUHAN';
+
+  @override
+  String get telcoLatestPricingInfo => 'Jumlah akhir dikira secara automatik berdasarkan harga terkini penyedia perkhidmatan.';
+
+  @override
+  String get telcoInformation => 'Maklumat';
+
+  @override
+  String telcoMaximumPayment(String amount) {
+    return 'Bayaran maksimum ialah $amount.';
+  }
+
+  @override
+  String telcoMinimumPayment(String amount) {
+    return 'Bayaran minimum ialah $amount.';
+  }
+
+  @override
+  String get telcoNoOutstandingBalance => 'Tiada baki tertunggak untuk akaun ini.';
+
+  @override
+  String get telcoEnterPaymentAmount => 'Masukkan Jumlah Bayaran';
+
+  @override
+  String get telcoKeypadInstruction => 'Gunakan papan kekunci untuk memasukkan jumlah';
+
+  @override
+  String get telcoPaymentRange => 'Minimum RM 1.00 • Maksimum RM 10,000.00';
+
+  @override
+  String get telcoClear => 'PADAM';
+
+  @override
+  String get telcoDone => 'SELESAI';
+
+  @override
+  String get telcoCancel => 'BATAL';
 }

@@ -2447,7 +2447,119 @@
 "billPresentmentUnavailable": "Maklumat bil buat masa ini tidak tersedia untuk perkhidmatan ini. Sila cuba lagi sebentar nanti.",
 "billServiceUnavailable": "Buat masa ini, perkhidmatan tidak tersedia. Sila cuba lagi sebentar nanti.",
 "billInvalidAccountNo": "Nombor akaun tidak sah. Sila semak nombor akaun dan cuba lagi.",
-"billUnknownError": "Permintaan anda tidak dapat diproses buat masa ini. Sila cuba lagi sebentar nanti."
+"billUnknownError": "Permintaan anda tidak dapat diproses buat masa ini. Sila cuba lagi sebentar nanti.",
+
+"telcoServiceLabel": "Perkhidmatan Telekomunikasi",
+"telcoPageTitle": "Perkhidmatan Telko",
+"telcoPageSubtitle": "Pilih perkhidmatan telekomunikasi yang ingin anda gunakan",
+
+"telcoBillPaymentTitle": "Pembayaran Bil",
+"telcoBillPaymentDescription": "Semak dan bayar bil mudah alih pascabayar atau telekomunikasi anda",
+
+"telcoMobilePinTitle": "PIN Mudah Alih",
+"telcoMobilePinDescription": "Beli PIN tambah nilai prabayar mudah alih",
+
+"telcoSelectionHint": "Sentuh salah satu pilihan di atas untuk meneruskan",
+
+"telcoBillServiceLabel": "Pembayaran Bil Telko",
+"telcoBillProviderTitle": "Pilih Penyedia Telko",
+"telcoBillProviderSubtitle": "Pilih penyedia telekomunikasi anda untuk meneruskan pembayaran bil",
+
+"mobilePinServiceLabel": "PIN Mudah Alih",
+"mobilePinProviderTitle": "Pilih Penyedia PIN Mudah Alih",
+"mobilePinProviderSubtitle": "Pilih penyedia mudah alih anda untuk membeli PIN tambah nilai prabayar",
+
+"telcoBillInputService": "Pembayaran Bil Telko",
+"mobilePinInputService": "PIN Mudah Alih",
+
+"telcoBillInputTitle": "Masukkan Nombor Akaun atau Nombor Mudah Alih",
+"mobilePinInputTitle": "Masukkan Nombor Mudah Alih",
+
+"telcoSelectedProviderLabel": "Penyedia Dipilih",
+
+"telcoBillNumberHint": "Masukkan nombor akaun atau nombor mudah alih",
+"mobilePinNumberHint": "Masukkan nombor mudah alih",
+
+"telcoBillInputInstruction": "Gunakan papan kekunci nombor di bawah untuk memasukkan nombor yang didaftarkan dengan penyedia telko anda.",
+"mobilePinInputInstruction": "Masukkan nombor mudah alih yang akan menerima tambah nilai prabayar.",
+
+"telcoClearAllButton": "PADAM",
+
+"telcoInputAlertTitle": "Sila Semak",
+"telcoBillNumberRequired": "Sila masukkan nombor akaun atau nombor mudah alih anda.",
+"mobilePinNumberRequired": "Sila masukkan nombor mudah alih.",
+"telcoNumberInvalid": "Sila masukkan nombor yang sah menggunakan 8 hingga 15 digit.",
+
+"telcoProcessingTitle": "Sedang Diproses",
+"telcoProcessingMessage": "Sila tunggu sementara permintaan anda diproses.",
+
+"telcoInputSuccessTitle": "Nombor Diterima",
+"telcoInputSuccessMessage": "Nombor telah diterima dan sedia untuk langkah seterusnya.",
+
+"telcoOkButton": "OK",
+
+"telcoInvalidAccount": "Nombor akaun atau nombor mudah alih yang dimasukkan tidak sah. Sila semak nombor dan cuba lagi.",
+"telcoServiceUnavailable": "Perkhidmatan telko tidak tersedia buat sementara waktu. Sila cuba lagi kemudian.",
+"mobilePinComingSoon": "Pemprosesan PIN mudah alih akan tersedia pada langkah seterusnya.",
+
+"telcoAccountVerified": "Akaun Disahkan",
+"telcoBillDetailsTitle": "Butiran Bil Telko",
+"telcoProvider": "Penyedia",
+"telcoAccountNumber": "Nombor Akaun / Mudah Alih",
+"telcoOutstanding": "Jumlah Tertunggak",
+"telcoDueDate": "Tarikh Akhir",
+"telcoCustomerName": "Nama Pelanggan",
+
+"telcoBillPayment": "PEMBAYARAN BIL TELCO",
+"telcoReviewBillDetails": "Semak Butiran Bil",
+"telcoReviewBillSubtitle": "Sila semak maklumat akaun telco anda sebelum meneruskan.",
+"telcoServiceProvider": "PENYEDIA PERKHIDMATAN",
+"telcoAccountVerified": "AKAUN DISAHKAN",
+"telcoAccountMobileNumber": "NOMBOR AKAUN / TELEFON",
+"telcoOutstandingBalance": "BAKI TERTUNGGAK",
+"telcoCustomerName": "NAMA PELANGGAN",
+"telcoDueDate": "TARIKH AKHIR BAYARAN",
+"telcoPaymentAmountNextInfo": "Anda boleh memilih jumlah bayaran yang dikehendaki pada skrin seterusnya.",
+
+"telcoChoosePaymentAmount": "Pilih Jumlah Bayaran",
+"telcoChoosePaymentSubtitle": "Pilih jumlah yang ingin anda bayar untuk akaun telco ini.",
+"telcoAmountToPay": "JUMLAH BAYARAN",
+"telcoSelectPaymentAmount": "PILIH JUMLAH BAYARAN",
+"telcoTapAmountKeypad": "Tekan jumlah untuk membuka papan kekunci",
+"telcoPayFullOutstanding": "BAYAR PENUH TERTUNGGAK",
+"telcoProceedToPayment": "TERUSKAN PEMBAYARAN",
+
+"telcoOrderSummary": "RINGKASAN BAYARAN",
+"telcoServiceFee": "Caj Perkhidmatan",
+"telcoServiceAdjustment": "Pelarasan Perkhidmatan",
+"telcoTotalPayment": "JUMLAH KESELURUHAN",
+"telcoLatestPricingInfo": "Jumlah akhir dikira secara automatik berdasarkan harga terkini penyedia perkhidmatan.",
+
+"telcoInformation": "Maklumat",
+"telcoMaximumPayment": "Bayaran maksimum ialah {amount}.",
+"@telcoMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+"telcoMinimumPayment": "Bayaran minimum ialah {amount}.",
+"@telcoMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+"telcoNoOutstandingBalance": "Tiada baki tertunggak untuk akaun ini.",
+
+"telcoEnterPaymentAmount": "Masukkan Jumlah Bayaran",
+"telcoKeypadInstruction": "Gunakan papan kekunci untuk memasukkan jumlah",
+"telcoPaymentRange": "Minimum RM 1.00 • Maksimum RM 10,000.00",
+"telcoClear": "PADAM",
+"telcoDone": "SELESAI",
+"telcoCancel": "BATAL"
 
 
 

@@ -23,14 +23,14 @@ enum BroadbandBillerStatus {
 class BroadbandBiller {
   final String productCode;
   final String billerName;
-  final String imagePath;
+  final String imageUrl;
   final Color accentColor;
   final Color lightAccentColor;
 
   const BroadbandBiller({
     required this.productCode,
     required this.billerName,
-    required this.imagePath,
+    required this.imageUrl,
     required this.accentColor,
     required this.lightAccentColor,
   });
@@ -64,14 +64,17 @@ class _PBROADBANDBILL3PAGEState
     BroadbandBiller(
       productCode: 'TM',
       billerName: 'Telekom Malaysia',
-      imagePath: 'lib/images/broadband/tm.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/TM.png',
       accentColor: Color(0xFF6255D9),
       lightAccentColor: Color(0xFFECE9FF),
     ),
+
     BroadbandBiller(
       productCode: 'UNB',
       billerName: 'Unifi',
-      imagePath: 'lib/images/broadband/unb.png',
+      imageUrl:
+          'https://dashboard.iimmpact.com/img/UNB.png',
       accentColor: Color(0xFF9A3CCE),
       lightAccentColor: Color(0xFFF4E6FC),
     ),
@@ -700,8 +703,6 @@ class _PBROADBANDBILL3PAGEState
                     crossAxisCount: 2,
                     crossAxisSpacing: 34,
                     mainAxisSpacing: 36,
-
-                    // Same compact proportion as Water.
                     childAspectRatio: 1.0,
                   ),
                   itemBuilder: (
@@ -885,7 +886,7 @@ class _ModernBroadbandHeader
             ).createShader(bounds);
           },
           child: Text(
-            title,
+            title.toUpperCase(),
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow:
@@ -935,7 +936,7 @@ class _ModernBroadbandHeader
             ],
           ),
           child: Text(
-            subtitle,
+            subtitle.toUpperCase(),
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF435166),
@@ -991,16 +992,21 @@ class _BroadbandProviderCardState
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
+
       onTapDown: (_) {
         _setPressed(true);
       },
+
       onTapUp: (_) {
         _setPressed(false);
       },
+
       onTapCancel: () {
         _setPressed(false);
       },
+
       onTap: widget.onPressed,
+
       child: AnimatedScale(
         scale:
             _isPressed ? 0.965 : 1,
@@ -1008,22 +1014,26 @@ class _BroadbandProviderCardState
           milliseconds: 130,
         ),
         curve: Curves.easeOut,
+
         child: AnimatedContainer(
           duration: const Duration(
             milliseconds: 170,
           ),
           curve: Curves.easeOut,
+
           decoration: BoxDecoration(
             color:
                 Colors.white.withOpacity(0.96),
             borderRadius:
                 BorderRadius.circular(38),
+
             border: Border.all(
               color: _isPressed
                   ? widget.biller.accentColor
                   : Colors.black,
               width: _isPressed ? 4 : 3,
             ),
+
             boxShadow: _isPressed
                 ? [
                     BoxShadow(
@@ -1047,12 +1057,16 @@ class _BroadbandProviderCardState
                     ),
                   ],
           ),
+
           child: ClipRRect(
             borderRadius:
                 BorderRadius.circular(35),
+
             child: Stack(
               children: [
-                // Decorative background circle.
+                // ==========================================================
+                // DECORATIVE BACKGROUND
+                // ==========================================================
                 Positioned(
                   right: -50,
                   top: -50,
@@ -1097,30 +1111,36 @@ class _BroadbandProviderCardState
                     27,
                     25,
                   ),
+
                   child: Column(
                     children: [
-                      // ======================================================
-                      // LOGO AND ARROW
-                      // ======================================================
+                      // ====================================================
+                      // IIMMPACT LOGO + ARROW
+                      // ====================================================
                       Row(
                         mainAxisAlignment:
                             MainAxisAlignment
                                 .spaceBetween,
                         crossAxisAlignment:
                             CrossAxisAlignment.start,
+
                         children: [
                           Container(
                             width: 210,
                             height: 170,
+
                             padding:
                                 const EdgeInsets
                                     .all(22),
+
                             decoration:
                                 BoxDecoration(
                               color: Colors.white,
+
                               borderRadius:
                                   BorderRadius
                                       .circular(32),
+
                               border: Border.all(
                                 color: widget
                                     .biller
@@ -1130,6 +1150,7 @@ class _BroadbandProviderCardState
                                 ),
                                 width: 1.5,
                               ),
+
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black
@@ -1145,10 +1166,53 @@ class _BroadbandProviderCardState
                                 ),
                               ],
                             ),
-                            child: Image.asset(
-                              widget.biller
-                                  .imagePath,
+
+                            // =================================================
+                            // LOGO FROM IIMMPACT
+                            // =================================================
+                            child: Image.network(
+                              widget.biller.imageUrl,
                               fit: BoxFit.contain,
+
+                              loadingBuilder: (
+                                context,
+                                child,
+                                loadingProgress,
+                              ) {
+                                if (loadingProgress ==
+                                    null) {
+                                  return child;
+                                }
+
+                                return Center(
+                                  child:
+                                      CircularProgressIndicator(
+                                    strokeWidth: 3,
+                                    color: widget
+                                        .biller
+                                        .accentColor,
+                                  ),
+                                );
+                              },
+
+                              errorBuilder: (
+                                context,
+                                error,
+                                stackTrace,
+                              ) {
+                                debugPrint(
+                                  'Failed to load broadband logo: '
+                                  '${widget.biller.imageUrl}',
+                                );
+
+                                return Icon(
+                                  Icons.router_rounded,
+                                  size: 85,
+                                  color: widget
+                                      .biller
+                                      .accentColor,
+                                );
+                              },
                             ),
                           ),
 
@@ -1157,20 +1221,24 @@ class _BroadbandProviderCardState
                                 const Duration(
                               milliseconds: 160,
                             ),
+
                             transform: Matrix4
                                 .translationValues(
                               _isPressed ? 6 : 0,
                               0,
                               0,
                             ),
+
                             width: 54,
                             height: 54,
+
                             decoration:
                                 BoxDecoration(
                               color: widget.biller
                                   .accentColor,
                               shape:
                                   BoxShape.circle,
+
                               boxShadow: [
                                 BoxShadow(
                                   color: widget
@@ -1188,6 +1256,7 @@ class _BroadbandProviderCardState
                                 ),
                               ],
                             ),
+
                             child: const Icon(
                               Icons
                                   .arrow_forward_rounded,
@@ -1200,77 +1269,102 @@ class _BroadbandProviderCardState
 
                       const Spacer(),
 
-                      // ======================================================
+                      // ====================================================
                       // PROVIDER NAME
-                      // ======================================================
+                      // ====================================================
                       Align(
                         alignment:
                             Alignment.centerLeft,
+
                         child: Text(
                           widget.biller.billerName
                               .toUpperCase(),
+
                           textAlign:
                               TextAlign.left,
+
                           maxLines: 3,
+
                           overflow:
                               TextOverflow.ellipsis,
+
                           style:
                               const TextStyle(
                             color:
                                 Color(0xFF15253A),
+
                             fontSize: 30,
+
                             fontWeight:
                                 FontWeight.w900,
+
                             height: 1.10,
+
                             letterSpacing: 0.3,
                           ),
                         ),
                       ),
 
-                      const SizedBox(height: 18),
+                      const SizedBox(
+                        height: 18,
+                      ),
 
-                      // ======================================================
+                      // ====================================================
                       // NETWORK STATUS
-                      // ======================================================
+                      // ====================================================
                       SizedBox(
                         width: double.infinity,
+
                         child:
                             _NetworkStatusBadge(
                           status: widget
                               .networkStatus,
+
                           label:
                               widget.networkLabel,
                         ),
                       ),
 
-                      const SizedBox(height: 20),
+                      const SizedBox(
+                        height: 20,
+                      ),
 
-                      // ======================================================
+                      // ====================================================
                       // ACCENT BARS
-                      // ======================================================
+                      // ====================================================
                       Row(
                         children: [
                           Container(
                             width: 58,
                             height: 7,
+
                             decoration:
                                 BoxDecoration(
                               color: widget.biller
                                   .accentColor,
+
                               borderRadius:
                                   BorderRadius
                                       .circular(50),
                             ),
                           ),
-                          const SizedBox(width: 8),
+
+                          const SizedBox(
+                            width: 8,
+                          ),
+
                           Container(
                             width: 13,
                             height: 7,
+
                             decoration:
                                 BoxDecoration(
                               color: widget.biller
                                   .accentColor
-                                  .withOpacity(0.28),
+                                  .withOpacity(
+                                0.28,
+                              ),
+
                               borderRadius:
                                   BorderRadius
                                       .circular(50),
@@ -1318,24 +1412,32 @@ class _NetworkStatusBadge
       case BroadbandBillerStatus.loading:
         statusText =
             loc.networkStatusChecking;
+
         backgroundColor =
             const Color(0xFFF0F4F8);
+
         borderColor =
             const Color(0xFFC7D2DE);
+
         foregroundColor =
             const Color(0xFF536272);
+
         icon = Icons.sync_rounded;
         break;
 
       case BroadbandBillerStatus.healthy:
         statusText =
             loc.networkStatusGood;
+
         backgroundColor =
             const Color(0xFFE2F8EC);
+
         borderColor =
             const Color(0xFF78C99B);
+
         foregroundColor =
             const Color(0xFF08783E);
+
         icon =
             Icons.check_circle_rounded;
         break;
@@ -1343,12 +1445,16 @@ class _NetworkStatusBadge
       case BroadbandBillerStatus.interruption:
         statusText =
             loc.networkStatusSlow;
+
         backgroundColor =
             const Color(0xFFFFF0D7);
+
         borderColor =
             const Color(0xFFF1B95D);
+
         foregroundColor =
             const Color(0xFFB75B00);
+
         icon =
             Icons.warning_amber_rounded;
         break;
@@ -1356,12 +1462,16 @@ class _NetworkStatusBadge
       case BroadbandBillerStatus.unavailable:
         statusText =
             loc.networkStatusUnknown;
+
         backgroundColor =
             const Color(0xFFF1F1F1);
+
         borderColor =
             const Color(0xFFC8C8C8);
+
         foregroundColor =
             const Color(0xFF555555);
+
         icon =
             Icons.help_outline_rounded;
         break;
@@ -1372,29 +1482,36 @@ class _NetworkStatusBadge
           const BoxConstraints(
         minHeight: 58,
       ),
+
       padding:
           const EdgeInsets.symmetric(
         horizontal: 18,
         vertical: 14,
       ),
+
       decoration: BoxDecoration(
         color: backgroundColor,
+
         borderRadius:
             BorderRadius.circular(22),
+
         border: Border.all(
           color: borderColor,
           width: 1.7,
         ),
       ),
+
       child: Row(
         mainAxisAlignment:
             MainAxisAlignment.center,
+
         children: [
           if (status ==
               BroadbandBillerStatus.loading)
             SizedBox(
               width: 26,
               height: 26,
+
               child:
                   CircularProgressIndicator(
                 strokeWidth: 3,
@@ -1408,22 +1525,32 @@ class _NetworkStatusBadge
               color: foregroundColor,
             ),
 
-          const SizedBox(width: 8),
+          const SizedBox(
+            width: 8,
+          ),
 
           Flexible(
             child: Text(
               '$label: $statusText',
+
               textAlign:
                   TextAlign.center,
+
               maxLines: 2,
+
               overflow:
                   TextOverflow.ellipsis,
+
               style: TextStyle(
                 color: foregroundColor,
+
                 fontSize: 18,
+
                 fontWeight:
                     FontWeight.w900,
+
                 height: 1.1,
+
                 letterSpacing: 0.3,
               ),
             ),
@@ -1456,7 +1583,8 @@ class _ScrollIndicatorButton
     final Widget iconWidget = Icon(
       icon,
       size: 52,
-      color: const Color(0xFF6255D9),
+      color:
+          const Color(0xFF6255D9),
     );
 
     final Widget textWidget = Text(
@@ -1465,37 +1593,47 @@ class _ScrollIndicatorButton
       style: const TextStyle(
         color: Color(0xFF15253A),
         fontSize: 17,
-        fontWeight: FontWeight.w900,
+        fontWeight:
+            FontWeight.w900,
       ),
     );
 
     return Material(
       color:
           Colors.white.withOpacity(0.96),
+
       borderRadius:
           BorderRadius.circular(22),
+
       elevation: 5,
+
       child: InkWell(
         onTap: onPressed,
+
         borderRadius:
             BorderRadius.circular(22),
+
         child: Container(
           padding:
               const EdgeInsets.symmetric(
             horizontal: 13,
             vertical: 10,
           ),
+
           decoration: BoxDecoration(
             borderRadius:
                 BorderRadius.circular(22),
+
             border: Border.all(
               color: Colors.black,
               width: 2,
             ),
           ),
+
           child: Column(
             mainAxisSize:
                 MainAxisSize.min,
+
             children: iconBelowText
                 ? [
                     textWidget,

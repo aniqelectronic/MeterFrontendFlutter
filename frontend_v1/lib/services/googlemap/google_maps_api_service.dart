@@ -17,41 +17,32 @@ class GooglePlacePrediction {
     required this.fullText,
   });
 
-  factory GooglePlacePrediction.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final Map<String, dynamic> prediction =
-        Map<String, dynamic>.from(
+  factory GooglePlacePrediction.fromJson(Map<String, dynamic> json) {
+    final Map<String, dynamic> prediction = Map<String, dynamic>.from(
       json['placePrediction'] ?? const {},
     );
 
-    final Map<String, dynamic> text =
-        Map<String, dynamic>.from(
+    final Map<String, dynamic> text = Map<String, dynamic>.from(
       prediction['text'] ?? const {},
     );
 
-    final Map<String, dynamic> structuredFormat =
-        Map<String, dynamic>.from(
+    final Map<String, dynamic> structuredFormat = Map<String, dynamic>.from(
       prediction['structuredFormat'] ?? const {},
     );
 
-    final Map<String, dynamic> mainTextData =
-        Map<String, dynamic>.from(
+    final Map<String, dynamic> mainTextData = Map<String, dynamic>.from(
       structuredFormat['mainText'] ?? const {},
     );
 
-    final Map<String, dynamic> secondaryTextData =
-        Map<String, dynamic>.from(
+    final Map<String, dynamic> secondaryTextData = Map<String, dynamic>.from(
       structuredFormat['secondaryText'] ?? const {},
     );
 
     return GooglePlacePrediction(
       placeId: prediction['placeId']?.toString() ?? '',
-      mainText: mainTextData['text']?.toString() ??
-          text['text']?.toString() ??
-          '',
-      secondaryText:
-          secondaryTextData['text']?.toString() ?? '',
+      mainText:
+          mainTextData['text']?.toString() ?? text['text']?.toString() ?? '',
+      secondaryText: secondaryTextData['text']?.toString() ?? '',
       fullText: text['text']?.toString() ?? '',
     );
   }
@@ -70,25 +61,19 @@ class GooglePlaceDetails {
     required this.position,
   });
 
-  factory GooglePlaceDetails.fromJson(
-    Map<String, dynamic> json,
-  ) {
-    final Map<String, dynamic> location =
-        Map<String, dynamic>.from(
+  factory GooglePlaceDetails.fromJson(Map<String, dynamic> json) {
+    final Map<String, dynamic> location = Map<String, dynamic>.from(
       json['location'] ?? const {},
     );
 
-    final Map<String, dynamic> displayNameData =
-        Map<String, dynamic>.from(
+    final Map<String, dynamic> displayNameData = Map<String, dynamic>.from(
       json['displayName'] ?? const {},
     );
 
     return GooglePlaceDetails(
       placeId: json['id']?.toString() ?? '',
-      displayName:
-          displayNameData['text']?.toString() ?? '',
-      formattedAddress:
-          json['formattedAddress']?.toString() ?? '',
+      displayName: displayNameData['text']?.toString() ?? '',
+      formattedAddress: json['formattedAddress']?.toString() ?? '',
       position: LatLng(
         (location['latitude'] as num?)?.toDouble() ?? 0,
         (location['longitude'] as num?)?.toDouble() ?? 0,
@@ -101,11 +86,13 @@ class GoogleRouteResult {
   final List<LatLng> points;
   final int distanceMeters;
   final Duration duration;
+  final String encodedPolyline;
 
   const GoogleRouteResult({
     required this.points,
     required this.distanceMeters,
     required this.duration,
+    required this.encodedPolyline,
   });
 }
 
@@ -113,10 +100,7 @@ class GoogleMapsApiException implements Exception {
   final String message;
   final int? statusCode;
 
-  const GoogleMapsApiException(
-    this.message, {
-    this.statusCode,
-  });
+  const GoogleMapsApiException(this.message, {this.statusCode});
 
   @override
   String toString() {
@@ -128,15 +112,13 @@ class GoogleMapsApiException implements Exception {
 class GoogleMapsApiService {
   GoogleMapsApiService._();
 
-  static final GoogleMapsApiService instance =
-      GoogleMapsApiService._();
+  static final GoogleMapsApiService instance = GoogleMapsApiService._();
 
-  static const String _apiKey = String.fromEnvironment(
-    'https://maps.googleapis.com/maps/api/js?key=AIzaSyAHrTNapLSbPaD2ViANNf_ptGGvVxVf6Rs&callback=initMap',
-  );
+  static const String _apiKey = String.fromEnvironment('GOOGLE_MAPS_API_KEY');
 
-  static const Duration _timeout =
-      Duration(seconds: 15);
+  bool get isConfigured => _apiKey.trim().isNotEmpty;
+
+  static const Duration _timeout = Duration(seconds: 15);
 
   void _checkApiKey() {
     if (_apiKey.trim().isEmpty) {
@@ -208,8 +190,7 @@ class GoogleMapsApiService {
       );
     }
 
-    final Map<String, dynamic> body =
-        Map<String, dynamic>.from(
+    final Map<String, dynamic> body = Map<String, dynamic>.from(
       jsonDecode(response.body),
     );
 
@@ -241,8 +222,7 @@ class GoogleMapsApiService {
           uri,
           headers: {
             'X-Goog-Api-Key': _apiKey,
-            'X-Goog-FieldMask':
-                'id,displayName,formattedAddress,location',
+            'X-Goog-FieldMask': 'id,displayName,formattedAddress,location',
           },
         )
         .timeout(_timeout);
@@ -260,9 +240,7 @@ class GoogleMapsApiService {
     }
 
     return GooglePlaceDetails.fromJson(
-      Map<String, dynamic>.from(
-        jsonDecode(response.body),
-      ),
+      Map<String, dynamic>.from(jsonDecode(response.body)),
     );
   }
 
@@ -331,25 +309,19 @@ class GoogleMapsApiService {
       );
     }
 
-    final Map<String, dynamic> body =
-        Map<String, dynamic>.from(
+    final Map<String, dynamic> body = Map<String, dynamic>.from(
       jsonDecode(response.body),
     );
 
-    final List<dynamic> routes =
-        body['routes'] as List<dynamic>? ?? const [];
+    final List<dynamic> routes = body['routes'] as List<dynamic>? ?? const [];
 
     if (routes.isEmpty) {
-      throw const GoogleMapsApiException(
-        'Google did not return a route.',
-      );
+      throw const GoogleMapsApiException('Google did not return a route.');
     }
 
-    final Map<String, dynamic> route =
-        Map<String, dynamic>.from(routes.first);
+    final Map<String, dynamic> route = Map<String, dynamic>.from(routes.first);
 
-    final Map<String, dynamic> polyline =
-        Map<String, dynamic>.from(
+    final Map<String, dynamic> polyline = Map<String, dynamic>.from(
       route['polyline'] ?? const {},
     );
 
@@ -364,11 +336,66 @@ class GoogleMapsApiService {
 
     return GoogleRouteResult(
       points: _decodePolyline(encodedPolyline),
-      distanceMeters:
-          (route['distanceMeters'] as num?)?.toInt() ?? 0,
-      duration: _parseGoogleDuration(
-        route['duration']?.toString(),
-      ),
+      distanceMeters: (route['distanceMeters'] as num?)?.toInt() ?? 0,
+      duration: _parseGoogleDuration(route['duration']?.toString()),
+      encodedPolyline: encodedPolyline,
+    );
+  }
+
+  Uri staticMapUri({
+    required LatLng center,
+    required int zoom,
+    required int width,
+    required int height,
+    required String languageCode,
+    LatLng? currentPosition,
+    LatLng? destination,
+    String? encodedRoute,
+  }) {
+    _checkApiKey();
+
+    final Map<String, String> parameters = {
+      'center': '${center.latitude},${center.longitude}',
+      'zoom': zoom.clamp(3, 20).toString(),
+      'size': '${width.clamp(180, 640)}x${height.clamp(180, 640)}',
+      'scale': '2',
+      'maptype': 'roadmap',
+      'language': languageCode,
+      'region': 'MY',
+      'key': _apiKey,
+    };
+
+    final List<String> queryParts = parameters.entries
+        .map(
+          (entry) =>
+              '${Uri.encodeQueryComponent(entry.key)}='
+              '${Uri.encodeQueryComponent(entry.value)}',
+        )
+        .toList();
+
+    if (currentPosition != null) {
+      queryParts.add(
+        'markers=${Uri.encodeQueryComponent('size:mid|color:0x1769D3|label:A|'
+        '${currentPosition.latitude},${currentPosition.longitude}')}',
+      );
+    }
+
+    if (destination != null) {
+      queryParts.add(
+        'markers=${Uri.encodeQueryComponent('size:mid|color:0xD84B3E|label:B|'
+        '${destination.latitude},${destination.longitude}')}',
+      );
+    }
+
+    if (encodedRoute != null && encodedRoute.isNotEmpty) {
+      queryParts.add(
+        'path=${Uri.encodeQueryComponent('weight:6|color:0x1769D3FF|enc:$encodedRoute')}',
+      );
+    }
+
+    return Uri.parse(
+      'https://maps.googleapis.com/maps/api/staticmap?'
+      '${queryParts.join('&')}',
     );
   }
 
@@ -390,9 +417,7 @@ class GoogleMapsApiService {
         shift += 5;
       } while (byte >= 0x20 && index < encoded.length);
 
-      latitude += (result & 1) != 0
-          ? ~(result >> 1)
-          : result >> 1;
+      latitude += (result & 1) != 0 ? ~(result >> 1) : result >> 1;
 
       result = 0;
       shift = 0;
@@ -403,16 +428,9 @@ class GoogleMapsApiService {
         shift += 5;
       } while (byte >= 0x20 && index < encoded.length);
 
-      longitude += (result & 1) != 0
-          ? ~(result >> 1)
-          : result >> 1;
+      longitude += (result & 1) != 0 ? ~(result >> 1) : result >> 1;
 
-      points.add(
-        LatLng(
-          latitude / 1e5,
-          longitude / 1e5,
-        ),
-      );
+      points.add(LatLng(latitude / 1e5, longitude / 1e5));
     }
 
     return points;
@@ -423,30 +441,22 @@ class GoogleMapsApiService {
       return Duration.zero;
     }
 
-    final double seconds = double.tryParse(
-          value.replaceAll('s', ''),
-        ) ??
-        0;
+    final double seconds = double.tryParse(value.replaceAll('s', '')) ?? 0;
 
-    return Duration(
-      milliseconds: (seconds * 1000).round(),
-    );
+    return Duration(milliseconds: (seconds * 1000).round());
   }
 
   static String _readGoogleError(String responseBody) {
     try {
-      final Map<String, dynamic> body =
-          Map<String, dynamic>.from(
+      final Map<String, dynamic> body = Map<String, dynamic>.from(
         jsonDecode(responseBody),
       );
 
-      final Map<String, dynamic> error =
-          Map<String, dynamic>.from(
+      final Map<String, dynamic> error = Map<String, dynamic>.from(
         body['error'] ?? const {},
       );
 
-      return error['message']?.toString() ??
-          'Google Maps request failed.';
+      return error['message']?.toString() ?? 'Google Maps request failed.';
     } catch (_) {
       return 'Google Maps request failed.';
     }

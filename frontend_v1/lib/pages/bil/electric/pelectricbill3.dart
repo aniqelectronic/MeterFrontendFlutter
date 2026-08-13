@@ -23,12 +23,18 @@ class PELECTRICBILL3PAGE extends StatefulWidget {
 
 class _PELECTRICBILL3PAGEState
     extends State<PELECTRICBILL3PAGE> {
+  // ============================================================
+  // NETWORK STATUS
+  //
+  // NOTE:
+  // FP is intentionally kept for Sarawak Energy network testing.
+  // The real IIMMPACT payment product code remains SESCO.
+  // ============================================================
   final Map<String, BillerStatus> _billerStatuses = {
     'TNB': BillerStatus.loading,
-    'SESCO': BillerStatus.loading,
+    'FP': BillerStatus.loading,
     'SESB': BillerStatus.loading,
     'NUR': BillerStatus.loading,
-    'FP': BillerStatus.loading,
   };
 
   final Map<String, String?> _lastUpdated = {};
@@ -86,10 +92,12 @@ class _PELECTRICBILL3PAGEState
   Future<void> _loadInitialNetworkStatuses() async {
     await Future.wait([
       _refreshNetworkStatus('TNB'),
-      _refreshNetworkStatus('SESCO'),
+
+      // Intentionally invalid/test code.
+      _refreshNetworkStatus('FP'),
+
       _refreshNetworkStatus('SESB'),
       _refreshNetworkStatus('NUR'),
-      _refreshNetworkStatus('FP'),
     ]);
   }
 
@@ -248,6 +256,7 @@ class _PELECTRICBILL3PAGEState
 
                 if (_lastUpdated[productCode] != null) ...[
                   const SizedBox(height: 20),
+
                   Row(
                     mainAxisAlignment:
                         MainAxisAlignment.center,
@@ -257,7 +266,9 @@ class _PELECTRICBILL3PAGEState
                         size: 24,
                         color: Color(0xFF758399),
                       ),
+
                       const SizedBox(width: 8),
+
                       Flexible(
                         child: Text(
                           '${loc.networkLastUpdated}: '
@@ -463,7 +474,6 @@ class _PELECTRICBILL3PAGEState
             ),
           ),
 
-          // Soft overlay to improve card readability.
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -481,7 +491,7 @@ class _PELECTRICBILL3PAGEState
           ),
 
           // ============================================================
-          // MODERN HEADER
+          // HEADER
           // ============================================================
           Positioned(
             top: 82,
@@ -494,7 +504,7 @@ class _PELECTRICBILL3PAGEState
           ),
 
           // ============================================================
-          // SCROLLABLE PROVIDER AREA
+          // PROVIDER AREA
           // ============================================================
           Positioned(
             top: 400,
@@ -518,16 +528,19 @@ class _PELECTRICBILL3PAGEState
                 child: Column(
                   children: [
                     // ==================================================
-                    // FIRST PROVIDER ROW
+                    // TNB + SARAWAK ENERGY
                     // ==================================================
                     Row(
                       crossAxisAlignment:
                           CrossAxisAlignment.start,
                       children: [
+                        // ==================================================
+                        // TNB
+                        // ==================================================
                         Expanded(
                           child: _ElectricProviderCard(
-                            imagePath:
-                                'lib/images/electric/tnb.png',
+                            imageUrl:
+                                'https://dashboard.iimmpact.com/img/TNB.png',
                             label: loc.tnbButton,
                             accentColor:
                                 const Color(0xFF1469E8),
@@ -536,7 +549,8 @@ class _PELECTRICBILL3PAGEState
                             networkStatus:
                                 _billerStatuses['TNB'] ??
                                     BillerStatus.loading,
-                            networkLabel: loc.networkLabel,
+                            networkLabel:
+                                loc.networkLabel,
                             onPressed: () {
                               _handleBillerTap(
                                 productCode: 'TNB',
@@ -552,7 +566,8 @@ class _PELECTRICBILL3PAGEState
                                             .electricAccountTitle,
                                         hint: loc
                                             .electricAccountHint,
-                                        productCode: 'TNB',
+                                        productCode:
+                                            'TNB',
                                         billerName:
                                             'TENAGA NASIONAL BERHAD',
                                         serviceType:
@@ -569,24 +584,43 @@ class _PELECTRICBILL3PAGEState
 
                         const SizedBox(width: 34),
 
+                        // ==================================================
+                        // SARAWAK ENERGY
+                        //
+                        // IMPORTANT:
+                        // Image      = SESCO
+                        // Status     = FP (TEST)
+                        // Payment    = SESCO
+                        // ==================================================
                         Expanded(
                           child: _ElectricProviderCard(
-                            imagePath:
-                                'lib/images/electric/sarawakenergy.png',
-                            label: loc.sarawakenergyButton,
+                            imageUrl:
+                                'https://dashboard.iimmpact.com/img/SESCO.png',
+                            label:
+                                loc.sarawakenergyButton,
                             accentColor:
                                 const Color(0xFF128B75),
                             lightAccentColor:
                                 const Color(0xFFE2F7F1),
+
+                            // Keep FP intentionally.
                             networkStatus:
                                 _billerStatuses['FP'] ??
                                     BillerStatus.loading,
-                            networkLabel: loc.networkLabel,
+
+                            networkLabel:
+                                loc.networkLabel,
+
                             onPressed: () {
+                              // FP is intentionally used here
+                              // ONLY for network status testing.
                               _handleBillerTap(
                                 productCode: 'FP',
                                 billerName:
-                                    'Sarawak ENERGY',
+                                    'SARAWAK ENERGY',
+
+                                // Actual payment still uses
+                                // the valid SESCO code.
                                 navigate: () {
                                   Navigator.push(
                                     context,
@@ -597,9 +631,10 @@ class _PELECTRICBILL3PAGEState
                                             .electricAccountTitle,
                                         hint: loc
                                             .electricAccountHint,
-                                        productCode: 'SESCO',
+                                        productCode:
+                                            'SESCO',
                                         billerName:
-                                            'Sarawak ENERGY',
+                                            'SARAWAK ENERGY',
                                         serviceType:
                                             BillServiceType
                                                 .electric,
@@ -617,16 +652,19 @@ class _PELECTRICBILL3PAGEState
                     const SizedBox(height: 36),
 
                     // ==================================================
-                    // SECOND PROVIDER ROW
+                    // SABAH + NUR
                     // ==================================================
                     Row(
                       crossAxisAlignment:
                           CrossAxisAlignment.start,
                       children: [
+                        // ==================================================
+                        // SABAH ELECTRICITY
+                        // ==================================================
                         Expanded(
                           child: _ElectricProviderCard(
-                            imagePath:
-                                'lib/images/electric/sabahelectricity.png',
+                            imageUrl:
+                                'https://dashboard.iimmpact.com/img/SESB.png',
                             label:
                                 loc.sabahelectricityButton,
                             accentColor:
@@ -636,12 +674,13 @@ class _PELECTRICBILL3PAGEState
                             networkStatus:
                                 _billerStatuses['SESB'] ??
                                     BillerStatus.loading,
-                            networkLabel: loc.networkLabel,
+                            networkLabel:
+                                loc.networkLabel,
                             onPressed: () {
                               _handleBillerTap(
                                 productCode: 'SESB',
                                 billerName:
-                                    'Sabah ELECTRICITY',
+                                    'SABAH ELECTRICITY',
                                 navigate: () {
                                   Navigator.push(
                                     context,
@@ -652,9 +691,10 @@ class _PELECTRICBILL3PAGEState
                                             .electricAccountTitle,
                                         hint: loc
                                             .electricAccountHint,
-                                        productCode: 'SESB',
+                                        productCode:
+                                            'SESB',
                                         billerName:
-                                            'Sabah ELECTRICITY',
+                                            'SABAH ELECTRICITY',
                                         serviceType:
                                             BillServiceType
                                                 .electric,
@@ -669,11 +709,15 @@ class _PELECTRICBILL3PAGEState
 
                         const SizedBox(width: 34),
 
+                        // ==================================================
+                        // NUR POWER
+                        // ==================================================
                         Expanded(
                           child: _ElectricProviderCard(
-                            imagePath:
-                                'lib/images/electric/nurpower.png',
-                            label: loc.nurpowerButton,
+                            imageUrl:
+                                'https://dashboard.iimmpact.com/img/NUR.png',
+                            label:
+                                loc.nurpowerButton,
                             accentColor:
                                 const Color(0xFFE59522),
                             lightAccentColor:
@@ -681,11 +725,13 @@ class _PELECTRICBILL3PAGEState
                             networkStatus:
                                 _billerStatuses['NUR'] ??
                                     BillerStatus.loading,
-                            networkLabel: loc.networkLabel,
+                            networkLabel:
+                                loc.networkLabel,
                             onPressed: () {
                               _handleBillerTap(
                                 productCode: 'NUR',
-                                billerName: 'NUR POWER',
+                                billerName:
+                                    'NUR POWER',
                                 navigate: () {
                                   Navigator.push(
                                     context,
@@ -696,7 +742,8 @@ class _PELECTRICBILL3PAGEState
                                             .electricAccountTitle,
                                         hint: loc
                                             .electricAccountHint,
-                                        productCode: 'NUR',
+                                        productCode:
+                                            'NUR',
                                         billerName:
                                             'NUR POWER',
                                         serviceType:
@@ -719,7 +766,7 @@ class _PELECTRICBILL3PAGEState
           ),
 
           // ============================================================
-          // SCROLL-UP CONTROL
+          // SCROLL UP
           // ============================================================
           if (showScrollUp)
             Positioned(
@@ -734,7 +781,7 @@ class _PELECTRICBILL3PAGEState
             ),
 
           // ============================================================
-          // SCROLL-DOWN CONTROL
+          // SCROLL DOWN
           // ============================================================
           if (showScrollDown)
             Positioned(
@@ -750,7 +797,7 @@ class _PELECTRICBILL3PAGEState
             ),
 
           // ============================================================
-          // BACK BUTTON
+          // BACK
           // ============================================================
           Positioned(
             bottom: 105,
@@ -808,7 +855,8 @@ class _ModernPageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color accentColor = Color(0xFF1469E8);
+    const Color accentColor =
+        Color(0xFF1469E8);
 
     return Column(
       children: [
@@ -819,9 +867,11 @@ class _ModernPageHeader extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             color: accentColor.withOpacity(0.10),
-            borderRadius: BorderRadius.circular(100),
+            borderRadius:
+                BorderRadius.circular(100),
             border: Border.all(
-              color: accentColor.withOpacity(0.24),
+              color:
+                  accentColor.withOpacity(0.24),
               width: 1.5,
             ),
           ),
@@ -860,7 +910,7 @@ class _ModernPageHeader extends StatelessWidget {
             ).createShader(bounds);
           },
           child: Text(
-            title,
+            title.toUpperCase(),
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -877,31 +927,38 @@ class _ModernPageHeader extends StatelessWidget {
         const SizedBox(height: 14),
 
         Container(
-          constraints: const BoxConstraints(
+          constraints:
+              const BoxConstraints(
             maxWidth: 850,
           ),
-          padding: const EdgeInsets.symmetric(
+          padding:
+              const EdgeInsets.symmetric(
             horizontal: 30,
             vertical: 14,
           ),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.91),
-            borderRadius: BorderRadius.circular(23),
+            color:
+                Colors.white.withOpacity(0.91),
+            borderRadius:
+                BorderRadius.circular(23),
             border: Border.all(
-              color: Colors.black.withOpacity(0.17),
+              color:
+                  Colors.black.withOpacity(0.17),
               width: 1.5,
             ),
             boxShadow: [
               BoxShadow(
                 color:
-                    const Color(0xFF113968).withOpacity(0.10),
+                    const Color(0xFF113968)
+                        .withOpacity(0.10),
                 blurRadius: 22,
-                offset: const Offset(0, 9),
+                offset:
+                    const Offset(0, 9),
               ),
             ],
           ),
           child: Text(
-            subtitle,
+            subtitle.toUpperCase(),
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF435166),
@@ -919,8 +976,9 @@ class _ModernPageHeader extends StatelessWidget {
 // ============================================================================
 // ELECTRICITY PROVIDER CARD
 // ============================================================================
-class _ElectricProviderCard extends StatefulWidget {
-  final String imagePath;
+class _ElectricProviderCard
+    extends StatefulWidget {
+  final String imageUrl;
   final String label;
   final VoidCallback onPressed;
   final Color accentColor;
@@ -931,7 +989,7 @@ class _ElectricProviderCard extends StatefulWidget {
 
   const _ElectricProviderCard({
     super.key,
-    required this.imagePath,
+    required this.imageUrl,
     required this.label,
     required this.onPressed,
     required this.accentColor,
@@ -962,31 +1020,43 @@ class _ElectricProviderCardState
 
   @override
   Widget build(BuildContext context) {
-    final bool isEnabled = !widget.comingSoon;
+    final bool isEnabled =
+        !widget.comingSoon;
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTapDown:
-          isEnabled ? (_) => _changePressedState(true) : null,
-      onTapUp:
-          isEnabled ? (_) => _changePressedState(false) : null,
-      onTapCancel: isEnabled
-          ? () => _changePressedState(false)
+      onTapDown: isEnabled
+          ? (_) =>
+              _changePressedState(true)
           : null,
-      onTap: isEnabled ? widget.onPressed : null,
+      onTapUp: isEnabled
+          ? (_) =>
+              _changePressedState(false)
+          : null,
+      onTapCancel: isEnabled
+          ? () =>
+              _changePressedState(false)
+          : null,
+      onTap:
+          isEnabled ? widget.onPressed : null,
       child: AnimatedScale(
         scale: _isPressed ? 0.965 : 1,
-        duration: const Duration(milliseconds: 130),
+        duration:
+            const Duration(milliseconds: 130),
         curve: Curves.easeOut,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 170),
+          duration:
+              const Duration(milliseconds: 170),
           curve: Curves.easeOut,
           height: 480,
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(
-              widget.comingSoon ? 0.72 : 0.96,
+              widget.comingSoon
+                  ? 0.72
+                  : 0.96,
             ),
-            borderRadius: BorderRadius.circular(40),
+            borderRadius:
+                BorderRadius.circular(40),
             border: Border.all(
               color: _isPressed
                   ? widget.accentColor
@@ -998,38 +1068,47 @@ class _ElectricProviderCardState
             boxShadow: _isPressed
                 ? [
                     BoxShadow(
-                      color:
-                          widget.accentColor.withOpacity(0.18),
+                      color: widget.accentColor
+                          .withOpacity(0.18),
                       blurRadius: 18,
-                      offset: const Offset(0, 8),
+                      offset:
+                          const Offset(0, 8),
                     ),
                   ]
                 : [
                     BoxShadow(
                       color:
-                          const Color(0xFF19375C).withOpacity(0.16),
+                          const Color(0xFF19375C)
+                              .withOpacity(0.16),
                       blurRadius: 30,
                       spreadRadius: 1,
-                      offset: const Offset(0, 15),
+                      offset:
+                          const Offset(0, 15),
                     ),
                   ],
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(37),
+            borderRadius:
+                BorderRadius.circular(37),
             child: Stack(
               children: [
-                // Decorative background circle.
+                // Decorative circle
                 Positioned(
                   right: -50,
                   top: -50,
                   child: AnimatedContainer(
                     duration:
-                        const Duration(milliseconds: 180),
-                    width: _isPressed ? 225 : 210,
-                    height: _isPressed ? 225 : 210,
+                        const Duration(
+                      milliseconds: 180,
+                    ),
+                    width:
+                        _isPressed ? 225 : 210,
+                    height:
+                        _isPressed ? 225 : 210,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: widget.lightAccentColor
+                      color: widget
+                          .lightAccentColor
                           .withOpacity(0.90),
                     ),
                   ),
@@ -1041,91 +1120,180 @@ class _ElectricProviderCardState
                   child: Container(
                     width: 36,
                     height: 36,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color:
-                          widget.accentColor.withOpacity(0.08),
+                    decoration:
+                        BoxDecoration(
+                      shape:
+                          BoxShape.circle,
+                      color: widget
+                          .accentColor
+                          .withOpacity(0.08),
                     ),
                   ),
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(
+                  padding:
+                      const EdgeInsets.fromLTRB(
                     30,
                     28,
                     30,
                     28,
                   ),
                   child: Opacity(
-                    opacity: widget.comingSoon ? 0.50 : 1,
+                    opacity:
+                        widget.comingSoon
+                            ? 0.50
+                            : 1,
                     child: Column(
                       children: [
-                        // ==================================================
-                        // LOGO AND ARROW
-                        // ==================================================
+                        // ================================================
+                        // IIMMPACT LOGO + ARROW
+                        // ================================================
                         Row(
                           mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              MainAxisAlignment
+                                  .spaceBetween,
                           crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              CrossAxisAlignment
+                                  .start,
                           children: [
                             Container(
                               width: 220,
                               height: 180,
                               padding:
-                                  const EdgeInsets.all(24),
-                              decoration: BoxDecoration(
+                                  const EdgeInsets
+                                      .all(24),
+                              decoration:
+                                  BoxDecoration(
                                 color: Colors.white,
                                 borderRadius:
-                                    BorderRadius.circular(34),
-                                border: Border.all(
-                                  color: widget.accentColor
-                                      .withOpacity(0.20),
+                                    BorderRadius
+                                        .circular(
+                                  34,
+                                ),
+                                border:
+                                    Border.all(
+                                  color: widget
+                                      .accentColor
+                                      .withOpacity(
+                                    0.20,
+                                  ),
                                   width: 1.5,
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black
-                                        .withOpacity(0.08),
-                                    blurRadius: 16,
+                                    color: Colors
+                                        .black
+                                        .withOpacity(
+                                      0.08,
+                                    ),
+                                    blurRadius:
+                                        16,
                                     offset:
-                                        const Offset(0, 8),
+                                        const Offset(
+                                      0,
+                                      8,
+                                    ),
                                   ),
                                 ],
                               ),
-                              child: Image.asset(
-                                widget.imagePath,
-                                fit: BoxFit.contain,
+
+                              // =========================================
+                              // IMAGE FROM IIMMPACT
+                              // =========================================
+                              child:
+                                  Image.network(
+                                widget.imageUrl,
+                                fit:
+                                    BoxFit.contain,
+
+                                loadingBuilder: (
+                                  context,
+                                  child,
+                                  loadingProgress,
+                                ) {
+                                  if (loadingProgress ==
+                                      null) {
+                                    return child;
+                                  }
+
+                                  return Center(
+                                    child:
+                                        CircularProgressIndicator(
+                                      strokeWidth:
+                                          3,
+                                      color: widget
+                                          .accentColor,
+                                    ),
+                                  );
+                                },
+
+                                errorBuilder: (
+                                  context,
+                                  error,
+                                  stackTrace,
+                                ) {
+                                  debugPrint(
+                                    'Failed to load electricity logo: '
+                                    '${widget.imageUrl}',
+                                  );
+
+                                  return Icon(
+                                    Icons
+                                        .electric_bolt_rounded,
+                                    size: 90,
+                                    color: widget
+                                        .accentColor,
+                                  );
+                                },
                               ),
                             ),
 
                             AnimatedContainer(
                               duration:
-                                  const Duration(milliseconds: 160),
-                              transform:
-                                  Matrix4.translationValues(
-                                _isPressed ? 6 : 0,
+                                  const Duration(
+                                milliseconds:
+                                    160,
+                              ),
+                              transform: Matrix4
+                                  .translationValues(
+                                _isPressed
+                                    ? 6
+                                    : 0,
                                 0,
                                 0,
                               ),
                               width: 58,
                               height: 58,
-                              decoration: BoxDecoration(
-                                color: widget.accentColor,
-                                shape: BoxShape.circle,
+                              decoration:
+                                  BoxDecoration(
+                                color: widget
+                                    .accentColor,
+                                shape:
+                                    BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: widget.accentColor
-                                        .withOpacity(0.25),
-                                    blurRadius: 14,
+                                    color: widget
+                                        .accentColor
+                                        .withOpacity(
+                                      0.25,
+                                    ),
+                                    blurRadius:
+                                        14,
                                     offset:
-                                        const Offset(0, 7),
+                                        const Offset(
+                                      0,
+                                      7,
+                                    ),
                                   ),
                                 ],
                               ),
-                              child: const Icon(
-                                Icons.arrow_forward_rounded,
-                                color: Colors.white,
+                              child:
+                                  const Icon(
+                                Icons
+                                    .arrow_forward_rounded,
+                                color:
+                                    Colors.white,
                                 size: 32,
                               ),
                             ),
@@ -1134,64 +1302,99 @@ class _ElectricProviderCardState
 
                         const Spacer(),
 
-                        // ==================================================
-                        // PROVIDER NAME
-                        // ==================================================
+                        // ================================================
+                        // NAME
+                        // ================================================
                         Align(
-                          alignment: Alignment.centerLeft,
+                          alignment:
+                              Alignment
+                                  .centerLeft,
                           child: Text(
-                            widget.label.toUpperCase(),
+                            widget.label
+                                .toUpperCase(),
                             maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              color: Color(0xFF15253A),
+                            overflow:
+                                TextOverflow
+                                    .ellipsis,
+                            textAlign:
+                                TextAlign.left,
+                            style:
+                                const TextStyle(
+                              color:
+                                  Color(
+                                0xFF15253A,
+                              ),
                               fontSize: 35,
-                              fontWeight: FontWeight.w900,
+                              fontWeight:
+                                  FontWeight
+                                      .w900,
                               height: 1.10,
-                              letterSpacing: 0.4,
+                              letterSpacing:
+                                  0.4,
                             ),
                           ),
                         ),
 
-                        const SizedBox(height: 21),
+                        const SizedBox(
+                          height: 21,
+                        ),
 
-                        // ==================================================
+                        // ================================================
                         // NETWORK STATUS
-                        // ==================================================
+                        // ================================================
                         Align(
-                          alignment: Alignment.centerLeft,
-                          child: _NetworkStatusBadge(
-                            status: widget.networkStatus,
-                            label: widget.networkLabel,
+                          alignment:
+                              Alignment
+                                  .centerLeft,
+                          child:
+                              _NetworkStatusBadge(
+                            status: widget
+                                .networkStatus,
+                            label: widget
+                                .networkLabel,
                           ),
                         ),
 
-                        const SizedBox(height: 22),
+                        const SizedBox(
+                          height: 22,
+                        ),
 
-                        // ==================================================
-                        // ACCENT BARS
-                        // ==================================================
                         Row(
                           children: [
                             Container(
                               width: 60,
                               height: 7,
-                              decoration: BoxDecoration(
-                                color: widget.accentColor,
+                              decoration:
+                                  BoxDecoration(
+                                color: widget
+                                    .accentColor,
                                 borderRadius:
-                                    BorderRadius.circular(50),
+                                    BorderRadius
+                                        .circular(
+                                  50,
+                                ),
                               ),
                             ),
-                            const SizedBox(width: 8),
+
+                            const SizedBox(
+                              width: 8,
+                            ),
+
                             Container(
                               width: 13,
                               height: 7,
-                              decoration: BoxDecoration(
-                                color: widget.accentColor
-                                    .withOpacity(0.28),
+                              decoration:
+                                  BoxDecoration(
+                                color: widget
+                                    .accentColor
+                                    .withOpacity(
+                                  0.28,
+                                ),
                                 borderRadius:
-                                    BorderRadius.circular(50),
+                                    BorderRadius
+                                        .circular(
+                                  50,
+                                ),
                               ),
                             ),
                           ],
@@ -1204,38 +1407,61 @@ class _ElectricProviderCardState
                 if (widget.comingSoon)
                   Positioned.fill(
                     child: Container(
-                      color: Colors.white.withOpacity(0.24),
-                      alignment: Alignment.center,
+                      color: Colors.white
+                          .withOpacity(0.24),
+                      alignment:
+                          Alignment.center,
                       child: Transform.rotate(
                         angle: -0.12,
                         child: Container(
-                          width: double.infinity,
-                          margin: const EdgeInsets.symmetric(
+                          width:
+                              double.infinity,
+                          margin:
+                              const EdgeInsets
+                                  .symmetric(
                             horizontal: 14,
                           ),
-                          padding: const EdgeInsets.symmetric(
+                          padding:
+                              const EdgeInsets
+                                  .symmetric(
                             horizontal: 20,
                             vertical: 15,
                           ),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE74343),
+                          decoration:
+                              BoxDecoration(
+                            color:
+                                const Color(
+                              0xFFE74343,
+                            ),
                             borderRadius:
-                                BorderRadius.circular(18),
-                            border: Border.all(
-                              color: Colors.white,
+                                BorderRadius
+                                    .circular(
+                              18,
+                            ),
+                            border:
+                                Border.all(
+                              color:
+                                  Colors.white,
                               width: 3,
                             ),
                           ),
                           child: Text(
-                            AppLocalizations.of(context)!
+                            AppLocalizations
+                                    .of(context)!
                                 .comingsoonText
                                 .toUpperCase(),
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            textAlign:
+                                TextAlign.center,
+                            style:
+                                const TextStyle(
+                              color:
+                                  Colors.white,
                               fontSize: 27,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 2,
+                              fontWeight:
+                                  FontWeight
+                                      .w900,
+                              letterSpacing:
+                                  2,
                             ),
                           ),
                         ),
@@ -1254,7 +1480,8 @@ class _ElectricProviderCardState
 // ============================================================================
 // NETWORK STATUS BADGE
 // ============================================================================
-class _NetworkStatusBadge extends StatelessWidget {
+class _NetworkStatusBadge
+    extends StatelessWidget {
   final BillerStatus status;
   final String label;
 
@@ -1265,7 +1492,8 @@ class _NetworkStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
+    final loc =
+        AppLocalizations.of(context)!;
 
     late final String statusText;
     late final Color backgroundColor;
@@ -1275,62 +1503,87 @@ class _NetworkStatusBadge extends StatelessWidget {
 
     switch (status) {
       case BillerStatus.loading:
-        statusText = loc.networkStatusChecking;
-        backgroundColor = const Color(0xFFF0F4F8);
-        borderColor = const Color(0xFFC7D2DE);
-        foregroundColor = const Color(0xFF536272);
+        statusText =
+            loc.networkStatusChecking;
+        backgroundColor =
+            const Color(0xFFF0F4F8);
+        borderColor =
+            const Color(0xFFC7D2DE);
+        foregroundColor =
+            const Color(0xFF536272);
         icon = Icons.sync_rounded;
         break;
 
       case BillerStatus.healthy:
-        statusText = loc.networkStatusGood;
-        backgroundColor = const Color(0xFFE2F8EC);
-        borderColor = const Color(0xFF78C99B);
-        foregroundColor = const Color(0xFF08783E);
-        icon = Icons.check_circle_rounded;
+        statusText =
+            loc.networkStatusGood;
+        backgroundColor =
+            const Color(0xFFE2F8EC);
+        borderColor =
+            const Color(0xFF78C99B);
+        foregroundColor =
+            const Color(0xFF08783E);
+        icon =
+            Icons.check_circle_rounded;
         break;
 
       case BillerStatus.interruption:
-        statusText = loc.networkStatusSlow;
-        backgroundColor = const Color(0xFFFFF0D7);
-        borderColor = const Color(0xFFF1B95D);
-        foregroundColor = const Color(0xFFB75B00);
-        icon = Icons.warning_amber_rounded;
+        statusText =
+            loc.networkStatusSlow;
+        backgroundColor =
+            const Color(0xFFFFF0D7);
+        borderColor =
+            const Color(0xFFF1B95D);
+        foregroundColor =
+            const Color(0xFFB75B00);
+        icon =
+            Icons.warning_amber_rounded;
         break;
 
       case BillerStatus.unavailable:
-        statusText = loc.networkStatusUnknown;
-        backgroundColor = const Color(0xFFF1F1F1);
-        borderColor = const Color(0xFFC8C8C8);
-        foregroundColor = const Color(0xFF555555);
-        icon = Icons.help_outline_rounded;
+        statusText =
+            loc.networkStatusUnknown;
+        backgroundColor =
+            const Color(0xFFF1F1F1);
+        borderColor =
+            const Color(0xFFC8C8C8);
+        foregroundColor =
+            const Color(0xFF555555);
+        icon =
+            Icons.help_outline_rounded;
         break;
     }
 
     return Container(
-      constraints: const BoxConstraints(
+      constraints:
+          const BoxConstraints(
         minHeight: 58,
       ),
-      padding: const EdgeInsets.symmetric(
+      padding:
+          const EdgeInsets.symmetric(
         horizontal: 18,
         vertical: 14,
       ),
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius:
+            BorderRadius.circular(30),
         border: Border.all(
           color: borderColor,
           width: 1.7,
         ),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize:
+            MainAxisSize.min,
         children: [
-          if (status == BillerStatus.loading)
+          if (status ==
+              BillerStatus.loading)
             SizedBox(
               width: 26,
               height: 26,
-              child: CircularProgressIndicator(
+              child:
+                  CircularProgressIndicator(
                 strokeWidth: 3,
                 color: foregroundColor,
               ),
@@ -1348,11 +1601,13 @@ class _NetworkStatusBadge extends StatelessWidget {
             child: Text(
               '$label: $statusText',
               maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+              overflow:
+                  TextOverflow.ellipsis,
               style: TextStyle(
                 color: foregroundColor,
                 fontSize: 18,
-                fontWeight: FontWeight.w900,
+                fontWeight:
+                    FontWeight.w900,
                 letterSpacing: 0.7,
               ),
             ),
@@ -1366,7 +1621,8 @@ class _NetworkStatusBadge extends StatelessWidget {
 // ============================================================================
 // SCROLL INDICATOR BUTTON
 // ============================================================================
-class _ScrollIndicatorButton extends StatelessWidget {
+class _ScrollIndicatorButton
+    extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onPressed;
@@ -1384,7 +1640,8 @@ class _ScrollIndicatorButton extends StatelessWidget {
     final Widget iconWidget = Icon(
       icon,
       size: 52,
-      color: const Color(0xFF1469E8),
+      color:
+          const Color(0xFF1469E8),
     );
 
     final Widget textWidget = Text(
@@ -1393,31 +1650,40 @@ class _ScrollIndicatorButton extends StatelessWidget {
       style: const TextStyle(
         color: Color(0xFF15253A),
         fontSize: 17,
-        fontWeight: FontWeight.w900,
+        fontWeight:
+            FontWeight.w900,
       ),
     );
 
     return Material(
-      color: Colors.white.withOpacity(0.96),
-      borderRadius: BorderRadius.circular(22),
+      color:
+          Colors.white.withOpacity(0.96),
+      borderRadius:
+          BorderRadius.circular(22),
       elevation: 5,
       child: InkWell(
         onTap: onPressed,
-        borderRadius: BorderRadius.circular(22),
+        borderRadius:
+            BorderRadius.circular(22),
         child: Container(
-          padding: const EdgeInsets.symmetric(
+          padding:
+              const EdgeInsets.symmetric(
             horizontal: 13,
             vertical: 10,
           ),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(22),
+            borderRadius:
+                BorderRadius.circular(
+              22,
+            ),
             border: Border.all(
               color: Colors.black,
               width: 2,
             ),
           ),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize:
+                MainAxisSize.min,
             children: iconBelowText
                 ? [
                     textWidget,

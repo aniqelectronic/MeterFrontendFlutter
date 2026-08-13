@@ -4720,4 +4720,224 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get billUnknownError => 'We are unable to process your request at the moment. Please try again later.';
+
+  @override
+  String get telcoServiceLabel => 'Telecommunication Service';
+
+  @override
+  String get telcoPageTitle => 'Telco Services';
+
+  @override
+  String get telcoPageSubtitle => 'Select the telecommunication service you would like to use';
+
+  @override
+  String get telcoBillPaymentTitle => 'Bill Payment';
+
+  @override
+  String get telcoBillPaymentDescription => 'Check and pay your postpaid mobile or telecommunication bill';
+
+  @override
+  String get telcoMobilePinTitle => 'Mobile PIN';
+
+  @override
+  String get telcoMobilePinDescription => 'Purchase a mobile prepaid reload PIN';
+
+  @override
+  String get telcoSelectionHint => 'Touch one of the options above to continue';
+
+  @override
+  String get telcoBillServiceLabel => 'Telco Bill Payment';
+
+  @override
+  String get telcoBillProviderTitle => 'Select Telco Provider';
+
+  @override
+  String get telcoBillProviderSubtitle => 'Select your telecommunication provider to continue with bill payment';
+
+  @override
+  String get mobilePinServiceLabel => 'Mobile PIN';
+
+  @override
+  String get mobilePinProviderTitle => 'Select Mobile PIN Provider';
+
+  @override
+  String get mobilePinProviderSubtitle => 'Select your mobile provider to purchase a prepaid reload PIN';
+
+  @override
+  String get telcoBillInputService => 'Telco Bill Payment';
+
+  @override
+  String get mobilePinInputService => 'Mobile PIN';
+
+  @override
+  String get telcoBillInputTitle => 'Enter Your Account or Mobile Number';
+
+  @override
+  String get mobilePinInputTitle => 'Enter Mobile Number';
+
+  @override
+  String get telcoSelectedProviderLabel => 'Selected Provider';
+
+  @override
+  String get telcoBillNumberHint => 'Enter account or mobile number';
+
+  @override
+  String get mobilePinNumberHint => 'Enter mobile number';
+
+  @override
+  String get telcoBillInputInstruction => 'Use the numeric keypad below to enter the number registered with your telco provider.';
+
+  @override
+  String get mobilePinInputInstruction => 'Enter the mobile number that will receive the prepaid reload.';
+
+  @override
+  String get telcoClearAllButton => 'CLEAR';
+
+  @override
+  String get telcoInputAlertTitle => 'Please Check';
+
+  @override
+  String get telcoBillNumberRequired => 'Please enter your account or mobile number.';
+
+  @override
+  String get mobilePinNumberRequired => 'Please enter the mobile number.';
+
+  @override
+  String get telcoNumberInvalid => 'Please enter a valid number using 8 to 15 digits.';
+
+  @override
+  String get telcoProcessingTitle => 'Processing';
+
+  @override
+  String get telcoProcessingMessage => 'Please wait while we process your request.';
+
+  @override
+  String get telcoInputSuccessTitle => 'Number Received';
+
+  @override
+  String get telcoInputSuccessMessage => 'The number has been accepted and is ready for the next step.';
+
+  @override
+  String get telcoOkButton => 'OK';
+
+  @override
+  String get telcoInvalidAccount => 'The account or mobile number entered is not valid. Please check the number and try again.';
+
+  @override
+  String get telcoServiceUnavailable => 'The telco service is temporarily unavailable. Please try again later.';
+
+  @override
+  String get mobilePinComingSoon => 'Mobile PIN processing will be available in the next step.';
+
+  @override
+  String get telcoAccountVerified => 'ACCOUNT VERIFIED';
+
+  @override
+  String get telcoBillDetailsTitle => 'Telco Bill Details';
+
+  @override
+  String get telcoProvider => 'Provider';
+
+  @override
+  String get telcoAccountNumber => 'Account / Mobile Number';
+
+  @override
+  String get telcoOutstanding => 'Outstanding Amount';
+
+  @override
+  String get telcoDueDate => 'DUE DATE';
+
+  @override
+  String get telcoCustomerName => 'CUSTOMER NAME';
+
+  @override
+  String get telcoBillPayment => 'TELCO BILL PAYMENT';
+
+  @override
+  String get telcoReviewBillDetails => 'Review Bill Details';
+
+  @override
+  String get telcoReviewBillSubtitle => 'Please verify your telco account information before continuing.';
+
+  @override
+  String get telcoServiceProvider => 'SERVICE PROVIDER';
+
+  @override
+  String get telcoAccountMobileNumber => 'ACCOUNT / MOBILE NUMBER';
+
+  @override
+  String get telcoOutstandingBalance => 'OUTSTANDING BALANCE';
+
+  @override
+  String get telcoPaymentAmountNextInfo => 'You can select your preferred payment amount on the next screen.';
+
+  @override
+  String get telcoChoosePaymentAmount => 'Choose Payment Amount';
+
+  @override
+  String get telcoChoosePaymentSubtitle => 'Select how much you want to pay for this telco account.';
+
+  @override
+  String get telcoAmountToPay => 'AMOUNT TO PAY';
+
+  @override
+  String get telcoSelectPaymentAmount => 'SELECT PAYMENT AMOUNT';
+
+  @override
+  String get telcoTapAmountKeypad => 'Tap the amount to open keypad';
+
+  @override
+  String get telcoPayFullOutstanding => 'PAY FULL OUTSTANDING';
+
+  @override
+  String get telcoProceedToPayment => 'PROCEED TO PAYMENT';
+
+  @override
+  String get telcoOrderSummary => 'ORDER SUMMARY';
+
+  @override
+  String get telcoServiceFee => 'Service Fee';
+
+  @override
+  String get telcoServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get telcoTotalPayment => 'TOTAL PAYMENT';
+
+  @override
+  String get telcoLatestPricingInfo => 'The final total is calculated automatically using the latest provider pricing.';
+
+  @override
+  String get telcoInformation => 'Information';
+
+  @override
+  String telcoMaximumPayment(String amount) {
+    return 'Maximum payment is $amount.';
+  }
+
+  @override
+  String telcoMinimumPayment(String amount) {
+    return 'Minimum payment is $amount.';
+  }
+
+  @override
+  String get telcoNoOutstandingBalance => 'There is no outstanding balance for this account.';
+
+  @override
+  String get telcoEnterPaymentAmount => 'Enter Payment Amount';
+
+  @override
+  String get telcoKeypadInstruction => 'Use the keypad to enter the amount';
+
+  @override
+  String get telcoPaymentRange => 'Minimum RM 1.00 • Maximum RM 10,000.00';
+
+  @override
+  String get telcoClear => 'CLEAR';
+
+  @override
+  String get telcoDone => 'DONE';
+
+  @override
+  String get telcoCancel => 'CANCEL';
 }

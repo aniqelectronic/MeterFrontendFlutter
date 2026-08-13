@@ -4714,4 +4714,224 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get billUnknownError => 'தற்போது உங்கள் கோரிக்கையைச் செயல்படுத்த முடியவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get telcoServiceLabel => 'தொலைத்தொடர்பு சேவை';
+
+  @override
+  String get telcoPageTitle => 'தொலைத்தொடர்பு சேவைகள்';
+
+  @override
+  String get telcoPageSubtitle => 'நீங்கள் பயன்படுத்த விரும்பும் தொலைத்தொடர்பு சேவையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get telcoBillPaymentTitle => 'பில் கட்டணம்';
+
+  @override
+  String get telcoBillPaymentDescription => 'உங்கள் போஸ்ட்பெய்ட் மொபைல் அல்லது தொலைத்தொடர்பு பில்லைச் சரிபார்த்து செலுத்துங்கள்';
+
+  @override
+  String get telcoMobilePinTitle => 'மொபைல் ரீலோட்';
+
+  @override
+  String get telcoMobilePinDescription => 'ப்ரீபெய்ட் மொபைல் ரீலோட் PIN வாங்குங்கள்';
+
+  @override
+  String get telcoSelectionHint => 'தொடர மேலே உள்ள ஒரு விருப்பத்தைத் தொடவும்';
+
+  @override
+  String get telcoBillServiceLabel => 'தொலைத்தொடர்பு பில் கட்டணம்';
+
+  @override
+  String get telcoBillProviderTitle => 'தொலைத்தொடர்பு நிறுவனத்தைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get telcoBillProviderSubtitle => 'பில் கட்டணத்தைத் தொடர உங்கள் தொலைத்தொடர்பு நிறுவனத்தைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get mobilePinServiceLabel => 'மொபைல் ரீலோட் PIN';
+
+  @override
+  String get mobilePinProviderTitle => 'மொபைல் நிறுவனத்தைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get mobilePinProviderSubtitle => 'ப்ரீபெய்ட் ரீலோட் PIN வாங்க உங்கள் மொபைல் நிறுவனத்தைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get telcoBillInputService => 'தொலைத்தொடர்பு பில் கட்டணம்';
+
+  @override
+  String get mobilePinInputService => 'மொபைல் ரீலோட்';
+
+  @override
+  String get telcoBillInputTitle => 'கணக்கு அல்லது மொபைல் எண்ணை உள்ளிடவும்';
+
+  @override
+  String get mobilePinInputTitle => 'மொபைல் எண்ணை உள்ளிடவும்';
+
+  @override
+  String get telcoSelectedProviderLabel => 'தேர்ந்தெடுக்கப்பட்ட சேவை வழங்குநர்';
+
+  @override
+  String get telcoBillNumberHint => 'கணக்கு அல்லது மொபைல் எண்ணை உள்ளிடவும்';
+
+  @override
+  String get mobilePinNumberHint => 'மொபைல் எண்ணை உள்ளிடவும்';
+
+  @override
+  String get telcoBillInputInstruction => 'உங்கள் தொலைத்தொடர்பு சேவை வழங்குநரிடம் பதிவு செய்யப்பட்ட எண்ணை கீழே உள்ள எண் விசைப்பலகையைப் பயன்படுத்தி உள்ளிடவும்.';
+
+  @override
+  String get mobilePinInputInstruction => 'ப்ரீபெய்ட் ரீலோட் பெற வேண்டிய மொபைல் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get telcoClearAllButton => 'அழி';
+
+  @override
+  String get telcoInputAlertTitle => 'சரிபார்க்கவும்';
+
+  @override
+  String get telcoBillNumberRequired => 'உங்கள் கணக்கு அல்லது மொபைல் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get mobilePinNumberRequired => 'மொபைல் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get telcoNumberInvalid => '8 முதல் 15 இலக்கங்கள் கொண்ட செல்லுபடியாகும் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get telcoProcessingTitle => 'செயலாக்கப்படுகிறது';
+
+  @override
+  String get telcoProcessingMessage => 'உங்கள் கோரிக்கை செயலாக்கப்படும் வரை காத்திருக்கவும்.';
+
+  @override
+  String get telcoInputSuccessTitle => 'எண் பெறப்பட்டது';
+
+  @override
+  String get telcoInputSuccessMessage => 'எண் ஏற்றுக்கொள்ளப்பட்டது. அடுத்த படிக்குத் தயாராக உள்ளது.';
+
+  @override
+  String get telcoOkButton => 'சரி';
+
+  @override
+  String get telcoInvalidAccount => 'உள்ளிடப்பட்ட கணக்கு அல்லது மொபைல் எண் செல்லுபடியாகவில்லை. எண்ணைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get telcoServiceUnavailable => 'தொலைத்தொடர்பு சேவை தற்காலிகமாக கிடைக்கவில்லை. பின்னர் மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get mobilePinComingSoon => 'மொபைல் PIN செயலாக்கம் அடுத்த படியில் கிடைக்கும்.';
+
+  @override
+  String get telcoAccountVerified => 'கணக்கு சரிபார்க்கப்பட்டது';
+
+  @override
+  String get telcoBillDetailsTitle => 'தொலைத்தொடர்பு பில் விவரங்கள்';
+
+  @override
+  String get telcoProvider => 'சேவை வழங்குநர்';
+
+  @override
+  String get telcoAccountNumber => 'கணக்கு / மொபைல் எண்';
+
+  @override
+  String get telcoOutstanding => 'நிலுவைத் தொகை';
+
+  @override
+  String get telcoDueDate => 'கடைசி கட்டண தேதி';
+
+  @override
+  String get telcoCustomerName => 'வாடிக்கையாளர் பெயர்';
+
+  @override
+  String get telcoBillPayment => 'தொலைத்தொடர்பு பில் கட்டணம்';
+
+  @override
+  String get telcoReviewBillDetails => 'பில் விவரங்களைச் சரிபார்க்கவும்';
+
+  @override
+  String get telcoReviewBillSubtitle => 'தொடர்வதற்கு முன் உங்கள் தொலைத்தொடர்பு கணக்கு விவரங்களைச் சரிபார்க்கவும்.';
+
+  @override
+  String get telcoServiceProvider => 'சேவை வழங்குநர்';
+
+  @override
+  String get telcoAccountMobileNumber => 'கணக்கு / கைபேசி எண்';
+
+  @override
+  String get telcoOutstandingBalance => 'நிலுவைத் தொகை';
+
+  @override
+  String get telcoPaymentAmountNextInfo => 'அடுத்த திரையில் நீங்கள் செலுத்த வேண்டிய தொகையைத் தேர்ந்தெடுக்கலாம்.';
+
+  @override
+  String get telcoChoosePaymentAmount => 'கட்டணத் தொகையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get telcoChoosePaymentSubtitle => 'இந்த தொலைத்தொடர்பு கணக்கிற்கு செலுத்த வேண்டிய தொகையைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get telcoAmountToPay => 'செலுத்த வேண்டிய தொகை';
+
+  @override
+  String get telcoSelectPaymentAmount => 'கட்டணத் தொகையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get telcoTapAmountKeypad => 'எண் விசைப்பலகையைத் திறக்க தொகையைத் தொடவும்';
+
+  @override
+  String get telcoPayFullOutstanding => 'முழு நிலுவையையும் செலுத்தவும்';
+
+  @override
+  String get telcoProceedToPayment => 'கட்டணத்தைத் தொடரவும்';
+
+  @override
+  String get telcoOrderSummary => 'கட்டணச் சுருக்கம்';
+
+  @override
+  String get telcoServiceFee => 'சேவைக் கட்டணம்';
+
+  @override
+  String get telcoServiceAdjustment => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get telcoTotalPayment => 'மொத்த கட்டணம்';
+
+  @override
+  String get telcoLatestPricingInfo => 'சேவை வழங்குநரின் சமீபத்திய விலையின் அடிப்படையில் இறுதித் தொகை தானாகக் கணக்கிடப்படும்.';
+
+  @override
+  String get telcoInformation => 'தகவல்';
+
+  @override
+  String telcoMaximumPayment(String amount) {
+    return 'அதிகபட்ச கட்டணம் $amount.';
+  }
+
+  @override
+  String telcoMinimumPayment(String amount) {
+    return 'குறைந்தபட்ச கட்டணம் $amount.';
+  }
+
+  @override
+  String get telcoNoOutstandingBalance => 'இந்தக் கணக்கில் நிலுவைத் தொகை இல்லை.';
+
+  @override
+  String get telcoEnterPaymentAmount => 'கட்டணத் தொகையை உள்ளிடவும்';
+
+  @override
+  String get telcoKeypadInstruction => 'தொகையை உள்ளிட எண் விசைப்பலகையைப் பயன்படுத்தவும்';
+
+  @override
+  String get telcoPaymentRange => 'குறைந்தபட்சம் RM 1.00 • அதிகபட்சம் RM 10,000.00';
+
+  @override
+  String get telcoClear => 'அழி';
+
+  @override
+  String get telcoDone => 'முடிந்தது';
+
+  @override
+  String get telcoCancel => 'ரத்து';
 }
