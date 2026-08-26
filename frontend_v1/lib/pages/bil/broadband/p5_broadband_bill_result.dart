@@ -6,6 +6,8 @@ import 'package:frontend_v1/model/pricing/catalog_pricing.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/payment/bil_qr_payment_page.dart';
 
+import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
+
 class P5BroadbandBillResultPage extends StatefulWidget {
   final BroadbandBillModel bill;
   final CatalogPricing catalogPricing;
@@ -23,9 +25,14 @@ class P5BroadbandBillResultPage extends StatefulWidget {
 
 class _P5BroadbandBillResultPageState
     extends State<P5BroadbandBillResultPage> {
-  static const double _minimumAmount = 1.00;
-  static const double _maximumAmount = 10000.00;
-  static const double _amountStep = 1.00;
+    double _minimumAmount = 1.00;
+    double _maximumAmount = 10000.00;
+
+    static const double _amountStep = 1.00;
+
+    bool _isCatalogLimitLoading = true;
+
+    String _processingTime = '';
 
   final TextEditingController _amountController =
       TextEditingController();
@@ -33,7 +40,7 @@ class _P5BroadbandBillResultPageState
   final ScrollController _scrollController =
       ScrollController();
 
-  double _selectedAmount = _minimumAmount;
+  double _selectedAmount = 1.00;
 
   // Step 0: review bill details
   // Step 1: choose payment amount
@@ -55,15 +62,12 @@ class _P5BroadbandBillResultPageState
     super.initState();
 
     final initialAmount =
-        bill.outstandingAmount > 0
-            ? bill.outstandingAmount.clamp(
-                _minimumAmount,
-                _maximumAmount,
-              )
-            : _minimumAmount;
+        _getInitialPaymentAmount();
 
     _selectedAmount = initialAmount;
     _updateAmountController(initialAmount);
+
+    _loadBroadbandPaymentLimits();
   }
 
   @override
@@ -72,6 +76,308 @@ class _P5BroadbandBillResultPageState
     _scrollController.dispose();
     super.dispose();
   }
+
+  double _getInitialPaymentAmount() {
+  if (bill.outstandingAmount > 0) {
+    return bill.outstandingAmount.clamp(
+      _minimumAmount,
+      _maximumAmount,
+    );
+  }
+
+  return _minimumAmount;
+}
+
+// ==========================================================================
+// LOAD BROADBAND PAYMENT LIMIT FROM IIMMPACT CATALOG
+// ==========================================================================
+
+Future<void> _loadBroadbandPaymentLimits() async {
+  try {
+    final Map<String, dynamic> catalog =
+        await IimmpactCatalogService.getCatalog();
+
+    final dynamic productsRaw =
+        catalog['products'];
+
+    if (productsRaw is! Map) {
+      throw Exception(
+        'Catalog products object is missing.',
+      );
+    }
+
+    final Map<String, dynamic> products =
+        Map<String, dynamic>.from(
+      productsRaw,
+    );
+
+    final String productCode =
+        bill.productCode.trim().toUpperCase();
+
+    final dynamic rawProduct =
+        products[productCode];
+
+    if (rawProduct is! Map) {
+      throw Exception(
+        'Broadband product $productCode '
+        'was not found in catalog.',
+      );
+    }
+
+    final Map<String, dynamic> product =
+        Map<String, dynamic>.from(
+      rawProduct,
+    );
+
+    // ======================================================================
+    // PROCESSING TIME
+    // Loaded dynamically from IIMMPACT catalog.
+    // Examples:
+    // instant
+    // 24_hours
+    // 3_days
+    // ======================================================================
+
+    final String processingTime =
+        product['processing_time']
+                ?.toString()
+                .trim() ??
+            '';
+
+    double minimum = 0;
+    double maximum = 0;
+
+    // ======================================================================
+    // PRIMARY:
+    // fields -> amount -> validation -> min/max
+    // ======================================================================
+
+    final dynamic fieldsRaw =
+        product['fields'];
+
+    if (fieldsRaw is List) {
+      for (final rawField in fieldsRaw) {
+        if (rawField is! Map) {
+          continue;
+        }
+
+        final Map<String, dynamic> field =
+            Map<String, dynamic>.from(
+          rawField,
+        );
+
+        final String fieldId =
+            field['id']
+                    ?.toString()
+                    .trim()
+                    .toLowerCase() ??
+                '';
+
+        if (fieldId != 'amount') {
+          continue;
+        }
+
+        final dynamic validationRaw =
+            field['validation'];
+
+        if (validationRaw is! Map) {
+          continue;
+        }
+
+        final Map<String, dynamic> validation =
+            Map<String, dynamic>.from(
+          validationRaw,
+        );
+
+        minimum = _toDouble(
+          validation['min'],
+        );
+
+        maximum = _toDouble(
+          validation['max'],
+        );
+
+        break;
+      }
+    }
+
+    // ======================================================================
+    // FALLBACK:
+    // denomination = "1-1000", "5-500", etc.
+    // ======================================================================
+
+    if (minimum <= 0 ||
+        maximum <= 0) {
+      final String denomination =
+          product['denomination']
+                  ?.toString()
+                  .trim() ??
+              '';
+
+      final range =
+          _parseAmountRange(
+        denomination,
+      );
+
+      if (minimum <= 0) {
+        minimum = range.$1;
+      }
+
+      if (maximum <= 0) {
+        maximum = range.$2;
+      }
+    }
+
+    if (minimum <= 0 ||
+        maximum <= 0 ||
+        maximum < minimum) {
+      throw Exception(
+        'Invalid payment limits for '
+        '$productCode.',
+      );
+    }
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _minimumAmount = minimum;
+      _maximumAmount = maximum;
+
+      _processingTime =
+          processingTime;
+
+      double newAmount =
+          _selectedAmount;
+
+      if (bill.outstandingAmount > 0) {
+        newAmount =
+            bill.outstandingAmount;
+      }
+
+      if (newAmount <
+          _minimumAmount) {
+        newAmount =
+            _minimumAmount;
+      }
+
+      if (newAmount >
+          _maximumAmount) {
+        newAmount =
+            _maximumAmount;
+      }
+
+      _selectedAmount =
+          newAmount;
+
+      _updateAmountController(
+        newAmount,
+      );
+
+      _isCatalogLimitLoading =
+          false;
+    });
+
+    debugPrint('');
+    debugPrint(
+      '========================================',
+    );
+    debugPrint(
+      'BROADBAND PAYMENT LIMIT LOADED',
+    );
+    debugPrint(
+      '========================================',
+    );
+    debugPrint(
+      'Product : $productCode',
+    );
+    debugPrint(
+      'Minimum : RM ${minimum.toStringAsFixed(2)}',
+    );
+    debugPrint(
+      'Maximum : RM ${maximum.toStringAsFixed(2)}',
+    );
+    debugPrint(
+      'Processing Time : $processingTime',
+    );
+    debugPrint(
+      '========================================',
+    );
+    debugPrint('');
+  } catch (error, stackTrace) {
+    debugPrint(
+      '[BROADBAND] Catalog payment-limit error: '
+      '$error',
+    );
+
+    debugPrintStack(
+      stackTrace: stackTrace,
+    );
+
+    if (!mounted) {
+      return;
+    }
+
+    // Same fallback strategy as Electric / Water.
+    setState(() {
+      _minimumAmount = 1.00;
+      _maximumAmount = 10000.00;
+
+      _processingTime = '';
+
+      _isCatalogLimitLoading = false;
+
+      final fallbackAmount =
+          _getInitialPaymentAmount();
+
+      _selectedAmount =
+          fallbackAmount;
+
+      _updateAmountController(
+        fallbackAmount,
+      );
+    });
+  }
+}
+
+double _toDouble(
+  dynamic value,
+) {
+  if (value is num) {
+    return value.toDouble();
+  }
+
+  return double.tryParse(
+        value?.toString() ?? '',
+      ) ??
+      0;
+}
+
+(double, double) _parseAmountRange(
+  String value,
+) {
+  final List<String> parts =
+      value.split('-');
+
+  if (parts.length != 2) {
+    return (
+      0,
+      0,
+    );
+  }
+
+  return (
+    double.tryParse(
+          parts[0].trim(),
+        ) ??
+        0,
+    double.tryParse(
+          parts[1].trim(),
+        ) ??
+        0,
+  );
+}
 
   String _formatAmount(double amount) {
     return 'RM ${amount.toStringAsFixed(2)}';
@@ -779,20 +1085,24 @@ class _P5BroadbandBillResultPageState
                               const SizedBox(
                                 height: 14,
                               ),
-                              const Align(
-                                alignment:
-                                    Alignment.centerLeft,
-                                child: Text(
-                                  'Minimum RM 1.00 • Maximum RM 10,000.00',
-                                  style: TextStyle(
-                                    color:
-                                        Color(0xFF60758D),
-                                    fontSize: 18,
-                                    fontWeight:
-                                        FontWeight.w600,
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                loc.electricPaymentRange(
+                                  _formatAmount(
+                                    _minimumAmount,
+                                  ),
+                                  _formatAmount(
+                                    _maximumAmount,
                                   ),
                                 ),
+                                style: const TextStyle(
+                                  color: Color(0xFF60758D),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
+                            ),
                               const SizedBox(
                                 height: 28,
                               ),
@@ -1653,8 +1963,9 @@ class _P5BroadbandBillResultPageState
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap:
-                      _openCustomAmountKeyboard,
+                onTap: _isCatalogLimitLoading
+                    ? null
+                    : _openCustomAmountKeyboard,
                   borderRadius:
                       BorderRadius.circular(20),
                   child: Container(
@@ -1777,9 +2088,16 @@ class _P5BroadbandBillResultPageState
           ],
         ),
         const SizedBox(height: 10),
-        const Text(
-          'Payment limit: RM 1.00 to RM 10,000.00',
-          style: TextStyle(
+        Text(
+          loc.electricPaymentRange(
+            _formatAmount(
+              _minimumAmount,
+            ),
+            _formatAmount(
+              _maximumAmount,
+            ),
+          ),
+          style: const TextStyle(
             color: Color(0xFF60758D),
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -1805,6 +2123,69 @@ class _P5BroadbandBillResultPageState
       ],
     );
   }
+
+  String _getBroadbandUpdateTime(
+  AppLocalizations loc,
+) {
+  final String value =
+      _processingTime
+          .trim()
+          .toLowerCase()
+          .replaceAll(' ', '_')
+          .replaceAll('-', '_');
+
+  if (value.isEmpty) {
+    return '-';
+  }
+
+  // instant
+  if (value == 'instant' ||
+      value == 'immediate') {
+    return loc
+        .broadbandUpdateInstant
+        .toUpperCase();
+  }
+
+  // 24_hours, 48_hours, 1_hour, etc.
+  final RegExpMatch? hoursMatch =
+      RegExp(
+    r'^(\d+)_hours?$',
+  ).firstMatch(value);
+
+  if (hoursMatch != null) {
+    final String hours =
+        hoursMatch.group(1) ?? '';
+
+    return loc
+        .broadbandUpdateWithinHours(
+          hours,
+        )
+        .toUpperCase();
+  }
+
+  // 1_day, 3_days, 5_days, etc.
+  final RegExpMatch? daysMatch =
+      RegExp(
+    r'^(\d+)_days?$',
+  ).firstMatch(value);
+
+  if (daysMatch != null) {
+    final String days =
+        daysMatch.group(1) ?? '';
+
+    return loc
+        .broadbandUpdateWithinDays(
+          days,
+        )
+        .toUpperCase();
+  }
+
+  // Unknown future catalog value:
+  // display the actual value rather than guessing.
+  return _processingTime
+      .replaceAll('_', ' ')
+      .toUpperCase();
+}
 
   Widget _buildOrderSummary() {
     final loc = AppLocalizations.of(context)!;
@@ -1870,10 +2251,12 @@ class _P5BroadbandBillResultPageState
           ),
           const Divider(height: 38),
           _SummaryRow(
-            label: loc
-                .broadbandPaymentUpdateTime,
-            value: loc
-                .broadbandUpdateWithinThreeDays,
+            label:
+                loc.broadbandPaymentUpdateTime,
+            value:
+                _getBroadbandUpdateTime(
+              loc,
+            ),
           ),
         ],
       ),
@@ -1922,9 +2305,11 @@ class _P5BroadbandBillResultPageState
           child: SizedBox(
             height: 90,
             child: ElevatedButton.icon(
-              onPressed: _currentStep == 0
-                  ? _goToPaymentStep
-                  : _handleContinue,
+            onPressed: _currentStep == 0
+                ? _goToPaymentStep
+                : (_isCatalogLimitLoading
+                    ? null
+                    : _handleContinue),
               icon: const Icon(
                 Icons.arrow_forward_rounded,
                 size: 34,

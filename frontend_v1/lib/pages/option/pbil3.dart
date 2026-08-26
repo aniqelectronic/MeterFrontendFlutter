@@ -9,6 +9,8 @@ import 'package:frontend_v1/pages/bil/water/pwaterbill3.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:frontend_v1/pages/bil/telco/ptelco3.dart';
+import 'package:frontend_v1/pages/bil/ewallet/pewallet3.dart';
+import 'package:frontend_v1/pages/bil/loan/ploan3.dart';
 
 import 'p2.dart';
 
@@ -253,6 +255,9 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                      // ============================================================
+                      // Electricity Bill
+                      // ============================================================
                         Expanded(
                           child: _ModernServiceCard(
                             height: 455,
@@ -274,6 +279,9 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                           ),
                         ),
                         const SizedBox(width: 34),
+                      // ============================================================
+                      //Water Bill
+                      // ============================================================
                         Expanded(
                           child: _ModernServiceCard(
                             height: 455,
@@ -300,6 +308,9 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                      // ============================================================
+                      // Broadband Bill (TM & UNIFI)
+                      // ============================================================
                         Expanded(
                           child: _ModernServiceCard(
                             height: 455,
@@ -320,6 +331,9 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                             },
                           ),
                         ),
+                      // ============================================================
+                      // Entertainment (ASTRO, NJOI, etc.)
+                      // ============================================================
                         const SizedBox(width: 34),
                         Expanded(
                           child: _ModernServiceCard(
@@ -344,19 +358,21 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                       ],
                     ),
                     const SizedBox(height: 34),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: _ModernServiceCard(
-                            height: 455,
-                            icon: Icons.sim_card_rounded,
-                            label: loc.telkoButton,
-                            supportingText:
-                                loc.telcoBillSupportingText,
-                            accentColor: const Color(0xFF15946B),
-                            accentLightColor: const Color(0xFFE2F7EF),
-                            onPressed: () {
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // ============================================================
+                      // TELCO
+                      // ============================================================
+                      Expanded(
+                        child: _ModernServiceCard(
+                          height: 455,
+                          icon: Icons.sim_card_rounded,
+                          label: loc.telkoButton,
+                          supportingText: loc.telcoBillSupportingText,
+                          accentColor: const Color(0xFF15946B),
+                          accentLightColor: const Color(0xFFE2F7EF),
+                          onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -364,13 +380,77 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                               ),
                             );
                           },
-                            comingSoon: false,
-                          ),
+                          comingSoon: false,
                         ),
-                        const SizedBox(width: 34),
-                        const Expanded(child: SizedBox()),
-                      ],
-                    ),
+                      ),
+
+                      const SizedBox(width: 34),
+
+                      // ============================================================
+                      // E-WALLET RELOADS
+                      // ============================================================
+                      Expanded(
+                        child: _ModernServiceCard(
+                          height: 455,
+                          icon: Icons.account_balance_wallet_rounded,
+                          label: loc.eWalletReloadButton,
+                          supportingText: loc.eWalletReloadSupportingText,
+                          accentColor: const Color(0xFFEF6C35),
+                          accentLightColor: const Color(0xFFFFE9DF),
+
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PEWALLET3PAGE(),
+                              ),
+                            );
+                          },
+                          comingSoon: false,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 34),
+
+                  // ============================================================
+                  // LOAN & EDUCATION
+                  // ============================================================
+
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: _ModernServiceCard(
+                          height: 455,
+                          icon: Icons.school_rounded,
+                          label: loc.loanEducationButton,
+                          supportingText: loc.loanEducationSupportingText,
+                          accentColor: const Color(0xFF3F51B5),
+                          accentLightColor: const Color(0xFFE8EAF6),
+
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PLOAN3PAGE(),
+                              ),
+                            );
+                          },
+
+                          comingSoon: false,
+                        ),
+                      ),
+
+                      const SizedBox(width: 34),
+
+                      const Expanded(
+                        child: SizedBox(),
+                      ),
+                    ],
+                  ),
+
                   ],
                 ),
               ),

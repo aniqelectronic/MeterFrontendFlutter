@@ -38,4 +38,9 @@ class Data {
 
   //update the date the code was last updated
   static String lastUpdatedDate = "2026-08-07 12:20:00";
+
+  //pbt which area
+  static String pbtArea = "Bentong";
+
+  
 }

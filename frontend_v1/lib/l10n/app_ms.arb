@@ -2559,7 +2559,634 @@
 "telcoPaymentRange": "Minimum RM 1.00 • Maksimum RM 10,000.00",
 "telcoClear": "PADAM",
 "telcoDone": "SELESAI",
-"telcoCancel": "BATAL"
+"telcoCancel": "BATAL",
+
+"mobilePinPurchaseTitle": "Pembelian PIN Mudah Alih",
+"mobilePinSelectedProvider": "Penyedia Dipilih",
+"mobilePinAvailable": "TERSEDIA",
+"mobilePinUnavailable": "TIDAK TERSEDIA",
+"mobilePinImportantNote": "Nota Penting",
+"mobilePinSelectAmount": "Pilih Nilai PIN",
+"mobilePinQuantity": "Kuantiti",
+"mobilePinQuantityHelp": "Pilih bilangan PIN yang ingin dibeli.",
+"mobilePinOrderSummary": "Ringkasan Pesanan",
+"mobilePinSubtotal": "Jumlah Kecil",
+"mobilePinTotalAmount": "Jumlah Keseluruhan",
+"mobilePinProceed": "TERUSKAN KE PEMBAYARAN",
+
+"mobilePinLoadingTitle": "Memuatkan PIN Mudah Alih",
+"mobilePinLoadingMessage": "Sila tunggu sementara pilihan PIN terkini diperoleh.",
+
+"mobilePinCatalogErrorTitle": "PIN Mudah Alih Tidak Dapat Dimuatkan",
+"mobilePinCatalogErrorMessage": "Maklumat PIN Mudah Alih terkini tidak dapat diperoleh. Sila cuba lagi.",
+"mobilePinRetry": "CUBA LAGI",
+
+"mobilePinUnavailableTitle": "Perkhidmatan Tidak Tersedia",
+"mobilePinUnavailableMessage": "Perkhidmatan PIN Mudah Alih ini tidak tersedia buat masa ini.",
+
+"mobilePinSelectAmountTitle": "Pilih Nilai",
+"mobilePinSelectAmountMessage": "Sila pilih nilai PIN sebelum meneruskan.",
+
+"mobilePinDebugTitle": "Pilihan Direkodkan",
+"mobilePinDebugMessage": "Pilihan PIN Mudah Alih anda telah tersedia. API pembelian akan disambungkan pada langkah seterusnya.",
+
+"mobilePinNoteCelcom": "Untuk tambah nilai, dail *122* diikuti nombor PIN 16 digit dan #, kemudian tekan PANGGIL.",
+"mobilePinNoteDigi": "Untuk tambah nilai, dail *123* diikuti nombor PIN 16 digit dan #, kemudian tekan PANGGIL.",
+"mobilePinNoteHelloSim": "Untuk tambah nilai, dail *178* diikuti nombor PIN dan #, kemudian tekan PANGGIL.",
+"mobilePinNoteMaxis": "Untuk tambah nilai, dail *111* diikuti nombor PIN 16 digit dan #, kemudian tekan PANGGIL.",
+"mobilePinNoteRedOne": "Untuk tambah nilai, dail *122* diikuti nombor PIN 16 digit dan #, kemudian tekan PANGGIL.",
+"mobilePinNoteSpeakOut": "Dail *129# dan tekan Hantar. Pilih pilihan 2 untuk tambah nilai, masukkan PIN tambah nilai dan tekan Hantar.",
+"mobilePinNoteTuneTalk": "Untuk tambah nilai, dail *122* diikuti PIN 16 digit dan #, kemudian tekan PANGGIL.",
+"mobilePinNoteUnifi": "Buka aplikasi unifi, pilih Reload, pilih Reload Voucher, masukkan PIN tambah nilai 12 digit dan tekan Continue.",
+"mobilePinNoteUMobile": "Untuk tambah nilai, dail *138* diikuti nombor PIN 14 digit dan #, kemudian tekan PANGGIL.",
+"mobilePinNoteXox": "Untuk tambah nilai, dail *132*1* diikuti nombor PIN 16 digit dan #, kemudian tekan PANGGIL.",
+"mobilePinNoteYes": "Untuk tambah nilai, taip REL diikuti nombor Yes dan kod PIN anda, kemudian hantar ke 0183301111.",
+"mobilePinServiceAdjustment": "Pelarasan Perkhidmatan",
+
+"eWalletReloadButton": "Tambah Nilai E-Wallet",
+"eWalletReloadSupportingText": "Tambah nilai e-wallet pilihan anda dengan cepat dan mudah",
+
+"eWalletServiceLabel": "Perkhidmatan Tambah Nilai E-Wallet",
+"eWalletProviderTitle": "Pilih E-Wallet",
+"eWalletProviderSubtitle": "Pilih perkhidmatan e-wallet untuk diteruskan",
+"touchNGoPin": "PIN Touch 'n Go",
+"touchNGoPinless": "Tambah Nilai Touch 'n Go",
+"trueMoneyEWallet": "E-Wallet TrueMoney",
+
+"telcoReceiptTitle": "Resit Pembayaran Telko",
+"telcoReceiptPaymentSuccessful": "Pembayaran Berjaya",
+"telcoReceiptThankYou": "Terima kasih. Pembayaran Telko anda telah diterima dengan jayanya.",
+"telcoReceiptProvider": "Penyedia Telko",
+"telcoReceiptTransactionDetails": "Butiran Transaksi",
+"telcoReceiptAccountNumber": "Nombor Akaun / Mudah Alih",
+"telcoReceiptProductCode": "Kod Produk",
+"telcoReceiptBillAmount": "Jumlah Bil",
+"telcoReceiptServiceAdjustment": "Pelarasan Perkhidmatan",
+"telcoReceiptPaymentMethod": "Kaedah Pembayaran",
+"telcoReceiptPaymentDate": "Tarikh & Masa Pembayaran",
+"telcoReceiptOrderNumber": "Nombor Pesanan",
+"telcoReceiptBankTransaction": "Transaksi Bank",
+"telcoReceiptTotalPaid": "Jumlah Dibayar",
+
+"telcoReceiptAutoReturn": "Kembali ke halaman utama dalam {seconds} saat.",
+"@telcoReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+"receiptTransactionReference": "Rujukan Transaksi",
+
+"telcoReceiptTitle": "Resit Pembayaran Telko",
+"telcoReceiptProvider": "Penyedia Telko",
+"telcoReceiptTransactionDetails": "Butiran Transaksi",
+"telcoReceiptAccountNumber": "Nombor Akaun / Mudah Alih",
+"telcoReceiptProductCode": "Kod Produk",
+"telcoReceiptPaymentMethod": "Kaedah Pembayaran",
+"telcoReceiptPaymentDate": "Tarikh & Masa Pembayaran",
+"telcoReceiptOrderNumber": "Nombor Pesanan",
+"telcoReceiptBankTransaction": "Transaksi Bank",
+"telcoReceiptTotalPaid": "Jumlah Dibayar",
+
+"telcoReceiptAutoReturn": "Kembali ke halaman utama dalam {seconds} saat.",
+"@telcoReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+"mobilePinReceiptTitle": "Resit PIN Mudah Alih",
+"mobilePinReceiptProvider": "Penyedia PIN Mudah Alih",
+"mobilePinReceiptTransactionDetails": "Butiran Transaksi",
+"mobilePinReceiptProductCode": "Kod Produk",
+"mobilePinReceiptPinValue": "Nilai PIN",
+"mobilePinReceiptQuantity": "Kuantiti",
+"mobilePinReceiptPaymentMethod": "Kaedah Pembayaran",
+"mobilePinReceiptPaymentDate": "Tarikh & Masa Pembayaran",
+"mobilePinReceiptOrderNumber": "Nombor Pesanan",
+"mobilePinReceiptBankTransaction": "Transaksi Bank",
+"mobilePinReceiptPinDetails": "Butiran PIN",
+"mobilePinReceiptPinNumber": "PIN {number}",
+"@mobilePinReceiptPinNumber": {
+  "placeholders": {
+    "number": {
+      "type": "int"
+    }
+  }
+},
+"mobilePinReceiptSerialNumber": "Nombor Siri",
+"mobilePinReceiptPinCode": "Kod PIN",
+"mobilePinReceiptExpiry": "Tarikh Luput",
+"mobilePinReceiptNote": "Arahan",
+"mobilePinReceiptVoucherLink": "Pautan Baucar",
+"mobilePinReceiptTotalPaid": "Jumlah Dibayar",
+
+"mobilePinReceiptAutoReturn": "Kembali ke halaman utama dalam {seconds} saat.",
+"@mobilePinReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+"mobilePinRecipientMobileTitle": "Nombor Mudah Alih Penerima",
+"mobilePinRecipientMobileSubtitle": "Masukkan nombor mudah alih yang akan digunakan sebagai rujukan penerima untuk pembelian PIN ini.",
+"mobilePinRecipientMobileHint": "Contoh: 0123456789",
+"mobilePinRecipientMobileHelp": "Sila semak nombor mudah alih dengan teliti sebelum meneruskan pembayaran.",
+"mobilePinRecipientMobileSummary": "Nombor Mudah Alih Penerima",
+"mobilePinMobileNumberRequired": "Sila masukkan nombor mudah alih.",
+"mobilePinMobileNumberInvalid": "Sila masukkan nombor mudah alih yang sah.",
+"mobilePinProceed": "Teruskan ke Pembayaran",
+
+"mobilePinContinue": "Teruskan",
+
+"mobilePinNumberServiceLabel": "Pembelian PIN Mudah Alih",
+"mobilePinEnterNumberTitle": "Masukkan Nombor Mudah Alih",
+"mobilePinEnterNumberSubtitle": "Masukkan nombor mudah alih penerima sebelum meneruskan pembayaran.",
+
+"mobilePinSelectedProduct": "PIN Dipilih",
+"mobilePinPaymentTotal": "Jumlah",
+
+"mobilePinNumberHint": "Masukkan nombor mudah alih",
+"mobilePinNumberInstruction": "Masukkan nombor mudah alih penerima menggunakan papan kekunci di bawah. Sila semak nombor dengan teliti sebelum pembayaran.",
+
+"mobilePinNumberAlertTitle": "Nombor Mudah Alih",
+"mobilePinNumberRequired": "Sila masukkan nombor mudah alih penerima.",
+"mobilePinNumberInvalid": "Sila masukkan nombor mudah alih Malaysia yang sah.",
+
+"mobilePinContinueToPayment": "Teruskan ke Pembayaran",
+
+"mobilePinNextStepMobileNumber": "Seterusnya, masukkan nombor mudah alih penerima.",
+
+"eWalletPinPurchaseTitle": "Pembelian PIN E-Wallet",
+"eWalletSelectedProvider": "E-Wallet Dipilih",
+"eWalletAvailable": "Tersedia",
+"eWalletUnavailable": "Tidak Tersedia",
+
+"eWalletSelectReloadValue": "Pilih Nilai Tambah Nilai",
+"eWalletPinValue": "Nilai PIN",
+"eWalletReloadValue": "Nilai Tambah Nilai",
+"eWalletServiceAdjustment": "Pelarasan Perkhidmatan",
+"eWalletTotalPayment": "Jumlah Bayaran",
+
+"eWalletContinue": "Teruskan",
+"eWalletContinuePayment": "Teruskan Pembayaran",
+
+"eWalletPhoneStepLabel": "Nombor Telefon E-Wallet",
+"eWalletAmountStepLabel": "Amaun Tambah Nilai E-Wallet",
+
+"eWalletEnterPhoneTitle": "Masukkan Nombor Telefon",
+"eWalletEnterPhoneSubtitle": "Masukkan nombor telefon untuk transaksi e-wallet ini",
+"eWalletPhoneNumber": "Nombor Telefon",
+"eWalletPhoneHint": "Masukkan nombor telefon",
+"eWalletPhoneReferenceHint": "Masukkan nombor telefon yang digunakan sebagai rujukan transaksi.",
+
+"eWalletEnterAmountTitle": "Masukkan Amaun Tambah Nilai",
+"eWalletAmountHint": "Masukkan amaun",
+
+"eWalletAmountRange": "Amaun dibenarkan: {minimum} - {maximum}",
+"@eWalletAmountRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletLoadingTitle": "Memuatkan E-Wallet",
+"eWalletLoadingMessage": "Mendapatkan maklumat e-wallet terkini...",
+
+"eWalletCatalogErrorTitle": "Tidak Dapat Dimuatkan",
+"eWalletCatalogErrorMessage": "Maklumat e-wallet terkini tidak dapat diperoleh.",
+"eWalletRetry": "Cuba Lagi",
+
+"eWalletUnavailableTitle": "Perkhidmatan Tidak Tersedia",
+"eWalletUnavailableMessage": "Perkhidmatan e-wallet ini tidak tersedia buat masa ini.",
+
+"eWalletSelectAmountTitle": "Pilih Nilai Tambah Nilai",
+"eWalletSelectAmountMessage": "Sila pilih nilai tambah nilai sebelum meneruskan.",
+
+"eWalletPhoneRequiredTitle": "Nombor Telefon Diperlukan",
+"eWalletPhoneRequiredMessage": "Sila masukkan nombor telefon.",
+
+"eWalletInvalidPhoneTitle": "Nombor Telefon Tidak Sah",
+"eWalletInvalidPhoneMessage": "Sila masukkan nombor telefon bimbit Malaysia yang sah.",
+
+"eWalletAmountRequiredTitle": "Amaun Diperlukan",
+"eWalletAmountRequiredMessage": "Sila masukkan amaun tambah nilai.",
+
+"eWalletInvalidAmountTitle": "Amaun Tidak Sah",
+
+"eWalletMinimumAmount": "Amaun tambah nilai minimum ialah {amount}.",
+"@eWalletMinimumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletMaximumAmount": "Amaun tambah nilai maksimum ialah {amount}.",
+"@eWalletMaximumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletTngPinNote": "Pilih nilai PIN. Nombor telefon akan dimasukkan pada halaman seterusnya sebagai rujukan transaksi.",
+
+"eWalletTrueMoneyNote": "Had tambah nilai harian ialah RM1,000 dan had bulanan ialah RM5,000.",
+
+"eWalletOkButton": "OK",
+
+"eWalletReloadDetails": "Tambah Nilai E-Wallet",
+"eWalletPhoneStepLabel": "Nombor Telefon E-Wallet",
+"eWalletEnterPhoneTitle": "Masukkan Nombor Telefon",
+"eWalletPhoneNumber": "Nombor Telefon",
+"eWalletPhoneHint": "Masukkan nombor telefon",
+
+"eWalletEnterAmountTitle": "Pilih Amaun Tambah Nilai",
+"eWalletAmountStepSubtitle": "Pilih atau masukkan amaun yang ingin ditambah nilai",
+"eWalletReloadAmount": "Amaun Tambah Nilai",
+"eWalletSelectReloadValue": "Pilih Amaun Tambah Nilai",
+
+"eWalletAmountRange": "Amaun dibenarkan: {minimum} - {maximum}",
+"@eWalletAmountRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletOrderSummary": "Ringkasan Pesanan",
+"eWalletPinValue": "Nilai PIN",
+"eWalletReloadValue": "Amaun Tambah Nilai",
+"eWalletServiceAdjustment": "Pelarasan Perkhidmatan",
+"eWalletTotalPayment": "Jumlah Bayaran",
+"eWalletLatestPricingInfo": "Jumlah yang dipaparkan menggunakan harga perkhidmatan terkini.",
+
+"eWalletContinuePayment": "Teruskan Pembayaran",
+
+"eWalletLoadingTitle": "Memuatkan E-Wallet",
+"eWalletLoadingMessage": "Mendapatkan maklumat e-wallet terkini...",
+
+"eWalletCatalogErrorTitle": "Tidak Dapat Dimuatkan",
+"eWalletCatalogErrorMessage": "Maklumat e-wallet terkini tidak dapat diperoleh.",
+"eWalletRetry": "Cuba Lagi",
+
+"eWalletPhoneRequiredTitle": "Nombor Telefon Diperlukan",
+"eWalletPhoneRequiredMessage": "Sila masukkan nombor telefon.",
+
+"eWalletInvalidPhoneTitle": "Nombor Telefon Tidak Sah",
+"eWalletInvalidPhoneMessage": "Sila masukkan nombor telefon bimbit Malaysia yang sah.",
+
+"eWalletAmountRequiredTitle": "Amaun Diperlukan",
+"eWalletAmountRequiredMessage": "Sila masukkan amaun tambah nilai.",
+
+"eWalletInvalidAmountTitle": "Amaun Tidak Sah",
+
+"eWalletMinimumAmount": "Amaun tambah nilai minimum ialah {amount}.",
+"@eWalletMinimumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletMaximumAmount": "Amaun tambah nilai maksimum ialah {amount}.",
+"@eWalletMaximumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletTrueMoneyNote": "Had tambah nilai harian ialah RM1,000 dan had bulanan ialah RM5,000.",
+
+"eWalletKeypadClear": "Padam",
+"eWalletKeypadDone": "Selesai",
+"eWalletKeypadCancel": "Batal",
+
+"eWalletOkButton": "OK",
+
+"eWalletPinlessPhoneHint": "Masukkan nombor telefon e-wallet anda.",
+"eWalletPinPhoneReferenceHint": "Nombor telefon diperlukan sebagai rujukan transaksi.",
+
+"eWalletConfirmNumberTitle": "Sahkan Nombor Telefon",
+"eWalletConfirmNumberQuestion": "Adakah nombor ini betul?",
+"eWalletConfirmBack": "Kembali",
+"eWalletConfirmContinue": "Teruskan",
+
+"electricPaymentRange": "Minimum {minimum} • Maksimum {maximum}",
+"@electricPaymentRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"electricOutstandingExceedsMaximum": "Amaun tertunggak ialah {outstanding}, tetapi bayaran maksimum yang dibenarkan ialah {maximum}.",
+"@electricOutstandingExceedsMaximum": {
+  "placeholders": {
+    "outstanding": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletPinReceiptTitle": "Resit PIN E-Wallet",
+"eWalletPinReceiptProvider": "Penyedia E-Wallet",
+"eWalletPinReceiptTransactionDetails": "Butiran Transaksi",
+"eWalletPinReceiptProductCode": "Kod Produk",
+"eWalletPinReceiptPhoneReference": "Telefon / Rujukan",
+"eWalletPinReceiptValue": "Nilai PIN",
+"eWalletPinReceiptPaymentMethod": "Kaedah Bayaran",
+"eWalletPinReceiptPaymentDate": "Tarikh Bayaran",
+"eWalletPinReceiptBankTransaction": "Transaksi Bank",
+"eWalletPinReceiptPinDetails": "Butiran PIN",
+"eWalletPinReceiptSerialNumber": "Nombor Siri",
+"eWalletPinReceiptPinCode": "PIN",
+"eWalletPinReceiptExpiry": "Tarikh Luput",
+"eWalletPinReceiptNote": "Nota",
+"eWalletPinReceiptVoucherLink": "Pautan Baucar",
+"eWalletPinReceiptTotalPaid": "Jumlah Dibayar",
+"eWalletPinReceiptSavePinMessage": "Sila simpan PIN anda sebelum meninggalkan halaman ini.",
+
+"eWalletTngRedeemNote": "Untuk tebus PIN, log masuk ke aplikasi Touch 'n Go eWallet",
+
+"mobilePinReceiptSavePinMessage": "Sila simpan PIN anda sebelum meninggalkan halaman ini.",
+
+"eWalletProviderSurchargeTitle": "Caj Tambahan Penyedia",
+"eWalletProviderSurchargeMessage": "Caj penyedia {surcharge} dikenakan. Tambah nilai {reloadAmount} dan e-dompet menerima {receivedAmount}.",
+"@eWalletProviderSurchargeMessage": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    },
+    "reloadAmount": {
+      "type": "String"
+    },
+    "receivedAmount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletReloadReceiptTitle": "Resit Tambah Nilai E-Wallet",
+"eWalletReloadReceiptProvider": "Penyedia E-Wallet",
+
+"eWalletProviderSurchargeTitle": "Caj Tambahan Penyedia",
+"eWalletProviderSurchargeMessage": "Caj penyedia {surcharge} dikenakan. Tambah nilai {reloadAmount} dan e-dompet menerima {receivedAmount}.",
+"@eWalletProviderSurchargeMessage": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    },
+    "reloadAmount": {
+      "type": "String"
+    },
+    "receivedAmount": {
+      "type": "String"
+    }
+  }
+},
+
+
+"electricUpdateInstant": "Serta-merta",
+
+"electricUpdateWithinHours": "Dalam tempoh {hours} jam",
+"@electricUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"electricUpdateWithinDays": "Dalam tempoh {days} hari",
+"@electricUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"electricProcessingTimeUnavailable": "Tempoh pemprosesan tidak tersedia",
+
+"waterUpdateWithinHours": "Dalam tempoh {hours} jam",
+"@waterUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"waterUpdateWithinDays": "Dalam tempoh {days} hari",
+"@waterUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandUpdateInstant": "Serta-merta",
+
+"broadbandUpdateWithinHours": "Dalam tempoh {hours} jam",
+"@broadbandUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandUpdateWithinDays": "Dalam tempoh {days} hari",
+"@broadbandUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"entertainmentUpdateInstant": "Serta-merta",
+
+"entertainmentUpdateWithinHours": "Dalam tempoh {hours} jam",
+"@entertainmentUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"entertainmentUpdateWithinDays": "Dalam tempoh {days} hari",
+"@entertainmentUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+
+"telcoPaymentUpdateTime": "Tempoh Kemas Kini Bayaran",
+"telcoUpdateInstant": "Serta-merta",
+"telcoUpdateWithinHours": "Dalam tempoh {hours} jam",
+"@telcoUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+"telcoUpdateWithinDays": "Dalam tempoh {days} hari",
+"@telcoUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+
+"eWalletProcessingTime": "Tempoh Pemprosesan",
+"eWalletUpdateInstant": "Serta-merta",
+"eWalletUpdateWithinHours": "Dalam tempoh {hours} jam",
+"@eWalletUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+"eWalletUpdateWithinDays": "Dalam tempoh {days} hari",
+"@eWalletUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"loanEducationButton": "Pinjaman & Pendidikan",
+"loanEducationSupportingText": "Bayaran pinjaman dan pembiayaan pendidikan",
+
+"loanServiceLabel": "PERKHIDMATAN PINJAMAN & PENDIDIKAN",
+"loanProviderTitle": "Pinjaman & Pendidikan",
+"loanProviderSubtitle": "Pilih penyedia untuk meneruskan",
+"processingTimeLabel": "Masa Pemprosesan",
+"catalogUnavailableTitle": "Maklumat Perkhidmatan Tidak Tersedia",
+"catalogUnavailableMessage": "Maklumat perkhidmatan terkini tidak dapat dimuatkan. Sila cuba lagi.",
+"retryButton": "CUBA LAGI",
+"serviceUnavailableTitle": "Perkhidmatan Tidak Tersedia",
+"ptptnUnavailableMessage": "Perkhidmatan PTPTN tidak tersedia buat masa ini. Sila cuba lagi nanti.",
+"ptptnNextPageMessage": "PTPTN dipilih. Teruskan ke kemasukan nombor IC.",
+
+"processingTimeLabel": "Masa Pemprosesan",
+"processingInstant": "Serta-merta",
+"processing24Hours": "24 Jam",
+"processing3Days": "3 Hari",
+
+"loanNricStepLabel": "AKAUN PTPTN",
+"loanEnterNricTitle": "Masukkan Nombor IC",
+"loanEnterNricSubtitle": "Masukkan 12 digit nombor IC anda untuk meneruskan",
+"loanSelectedProvider": "Penyedia Dipilih",
+"loanNricHint": "MASUKKAN NOMBOR IC",
+"loanNricHintText": "Masukkan 12 digit tanpa ruang atau sengkang",
+"loanContinue": "Teruskan",
+
+"loanConfirmNricTitle": "Sahkan Nombor IC",
+"loanConfirmNricQuestion": "Adakah nombor IC ini betul?",
+"loanConfirmBack": "Ubah",
+"loanConfirmContinue": "Teruskan",
+
+"loanNricRequiredTitle": "Nombor IC Diperlukan",
+"loanNricRequiredMessage": "Sila masukkan nombor IC anda.",
+
+"loanInvalidNricTitle": "Nombor IC Tidak Sah",
+"loanInvalidNricMessage": "Sila masukkan nombor IC 12 digit yang sah.",
+
+"loanUnavailableTitle": "Perkhidmatan Tidak Tersedia",
+"loanUnavailableMessage": "Perkhidmatan PTPTN tidak tersedia buat masa ini. Sila cuba lagi nanti.",
+
+"loanLoadingTitle": "Memuatkan PTPTN",
+"loanLoadingMessage": "Sila tunggu sementara maklumat terkini PTPTN dimuatkan.",
+
+"loanCatalogErrorTitle": "PTPTN Tidak Dapat Dimuatkan",
+"loanCatalogErrorMessage": "Maklumat perkhidmatan PTPTN tidak dapat dimuatkan. Sila cuba lagi.",
+
+"loanRetry": "CUBA LAGI",
+"loanOkButton": "OK",
+"loanNricConfirmedMessage": "Nombor IC disahkan. Mendapatkan pilihan akaun PTPTN.",
+
+"loanAccountStepLabel": "AKAUN PTPTN",
+"loanSelectAccountTitle": "Pilih Akaun",
+"loanSelectAccountSubtitle": "Pilih akaun PTPTN atau SSPN yang ingin dibayar",
+"loanNricLabel": "Nombor IC",
+
+"loanAccountNumber": "Nombor Akaun",
+"loanAccountType": "Jenis Akaun",
+
+"loanTypeConventional": "Konvensional",
+"loanTypeUjrah": "Ujrah",
+"loanTypeSspnPrime": "SSPN Prime",
+"loanTypeSspnPlus": "SSPN Plus",
+
+"loanAccountCategoryUnknown": "Akaun",
+
+"loanAccountLoadingTitle": "Menyemak Akaun",
+"loanAccountLoadingMessage": "Sila tunggu sementara akaun PTPTN dan SSPN anda diperoleh.",
+
+"loanAccountErrorTitle": "Akaun Tidak Dapat Diperoleh",
+"loanAccountErrorMessage": "Maklumat akaun PTPTN tidak dapat diperoleh. Sila cuba lagi.",
+
+"loanNoAccountTitle": "Tiada Akaun Tersedia",
+"loanNoAccountMessage": "Tiada akaun PTPTN atau SSPN tersedia untuk nombor IC ini. Sila cuba lagi nanti.",
+
+"loanAccountRequiredTitle": "Pilih Akaun",
+"loanAccountRequiredMessage": "Sila pilih akaun untuk meneruskan.",
+
+"loanAccountSelectedMessage": "Akaun dipilih. Teruskan untuk masukkan jumlah bayaran.",
+
+"loanAvailableAccounts": "Akaun tersedia: {count}",
+"@loanAvailableAccounts": {
+  "placeholders": {
+    "count": {
+      "type": "int"
+    }
+  }
+},
+
+"loanAvailableAccountTitle": "AKAUN TERSEDIA",
+
+"loanAccountSelectionTitle": "Pilihan Akaun PTPTN"
 
 
 

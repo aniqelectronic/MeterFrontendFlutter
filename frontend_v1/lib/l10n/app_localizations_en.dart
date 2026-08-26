@@ -3491,7 +3491,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get electricPaymentUpdateTime => 'Bill Update Time';
 
   @override
-  String get electricUpdateInstant => 'INSTANT';
+  String get electricUpdateInstant => 'Instant';
 
   @override
   String get electricUpdateWithinThreeDays => 'Within 3 days';
@@ -3985,7 +3985,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get entertainmentPaymentUpdateTime => 'Payment Update Time';
 
   @override
-  String get entertainmentUpdateInstant => 'INSTANT';
+  String get entertainmentUpdateInstant => 'Instant';
 
   @override
   String get entertainmentContinue => 'CONTINUE';
@@ -4800,7 +4800,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get telcoBillNumberRequired => 'Please enter your account or mobile number.';
 
   @override
-  String get mobilePinNumberRequired => 'Please enter the mobile number.';
+  String get mobilePinNumberRequired => 'Please enter the recipient mobile number.';
 
   @override
   String get telcoNumberInvalid => 'Please enter a valid number using 8 to 15 digits.';
@@ -4940,4 +4940,819 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get telcoCancel => 'CANCEL';
+
+  @override
+  String get mobilePinPurchaseTitle => 'Purchase Mobile PIN';
+
+  @override
+  String get mobilePinSelectedProvider => 'Selected Provider';
+
+  @override
+  String get mobilePinAvailable => 'AVAILABLE';
+
+  @override
+  String get mobilePinUnavailable => 'UNAVAILABLE';
+
+  @override
+  String get mobilePinImportantNote => 'Important Note';
+
+  @override
+  String get mobilePinSelectAmount => 'Select PIN Amount';
+
+  @override
+  String get mobilePinQuantity => 'Quantity';
+
+  @override
+  String get mobilePinQuantityHelp => 'Select the number of PINs to purchase.';
+
+  @override
+  String get mobilePinOrderSummary => 'Order Summary';
+
+  @override
+  String get mobilePinSubtotal => 'Subtotal';
+
+  @override
+  String get mobilePinTotalAmount => 'Total Amount';
+
+  @override
+  String get mobilePinProceed => 'Continue to Payment';
+
+  @override
+  String get mobilePinLoadingTitle => 'Loading Mobile PIN';
+
+  @override
+  String get mobilePinLoadingMessage => 'Please wait while we retrieve the latest PIN options.';
+
+  @override
+  String get mobilePinCatalogErrorTitle => 'Unable to Load Mobile PIN';
+
+  @override
+  String get mobilePinCatalogErrorMessage => 'The latest Mobile PIN information could not be retrieved. Please try again.';
+
+  @override
+  String get mobilePinRetry => 'RETRY';
+
+  @override
+  String get mobilePinUnavailableTitle => 'Service Unavailable';
+
+  @override
+  String get mobilePinUnavailableMessage => 'This Mobile PIN service is currently unavailable.';
+
+  @override
+  String get mobilePinSelectAmountTitle => 'Select an Amount';
+
+  @override
+  String get mobilePinSelectAmountMessage => 'Please select a PIN amount before continuing.';
+
+  @override
+  String get mobilePinDebugTitle => 'Selection Recorded';
+
+  @override
+  String get mobilePinDebugMessage => 'Your Mobile PIN selection is ready. The purchase API will be connected in the next step.';
+
+  @override
+  String get mobilePinNoteCelcom => 'To top up, dial *122* followed by the 16-digit PIN number and #, then press CALL.';
+
+  @override
+  String get mobilePinNoteDigi => 'To top up, dial *123* followed by the 16-digit PIN number and #, then press CALL.';
+
+  @override
+  String get mobilePinNoteHelloSim => 'To top up, dial *178* followed by the PIN number and #, then press CALL.';
+
+  @override
+  String get mobilePinNoteMaxis => 'To top up, dial *111* followed by the 16-digit PIN number and #, then press CALL.';
+
+  @override
+  String get mobilePinNoteRedOne => 'To top up, dial *122* followed by the 16-digit PIN number and #, then press CALL.';
+
+  @override
+  String get mobilePinNoteSpeakOut => 'Dial *129# and press Send. Select option 2 to top up, enter the reload PIN and press Send.';
+
+  @override
+  String get mobilePinNoteTuneTalk => 'To top up, dial *122* followed by the 16-digit PIN and #, then press CALL.';
+
+  @override
+  String get mobilePinNoteUnifi => 'Open the unifi app, select Reload, choose Reload Voucher, enter the 12-digit reload PIN and tap Continue.';
+
+  @override
+  String get mobilePinNoteUMobile => 'To top up, dial *138* followed by the 14-digit PIN number and #, then press CALL.';
+
+  @override
+  String get mobilePinNoteXox => 'To top up, dial *132*1* followed by the 16-digit PIN number and #, then press CALL.';
+
+  @override
+  String get mobilePinNoteYes => 'To top up, type REL followed by your Yes number and PIN code, then send it to 0183301111.';
+
+  @override
+  String get mobilePinServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get eWalletReloadButton => 'E-Wallet Reloads';
+
+  @override
+  String get eWalletReloadSupportingText => 'Reload your preferred e-wallet quickly and conveniently';
+
+  @override
+  String get eWalletServiceLabel => 'E-Wallet Reload Service';
+
+  @override
+  String get eWalletProviderTitle => 'Select E-Wallet';
+
+  @override
+  String get eWalletProviderSubtitle => 'Select your preferred e-wallet service to continue';
+
+  @override
+  String get touchNGoPin => 'Touch \'n Go PIN';
+
+  @override
+  String get touchNGoPinless => 'Touch \'n Go Reload';
+
+  @override
+  String get trueMoneyEWallet => 'TrueMoney E-Wallet';
+
+  @override
+  String get telcoReceiptTitle => 'Telco Payment Receipt';
+
+  @override
+  String get telcoReceiptPaymentSuccessful => 'Payment Successful';
+
+  @override
+  String get telcoReceiptThankYou => 'Thank you. Your Telco payment has been received successfully.';
+
+  @override
+  String get telcoReceiptProvider => 'Telco Provider';
+
+  @override
+  String get telcoReceiptTransactionDetails => 'Transaction Details';
+
+  @override
+  String get telcoReceiptAccountNumber => 'Account / Mobile Number';
+
+  @override
+  String get telcoReceiptProductCode => 'Product Code';
+
+  @override
+  String get telcoReceiptBillAmount => 'Bill Amount';
+
+  @override
+  String get telcoReceiptServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get telcoReceiptPaymentMethod => 'Payment Method';
+
+  @override
+  String get telcoReceiptPaymentDate => 'Payment Date & Time';
+
+  @override
+  String get telcoReceiptOrderNumber => 'Order Number';
+
+  @override
+  String get telcoReceiptBankTransaction => 'Bank Transaction';
+
+  @override
+  String get telcoReceiptTotalPaid => 'Total Paid';
+
+  @override
+  String telcoReceiptAutoReturn(int seconds) {
+    return 'Returning to the home page in $seconds seconds.';
+  }
+
+  @override
+  String get receiptTransactionReference => 'Transaction Reference';
+
+  @override
+  String get mobilePinReceiptTitle => 'Mobile PIN Receipt';
+
+  @override
+  String get mobilePinReceiptProvider => 'Mobile PIN Provider';
+
+  @override
+  String get mobilePinReceiptTransactionDetails => 'Transaction Details';
+
+  @override
+  String get mobilePinReceiptProductCode => 'Product Code';
+
+  @override
+  String get mobilePinReceiptPinValue => 'PIN Value';
+
+  @override
+  String get mobilePinReceiptQuantity => 'Quantity';
+
+  @override
+  String get mobilePinReceiptPaymentMethod => 'Payment Method';
+
+  @override
+  String get mobilePinReceiptPaymentDate => 'Payment Date & Time';
+
+  @override
+  String get mobilePinReceiptOrderNumber => 'Order Number';
+
+  @override
+  String get mobilePinReceiptBankTransaction => 'Bank Transaction';
+
+  @override
+  String get mobilePinReceiptPinDetails => 'PIN Details';
+
+  @override
+  String mobilePinReceiptPinNumber(int number) {
+    return 'PIN $number';
+  }
+
+  @override
+  String get mobilePinReceiptSerialNumber => 'Serial Number';
+
+  @override
+  String get mobilePinReceiptPinCode => 'PIN Code';
+
+  @override
+  String get mobilePinReceiptExpiry => 'Expiry Date';
+
+  @override
+  String get mobilePinReceiptNote => 'Instructions';
+
+  @override
+  String get mobilePinReceiptVoucherLink => 'Voucher Link';
+
+  @override
+  String get mobilePinReceiptTotalPaid => 'Total Paid';
+
+  @override
+  String mobilePinReceiptAutoReturn(int seconds) {
+    return 'Returning to the home page in $seconds seconds.';
+  }
+
+  @override
+  String get mobilePinRecipientMobileTitle => 'Recipient Mobile Number';
+
+  @override
+  String get mobilePinRecipientMobileSubtitle => 'Enter the mobile number to be used as the recipient reference for this PIN purchase.';
+
+  @override
+  String get mobilePinRecipientMobileHint => 'Example: 0123456789';
+
+  @override
+  String get mobilePinRecipientMobileHelp => 'Please check the mobile number carefully before continuing to payment.';
+
+  @override
+  String get mobilePinRecipientMobileSummary => 'Recipient Mobile Number';
+
+  @override
+  String get mobilePinMobileNumberRequired => 'Please enter a mobile number.';
+
+  @override
+  String get mobilePinMobileNumberInvalid => 'Please enter a valid mobile number.';
+
+  @override
+  String get mobilePinContinue => 'Continue';
+
+  @override
+  String get mobilePinNumberServiceLabel => 'Mobile PIN Purchase';
+
+  @override
+  String get mobilePinEnterNumberTitle => 'Enter Mobile Number';
+
+  @override
+  String get mobilePinEnterNumberSubtitle => 'Enter the recipient mobile number before continuing to payment.';
+
+  @override
+  String get mobilePinSelectedProduct => 'Selected PIN';
+
+  @override
+  String get mobilePinPaymentTotal => 'Total';
+
+  @override
+  String get mobilePinNumberInstruction => 'Enter the recipient mobile number using the keypad below. Please check the number carefully before payment.';
+
+  @override
+  String get mobilePinNumberAlertTitle => 'Mobile Number';
+
+  @override
+  String get mobilePinNumberInvalid => 'Please enter a valid Malaysian mobile number.';
+
+  @override
+  String get mobilePinContinueToPayment => 'Continue to Payment';
+
+  @override
+  String get mobilePinNextStepMobileNumber => 'Next, enter the recipient mobile number.';
+
+  @override
+  String get eWalletPinPurchaseTitle => 'E-Wallet PIN Purchase';
+
+  @override
+  String get eWalletSelectedProvider => 'Selected E-Wallet';
+
+  @override
+  String get eWalletAvailable => 'Available';
+
+  @override
+  String get eWalletUnavailable => 'Unavailable';
+
+  @override
+  String get eWalletSelectReloadValue => 'Select Reload Amount';
+
+  @override
+  String get eWalletPinValue => 'PIN Value';
+
+  @override
+  String get eWalletReloadValue => 'Reload Amount';
+
+  @override
+  String get eWalletServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get eWalletTotalPayment => 'Total Payment';
+
+  @override
+  String get eWalletContinue => 'Continue';
+
+  @override
+  String get eWalletContinuePayment => 'Continue to Payment';
+
+  @override
+  String get eWalletPhoneStepLabel => 'E-Wallet Phone Number';
+
+  @override
+  String get eWalletAmountStepLabel => 'E-Wallet Reload Amount';
+
+  @override
+  String get eWalletEnterPhoneTitle => 'Enter Phone Number';
+
+  @override
+  String get eWalletEnterPhoneSubtitle => 'Enter the phone number for this e-wallet transaction';
+
+  @override
+  String get eWalletPhoneNumber => 'Phone Number';
+
+  @override
+  String get eWalletPhoneHint => 'Enter phone number';
+
+  @override
+  String get eWalletPhoneReferenceHint => 'Enter the phone number used as the transaction reference.';
+
+  @override
+  String get eWalletEnterAmountTitle => 'Choose Reload Amount';
+
+  @override
+  String get eWalletAmountHint => 'Enter amount';
+
+  @override
+  String eWalletAmountRange(String minimum, String maximum) {
+    return 'Allowed amount: $minimum - $maximum';
+  }
+
+  @override
+  String get eWalletLoadingTitle => 'Loading E-Wallet';
+
+  @override
+  String get eWalletLoadingMessage => 'Getting the latest e-wallet information...';
+
+  @override
+  String get eWalletCatalogErrorTitle => 'Unable to Load';
+
+  @override
+  String get eWalletCatalogErrorMessage => 'Unable to retrieve the latest e-wallet information.';
+
+  @override
+  String get eWalletRetry => 'Try Again';
+
+  @override
+  String get eWalletUnavailableTitle => 'Service Unavailable';
+
+  @override
+  String get eWalletUnavailableMessage => 'This e-wallet service is currently unavailable.';
+
+  @override
+  String get eWalletSelectAmountTitle => 'Select Reload Value';
+
+  @override
+  String get eWalletSelectAmountMessage => 'Please select a reload value before continuing.';
+
+  @override
+  String get eWalletPhoneRequiredTitle => 'Phone Number Required';
+
+  @override
+  String get eWalletPhoneRequiredMessage => 'Please enter a phone number.';
+
+  @override
+  String get eWalletInvalidPhoneTitle => 'Invalid Phone Number';
+
+  @override
+  String get eWalletInvalidPhoneMessage => 'Please enter a valid Malaysian mobile number.';
+
+  @override
+  String get eWalletAmountRequiredTitle => 'Amount Required';
+
+  @override
+  String get eWalletAmountRequiredMessage => 'Please enter the reload amount.';
+
+  @override
+  String get eWalletInvalidAmountTitle => 'Invalid Amount';
+
+  @override
+  String eWalletMinimumAmount(String amount) {
+    return 'Minimum reload amount is $amount.';
+  }
+
+  @override
+  String eWalletMaximumAmount(String amount) {
+    return 'Maximum reload amount is $amount.';
+  }
+
+  @override
+  String get eWalletTngPinNote => 'Select a PIN value. The phone number will be entered on the next page as the transaction reference.';
+
+  @override
+  String get eWalletTrueMoneyNote => 'Daily top-up limit is RM1,000 and monthly top-up limit is RM5,000.';
+
+  @override
+  String get eWalletOkButton => 'OK';
+
+  @override
+  String get eWalletReloadDetails => 'E-Wallet Reload';
+
+  @override
+  String get eWalletAmountStepSubtitle => 'Select or enter the amount you want to reload';
+
+  @override
+  String get eWalletReloadAmount => 'Reload Amount';
+
+  @override
+  String get eWalletOrderSummary => 'Order Summary';
+
+  @override
+  String get eWalletLatestPricingInfo => 'The total shown uses the latest available service pricing.';
+
+  @override
+  String get eWalletKeypadClear => 'Clear';
+
+  @override
+  String get eWalletKeypadDone => 'Done';
+
+  @override
+  String get eWalletKeypadCancel => 'Cancel';
+
+  @override
+  String get eWalletPinlessPhoneHint => 'Enter your e-wallet phone number.';
+
+  @override
+  String get eWalletPinPhoneReferenceHint => 'A phone number is required as the transaction reference.';
+
+  @override
+  String get eWalletConfirmNumberTitle => 'Confirm Phone Number';
+
+  @override
+  String get eWalletConfirmNumberQuestion => 'Is this phone number correct?';
+
+  @override
+  String get eWalletConfirmBack => 'Back';
+
+  @override
+  String get eWalletConfirmContinue => 'Continue';
+
+  @override
+  String electricPaymentRange(String minimum, String maximum) {
+    return 'Minimum $minimum • Maximum $maximum';
+  }
+
+  @override
+  String electricOutstandingExceedsMaximum(String outstanding, String maximum) {
+    return 'The outstanding amount is $outstanding, but the maximum payment allowed is $maximum.';
+  }
+
+  @override
+  String get eWalletPinReceiptTitle => 'E-Wallet PIN Receipt';
+
+  @override
+  String get eWalletPinReceiptProvider => 'E-Wallet Provider';
+
+  @override
+  String get eWalletPinReceiptTransactionDetails => 'Transaction Details';
+
+  @override
+  String get eWalletPinReceiptProductCode => 'Product Code';
+
+  @override
+  String get eWalletPinReceiptPhoneReference => 'Phone / Reference';
+
+  @override
+  String get eWalletPinReceiptValue => 'PIN Value';
+
+  @override
+  String get eWalletPinReceiptPaymentMethod => 'Payment Method';
+
+  @override
+  String get eWalletPinReceiptPaymentDate => 'Payment Date';
+
+  @override
+  String get eWalletPinReceiptBankTransaction => 'Bank Transaction';
+
+  @override
+  String get eWalletPinReceiptPinDetails => 'PIN Details';
+
+  @override
+  String get eWalletPinReceiptSerialNumber => 'Serial Number';
+
+  @override
+  String get eWalletPinReceiptPinCode => 'PIN';
+
+  @override
+  String get eWalletPinReceiptExpiry => 'Expiry';
+
+  @override
+  String get eWalletPinReceiptNote => 'Note';
+
+  @override
+  String get eWalletPinReceiptVoucherLink => 'Voucher Link';
+
+  @override
+  String get eWalletPinReceiptTotalPaid => 'Total Paid';
+
+  @override
+  String get eWalletPinReceiptSavePinMessage => 'Please save your PIN before leaving this page.';
+
+  @override
+  String get eWalletTngRedeemNote => 'To redeem, log in to your Touch \'n Go eWallet app';
+
+  @override
+  String get mobilePinReceiptSavePinMessage => 'Please save your PIN before leaving this page.';
+
+  @override
+  String get eWalletProviderSurchargeTitle => 'Provider Surcharge';
+
+  @override
+  String eWalletProviderSurchargeMessage(String surcharge, String reloadAmount, String receivedAmount) {
+    return 'A $surcharge provider surcharge applies. Reload $reloadAmount and the e-wallet receives $receivedAmount.';
+  }
+
+  @override
+  String get eWalletReloadReceiptTitle => 'E-Wallet Reload Receipt';
+
+  @override
+  String get eWalletReloadReceiptProvider => 'E-Wallet Provider';
+
+  @override
+  String electricUpdateWithinHours(String hours) {
+    return 'Within $hours hours';
+  }
+
+  @override
+  String electricUpdateWithinDays(String days) {
+    return 'Within $days days';
+  }
+
+  @override
+  String get electricProcessingTimeUnavailable => 'Processing time unavailable';
+
+  @override
+  String waterUpdateWithinHours(String hours) {
+    return 'Within $hours hours';
+  }
+
+  @override
+  String waterUpdateWithinDays(String days) {
+    return 'Within $days days';
+  }
+
+  @override
+  String get broadbandUpdateInstant => 'Instant';
+
+  @override
+  String broadbandUpdateWithinHours(String hours) {
+    return 'Within $hours hours';
+  }
+
+  @override
+  String broadbandUpdateWithinDays(String days) {
+    return 'Within $days days';
+  }
+
+  @override
+  String entertainmentUpdateWithinHours(String hours) {
+    return 'Within $hours hours';
+  }
+
+  @override
+  String entertainmentUpdateWithinDays(String days) {
+    return 'Within $days days';
+  }
+
+  @override
+  String get telcoPaymentUpdateTime => 'Payment Update Time';
+
+  @override
+  String get telcoUpdateInstant => 'Instant';
+
+  @override
+  String telcoUpdateWithinHours(String hours) {
+    return 'Within $hours hours';
+  }
+
+  @override
+  String telcoUpdateWithinDays(String days) {
+    return 'Within $days days';
+  }
+
+  @override
+  String get eWalletProcessingTime => 'Processing Time';
+
+  @override
+  String get eWalletUpdateInstant => 'Instant';
+
+  @override
+  String eWalletUpdateWithinHours(String hours) {
+    return 'Within $hours hours';
+  }
+
+  @override
+  String eWalletUpdateWithinDays(String days) {
+    return 'Within $days days';
+  }
+
+  @override
+  String get loanEducationButton => 'Loan & Education';
+
+  @override
+  String get loanEducationSupportingText => 'Loan and education financing payments';
+
+  @override
+  String get loanServiceLabel => 'LOAN & EDUCATION SERVICE';
+
+  @override
+  String get loanProviderTitle => 'Loan & Education';
+
+  @override
+  String get loanProviderSubtitle => 'Select a provider to continue';
+
+  @override
+  String get processingTimeLabel => 'Processing Time';
+
+  @override
+  String get catalogUnavailableTitle => 'Service Information Unavailable';
+
+  @override
+  String get catalogUnavailableMessage => 'Unable to load the latest service information. Please try again.';
+
+  @override
+  String get retryButton => 'RETRY';
+
+  @override
+  String get serviceUnavailableTitle => 'Service Unavailable';
+
+  @override
+  String get ptptnUnavailableMessage => 'PTPTN service is currently unavailable. Please try again later.';
+
+  @override
+  String get ptptnNextPageMessage => 'PTPTN selected. Continue to NRIC entry.';
+
+  @override
+  String get processingInstant => 'Instant';
+
+  @override
+  String get processing24Hours => '24 Hours';
+
+  @override
+  String get processing3Days => '3 Days';
+
+  @override
+  String get loanNricStepLabel => 'PTPTN ACCOUNT';
+
+  @override
+  String get loanEnterNricTitle => 'Enter NRIC Number';
+
+  @override
+  String get loanEnterNricSubtitle => 'Enter your 12-digit NRIC number to continue';
+
+  @override
+  String get loanSelectedProvider => 'Selected Provider';
+
+  @override
+  String get loanNricHint => 'ENTER NRIC NUMBER';
+
+  @override
+  String get loanNricHintText => 'Enter 12 digits without spaces or dashes';
+
+  @override
+  String get loanContinue => 'Continue';
+
+  @override
+  String get loanConfirmNricTitle => 'Confirm NRIC Number';
+
+  @override
+  String get loanConfirmNricQuestion => 'Is this NRIC number correct?';
+
+  @override
+  String get loanConfirmBack => 'Edit';
+
+  @override
+  String get loanConfirmContinue => 'Continue';
+
+  @override
+  String get loanNricRequiredTitle => 'NRIC Required';
+
+  @override
+  String get loanNricRequiredMessage => 'Please enter your NRIC number.';
+
+  @override
+  String get loanInvalidNricTitle => 'Invalid NRIC';
+
+  @override
+  String get loanInvalidNricMessage => 'Please enter a valid 12-digit NRIC number.';
+
+  @override
+  String get loanUnavailableTitle => 'Service Unavailable';
+
+  @override
+  String get loanUnavailableMessage => 'PTPTN service is currently unavailable. Please try again later.';
+
+  @override
+  String get loanLoadingTitle => 'Loading PTPTN';
+
+  @override
+  String get loanLoadingMessage => 'Please wait while we load the latest PTPTN information.';
+
+  @override
+  String get loanCatalogErrorTitle => 'Unable to Load PTPTN';
+
+  @override
+  String get loanCatalogErrorMessage => 'Unable to load PTPTN service information. Please try again.';
+
+  @override
+  String get loanRetry => 'RETRY';
+
+  @override
+  String get loanOkButton => 'OK';
+
+  @override
+  String get loanNricConfirmedMessage => 'NRIC confirmed. Retrieving PTPTN account options.';
+
+  @override
+  String get loanAccountStepLabel => 'PTPTN ACCOUNT';
+
+  @override
+  String get loanSelectAccountTitle => 'Select Account';
+
+  @override
+  String get loanSelectAccountSubtitle => 'Select the PTPTN or SSPN account you want to pay';
+
+  @override
+  String get loanNricLabel => 'NRIC Number';
+
+  @override
+  String get loanAccountNumber => 'Account Number';
+
+  @override
+  String get loanAccountType => 'Account Type';
+
+  @override
+  String get loanTypeConventional => 'Conventional';
+
+  @override
+  String get loanTypeUjrah => 'Ujrah';
+
+  @override
+  String get loanTypeSspnPrime => 'SSPN Prime';
+
+  @override
+  String get loanTypeSspnPlus => 'SSPN Plus';
+
+  @override
+  String get loanAccountCategoryUnknown => 'Account';
+
+  @override
+  String get loanAccountLoadingTitle => 'Checking Accounts';
+
+  @override
+  String get loanAccountLoadingMessage => 'Please wait while we retrieve your PTPTN and SSPN accounts.';
+
+  @override
+  String get loanAccountErrorTitle => 'Unable to Retrieve Accounts';
+
+  @override
+  String get loanAccountErrorMessage => 'We could not retrieve your PTPTN account information. Please try again.';
+
+  @override
+  String get loanNoAccountTitle => 'No Account Available';
+
+  @override
+  String get loanNoAccountMessage => 'There are no available PTPTN or SSPN accounts for this NRIC. Please try again later.';
+
+  @override
+  String get loanAccountRequiredTitle => 'Select an Account';
+
+  @override
+  String get loanAccountRequiredMessage => 'Please select an account to continue.';
+
+  @override
+  String get loanAccountSelectedMessage => 'Account selected. Continue to enter payment amount.';
+
+  @override
+  String loanAvailableAccounts(int count) {
+    return 'Available accounts: $count';
+  }
+
+  @override
+  String get loanAvailableAccountTitle => 'AVAILABLE ACCOUNTS';
+
+  @override
+  String get loanAccountSelectionTitle => 'PTPTN Account Selection';
 }

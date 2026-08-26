@@ -6,6 +6,8 @@ import 'package:frontend_v1/model/pricing/catalog_pricing.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/payment/bil_qr_payment_page.dart';
 
+import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
+
 class P5WaterBillResultPage extends StatefulWidget {
   final WaterBillModel bill;
   final CatalogPricing catalogPricing;
@@ -23,9 +25,24 @@ class P5WaterBillResultPage extends StatefulWidget {
 
 class _P5WaterBillResultPageState
     extends State<P5WaterBillResultPage> {
-  static const double _minimumAmount = 1;
-  static const double _maximumAmount = 10000;
-  static const double _amountStep = 1;
+    // ==========================================================================
+    // PAYMENT LIMITS
+    // ==========================================================================
+    //
+    // Loaded dynamically from IIMMPACT:
+    // GET /v2/catalog
+    //
+    // The fallback is only used if the catalog cannot be loaded.
+    // ==========================================================================
+
+    double _minimumAmount = 1.00;
+    double _maximumAmount = 10000.00;
+
+    static const double _amountStep = 1.00;
+
+    bool _isCatalogLimitLoading = true;
+
+    String _processingTime = '';
 
   final TextEditingController _amountController =
       TextEditingController();
@@ -63,16 +80,15 @@ class _P5WaterBillResultPageState
   void initState() {
     super.initState();
 
-    final initialAmount = _amountToPay > 0
-        ? _amountToPay.clamp(
-            _minimumAmount,
-            _maximumAmount,
-          )
-        : _minimumAmount;
+    final initialAmount =
+        _getInitialPaymentAmount();
 
     _selectedAmount = initialAmount;
-    _amountController.text =
-        initialAmount.toStringAsFixed(2);
+    _updateAmountController(
+      initialAmount,
+    );
+
+    _loadWaterPaymentLimits();
   }
 
   @override
@@ -81,6 +97,329 @@ class _P5WaterBillResultPageState
     _scrollController.dispose();
     super.dispose();
   }
+
+    double _getInitialPaymentAmount() {
+    if (_amountToPay > 0) {
+      return _amountToPay.clamp(
+        _minimumAmount,
+        _maximumAmount,
+      );
+    }
+
+    return _minimumAmount;
+  }
+
+  // ==========================================================================
+// LOAD WATER PAYMENT LIMIT FROM IIMMPACT CATALOG
+// ==========================================================================
+
+Future<void> _loadWaterPaymentLimits() async {
+  try {
+    final Map<String, dynamic> catalog =
+        await IimmpactCatalogService.getCatalog();
+
+    final dynamic productsRaw =
+        catalog['products'];
+
+    if (productsRaw is! Map) {
+      throw Exception(
+        'Catalog products object is missing.',
+      );
+    }
+
+    final Map<String, dynamic> products =
+        Map<String, dynamic>.from(
+      productsRaw,
+    );
+
+    final String productCode =
+        bill.productCode
+            .trim()
+            .toUpperCase();
+
+    final dynamic rawProduct =
+        products[productCode];
+
+    if (rawProduct is! Map) {
+      throw Exception(
+        'Water product $productCode '
+        'was not found in catalog.',
+      );
+    }
+
+    final Map<String, dynamic> product =
+        Map<String, dynamic>.from(
+      rawProduct,
+    );
+
+    // ======================================================================
+    // PROCESSING TIME
+    // Loaded dynamically from IIMMPACT catalog.
+    // Example:
+    // instant
+    // 24_hours
+    // 3_days
+    // ======================================================================
+
+    final String processingTime =
+        product['processing_time']
+                ?.toString()
+                .trim() ??
+            '';
+
+    double minimum = 0;
+    double maximum = 0;
+
+    // ======================================================================
+    // PRIMARY SOURCE
+    //
+    // products
+    //   -> productCode
+    //      -> fields
+    //         -> id = amount
+    //            -> validation
+    //               -> min
+    //               -> max
+    // ======================================================================
+
+    final dynamic fieldsRaw =
+        product['fields'];
+
+    if (fieldsRaw is List) {
+      for (final rawField in fieldsRaw) {
+        if (rawField is! Map) {
+          continue;
+        }
+
+        final Map<String, dynamic> field =
+            Map<String, dynamic>.from(
+          rawField,
+        );
+
+        final String fieldId =
+            field['id']
+                    ?.toString()
+                    .trim()
+                    .toLowerCase() ??
+                '';
+
+        if (fieldId != 'amount') {
+          continue;
+        }
+
+        final dynamic validationRaw =
+            field['validation'];
+
+        if (validationRaw is! Map) {
+          continue;
+        }
+
+        final Map<String, dynamic> validation =
+            Map<String, dynamic>.from(
+          validationRaw,
+        );
+
+        minimum = _toDouble(
+          validation['min'],
+        );
+
+        maximum = _toDouble(
+          validation['max'],
+        );
+
+        break;
+      }
+    }
+
+    // ======================================================================
+    // FALLBACK
+    //
+    // denomination:
+    // "2-1000"
+    // "1-800"
+    // etc.
+    // ======================================================================
+
+    if (minimum <= 0 ||
+        maximum <= 0) {
+      final String denomination =
+          product['denomination']
+                  ?.toString()
+                  .trim() ??
+              '';
+
+      final range =
+          _parseAmountRange(
+        denomination,
+      );
+
+      if (minimum <= 0) {
+        minimum = range.$1;
+      }
+
+      if (maximum <= 0) {
+        maximum = range.$2;
+      }
+    }
+
+    if (minimum <= 0 ||
+        maximum <= 0 ||
+        maximum < minimum) {
+      throw Exception(
+        'Invalid payment limits for '
+        '$productCode.',
+      );
+    }
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _minimumAmount =
+          minimum;
+
+      _maximumAmount =
+          maximum;
+      
+      _processingTime =
+          processingTime;
+
+      double newAmount =
+          _selectedAmount;
+
+      if (bill.outstandingAmount > 0) {
+        newAmount =
+            bill.outstandingAmount;
+      }
+
+      if (newAmount <
+          _minimumAmount) {
+        newAmount =
+            _minimumAmount;
+      }
+
+      if (newAmount >
+          _maximumAmount) {
+        newAmount =
+            _maximumAmount;
+      }
+
+      _selectedAmount =
+          newAmount;
+
+      _updateAmountController(
+        newAmount,
+      );
+
+      _isCatalogLimitLoading =
+          false;
+    });
+
+    debugPrint('');
+    debugPrint(
+      '========================================',
+    );
+    debugPrint(
+      'WATER PAYMENT LIMIT LOADED',
+    );
+    debugPrint(
+      '========================================',
+    );
+    debugPrint(
+      'Product : $productCode',
+    );
+    debugPrint(
+      'Minimum : '
+      'RM ${minimum.toStringAsFixed(2)}',
+    );
+    debugPrint(
+      'Maximum : '
+      'RM ${maximum.toStringAsFixed(2)}',
+    );
+
+    debugPrint(
+      'Processing Time : $processingTime',
+    );
+    debugPrint(
+      '========================================',
+    );
+    debugPrint('');
+  } catch (error, stackTrace) {
+    debugPrint(
+      '[WATER] Catalog payment-limit error: '
+      '$error',
+    );
+
+    debugPrintStack(
+      stackTrace: stackTrace,
+    );
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      // Safe fallback only.
+      _minimumAmount =
+          1.00;
+
+      _maximumAmount =
+          10000.00;
+
+      _isCatalogLimitLoading =
+          false;
+
+      final fallbackAmount =
+          _getInitialPaymentAmount();
+
+      _selectedAmount =
+          fallbackAmount;
+
+      _updateAmountController(
+        fallbackAmount,
+      );
+    });
+  }
+}
+
+double _toDouble(
+  dynamic value,
+) {
+  if (value is num) {
+    return value.toDouble();
+  }
+
+  return double.tryParse(
+        value?.toString() ?? '',
+      ) ??
+      0;
+}
+
+(double, double) _parseAmountRange(
+  String value,
+) {
+  final List<String> parts =
+      value.split('-');
+
+  if (parts.length != 2) {
+    return (
+      0,
+      0,
+    );
+  }
+
+  return (
+    double.tryParse(
+          parts[0].trim(),
+        ) ??
+        0,
+    double.tryParse(
+          parts[1].trim(),
+        ) ??
+        0,
+  );
+}
 
   String _formatAmount(double amount) {
     return 'RM ${amount.toStringAsFixed(2)}';
@@ -160,18 +499,53 @@ class _P5WaterBillResultPageState
     _setPaymentAmount(_selectedAmount - _amountStep);
   }
 
-  void _setFullOutstandingAmount() {
-    _closeKeyboard();
+void _setFullOutstandingAmount() {
+  _closeKeyboard();
 
-    final loc = AppLocalizations.of(context)!;
+  final loc =
+      AppLocalizations.of(context)!;
 
-    if (bill.outstandingAmount <= 0) {
-      _showMessage(loc.waterNoOutstandingBalance);
-      return;
-    }
+  if (bill.outstandingAmount <= 0) {
+    _showMessage(
+      loc.waterNoOutstandingBalance,
+    );
 
-    _setPaymentAmount(bill.outstandingAmount);
+    return;
   }
+
+  if (bill.outstandingAmount >
+      _maximumAmount) {
+    _showMessage(
+      loc.electricOutstandingExceedsMaximum(
+        _formatAmount(
+          bill.outstandingAmount,
+        ),
+        _formatAmount(
+          _maximumAmount,
+        ),
+      ),
+    );
+
+    return;
+  }
+
+  if (bill.outstandingAmount <
+      _minimumAmount) {
+    _showMessage(
+      loc.waterMinimumPayment(
+        _formatAmount(
+          _minimumAmount,
+        ),
+      ),
+    );
+
+    return;
+  }
+
+  _setPaymentAmount(
+    bill.outstandingAmount,
+  );
+}
 
   void _goToPaymentStep() {
     FocusManager.instance.primaryFocus?.unfocus();
@@ -906,7 +1280,10 @@ class _P5WaterBillResultPageState
                               alignment:
                                   Alignment.centerLeft,
                               child: Text(
-                                loc.electricMinimumMaximum,
+                                loc.electricPaymentRange(
+                                  _formatAmount(_minimumAmount),
+                                  _formatAmount(_maximumAmount),
+                                ),
                                 style:
                                     const TextStyle(
                                   color:
@@ -1877,7 +2254,9 @@ Widget _buildKeyboardIconButton({
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: _openCustomAmountKeyboard,
+                  onTap: _isCatalogLimitLoading
+                ? null
+                : _openCustomAmountKeyboard,
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                     height: 95,
@@ -1998,14 +2377,17 @@ Widget _buildKeyboardIconButton({
           ],
         ),
         const SizedBox(height: 10),
-        Text(
-          loc.electricAmountLimit,
-          style: const TextStyle(
-            color: Color(0xFF60758D),
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
+      Text(
+        loc.electricPaymentRange(
+          _formatAmount(_minimumAmount),
+          _formatAmount(_maximumAmount),
         ),
+        style: const TextStyle(
+          color: Color(0xFF60758D),
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
         const SizedBox(height: 24),
         Wrap(
           spacing: 14,
@@ -2039,31 +2421,77 @@ Widget _buildKeyboardIconButton({
     );
   }
 
-  String _getBillUpdateTime(AppLocalizations loc) {
-    final productCode = bill.productCode.trim().toUpperCase();
 
-    switch (productCode) {
-      // Instant
-      case 'SAJ':
-      case 'RANHILL SAJ':
-      case 'AIRSELANGOR':
-      case 'AIR SELANGOR':
-      case 'SATU':
-      case 'SYARIKAT AIR TERENGGANU':
-        return loc.waterUpdateInstant;
+String _getBillUpdateTime(
+  AppLocalizations loc,
+) {
+  final String value =
+      _processingTime
+          .trim()
+          .toLowerCase()
+          .replaceAll(' ', '_')
+          .replaceAll('-', '_');
 
-      // 3 Days
-      case 'SAINS':
-      case 'SYARIKAT AIR NEGERI SEMBILAN':
-      case 'SAP':
-      case 'SYARIKAT AIR PERLIS':
-        return loc.waterUpdateWithinThreeDays;
-
-      // Default 24 Hours
-      default:
-        return loc.waterUpdateTwentyFourHours;
-    }
+  if (value.isEmpty) {
+    return '-';
   }
+
+  // Example:
+  // instant
+  if (value == 'instant' ||
+      value == 'immediate') {
+    return loc
+        .waterUpdateInstant
+        .toUpperCase();
+  }
+
+  // Example:
+  // 24_hours
+  // 48_hours
+  // 1_hour
+  final RegExpMatch? hoursMatch =
+      RegExp(
+    r'^(\d+)_hours?$',
+  ).firstMatch(value);
+
+  if (hoursMatch != null) {
+    final String hours =
+        hoursMatch.group(1) ?? '';
+
+    return loc
+        .waterUpdateWithinHours(
+          hours,
+        )
+        .toUpperCase();
+  }
+
+  // Example:
+  // 1_day
+  // 3_days
+  // 5_days
+  final RegExpMatch? daysMatch =
+      RegExp(
+    r'^(\d+)_days?$',
+  ).firstMatch(value);
+
+  if (daysMatch != null) {
+    final String days =
+        daysMatch.group(1) ?? '';
+
+    return loc
+        .waterUpdateWithinDays(
+          days,
+        )
+        .toUpperCase();
+  }
+
+  // Unexpected new catalog value.
+  // Better to display the catalog value
+  // than incorrectly assume 24 hours.
+  return _processingTime
+      .replaceAll('_', ' ')
+      .toUpperCase();
+}
 
 Widget _buildOrderSummary() {
   final loc = AppLocalizations.of(context)!;
@@ -2178,9 +2606,11 @@ Widget _buildOrderSummary() {
           child: SizedBox(
             height: 90,
             child: ElevatedButton.icon(
-              onPressed: _currentStep == 0
-                  ? _goToPaymentStep
-                  : _handleContinue,
+          onPressed: _currentStep == 0
+              ? _goToPaymentStep
+              : (_isCatalogLimitLoading
+                  ? null
+                  : _handleContinue),
               icon: const Icon(
                 Icons.arrow_forward_rounded,
                 size: 34,

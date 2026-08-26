@@ -3485,7 +3485,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get electricPaymentUpdateTime => 'புதுப்பிப்பு காலம்';
 
   @override
-  String get electricUpdateInstant => 'உடனடியாக';
+  String get electricUpdateInstant => 'உடனடி';
 
   @override
   String get electricUpdateWithinThreeDays => '3 நாட்களுக்குள்';
@@ -3979,7 +3979,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get entertainmentPaymentUpdateTime => 'புதுப்பிப்பு காலம்';
 
   @override
-  String get entertainmentUpdateInstant => 'உடனடியாக';
+  String get entertainmentUpdateInstant => 'உடனடி';
 
   @override
   String get entertainmentContinue => 'தொடரவும்';
@@ -4776,7 +4776,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get telcoBillNumberHint => 'கணக்கு அல்லது மொபைல் எண்ணை உள்ளிடவும்';
 
   @override
-  String get mobilePinNumberHint => 'மொபைல் எண்ணை உள்ளிடவும்';
+  String get mobilePinNumberHint => 'மொபைல் எண்';
 
   @override
   String get telcoBillInputInstruction => 'உங்கள் தொலைத்தொடர்பு சேவை வழங்குநரிடம் பதிவு செய்யப்பட்ட எண்ணை கீழே உள்ள எண் விசைப்பலகையைப் பயன்படுத்தி உள்ளிடவும்.';
@@ -4934,4 +4934,819 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get telcoCancel => 'ரத்து';
+
+  @override
+  String get mobilePinPurchaseTitle => 'மொபைல் PIN வாங்குதல்';
+
+  @override
+  String get mobilePinSelectedProvider => 'தேர்ந்தெடுக்கப்பட்ட சேவை வழங்குநர்';
+
+  @override
+  String get mobilePinAvailable => 'கிடைக்கிறது';
+
+  @override
+  String get mobilePinUnavailable => 'கிடைக்கவில்லை';
+
+  @override
+  String get mobilePinImportantNote => 'முக்கிய குறிப்பு';
+
+  @override
+  String get mobilePinSelectAmount => 'PIN தொகையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get mobilePinQuantity => 'எண்ணிக்கை';
+
+  @override
+  String get mobilePinQuantityHelp => 'வாங்க வேண்டிய PIN எண்ணிக்கையைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get mobilePinOrderSummary => 'ஆர்டர் சுருக்கம்';
+
+  @override
+  String get mobilePinSubtotal => 'இடைத் தொகை';
+
+  @override
+  String get mobilePinTotalAmount => 'மொத்த தொகை';
+
+  @override
+  String get mobilePinProceed => 'கட்டணத்திற்கு தொடரவும்';
+
+  @override
+  String get mobilePinLoadingTitle => 'மொபைல் PIN ஏற்றப்படுகிறது';
+
+  @override
+  String get mobilePinLoadingMessage => 'சமீபத்திய PIN விருப்பங்களைப் பெறும் வரை காத்திருக்கவும்.';
+
+  @override
+  String get mobilePinCatalogErrorTitle => 'மொபைல் PIN ஏற்ற முடியவில்லை';
+
+  @override
+  String get mobilePinCatalogErrorMessage => 'சமீபத்திய மொபைல் PIN தகவலைப் பெற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get mobilePinRetry => 'மீண்டும் முயற்சி';
+
+  @override
+  String get mobilePinUnavailableTitle => 'சேவை கிடைக்கவில்லை';
+
+  @override
+  String get mobilePinUnavailableMessage => 'இந்த மொபைல் PIN சேவை தற்போது கிடைக்கவில்லை.';
+
+  @override
+  String get mobilePinSelectAmountTitle => 'தொகையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get mobilePinSelectAmountMessage => 'தொடர்வதற்கு முன் PIN தொகையைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get mobilePinDebugTitle => 'தேர்வு பதிவு செய்யப்பட்டது';
+
+  @override
+  String get mobilePinDebugMessage => 'உங்கள் மொபைல் PIN தேர்வு தயாராக உள்ளது. வாங்கும் API அடுத்த படியில் இணைக்கப்படும்.';
+
+  @override
+  String get mobilePinNoteCelcom => 'ரீலோட் செய்ய *122* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.';
+
+  @override
+  String get mobilePinNoteDigi => 'ரீலோட் செய்ய *123* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.';
+
+  @override
+  String get mobilePinNoteHelloSim => 'ரீலோட் செய்ய *178* ஐ அழுத்தி, அதன் பின்னர் PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.';
+
+  @override
+  String get mobilePinNoteMaxis => 'ரீலோட் செய்ய *111* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.';
+
+  @override
+  String get mobilePinNoteRedOne => 'ரீலோட் செய்ய *122* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.';
+
+  @override
+  String get mobilePinNoteSpeakOut => '*129# ஐ அழுத்தி Send செய்யவும். ரீலோடிற்காக விருப்பம் 2 ஐ தேர்ந்தெடுத்து, ரீலோட் PIN ஐ உள்ளிட்டு மீண்டும் Send செய்யவும்.';
+
+  @override
+  String get mobilePinNoteTuneTalk => 'ரீலோட் செய்ய *122* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN மற்றும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.';
+
+  @override
+  String get mobilePinNoteUnifi => 'unifi செயலியைத் திறந்து Reload ஐ தேர்ந்தெடுக்கவும். Reload Voucher ஐ தேர்ந்தெடுத்து 12 இலக்க ரீலோட் PIN ஐ உள்ளிட்டு Continue அழுத்தவும்.';
+
+  @override
+  String get mobilePinNoteUMobile => 'ரீலோட் செய்ய *138* ஐ அழுத்தி, அதன் பின்னர் 14 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.';
+
+  @override
+  String get mobilePinNoteXox => 'ரீலோட் செய்ய *132*1* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.';
+
+  @override
+  String get mobilePinNoteYes => 'ரீலோட் செய்ய REL, உங்கள் Yes எண் மற்றும் PIN குறியீட்டை உள்ளிட்டு 0183301111 என்ற எண்ணிற்கு அனுப்பவும்.';
+
+  @override
+  String get mobilePinServiceAdjustment => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get eWalletReloadButton => 'இ-வாலட் ரீலோட்';
+
+  @override
+  String get eWalletReloadSupportingText => 'இ-வாலட்டிற்கு எளிதாக ரீலோட் செய்யுங்கள்';
+
+  @override
+  String get eWalletServiceLabel => 'இ-வாலட் ரீலோட் சேவை';
+
+  @override
+  String get eWalletProviderTitle => 'இ-வாலட்டைத் தேர்வு செய்யவும்';
+
+  @override
+  String get eWalletProviderSubtitle => 'தொடர இ-வாலட் சேவையைத் தேர்வு செய்யவும்';
+
+  @override
+  String get touchNGoPin => 'Touch \'n Go PIN';
+
+  @override
+  String get touchNGoPinless => 'Touch \'n Go ரீலோட்';
+
+  @override
+  String get trueMoneyEWallet => 'TrueMoney இ-வாலட்';
+
+  @override
+  String get telcoReceiptTitle => 'தொலைத்தொடர்பு கட்டண ரசீது';
+
+  @override
+  String get telcoReceiptPaymentSuccessful => 'கட்டணம் வெற்றிகரமாக முடிந்தது';
+
+  @override
+  String get telcoReceiptThankYou => 'நன்றி. உங்கள் தொலைத்தொடர்பு கட்டணம் வெற்றிகரமாக பெறப்பட்டது.';
+
+  @override
+  String get telcoReceiptProvider => 'சேவை வழங்குநர்';
+
+  @override
+  String get telcoReceiptTransactionDetails => 'பரிவர்த்தனை விவரங்கள்';
+
+  @override
+  String get telcoReceiptAccountNumber => 'கணக்கு / மொபைல் எண்';
+
+  @override
+  String get telcoReceiptProductCode => 'தயாரிப்பு குறியீடு';
+
+  @override
+  String get telcoReceiptBillAmount => 'பில் தொகை';
+
+  @override
+  String get telcoReceiptServiceAdjustment => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get telcoReceiptPaymentMethod => 'கட்டண முறை';
+
+  @override
+  String get telcoReceiptPaymentDate => 'கட்டண தேதி & நேரம்';
+
+  @override
+  String get telcoReceiptOrderNumber => 'ஆர்டர் எண்';
+
+  @override
+  String get telcoReceiptBankTransaction => 'வங்கி பரிவர்த்தனை';
+
+  @override
+  String get telcoReceiptTotalPaid => 'மொத்தம் செலுத்தப்பட்டது';
+
+  @override
+  String telcoReceiptAutoReturn(int seconds) {
+    return '$seconds வினாடிகளில் முகப்பு பக்கத்திற்கு திரும்பும்.';
+  }
+
+  @override
+  String get receiptTransactionReference => 'பரிவர்த்தனை குறிப்பு';
+
+  @override
+  String get mobilePinReceiptTitle => 'மொபைல் PIN ரசீது';
+
+  @override
+  String get mobilePinReceiptProvider => 'மொபைல் PIN வழங்குநர்';
+
+  @override
+  String get mobilePinReceiptTransactionDetails => 'பரிவர்த்தனை விவரங்கள்';
+
+  @override
+  String get mobilePinReceiptProductCode => 'தயாரிப்பு குறியீடு';
+
+  @override
+  String get mobilePinReceiptPinValue => 'PIN மதிப்பு';
+
+  @override
+  String get mobilePinReceiptQuantity => 'அளவு';
+
+  @override
+  String get mobilePinReceiptPaymentMethod => 'கட்டண முறை';
+
+  @override
+  String get mobilePinReceiptPaymentDate => 'கட்டண தேதி & நேரம்';
+
+  @override
+  String get mobilePinReceiptOrderNumber => 'ஆர்டர் எண்';
+
+  @override
+  String get mobilePinReceiptBankTransaction => 'வங்கி பரிவர்த்தனை';
+
+  @override
+  String get mobilePinReceiptPinDetails => 'PIN விவரங்கள்';
+
+  @override
+  String mobilePinReceiptPinNumber(int number) {
+    return 'PIN $number';
+  }
+
+  @override
+  String get mobilePinReceiptSerialNumber => 'தொடர் எண்';
+
+  @override
+  String get mobilePinReceiptPinCode => 'PIN குறியீடு';
+
+  @override
+  String get mobilePinReceiptExpiry => 'காலாவதி தேதி';
+
+  @override
+  String get mobilePinReceiptNote => 'வழிமுறைகள்';
+
+  @override
+  String get mobilePinReceiptVoucherLink => 'வவுச்சர் இணைப்பு';
+
+  @override
+  String get mobilePinReceiptTotalPaid => 'மொத்தம் செலுத்தப்பட்டது';
+
+  @override
+  String mobilePinReceiptAutoReturn(int seconds) {
+    return '$seconds வினாடிகளில் முகப்பு பக்கத்திற்கு திரும்பும்.';
+  }
+
+  @override
+  String get mobilePinRecipientMobileTitle => 'பெறுநர் மொபைல் எண்';
+
+  @override
+  String get mobilePinRecipientMobileSubtitle => 'பெறுநரின் மொபைல் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get mobilePinRecipientMobileHint => 'எ.கா: 0123456789';
+
+  @override
+  String get mobilePinRecipientMobileHelp => 'எண்ணை சரிபார்த்து தொடரவும்.';
+
+  @override
+  String get mobilePinRecipientMobileSummary => 'மொபைல் எண்';
+
+  @override
+  String get mobilePinMobileNumberRequired => 'மொபைல் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get mobilePinMobileNumberInvalid => 'சரியான எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get mobilePinContinue => 'தொடரவும்';
+
+  @override
+  String get mobilePinNumberServiceLabel => 'மொபைல் PIN';
+
+  @override
+  String get mobilePinEnterNumberTitle => 'மொபைல் எண்ணை உள்ளிடவும்';
+
+  @override
+  String get mobilePinEnterNumberSubtitle => 'பெறுநரின் மொபைல் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get mobilePinSelectedProduct => 'தேர்ந்த PIN';
+
+  @override
+  String get mobilePinPaymentTotal => 'மொத்தம்';
+
+  @override
+  String get mobilePinNumberInstruction => 'பெறுநரின் மொபைல் எண்ணை உள்ளிட்டு சரிபார்க்கவும்.';
+
+  @override
+  String get mobilePinNumberAlertTitle => 'மொபைல் எண்';
+
+  @override
+  String get mobilePinNumberInvalid => 'சரியான மொபைல் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get mobilePinContinueToPayment => 'கட்டணத்திற்கு தொடரவும்';
+
+  @override
+  String get mobilePinNextStepMobileNumber => 'அடுத்து மொபைல் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get eWalletPinPurchaseTitle => 'இ-வாலட் PIN';
+
+  @override
+  String get eWalletSelectedProvider => 'தேர்ந்த இ-வாலட்';
+
+  @override
+  String get eWalletAvailable => 'கிடைக்கும்';
+
+  @override
+  String get eWalletUnavailable => 'கிடைக்காது';
+
+  @override
+  String get eWalletSelectReloadValue => 'ரீலோட் தொகை தேர்வு';
+
+  @override
+  String get eWalletPinValue => 'PIN தொகை';
+
+  @override
+  String get eWalletReloadValue => 'ரீலோட் தொகை';
+
+  @override
+  String get eWalletServiceAdjustment => 'சேவை மாற்றம்';
+
+  @override
+  String get eWalletTotalPayment => 'மொத்தம்';
+
+  @override
+  String get eWalletContinue => 'தொடர்க';
+
+  @override
+  String get eWalletContinuePayment => 'பணம் செலுத்துக';
+
+  @override
+  String get eWalletPhoneStepLabel => 'இ-வாலட் எண்';
+
+  @override
+  String get eWalletAmountStepLabel => 'ரீலோட் தொகை';
+
+  @override
+  String get eWalletEnterPhoneTitle => 'தொலைபேசி எண்';
+
+  @override
+  String get eWalletEnterPhoneSubtitle => 'இ-வாலட் எண்ணை உள்ளிடுக';
+
+  @override
+  String get eWalletPhoneNumber => 'தொலைபேசி எண்';
+
+  @override
+  String get eWalletPhoneHint => 'எண்ணை உள்ளிடுக';
+
+  @override
+  String get eWalletPhoneReferenceHint => 'பயன்படுத்தும் எண்ணை உள்ளிடுக.';
+
+  @override
+  String get eWalletEnterAmountTitle => 'ரீலோட் தொகை';
+
+  @override
+  String get eWalletAmountHint => 'தொகையை உள்ளிடுக';
+
+  @override
+  String eWalletAmountRange(String minimum, String maximum) {
+    return 'வரம்பு: $minimum - $maximum';
+  }
+
+  @override
+  String get eWalletLoadingTitle => 'ஏற்றப்படுகிறது';
+
+  @override
+  String get eWalletLoadingMessage => 'தகவல் பெறப்படுகிறது...';
+
+  @override
+  String get eWalletCatalogErrorTitle => 'ஏற்ற முடியவில்லை';
+
+  @override
+  String get eWalletCatalogErrorMessage => 'இ-வாலட் தகவல் கிடைக்கவில்லை.';
+
+  @override
+  String get eWalletRetry => 'மீண்டும் முயல்க';
+
+  @override
+  String get eWalletUnavailableTitle => 'சேவை இல்லை';
+
+  @override
+  String get eWalletUnavailableMessage => 'இச்சேவை தற்போது கிடைக்கவில்லை.';
+
+  @override
+  String get eWalletSelectAmountTitle => 'ரீலோட் தொகை';
+
+  @override
+  String get eWalletSelectAmountMessage => 'ரீலோட் தொகையைத் தேர்வு செய்க.';
+
+  @override
+  String get eWalletPhoneRequiredTitle => 'எண் தேவை';
+
+  @override
+  String get eWalletPhoneRequiredMessage => 'தொலைபேசி எண்ணை உள்ளிடுக.';
+
+  @override
+  String get eWalletInvalidPhoneTitle => 'தவறான எண்';
+
+  @override
+  String get eWalletInvalidPhoneMessage => 'சரியான மொபைல் எண்ணை உள்ளிடுக.';
+
+  @override
+  String get eWalletAmountRequiredTitle => 'தொகை தேவை';
+
+  @override
+  String get eWalletAmountRequiredMessage => 'ரீலோட் தொகையை உள்ளிடுக.';
+
+  @override
+  String get eWalletInvalidAmountTitle => 'தவறான தொகை';
+
+  @override
+  String eWalletMinimumAmount(String amount) {
+    return 'குறைந்தபட்சம் $amount.';
+  }
+
+  @override
+  String eWalletMaximumAmount(String amount) {
+    return 'அதிகபட்சம் $amount.';
+  }
+
+  @override
+  String get eWalletTngPinNote => 'PIN தொகை தேர்வு செய்க. அடுத்து தொலைபேசி எண்ணை உள்ளிடுக.';
+
+  @override
+  String get eWalletTrueMoneyNote => 'தினசரி RM1,000. மாதம் RM5,000.';
+
+  @override
+  String get eWalletOkButton => 'சரி';
+
+  @override
+  String get eWalletReloadDetails => 'இ-வாலட் ரீலோட்';
+
+  @override
+  String get eWalletAmountStepSubtitle => 'ரீலோட் தொகையைத் தேர்வு செய்க';
+
+  @override
+  String get eWalletReloadAmount => 'ரீலோட் தொகை';
+
+  @override
+  String get eWalletOrderSummary => 'ஆர்டர் சுருக்கம்';
+
+  @override
+  String get eWalletLatestPricingInfo => 'சமீபத்திய சேவை விலை பயன்படுத்தப்படுகிறது.';
+
+  @override
+  String get eWalletKeypadClear => 'அழிக்க';
+
+  @override
+  String get eWalletKeypadDone => 'முடிந்தது';
+
+  @override
+  String get eWalletKeypadCancel => 'ரத்து';
+
+  @override
+  String get eWalletPinlessPhoneHint => 'இ-வாலட் எண்ணை உள்ளிடுக.';
+
+  @override
+  String get eWalletPinPhoneReferenceHint => 'பரிவர்த்தனைக்கு தொலைபேசி எண் தேவை.';
+
+  @override
+  String get eWalletConfirmNumberTitle => 'எண்ணை உறுதிசெய்க';
+
+  @override
+  String get eWalletConfirmNumberQuestion => 'இந்த எண் சரியா?';
+
+  @override
+  String get eWalletConfirmBack => 'திரும்பு';
+
+  @override
+  String get eWalletConfirmContinue => 'தொடர்க';
+
+  @override
+  String electricPaymentRange(String minimum, String maximum) {
+    return 'குறைந்தது $minimum • அதிகம் $maximum';
+  }
+
+  @override
+  String electricOutstandingExceedsMaximum(String outstanding, String maximum) {
+    return 'நிலுவை $outstanding. அதிகபட்ச கட்டணம் $maximum.';
+  }
+
+  @override
+  String get eWalletPinReceiptTitle => 'E-Wallet PIN ரசீது';
+
+  @override
+  String get eWalletPinReceiptProvider => 'E-Wallet';
+
+  @override
+  String get eWalletPinReceiptTransactionDetails => 'பரிவர்த்தனை';
+
+  @override
+  String get eWalletPinReceiptProductCode => 'தயாரிப்பு குறியீடு';
+
+  @override
+  String get eWalletPinReceiptPhoneReference => 'தொலைபேசி / குறிப்பு';
+
+  @override
+  String get eWalletPinReceiptValue => 'PIN தொகை';
+
+  @override
+  String get eWalletPinReceiptPaymentMethod => 'கட்டண முறை';
+
+  @override
+  String get eWalletPinReceiptPaymentDate => 'கட்டண தேதி';
+
+  @override
+  String get eWalletPinReceiptBankTransaction => 'வங்கி பரிவர்த்தனை';
+
+  @override
+  String get eWalletPinReceiptPinDetails => 'PIN விவரம்';
+
+  @override
+  String get eWalletPinReceiptSerialNumber => 'சீரியல் எண்';
+
+  @override
+  String get eWalletPinReceiptPinCode => 'PIN';
+
+  @override
+  String get eWalletPinReceiptExpiry => 'காலாவதி';
+
+  @override
+  String get eWalletPinReceiptNote => 'குறிப்பு';
+
+  @override
+  String get eWalletPinReceiptVoucherLink => 'வவுச்சர் இணைப்பு';
+
+  @override
+  String get eWalletPinReceiptTotalPaid => 'மொத்த கட்டணம்';
+
+  @override
+  String get eWalletPinReceiptSavePinMessage => 'இந்தப் பக்கத்தை விட்டு செல்லும் முன் PIN-ஐ சேமிக்கவும்.';
+
+  @override
+  String get eWalletTngRedeemNote => 'PIN-ஐ பெற Touch \'n Go eWallet செயலியில் உள்நுழையவும்';
+
+  @override
+  String get mobilePinReceiptSavePinMessage => 'இந்தப் பக்கத்திலிருந்து வெளியேறுவதற்கு முன் உங்கள் PIN-ஐ சேமிக்கவும்.';
+
+  @override
+  String get eWalletProviderSurchargeTitle => 'கூடுதல் கட்டணம்';
+
+  @override
+  String eWalletProviderSurchargeMessage(String surcharge, String reloadAmount, String receivedAmount) {
+    return '$surcharge கட்டணம் உண்டு. $reloadAmount செலுத்தினால், e-wallet $receivedAmount பெறும்.';
+  }
+
+  @override
+  String get eWalletReloadReceiptTitle => 'E-Wallet ரசீது';
+
+  @override
+  String get eWalletReloadReceiptProvider => 'E-Wallet';
+
+  @override
+  String electricUpdateWithinHours(String hours) {
+    return '$hours மணி நேரத்தில்';
+  }
+
+  @override
+  String electricUpdateWithinDays(String days) {
+    return '$days நாட்களில்';
+  }
+
+  @override
+  String get electricProcessingTimeUnavailable => 'செயலாக்க நேரம் கிடைக்கவில்லை';
+
+  @override
+  String waterUpdateWithinHours(String hours) {
+    return '$hours மணி நேரத்திற்குள்';
+  }
+
+  @override
+  String waterUpdateWithinDays(String days) {
+    return '$days நாட்களுக்குள்';
+  }
+
+  @override
+  String get broadbandUpdateInstant => 'உடனடி';
+
+  @override
+  String broadbandUpdateWithinHours(String hours) {
+    return '$hours மணி நேரத்தில்';
+  }
+
+  @override
+  String broadbandUpdateWithinDays(String days) {
+    return '$days நாட்களில்';
+  }
+
+  @override
+  String entertainmentUpdateWithinHours(String hours) {
+    return '$hours மணி நேரத்தில்';
+  }
+
+  @override
+  String entertainmentUpdateWithinDays(String days) {
+    return '$days நாட்களில்';
+  }
+
+  @override
+  String get telcoPaymentUpdateTime => 'கட்டண புதுப்பிப்பு நேரம்';
+
+  @override
+  String get telcoUpdateInstant => 'உடனடி';
+
+  @override
+  String telcoUpdateWithinHours(String hours) {
+    return '$hours மணி நேரத்தில்';
+  }
+
+  @override
+  String telcoUpdateWithinDays(String days) {
+    return '$days நாட்களில்';
+  }
+
+  @override
+  String get eWalletProcessingTime => 'செயலாக்க நேரம்';
+
+  @override
+  String get eWalletUpdateInstant => 'உடனடி';
+
+  @override
+  String eWalletUpdateWithinHours(String hours) {
+    return '$hours மணி நேரத்திற்குள்';
+  }
+
+  @override
+  String eWalletUpdateWithinDays(String days) {
+    return '$days நாட்களுக்குள்';
+  }
+
+  @override
+  String get loanEducationButton => 'கடன் & கல்வி';
+
+  @override
+  String get loanEducationSupportingText => 'கடன் மற்றும் கல்விக் கட்டணம்';
+
+  @override
+  String get loanServiceLabel => 'கடன் & கல்வி சேவை';
+
+  @override
+  String get loanProviderTitle => 'கடன் & கல்வி';
+
+  @override
+  String get loanProviderSubtitle => 'தொடர சேவையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get processingTimeLabel => 'செயலாக்க நேரம்';
+
+  @override
+  String get catalogUnavailableTitle => 'சேவை தகவல் கிடைக்கவில்லை';
+
+  @override
+  String get catalogUnavailableMessage => 'சமீபத்திய சேவை தகவலைப் பெற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get retryButton => 'மீண்டும் முயற்சி';
+
+  @override
+  String get serviceUnavailableTitle => 'சேவை கிடைக்கவில்லை';
+
+  @override
+  String get ptptnUnavailableMessage => 'PTPTN சேவை தற்போது கிடைக்கவில்லை. பின்னர் முயற்சிக்கவும்.';
+
+  @override
+  String get ptptnNextPageMessage => 'PTPTN தேர்ந்தெடுக்கப்பட்டது. அடையாள எண் உள்ளீட்டிற்கு தொடரவும்.';
+
+  @override
+  String get processingInstant => 'உடனடி';
+
+  @override
+  String get processing24Hours => '24 மணி நேரம்';
+
+  @override
+  String get processing3Days => '3 நாட்கள்';
+
+  @override
+  String get loanNricStepLabel => 'PTPTN கணக்கு';
+
+  @override
+  String get loanEnterNricTitle => 'அடையாள எண்ணை உள்ளிடவும்';
+
+  @override
+  String get loanEnterNricSubtitle => 'தொடர 12 இலக்க அடையாள எண்ணை உள்ளிடவும்';
+
+  @override
+  String get loanSelectedProvider => 'தேர்ந்தெடுத்த சேவை';
+
+  @override
+  String get loanNricHint => 'அடையாள எண்ணை உள்ளிடவும்';
+
+  @override
+  String get loanNricHintText => 'இடைவெளி அல்லது கோடு இல்லாமல் 12 இலக்கங்களை உள்ளிடவும்';
+
+  @override
+  String get loanContinue => 'தொடரவும்';
+
+  @override
+  String get loanConfirmNricTitle => 'அடையாள எண்ணை உறுதிப்படுத்தவும்';
+
+  @override
+  String get loanConfirmNricQuestion => 'இந்த அடையாள எண் சரியா?';
+
+  @override
+  String get loanConfirmBack => 'திருத்து';
+
+  @override
+  String get loanConfirmContinue => 'தொடரவும்';
+
+  @override
+  String get loanNricRequiredTitle => 'அடையாள எண் தேவை';
+
+  @override
+  String get loanNricRequiredMessage => 'உங்கள் அடையாள எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get loanInvalidNricTitle => 'தவறான அடையாள எண்';
+
+  @override
+  String get loanInvalidNricMessage => 'சரியான 12 இலக்க அடையாள எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get loanUnavailableTitle => 'சேவை கிடைக்கவில்லை';
+
+  @override
+  String get loanUnavailableMessage => 'PTPTN சேவை தற்போது கிடைக்கவில்லை. பின்னர் முயற்சிக்கவும்.';
+
+  @override
+  String get loanLoadingTitle => 'PTPTN ஏற்றப்படுகிறது';
+
+  @override
+  String get loanLoadingMessage => 'PTPTN தகவல் ஏற்றப்படுகிறது. தயவுசெய்து காத்திருக்கவும்.';
+
+  @override
+  String get loanCatalogErrorTitle => 'PTPTN ஏற்ற முடியவில்லை';
+
+  @override
+  String get loanCatalogErrorMessage => 'PTPTN சேவை தகவலை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get loanRetry => 'மீண்டும் முயற்சி';
+
+  @override
+  String get loanOkButton => 'சரி';
+
+  @override
+  String get loanNricConfirmedMessage => 'அடையாள எண் உறுதிசெய்யப்பட்டது. PTPTN கணக்குகள் பெறப்படுகின்றன.';
+
+  @override
+  String get loanAccountStepLabel => 'PTPTN கணக்கு';
+
+  @override
+  String get loanSelectAccountTitle => 'கணக்கைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get loanSelectAccountSubtitle => 'செலுத்த வேண்டிய PTPTN அல்லது SSPN கணக்கைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get loanNricLabel => 'அடையாள எண்';
+
+  @override
+  String get loanAccountNumber => 'கணக்கு எண்';
+
+  @override
+  String get loanAccountType => 'கணக்கு வகை';
+
+  @override
+  String get loanTypeConventional => 'Konvensional';
+
+  @override
+  String get loanTypeUjrah => 'Ujrah';
+
+  @override
+  String get loanTypeSspnPrime => 'SSPN Prime';
+
+  @override
+  String get loanTypeSspnPlus => 'SSPN Plus';
+
+  @override
+  String get loanAccountCategoryUnknown => 'கணக்கு';
+
+  @override
+  String get loanAccountLoadingTitle => 'கணக்குகள் சரிபார்க்கப்படுகின்றன';
+
+  @override
+  String get loanAccountLoadingMessage => 'உங்கள் PTPTN மற்றும் SSPN கணக்குகள் பெறப்படுகின்றன.';
+
+  @override
+  String get loanAccountErrorTitle => 'கணக்குகளைப் பெற முடியவில்லை';
+
+  @override
+  String get loanAccountErrorMessage => 'PTPTN கணக்கு தகவலைப் பெற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get loanNoAccountTitle => 'கணக்கு கிடைக்கவில்லை';
+
+  @override
+  String get loanNoAccountMessage => 'இந்த அடையாள எண்ணுக்கு PTPTN அல்லது SSPN கணக்கு கிடைக்கவில்லை. பின்னர் முயற்சிக்கவும்.';
+
+  @override
+  String get loanAccountRequiredTitle => 'கணக்கைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get loanAccountRequiredMessage => 'தொடர ஒரு கணக்கைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get loanAccountSelectedMessage => 'கணக்கு தேர்ந்தெடுக்கப்பட்டது. கட்டணத் தொகையை உள்ளிட தொடரவும்.';
+
+  @override
+  String loanAvailableAccounts(int count) {
+    return 'கிடைக்கும் கணக்குகள்: $count';
+  }
+
+  @override
+  String get loanAvailableAccountTitle => 'கிடைக்கும் கணக்குகள்';
+
+  @override
+  String get loanAccountSelectionTitle => 'PTPTN கணக்கு தேர்வு';
 }

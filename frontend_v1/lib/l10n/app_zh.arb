@@ -2444,6 +2444,640 @@
 "telcoPaymentRange": "最低 RM 1.00 • 最高 RM 10,000.00",
 "telcoClear": "清除",
 "telcoDone": "完成",
-"telcoCancel": "取消"
+"telcoCancel": "取消",
+
+
+"mobilePinPurchaseTitle": "购买手机充值 PIN",
+"mobilePinSelectedProvider": "已选择的服务商",
+"mobilePinAvailable": "可用",
+"mobilePinUnavailable": "暂不可用",
+"mobilePinImportantNote": "重要提示",
+"mobilePinSelectAmount": "选择 PIN 金额",
+"mobilePinQuantity": "数量",
+"mobilePinQuantityHelp": "请选择要购买的 PIN 数量。",
+"mobilePinOrderSummary": "订单摘要",
+"mobilePinSubtotal": "小计",
+"mobilePinTotalAmount": "总金额",
+"mobilePinProceed": "继续付款",
+
+"mobilePinLoadingTitle": "正在加载手机充值 PIN",
+"mobilePinLoadingMessage": "请稍候，我们正在获取最新的 PIN 选项。",
+
+"mobilePinCatalogErrorTitle": "无法加载手机充值 PIN",
+"mobilePinCatalogErrorMessage": "无法获取最新的手机充值 PIN 资料，请重试。",
+"mobilePinRetry": "重试",
+
+"mobilePinUnavailableTitle": "服务暂不可用",
+"mobilePinUnavailableMessage": "此手机充值 PIN 服务目前暂不可用。",
+
+"mobilePinSelectAmountTitle": "选择金额",
+"mobilePinSelectAmountMessage": "请先选择 PIN 金额再继续。",
+
+"mobilePinDebugTitle": "选择已记录",
+"mobilePinDebugMessage": "您的手机充值 PIN 选择已准备好，购买 API 将在下一步骤连接。",
+
+"mobilePinNoteCelcom": "充值时，请拨打 *122*，接着输入16位 PIN 号码和 #，然后按拨号键。",
+"mobilePinNoteDigi": "充值时，请拨打 *123*，接着输入16位 PIN 号码和 #，然后按拨号键。",
+"mobilePinNoteHelloSim": "充值时，请拨打 *178*，接着输入 PIN 号码和 #，然后按拨号键。",
+"mobilePinNoteMaxis": "充值时，请拨打 *111*，接着输入16位 PIN 号码和 #，然后按拨号键。",
+"mobilePinNoteRedOne": "充值时，请拨打 *122*，接着输入16位 PIN 号码和 #，然后按拨号键。",
+"mobilePinNoteSpeakOut": "拨打 *129# 并按发送。选择选项 2 进行充值，输入充值 PIN 后再按发送。",
+"mobilePinNoteTuneTalk": "充值时，请拨打 *122*，接着输入16位 PIN 和 #，然后按拨号键。",
+"mobilePinNoteUnifi": "打开 unifi 应用程序，选择 Reload，再选择 Reload Voucher，输入12位充值 PIN，然后点击 Continue。",
+"mobilePinNoteUMobile": "充值时，请拨打 *138*，接着输入14位 PIN 号码和 #，然后按拨号键。",
+"mobilePinNoteXox": "充值时，请拨打 *132*1*，接着输入16位 PIN 号码和 #，然后按拨号键。",
+"mobilePinNoteYes": "充值时，请输入 REL、您的 Yes 手机号码及 PIN 代码，然后发送至 0183301111。",
+"mobilePinServiceAdjustment": "服务调整",
+
+"eWalletReloadButton": "电子钱包充值",
+"eWalletReloadSupportingText": "快速便捷地为您选择的电子钱包充值",
+
+"eWalletServiceLabel": "电子钱包充值服务",
+"eWalletProviderTitle": "选择电子钱包",
+"eWalletProviderSubtitle": "请选择电子钱包服务以继续",
+"touchNGoPin": "Touch 'n Go 充值码",
+"touchNGoPinless": "Touch 'n Go 充值",
+"trueMoneyEWallet": "TrueMoney 电子钱包",
+
+"telcoReceiptTitle": "电讯缴费收据",
+"telcoReceiptPaymentSuccessful": "付款成功",
+"telcoReceiptThankYou": "谢谢。您的电讯账单付款已成功接收。",
+"telcoReceiptProvider": "电讯服务商",
+"telcoReceiptTransactionDetails": "交易详情",
+"telcoReceiptAccountNumber": "账户 / 手机号码",
+"telcoReceiptProductCode": "产品代码",
+"telcoReceiptBillAmount": "账单金额",
+"telcoReceiptServiceAdjustment": "服务调整",
+"telcoReceiptPaymentMethod": "付款方式",
+"telcoReceiptPaymentDate": "付款日期与时间",
+"telcoReceiptOrderNumber": "订单号码",
+"telcoReceiptBankTransaction": "银行交易号码",
+"telcoReceiptTotalPaid": "已付总额",
+
+"telcoReceiptAutoReturn": "{seconds} 秒后返回主页。",
+"@telcoReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+"receiptTransactionReference": "交易参考编号",
+
+"telcoReceiptTitle": "电讯缴费收据",
+"telcoReceiptProvider": "电讯服务商",
+"telcoReceiptTransactionDetails": "交易详情",
+"telcoReceiptAccountNumber": "账户 / 手机号码",
+"telcoReceiptProductCode": "产品代码",
+"telcoReceiptPaymentMethod": "付款方式",
+"telcoReceiptPaymentDate": "付款日期与时间",
+"telcoReceiptOrderNumber": "订单号码",
+"telcoReceiptBankTransaction": "银行交易号码",
+"telcoReceiptTotalPaid": "已付总额",
+
+"telcoReceiptAutoReturn": "{seconds} 秒后返回主页。",
+"@telcoReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+"mobilePinReceiptTitle": "手机 PIN 收据",
+"mobilePinReceiptProvider": "手机 PIN 服务商",
+"mobilePinReceiptTransactionDetails": "交易详情",
+"mobilePinReceiptProductCode": "产品代码",
+"mobilePinReceiptPinValue": "PIN 面值",
+"mobilePinReceiptQuantity": "数量",
+"mobilePinReceiptPaymentMethod": "付款方式",
+"mobilePinReceiptPaymentDate": "付款日期与时间",
+"mobilePinReceiptOrderNumber": "订单号码",
+"mobilePinReceiptBankTransaction": "银行交易号码",
+"mobilePinReceiptPinDetails": "PIN 详情",
+"mobilePinReceiptPinNumber": "PIN {number}",
+"@mobilePinReceiptPinNumber": {
+  "placeholders": {
+    "number": {
+      "type": "int"
+    }
+  }
+},
+"mobilePinReceiptSerialNumber": "序列号",
+"mobilePinReceiptPinCode": "PIN 代码",
+"mobilePinReceiptExpiry": "有效期限",
+"mobilePinReceiptNote": "使用说明",
+"mobilePinReceiptVoucherLink": "兑换链接",
+"mobilePinReceiptTotalPaid": "已付总额",
+
+"mobilePinReceiptAutoReturn": "{seconds} 秒后返回主页。",
+"@mobilePinReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+
+"mobilePinRecipientMobileTitle": "接收者手机号码",
+"mobilePinRecipientMobileSubtitle": "请输入用于此次 PIN 购买的接收者手机号码。",
+"mobilePinRecipientMobileHint": "例如：0123456789",
+"mobilePinRecipientMobileHelp": "继续付款前，请仔细确认手机号码是否正确。",
+"mobilePinRecipientMobileSummary": "接收者手机号码",
+"mobilePinMobileNumberRequired": "请输入手机号码。",
+"mobilePinMobileNumberInvalid": "请输入有效的手机号码。",
+"mobilePinProceed": "继续付款",
+
+"mobilePinContinue": "继续",
+
+"mobilePinNumberServiceLabel": "手机 PIN 购买",
+"mobilePinEnterNumberTitle": "输入手机号码",
+"mobilePinEnterNumberSubtitle": "请输入接收者的手机号码，然后继续付款。",
+
+"mobilePinSelectedProduct": "已选择的 PIN",
+"mobilePinPaymentTotal": "总额",
+
+"mobilePinNumberHint": "输入手机号码",
+"mobilePinNumberInstruction": "请使用下方数字键盘输入接收者的手机号码。付款前请仔细确认号码。",
+
+"mobilePinNumberAlertTitle": "手机号码",
+"mobilePinNumberRequired": "请输入接收者的手机号码。",
+"mobilePinNumberInvalid": "请输入有效的马来西亚手机号码。",
+
+"mobilePinContinueToPayment": "继续付款",
+
+"mobilePinNextStepMobileNumber": "下一步，请输入接收者的手机号码。",
+
+"eWalletPinPurchaseTitle": "电子钱包充值码购买",
+"eWalletSelectedProvider": "已选择的电子钱包",
+"eWalletAvailable": "可使用",
+"eWalletUnavailable": "暂不可用",
+
+"eWalletSelectReloadValue": "选择充值金额",
+"eWalletPinValue": "充值码金额",
+"eWalletReloadValue": "充值金额",
+"eWalletServiceAdjustment": "服务调整",
+"eWalletTotalPayment": "付款总额",
+
+"eWalletContinue": "继续",
+"eWalletContinuePayment": "继续付款",
+
+"eWalletPhoneStepLabel": "电子钱包手机号码",
+"eWalletAmountStepLabel": "电子钱包充值金额",
+
+"eWalletEnterPhoneTitle": "输入手机号码",
+"eWalletEnterPhoneSubtitle": "请输入此电子钱包交易的手机号码",
+"eWalletPhoneNumber": "手机号码",
+"eWalletPhoneHint": "请输入手机号码",
+"eWalletPhoneReferenceHint": "请输入作为交易参考的手机号码。",
+
+"eWalletEnterAmountTitle": "输入充值金额",
+"eWalletAmountHint": "请输入金额",
+
+"eWalletAmountRange": "允许金额：{minimum} - {maximum}",
+"@eWalletAmountRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletLoadingTitle": "正在加载电子钱包",
+"eWalletLoadingMessage": "正在获取最新电子钱包资料...",
+
+"eWalletCatalogErrorTitle": "无法加载",
+"eWalletCatalogErrorMessage": "无法获取最新电子钱包资料。",
+"eWalletRetry": "重试",
+
+"eWalletUnavailableTitle": "服务暂不可用",
+"eWalletUnavailableMessage": "此电子钱包服务目前暂不可用。",
+
+"eWalletSelectAmountTitle": "选择充值金额",
+"eWalletSelectAmountMessage": "请先选择充值金额。",
+
+"eWalletPhoneRequiredTitle": "请输入手机号码",
+"eWalletPhoneRequiredMessage": "请输入手机号码。",
+
+"eWalletInvalidPhoneTitle": "手机号码无效",
+"eWalletInvalidPhoneMessage": "请输入有效的马来西亚手机号码。",
+
+"eWalletAmountRequiredTitle": "请输入金额",
+"eWalletAmountRequiredMessage": "请输入充值金额。",
+
+"eWalletInvalidAmountTitle": "金额无效",
+
+"eWalletMinimumAmount": "最低充值金额为 {amount}。",
+"@eWalletMinimumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletMaximumAmount": "最高充值金额为 {amount}。",
+"@eWalletMaximumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletTngPinNote": "请选择充值码金额。下一页将输入手机号码作为交易参考。",
+
+"eWalletTrueMoneyNote": "每日充值上限为 RM1,000，每月充值上限为 RM5,000。",
+
+"eWalletOkButton": "确定",
+
+"eWalletReloadDetails": "电子钱包充值",
+"eWalletPhoneStepLabel": "电子钱包手机号码",
+"eWalletEnterPhoneTitle": "输入手机号码",
+"eWalletPhoneNumber": "手机号码",
+"eWalletPhoneHint": "请输入手机号码",
+
+"eWalletEnterAmountTitle": "选择充值金额",
+"eWalletAmountStepSubtitle": "请选择或输入您要充值的金额",
+"eWalletReloadAmount": "充值金额",
+"eWalletSelectReloadValue": "选择充值金额",
+
+"eWalletAmountRange": "允许金额：{minimum} - {maximum}",
+"@eWalletAmountRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletOrderSummary": "订单摘要",
+"eWalletPinValue": "充值码金额",
+"eWalletReloadValue": "充值金额",
+"eWalletServiceAdjustment": "服务调整",
+"eWalletTotalPayment": "付款总额",
+"eWalletLatestPricingInfo": "所显示的总额采用最新的服务价格。",
+
+"eWalletContinuePayment": "继续付款",
+
+"eWalletLoadingTitle": "正在加载电子钱包",
+"eWalletLoadingMessage": "正在获取最新电子钱包资料...",
+
+"eWalletCatalogErrorTitle": "无法加载",
+"eWalletCatalogErrorMessage": "无法获取最新电子钱包资料。",
+"eWalletRetry": "重试",
+
+"eWalletPhoneRequiredTitle": "请输入手机号码",
+"eWalletPhoneRequiredMessage": "请输入手机号码。",
+
+"eWalletInvalidPhoneTitle": "手机号码无效",
+"eWalletInvalidPhoneMessage": "请输入有效的马来西亚手机号码。",
+
+"eWalletAmountRequiredTitle": "请输入金额",
+"eWalletAmountRequiredMessage": "请输入充值金额。",
+
+"eWalletInvalidAmountTitle": "金额无效",
+
+"eWalletMinimumAmount": "最低充值金额为 {amount}。",
+"@eWalletMinimumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletMaximumAmount": "最高充值金额为 {amount}。",
+"@eWalletMaximumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletTrueMoneyNote": "每日充值上限为 RM1,000，每月充值上限为 RM5,000。",
+
+"eWalletKeypadClear": "清除",
+"eWalletKeypadDone": "完成",
+"eWalletKeypadCancel": "取消",
+
+"eWalletOkButton": "确定",
+
+"eWalletPinlessPhoneHint": "请输入您的电子钱包手机号码。",
+"eWalletPinPhoneReferenceHint": "交易需要手机号码作为参考。",
+
+"eWalletConfirmNumberTitle": "确认手机号码",
+"eWalletConfirmNumberQuestion": "这个手机号码正确吗？",
+"eWalletConfirmBack": "返回",
+"eWalletConfirmContinue": "继续",
+
+"electricPaymentRange": "最低 {minimum} • 最高 {maximum}",
+"@electricPaymentRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"electricOutstandingExceedsMaximum": "未缴金额为 {outstanding}，但单次最高付款金额为 {maximum}。",
+"@electricOutstandingExceedsMaximum": {
+  "placeholders": {
+    "outstanding": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+
+"eWalletPinReceiptTitle": "电子钱包 PIN 收据",
+"eWalletPinReceiptProvider": "电子钱包服务商",
+"eWalletPinReceiptTransactionDetails": "交易详情",
+"eWalletPinReceiptProductCode": "产品代码",
+"eWalletPinReceiptPhoneReference": "手机号码 / 参考号码",
+"eWalletPinReceiptValue": "PIN 金额",
+"eWalletPinReceiptPaymentMethod": "付款方式",
+"eWalletPinReceiptPaymentDate": "付款日期",
+"eWalletPinReceiptBankTransaction": "银行交易",
+"eWalletPinReceiptPinDetails": "PIN 详情",
+"eWalletPinReceiptSerialNumber": "序列号",
+"eWalletPinReceiptPinCode": "PIN",
+"eWalletPinReceiptExpiry": "有效期",
+"eWalletPinReceiptNote": "备注",
+"eWalletPinReceiptVoucherLink": "兑换链接",
+"eWalletPinReceiptTotalPaid": "已付总额",
+"eWalletPinReceiptSavePinMessage": "离开此页面前，请先保存您的 PIN。",
+
+"eWalletTngRedeemNote": "要兑换 PIN，请登录 Touch 'n Go eWallet 应用",
+
+"mobilePinReceiptSavePinMessage": "请在离开此页面前保存您的 PIN。",
+
+
+"eWalletProviderSurchargeTitle": "服务商附加费",
+"eWalletProviderSurchargeMessage": "将收取 {surcharge} 服务商附加费。充值 {reloadAmount}，电子钱包将收到 {receivedAmount}。",
+"@eWalletProviderSurchargeMessage": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    },
+    "reloadAmount": {
+      "type": "String"
+    },
+    "receivedAmount": {
+      "type": "String"
+    }
+  }
+},
+
+
+"eWalletReloadReceiptTitle": "电子钱包充值收据",
+"eWalletReloadReceiptProvider": "电子钱包服务商",
+
+"eWalletProviderSurchargeTitle": "服务商附加费",
+"eWalletProviderSurchargeMessage": "将收取 {surcharge} 服务商附加费。充值 {reloadAmount}，电子钱包将收到 {receivedAmount}。",
+"@eWalletProviderSurchargeMessage": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    },
+    "reloadAmount": {
+      "type": "String"
+    },
+    "receivedAmount": {
+      "type": "String"
+    }
+  }
+},
+
+
+"electricUpdateInstant": "即时",
+
+"electricUpdateWithinHours": "{hours} 小时内",
+"@electricUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"electricUpdateWithinDays": "{days} 天内",
+"@electricUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"electricProcessingTimeUnavailable": "暂无法获取处理时间",
+
+"waterUpdateWithinHours": "{hours} 小时内",
+"@waterUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"waterUpdateWithinDays": "{days} 天内",
+"@waterUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+
+"broadbandUpdateInstant": "即时",
+
+"broadbandUpdateWithinHours": "{hours} 小时内",
+"@broadbandUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandUpdateWithinDays": "{days} 天内",
+"@broadbandUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"entertainmentUpdateInstant": "即时",
+
+"entertainmentUpdateWithinHours": "{hours} 小时内",
+"@entertainmentUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"entertainmentUpdateWithinDays": "{days} 天内",
+"@entertainmentUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+
+"telcoPaymentUpdateTime": "付款更新时间",
+"telcoUpdateInstant": "即时",
+"telcoUpdateWithinHours": "{hours} 小时内",
+"@telcoUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+"telcoUpdateWithinDays": "{days} 天内",
+"@telcoUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+
+"eWalletProcessingTime": "处理时间",
+"eWalletUpdateInstant": "即时",
+"eWalletUpdateWithinHours": "{hours} 小时内",
+"@eWalletUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+"eWalletUpdateWithinDays": "{days} 天内",
+"@eWalletUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"loanEducationButton": "贷款与教育",
+"loanEducationSupportingText": "支付贷款及教育融资",
+
+"loanServiceLabel": "贷款与教育服务",
+"loanProviderTitle": "贷款与教育",
+"loanProviderSubtitle": "请选择服务机构以继续",
+"processingTimeLabel": "处理时间",
+"catalogUnavailableTitle": "服务资料暂时无法显示",
+"catalogUnavailableMessage": "无法加载最新服务资料，请重试。",
+"retryButton": "重试",
+"serviceUnavailableTitle": "服务暂不可用",
+"ptptnUnavailableMessage": "PTPTN 服务目前暂不可用，请稍后再试。",
+"ptptnNextPageMessage": "已选择 PTPTN，请继续输入身份证号码。",
+
+"processingTimeLabel": "处理时间",
+"processingInstant": "即时",
+"processing24Hours": "24 小时",
+"processing3Days": "3 天",
+
+
+"loanNricStepLabel": "PTPTN 账户",
+"loanEnterNricTitle": "输入身份证号码",
+"loanEnterNricSubtitle": "请输入您的12位身份证号码以继续",
+"loanSelectedProvider": "已选择服务机构",
+"loanNricHint": "输入身份证号码",
+"loanNricHintText": "请输入12位数字，无需空格或符号",
+"loanContinue": "继续",
+
+"loanConfirmNricTitle": "确认身份证号码",
+"loanConfirmNricQuestion": "这个身份证号码正确吗？",
+"loanConfirmBack": "修改",
+"loanConfirmContinue": "继续",
+
+"loanNricRequiredTitle": "请输入身份证号码",
+"loanNricRequiredMessage": "请输入您的身份证号码。",
+
+"loanInvalidNricTitle": "身份证号码无效",
+"loanInvalidNricMessage": "请输入有效的12位身份证号码。",
+
+"loanUnavailableTitle": "服务暂不可用",
+"loanUnavailableMessage": "PTPTN 服务目前暂不可用，请稍后再试。",
+
+"loanLoadingTitle": "正在加载 PTPTN",
+"loanLoadingMessage": "正在加载最新的 PTPTN 资料，请稍候。",
+
+"loanCatalogErrorTitle": "无法加载 PTPTN",
+"loanCatalogErrorMessage": "无法加载 PTPTN 服务资料，请重试。",
+
+"loanRetry": "重试",
+"loanOkButton": "确定",
+"loanNricConfirmedMessage": "身份证号码已确认，正在获取 PTPTN 账户选项。",
+
+"loanAccountStepLabel": "PTPTN 账户",
+"loanSelectAccountTitle": "选择账户",
+"loanSelectAccountSubtitle": "请选择您要付款的 PTPTN 或 SSPN 账户",
+"loanNricLabel": "身份证号码",
+
+"loanAccountNumber": "账户号码",
+"loanAccountType": "账户类型",
+
+"loanTypeConventional": "传统贷款",
+"loanTypeUjrah": "Ujrah",
+"loanTypeSspnPrime": "SSPN Prime",
+"loanTypeSspnPlus": "SSPN Plus",
+
+"loanAccountCategoryUnknown": "账户",
+
+"loanAccountLoadingTitle": "正在查询账户",
+"loanAccountLoadingMessage": "正在获取您的 PTPTN 和 SSPN 账户，请稍候。",
+
+"loanAccountErrorTitle": "无法获取账户",
+"loanAccountErrorMessage": "无法获取您的 PTPTN 账户资料，请重试。",
+
+"loanNoAccountTitle": "没有可用账户",
+"loanNoAccountMessage": "此身份证号码没有可用的 PTPTN 或 SSPN 账户，请稍后再试。",
+
+"loanAccountRequiredTitle": "请选择账户",
+"loanAccountRequiredMessage": "请选择一个账户以继续。",
+
+"loanAccountSelectedMessage": "账户已选择，请继续输入付款金额。",
+
+"loanAvailableAccounts": "可用账户：{count}",
+"@loanAvailableAccounts": {
+  "placeholders": {
+    "count": {
+      "type": "int"
+    }
+  }
+},
+
+"loanAvailableAccountTitle": "可用账户",
+
+"loanAccountSelectionTitle": "选择 PTPTN 账户"
 
 }

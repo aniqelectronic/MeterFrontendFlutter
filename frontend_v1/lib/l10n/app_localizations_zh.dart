@@ -4794,7 +4794,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get telcoBillNumberRequired => '请输入您的账户号码或手机号码。';
 
   @override
-  String get mobilePinNumberRequired => '请输入手机号码。';
+  String get mobilePinNumberRequired => '请输入接收者的手机号码。';
 
   @override
   String get telcoNumberInvalid => '请输入有效的8至15位数字号码。';
@@ -4934,4 +4934,819 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get telcoCancel => '取消';
+
+  @override
+  String get mobilePinPurchaseTitle => '购买手机充值 PIN';
+
+  @override
+  String get mobilePinSelectedProvider => '已选择的服务商';
+
+  @override
+  String get mobilePinAvailable => '可用';
+
+  @override
+  String get mobilePinUnavailable => '暂不可用';
+
+  @override
+  String get mobilePinImportantNote => '重要提示';
+
+  @override
+  String get mobilePinSelectAmount => '选择 PIN 金额';
+
+  @override
+  String get mobilePinQuantity => '数量';
+
+  @override
+  String get mobilePinQuantityHelp => '请选择要购买的 PIN 数量。';
+
+  @override
+  String get mobilePinOrderSummary => '订单摘要';
+
+  @override
+  String get mobilePinSubtotal => '小计';
+
+  @override
+  String get mobilePinTotalAmount => '总金额';
+
+  @override
+  String get mobilePinProceed => '继续付款';
+
+  @override
+  String get mobilePinLoadingTitle => '正在加载手机充值 PIN';
+
+  @override
+  String get mobilePinLoadingMessage => '请稍候，我们正在获取最新的 PIN 选项。';
+
+  @override
+  String get mobilePinCatalogErrorTitle => '无法加载手机充值 PIN';
+
+  @override
+  String get mobilePinCatalogErrorMessage => '无法获取最新的手机充值 PIN 资料，请重试。';
+
+  @override
+  String get mobilePinRetry => '重试';
+
+  @override
+  String get mobilePinUnavailableTitle => '服务暂不可用';
+
+  @override
+  String get mobilePinUnavailableMessage => '此手机充值 PIN 服务目前暂不可用。';
+
+  @override
+  String get mobilePinSelectAmountTitle => '选择金额';
+
+  @override
+  String get mobilePinSelectAmountMessage => '请先选择 PIN 金额再继续。';
+
+  @override
+  String get mobilePinDebugTitle => '选择已记录';
+
+  @override
+  String get mobilePinDebugMessage => '您的手机充值 PIN 选择已准备好，购买 API 将在下一步骤连接。';
+
+  @override
+  String get mobilePinNoteCelcom => '充值时，请拨打 *122*，接着输入16位 PIN 号码和 #，然后按拨号键。';
+
+  @override
+  String get mobilePinNoteDigi => '充值时，请拨打 *123*，接着输入16位 PIN 号码和 #，然后按拨号键。';
+
+  @override
+  String get mobilePinNoteHelloSim => '充值时，请拨打 *178*，接着输入 PIN 号码和 #，然后按拨号键。';
+
+  @override
+  String get mobilePinNoteMaxis => '充值时，请拨打 *111*，接着输入16位 PIN 号码和 #，然后按拨号键。';
+
+  @override
+  String get mobilePinNoteRedOne => '充值时，请拨打 *122*，接着输入16位 PIN 号码和 #，然后按拨号键。';
+
+  @override
+  String get mobilePinNoteSpeakOut => '拨打 *129# 并按发送。选择选项 2 进行充值，输入充值 PIN 后再按发送。';
+
+  @override
+  String get mobilePinNoteTuneTalk => '充值时，请拨打 *122*，接着输入16位 PIN 和 #，然后按拨号键。';
+
+  @override
+  String get mobilePinNoteUnifi => '打开 unifi 应用程序，选择 Reload，再选择 Reload Voucher，输入12位充值 PIN，然后点击 Continue。';
+
+  @override
+  String get mobilePinNoteUMobile => '充值时，请拨打 *138*，接着输入14位 PIN 号码和 #，然后按拨号键。';
+
+  @override
+  String get mobilePinNoteXox => '充值时，请拨打 *132*1*，接着输入16位 PIN 号码和 #，然后按拨号键。';
+
+  @override
+  String get mobilePinNoteYes => '充值时，请输入 REL、您的 Yes 手机号码及 PIN 代码，然后发送至 0183301111。';
+
+  @override
+  String get mobilePinServiceAdjustment => '服务调整';
+
+  @override
+  String get eWalletReloadButton => '电子钱包充值';
+
+  @override
+  String get eWalletReloadSupportingText => '快速便捷地为您选择的电子钱包充值';
+
+  @override
+  String get eWalletServiceLabel => '电子钱包充值服务';
+
+  @override
+  String get eWalletProviderTitle => '选择电子钱包';
+
+  @override
+  String get eWalletProviderSubtitle => '请选择电子钱包服务以继续';
+
+  @override
+  String get touchNGoPin => 'Touch \'n Go 充值码';
+
+  @override
+  String get touchNGoPinless => 'Touch \'n Go 充值';
+
+  @override
+  String get trueMoneyEWallet => 'TrueMoney 电子钱包';
+
+  @override
+  String get telcoReceiptTitle => '电讯缴费收据';
+
+  @override
+  String get telcoReceiptPaymentSuccessful => '付款成功';
+
+  @override
+  String get telcoReceiptThankYou => '谢谢。您的电讯账单付款已成功接收。';
+
+  @override
+  String get telcoReceiptProvider => '电讯服务商';
+
+  @override
+  String get telcoReceiptTransactionDetails => '交易详情';
+
+  @override
+  String get telcoReceiptAccountNumber => '账户 / 手机号码';
+
+  @override
+  String get telcoReceiptProductCode => '产品代码';
+
+  @override
+  String get telcoReceiptBillAmount => '账单金额';
+
+  @override
+  String get telcoReceiptServiceAdjustment => '服务调整';
+
+  @override
+  String get telcoReceiptPaymentMethod => '付款方式';
+
+  @override
+  String get telcoReceiptPaymentDate => '付款日期与时间';
+
+  @override
+  String get telcoReceiptOrderNumber => '订单号码';
+
+  @override
+  String get telcoReceiptBankTransaction => '银行交易号码';
+
+  @override
+  String get telcoReceiptTotalPaid => '已付总额';
+
+  @override
+  String telcoReceiptAutoReturn(int seconds) {
+    return '$seconds 秒后返回主页。';
+  }
+
+  @override
+  String get receiptTransactionReference => '交易参考编号';
+
+  @override
+  String get mobilePinReceiptTitle => '手机 PIN 收据';
+
+  @override
+  String get mobilePinReceiptProvider => '手机 PIN 服务商';
+
+  @override
+  String get mobilePinReceiptTransactionDetails => '交易详情';
+
+  @override
+  String get mobilePinReceiptProductCode => '产品代码';
+
+  @override
+  String get mobilePinReceiptPinValue => 'PIN 面值';
+
+  @override
+  String get mobilePinReceiptQuantity => '数量';
+
+  @override
+  String get mobilePinReceiptPaymentMethod => '付款方式';
+
+  @override
+  String get mobilePinReceiptPaymentDate => '付款日期与时间';
+
+  @override
+  String get mobilePinReceiptOrderNumber => '订单号码';
+
+  @override
+  String get mobilePinReceiptBankTransaction => '银行交易号码';
+
+  @override
+  String get mobilePinReceiptPinDetails => 'PIN 详情';
+
+  @override
+  String mobilePinReceiptPinNumber(int number) {
+    return 'PIN $number';
+  }
+
+  @override
+  String get mobilePinReceiptSerialNumber => '序列号';
+
+  @override
+  String get mobilePinReceiptPinCode => 'PIN 代码';
+
+  @override
+  String get mobilePinReceiptExpiry => '有效期限';
+
+  @override
+  String get mobilePinReceiptNote => '使用说明';
+
+  @override
+  String get mobilePinReceiptVoucherLink => '兑换链接';
+
+  @override
+  String get mobilePinReceiptTotalPaid => '已付总额';
+
+  @override
+  String mobilePinReceiptAutoReturn(int seconds) {
+    return '$seconds 秒后返回主页。';
+  }
+
+  @override
+  String get mobilePinRecipientMobileTitle => '接收者手机号码';
+
+  @override
+  String get mobilePinRecipientMobileSubtitle => '请输入用于此次 PIN 购买的接收者手机号码。';
+
+  @override
+  String get mobilePinRecipientMobileHint => '例如：0123456789';
+
+  @override
+  String get mobilePinRecipientMobileHelp => '继续付款前，请仔细确认手机号码是否正确。';
+
+  @override
+  String get mobilePinRecipientMobileSummary => '接收者手机号码';
+
+  @override
+  String get mobilePinMobileNumberRequired => '请输入手机号码。';
+
+  @override
+  String get mobilePinMobileNumberInvalid => '请输入有效的手机号码。';
+
+  @override
+  String get mobilePinContinue => '继续';
+
+  @override
+  String get mobilePinNumberServiceLabel => '手机 PIN 购买';
+
+  @override
+  String get mobilePinEnterNumberTitle => '输入手机号码';
+
+  @override
+  String get mobilePinEnterNumberSubtitle => '请输入接收者的手机号码，然后继续付款。';
+
+  @override
+  String get mobilePinSelectedProduct => '已选择的 PIN';
+
+  @override
+  String get mobilePinPaymentTotal => '总额';
+
+  @override
+  String get mobilePinNumberInstruction => '请使用下方数字键盘输入接收者的手机号码。付款前请仔细确认号码。';
+
+  @override
+  String get mobilePinNumberAlertTitle => '手机号码';
+
+  @override
+  String get mobilePinNumberInvalid => '请输入有效的马来西亚手机号码。';
+
+  @override
+  String get mobilePinContinueToPayment => '继续付款';
+
+  @override
+  String get mobilePinNextStepMobileNumber => '下一步，请输入接收者的手机号码。';
+
+  @override
+  String get eWalletPinPurchaseTitle => '电子钱包充值码购买';
+
+  @override
+  String get eWalletSelectedProvider => '已选择的电子钱包';
+
+  @override
+  String get eWalletAvailable => '可使用';
+
+  @override
+  String get eWalletUnavailable => '暂不可用';
+
+  @override
+  String get eWalletSelectReloadValue => '选择充值金额';
+
+  @override
+  String get eWalletPinValue => '充值码金额';
+
+  @override
+  String get eWalletReloadValue => '充值金额';
+
+  @override
+  String get eWalletServiceAdjustment => '服务调整';
+
+  @override
+  String get eWalletTotalPayment => '付款总额';
+
+  @override
+  String get eWalletContinue => '继续';
+
+  @override
+  String get eWalletContinuePayment => '继续付款';
+
+  @override
+  String get eWalletPhoneStepLabel => '电子钱包手机号码';
+
+  @override
+  String get eWalletAmountStepLabel => '电子钱包充值金额';
+
+  @override
+  String get eWalletEnterPhoneTitle => '输入手机号码';
+
+  @override
+  String get eWalletEnterPhoneSubtitle => '请输入此电子钱包交易的手机号码';
+
+  @override
+  String get eWalletPhoneNumber => '手机号码';
+
+  @override
+  String get eWalletPhoneHint => '请输入手机号码';
+
+  @override
+  String get eWalletPhoneReferenceHint => '请输入作为交易参考的手机号码。';
+
+  @override
+  String get eWalletEnterAmountTitle => '选择充值金额';
+
+  @override
+  String get eWalletAmountHint => '请输入金额';
+
+  @override
+  String eWalletAmountRange(String minimum, String maximum) {
+    return '允许金额：$minimum - $maximum';
+  }
+
+  @override
+  String get eWalletLoadingTitle => '正在加载电子钱包';
+
+  @override
+  String get eWalletLoadingMessage => '正在获取最新电子钱包资料...';
+
+  @override
+  String get eWalletCatalogErrorTitle => '无法加载';
+
+  @override
+  String get eWalletCatalogErrorMessage => '无法获取最新电子钱包资料。';
+
+  @override
+  String get eWalletRetry => '重试';
+
+  @override
+  String get eWalletUnavailableTitle => '服务暂不可用';
+
+  @override
+  String get eWalletUnavailableMessage => '此电子钱包服务目前暂不可用。';
+
+  @override
+  String get eWalletSelectAmountTitle => '选择充值金额';
+
+  @override
+  String get eWalletSelectAmountMessage => '请先选择充值金额。';
+
+  @override
+  String get eWalletPhoneRequiredTitle => '请输入手机号码';
+
+  @override
+  String get eWalletPhoneRequiredMessage => '请输入手机号码。';
+
+  @override
+  String get eWalletInvalidPhoneTitle => '手机号码无效';
+
+  @override
+  String get eWalletInvalidPhoneMessage => '请输入有效的马来西亚手机号码。';
+
+  @override
+  String get eWalletAmountRequiredTitle => '请输入金额';
+
+  @override
+  String get eWalletAmountRequiredMessage => '请输入充值金额。';
+
+  @override
+  String get eWalletInvalidAmountTitle => '金额无效';
+
+  @override
+  String eWalletMinimumAmount(String amount) {
+    return '最低充值金额为 $amount。';
+  }
+
+  @override
+  String eWalletMaximumAmount(String amount) {
+    return '最高充值金额为 $amount。';
+  }
+
+  @override
+  String get eWalletTngPinNote => '请选择充值码金额。下一页将输入手机号码作为交易参考。';
+
+  @override
+  String get eWalletTrueMoneyNote => '每日充值上限为 RM1,000，每月充值上限为 RM5,000。';
+
+  @override
+  String get eWalletOkButton => '确定';
+
+  @override
+  String get eWalletReloadDetails => '电子钱包充值';
+
+  @override
+  String get eWalletAmountStepSubtitle => '请选择或输入您要充值的金额';
+
+  @override
+  String get eWalletReloadAmount => '充值金额';
+
+  @override
+  String get eWalletOrderSummary => '订单摘要';
+
+  @override
+  String get eWalletLatestPricingInfo => '所显示的总额采用最新的服务价格。';
+
+  @override
+  String get eWalletKeypadClear => '清除';
+
+  @override
+  String get eWalletKeypadDone => '完成';
+
+  @override
+  String get eWalletKeypadCancel => '取消';
+
+  @override
+  String get eWalletPinlessPhoneHint => '请输入您的电子钱包手机号码。';
+
+  @override
+  String get eWalletPinPhoneReferenceHint => '交易需要手机号码作为参考。';
+
+  @override
+  String get eWalletConfirmNumberTitle => '确认手机号码';
+
+  @override
+  String get eWalletConfirmNumberQuestion => '这个手机号码正确吗？';
+
+  @override
+  String get eWalletConfirmBack => '返回';
+
+  @override
+  String get eWalletConfirmContinue => '继续';
+
+  @override
+  String electricPaymentRange(String minimum, String maximum) {
+    return '最低 $minimum • 最高 $maximum';
+  }
+
+  @override
+  String electricOutstandingExceedsMaximum(String outstanding, String maximum) {
+    return '未缴金额为 $outstanding，但单次最高付款金额为 $maximum。';
+  }
+
+  @override
+  String get eWalletPinReceiptTitle => '电子钱包 PIN 收据';
+
+  @override
+  String get eWalletPinReceiptProvider => '电子钱包服务商';
+
+  @override
+  String get eWalletPinReceiptTransactionDetails => '交易详情';
+
+  @override
+  String get eWalletPinReceiptProductCode => '产品代码';
+
+  @override
+  String get eWalletPinReceiptPhoneReference => '手机号码 / 参考号码';
+
+  @override
+  String get eWalletPinReceiptValue => 'PIN 金额';
+
+  @override
+  String get eWalletPinReceiptPaymentMethod => '付款方式';
+
+  @override
+  String get eWalletPinReceiptPaymentDate => '付款日期';
+
+  @override
+  String get eWalletPinReceiptBankTransaction => '银行交易';
+
+  @override
+  String get eWalletPinReceiptPinDetails => 'PIN 详情';
+
+  @override
+  String get eWalletPinReceiptSerialNumber => '序列号';
+
+  @override
+  String get eWalletPinReceiptPinCode => 'PIN';
+
+  @override
+  String get eWalletPinReceiptExpiry => '有效期';
+
+  @override
+  String get eWalletPinReceiptNote => '备注';
+
+  @override
+  String get eWalletPinReceiptVoucherLink => '兑换链接';
+
+  @override
+  String get eWalletPinReceiptTotalPaid => '已付总额';
+
+  @override
+  String get eWalletPinReceiptSavePinMessage => '离开此页面前，请先保存您的 PIN。';
+
+  @override
+  String get eWalletTngRedeemNote => '要兑换 PIN，请登录 Touch \'n Go eWallet 应用';
+
+  @override
+  String get mobilePinReceiptSavePinMessage => '请在离开此页面前保存您的 PIN。';
+
+  @override
+  String get eWalletProviderSurchargeTitle => '服务商附加费';
+
+  @override
+  String eWalletProviderSurchargeMessage(String surcharge, String reloadAmount, String receivedAmount) {
+    return '将收取 $surcharge 服务商附加费。充值 $reloadAmount，电子钱包将收到 $receivedAmount。';
+  }
+
+  @override
+  String get eWalletReloadReceiptTitle => '电子钱包充值收据';
+
+  @override
+  String get eWalletReloadReceiptProvider => '电子钱包服务商';
+
+  @override
+  String electricUpdateWithinHours(String hours) {
+    return '$hours 小时内';
+  }
+
+  @override
+  String electricUpdateWithinDays(String days) {
+    return '$days 天内';
+  }
+
+  @override
+  String get electricProcessingTimeUnavailable => '暂无法获取处理时间';
+
+  @override
+  String waterUpdateWithinHours(String hours) {
+    return '$hours 小时内';
+  }
+
+  @override
+  String waterUpdateWithinDays(String days) {
+    return '$days 天内';
+  }
+
+  @override
+  String get broadbandUpdateInstant => '即时';
+
+  @override
+  String broadbandUpdateWithinHours(String hours) {
+    return '$hours 小时内';
+  }
+
+  @override
+  String broadbandUpdateWithinDays(String days) {
+    return '$days 天内';
+  }
+
+  @override
+  String entertainmentUpdateWithinHours(String hours) {
+    return '$hours 小时内';
+  }
+
+  @override
+  String entertainmentUpdateWithinDays(String days) {
+    return '$days 天内';
+  }
+
+  @override
+  String get telcoPaymentUpdateTime => '付款更新时间';
+
+  @override
+  String get telcoUpdateInstant => '即时';
+
+  @override
+  String telcoUpdateWithinHours(String hours) {
+    return '$hours 小时内';
+  }
+
+  @override
+  String telcoUpdateWithinDays(String days) {
+    return '$days 天内';
+  }
+
+  @override
+  String get eWalletProcessingTime => '处理时间';
+
+  @override
+  String get eWalletUpdateInstant => '即时';
+
+  @override
+  String eWalletUpdateWithinHours(String hours) {
+    return '$hours 小时内';
+  }
+
+  @override
+  String eWalletUpdateWithinDays(String days) {
+    return '$days 天内';
+  }
+
+  @override
+  String get loanEducationButton => '贷款与教育';
+
+  @override
+  String get loanEducationSupportingText => '支付贷款及教育融资';
+
+  @override
+  String get loanServiceLabel => '贷款与教育服务';
+
+  @override
+  String get loanProviderTitle => '贷款与教育';
+
+  @override
+  String get loanProviderSubtitle => '请选择服务机构以继续';
+
+  @override
+  String get processingTimeLabel => '处理时间';
+
+  @override
+  String get catalogUnavailableTitle => '服务资料暂时无法显示';
+
+  @override
+  String get catalogUnavailableMessage => '无法加载最新服务资料，请重试。';
+
+  @override
+  String get retryButton => '重试';
+
+  @override
+  String get serviceUnavailableTitle => '服务暂不可用';
+
+  @override
+  String get ptptnUnavailableMessage => 'PTPTN 服务目前暂不可用，请稍后再试。';
+
+  @override
+  String get ptptnNextPageMessage => '已选择 PTPTN，请继续输入身份证号码。';
+
+  @override
+  String get processingInstant => '即时';
+
+  @override
+  String get processing24Hours => '24 小时';
+
+  @override
+  String get processing3Days => '3 天';
+
+  @override
+  String get loanNricStepLabel => 'PTPTN 账户';
+
+  @override
+  String get loanEnterNricTitle => '输入身份证号码';
+
+  @override
+  String get loanEnterNricSubtitle => '请输入您的12位身份证号码以继续';
+
+  @override
+  String get loanSelectedProvider => '已选择服务机构';
+
+  @override
+  String get loanNricHint => '输入身份证号码';
+
+  @override
+  String get loanNricHintText => '请输入12位数字，无需空格或符号';
+
+  @override
+  String get loanContinue => '继续';
+
+  @override
+  String get loanConfirmNricTitle => '确认身份证号码';
+
+  @override
+  String get loanConfirmNricQuestion => '这个身份证号码正确吗？';
+
+  @override
+  String get loanConfirmBack => '修改';
+
+  @override
+  String get loanConfirmContinue => '继续';
+
+  @override
+  String get loanNricRequiredTitle => '请输入身份证号码';
+
+  @override
+  String get loanNricRequiredMessage => '请输入您的身份证号码。';
+
+  @override
+  String get loanInvalidNricTitle => '身份证号码无效';
+
+  @override
+  String get loanInvalidNricMessage => '请输入有效的12位身份证号码。';
+
+  @override
+  String get loanUnavailableTitle => '服务暂不可用';
+
+  @override
+  String get loanUnavailableMessage => 'PTPTN 服务目前暂不可用，请稍后再试。';
+
+  @override
+  String get loanLoadingTitle => '正在加载 PTPTN';
+
+  @override
+  String get loanLoadingMessage => '正在加载最新的 PTPTN 资料，请稍候。';
+
+  @override
+  String get loanCatalogErrorTitle => '无法加载 PTPTN';
+
+  @override
+  String get loanCatalogErrorMessage => '无法加载 PTPTN 服务资料，请重试。';
+
+  @override
+  String get loanRetry => '重试';
+
+  @override
+  String get loanOkButton => '确定';
+
+  @override
+  String get loanNricConfirmedMessage => '身份证号码已确认，正在获取 PTPTN 账户选项。';
+
+  @override
+  String get loanAccountStepLabel => 'PTPTN 账户';
+
+  @override
+  String get loanSelectAccountTitle => '选择账户';
+
+  @override
+  String get loanSelectAccountSubtitle => '请选择您要付款的 PTPTN 或 SSPN 账户';
+
+  @override
+  String get loanNricLabel => '身份证号码';
+
+  @override
+  String get loanAccountNumber => '账户号码';
+
+  @override
+  String get loanAccountType => '账户类型';
+
+  @override
+  String get loanTypeConventional => '传统贷款';
+
+  @override
+  String get loanTypeUjrah => 'Ujrah';
+
+  @override
+  String get loanTypeSspnPrime => 'SSPN Prime';
+
+  @override
+  String get loanTypeSspnPlus => 'SSPN Plus';
+
+  @override
+  String get loanAccountCategoryUnknown => '账户';
+
+  @override
+  String get loanAccountLoadingTitle => '正在查询账户';
+
+  @override
+  String get loanAccountLoadingMessage => '正在获取您的 PTPTN 和 SSPN 账户，请稍候。';
+
+  @override
+  String get loanAccountErrorTitle => '无法获取账户';
+
+  @override
+  String get loanAccountErrorMessage => '无法获取您的 PTPTN 账户资料，请重试。';
+
+  @override
+  String get loanNoAccountTitle => '没有可用账户';
+
+  @override
+  String get loanNoAccountMessage => '此身份证号码没有可用的 PTPTN 或 SSPN 账户，请稍后再试。';
+
+  @override
+  String get loanAccountRequiredTitle => '请选择账户';
+
+  @override
+  String get loanAccountRequiredMessage => '请选择一个账户以继续。';
+
+  @override
+  String get loanAccountSelectedMessage => '账户已选择，请继续输入付款金额。';
+
+  @override
+  String loanAvailableAccounts(int count) {
+    return '可用账户：$count';
+  }
+
+  @override
+  String get loanAvailableAccountTitle => '可用账户';
+
+  @override
+  String get loanAccountSelectionTitle => '选择 PTPTN 账户';
 }

@@ -1,65 +1,71 @@
 import 'package:flutter/material.dart';
 
 import 'package:frontend_v1/l10n/app_localizations.dart';
-import 'package:frontend_v1/pages/bil/p4bil.dart';
+import 'package:frontend_v1/pages/bil/ewallet/pewallet4.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbil3.dart';
-
-import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
-
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
+import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 
 // ============================================================================
-// BILLER STATUS
+// E-WALLET PAGE 3 - PROVIDER SELECTION
 // ============================================================================
-enum BillerStatus {
+//
+// FLOW:
+//
+// PBIL3PAGE
+//      ↓
+// PEWALLET3PAGE
+// Select provider:
+// - TNG
+// - TNGD
+// - TRUE
+//      ↓
+// Check IIMMPACT network status
+//      ↓
+// PEWALLET4PAGE
+//
+// TNG:
+// Page 4 -> Select PIN amount
+// Page 5 -> Enter phone/reference
+//
+// TNGD / TRUE:
+// Page 4 -> Enter phone number
+// Page 5 -> Enter reload amount
+//
+// ============================================================================
+
+enum EWalletStatus {
   loading,
   healthy,
   interruption,
   unavailable,
 }
 
-// ============================================================================
-// ELECTRIC BILL PROVIDER PAGE
-// ============================================================================
-class PELECTRICBILL3PAGE extends StatefulWidget {
-  const PELECTRICBILL3PAGE({super.key});
+class PEWALLET3PAGE extends StatefulWidget {
+  const PEWALLET3PAGE({
+    super.key,
+  });
 
   @override
-  State<PELECTRICBILL3PAGE> createState() =>
-      _PELECTRICBILL3PAGEState();
+  State<PEWALLET3PAGE> createState() =>
+      _PEWALLET3PAGEState();
 }
 
-class _PELECTRICBILL3PAGEState
-    extends State<PELECTRICBILL3PAGE> {
+class _PEWALLET3PAGEState
+    extends State<PEWALLET3PAGE> {
   // ==========================================================================
   // NETWORK STATUS
-  //
-  // IMPORTANT:
-  //
-  // FP is intentionally kept for Sarawak Energy network testing.
-  //
-  // Real IIMMPACT payment/catalog code:
-  // SESCO
-  //
-  // Network test code:
-  // FP
   // ==========================================================================
 
-  final Map<String, BillerStatus> _billerStatuses = {
-    'TNB': BillerStatus.loading,
-    'FP': BillerStatus.loading,
-    'SESB': BillerStatus.loading,
-    'NUR': BillerStatus.loading,
+  final Map<String, EWalletStatus> _statuses = {
+    'TNG': EWalletStatus.loading,
+    'TNGD': EWalletStatus.loading,
+    'TRUE': EWalletStatus.loading,
   };
 
   final Map<String, String?> _lastUpdated = {};
-
-  // ==========================================================================
-  // PROCESSING TIME FROM IIMMPACT CATALOG
-  // ==========================================================================
-
   final Map<String, String> _processingTimes = {};
 
   // ==========================================================================
@@ -73,59 +79,31 @@ class _PELECTRICBILL3PAGEState
   bool showScrollDown = true;
 
   // ==========================================================================
-  // LIFE CYCLE
+  // LIFECYCLE
   // ==========================================================================
 
   @override
   void initState() {
     super.initState();
 
-    _scrollController.addListener(_handleScroll);
+    _scrollController.addListener(
+      _handleScroll,
+    );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadInitialNetworkStatuses();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _loadInitialStatuses();
 
-      // Load processing_time from IIMMPACT /v2/catalog.
-      _loadCatalogProcessingTimes();
+        _loadCatalogProcessingTimes();
 
-      _handleScroll();
-    });
+        _handleScroll();
+      },
+    );
   }
 
   // ==========================================================================
-  // SCROLL POSITION
+  // LOAD E-WALLET PROCESSING TIME FROM IIMMPACT CATALOG
   // ==========================================================================
-
-  void _handleScroll() {
-    if (!_scrollController.hasClients || !mounted) {
-      return;
-    }
-
-    final double maxScroll =
-        _scrollController.position.maxScrollExtent;
-
-    final double currentScroll =
-        _scrollController.offset;
-
-    final bool shouldShowScrollUp =
-        currentScroll > 10;
-
-    final bool shouldShowScrollDown =
-        currentScroll < maxScroll - 10;
-
-    if (showScrollUp != shouldShowScrollUp ||
-        showScrollDown != shouldShowScrollDown) {
-      setState(() {
-        showScrollUp = shouldShowScrollUp;
-        showScrollDown = shouldShowScrollDown;
-      });
-    }
-  }
-
-  // ==========================================================================
-  // LOAD PROCESSING TIME FROM IIMMPACT CATALOG
-  // ==========================================================================
-
   Future<void> _loadCatalogProcessingTimes() async {
     try {
       final Map<String, dynamic> catalog =
@@ -136,7 +114,7 @@ class _PELECTRICBILL3PAGEState
 
       if (productsRaw is! Map) {
         debugPrint(
-          'Electric catalog error: products not found.',
+          'E-Wallet catalog error: products not found.',
         );
         return;
       }
@@ -146,19 +124,10 @@ class _PELECTRICBILL3PAGEState
         productsRaw,
       );
 
-      // IMPORTANT:
-      //
-      // Use REAL IIMMPACT catalog product codes here.
-      //
-      // Sarawak Energy = SESCO
-      //
-      // Do NOT use FP here because FP is only your
-      // intentional network-status test code.
       const List<String> productCodes = [
-        'TNB',
-        'SESCO',
-        'SESB',
-        'NUR',
+        'TNG',
+        'TNGD',
+        'TRUE',
       ];
 
       final Map<String, String> loadedTimes = {};
@@ -169,7 +138,7 @@ class _PELECTRICBILL3PAGEState
 
         if (rawProduct is! Map) {
           debugPrint(
-            'Electric catalog product not found: $code',
+            'E-Wallet catalog product not found: $code',
           );
           continue;
         }
@@ -191,7 +160,9 @@ class _PELECTRICBILL3PAGEState
         }
       }
 
-      if (!mounted) return;
+      if (!mounted) {
+        return;
+      }
 
       setState(() {
         _processingTimes
@@ -200,18 +171,16 @@ class _PELECTRICBILL3PAGEState
       });
 
       debugPrint(
-        'Electric processing times loaded: '
+        'E-Wallet processing times loaded: '
         '$_processingTimes',
       );
     } on IimmpactCatalogException catch (error) {
       debugPrint(
-        'Electric catalog error: '
-        '${error.message}',
+        'E-Wallet catalog error: ${error.message}',
       );
     } catch (error, stackTrace) {
       debugPrint(
-        'Unexpected electric catalog error: '
-        '$error',
+        'Unexpected E-Wallet catalog error: $error',
       );
 
       debugPrintStack(
@@ -220,19 +189,62 @@ class _PELECTRICBILL3PAGEState
     }
   }
 
+  @override
+  void dispose() {
+    _scrollController.removeListener(
+      _handleScroll,
+    );
+
+    _scrollController.dispose();
+
+    super.dispose();
+  }
+
+  // ==========================================================================
+  // SCROLL POSITION
+  // ==========================================================================
+
+  void _handleScroll() {
+    if (!_scrollController.hasClients ||
+        !mounted) {
+      return;
+    }
+
+    final double maxScroll =
+        _scrollController
+            .position
+            .maxScrollExtent;
+
+    final double currentScroll =
+        _scrollController.offset;
+
+    final bool shouldShowScrollUp =
+        currentScroll > 10;
+
+    final bool shouldShowScrollDown =
+        currentScroll < maxScroll - 10;
+
+    if (showScrollUp != shouldShowScrollUp ||
+        showScrollDown != shouldShowScrollDown) {
+      setState(() {
+        showScrollUp =
+            shouldShowScrollUp;
+
+        showScrollDown =
+            shouldShowScrollDown;
+      });
+    }
+  }
+
   // ==========================================================================
   // INITIAL NETWORK STATUS
   // ==========================================================================
 
-  Future<void> _loadInitialNetworkStatuses() async {
+  Future<void> _loadInitialStatuses() async {
     await Future.wait([
-      _refreshNetworkStatus('TNB'),
-
-      // Intentional test code for Sarawak Energy.
-      _refreshNetworkStatus('FP'),
-
-      _refreshNetworkStatus('SESB'),
-      _refreshNetworkStatus('NUR'),
+      _refreshStatus('TNG'),
+      _refreshStatus('TNGD'),
+      _refreshStatus('TRUE'),
     ]);
   }
 
@@ -240,30 +252,31 @@ class _PELECTRICBILL3PAGEState
   // REFRESH NETWORK STATUS
   // ==========================================================================
 
-  Future<BillerStatus> _refreshNetworkStatus(
+  Future<EWalletStatus> _refreshStatus(
     String productCode,
   ) async {
     if (mounted) {
       setState(() {
-        _billerStatuses[productCode] =
-            BillerStatus.loading;
+        _statuses[productCode] =
+            EWalletStatus.loading;
       });
     }
 
     try {
       final result =
-          await IimmpactNetworkStatusService.getStatus(
+          await IimmpactNetworkStatusService
+              .getStatus(
         productCode: productCode,
       );
 
-      final BillerStatus status =
+      final EWalletStatus status =
           result.isHealthy
-              ? BillerStatus.healthy
-              : BillerStatus.interruption;
+              ? EWalletStatus.healthy
+              : EWalletStatus.interruption;
 
       if (mounted) {
         setState(() {
-          _billerStatuses[productCode] =
+          _statuses[productCode] =
               status;
 
           _lastUpdated[productCode] =
@@ -272,29 +285,33 @@ class _PELECTRICBILL3PAGEState
       }
 
       return status;
-    } catch (error) {
+    } catch (error, stackTrace) {
       debugPrint(
-        'Network status error for '
-        '$productCode: $error',
+        'E-Wallet network status error '
+        'for $productCode: $error',
+      );
+
+      debugPrintStack(
+        stackTrace: stackTrace,
       );
 
       if (mounted) {
         setState(() {
-          _billerStatuses[productCode] =
-              BillerStatus.unavailable;
+          _statuses[productCode] =
+              EWalletStatus.unavailable;
         });
       }
 
-      return BillerStatus.unavailable;
+      return EWalletStatus.unavailable;
     }
   }
 
   // ==========================================================================
-  // INTERRUPTION WARNING
+  // NETWORK INTERRUPTION WARNING
   // ==========================================================================
 
   Future<bool> _showInterruptionWarning({
-    required String billerName,
+    required String providerName,
     required String productCode,
   }) async {
     final loc =
@@ -303,17 +320,24 @@ class _PELECTRICBILL3PAGEState
     final bool? result =
         await showDialog<bool>(
       context: context,
+
       barrierDismissible: false,
-      builder: (dialogContext) {
+
+      builder: (
+        dialogContext,
+      ) {
         return Dialog(
           backgroundColor:
               Colors.transparent,
+
           insetPadding:
               const EdgeInsets.symmetric(
             horizontal: 80,
           ),
+
           child: Container(
             width: 800,
+
             padding:
                 const EdgeInsets.fromLTRB(
               45,
@@ -321,145 +345,229 @@ class _PELECTRICBILL3PAGEState
               45,
               38,
             ),
+
             decoration:
                 BoxDecoration(
-              color: Colors.white,
+              color:
+                  Colors.white,
+
               borderRadius:
-                  BorderRadius.circular(38),
-              border: Border.all(
-                color:
-                    const Color(0xFFF2A520),
-                width: 3,
+                  BorderRadius.circular(
+                38,
               ),
+
+              border:
+                  Border.all(
+                color:
+                    const Color(
+                  0xFFF2A520,
+                ),
+                width:
+                    3,
+              ),
+
               boxShadow: [
                 BoxShadow(
                   color:
-                      Colors.black.withOpacity(
+                      Colors.black
+                          .withOpacity(
                     0.25,
                   ),
-                  blurRadius: 35,
+                  blurRadius:
+                      35,
                   offset:
-                      const Offset(0, 18),
+                      const Offset(
+                    0,
+                    18,
+                  ),
                 ),
               ],
             ),
+
             child: Column(
               mainAxisSize:
                   MainAxisSize.min,
+
               children: [
+                // ============================================================
+                // WARNING ICON
+                // ============================================================
+
                 Container(
-                  width: 125,
-                  height: 125,
+                  width:
+                      125,
+
+                  height:
+                      125,
+
                   decoration:
                       BoxDecoration(
                     color:
                         const Color(
                       0xFFFFF2D9,
                     ),
+
                     shape:
                         BoxShape.circle,
-                    border: Border.all(
+
+                    border:
+                        Border.all(
                       color:
                           const Color(
                         0xFFF2A520,
-                      ).withOpacity(0.30),
-                      width: 2,
+                      ).withOpacity(
+                        0.30,
+                      ),
+
+                      width:
+                          2,
                     ),
                   ),
-                  child: const Icon(
+
+                  child:
+                      const Icon(
                     Icons
                         .warning_amber_rounded,
+
                     color:
-                        Color(0xFFD87900),
-                    size: 78,
+                        Color(
+                      0xFFD87900,
+                    ),
+
+                    size:
+                        78,
                   ),
                 ),
 
-                const SizedBox(height: 28),
+                const SizedBox(
+                  height:
+                      28,
+                ),
+
+                // ============================================================
+                // TITLE
+                // ============================================================
 
                 Text(
                   loc.networkInterruptionTitle,
+
                   textAlign:
                       TextAlign.center,
+
                   style:
                       const TextStyle(
                     color:
-                        Color(0xFF17283E),
-                    fontSize: 40,
+                        Color(
+                      0xFF17283E,
+                    ),
+
+                    fontSize:
+                        40,
+
                     fontWeight:
                         FontWeight.w900,
-                    height: 1.1,
+
+                    height:
+                        1.1,
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(
+                  height:
+                      24,
+                ),
+
+                // ============================================================
+                // MESSAGE
+                // ============================================================
 
                 Container(
                   width:
                       double.infinity,
+
                   padding:
-                      const EdgeInsets
-                          .symmetric(
-                    horizontal: 28,
-                    vertical: 25,
+                      const EdgeInsets.symmetric(
+                    horizontal:
+                        28,
+                    vertical:
+                        25,
                   ),
+
                   decoration:
                       BoxDecoration(
                     color:
                         const Color(
                       0xFFFFF9ED,
                     ),
+
                     borderRadius:
-                        BorderRadius
-                            .circular(
+                        BorderRadius.circular(
                       24,
                     ),
+
                     border:
                         Border.all(
                       color:
                           const Color(
                         0xFFF4D69D,
                       ),
-                      width: 1.5,
+
+                      width:
+                          1.5,
                     ),
                   ),
-                  child: Text(
+
+                  child:
+                      Text(
                     loc.networkInterruptionMessage(
-                      billerName,
+                      providerName,
                     ),
+
                     textAlign:
                         TextAlign.center,
+
                     style:
                         const TextStyle(
                       color:
                           Color(
                         0xFF4B4234,
                       ),
-                      fontSize: 29,
-                      height: 1.4,
+
+                      fontSize:
+                          29,
+
+                      height:
+                          1.4,
+
                       fontWeight:
-                          FontWeight
-                              .w600,
+                          FontWeight.w600,
                     ),
                   ),
                 ),
+
+                // ============================================================
+                // LAST UPDATED
+                // ============================================================
 
                 if (_lastUpdated[
                         productCode] !=
                     null) ...[
                   const SizedBox(
-                    height: 20,
+                    height:
+                        20,
                   ),
 
                   Row(
                     mainAxisAlignment:
-                        MainAxisAlignment
-                            .center,
+                        MainAxisAlignment.center,
+
                     children: [
                       const Icon(
-                        Icons
-                            .schedule_rounded,
-                        size: 24,
+                        Icons.schedule_rounded,
+
+                        size:
+                            24,
+
                         color:
                             Color(
                           0xFF758399,
@@ -467,27 +575,31 @@ class _PELECTRICBILL3PAGEState
                       ),
 
                       const SizedBox(
-                        width: 8,
+                        width:
+                            8,
                       ),
 
                       Flexible(
-                        child: Text(
+                        child:
+                            Text(
                           '${loc.networkLastUpdated}: '
                           '${_lastUpdated[productCode]}',
+
                           textAlign:
-                              TextAlign
-                                  .center,
+                              TextAlign.center,
+
                           style:
                               const TextStyle(
                             fontSize:
                                 21,
+
                             color:
                                 Color(
                               0xFF758399,
                             ),
+
                             fontWeight:
-                                FontWeight
-                                    .w600,
+                                FontWeight.w600,
                           ),
                         ),
                       ),
@@ -495,64 +607,87 @@ class _PELECTRICBILL3PAGEState
                   ),
                 ],
 
-                const SizedBox(height: 36),
+                const SizedBox(
+                  height:
+                      36,
+                ),
+
+                // ============================================================
+                // ACTIONS
+                // ============================================================
 
                 Row(
                   children: [
+                    // ========================================================
+                    // BACK
+                    // ========================================================
+
                     Expanded(
                       child:
                           SizedBox(
-                        height: 78,
+                        height:
+                            78,
+
                         child:
-                            OutlinedButton
-                                .icon(
-                          onPressed: () {
+                            OutlinedButton.icon(
+                          onPressed:
+                              () {
                             Navigator.pop(
                               dialogContext,
                               false,
                             );
                           },
+
                           icon:
                               const Icon(
                             Icons
                                 .arrow_back_rounded,
-                            size: 29,
+
+                            size:
+                                29,
                           ),
-                          label: Text(
+
+                          label:
+                              Text(
                             loc.backButton,
+
                             style:
                                 const TextStyle(
                               fontSize:
                                   24,
+
                               fontWeight:
-                                  FontWeight
-                                      .w900,
+                                  FontWeight.w900,
                             ),
                           ),
+
                           style:
-                              OutlinedButton
-                                  .styleFrom(
+                              OutlinedButton.styleFrom(
                             backgroundColor:
                                 const Color(
                               0xFFFFE8E8,
                             ),
+
                             foregroundColor:
                                 const Color(
                               0xFFC62828,
                             ),
+
                             side:
                                 const BorderSide(
                               color:
                                   Color(
                                 0xFFE57373,
                               ),
-                              width: 2,
+
+                              width:
+                                  2,
                             ),
+
                             shape:
                                 RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius
-                                      .circular(
+                                  BorderRadius.circular(
                                 22,
                               ),
                             ),
@@ -561,53 +696,71 @@ class _PELECTRICBILL3PAGEState
                       ),
                     ),
 
-                    const SizedBox(width: 22),
+                    const SizedBox(
+                      width:
+                          22,
+                    ),
+
+                    // ========================================================
+                    // CONTINUE
+                    // ========================================================
 
                     Expanded(
                       child:
                           SizedBox(
-                        height: 78,
+                        height:
+                            78,
+
                         child:
-                            ElevatedButton
-                                .icon(
-                          onPressed: () {
+                            ElevatedButton.icon(
+                          onPressed:
+                              () {
                             Navigator.pop(
                               dialogContext,
                               true,
                             );
                           },
+
                           icon:
                               const Icon(
                             Icons
                                 .arrow_forward_rounded,
-                            size: 29,
+
+                            size:
+                                29,
                           ),
-                          label: Text(
+
+                          label:
+                              Text(
                             loc.continueButton,
+
                             style:
                                 const TextStyle(
                               fontSize:
                                   24,
+
                               fontWeight:
-                                  FontWeight
-                                      .w900,
+                                  FontWeight.w900,
                             ),
                           ),
+
                           style:
-                              ElevatedButton
-                                  .styleFrom(
+                              ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color(
                               0xFF168A50,
                             ),
+
                             foregroundColor:
                                 Colors.white,
-                            elevation: 0,
+
+                            elevation:
+                                0,
+
                             shape:
                                 RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius
-                                      .circular(
+                                  BorderRadius.circular(
                                 22,
                               ),
                             ),
@@ -628,16 +781,44 @@ class _PELECTRICBILL3PAGEState
   }
 
   // ==========================================================================
-  // BILLER TAP
+  // PROVIDER IMAGE
   // ==========================================================================
 
-  Future<void> _handleBillerTap({
+  String _getProviderImageUrl(
+    String productCode,
+  ) {
+    switch (
+        productCode
+            .trim()
+            .toUpperCase()) {
+      case 'TNG':
+        return 'https://dashboard.iimmpact.com/img/TNG.png';
+
+      case 'TNGD':
+        return 'https://dashboard.iimmpact.com/img/TNGD.png';
+
+      case 'TRUE':
+        return 'https://dashboard.iimmpact.com/img/TRUE.png';
+
+      default:
+        return '';
+    }
+  }
+
+  // ==========================================================================
+  // PROVIDER SELECTION
+  // ==========================================================================
+
+  Future<void> _handleProviderTap({
     required String productCode,
-    required String billerName,
-    required VoidCallback navigate,
+    required String providerName,
   }) async {
-    final BillerStatus status =
-        await _refreshNetworkStatus(
+    // ========================================================================
+    // 1. REFRESH STATUS BEFORE OPENING
+    // ========================================================================
+
+    final EWalletStatus status =
+        await _refreshStatus(
       productCode,
     );
 
@@ -645,12 +826,19 @@ class _PELECTRICBILL3PAGEState
       return;
     }
 
+    // ========================================================================
+    // 2. NETWORK INTERRUPTION
+    // ========================================================================
+
     if (status ==
-        BillerStatus.interruption) {
+        EWalletStatus.interruption) {
       final bool shouldContinue =
           await _showInterruptionWarning(
-        billerName: billerName,
-        productCode: productCode,
+        providerName:
+            providerName,
+
+        productCode:
+            productCode,
       );
 
       if (!shouldContinue) {
@@ -662,11 +850,41 @@ class _PELECTRICBILL3PAGEState
       return;
     }
 
-    navigate();
+    // ========================================================================
+    // 3. PROVIDER IMAGE
+    // ========================================================================
+
+    final String providerImageUrl =
+        _getProviderImageUrl(
+      productCode,
+    );
+
+    // ========================================================================
+    // 4. OPEN PAGE 4
+    // ========================================================================
+
+    Navigator.push(
+      context,
+
+      MaterialPageRoute(
+        builder:
+            (_) =>
+                PEWALLET4PAGE(
+          productCode:
+              productCode,
+
+          providerName:
+              providerName,
+
+          providerImageUrl:
+              providerImageUrl,
+        ),
+      ),
+    );
   }
 
   // ==========================================================================
-  // SCROLL UP
+  // MANUAL SCROLL CONTROLS
   // ==========================================================================
 
   void _scrollUp() {
@@ -679,22 +897,23 @@ class _PELECTRICBILL3PAGEState
             .clamp(
       0.0,
       _scrollController
-          .position.maxScrollExtent,
+          .position
+          .maxScrollExtent,
     );
 
     _scrollController.animateTo(
       destination,
+
       duration:
           const Duration(
-        milliseconds: 400,
+        milliseconds:
+            400,
       ),
-      curve: Curves.easeOut,
+
+      curve:
+          Curves.easeOut,
     );
   }
-
-  // ==========================================================================
-  // SCROLL DOWN
-  // ==========================================================================
 
   void _scrollDown() {
     if (!_scrollController.hasClients) {
@@ -706,32 +925,22 @@ class _PELECTRICBILL3PAGEState
             .clamp(
       0.0,
       _scrollController
-          .position.maxScrollExtent,
+          .position
+          .maxScrollExtent,
     );
 
     _scrollController.animateTo(
       destination,
+
       duration:
           const Duration(
-        milliseconds: 400,
+        milliseconds:
+            400,
       ),
-      curve: Curves.easeOut,
+
+      curve:
+          Curves.easeOut,
     );
-  }
-
-  // ==========================================================================
-  // DISPOSE
-  // ==========================================================================
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(
-      _handleScroll,
-    );
-
-    _scrollController.dispose();
-
-    super.dispose();
   }
 
   // ==========================================================================
@@ -739,7 +948,9 @@ class _PELECTRICBILL3PAGEState
   // ==========================================================================
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final loc =
         AppLocalizations.of(context)!;
 
@@ -749,34 +960,40 @@ class _PELECTRICBILL3PAGEState
           // ==================================================================
           // BACKGROUND
           // ==================================================================
+
           Positioned.fill(
-            child: Image.asset(
+            child:
+                Image.asset(
               'lib/images/pnew.png',
-              fit: BoxFit.cover,
+
+              fit:
+                  BoxFit.cover,
             ),
           ),
 
           Positioned.fill(
-            child: Container(
+            child:
+                Container(
               decoration:
                   BoxDecoration(
                 gradient:
                     LinearGradient(
                   begin:
                       Alignment.topCenter,
+
                   end:
                       Alignment.bottomCenter,
+
                   colors: [
-                    Colors.white
-                        .withOpacity(
+                    Colors.white.withOpacity(
                       0.02,
                     ),
-                    Colors.white
-                        .withOpacity(
+
+                    Colors.white.withOpacity(
                       0.12,
                     ),
-                    Colors.white
-                        .withOpacity(
+
+                    Colors.white.withOpacity(
                       0.04,
                     ),
                   ],
@@ -788,70 +1005,114 @@ class _PELECTRICBILL3PAGEState
           // ==================================================================
           // HEADER
           // ==================================================================
+
           Positioned(
-            top: 82,
-            left: 65,
-            right: 65,
+            top:
+                82,
+
+            left:
+                65,
+
+            right:
+                65,
+
             child:
-                _ModernPageHeader(
-              title: loc
-                  .pbilelectric3Title,
+                _ModernEWalletHeader(
+              title:
+                  loc.eWalletProviderTitle,
+
               subtitle:
-                  loc.pbil3Subtitle,
+                  loc.eWalletProviderSubtitle,
             ),
           ),
 
           // ==================================================================
           // PROVIDER AREA
           // ==================================================================
+
           Positioned(
-            top: 400,
-            left: 45,
-            right: 45,
-            bottom: 305,
-            child: Scrollbar(
+            top:
+                400,
+
+            left:
+                45,
+
+            right:
+                45,
+
+            bottom:
+                305,
+
+            child:
+                Scrollbar(
               controller:
                   _scrollController,
-              thumbVisibility: true,
-              trackVisibility: true,
-              interactive: true,
-              thickness: 11,
+
+              thumbVisibility:
+                  true,
+
+              trackVisibility:
+                  true,
+
+              interactive:
+                  true,
+
+              thickness:
+                  11,
+
               radius:
                   const Radius.circular(
                 20,
               ),
+
               child:
                   SingleChildScrollView(
                 controller:
                     _scrollController,
+
                 physics:
                     const BouncingScrollPhysics(),
+
                 padding:
                     const EdgeInsets.only(
-                  right: 24,
-                  bottom: 55,
+                  right:
+                      24,
+
+                  bottom:
+                      55,
                 ),
-                child: Column(
+
+                child:
+                    Column(
                   children: [
                     // ========================================================
-                    // TNB + SARAWAK ENERGY
+                    // ROW 1
+                    // TNG PIN + TNG PINLESS
                     // ========================================================
+
                     Row(
                       crossAxisAlignment:
-                          CrossAxisAlignment
-                              .start,
+                          CrossAxisAlignment.start,
+
                       children: [
                         // ====================================================
-                        // TNB
+                        // TOUCH 'N GO PIN
+                        //
+                        // PAGE 4:
+                        // Choose denomination.
+                        //
+                        // PAGE 5:
+                        // Enter phone/reference.
                         // ====================================================
+
                         Expanded(
                           child:
-                              _ElectricProviderCard(
+                              _EWalletProviderCard(
                             imageUrl:
-                                'https://dashboard.iimmpact.com/img/TNB.png',
+                                'https://dashboard.iimmpact.com/img/TNG.png',
 
                             label:
-                                loc.tnbButton,
+                                loc.touchNGoPin,
 
                             accentColor:
                                 const Color(
@@ -863,152 +1124,87 @@ class _PELECTRICBILL3PAGEState
                               0xFFE5F0FF,
                             ),
 
-                            networkStatus:
-                                _billerStatuses[
-                                        'TNB'] ??
-                                    BillerStatus
-                                        .loading,
+                            status:
+                                _statuses['TNG'] ??
+                                    EWalletStatus.loading,
 
                             networkLabel:
                                 loc.networkLabel,
-
-                            // Processing time
-                            // comes from catalog.
+                            
                             processingTime:
-                                _processingTimes[
-                                        'TNB'] ??
-                                    '',
+                                _processingTimes['TNG'] ?? '',
 
                             processingLabel:
                                 loc.processingTimeLabel,
 
-                            onPressed: () {
-                              _handleBillerTap(
+                            onPressed:
+                                () {
+                              _handleProviderTap(
                                 productCode:
-                                    'TNB',
-                                billerName:
-                                    'TENAGA NASIONAL BERHAD',
-                                navigate: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (_) =>
-                                              P4BILPAGE(
-                                        title: loc
-                                            .electricAccountTitle,
-                                        hint: loc
-                                            .electricAccountHint,
-                                        productCode:
-                                            'TNB',
-                                        billerName:
-                                            'TENAGA NASIONAL BERHAD',
-                                        serviceType:
-                                            BillServiceType
-                                                .electric,
-                                      ),
-                                    ),
-                                  );
-                                },
+                                    'TNG',
+
+                                providerName:
+                                    "TOUCH 'N GO PIN",
                               );
                             },
                           ),
                         ),
 
                         const SizedBox(
-                          width: 34,
+                          width:
+                              34,
                         ),
 
                         // ====================================================
-                        // SARAWAK ENERGY
+                        // TOUCH 'N GO PINLESS
                         //
-                        // IMAGE:
-                        // SESCO
+                        // PAGE 4:
+                        // Enter phone.
                         //
-                        // NETWORK STATUS TEST:
-                        // FP
-                        //
-                        // PAYMENT:
-                        // SESCO
-                        //
-                        // PROCESSING TIME:
-                        // SESCO
+                        // PAGE 5:
+                        // Enter amount.
                         // ====================================================
+
                         Expanded(
                           child:
-                              _ElectricProviderCard(
+                              _EWalletProviderCard(
                             imageUrl:
-                                'https://dashboard.iimmpact.com/img/SESCO.png',
+                                'https://dashboard.iimmpact.com/img/TNGD.png',
 
-                            label: loc
-                                .sarawakenergyButton,
+                            label:
+                                loc.touchNGoPinless,
 
                             accentColor:
                                 const Color(
-                              0xFF128B75,
+                              0xFF00AEEF,
                             ),
 
                             lightAccentColor:
                                 const Color(
-                              0xFFE2F7F1,
+                              0xFFE5F8FF,
                             ),
 
-                            networkStatus:
-                                _billerStatuses[
-                                        'FP'] ??
-                                    BillerStatus
-                                        .loading,
+                            status:
+                                _statuses['TNGD'] ??
+                                    EWalletStatus.loading,
 
                             networkLabel:
                                 loc.networkLabel,
 
                             processingTime:
-                                _processingTimes[
-                                        'SESCO'] ??
-                                    '',
+                                _processingTimes['TNGD'] ?? '',
 
                             processingLabel:
                                 loc.processingTimeLabel,
 
-                            onPressed: () {
-                              _handleBillerTap(
-                                // Intentionally
-                                // FP only for
-                                // network testing.
+                            onPressed:
+                                () {
+                              _handleProviderTap(
                                 productCode:
-                                    'FP',
+                                    'TNGD',
 
-                                billerName:
-                                    'SARAWAK ENERGY',
-
-                                navigate: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (_) =>
-                                              P4BILPAGE(
-                                        title: loc
-                                            .electricAccountTitle,
-                                        hint: loc
-                                            .electricAccountHint,
-
-                                        // Real
-                                        // IIMMPACT
-                                        // payment code.
-                                        productCode:
-                                            'SESCO',
-
-                                        billerName:
-                                            'SARAWAK ENERGY',
-
-                                        serviceType:
-                                            BillServiceType
-                                                .electric,
-                                      ),
-                                    ),
-                                  );
-                                },
+                                providerName:
+                                    "TOUCH 'N GO PINLESS",
                               );
                             },
                           ),
@@ -1017,167 +1213,83 @@ class _PELECTRICBILL3PAGEState
                     ),
 
                     const SizedBox(
-                      height: 36,
+                      height:
+                          36,
                     ),
 
                     // ========================================================
-                    // SABAH ELECTRICITY + NUR POWER
+                    // ROW 2
+                    // TRUE MONEY
                     // ========================================================
+
                     Row(
                       crossAxisAlignment:
-                          CrossAxisAlignment
-                              .start,
+                          CrossAxisAlignment.start,
+
                       children: [
                         // ====================================================
-                        // SABAH ELECTRICITY
+                        // TRUE MONEY
+                        //
+                        // PAGE 4:
+                        // Enter phone.
+                        //
+                        // PAGE 5:
+                        // Enter amount.
                         // ====================================================
+
                         Expanded(
                           child:
-                              _ElectricProviderCard(
+                              _EWalletProviderCard(
                             imageUrl:
-                                'https://dashboard.iimmpact.com/img/SESB.png',
+                                'https://dashboard.iimmpact.com/img/TRUE.png',
 
-                            label: loc
-                                .sabahelectricityButton,
+                            label:
+                                loc.trueMoneyEWallet,
 
                             accentColor:
                                 const Color(
-                              0xFF1779B9,
+                              0xFFFF6D00,
                             ),
 
                             lightAccentColor:
                                 const Color(
-                              0xFFE5F5FF,
+                              0xFFFFE9D9,
                             ),
 
-                            networkStatus:
-                                _billerStatuses[
-                                        'SESB'] ??
-                                    BillerStatus
-                                        .loading,
+                            status:
+                                _statuses['TRUE'] ??
+                                    EWalletStatus.loading,
 
                             networkLabel:
                                 loc.networkLabel,
-
+                            
                             processingTime:
-                                _processingTimes[
-                                        'SESB'] ??
-                                    '',
+                                _processingTimes['TRUE'] ?? '',
 
                             processingLabel:
                                 loc.processingTimeLabel,
 
-                            onPressed: () {
-                              _handleBillerTap(
+                            onPressed:
+                                () {
+                              _handleProviderTap(
                                 productCode:
-                                    'SESB',
+                                    'TRUE',
 
-                                billerName:
-                                    'SABAH ELECTRICITY',
-
-                                navigate: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (_) =>
-                                              P4BILPAGE(
-                                        title: loc
-                                            .electricAccountTitle,
-                                        hint: loc
-                                            .electricAccountHint,
-                                        productCode:
-                                            'SESB',
-                                        billerName:
-                                            'SABAH ELECTRICITY',
-                                        serviceType:
-                                            BillServiceType
-                                                .electric,
-                                      ),
-                                    ),
-                                  );
-                                },
+                                providerName:
+                                    'TRUEMONEY E-WALLET',
                               );
                             },
                           ),
                         ),
 
                         const SizedBox(
-                          width: 34,
+                          width:
+                              34,
                         ),
 
-                        // ====================================================
-                        // NUR POWER
-                        // ====================================================
-                        Expanded(
+                        const Expanded(
                           child:
-                              _ElectricProviderCard(
-                            imageUrl:
-                                'https://dashboard.iimmpact.com/img/NUR.png',
-
-                            label: loc
-                                .nurpowerButton,
-
-                            accentColor:
-                                const Color(
-                              0xFFE59522,
-                            ),
-
-                            lightAccentColor:
-                                const Color(
-                              0xFFFFF3D9,
-                            ),
-
-                            networkStatus:
-                                _billerStatuses[
-                                        'NUR'] ??
-                                    BillerStatus
-                                        .loading,
-
-                            networkLabel:
-                                loc.networkLabel,
-
-                            processingTime:
-                                _processingTimes[
-                                        'NUR'] ??
-                                    '',
-
-                            processingLabel:
-                                loc.processingTimeLabel,
-
-                            onPressed: () {
-                              _handleBillerTap(
-                                productCode:
-                                    'NUR',
-
-                                billerName:
-                                    'NUR POWER',
-
-                                navigate: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (_) =>
-                                              P4BILPAGE(
-                                        title: loc
-                                            .electricAccountTitle,
-                                        hint: loc
-                                            .electricAccountHint,
-                                        productCode:
-                                            'NUR',
-                                        billerName:
-                                            'NUR POWER',
-                                        serviceType:
-                                            BillServiceType
-                                                .electric,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                              SizedBox(),
                         ),
                       ],
                     ),
@@ -1190,16 +1302,24 @@ class _PELECTRICBILL3PAGEState
           // ==================================================================
           // SCROLL UP
           // ==================================================================
+
           if (showScrollUp)
             Positioned(
-              right: 18,
-              top: 365,
+              right:
+                  18,
+
+              top:
+                  365,
+
               child:
                   _ScrollIndicatorButton(
-                icon: Icons
-                    .keyboard_arrow_up_rounded,
+                icon:
+                    Icons
+                        .keyboard_arrow_up_rounded,
+
                 label:
                     loc.scrollup,
+
                 onPressed:
                     _scrollUp,
               ),
@@ -1208,18 +1328,27 @@ class _PELECTRICBILL3PAGEState
           // ==================================================================
           // SCROLL DOWN
           // ==================================================================
+
           if (showScrollDown)
             Positioned(
-              right: 18,
-              bottom: 290,
+              right:
+                  18,
+
+              bottom:
+                  290,
+
               child:
                   _ScrollIndicatorButton(
-                icon: Icons
-                    .keyboard_arrow_down_rounded,
+                icon:
+                    Icons
+                        .keyboard_arrow_down_rounded,
+
                 label:
                     loc.scrolldown,
+
                 onPressed:
                     _scrollDown,
+
                 iconBelowText:
                     true,
               ),
@@ -1228,19 +1357,28 @@ class _PELECTRICBILL3PAGEState
           // ==================================================================
           // BACK
           // ==================================================================
+
           Positioned(
-            bottom: 105,
-            left: 300,
-            right: 300,
+            bottom:
+                105,
+
+            left:
+                300,
+
+            right:
+                300,
+
             child:
                 KioskBackButton(
-              onPressed: () {
-                Navigator
-                    .pushReplacement(
+              onPressed:
+                  () {
+                Navigator.pushReplacement(
                   context,
+
                   MaterialPageRoute(
-                    builder: (_) =>
-                        const PBIL3PAGE(),
+                    builder:
+                        (_) =>
+                            const PBIL3PAGE(),
                   ),
                 );
               },
@@ -1250,20 +1388,36 @@ class _PELECTRICBILL3PAGEState
           // ==================================================================
           // FOOTER
           // ==================================================================
+
           Positioned(
-            bottom: 25,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
+            bottom:
+                25,
+
+            left:
+                0,
+
+            right:
+                0,
+
+            child:
+                Center(
+              child:
+                  Text(
                 Data.copyrightText,
+
                 textAlign:
                     TextAlign.center,
+
                 style:
                     const TextStyle(
                   color:
-                      Color(0xFF26364A),
-                  fontSize: 20,
+                      Color(
+                    0xFF26364A,
+                  ),
+
+                  fontSize:
+                      20,
+
                   fontWeight:
                       FontWeight.w800,
                 ),
@@ -1277,75 +1431,110 @@ class _PELECTRICBILL3PAGEState
 }
 
 // ============================================================================
-// MODERN HEADER
+// MODERN E-WALLET HEADER
 // ============================================================================
-class _ModernPageHeader
+
+class _ModernEWalletHeader
     extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const _ModernPageHeader({
+  const _ModernEWalletHeader({
     required this.title,
     required this.subtitle,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     const Color accentColor =
-        Color(0xFF1469E8);
+        Color(
+      0xFFEF6C35,
+    );
 
     return Column(
       children: [
+        // ====================================================================
+        // SERVICE BADGE
+        // ====================================================================
+
         Container(
           padding:
               const EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 10,
+            horizontal:
+                24,
+
+            vertical:
+                10,
           ),
+
           decoration:
               BoxDecoration(
             color:
                 accentColor.withOpacity(
               0.10,
             ),
+
             borderRadius:
                 BorderRadius.circular(
               100,
             ),
+
             border:
                 Border.all(
               color:
                   accentColor.withOpacity(
                 0.24,
               ),
-              width: 1.5,
+
+              width:
+                  1.5,
             ),
           ),
-          child: Row(
+
+          child:
+              Row(
             mainAxisSize:
                 MainAxisSize.min,
+
             children: [
               const Icon(
                 Icons
-                    .electric_bolt_rounded,
+                    .account_balance_wallet_rounded,
+
                 color:
                     accentColor,
-                size: 25,
+
+                size:
+                    25,
               ),
 
               const SizedBox(
-                width: 9,
+                width:
+                    9,
               ),
 
               Text(
-                AppLocalizations.of(context)!
-                    .electricitybutton
+                AppLocalizations.of(
+                  context,
+                )!
+                    .eWalletServiceLabel
                     .toUpperCase(),
-                style: const TextStyle(
-                  color: accentColor,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.4,
+
+                style:
+                    const TextStyle(
+                  color:
+                      accentColor,
+
+                  fontSize:
+                      17,
+
+                  fontWeight:
+                      FontWeight.w900,
+
+                  letterSpacing:
+                      1.4,
                 ),
               ),
             ],
@@ -1353,40 +1542,64 @@ class _ModernPageHeader
         ),
 
         const SizedBox(
-          height: 17,
+          height:
+              17,
         ),
+
+        // ====================================================================
+        // TITLE
+        // ====================================================================
 
         ShaderMask(
           blendMode:
               BlendMode.srcIn,
-          shaderCallback: (bounds) {
+
+          shaderCallback:
+              (
+            bounds,
+          ) {
             return const LinearGradient(
               colors: [
                 Color(
-                  0xFF064CAC,
+                  0xFFD35400,
                 ),
+
                 Color(
-                  0xFF1987EB,
+                  0xFFFF8A3D,
                 ),
               ],
             ).createShader(
               bounds,
             );
           },
-          child: Text(
+
+          child:
+              Text(
             title.toUpperCase(),
+
             textAlign:
                 TextAlign.center,
-            maxLines: 2,
+
+            maxLines:
+                2,
+
             overflow:
                 TextOverflow.ellipsis,
+
             style:
                 const TextStyle(
-              color: Colors.white,
-              fontSize: 62,
+              color:
+                  Colors.white,
+
+              fontSize:
+                  62,
+
               fontWeight:
                   FontWeight.w900,
-              height: 1.05,
+
+              height:
+                  1.05,
+
               letterSpacing:
                   -0.8,
             ),
@@ -1394,37 +1607,53 @@ class _ModernPageHeader
         ),
 
         const SizedBox(
-          height: 14,
+          height:
+              14,
         ),
+
+        // ====================================================================
+        // SUBTITLE
+        // ====================================================================
 
         Container(
           constraints:
               const BoxConstraints(
-            maxWidth: 850,
+            maxWidth:
+                850,
           ),
+
           padding:
               const EdgeInsets.symmetric(
-            horizontal: 30,
-            vertical: 14,
+            horizontal:
+                30,
+
+            vertical:
+                14,
           ),
+
           decoration:
               BoxDecoration(
             color:
                 Colors.white.withOpacity(
               0.91,
             ),
+
             borderRadius:
                 BorderRadius.circular(
               23,
             ),
+
             border:
                 Border.all(
               color:
                   Colors.black.withOpacity(
                 0.17,
               ),
-              width: 1.5,
+
+              width:
+                  1.5,
             ),
+
             boxShadow: [
               BoxShadow(
                 color:
@@ -1433,7 +1662,10 @@ class _ModernPageHeader
                 ).withOpacity(
                   0.10,
                 ),
-                blurRadius: 22,
+
+                blurRadius:
+                    22,
+
                 offset:
                     const Offset(
                   0,
@@ -1442,20 +1674,29 @@ class _ModernPageHeader
               ),
             ],
           ),
-          child: Text(
+
+          child:
+              Text(
             subtitle.toUpperCase(),
+
             textAlign:
                 TextAlign.center,
+
             style:
                 const TextStyle(
               color:
                   Color(
                 0xFF435166,
               ),
-              fontSize: 28,
+
+              fontSize:
+                  28,
+
               fontWeight:
                   FontWeight.w700,
-              height: 1.2,
+
+              height:
+                  1.2,
             ),
           ),
         ),
@@ -1465,56 +1706,67 @@ class _ModernPageHeader
 }
 
 // ============================================================================
-// ELECTRICITY PROVIDER CARD
+// E-WALLET PROVIDER CARD
 // ============================================================================
-class _ElectricProviderCard
+
+class _EWalletProviderCard
     extends StatefulWidget {
   final String imageUrl;
+
   final String label;
 
   final VoidCallback onPressed;
 
   final Color accentColor;
+
   final Color lightAccentColor;
 
-  final BillerStatus networkStatus;
-  final String networkLabel;
+  final EWalletStatus status;
 
-  // Processing time from catalog.
-  final String processingTime;
-  final String processingLabel;
+  final String networkLabel;
 
   final bool comingSoon;
 
-  const _ElectricProviderCard({
+  final String processingTime;
+
+  final String processingLabel;
+
+  const _EWalletProviderCard({
     super.key,
+
     required this.imageUrl,
+
     required this.label,
+
     required this.onPressed,
+
     required this.accentColor,
+
     required this.lightAccentColor,
-    required this.networkStatus,
+
+    required this.status,
+
     required this.networkLabel,
+
     required this.processingTime,
+
     required this.processingLabel,
+
     this.comingSoon = false,
   });
 
   @override
-  State<_ElectricProviderCard>
+  State<_EWalletProviderCard>
       createState() =>
-          _ElectricProviderCardState();
+          _EWalletProviderCardState();
 }
 
-// ============================================================================
-// ELECTRIC PROVIDER CARD STATE
-// ============================================================================
-class _ElectricProviderCardState
-    extends State<_ElectricProviderCard> {
+class _EWalletProviderCardState
+    extends State<_EWalletProviderCard> {
   bool _isPressed = false;
 
   // ==========================================================================
-  // PRESS STATE
+  // PRESSED STATE
   // ==========================================================================
 
   void _changePressedState(
@@ -1526,13 +1778,10 @@ class _ElectricProviderCardState
     }
 
     setState(() {
-      _isPressed = value;
+      _isPressed =
+          value;
     });
   }
-
-  // ==========================================================================
-  // PROCESSING TIME LOCALIZATION
-  // ==========================================================================
 
   String _formatProcessingTime(
     BuildContext context,
@@ -1541,23 +1790,46 @@ class _ElectricProviderCardState
     final loc =
         AppLocalizations.of(context)!;
 
-    switch (
-        value.toLowerCase().trim()) {
-      case 'instant':
-        return loc.processingInstant;
+    final String normalized =
+        value.toLowerCase().trim();
 
-      case '24_hours':
-        return loc.processing24Hours;
-
-      case '3_days':
-        return loc.processing3Days;
-
-      default:
-        return value.replaceAll(
-          '_',
-          ' ',
-        );
+    if (normalized == 'instant') {
+      return loc.processingInstant;
     }
+
+    if (normalized == '24_hours') {
+      return loc.processing24Hours;
+    }
+
+    if (normalized == '3_days') {
+      return loc.processing3Days;
+    }
+
+    if (normalized.endsWith('_hours')) {
+      final String hours =
+          normalized.replaceAll(
+        '_hours',
+        '',
+      );
+
+      return loc.eWalletUpdateWithinHours(
+        hours,
+      );
+    }
+
+    if (normalized.endsWith('_days')) {
+      final String days =
+          normalized.replaceAll(
+        '_days',
+        '',
+      );
+
+      return loc.eWalletUpdateWithinDays(
+        days,
+      );
+    }
+
+    return value.replaceAll('_', ' ');
   }
 
   // ==========================================================================
@@ -1565,7 +1837,9 @@ class _ElectricProviderCardState
   // ==========================================================================
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final bool isEnabled =
         !widget.comingSoon;
 
@@ -1573,38 +1847,46 @@ class _ElectricProviderCardState
       behavior:
           HitTestBehavior.opaque,
 
-      onTapDown: isEnabled
-          ? (_) =>
-              _changePressedState(
-                true,
-              )
-          : null,
+      onTapDown:
+          isEnabled
+              ? (_) =>
+                  _changePressedState(
+                    true,
+                  )
+              : null,
 
-      onTapUp: isEnabled
-          ? (_) =>
-              _changePressedState(
-                false,
-              )
-          : null,
+      onTapUp:
+          isEnabled
+              ? (_) =>
+                  _changePressedState(
+                    false,
+                  )
+              : null,
 
-      onTapCancel: isEnabled
-          ? () =>
-              _changePressedState(
-                false,
-              )
-          : null,
+      onTapCancel:
+          isEnabled
+              ? () =>
+                  _changePressedState(
+                    false,
+                  )
+              : null,
 
-      onTap: isEnabled
-          ? widget.onPressed
-          : null,
+      onTap:
+          isEnabled
+              ? widget.onPressed
+              : null,
 
-      child: AnimatedScale(
+      child:
+          AnimatedScale(
         scale:
-            _isPressed ? 0.965 : 1,
+            _isPressed
+                ? 0.965
+                : 1,
 
         duration:
             const Duration(
-          milliseconds: 130,
+          milliseconds:
+              130,
         ),
 
         curve:
@@ -1614,15 +1896,15 @@ class _ElectricProviderCardState
             AnimatedContainer(
           duration:
               const Duration(
-            milliseconds: 170,
+            milliseconds:
+                170,
           ),
 
           curve:
               Curves.easeOut,
 
-          // Increase slightly because we added
-          // processing time below network status.
-          height: 510,
+          height:
+              480,
 
           decoration:
               BoxDecoration(
@@ -1640,27 +1922,31 @@ class _ElectricProviderCardState
 
             border:
                 Border.all(
-              color: _isPressed
-                  ? widget.accentColor
-                  : widget.comingSoon
-                      ? Colors.grey
-                      : Colors.black,
+              color:
+                  _isPressed
+                      ? widget.accentColor
+                      : widget.comingSoon
+                          ? Colors.grey
+                          : Colors.black,
 
               width:
-                  _isPressed ? 4 : 3,
+                  _isPressed
+                      ? 4
+                      : 3,
             ),
 
             boxShadow:
                 _isPressed
                     ? [
                         BoxShadow(
-                          color: widget
-                              .accentColor
-                              .withOpacity(
+                          color:
+                              widget.accentColor.withOpacity(
                             0.18,
                           ),
+
                           blurRadius:
                               18,
+
                           offset:
                               const Offset(
                             0,
@@ -1676,10 +1962,13 @@ class _ElectricProviderCardState
                           ).withOpacity(
                             0.16,
                           ),
+
                           blurRadius:
                               30,
+
                           spreadRadius:
                               1,
+
                           offset:
                               const Offset(
                             0,
@@ -1689,20 +1978,27 @@ class _ElectricProviderCardState
                       ],
           ),
 
-          child: ClipRRect(
+          child:
+              ClipRRect(
             borderRadius:
                 BorderRadius.circular(
               37,
             ),
 
-            child: Stack(
+            child:
+                Stack(
               children: [
                 // ============================================================
-                // DECORATIVE CIRCLE
+                // LARGE DECORATIVE CIRCLE
                 // ============================================================
+
                 Positioned(
-                  right: -50,
-                  top: -50,
+                  right:
+                      -50,
+
+                  top:
+                      -50,
+
                   child:
                       AnimatedContainer(
                     duration:
@@ -1710,40 +2006,56 @@ class _ElectricProviderCardState
                       milliseconds:
                           180,
                     ),
+
                     width:
                         _isPressed
                             ? 225
                             : 210,
+
                     height:
                         _isPressed
                             ? 225
                             : 210,
+
                     decoration:
                         BoxDecoration(
                       shape:
                           BoxShape.circle,
-                      color: widget
-                          .lightAccentColor
-                          .withOpacity(
+
+                      color:
+                          widget.lightAccentColor.withOpacity(
                         0.90,
                       ),
                     ),
                   ),
                 ),
 
+                // ============================================================
+                // SMALL DECORATIVE CIRCLE
+                // ============================================================
+
                 Positioned(
-                  right: 95,
-                  top: 110,
-                  child: Container(
-                    width: 36,
-                    height: 36,
+                  right:
+                      95,
+
+                  top:
+                      110,
+
+                  child:
+                      Container(
+                    width:
+                        36,
+
+                    height:
+                        36,
+
                     decoration:
                         BoxDecoration(
                       shape:
                           BoxShape.circle,
-                      color: widget
-                          .accentColor
-                          .withOpacity(
+
+                      color:
+                          widget.accentColor.withOpacity(
                         0.08,
                       ),
                     ),
@@ -1753,44 +2065,47 @@ class _ElectricProviderCardState
                 // ============================================================
                 // CONTENT
                 // ============================================================
+
                 Padding(
                   padding:
-                      const EdgeInsets
-                          .fromLTRB(
+                      const EdgeInsets.fromLTRB(
                     30,
                     28,
                     30,
                     28,
                   ),
 
-                  child: Opacity(
+                  child:
+                      Opacity(
                     opacity:
                         widget.comingSoon
                             ? 0.50
                             : 1,
 
-                    child: Column(
+                    child:
+                        Column(
                       children: [
                         // ====================================================
                         // LOGO + ARROW
                         // ====================================================
+
                         Row(
                           mainAxisAlignment:
-                              MainAxisAlignment
-                                  .spaceBetween,
+                              MainAxisAlignment.spaceBetween,
 
                           crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .start,
+                              CrossAxisAlignment.start,
 
                           children: [
                             Container(
-                              width: 220,
-                              height: 180,
+                              width:
+                                  220,
+
+                              height:
+                                  180,
 
                               padding:
-                                  const EdgeInsets
-                                      .all(
+                                  const EdgeInsets.all(
                                 24,
                               ),
 
@@ -1800,31 +2115,31 @@ class _ElectricProviderCardState
                                     Colors.white,
 
                                 borderRadius:
-                                    BorderRadius
-                                        .circular(
+                                    BorderRadius.circular(
                                   34,
                                 ),
 
                                 border:
                                     Border.all(
-                                  color: widget
-                                      .accentColor
-                                      .withOpacity(
+                                  color:
+                                      widget.accentColor.withOpacity(
                                     0.20,
                                   ),
+
                                   width:
                                       1.5,
                                 ),
 
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors
-                                        .black
-                                        .withOpacity(
+                                    color:
+                                        Colors.black.withOpacity(
                                       0.08,
                                     ),
+
                                     blurRadius:
                                         16,
+
                                     offset:
                                         const Offset(
                                       0,
@@ -1857,8 +2172,9 @@ class _ElectricProviderCardState
                                         CircularProgressIndicator(
                                       strokeWidth:
                                           3,
-                                      color: widget
-                                          .accentColor,
+
+                                      color:
+                                          widget.accentColor,
                                     ),
                                   );
                                 },
@@ -1870,16 +2186,19 @@ class _ElectricProviderCardState
                                   stackTrace,
                                 ) {
                                   debugPrint(
-                                    'Failed to load electric logo: '
+                                    'Failed to load E-Wallet logo: '
                                     '${widget.imageUrl}',
                                   );
 
                                   return Icon(
                                     Icons
-                                        .electric_bolt_rounded,
-                                    size: 90,
-                                    color: widget
-                                        .accentColor,
+                                        .account_balance_wallet_rounded,
+
+                                    size:
+                                        90,
+
+                                    color:
+                                        widget.accentColor,
                                   );
                                 },
                               ),
@@ -1893,35 +2212,40 @@ class _ElectricProviderCardState
                               ),
 
                               transform:
-                                  Matrix4
-                                      .translationValues(
+                                  Matrix4.translationValues(
                                 _isPressed
                                     ? 6
                                     : 0,
+
                                 0,
+
                                 0,
                               ),
 
-                              width: 58,
-                              height: 58,
+                              width:
+                                  58,
+
+                              height:
+                                  58,
 
                               decoration:
                                   BoxDecoration(
-                                color: widget
-                                    .accentColor,
+                                color:
+                                    widget.accentColor,
 
                                 shape:
                                     BoxShape.circle,
 
                                 boxShadow: [
                                   BoxShadow(
-                                    color: widget
-                                        .accentColor
-                                        .withOpacity(
+                                    color:
+                                        widget.accentColor.withOpacity(
                                       0.25,
                                     ),
+
                                     blurRadius:
                                         14,
+
                                     offset:
                                         const Offset(
                                       0,
@@ -1935,9 +2259,12 @@ class _ElectricProviderCardState
                                   const Icon(
                                 Icons
                                     .arrow_forward_rounded,
+
                                 color:
                                     Colors.white,
-                                size: 32,
+
+                                size:
+                                    32,
                               ),
                             ),
                           ],
@@ -1946,22 +2273,22 @@ class _ElectricProviderCardState
                         const Spacer(),
 
                         // ====================================================
-                        // BILLER NAME
+                        // PROVIDER NAME
                         // ====================================================
+
                         Align(
                           alignment:
-                              Alignment
-                                  .centerLeft,
+                              Alignment.centerLeft,
 
-                          child: Text(
-                            widget.label
-                                .toUpperCase(),
+                          child:
+                              Text(
+                            widget.label.toUpperCase(),
 
-                            maxLines: 2,
+                            maxLines:
+                                3,
 
                             overflow:
-                                TextOverflow
-                                    .ellipsis,
+                                TextOverflow.ellipsis,
 
                             textAlign:
                                 TextAlign.left,
@@ -1974,110 +2301,83 @@ class _ElectricProviderCardState
                               ),
 
                               fontSize:
-                                  34,
+                                  35,
 
                               fontWeight:
-                                  FontWeight
-                                      .w900,
+                                  FontWeight.w900,
 
                               height:
-                                  1.08,
+                                  1.10,
 
                               letterSpacing:
-                                  0.3,
+                                  0.4,
                             ),
                           ),
                         ),
 
                         const SizedBox(
-                          height: 18,
+                          height:
+                              21,
                         ),
 
                         // ====================================================
                         // NETWORK STATUS
                         // ====================================================
+
                         Align(
                           alignment:
-                              Alignment
-                                  .centerLeft,
+                              Alignment.centerLeft,
 
                           child:
                               _NetworkStatusBadge(
                             status:
-                                widget
-                                    .networkStatus,
+                                widget.status,
 
                             label:
-                                widget
-                                    .networkLabel,
+                                widget.networkLabel,
                           ),
                         ),
 
                         // ====================================================
                         // PROCESSING TIME
                         // ====================================================
-                        if (widget
-                            .processingTime
-                            .isNotEmpty) ...[
+                        if (widget.processingTime.isNotEmpty) ...[
                           const SizedBox(
                             height: 14,
                           ),
 
                           Align(
-                            alignment:
-                                Alignment
-                                    .centerLeft,
-
+                            alignment: Alignment.centerLeft,
                             child: Row(
-                              mainAxisSize:
-                                  MainAxisSize
-                                      .min,
-
                               children: [
                                 const Icon(
-                                  Icons
-                                      .schedule_rounded,
-                                  size:
-                                      23,
-                                  color:
-                                      Color(
-                                    0xFF647187,
-                                  ),
+                                  Icons.schedule_rounded,
+                                  size: 22,
+                                  color: Color(0xFF647187),
                                 ),
 
                                 const SizedBox(
                                   width: 8,
                                 ),
 
-                                Flexible(
-                                  child:
-                                      Text(
+                                Expanded(
+                                  child: Text(
                                     '${widget.processingLabel}: '
                                     '${_formatProcessingTime(
                                       context,
                                       widget.processingTime,
                                     )}',
-
-                                    maxLines:
-                                        1,
-
+                                    maxLines: 2,
                                     overflow:
-                                        TextOverflow
-                                            .ellipsis,
-
+                                        TextOverflow.ellipsis,
                                     style:
                                         const TextStyle(
                                       color:
-                                          Color(
-                                        0xFF647187,
-                                      ),
-
-                                      fontSize:
-                                          18,
-
+                                          Color(0xFF647187),
+                                      fontSize: 17,
                                       fontWeight:
-                                          FontWeight
-                                              .w700,
+                                          FontWeight.w700,
+                                      height: 1.15,
                                     ),
                                   ),
                                 ),
@@ -2087,49 +2387,54 @@ class _ElectricProviderCardState
                         ],
 
                         const SizedBox(
-                          height: 18,
+                          height: 22,
                         ),
 
                         // ====================================================
-                        // DECORATIVE LINE
+                        // DECORATIVE BARS
                         // ====================================================
                         Row(
                           children: [
                             Container(
-                              width: 60,
-                              height: 7,
+                              width:
+                                  60,
+
+                              height:
+                                  7,
+
                               decoration:
                                   BoxDecoration(
-                                color: widget
-                                    .accentColor,
+                                color:
+                                    widget.accentColor,
 
                                 borderRadius:
-                                    BorderRadius
-                                        .circular(
+                                    BorderRadius.circular(
                                   50,
                                 ),
                               ),
                             ),
 
                             const SizedBox(
-                              width: 8,
+                              width:
+                                  8,
                             ),
 
                             Container(
-                              width: 13,
-                              height: 7,
+                              width:
+                                  13,
+
+                              height:
+                                  7,
 
                               decoration:
                                   BoxDecoration(
-                                color: widget
-                                    .accentColor
-                                    .withOpacity(
+                                color:
+                                    widget.accentColor.withOpacity(
                                   0.28,
                                 ),
 
                                 borderRadius:
-                                    BorderRadius
-                                        .circular(
+                                    BorderRadius.circular(
                                   50,
                                 ),
                               ),
@@ -2144,12 +2449,13 @@ class _ElectricProviderCardState
                 // ============================================================
                 // COMING SOON
                 // ============================================================
+
                 if (widget.comingSoon)
                   Positioned.fill(
-                    child: Container(
+                    child:
+                        Container(
                       color:
-                          Colors.white
-                              .withOpacity(
+                          Colors.white.withOpacity(
                         0.24,
                       ),
 
@@ -2158,23 +2464,27 @@ class _ElectricProviderCardState
 
                       child:
                           Transform.rotate(
-                        angle: -0.12,
+                        angle:
+                            -0.12,
 
-                        child: Container(
+                        child:
+                            Container(
                           width:
                               double.infinity,
 
                           margin:
-                              const EdgeInsets
-                                  .symmetric(
-                            horizontal: 14,
+                              const EdgeInsets.symmetric(
+                            horizontal:
+                                14,
                           ),
 
                           padding:
-                              const EdgeInsets
-                                  .symmetric(
-                            horizontal: 20,
-                            vertical: 15,
+                              const EdgeInsets.symmetric(
+                            horizontal:
+                                20,
+
+                            vertical:
+                                15,
                           ),
 
                           decoration:
@@ -2185,8 +2495,7 @@ class _ElectricProviderCardState
                             ),
 
                             borderRadius:
-                                BorderRadius
-                                    .circular(
+                                BorderRadius.circular(
                               18,
                             ),
 
@@ -2194,11 +2503,14 @@ class _ElectricProviderCardState
                                 Border.all(
                               color:
                                   Colors.white,
-                              width: 3,
+
+                              width:
+                                  3,
                             ),
                           ),
 
-                          child: Text(
+                          child:
+                              Text(
                             AppLocalizations.of(
                               context,
                             )!
@@ -2217,8 +2529,7 @@ class _ElectricProviderCardState
                                   27,
 
                               fontWeight:
-                                  FontWeight
-                                      .w900,
+                                  FontWeight.w900,
 
                               letterSpacing:
                                   2,
@@ -2240,9 +2551,11 @@ class _ElectricProviderCardState
 // ============================================================================
 // NETWORK STATUS BADGE
 // ============================================================================
+
 class _NetworkStatusBadge
     extends StatelessWidget {
-  final BillerStatus status;
+  final EWalletStatus status;
+
   final String label;
 
   const _NetworkStatusBadge({
@@ -2251,85 +2564,117 @@ class _NetworkStatusBadge
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final loc =
         AppLocalizations.of(context)!;
 
     late final String statusText;
 
     late final Color backgroundColor;
+
     late final Color borderColor;
+
     late final Color foregroundColor;
 
     late final IconData icon;
 
+    // =========================================================================
+    // STATUS DESIGN
+    // =========================================================================
+
     switch (status) {
-      case BillerStatus.loading:
+      case EWalletStatus.loading:
         statusText =
             loc.networkStatusChecking;
 
         backgroundColor =
-            const Color(0xFFF0F4F8);
+            const Color(
+          0xFFF0F4F8,
+        );
 
         borderColor =
-            const Color(0xFFC7D2DE);
+            const Color(
+          0xFFC7D2DE,
+        );
 
         foregroundColor =
-            const Color(0xFF536272);
+            const Color(
+          0xFF536272,
+        );
 
         icon =
             Icons.sync_rounded;
 
         break;
 
-      case BillerStatus.healthy:
+      case EWalletStatus.healthy:
         statusText =
             loc.networkStatusGood;
 
         backgroundColor =
-            const Color(0xFFE2F8EC);
+            const Color(
+          0xFFE2F8EC,
+        );
 
         borderColor =
-            const Color(0xFF78C99B);
+            const Color(
+          0xFF78C99B,
+        );
 
         foregroundColor =
-            const Color(0xFF08783E);
+            const Color(
+          0xFF08783E,
+        );
 
         icon =
             Icons.check_circle_rounded;
 
         break;
 
-      case BillerStatus.interruption:
+      case EWalletStatus.interruption:
         statusText =
             loc.networkStatusSlow;
 
         backgroundColor =
-            const Color(0xFFFFF0D7);
+            const Color(
+          0xFFFFF0D7,
+        );
 
         borderColor =
-            const Color(0xFFF1B95D);
+            const Color(
+          0xFFF1B95D,
+        );
 
         foregroundColor =
-            const Color(0xFFB75B00);
+            const Color(
+          0xFFB75B00,
+        );
 
         icon =
             Icons.warning_amber_rounded;
 
         break;
 
-      case BillerStatus.unavailable:
+      case EWalletStatus.unavailable:
         statusText =
             loc.networkStatusUnknown;
 
         backgroundColor =
-            const Color(0xFFF1F1F1);
+            const Color(
+          0xFFF1F1F1,
+        );
 
         borderColor =
-            const Color(0xFFC8C8C8);
+            const Color(
+          0xFFC8C8C8,
+        );
 
         foregroundColor =
-            const Color(0xFF555555);
+            const Color(
+          0xFF555555,
+        );
 
         icon =
             Icons.help_outline_rounded;
@@ -2340,13 +2685,17 @@ class _NetworkStatusBadge
     return Container(
       constraints:
           const BoxConstraints(
-        minHeight: 54,
+        minHeight:
+            58,
       ),
 
       padding:
           const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 12,
+        horizontal:
+            18,
+
+        vertical:
+            14,
       ),
 
       decoration:
@@ -2363,24 +2712,36 @@ class _NetworkStatusBadge
             Border.all(
           color:
               borderColor,
-          width: 1.7,
+
+          width:
+              1.7,
         ),
       ),
 
-      child: Row(
+      child:
+          Row(
         mainAxisSize:
             MainAxisSize.min,
 
         children: [
+          // ==================================================================
+          // ICON / LOADING
+          // ==================================================================
+
           if (status ==
-              BillerStatus.loading)
+              EWalletStatus.loading)
             SizedBox(
-              width: 24,
-              height: 24,
+              width:
+                  26,
+
+              height:
+                  26,
 
               child:
                   CircularProgressIndicator(
-                strokeWidth: 3,
+                strokeWidth:
+                    3,
+
                 color:
                     foregroundColor,
               ),
@@ -2388,38 +2749,47 @@ class _NetworkStatusBadge
           else
             Icon(
               icon,
-              size: 26,
+
+              size:
+                  28,
+
               color:
                   foregroundColor,
             ),
 
           const SizedBox(
-            width: 9,
+            width:
+                9,
           ),
 
-          Flexible(
-            child: Text(
-              '$label: '
-              '$statusText',
+          // ==================================================================
+          // TEXT
+          // ==================================================================
 
-              maxLines: 1,
+          Flexible(
+            child:
+                Text(
+              '$label: $statusText',
+
+              maxLines:
+                  1,
 
               overflow:
-                  TextOverflow
-                      .ellipsis,
+                  TextOverflow.ellipsis,
 
               style:
                   TextStyle(
                 color:
                     foregroundColor,
 
-                fontSize: 17,
+                fontSize:
+                    18,
 
                 fontWeight:
                     FontWeight.w900,
 
                 letterSpacing:
-                    0.5,
+                    0.7,
               ),
             ),
           ),
@@ -2432,11 +2802,15 @@ class _NetworkStatusBadge
 // ============================================================================
 // SCROLL INDICATOR BUTTON
 // ============================================================================
+
 class _ScrollIndicatorButton
     extends StatelessWidget {
   final IconData icon;
+
   final String label;
+
   final VoidCallback onPressed;
+
   final bool iconBelowText;
 
   const _ScrollIndicatorButton({
@@ -2447,20 +2821,26 @@ class _ScrollIndicatorButton
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final Widget iconWidget =
         Icon(
       icon,
-      size: 52,
+
+      size:
+          52,
+
       color:
           const Color(
-        0xFF1469E8,
+        0xFFEF6C35,
       ),
     );
 
     final Widget textWidget =
         Text(
       label,
+
       textAlign:
           TextAlign.center,
 
@@ -2470,7 +2850,10 @@ class _ScrollIndicatorButton
             Color(
           0xFF15253A,
         ),
-        fontSize: 17,
+
+        fontSize:
+            17,
+
         fontWeight:
             FontWeight.w900,
       ),
@@ -2487,9 +2870,11 @@ class _ScrollIndicatorButton
         22,
       ),
 
-      elevation: 5,
+      elevation:
+          5,
 
-      child: InkWell(
+      child:
+          InkWell(
         onTap:
             onPressed,
 
@@ -2498,19 +2883,21 @@ class _ScrollIndicatorButton
           22,
         ),
 
-        child: Container(
+        child:
+            Container(
           padding:
-              const EdgeInsets
-                  .symmetric(
-            horizontal: 13,
-            vertical: 10,
+              const EdgeInsets.symmetric(
+            horizontal:
+                13,
+
+            vertical:
+                10,
           ),
 
           decoration:
               BoxDecoration(
             borderRadius:
-                BorderRadius
-                    .circular(
+                BorderRadius.circular(
               22,
             ),
 
@@ -2518,11 +2905,14 @@ class _ScrollIndicatorButton
                 Border.all(
               color:
                   Colors.black,
-              width: 2,
+
+              width:
+                  2,
             ),
           ),
 
-          child: Column(
+          child:
+              Column(
             mainAxisSize:
                 MainAxisSize.min,
 

@@ -24,7 +24,8 @@ import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:frontend_v1/pages/bil/telco/ptelco4.dart';
-
+import 'package:frontend_v1/pages/bil/telco/mobilepin/pmobilepin4.dart';
+import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 
 enum TelcoBillerStatus {
   loading,
@@ -80,6 +81,11 @@ class _PTELCOPROVIDER3PAGEState
   final Map<String, TelcoBillerStatus> _billerStatuses = {};
   final Map<String, String?> _lastUpdated = {};
 
+  // ==========================================================================
+  // PROCESSING TIME FROM IIMMPACT CATALOG
+  // ==========================================================================
+  final Map<String, String> _processingTimes = {};
+
   final ScrollController _scrollController = ScrollController();
 
   bool showScrollUp = false;
@@ -98,8 +104,102 @@ class _PTELCOPROVIDER3PAGEState
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadInitialNetworkStatuses();
+
+      _loadCatalogProcessingTimes();
+
       _handleScroll();
     });
+  }
+
+  // ============================================================
+  // LOAD PROCESSING TIME FROM IIMMPACT CATALOG
+  // ============================================================
+  Future<void> _loadCatalogProcessingTimes() async {
+    try {
+      final Map<String, dynamic> catalog =
+          await IimmpactCatalogService.getCatalog();
+
+      final dynamic productsRaw = catalog['products'];
+
+      if (productsRaw is! Map) {
+        debugPrint(
+          'Telco catalog error: products not found.',
+        );
+        return;
+      }
+
+      final Map<String, dynamic> products =
+          Map<String, dynamic>.from(
+        productsRaw,
+      );
+
+      final Map<String, String> loadedTimes = {};
+
+      // IMPORTANT:
+      // Reuse whatever providers were passed into this page.
+      //
+      // Example Bill Payment:
+      // CB, DB, RB, UB, XB, YESB
+      //
+      // Mobile PIN will automatically use its own
+      // product codes.
+      for (final TelcoProviderItem provider
+          in widget.providers) {
+        final dynamic rawProduct =
+            products[provider.productCode];
+
+        if (rawProduct is! Map) {
+          debugPrint(
+            'Telco catalog product not found: '
+            '${provider.productCode}',
+          );
+          continue;
+        }
+
+        final Map<String, dynamic> product =
+            Map<String, dynamic>.from(
+          rawProduct,
+        );
+
+        final String processingTime =
+            product['processing_time']
+                    ?.toString()
+                    .trim() ??
+                '';
+
+        if (processingTime.isNotEmpty) {
+          loadedTimes[provider.productCode] =
+              processingTime;
+        }
+      }
+
+      if (!mounted) {
+        return;
+      }
+
+      setState(() {
+        _processingTimes
+          ..clear()
+          ..addAll(loadedTimes);
+      });
+
+      debugPrint(
+        'Telco processing times loaded: '
+        '$_processingTimes',
+      );
+    } on IimmpactCatalogException catch (error) {
+      debugPrint(
+        'Telco catalog error: ${error.message}',
+      );
+    } catch (error, stackTrace) {
+      debugPrint(
+        'Unexpected Telco catalog error: $error',
+      );
+
+      debugPrintStack(
+        stackTrace: stackTrace,
+      );
+    }
   }
 
   // ============================================================
@@ -420,49 +520,104 @@ class _PTELCOPROVIDER3PAGEState
     return result ?? false;
   }
 
-  // ============================================================
-  // PROVIDER PRESS
-  // ============================================================
-  Future<void> _handleProviderTap(
-    TelcoProviderItem provider,
-  ) async {
-    final TelcoBillerStatus status =
-        await _refreshNetworkStatus(
-      provider.productCode,
+// ============================================================
+// PROVIDER PRESS
+// ============================================================
+
+Future<void> _handleProviderTap(
+  TelcoProviderItem provider,
+) async {
+  // ==========================================================
+  // 1. CHECK PROVIDER NETWORK STATUS AGAIN
+  // ==========================================================
+
+  final TelcoBillerStatus status =
+      await _refreshNetworkStatus(
+    provider.productCode,
+  );
+
+  if (!mounted) {
+    return;
+  }
+
+  // ==========================================================
+  // 2. INTERRUPTION WARNING
+  // ==========================================================
+
+  if (status ==
+      TelcoBillerStatus.interruption) {
+    final bool shouldContinue =
+        await _showInterruptionWarning(
+      billerName: provider.name,
+      productCode:
+          provider.productCode,
     );
 
-    if (!mounted) {
+    if (!shouldContinue) {
       return;
     }
+  }
 
-    if (status == TelcoBillerStatus.interruption) {
-      final bool shouldContinue =
-          await _showInterruptionWarning(
-        billerName: provider.name,
-        productCode: provider.productCode,
-      );
+  if (!mounted) {
+    return;
+  }
 
-      if (!shouldContinue) {
-        return;
-      }
-    }
+  // ==========================================================
+  // 3. MOBILE PIN
+  //
+  // Mobile PIN does NOT require phone/account input.
+  //
+  // Go directly to:
+  // denomination -> quantity -> summary.
+  // ==========================================================
 
-    if (!mounted) {
-      return;
-    }
-
-    Navigator.push(
+  if (widget.inputType ==
+      TelcoInputType.mobilePin) {
+    await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => PTELCO4PAGE(
-          productCode: provider.productCode,
-          providerName: provider.name,
-          providerImageUrl: provider.imageUrl,
-          inputType: widget.inputType,
+        builder: (_) =>
+            PMOBILEPIN4PAGE(
+          productCode:
+              provider.productCode,
+          providerName:
+              provider.name,
+          providerImageUrl:
+              provider.imageUrl,
         ),
       ),
     );
+
+    return;
   }
+
+  if (!mounted) {
+    return;
+  }
+
+  // ==========================================================
+  // 4. TELCO POSTPAID BILL
+  //
+  // Bill payment still requires account/mobile input.
+  // ==========================================================
+
+  await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) =>
+          PTELCO4PAGE(
+        productCode:
+            provider.productCode,
+        providerName:
+            provider.name,
+        providerImageUrl:
+            provider.imageUrl,
+        inputType:
+            widget.inputType,
+      ),
+    ),
+  );
+}
 
   // ============================================================
   // SCROLL
@@ -534,14 +689,25 @@ class _PTELCOPROVIDER3PAGEState
           children: [
             Expanded(
               child: _TelcoProviderCard(
-                provider: left,
-                networkStatus:
-                    _billerStatuses[left.productCode] ??
-                        TelcoBillerStatus.loading,
-                networkLabel: loc.networkLabel,
-                onPressed: () =>
-                    _handleProviderTap(left),
-              ),
+              provider: left,
+
+              networkStatus:
+                  _billerStatuses[left.productCode] ??
+                      TelcoBillerStatus.loading,
+
+              networkLabel:
+                  loc.networkLabel,
+
+              // NEW
+              processingTime:
+                  _processingTimes[left.productCode] ?? '',
+
+              processingLabel:
+                  loc.processingTimeLabel,
+
+              onPressed: () =>
+                  _handleProviderTap(left),
+            ),
             ),
 
             const SizedBox(width: 34),
@@ -550,15 +716,25 @@ class _PTELCOPROVIDER3PAGEState
               child: right == null
                   ? const SizedBox()
                   : _TelcoProviderCard(
-                      provider: right,
-                      networkStatus:
-                          _billerStatuses[
-                                  right.productCode] ??
-                              TelcoBillerStatus.loading,
-                      networkLabel: loc.networkLabel,
-                      onPressed: () =>
-                          _handleProviderTap(right),
-                    ),
+                    provider: right,
+
+                    networkStatus:
+                        _billerStatuses[
+                                right.productCode] ??
+                            TelcoBillerStatus.loading,
+
+                    networkLabel:
+                        loc.networkLabel,
+
+                    processingTime:
+                        _processingTimes[right.productCode] ?? '',
+
+                    processingLabel:
+                        loc.processingTimeLabel,
+
+                    onPressed: () =>
+                        _handleProviderTap(right),
+                  ),
             ),
           ],
         ),
@@ -611,9 +787,9 @@ class _PTELCOPROVIDER3PAGEState
           // HEADER
           // ============================================================
           Positioned(
-            top: 82,
-            left: 65,
-            right: 65,
+            top: 40,
+            left: 40,
+            right: 40,
             child: _TelcoModernHeader(
               serviceLabel: widget.serviceLabel,
               title: widget.title,
@@ -627,7 +803,7 @@ class _PTELCOPROVIDER3PAGEState
           // PROVIDERS
           // ============================================================
           Positioned(
-            top: 400,
+            top: 450,
             left: 45,
             right: 45,
             bottom: 305,
@@ -778,7 +954,7 @@ class _TelcoModernHeader extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 17),
+        const SizedBox(height: 20),
 
         ShaderMask(
           blendMode: BlendMode.srcIn,
@@ -797,7 +973,7 @@ class _TelcoModernHeader extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 62,
+              fontSize: 50,
               fontWeight: FontWeight.w900,
               height: 1.05,
               letterSpacing: -0.8,
@@ -805,7 +981,7 @@ class _TelcoModernHeader extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 14),
+        const SizedBox(height: 20),
 
         Container(
           constraints: const BoxConstraints(
@@ -856,11 +1032,16 @@ class _TelcoProviderCard extends StatefulWidget {
   final TelcoBillerStatus networkStatus;
   final String networkLabel;
 
+  final String processingTime;
+  final String processingLabel;
+
   const _TelcoProviderCard({
     required this.provider,
     required this.onPressed,
     required this.networkStatus,
     required this.networkLabel,
+    required this.processingTime,
+    required this.processingLabel,
   });
 
   @override
@@ -871,6 +1052,67 @@ class _TelcoProviderCard extends StatefulWidget {
 class _TelcoProviderCardState
     extends State<_TelcoProviderCard> {
   bool _isPressed = false;
+
+  // ============================================================
+  // FORMAT PROCESSING TIME
+  // ============================================================
+  String _formatProcessingTime(
+    BuildContext context,
+    String value,
+  ) {
+    final loc =
+        AppLocalizations.of(context)!;
+
+    final String normalized =
+        value.toLowerCase().trim();
+
+    if (normalized == 'instant') {
+      return loc.processingInstant;
+    }
+
+    if (normalized == '24_hours') {
+      return loc.processing24Hours;
+    }
+
+    if (normalized == '3_days') {
+      return loc.processing3Days;
+    }
+
+    // Other values such as:
+    // 2_hours
+    // 6_hours
+    // 48_hours
+    if (normalized.endsWith('_hours')) {
+      final String hours =
+          normalized.replaceAll(
+        '_hours',
+        '',
+      );
+
+      return loc.telcoUpdateWithinHours(
+        hours,
+      );
+    }
+
+    // Other values such as:
+    // 2_days
+    // 5_days
+    if (normalized.endsWith('_days')) {
+      final String days =
+          normalized.replaceAll(
+        '_days',
+        '',
+      );
+
+      return loc.telcoUpdateWithinDays(
+        days,
+      );
+    }
+
+    // Safe fallback if IIMMPACT introduces
+    // another processing_time value.
+    return value.replaceAll('_', ' ');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1046,6 +1288,46 @@ class _TelcoProviderCardState
                           label: widget.networkLabel,
                         ),
                       ),
+
+                      // ====================================================
+                      // PROCESSING TIME
+                      // ====================================================
+                      if (widget.processingTime.isNotEmpty) ...[
+                        const SizedBox(height: 14),
+
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.schedule_rounded,
+                                size: 22,
+                                color: Color(0xFF647187),
+                              ),
+
+                              const SizedBox(width: 8),
+
+                              Expanded(
+                                child: Text(
+                                  '${widget.processingLabel}: '
+                                  '${_formatProcessingTime(
+                                    context,
+                                    widget.processingTime,
+                                  )}',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Color(0xFF647187),
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1.15,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
 
                       const SizedBox(height: 22),
 

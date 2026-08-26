@@ -6,6 +6,8 @@ import 'package:frontend_v1/model/pricing/catalog_pricing.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/payment/bil_qr_payment_page.dart';
 
+import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
+
 class P5ElectricBillResultPage extends StatefulWidget {
   final ElectricBillModel bill;
   final CatalogPricing catalogPricing;
@@ -29,11 +31,39 @@ class _P5ElectricBillResultPageState
   final ScrollController _scrollController = ScrollController();
 
 
-  static const double _minimumAmount = 1.00;
-  static const double _maximumAmount = 10000.00;
+  // ==========================================================================
+  // PAYMENT LIMITS
+  // ==========================================================================
+  //
+  // These are loaded dynamically from:
+  // GET /v2/catalog
+  //
+  // Example:
+  // TNB   = RM1 - RM10000
+  // SESB  = RM1 - RM10000
+  // SESCO = RM5 - RM10000
+  // NUR   = RM5 - RM1000
+  //
+  // Fallback values are only used if catalog loading fails.
+  // ==========================================================================
+
+  double _minimumAmount = 1.00;
+  double _maximumAmount = 10000.00;
+
+  // Processing time comes dynamically from:
+  // GET /v2/catalog
+  //
+  // Examples:
+  // instant
+  // 24_hours
+  // 3_days
+  String _processingTime = '';
+
   static const double _amountStep = 1.00;
 
   double _selectedAmount = 1.00;
+
+  bool _isCatalogLimitLoading = true;
 
   // Step 0: review bill details
   // Step 1: choose payment amount
@@ -71,6 +101,8 @@ class _P5ElectricBillResultPageState
 
     _selectedAmount = initialAmount;
     _updateAmountController(initialAmount);
+
+    _loadElectricPaymentLimits();
   }
 
   @override
@@ -79,6 +111,308 @@ class _P5ElectricBillResultPageState
     _amountController.dispose();
     super.dispose();
   }
+
+  // ==========================================================================
+// LOAD ELECTRIC PAYMENT LIMIT FROM IIMMPACT CATALOG
+// ==========================================================================
+
+Future<void> _loadElectricPaymentLimits() async {
+  try {
+    final Map<String, dynamic> catalog =
+        await IimmpactCatalogService.getCatalog();
+
+    final dynamic productsRaw =
+        catalog['products'];
+
+    if (productsRaw is! Map) {
+      throw Exception(
+        'Catalog products object is missing.',
+      );
+    }
+
+    final Map<String, dynamic> products =
+        Map<String, dynamic>.from(
+      productsRaw,
+    );
+
+    final String productCode =
+        bill.productCode
+            .trim()
+            .toUpperCase();
+
+    final dynamic rawProduct =
+        products[productCode];
+
+    if (rawProduct is! Map) {
+      throw Exception(
+        'Electric product $productCode '
+        'was not found in catalog.',
+      );
+    }
+
+    final Map<String, dynamic> product =
+        Map<String, dynamic>.from(
+      rawProduct,
+    );
+
+    // ======================================================================
+    // PROCESSING TIME
+    //
+    // Read directly from IIMMPACT catalog.
+    // Do NOT hard-code by provider.
+    // ======================================================================
+
+    final String processingTime =
+        product['processing_time']
+                ?.toString()
+                .trim()
+                .toLowerCase() ??
+            '';
+
+    double minimum = 0;
+    double maximum = 0;
+
+    // ======================================================================
+    // READ:
+    //
+    // fields
+    //   -> id = amount
+    //      -> validation
+    //         -> min
+    //         -> max
+    // ======================================================================
+
+    final dynamic fieldsRaw =
+        product['fields'];
+
+    if (fieldsRaw is List) {
+      for (final rawField in fieldsRaw) {
+        if (rawField is! Map) {
+          continue;
+        }
+
+        final Map<String, dynamic> field =
+            Map<String, dynamic>.from(
+          rawField,
+        );
+
+        if (field['id']
+                ?.toString()
+                .trim()
+                .toLowerCase() !=
+            'amount') {
+          continue;
+        }
+
+        final dynamic validationRaw =
+            field['validation'];
+
+        if (validationRaw is! Map) {
+          continue;
+        }
+
+        final Map<String, dynamic> validation =
+            Map<String, dynamic>.from(
+          validationRaw,
+        );
+
+        minimum =
+            _toDouble(
+          validation['min'],
+        );
+
+        maximum =
+            _toDouble(
+          validation['max'],
+        );
+
+        break;
+      }
+    }
+
+    // ======================================================================
+    // FALLBACK:
+    // If fields.validation is unavailable, try denomination "x-y".
+    // ======================================================================
+
+    if (minimum <= 0 ||
+        maximum <= 0) {
+      final String denomination =
+          product['denomination']
+                  ?.toString()
+                  .trim() ??
+              '';
+
+      final range =
+          _parseAmountRange(
+        denomination,
+      );
+
+      if (minimum <= 0) {
+        minimum = range.$1;
+      }
+
+      if (maximum <= 0) {
+        maximum = range.$2;
+      }
+    }
+
+    if (minimum <= 0 ||
+        maximum <= 0 ||
+        maximum < minimum) {
+      throw Exception(
+        'Invalid payment limits for $productCode.',
+      );
+    }
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _minimumAmount =
+          minimum;
+
+      _maximumAmount =
+          maximum;
+
+      _processingTime =
+         processingTime;
+
+      // ================================================================
+      // Recalculate selected amount using actual provider limits.
+      // ================================================================
+
+      double newAmount =
+          _selectedAmount;
+
+      if (bill.outstandingAmount > 0) {
+        newAmount =
+            bill.outstandingAmount;
+      }
+
+      if (newAmount <
+          _minimumAmount) {
+        newAmount =
+            _minimumAmount;
+      }
+
+      if (newAmount >
+          _maximumAmount) {
+        newAmount =
+            _maximumAmount;
+      }
+
+      _selectedAmount =
+          newAmount;
+
+      _updateAmountController(
+        newAmount,
+      );
+
+      _isCatalogLimitLoading =
+          false;
+    });
+
+    debugPrint('');
+    debugPrint(
+      '========================================',
+    );
+    debugPrint(
+      'ELECTRIC PAYMENT LIMIT LOADED',
+    );
+    debugPrint(
+      '========================================',
+    );
+    debugPrint(
+      'Product : $productCode',
+    );
+    debugPrint(
+      'Minimum : RM ${minimum.toStringAsFixed(2)}',
+    );
+    debugPrint(
+      'Maximum : RM ${maximum.toStringAsFixed(2)}',
+    );
+    debugPrint(
+      'Processing Time : $processingTime',
+    );
+    debugPrint(
+      '========================================',
+    );
+    debugPrint('');
+  } catch (error, stackTrace) {
+    debugPrint(
+      '[ELECTRIC] Catalog payment-limit error: '
+      '$error',
+    );
+
+    debugPrintStack(
+      stackTrace: stackTrace,
+    );
+
+    if (!mounted) {
+      return;
+    }
+
+    // Keep safe fallback.
+    setState(() {
+      _minimumAmount = 1.00;
+      _maximumAmount = 10000.00;
+
+      _processingTime = '';
+
+      _isCatalogLimitLoading = false;
+
+      final fallbackAmount =
+          _getInitialPaymentAmount();
+
+      _selectedAmount =
+          fallbackAmount;
+
+      _updateAmountController(
+        fallbackAmount,
+      );
+    });
+  }
+}
+
+double _toDouble(
+  dynamic value,
+) {
+  if (value is num) {
+    return value.toDouble();
+  }
+
+  return double.tryParse(
+        value?.toString() ?? '',
+      ) ??
+      0;
+}
+
+(double, double) _parseAmountRange(
+  String value,
+) {
+  final List<String> parts =
+      value.split('-');
+
+  if (parts.length != 2) {
+    return (
+      0,
+      0,
+    );
+  }
+
+  return (
+    double.tryParse(
+          parts[0].trim(),
+        ) ??
+        0,
+    double.tryParse(
+          parts[1].trim(),
+        ) ??
+        0,
+  );
+}
   
 double _getInitialPaymentAmount() {
   if (_amountToPay > 0) {
@@ -194,22 +528,52 @@ String _formatSignedAmount(double amount) {
     _setPaymentAmount(amount);
   }
 
-  void _setFullOutstandingAmount() {
-    _closeKeyboard();
+void _setFullOutstandingAmount() {
+  _closeKeyboard();
 
-    final loc = AppLocalizations.of(context)!;
+  final loc =
+      AppLocalizations.of(context)!;
 
-    if (bill.outstandingAmount <= 0) {
-      _showMessage(
-        loc.electricNoOutstandingBalance,
-      );
-      return;
-    }
-
-    _setQuickAmount(
-      bill.outstandingAmount,
+  if (bill.outstandingAmount <= 0) {
+    _showMessage(
+      loc.electricNoOutstandingBalance,
     );
+    return;
   }
+
+  if (bill.outstandingAmount >
+      _maximumAmount) {
+    _showMessage(
+      loc.electricOutstandingExceedsMaximum(
+        _formatAmount(
+          bill.outstandingAmount,
+        ),
+        _formatAmount(
+          _maximumAmount,
+        ),
+      ),
+    );
+
+    return;
+  }
+
+  if (bill.outstandingAmount <
+      _minimumAmount) {
+    _showMessage(
+      loc.electricMinimumPayment(
+        _formatAmount(
+          _minimumAmount,
+        ),
+      ),
+    );
+
+    return;
+  }
+
+  _setQuickAmount(
+    bill.outstandingAmount,
+  );
+}
 
   void _goToPaymentStep() {
     _closeKeyboard();
@@ -941,7 +1305,14 @@ String _formatSignedAmount(double amount) {
                               alignment:
                                   Alignment.centerLeft,
                               child: Text(
-                                loc.electricMinimumMaximum,
+                                  loc.electricPaymentRange(
+                                    _formatAmount(
+                                      _minimumAmount,
+                                    ),
+                                    _formatAmount(
+                                      _maximumAmount,
+                                    ),
+                                  ),
                                 style:
                                     const TextStyle(
                                   color:
@@ -1948,8 +2319,9 @@ Widget _buildAmountSection() {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap:
-                    _openCustomAmountKeyboard,
+            onTap: _isCatalogLimitLoading
+                ? null
+                : _openCustomAmountKeyboard,
                 borderRadius:
                     BorderRadius.circular(20),
                 child: Container(
@@ -2098,7 +2470,14 @@ Widget _buildAmountSection() {
       ),
       const SizedBox(height: 10),
       Text(
-        loc.electricAmountLimit,
+        loc.electricPaymentRange(
+          _formatAmount(
+            _minimumAmount,
+          ),
+          _formatAmount(
+            _maximumAmount,
+          ),
+        ),
         style: const TextStyle(
           color: Color(0xFF60758D),
           fontSize: 20,
@@ -2150,34 +2529,81 @@ Widget _buildAmountSection() {
 String _getBillUpdateTime(
   AppLocalizations loc,
 ) {
-  final productCode =
-      bill.productCode.trim().toUpperCase();
+  final String value =
+      _processingTime
+          .trim()
+          .toLowerCase();
 
-  switch (productCode) {
-    // TNB: instant update
-    case 'TNB':
-      return loc.electricUpdateInstant;
-
-    // Sabah Electricity: instant update
-    case 'SESB':
-    case 'SABAH ELECTRICITY':
-      return loc.electricUpdateInstant;
-
-    // Sarawak Energy: update within 3 days
-    case 'SESCO':
-    case 'SEB':
-    case 'SARAWAK ENERGY':
-      return loc.electricUpdateWithinThreeDays;
-
-    // NUR Power: update within 3 days
-    case 'NUR':
-    case 'NUR POWER':
-      return loc.electricUpdateWithinThreeDays;
-
-    // Safe fallback
-    default:
-      return loc.electricUpdateWithinThreeDays;
+  if (value.isEmpty) {
+    return loc.electricProcessingTimeUnavailable;
   }
+
+  // ========================================================================
+  // INSTANT
+  // ========================================================================
+
+  if (value == 'instant') {
+    return loc.electricUpdateInstant.toUpperCase();
+  }
+
+  // ========================================================================
+  // HOURS
+  //
+  // Examples:
+  // 24_hours
+  // 48_hours
+  // 72_hours
+  // ========================================================================
+
+  final RegExpMatch? hoursMatch =
+      RegExp(
+    r'^(\d+)_hours?$',
+  ).firstMatch(
+    value,
+  );
+
+  if (hoursMatch != null) {
+    final String hours =
+        hoursMatch.group(1) ?? '';
+
+    return loc.electricUpdateWithinHours(
+      hours,
+    ).toUpperCase();
+  }
+
+  // ========================================================================
+  // DAYS
+  //
+  // Examples:
+  // 1_day
+  // 3_days
+  // 5_days
+  // ========================================================================
+
+  final RegExpMatch? daysMatch =
+      RegExp(
+    r'^(\d+)_days?$',
+  ).firstMatch(
+    value,
+  );
+
+  if (daysMatch != null) {
+    final String days =
+        daysMatch.group(1) ?? '';
+
+    return loc.electricUpdateWithinDays(
+      days,
+    ).toUpperCase();
+  }
+
+  // ========================================================================
+  // UNKNOWN FUTURE VALUE
+  //
+  // Do not lie to the customer.
+  // Show a generic processing message rather than guessing.
+  // ========================================================================
+
+  return loc.electricProcessingTimeUnavailable;
 }
 
 Widget _buildOrderSummary() {
@@ -2303,9 +2729,11 @@ Widget _buildActionButtons() {
           child: SizedBox(
             height: 90,
             child: ElevatedButton.icon(
-              onPressed: _currentStep == 0
-                  ? _goToPaymentStep
-                  : _handleContinue,
+          onPressed: _currentStep == 0
+              ? _goToPaymentStep
+              : (_isCatalogLimitLoading
+                  ? null
+                  : _handleContinue),
               icon: const Icon(
                 Icons.arrow_forward_rounded,
                 size: 34,

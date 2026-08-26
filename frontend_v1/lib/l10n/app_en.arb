@@ -2550,7 +2550,634 @@
 "telcoPaymentRange": "Minimum RM 1.00 • Maximum RM 10,000.00",
 "telcoClear": "CLEAR",
 "telcoDone": "DONE",
-"telcoCancel": "CANCEL"
+"telcoCancel": "CANCEL",
+
+"mobilePinPurchaseTitle": "Purchase Mobile PIN",
+"mobilePinSelectedProvider": "Selected Provider",
+"mobilePinAvailable": "AVAILABLE",
+"mobilePinUnavailable": "UNAVAILABLE",
+"mobilePinImportantNote": "Important Note",
+"mobilePinSelectAmount": "Select PIN Amount",
+"mobilePinQuantity": "Quantity",
+"mobilePinQuantityHelp": "Select the number of PINs to purchase.",
+"mobilePinOrderSummary": "Order Summary",
+"mobilePinSubtotal": "Subtotal",
+"mobilePinTotalAmount": "Total Amount",
+"mobilePinProceed": "PROCEED TO PAYMENT",
+
+"mobilePinLoadingTitle": "Loading Mobile PIN",
+"mobilePinLoadingMessage": "Please wait while we retrieve the latest PIN options.",
+
+"mobilePinCatalogErrorTitle": "Unable to Load Mobile PIN",
+"mobilePinCatalogErrorMessage": "The latest Mobile PIN information could not be retrieved. Please try again.",
+"mobilePinRetry": "RETRY",
+
+"mobilePinUnavailableTitle": "Service Unavailable",
+"mobilePinUnavailableMessage": "This Mobile PIN service is currently unavailable.",
+
+"mobilePinSelectAmountTitle": "Select an Amount",
+"mobilePinSelectAmountMessage": "Please select a PIN amount before continuing.",
+
+"mobilePinDebugTitle": "Selection Recorded",
+"mobilePinDebugMessage": "Your Mobile PIN selection is ready. The purchase API will be connected in the next step.",
+
+"mobilePinNoteCelcom": "To top up, dial *122* followed by the 16-digit PIN number and #, then press CALL.",
+"mobilePinNoteDigi": "To top up, dial *123* followed by the 16-digit PIN number and #, then press CALL.",
+"mobilePinNoteHelloSim": "To top up, dial *178* followed by the PIN number and #, then press CALL.",
+"mobilePinNoteMaxis": "To top up, dial *111* followed by the 16-digit PIN number and #, then press CALL.",
+"mobilePinNoteRedOne": "To top up, dial *122* followed by the 16-digit PIN number and #, then press CALL.",
+"mobilePinNoteSpeakOut": "Dial *129# and press Send. Select option 2 to top up, enter the reload PIN and press Send.",
+"mobilePinNoteTuneTalk": "To top up, dial *122* followed by the 16-digit PIN and #, then press CALL.",
+"mobilePinNoteUnifi": "Open the unifi app, select Reload, choose Reload Voucher, enter the 12-digit reload PIN and tap Continue.",
+"mobilePinNoteUMobile": "To top up, dial *138* followed by the 14-digit PIN number and #, then press CALL.",
+"mobilePinNoteXox": "To top up, dial *132*1* followed by the 16-digit PIN number and #, then press CALL.",
+"mobilePinNoteYes": "To top up, type REL followed by your Yes number and PIN code, then send it to 0183301111.",
+"mobilePinServiceAdjustment": "Service Adjustment",
+
+"eWalletReloadButton": "E-Wallet Reloads",
+"eWalletReloadSupportingText": "Reload your preferred e-wallet quickly and conveniently",
+
+"eWalletServiceLabel": "E-Wallet Reload Service",
+"eWalletProviderTitle": "Select E-Wallet",
+"eWalletProviderSubtitle": "Select your preferred e-wallet service to continue",
+"touchNGoPin": "Touch 'n Go PIN",
+"touchNGoPinless": "Touch 'n Go Reload",
+"trueMoneyEWallet": "TrueMoney E-Wallet",
+
+
+"telcoReceiptTitle": "Telco Payment Receipt",
+"telcoReceiptPaymentSuccessful": "Payment Successful",
+"telcoReceiptThankYou": "Thank you. Your Telco payment has been received successfully.",
+"telcoReceiptProvider": "Telco Provider",
+"telcoReceiptTransactionDetails": "Transaction Details",
+"telcoReceiptAccountNumber": "Account / Mobile Number",
+"telcoReceiptProductCode": "Product Code",
+"telcoReceiptBillAmount": "Bill Amount",
+"telcoReceiptServiceAdjustment": "Service Adjustment",
+"telcoReceiptPaymentMethod": "Payment Method",
+"telcoReceiptPaymentDate": "Payment Date & Time",
+"telcoReceiptOrderNumber": "Order Number",
+"telcoReceiptBankTransaction": "Bank Transaction",
+"telcoReceiptTotalPaid": "Total Paid",
+
+"telcoReceiptAutoReturn": "Returning to the home page in {seconds} seconds.",
+"@telcoReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+"receiptTransactionReference": "Transaction Reference",
+
+"telcoReceiptTitle": "Telco Payment Receipt",
+"telcoReceiptProvider": "Telco Provider",
+"telcoReceiptTransactionDetails": "Transaction Details",
+"telcoReceiptAccountNumber": "Account / Mobile Number",
+"telcoReceiptProductCode": "Product Code",
+"telcoReceiptPaymentMethod": "Payment Method",
+"telcoReceiptPaymentDate": "Payment Date & Time",
+"telcoReceiptOrderNumber": "Order Number",
+"telcoReceiptBankTransaction": "Bank Transaction",
+"telcoReceiptTotalPaid": "Total Paid",
+
+"telcoReceiptAutoReturn": "Returning to the home page in {seconds} seconds.",
+"@telcoReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+"mobilePinReceiptTitle": "Mobile PIN Receipt",
+"mobilePinReceiptProvider": "Mobile PIN Provider",
+"mobilePinReceiptTransactionDetails": "Transaction Details",
+"mobilePinReceiptProductCode": "Product Code",
+"mobilePinReceiptPinValue": "PIN Value",
+"mobilePinReceiptQuantity": "Quantity",
+"mobilePinReceiptPaymentMethod": "Payment Method",
+"mobilePinReceiptPaymentDate": "Payment Date & Time",
+"mobilePinReceiptOrderNumber": "Order Number",
+"mobilePinReceiptBankTransaction": "Bank Transaction",
+"mobilePinReceiptPinDetails": "PIN Details",
+"mobilePinReceiptPinNumber": "PIN {number}",
+"@mobilePinReceiptPinNumber": {
+  "placeholders": {
+    "number": {
+      "type": "int"
+    }
+  }
+},
+"mobilePinReceiptSerialNumber": "Serial Number",
+"mobilePinReceiptPinCode": "PIN Code",
+"mobilePinReceiptExpiry": "Expiry Date",
+"mobilePinReceiptNote": "Instructions",
+"mobilePinReceiptVoucherLink": "Voucher Link",
+"mobilePinReceiptTotalPaid": "Total Paid",
+
+"mobilePinReceiptAutoReturn": "Returning to the home page in {seconds} seconds.",
+"@mobilePinReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+"mobilePinRecipientMobileTitle": "Recipient Mobile Number",
+"mobilePinRecipientMobileSubtitle": "Enter the mobile number to be used as the recipient reference for this PIN purchase.",
+"mobilePinRecipientMobileHint": "Example: 0123456789",
+"mobilePinRecipientMobileHelp": "Please check the mobile number carefully before continuing to payment.",
+"mobilePinRecipientMobileSummary": "Recipient Mobile Number",
+"mobilePinMobileNumberRequired": "Please enter a mobile number.",
+"mobilePinMobileNumberInvalid": "Please enter a valid mobile number.",
+"mobilePinProceed": "Continue to Payment",
+
+"mobilePinContinue": "Continue",
+
+"mobilePinNumberServiceLabel": "Mobile PIN Purchase",
+"mobilePinEnterNumberTitle": "Enter Mobile Number",
+"mobilePinEnterNumberSubtitle": "Enter the recipient mobile number before continuing to payment.",
+
+"mobilePinSelectedProduct": "Selected PIN",
+"mobilePinPaymentTotal": "Total",
+
+"mobilePinNumberHint": "Enter mobile number",
+"mobilePinNumberInstruction": "Enter the recipient mobile number using the keypad below. Please check the number carefully before payment.",
+
+"mobilePinNumberAlertTitle": "Mobile Number",
+"mobilePinNumberRequired": "Please enter the recipient mobile number.",
+"mobilePinNumberInvalid": "Please enter a valid Malaysian mobile number.",
+
+"mobilePinContinueToPayment": "Continue to Payment",
+
+"mobilePinNextStepMobileNumber": "Next, enter the recipient mobile number.",
+
+"eWalletPinPurchaseTitle": "E-Wallet PIN Purchase",
+"eWalletSelectedProvider": "Selected E-Wallet",
+"eWalletAvailable": "Available",
+"eWalletUnavailable": "Unavailable",
+
+"eWalletSelectReloadValue": "Select Reload Value",
+"eWalletPinValue": "PIN Value",
+"eWalletReloadValue": "Reload Value",
+"eWalletServiceAdjustment": "Service Adjustment",
+"eWalletTotalPayment": "Total Payment",
+
+"eWalletContinue": "Continue",
+"eWalletContinuePayment": "Continue to Payment",
+
+"eWalletPhoneStepLabel": "E-Wallet Phone Number",
+"eWalletAmountStepLabel": "E-Wallet Reload Amount",
+
+"eWalletEnterPhoneTitle": "Enter Phone Number",
+"eWalletEnterPhoneSubtitle": "Enter the phone number for this e-wallet transaction",
+"eWalletPhoneNumber": "Phone Number",
+"eWalletPhoneHint": "Enter phone number",
+"eWalletPhoneReferenceHint": "Enter the phone number used as the transaction reference.",
+
+"eWalletEnterAmountTitle": "Enter Reload Amount",
+"eWalletAmountHint": "Enter amount",
+
+"eWalletAmountRange": "Allowed amount: {minimum} - {maximum}",
+"@eWalletAmountRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletLoadingTitle": "Loading E-Wallet",
+"eWalletLoadingMessage": "Getting the latest e-wallet information...",
+
+"eWalletCatalogErrorTitle": "Unable to Load",
+"eWalletCatalogErrorMessage": "Unable to retrieve the latest e-wallet information.",
+"eWalletRetry": "Try Again",
+
+"eWalletUnavailableTitle": "Service Unavailable",
+"eWalletUnavailableMessage": "This e-wallet service is currently unavailable.",
+
+"eWalletSelectAmountTitle": "Select Reload Value",
+"eWalletSelectAmountMessage": "Please select a reload value before continuing.",
+
+"eWalletPhoneRequiredTitle": "Phone Number Required",
+"eWalletPhoneRequiredMessage": "Please enter a phone number.",
+
+"eWalletInvalidPhoneTitle": "Invalid Phone Number",
+"eWalletInvalidPhoneMessage": "Please enter a valid Malaysian mobile number.",
+
+"eWalletAmountRequiredTitle": "Amount Required",
+"eWalletAmountRequiredMessage": "Please enter the reload amount.",
+
+"eWalletInvalidAmountTitle": "Invalid Amount",
+
+"eWalletMinimumAmount": "Minimum reload amount is {amount}.",
+"@eWalletMinimumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletMaximumAmount": "Maximum reload amount is {amount}.",
+"@eWalletMaximumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletTngPinNote": "Select a PIN value. The phone number will be entered on the next page as the transaction reference.",
+
+"eWalletTrueMoneyNote": "Daily top-up limit is RM1,000 and monthly top-up limit is RM5,000.",
+
+"eWalletOkButton": "OK",
+
+"eWalletReloadDetails": "E-Wallet Reload",
+"eWalletPhoneStepLabel": "E-Wallet Phone Number",
+"eWalletEnterPhoneTitle": "Enter Phone Number",
+"eWalletPhoneNumber": "Phone Number",
+"eWalletPhoneHint": "Enter phone number",
+
+"eWalletEnterAmountTitle": "Choose Reload Amount",
+"eWalletAmountStepSubtitle": "Select or enter the amount you want to reload",
+"eWalletReloadAmount": "Reload Amount",
+"eWalletSelectReloadValue": "Select Reload Amount",
+
+"eWalletAmountRange": "Allowed amount: {minimum} - {maximum}",
+"@eWalletAmountRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletOrderSummary": "Order Summary",
+"eWalletPinValue": "PIN Value",
+"eWalletReloadValue": "Reload Amount",
+"eWalletServiceAdjustment": "Service Adjustment",
+"eWalletTotalPayment": "Total Payment",
+"eWalletLatestPricingInfo": "The total shown uses the latest available service pricing.",
+
+"eWalletContinuePayment": "Continue to Payment",
+
+"eWalletLoadingTitle": "Loading E-Wallet",
+"eWalletLoadingMessage": "Getting the latest e-wallet information...",
+
+"eWalletCatalogErrorTitle": "Unable to Load",
+"eWalletCatalogErrorMessage": "Unable to retrieve the latest e-wallet information.",
+"eWalletRetry": "Try Again",
+
+"eWalletPhoneRequiredTitle": "Phone Number Required",
+"eWalletPhoneRequiredMessage": "Please enter a phone number.",
+
+"eWalletInvalidPhoneTitle": "Invalid Phone Number",
+"eWalletInvalidPhoneMessage": "Please enter a valid Malaysian mobile number.",
+
+"eWalletAmountRequiredTitle": "Amount Required",
+"eWalletAmountRequiredMessage": "Please enter the reload amount.",
+
+"eWalletInvalidAmountTitle": "Invalid Amount",
+
+"eWalletMinimumAmount": "Minimum reload amount is {amount}.",
+"@eWalletMinimumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletMaximumAmount": "Maximum reload amount is {amount}.",
+"@eWalletMaximumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletTrueMoneyNote": "Daily top-up limit is RM1,000 and monthly top-up limit is RM5,000.",
+
+"eWalletKeypadClear": "Clear",
+"eWalletKeypadDone": "Done",
+"eWalletKeypadCancel": "Cancel",
+
+"eWalletOkButton": "OK",
+
+"eWalletPinlessPhoneHint": "Enter your e-wallet phone number.",
+"eWalletPinPhoneReferenceHint": "A phone number is required as the transaction reference.",
+
+"eWalletConfirmNumberTitle": "Confirm Phone Number",
+"eWalletConfirmNumberQuestion": "Is this phone number correct?",
+"eWalletConfirmBack": "Back",
+"eWalletConfirmContinue": "Continue",
+
+"electricPaymentRange": "Minimum {minimum} • Maximum {maximum}",
+"@electricPaymentRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"electricOutstandingExceedsMaximum": "The outstanding amount is {outstanding}, but the maximum payment allowed is {maximum}.",
+"@electricOutstandingExceedsMaximum": {
+  "placeholders": {
+    "outstanding": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletPinReceiptTitle": "E-Wallet PIN Receipt",
+"eWalletPinReceiptProvider": "E-Wallet Provider",
+"eWalletPinReceiptTransactionDetails": "Transaction Details",
+"eWalletPinReceiptProductCode": "Product Code",
+"eWalletPinReceiptPhoneReference": "Phone / Reference",
+"eWalletPinReceiptValue": "PIN Value",
+"eWalletPinReceiptPaymentMethod": "Payment Method",
+"eWalletPinReceiptPaymentDate": "Payment Date",
+"eWalletPinReceiptBankTransaction": "Bank Transaction",
+"eWalletPinReceiptPinDetails": "PIN Details",
+"eWalletPinReceiptSerialNumber": "Serial Number",
+"eWalletPinReceiptPinCode": "PIN",
+"eWalletPinReceiptExpiry": "Expiry",
+"eWalletPinReceiptNote": "Note",
+"eWalletPinReceiptVoucherLink": "Voucher Link",
+"eWalletPinReceiptTotalPaid": "Total Paid",
+"eWalletPinReceiptSavePinMessage": "Please save your PIN before leaving this page.",
+
+"eWalletTngRedeemNote": "To redeem, log in to your Touch 'n Go eWallet app",
+
+"mobilePinReceiptSavePinMessage": "Please save your PIN before leaving this page.",
+
+"eWalletProviderSurchargeTitle": "Provider Surcharge",
+"eWalletProviderSurchargeMessage": "A {surcharge} provider surcharge applies. Reload {reloadAmount} and the e-wallet receives {receivedAmount}.",
+"@eWalletProviderSurchargeMessage": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    },
+    "reloadAmount": {
+      "type": "String"
+    },
+    "receivedAmount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletReloadReceiptTitle": "E-Wallet Reload Receipt",
+"eWalletReloadReceiptProvider": "E-Wallet Provider",
+
+"eWalletProviderSurchargeTitle": "Provider Surcharge",
+"eWalletProviderSurchargeMessage": "A {surcharge} provider surcharge applies. Reload {reloadAmount} and the e-wallet receives {receivedAmount}.",
+"@eWalletProviderSurchargeMessage": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    },
+    "reloadAmount": {
+      "type": "String"
+    },
+    "receivedAmount": {
+      "type": "String"
+    }
+  }
+},
+
+"electricUpdateInstant": "Instant",
+
+"electricUpdateWithinHours": "Within {hours} hours",
+"@electricUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"electricUpdateWithinDays": "Within {days} days",
+"@electricUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"electricProcessingTimeUnavailable": "Processing time unavailable",
+
+"waterUpdateWithinHours": "Within {hours} hours",
+"@waterUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"waterUpdateWithinDays": "Within {days} days",
+"@waterUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandUpdateInstant": "Instant",
+
+"broadbandUpdateWithinHours": "Within {hours} hours",
+"@broadbandUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandUpdateWithinDays": "Within {days} days",
+"@broadbandUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"entertainmentUpdateInstant": "Instant",
+
+"entertainmentUpdateWithinHours": "Within {hours} hours",
+"@entertainmentUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"entertainmentUpdateWithinDays": "Within {days} days",
+"@entertainmentUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"telcoPaymentUpdateTime": "Payment Update Time",
+"telcoUpdateInstant": "Instant",
+"telcoUpdateWithinHours": "Within {hours} hours",
+"@telcoUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+"telcoUpdateWithinDays": "Within {days} days",
+"@telcoUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+
+"eWalletProcessingTime": "Processing Time",
+"eWalletUpdateInstant": "Instant",
+"eWalletUpdateWithinHours": "Within {hours} hours",
+"@eWalletUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+"eWalletUpdateWithinDays": "Within {days} days",
+"@eWalletUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"loanEducationButton": "Loan & Education",
+"loanEducationSupportingText": "Loan and education financing payments",
+
+
+"loanServiceLabel": "LOAN & EDUCATION SERVICE",
+"loanProviderTitle": "Loan & Education",
+"loanProviderSubtitle": "Select a provider to continue",
+"processingTimeLabel": "Processing Time",
+"catalogUnavailableTitle": "Service Information Unavailable",
+"catalogUnavailableMessage": "Unable to load the latest service information. Please try again.",
+"retryButton": "RETRY",
+"serviceUnavailableTitle": "Service Unavailable",
+"ptptnUnavailableMessage": "PTPTN service is currently unavailable. Please try again later.",
+"ptptnNextPageMessage": "PTPTN selected. Continue to NRIC entry.",
+
+"processingTimeLabel": "Processing Time",
+"processingInstant": "Instant",
+"processing24Hours": "24 Hours",
+"processing3Days": "3 Days",
+
+"loanNricStepLabel": "PTPTN ACCOUNT",
+"loanEnterNricTitle": "Enter NRIC Number",
+"loanEnterNricSubtitle": "Enter your 12-digit NRIC number to continue",
+"loanSelectedProvider": "Selected Provider",
+"loanNricHint": "ENTER NRIC NUMBER",
+"loanNricHintText": "Enter 12 digits without spaces or dashes",
+"loanContinue": "Continue",
+
+"loanConfirmNricTitle": "Confirm NRIC Number",
+"loanConfirmNricQuestion": "Is this NRIC number correct?",
+"loanConfirmBack": "Edit",
+"loanConfirmContinue": "Continue",
+
+"loanNricRequiredTitle": "NRIC Required",
+"loanNricRequiredMessage": "Please enter your NRIC number.",
+
+"loanInvalidNricTitle": "Invalid NRIC",
+"loanInvalidNricMessage": "Please enter a valid 12-digit NRIC number.",
+
+"loanUnavailableTitle": "Service Unavailable",
+"loanUnavailableMessage": "PTPTN service is currently unavailable. Please try again later.",
+
+"loanLoadingTitle": "Loading PTPTN",
+"loanLoadingMessage": "Please wait while we load the latest PTPTN information.",
+
+"loanCatalogErrorTitle": "Unable to Load PTPTN",
+"loanCatalogErrorMessage": "Unable to load PTPTN service information. Please try again.",
+
+"loanRetry": "RETRY",
+"loanOkButton": "OK",
+"loanNricConfirmedMessage": "NRIC confirmed. Retrieving PTPTN account options.",
+
+"loanAccountStepLabel": "PTPTN ACCOUNT",
+"loanSelectAccountTitle": "Select Account",
+"loanSelectAccountSubtitle": "Select the PTPTN or SSPN account you want to pay",
+"loanNricLabel": "NRIC Number",
+
+"loanAccountNumber": "Account Number",
+"loanAccountType": "Account Type",
+
+"loanTypeConventional": "Conventional",
+"loanTypeUjrah": "Ujrah",
+"loanTypeSspnPrime": "SSPN Prime",
+"loanTypeSspnPlus": "SSPN Plus",
+
+"loanAccountCategoryUnknown": "Account",
+
+"loanAccountLoadingTitle": "Checking Accounts",
+"loanAccountLoadingMessage": "Please wait while we retrieve your PTPTN and SSPN accounts.",
+
+"loanAccountErrorTitle": "Unable to Retrieve Accounts",
+"loanAccountErrorMessage": "We could not retrieve your PTPTN account information. Please try again.",
+
+"loanNoAccountTitle": "No Account Available",
+"loanNoAccountMessage": "There are no available PTPTN or SSPN accounts for this NRIC. Please try again later.",
+
+"loanAccountRequiredTitle": "Select an Account",
+"loanAccountRequiredMessage": "Please select an account to continue.",
+
+"loanAccountSelectedMessage": "Account selected. Continue to enter payment amount.",
+
+"loanAvailableAccounts": "Available accounts: {count}",
+"@loanAvailableAccounts": {
+  "placeholders": {
+    "count": {
+      "type": "int"
+    }
+  }
+},
+
+"loanAvailableAccountTitle": "AVAILABLE ACCOUNTS",
+
+"loanAccountSelectionTitle": "PTPTN Account Selection"
 
 
 

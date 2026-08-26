@@ -6954,7 +6954,7 @@ abstract class AppLocalizations {
   /// No description provided for @electricUpdateInstant.
   ///
   /// In en, this message translates to:
-  /// **'INSTANT'**
+  /// **'Instant'**
   String get electricUpdateInstant;
 
   /// No description provided for @electricUpdateWithinThreeDays.
@@ -7890,7 +7890,7 @@ abstract class AppLocalizations {
   /// No description provided for @entertainmentUpdateInstant.
   ///
   /// In en, this message translates to:
-  /// **'INSTANT'**
+  /// **'Instant'**
   String get entertainmentUpdateInstant;
 
   /// No description provided for @entertainmentContinue.
@@ -9504,7 +9504,7 @@ abstract class AppLocalizations {
   /// No description provided for @mobilePinNumberRequired.
   ///
   /// In en, this message translates to:
-  /// **'Please enter the mobile number.'**
+  /// **'Please enter the recipient mobile number.'**
   String get mobilePinNumberRequired;
 
   /// No description provided for @telcoNumberInvalid.
@@ -9776,6 +9776,1548 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'CANCEL'**
   String get telcoCancel;
+
+  /// No description provided for @mobilePinPurchaseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Mobile PIN'**
+  String get mobilePinPurchaseTitle;
+
+  /// No description provided for @mobilePinSelectedProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Provider'**
+  String get mobilePinSelectedProvider;
+
+  /// No description provided for @mobilePinAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'AVAILABLE'**
+  String get mobilePinAvailable;
+
+  /// No description provided for @mobilePinUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'UNAVAILABLE'**
+  String get mobilePinUnavailable;
+
+  /// No description provided for @mobilePinImportantNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Important Note'**
+  String get mobilePinImportantNote;
+
+  /// No description provided for @mobilePinSelectAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select PIN Amount'**
+  String get mobilePinSelectAmount;
+
+  /// No description provided for @mobilePinQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get mobilePinQuantity;
+
+  /// No description provided for @mobilePinQuantityHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the number of PINs to purchase.'**
+  String get mobilePinQuantityHelp;
+
+  /// No description provided for @mobilePinOrderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get mobilePinOrderSummary;
+
+  /// No description provided for @mobilePinSubtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get mobilePinSubtotal;
+
+  /// No description provided for @mobilePinTotalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get mobilePinTotalAmount;
+
+  /// No description provided for @mobilePinProceed.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Payment'**
+  String get mobilePinProceed;
+
+  /// No description provided for @mobilePinLoadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Mobile PIN'**
+  String get mobilePinLoadingTitle;
+
+  /// No description provided for @mobilePinLoadingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we retrieve the latest PIN options.'**
+  String get mobilePinLoadingMessage;
+
+  /// No description provided for @mobilePinCatalogErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to Load Mobile PIN'**
+  String get mobilePinCatalogErrorTitle;
+
+  /// No description provided for @mobilePinCatalogErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The latest Mobile PIN information could not be retrieved. Please try again.'**
+  String get mobilePinCatalogErrorMessage;
+
+  /// No description provided for @mobilePinRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'RETRY'**
+  String get mobilePinRetry;
+
+  /// No description provided for @mobilePinUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Unavailable'**
+  String get mobilePinUnavailableTitle;
+
+  /// No description provided for @mobilePinUnavailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This Mobile PIN service is currently unavailable.'**
+  String get mobilePinUnavailableMessage;
+
+  /// No description provided for @mobilePinSelectAmountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select an Amount'**
+  String get mobilePinSelectAmountTitle;
+
+  /// No description provided for @mobilePinSelectAmountMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a PIN amount before continuing.'**
+  String get mobilePinSelectAmountMessage;
+
+  /// No description provided for @mobilePinDebugTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Selection Recorded'**
+  String get mobilePinDebugTitle;
+
+  /// No description provided for @mobilePinDebugMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Mobile PIN selection is ready. The purchase API will be connected in the next step.'**
+  String get mobilePinDebugMessage;
+
+  /// No description provided for @mobilePinNoteCelcom.
+  ///
+  /// In en, this message translates to:
+  /// **'To top up, dial *122* followed by the 16-digit PIN number and #, then press CALL.'**
+  String get mobilePinNoteCelcom;
+
+  /// No description provided for @mobilePinNoteDigi.
+  ///
+  /// In en, this message translates to:
+  /// **'To top up, dial *123* followed by the 16-digit PIN number and #, then press CALL.'**
+  String get mobilePinNoteDigi;
+
+  /// No description provided for @mobilePinNoteHelloSim.
+  ///
+  /// In en, this message translates to:
+  /// **'To top up, dial *178* followed by the PIN number and #, then press CALL.'**
+  String get mobilePinNoteHelloSim;
+
+  /// No description provided for @mobilePinNoteMaxis.
+  ///
+  /// In en, this message translates to:
+  /// **'To top up, dial *111* followed by the 16-digit PIN number and #, then press CALL.'**
+  String get mobilePinNoteMaxis;
+
+  /// No description provided for @mobilePinNoteRedOne.
+  ///
+  /// In en, this message translates to:
+  /// **'To top up, dial *122* followed by the 16-digit PIN number and #, then press CALL.'**
+  String get mobilePinNoteRedOne;
+
+  /// No description provided for @mobilePinNoteSpeakOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Dial *129# and press Send. Select option 2 to top up, enter the reload PIN and press Send.'**
+  String get mobilePinNoteSpeakOut;
+
+  /// No description provided for @mobilePinNoteTuneTalk.
+  ///
+  /// In en, this message translates to:
+  /// **'To top up, dial *122* followed by the 16-digit PIN and #, then press CALL.'**
+  String get mobilePinNoteTuneTalk;
+
+  /// No description provided for @mobilePinNoteUnifi.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the unifi app, select Reload, choose Reload Voucher, enter the 12-digit reload PIN and tap Continue.'**
+  String get mobilePinNoteUnifi;
+
+  /// No description provided for @mobilePinNoteUMobile.
+  ///
+  /// In en, this message translates to:
+  /// **'To top up, dial *138* followed by the 14-digit PIN number and #, then press CALL.'**
+  String get mobilePinNoteUMobile;
+
+  /// No description provided for @mobilePinNoteXox.
+  ///
+  /// In en, this message translates to:
+  /// **'To top up, dial *132*1* followed by the 16-digit PIN number and #, then press CALL.'**
+  String get mobilePinNoteXox;
+
+  /// No description provided for @mobilePinNoteYes.
+  ///
+  /// In en, this message translates to:
+  /// **'To top up, type REL followed by your Yes number and PIN code, then send it to 0183301111.'**
+  String get mobilePinNoteYes;
+
+  /// No description provided for @mobilePinServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get mobilePinServiceAdjustment;
+
+  /// No description provided for @eWalletReloadButton.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Wallet Reloads'**
+  String get eWalletReloadButton;
+
+  /// No description provided for @eWalletReloadSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload your preferred e-wallet quickly and conveniently'**
+  String get eWalletReloadSupportingText;
+
+  /// No description provided for @eWalletServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Wallet Reload Service'**
+  String get eWalletServiceLabel;
+
+  /// No description provided for @eWalletProviderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select E-Wallet'**
+  String get eWalletProviderTitle;
+
+  /// No description provided for @eWalletProviderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your preferred e-wallet service to continue'**
+  String get eWalletProviderSubtitle;
+
+  /// No description provided for @touchNGoPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Touch \'n Go PIN'**
+  String get touchNGoPin;
+
+  /// No description provided for @touchNGoPinless.
+  ///
+  /// In en, this message translates to:
+  /// **'Touch \'n Go Reload'**
+  String get touchNGoPinless;
+
+  /// No description provided for @trueMoneyEWallet.
+  ///
+  /// In en, this message translates to:
+  /// **'TrueMoney E-Wallet'**
+  String get trueMoneyEWallet;
+
+  /// No description provided for @telcoReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Telco Payment Receipt'**
+  String get telcoReceiptTitle;
+
+  /// No description provided for @telcoReceiptPaymentSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Successful'**
+  String get telcoReceiptPaymentSuccessful;
+
+  /// No description provided for @telcoReceiptThankYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you. Your Telco payment has been received successfully.'**
+  String get telcoReceiptThankYou;
+
+  /// No description provided for @telcoReceiptProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Telco Provider'**
+  String get telcoReceiptProvider;
+
+  /// No description provided for @telcoReceiptTransactionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Details'**
+  String get telcoReceiptTransactionDetails;
+
+  /// No description provided for @telcoReceiptAccountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Account / Mobile Number'**
+  String get telcoReceiptAccountNumber;
+
+  /// No description provided for @telcoReceiptProductCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Code'**
+  String get telcoReceiptProductCode;
+
+  /// No description provided for @telcoReceiptBillAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill Amount'**
+  String get telcoReceiptBillAmount;
+
+  /// No description provided for @telcoReceiptServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get telcoReceiptServiceAdjustment;
+
+  /// No description provided for @telcoReceiptPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get telcoReceiptPaymentMethod;
+
+  /// No description provided for @telcoReceiptPaymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date & Time'**
+  String get telcoReceiptPaymentDate;
+
+  /// No description provided for @telcoReceiptOrderNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Number'**
+  String get telcoReceiptOrderNumber;
+
+  /// No description provided for @telcoReceiptBankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction'**
+  String get telcoReceiptBankTransaction;
+
+  /// No description provided for @telcoReceiptTotalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Paid'**
+  String get telcoReceiptTotalPaid;
+
+  /// No description provided for @telcoReceiptAutoReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'Returning to the home page in {seconds} seconds.'**
+  String telcoReceiptAutoReturn(int seconds);
+
+  /// No description provided for @receiptTransactionReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Reference'**
+  String get receiptTransactionReference;
+
+  /// No description provided for @mobilePinReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile PIN Receipt'**
+  String get mobilePinReceiptTitle;
+
+  /// No description provided for @mobilePinReceiptProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile PIN Provider'**
+  String get mobilePinReceiptProvider;
+
+  /// No description provided for @mobilePinReceiptTransactionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Details'**
+  String get mobilePinReceiptTransactionDetails;
+
+  /// No description provided for @mobilePinReceiptProductCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Code'**
+  String get mobilePinReceiptProductCode;
+
+  /// No description provided for @mobilePinReceiptPinValue.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN Value'**
+  String get mobilePinReceiptPinValue;
+
+  /// No description provided for @mobilePinReceiptQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get mobilePinReceiptQuantity;
+
+  /// No description provided for @mobilePinReceiptPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get mobilePinReceiptPaymentMethod;
+
+  /// No description provided for @mobilePinReceiptPaymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date & Time'**
+  String get mobilePinReceiptPaymentDate;
+
+  /// No description provided for @mobilePinReceiptOrderNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Number'**
+  String get mobilePinReceiptOrderNumber;
+
+  /// No description provided for @mobilePinReceiptBankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction'**
+  String get mobilePinReceiptBankTransaction;
+
+  /// No description provided for @mobilePinReceiptPinDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN Details'**
+  String get mobilePinReceiptPinDetails;
+
+  /// No description provided for @mobilePinReceiptPinNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN {number}'**
+  String mobilePinReceiptPinNumber(int number);
+
+  /// No description provided for @mobilePinReceiptSerialNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number'**
+  String get mobilePinReceiptSerialNumber;
+
+  /// No description provided for @mobilePinReceiptPinCode.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN Code'**
+  String get mobilePinReceiptPinCode;
+
+  /// No description provided for @mobilePinReceiptExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry Date'**
+  String get mobilePinReceiptExpiry;
+
+  /// No description provided for @mobilePinReceiptNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions'**
+  String get mobilePinReceiptNote;
+
+  /// No description provided for @mobilePinReceiptVoucherLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Link'**
+  String get mobilePinReceiptVoucherLink;
+
+  /// No description provided for @mobilePinReceiptTotalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Paid'**
+  String get mobilePinReceiptTotalPaid;
+
+  /// No description provided for @mobilePinReceiptAutoReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'Returning to the home page in {seconds} seconds.'**
+  String mobilePinReceiptAutoReturn(int seconds);
+
+  /// No description provided for @mobilePinRecipientMobileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipient Mobile Number'**
+  String get mobilePinRecipientMobileTitle;
+
+  /// No description provided for @mobilePinRecipientMobileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the mobile number to be used as the recipient reference for this PIN purchase.'**
+  String get mobilePinRecipientMobileSubtitle;
+
+  /// No description provided for @mobilePinRecipientMobileHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: 0123456789'**
+  String get mobilePinRecipientMobileHint;
+
+  /// No description provided for @mobilePinRecipientMobileHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check the mobile number carefully before continuing to payment.'**
+  String get mobilePinRecipientMobileHelp;
+
+  /// No description provided for @mobilePinRecipientMobileSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipient Mobile Number'**
+  String get mobilePinRecipientMobileSummary;
+
+  /// No description provided for @mobilePinMobileNumberRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a mobile number.'**
+  String get mobilePinMobileNumberRequired;
+
+  /// No description provided for @mobilePinMobileNumberInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid mobile number.'**
+  String get mobilePinMobileNumberInvalid;
+
+  /// No description provided for @mobilePinContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get mobilePinContinue;
+
+  /// No description provided for @mobilePinNumberServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile PIN Purchase'**
+  String get mobilePinNumberServiceLabel;
+
+  /// No description provided for @mobilePinEnterNumberTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Mobile Number'**
+  String get mobilePinEnterNumberTitle;
+
+  /// No description provided for @mobilePinEnterNumberSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the recipient mobile number before continuing to payment.'**
+  String get mobilePinEnterNumberSubtitle;
+
+  /// No description provided for @mobilePinSelectedProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected PIN'**
+  String get mobilePinSelectedProduct;
+
+  /// No description provided for @mobilePinPaymentTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get mobilePinPaymentTotal;
+
+  /// No description provided for @mobilePinNumberInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the recipient mobile number using the keypad below. Please check the number carefully before payment.'**
+  String get mobilePinNumberInstruction;
+
+  /// No description provided for @mobilePinNumberAlertTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Number'**
+  String get mobilePinNumberAlertTitle;
+
+  /// No description provided for @mobilePinNumberInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid Malaysian mobile number.'**
+  String get mobilePinNumberInvalid;
+
+  /// No description provided for @mobilePinContinueToPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Payment'**
+  String get mobilePinContinueToPayment;
+
+  /// No description provided for @mobilePinNextStepMobileNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Next, enter the recipient mobile number.'**
+  String get mobilePinNextStepMobileNumber;
+
+  /// No description provided for @eWalletPinPurchaseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Wallet PIN Purchase'**
+  String get eWalletPinPurchaseTitle;
+
+  /// No description provided for @eWalletSelectedProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected E-Wallet'**
+  String get eWalletSelectedProvider;
+
+  /// No description provided for @eWalletAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get eWalletAvailable;
+
+  /// No description provided for @eWalletUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable'**
+  String get eWalletUnavailable;
+
+  /// No description provided for @eWalletSelectReloadValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Reload Amount'**
+  String get eWalletSelectReloadValue;
+
+  /// No description provided for @eWalletPinValue.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN Value'**
+  String get eWalletPinValue;
+
+  /// No description provided for @eWalletReloadValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload Amount'**
+  String get eWalletReloadValue;
+
+  /// No description provided for @eWalletServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get eWalletServiceAdjustment;
+
+  /// No description provided for @eWalletTotalPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Payment'**
+  String get eWalletTotalPayment;
+
+  /// No description provided for @eWalletContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get eWalletContinue;
+
+  /// No description provided for @eWalletContinuePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Payment'**
+  String get eWalletContinuePayment;
+
+  /// No description provided for @eWalletPhoneStepLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Wallet Phone Number'**
+  String get eWalletPhoneStepLabel;
+
+  /// No description provided for @eWalletAmountStepLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Wallet Reload Amount'**
+  String get eWalletAmountStepLabel;
+
+  /// No description provided for @eWalletEnterPhoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Phone Number'**
+  String get eWalletEnterPhoneTitle;
+
+  /// No description provided for @eWalletEnterPhoneSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the phone number for this e-wallet transaction'**
+  String get eWalletEnterPhoneSubtitle;
+
+  /// No description provided for @eWalletPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get eWalletPhoneNumber;
+
+  /// No description provided for @eWalletPhoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter phone number'**
+  String get eWalletPhoneHint;
+
+  /// No description provided for @eWalletPhoneReferenceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the phone number used as the transaction reference.'**
+  String get eWalletPhoneReferenceHint;
+
+  /// No description provided for @eWalletEnterAmountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Reload Amount'**
+  String get eWalletEnterAmountTitle;
+
+  /// No description provided for @eWalletAmountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter amount'**
+  String get eWalletAmountHint;
+
+  /// No description provided for @eWalletAmountRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed amount: {minimum} - {maximum}'**
+  String eWalletAmountRange(String minimum, String maximum);
+
+  /// No description provided for @eWalletLoadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading E-Wallet'**
+  String get eWalletLoadingTitle;
+
+  /// No description provided for @eWalletLoadingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting the latest e-wallet information...'**
+  String get eWalletLoadingMessage;
+
+  /// No description provided for @eWalletCatalogErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to Load'**
+  String get eWalletCatalogErrorTitle;
+
+  /// No description provided for @eWalletCatalogErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to retrieve the latest e-wallet information.'**
+  String get eWalletCatalogErrorMessage;
+
+  /// No description provided for @eWalletRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get eWalletRetry;
+
+  /// No description provided for @eWalletUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Unavailable'**
+  String get eWalletUnavailableTitle;
+
+  /// No description provided for @eWalletUnavailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This e-wallet service is currently unavailable.'**
+  String get eWalletUnavailableMessage;
+
+  /// No description provided for @eWalletSelectAmountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Reload Value'**
+  String get eWalletSelectAmountTitle;
+
+  /// No description provided for @eWalletSelectAmountMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a reload value before continuing.'**
+  String get eWalletSelectAmountMessage;
+
+  /// No description provided for @eWalletPhoneRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number Required'**
+  String get eWalletPhoneRequiredTitle;
+
+  /// No description provided for @eWalletPhoneRequiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a phone number.'**
+  String get eWalletPhoneRequiredMessage;
+
+  /// No description provided for @eWalletInvalidPhoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Phone Number'**
+  String get eWalletInvalidPhoneTitle;
+
+  /// No description provided for @eWalletInvalidPhoneMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid Malaysian mobile number.'**
+  String get eWalletInvalidPhoneMessage;
+
+  /// No description provided for @eWalletAmountRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount Required'**
+  String get eWalletAmountRequiredTitle;
+
+  /// No description provided for @eWalletAmountRequiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the reload amount.'**
+  String get eWalletAmountRequiredMessage;
+
+  /// No description provided for @eWalletInvalidAmountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Amount'**
+  String get eWalletInvalidAmountTitle;
+
+  /// No description provided for @eWalletMinimumAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum reload amount is {amount}.'**
+  String eWalletMinimumAmount(String amount);
+
+  /// No description provided for @eWalletMaximumAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum reload amount is {amount}.'**
+  String eWalletMaximumAmount(String amount);
+
+  /// No description provided for @eWalletTngPinNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a PIN value. The phone number will be entered on the next page as the transaction reference.'**
+  String get eWalletTngPinNote;
+
+  /// No description provided for @eWalletTrueMoneyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily top-up limit is RM1,000 and monthly top-up limit is RM5,000.'**
+  String get eWalletTrueMoneyNote;
+
+  /// No description provided for @eWalletOkButton.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get eWalletOkButton;
+
+  /// No description provided for @eWalletReloadDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Wallet Reload'**
+  String get eWalletReloadDetails;
+
+  /// No description provided for @eWalletAmountStepSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select or enter the amount you want to reload'**
+  String get eWalletAmountStepSubtitle;
+
+  /// No description provided for @eWalletReloadAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload Amount'**
+  String get eWalletReloadAmount;
+
+  /// No description provided for @eWalletOrderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get eWalletOrderSummary;
+
+  /// No description provided for @eWalletLatestPricingInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'The total shown uses the latest available service pricing.'**
+  String get eWalletLatestPricingInfo;
+
+  /// No description provided for @eWalletKeypadClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get eWalletKeypadClear;
+
+  /// No description provided for @eWalletKeypadDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get eWalletKeypadDone;
+
+  /// No description provided for @eWalletKeypadCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get eWalletKeypadCancel;
+
+  /// No description provided for @eWalletPinlessPhoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your e-wallet phone number.'**
+  String get eWalletPinlessPhoneHint;
+
+  /// No description provided for @eWalletPinPhoneReferenceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A phone number is required as the transaction reference.'**
+  String get eWalletPinPhoneReferenceHint;
+
+  /// No description provided for @eWalletConfirmNumberTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Phone Number'**
+  String get eWalletConfirmNumberTitle;
+
+  /// No description provided for @eWalletConfirmNumberQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Is this phone number correct?'**
+  String get eWalletConfirmNumberQuestion;
+
+  /// No description provided for @eWalletConfirmBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get eWalletConfirmBack;
+
+  /// No description provided for @eWalletConfirmContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get eWalletConfirmContinue;
+
+  /// No description provided for @electricPaymentRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum {minimum} • Maximum {maximum}'**
+  String electricPaymentRange(String minimum, String maximum);
+
+  /// No description provided for @electricOutstandingExceedsMaximum.
+  ///
+  /// In en, this message translates to:
+  /// **'The outstanding amount is {outstanding}, but the maximum payment allowed is {maximum}.'**
+  String electricOutstandingExceedsMaximum(String outstanding, String maximum);
+
+  /// No description provided for @eWalletPinReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Wallet PIN Receipt'**
+  String get eWalletPinReceiptTitle;
+
+  /// No description provided for @eWalletPinReceiptProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Wallet Provider'**
+  String get eWalletPinReceiptProvider;
+
+  /// No description provided for @eWalletPinReceiptTransactionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Details'**
+  String get eWalletPinReceiptTransactionDetails;
+
+  /// No description provided for @eWalletPinReceiptProductCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Code'**
+  String get eWalletPinReceiptProductCode;
+
+  /// No description provided for @eWalletPinReceiptPhoneReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone / Reference'**
+  String get eWalletPinReceiptPhoneReference;
+
+  /// No description provided for @eWalletPinReceiptValue.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN Value'**
+  String get eWalletPinReceiptValue;
+
+  /// No description provided for @eWalletPinReceiptPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get eWalletPinReceiptPaymentMethod;
+
+  /// No description provided for @eWalletPinReceiptPaymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get eWalletPinReceiptPaymentDate;
+
+  /// No description provided for @eWalletPinReceiptBankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction'**
+  String get eWalletPinReceiptBankTransaction;
+
+  /// No description provided for @eWalletPinReceiptPinDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN Details'**
+  String get eWalletPinReceiptPinDetails;
+
+  /// No description provided for @eWalletPinReceiptSerialNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number'**
+  String get eWalletPinReceiptSerialNumber;
+
+  /// No description provided for @eWalletPinReceiptPinCode.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN'**
+  String get eWalletPinReceiptPinCode;
+
+  /// No description provided for @eWalletPinReceiptExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get eWalletPinReceiptExpiry;
+
+  /// No description provided for @eWalletPinReceiptNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get eWalletPinReceiptNote;
+
+  /// No description provided for @eWalletPinReceiptVoucherLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Link'**
+  String get eWalletPinReceiptVoucherLink;
+
+  /// No description provided for @eWalletPinReceiptTotalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Paid'**
+  String get eWalletPinReceiptTotalPaid;
+
+  /// No description provided for @eWalletPinReceiptSavePinMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please save your PIN before leaving this page.'**
+  String get eWalletPinReceiptSavePinMessage;
+
+  /// No description provided for @eWalletTngRedeemNote.
+  ///
+  /// In en, this message translates to:
+  /// **'To redeem, log in to your Touch \'n Go eWallet app'**
+  String get eWalletTngRedeemNote;
+
+  /// No description provided for @mobilePinReceiptSavePinMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please save your PIN before leaving this page.'**
+  String get mobilePinReceiptSavePinMessage;
+
+  /// No description provided for @eWalletProviderSurchargeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider Surcharge'**
+  String get eWalletProviderSurchargeTitle;
+
+  /// No description provided for @eWalletProviderSurchargeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'A {surcharge} provider surcharge applies. Reload {reloadAmount} and the e-wallet receives {receivedAmount}.'**
+  String eWalletProviderSurchargeMessage(String surcharge, String reloadAmount, String receivedAmount);
+
+  /// No description provided for @eWalletReloadReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Wallet Reload Receipt'**
+  String get eWalletReloadReceiptTitle;
+
+  /// No description provided for @eWalletReloadReceiptProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Wallet Provider'**
+  String get eWalletReloadReceiptProvider;
+
+  /// No description provided for @electricUpdateWithinHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {hours} hours'**
+  String electricUpdateWithinHours(String hours);
+
+  /// No description provided for @electricUpdateWithinDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {days} days'**
+  String electricUpdateWithinDays(String days);
+
+  /// No description provided for @electricProcessingTimeUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing time unavailable'**
+  String get electricProcessingTimeUnavailable;
+
+  /// No description provided for @waterUpdateWithinHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {hours} hours'**
+  String waterUpdateWithinHours(String hours);
+
+  /// No description provided for @waterUpdateWithinDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {days} days'**
+  String waterUpdateWithinDays(String days);
+
+  /// No description provided for @broadbandUpdateInstant.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant'**
+  String get broadbandUpdateInstant;
+
+  /// No description provided for @broadbandUpdateWithinHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {hours} hours'**
+  String broadbandUpdateWithinHours(String hours);
+
+  /// No description provided for @broadbandUpdateWithinDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {days} days'**
+  String broadbandUpdateWithinDays(String days);
+
+  /// No description provided for @entertainmentUpdateWithinHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {hours} hours'**
+  String entertainmentUpdateWithinHours(String hours);
+
+  /// No description provided for @entertainmentUpdateWithinDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {days} days'**
+  String entertainmentUpdateWithinDays(String days);
+
+  /// No description provided for @telcoPaymentUpdateTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Update Time'**
+  String get telcoPaymentUpdateTime;
+
+  /// No description provided for @telcoUpdateInstant.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant'**
+  String get telcoUpdateInstant;
+
+  /// No description provided for @telcoUpdateWithinHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {hours} hours'**
+  String telcoUpdateWithinHours(String hours);
+
+  /// No description provided for @telcoUpdateWithinDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {days} days'**
+  String telcoUpdateWithinDays(String days);
+
+  /// No description provided for @eWalletProcessingTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing Time'**
+  String get eWalletProcessingTime;
+
+  /// No description provided for @eWalletUpdateInstant.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant'**
+  String get eWalletUpdateInstant;
+
+  /// No description provided for @eWalletUpdateWithinHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {hours} hours'**
+  String eWalletUpdateWithinHours(String hours);
+
+  /// No description provided for @eWalletUpdateWithinDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {days} days'**
+  String eWalletUpdateWithinDays(String days);
+
+  /// No description provided for @loanEducationButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Loan & Education'**
+  String get loanEducationButton;
+
+  /// No description provided for @loanEducationSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Loan and education financing payments'**
+  String get loanEducationSupportingText;
+
+  /// No description provided for @loanServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'LOAN & EDUCATION SERVICE'**
+  String get loanServiceLabel;
+
+  /// No description provided for @loanProviderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Loan & Education'**
+  String get loanProviderTitle;
+
+  /// No description provided for @loanProviderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a provider to continue'**
+  String get loanProviderSubtitle;
+
+  /// No description provided for @processingTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing Time'**
+  String get processingTimeLabel;
+
+  /// No description provided for @catalogUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Information Unavailable'**
+  String get catalogUnavailableTitle;
+
+  /// No description provided for @catalogUnavailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load the latest service information. Please try again.'**
+  String get catalogUnavailableMessage;
+
+  /// No description provided for @retryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'RETRY'**
+  String get retryButton;
+
+  /// No description provided for @serviceUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Unavailable'**
+  String get serviceUnavailableTitle;
+
+  /// No description provided for @ptptnUnavailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'PTPTN service is currently unavailable. Please try again later.'**
+  String get ptptnUnavailableMessage;
+
+  /// No description provided for @ptptnNextPageMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'PTPTN selected. Continue to NRIC entry.'**
+  String get ptptnNextPageMessage;
+
+  /// No description provided for @processingInstant.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant'**
+  String get processingInstant;
+
+  /// No description provided for @processing24Hours.
+  ///
+  /// In en, this message translates to:
+  /// **'24 Hours'**
+  String get processing24Hours;
+
+  /// No description provided for @processing3Days.
+  ///
+  /// In en, this message translates to:
+  /// **'3 Days'**
+  String get processing3Days;
+
+  /// No description provided for @loanNricStepLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PTPTN ACCOUNT'**
+  String get loanNricStepLabel;
+
+  /// No description provided for @loanEnterNricTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter NRIC Number'**
+  String get loanEnterNricTitle;
+
+  /// No description provided for @loanEnterNricSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your 12-digit NRIC number to continue'**
+  String get loanEnterNricSubtitle;
+
+  /// No description provided for @loanSelectedProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Provider'**
+  String get loanSelectedProvider;
+
+  /// No description provided for @loanNricHint.
+  ///
+  /// In en, this message translates to:
+  /// **'ENTER NRIC NUMBER'**
+  String get loanNricHint;
+
+  /// No description provided for @loanNricHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 12 digits without spaces or dashes'**
+  String get loanNricHintText;
+
+  /// No description provided for @loanContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get loanContinue;
+
+  /// No description provided for @loanConfirmNricTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm NRIC Number'**
+  String get loanConfirmNricTitle;
+
+  /// No description provided for @loanConfirmNricQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Is this NRIC number correct?'**
+  String get loanConfirmNricQuestion;
+
+  /// No description provided for @loanConfirmBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get loanConfirmBack;
+
+  /// No description provided for @loanConfirmContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get loanConfirmContinue;
+
+  /// No description provided for @loanNricRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'NRIC Required'**
+  String get loanNricRequiredTitle;
+
+  /// No description provided for @loanNricRequiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your NRIC number.'**
+  String get loanNricRequiredMessage;
+
+  /// No description provided for @loanInvalidNricTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid NRIC'**
+  String get loanInvalidNricTitle;
+
+  /// No description provided for @loanInvalidNricMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid 12-digit NRIC number.'**
+  String get loanInvalidNricMessage;
+
+  /// No description provided for @loanUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Unavailable'**
+  String get loanUnavailableTitle;
+
+  /// No description provided for @loanUnavailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'PTPTN service is currently unavailable. Please try again later.'**
+  String get loanUnavailableMessage;
+
+  /// No description provided for @loanLoadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading PTPTN'**
+  String get loanLoadingTitle;
+
+  /// No description provided for @loanLoadingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we load the latest PTPTN information.'**
+  String get loanLoadingMessage;
+
+  /// No description provided for @loanCatalogErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to Load PTPTN'**
+  String get loanCatalogErrorTitle;
+
+  /// No description provided for @loanCatalogErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load PTPTN service information. Please try again.'**
+  String get loanCatalogErrorMessage;
+
+  /// No description provided for @loanRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'RETRY'**
+  String get loanRetry;
+
+  /// No description provided for @loanOkButton.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get loanOkButton;
+
+  /// No description provided for @loanNricConfirmedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'NRIC confirmed. Retrieving PTPTN account options.'**
+  String get loanNricConfirmedMessage;
+
+  /// No description provided for @loanAccountStepLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PTPTN ACCOUNT'**
+  String get loanAccountStepLabel;
+
+  /// No description provided for @loanSelectAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Account'**
+  String get loanSelectAccountTitle;
+
+  /// No description provided for @loanSelectAccountSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the PTPTN or SSPN account you want to pay'**
+  String get loanSelectAccountSubtitle;
+
+  /// No description provided for @loanNricLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'NRIC Number'**
+  String get loanNricLabel;
+
+  /// No description provided for @loanAccountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Number'**
+  String get loanAccountNumber;
+
+  /// No description provided for @loanAccountType.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Type'**
+  String get loanAccountType;
+
+  /// No description provided for @loanTypeConventional.
+  ///
+  /// In en, this message translates to:
+  /// **'Conventional'**
+  String get loanTypeConventional;
+
+  /// No description provided for @loanTypeUjrah.
+  ///
+  /// In en, this message translates to:
+  /// **'Ujrah'**
+  String get loanTypeUjrah;
+
+  /// No description provided for @loanTypeSspnPrime.
+  ///
+  /// In en, this message translates to:
+  /// **'SSPN Prime'**
+  String get loanTypeSspnPrime;
+
+  /// No description provided for @loanTypeSspnPlus.
+  ///
+  /// In en, this message translates to:
+  /// **'SSPN Plus'**
+  String get loanTypeSspnPlus;
+
+  /// No description provided for @loanAccountCategoryUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get loanAccountCategoryUnknown;
+
+  /// No description provided for @loanAccountLoadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking Accounts'**
+  String get loanAccountLoadingTitle;
+
+  /// No description provided for @loanAccountLoadingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we retrieve your PTPTN and SSPN accounts.'**
+  String get loanAccountLoadingMessage;
+
+  /// No description provided for @loanAccountErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to Retrieve Accounts'**
+  String get loanAccountErrorTitle;
+
+  /// No description provided for @loanAccountErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'We could not retrieve your PTPTN account information. Please try again.'**
+  String get loanAccountErrorMessage;
+
+  /// No description provided for @loanNoAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No Account Available'**
+  String get loanNoAccountTitle;
+
+  /// No description provided for @loanNoAccountMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'There are no available PTPTN or SSPN accounts for this NRIC. Please try again later.'**
+  String get loanNoAccountMessage;
+
+  /// No description provided for @loanAccountRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select an Account'**
+  String get loanAccountRequiredTitle;
+
+  /// No description provided for @loanAccountRequiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an account to continue.'**
+  String get loanAccountRequiredMessage;
+
+  /// No description provided for @loanAccountSelectedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Account selected. Continue to enter payment amount.'**
+  String get loanAccountSelectedMessage;
+
+  /// No description provided for @loanAvailableAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Available accounts: {count}'**
+  String loanAvailableAccounts(int count);
+
+  /// No description provided for @loanAvailableAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AVAILABLE ACCOUNTS'**
+  String get loanAvailableAccountTitle;
+
+  /// No description provided for @loanAccountSelectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PTPTN Account Selection'**
+  String get loanAccountSelectionTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

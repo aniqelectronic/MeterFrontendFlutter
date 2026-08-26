@@ -2387,6 +2387,638 @@
 "telcoPaymentRange": "குறைந்தபட்சம் RM 1.00 • அதிகபட்சம் RM 10,000.00",
 "telcoClear": "அழி",
 "telcoDone": "முடிந்தது",
-"telcoCancel": "ரத்து"
+"telcoCancel": "ரத்து",
+
+
+"mobilePinPurchaseTitle": "மொபைல் PIN வாங்குதல்",
+"mobilePinSelectedProvider": "தேர்ந்தெடுக்கப்பட்ட சேவை வழங்குநர்",
+"mobilePinAvailable": "கிடைக்கிறது",
+"mobilePinUnavailable": "கிடைக்கவில்லை",
+"mobilePinImportantNote": "முக்கிய குறிப்பு",
+"mobilePinSelectAmount": "PIN தொகையைத் தேர்ந்தெடுக்கவும்",
+"mobilePinQuantity": "எண்ணிக்கை",
+"mobilePinQuantityHelp": "வாங்க வேண்டிய PIN எண்ணிக்கையைத் தேர்ந்தெடுக்கவும்.",
+"mobilePinOrderSummary": "ஆர்டர் சுருக்கம்",
+"mobilePinSubtotal": "இடைத் தொகை",
+"mobilePinTotalAmount": "மொத்த தொகை",
+"mobilePinProceed": "கட்டணத்திற்குத் தொடரவும்",
+
+"mobilePinLoadingTitle": "மொபைல் PIN ஏற்றப்படுகிறது",
+"mobilePinLoadingMessage": "சமீபத்திய PIN விருப்பங்களைப் பெறும் வரை காத்திருக்கவும்.",
+
+"mobilePinCatalogErrorTitle": "மொபைல் PIN ஏற்ற முடியவில்லை",
+"mobilePinCatalogErrorMessage": "சமீபத்திய மொபைல் PIN தகவலைப் பெற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+"mobilePinRetry": "மீண்டும் முயற்சி",
+
+"mobilePinUnavailableTitle": "சேவை கிடைக்கவில்லை",
+"mobilePinUnavailableMessage": "இந்த மொபைல் PIN சேவை தற்போது கிடைக்கவில்லை.",
+
+"mobilePinSelectAmountTitle": "தொகையைத் தேர்ந்தெடுக்கவும்",
+"mobilePinSelectAmountMessage": "தொடர்வதற்கு முன் PIN தொகையைத் தேர்ந்தெடுக்கவும்.",
+
+"mobilePinDebugTitle": "தேர்வு பதிவு செய்யப்பட்டது",
+"mobilePinDebugMessage": "உங்கள் மொபைல் PIN தேர்வு தயாராக உள்ளது. வாங்கும் API அடுத்த படியில் இணைக்கப்படும்.",
+
+"mobilePinNoteCelcom": "ரீலோட் செய்ய *122* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.",
+"mobilePinNoteDigi": "ரீலோட் செய்ய *123* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.",
+"mobilePinNoteHelloSim": "ரீலோட் செய்ய *178* ஐ அழுத்தி, அதன் பின்னர் PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.",
+"mobilePinNoteMaxis": "ரீலோட் செய்ய *111* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.",
+"mobilePinNoteRedOne": "ரீலோட் செய்ய *122* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.",
+"mobilePinNoteSpeakOut": "*129# ஐ அழுத்தி Send செய்யவும். ரீலோடிற்காக விருப்பம் 2 ஐ தேர்ந்தெடுத்து, ரீலோட் PIN ஐ உள்ளிட்டு மீண்டும் Send செய்யவும்.",
+"mobilePinNoteTuneTalk": "ரீலோட் செய்ய *122* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN மற்றும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.",
+"mobilePinNoteUnifi": "unifi செயலியைத் திறந்து Reload ஐ தேர்ந்தெடுக்கவும். Reload Voucher ஐ தேர்ந்தெடுத்து 12 இலக்க ரீலோட் PIN ஐ உள்ளிட்டு Continue அழுத்தவும்.",
+"mobilePinNoteUMobile": "ரீலோட் செய்ய *138* ஐ அழுத்தி, அதன் பின்னர் 14 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.",
+"mobilePinNoteXox": "ரீலோட் செய்ய *132*1* ஐ அழுத்தி, அதன் பின்னர் 16 இலக்க PIN எண்ணையும் # குறியீட்டையும் உள்ளிட்டு CALL அழுத்தவும்.",
+"mobilePinNoteYes": "ரீலோட் செய்ய REL, உங்கள் Yes எண் மற்றும் PIN குறியீட்டை உள்ளிட்டு 0183301111 என்ற எண்ணிற்கு அனுப்பவும்.",
+"mobilePinServiceAdjustment": "சேவை சரிசெய்தல்",
+
+"eWalletReloadButton": "இ-வாலட் ரீலோட்",
+"eWalletReloadSupportingText": "இ-வாலட்டிற்கு எளிதாக ரீலோட் செய்யுங்கள்",
+
+"eWalletServiceLabel": "இ-வாலட் ரீலோட் சேவை",
+"eWalletProviderTitle": "இ-வாலட்டைத் தேர்வு செய்யவும்",
+"eWalletProviderSubtitle": "தொடர இ-வாலட் சேவையைத் தேர்வு செய்யவும்",
+"touchNGoPin": "Touch 'n Go PIN",
+"touchNGoPinless": "Touch 'n Go ரீலோட்",
+"trueMoneyEWallet": "TrueMoney இ-வாலட்",
+
+"telcoReceiptTitle": "தொலைத்தொடர்பு கட்டண ரசீது",
+"telcoReceiptPaymentSuccessful": "கட்டணம் வெற்றிகரமாக முடிந்தது",
+"telcoReceiptThankYou": "நன்றி. உங்கள் தொலைத்தொடர்பு கட்டணம் வெற்றிகரமாக பெறப்பட்டது.",
+"telcoReceiptProvider": "சேவை வழங்குநர்",
+"telcoReceiptTransactionDetails": "பரிவர்த்தனை விவரங்கள்",
+"telcoReceiptAccountNumber": "கணக்கு / மொபைல் எண்",
+"telcoReceiptProductCode": "தயாரிப்பு குறியீடு",
+"telcoReceiptBillAmount": "பில் தொகை",
+"telcoReceiptServiceAdjustment": "சேவை சரிசெய்தல்",
+"telcoReceiptPaymentMethod": "கட்டண முறை",
+"telcoReceiptPaymentDate": "கட்டண தேதி & நேரம்",
+"telcoReceiptOrderNumber": "ஆர்டர் எண்",
+"telcoReceiptBankTransaction": "வங்கி பரிவர்த்தனை",
+"telcoReceiptTotalPaid": "மொத்தம் செலுத்தப்பட்டது",
+
+"telcoReceiptAutoReturn": "{seconds} வினாடிகளில் முகப்பு பக்கத்திற்கு திரும்பும்.",
+"@telcoReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+"receiptTransactionReference": "பரிவர்த்தனை குறிப்பு",
+
+"telcoReceiptTitle": "தொலைத்தொடர்பு கட்டண ரசீது",
+"telcoReceiptProvider": "சேவை வழங்குநர்",
+"telcoReceiptTransactionDetails": "பரிவர்த்தனை விவரங்கள்",
+"telcoReceiptAccountNumber": "கணக்கு / மொபைல் எண்",
+"telcoReceiptProductCode": "தயாரிப்பு குறியீடு",
+"telcoReceiptPaymentMethod": "கட்டண முறை",
+"telcoReceiptPaymentDate": "கட்டண தேதி & நேரம்",
+"telcoReceiptOrderNumber": "ஆர்டர் எண்",
+"telcoReceiptBankTransaction": "வங்கி பரிவர்த்தனை",
+"telcoReceiptTotalPaid": "மொத்தம் செலுத்தப்பட்டது",
+
+"telcoReceiptAutoReturn": "{seconds} வினாடிகளில் முகப்பு பக்கத்திற்கு திரும்பும்.",
+"@telcoReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+"mobilePinReceiptTitle": "மொபைல் PIN ரசீது",
+"mobilePinReceiptProvider": "மொபைல் PIN வழங்குநர்",
+"mobilePinReceiptTransactionDetails": "பரிவர்த்தனை விவரங்கள்",
+"mobilePinReceiptProductCode": "தயாரிப்பு குறியீடு",
+"mobilePinReceiptPinValue": "PIN மதிப்பு",
+"mobilePinReceiptQuantity": "அளவு",
+"mobilePinReceiptPaymentMethod": "கட்டண முறை",
+"mobilePinReceiptPaymentDate": "கட்டண தேதி & நேரம்",
+"mobilePinReceiptOrderNumber": "ஆர்டர் எண்",
+"mobilePinReceiptBankTransaction": "வங்கி பரிவர்த்தனை",
+"mobilePinReceiptPinDetails": "PIN விவரங்கள்",
+"mobilePinReceiptPinNumber": "PIN {number}",
+"@mobilePinReceiptPinNumber": {
+  "placeholders": {
+    "number": {
+      "type": "int"
+    }
+  }
+},
+"mobilePinReceiptSerialNumber": "தொடர் எண்",
+"mobilePinReceiptPinCode": "PIN குறியீடு",
+"mobilePinReceiptExpiry": "காலாவதி தேதி",
+"mobilePinReceiptNote": "வழிமுறைகள்",
+"mobilePinReceiptVoucherLink": "வவுச்சர் இணைப்பு",
+"mobilePinReceiptTotalPaid": "மொத்தம் செலுத்தப்பட்டது",
+
+"mobilePinReceiptAutoReturn": "{seconds} வினாடிகளில் முகப்பு பக்கத்திற்கு திரும்பும்.",
+"@mobilePinReceiptAutoReturn": {
+  "placeholders": {
+    "seconds": {
+      "type": "int"
+    }
+  }
+},
+
+"mobilePinRecipientMobileTitle": "பெறுநர் மொபைல் எண்",
+"mobilePinRecipientMobileSubtitle": "பெறுநரின் மொபைல் எண்ணை உள்ளிடவும்.",
+"mobilePinRecipientMobileHint": "எ.கா: 0123456789",
+"mobilePinRecipientMobileHelp": "எண்ணை சரிபார்த்து தொடரவும்.",
+"mobilePinRecipientMobileSummary": "மொபைல் எண்",
+"mobilePinMobileNumberRequired": "மொபைல் எண்ணை உள்ளிடவும்.",
+"mobilePinMobileNumberInvalid": "சரியான எண்ணை உள்ளிடவும்.",
+"mobilePinProceed": "கட்டணத்திற்கு தொடரவும்",
+
+"mobilePinContinue": "தொடரவும்",
+
+"mobilePinNumberServiceLabel": "மொபைல் PIN",
+"mobilePinEnterNumberTitle": "மொபைல் எண்ணை உள்ளிடவும்",
+"mobilePinEnterNumberSubtitle": "பெறுநரின் மொபைல் எண்ணை உள்ளிடவும்.",
+
+"mobilePinSelectedProduct": "தேர்ந்த PIN",
+"mobilePinPaymentTotal": "மொத்தம்",
+
+"mobilePinNumberHint": "மொபைல் எண்",
+"mobilePinNumberInstruction": "பெறுநரின் மொபைல் எண்ணை உள்ளிட்டு சரிபார்க்கவும்.",
+
+"mobilePinNumberAlertTitle": "மொபைல் எண்",
+"mobilePinNumberRequired": "மொபைல் எண்ணை உள்ளிடவும்.",
+"mobilePinNumberInvalid": "சரியான மொபைல் எண்ணை உள்ளிடவும்.",
+
+"mobilePinContinueToPayment": "கட்டணத்திற்கு தொடரவும்",
+
+"mobilePinNextStepMobileNumber": "அடுத்து மொபைல் எண்ணை உள்ளிடவும்.",
+
+"eWalletPinPurchaseTitle": "இ-வாலட் PIN",
+"eWalletSelectedProvider": "தேர்ந்த இ-வாலட்",
+"eWalletAvailable": "கிடைக்கும்",
+"eWalletUnavailable": "கிடைக்காது",
+
+"eWalletSelectReloadValue": "ரீலோட் தொகை தேர்வு",
+"eWalletPinValue": "PIN தொகை",
+"eWalletReloadValue": "ரீலோட் தொகை",
+"eWalletServiceAdjustment": "சேவை மாற்றம்",
+"eWalletTotalPayment": "மொத்தம்",
+
+"eWalletContinue": "தொடர்க",
+"eWalletContinuePayment": "பணம் செலுத்துக",
+
+"eWalletPhoneStepLabel": "இ-வாலட் எண்",
+"eWalletAmountStepLabel": "ரீலோட் தொகை",
+
+"eWalletEnterPhoneTitle": "தொலைபேசி எண்",
+"eWalletEnterPhoneSubtitle": "இ-வாலட் எண்ணை உள்ளிடுக",
+"eWalletPhoneNumber": "தொலைபேசி எண்",
+"eWalletPhoneHint": "எண்ணை உள்ளிடுக",
+"eWalletPhoneReferenceHint": "பயன்படுத்தும் எண்ணை உள்ளிடுக.",
+
+"eWalletEnterAmountTitle": "ரீலோட் தொகை",
+"eWalletAmountHint": "தொகையை உள்ளிடுக",
+
+"eWalletAmountRange": "வரம்பு: {minimum} - {maximum}",
+"@eWalletAmountRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletLoadingTitle": "ஏற்றப்படுகிறது",
+"eWalletLoadingMessage": "தகவல் பெறப்படுகிறது...",
+
+"eWalletCatalogErrorTitle": "ஏற்ற முடியவில்லை",
+"eWalletCatalogErrorMessage": "இ-வாலட் தகவல் கிடைக்கவில்லை.",
+"eWalletRetry": "மீண்டும் முயல்க",
+
+"eWalletUnavailableTitle": "சேவை இல்லை",
+"eWalletUnavailableMessage": "இச்சேவை தற்போது கிடைக்கவில்லை.",
+
+"eWalletSelectAmountTitle": "ரீலோட் தொகை",
+"eWalletSelectAmountMessage": "ரீலோட் தொகையைத் தேர்வு செய்க.",
+
+"eWalletPhoneRequiredTitle": "எண் தேவை",
+"eWalletPhoneRequiredMessage": "தொலைபேசி எண்ணை உள்ளிடுக.",
+
+"eWalletInvalidPhoneTitle": "தவறான எண்",
+"eWalletInvalidPhoneMessage": "சரியான மொபைல் எண்ணை உள்ளிடுக.",
+
+"eWalletAmountRequiredTitle": "தொகை தேவை",
+"eWalletAmountRequiredMessage": "ரீலோட் தொகையை உள்ளிடுக.",
+
+"eWalletInvalidAmountTitle": "தவறான தொகை",
+
+"eWalletMinimumAmount": "குறைந்தபட்சம் {amount}.",
+"@eWalletMinimumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletMaximumAmount": "அதிகபட்சம் {amount}.",
+"@eWalletMaximumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletTngPinNote": "PIN தொகை தேர்வு செய்க. அடுத்து தொலைபேசி எண்ணை உள்ளிடுக.",
+
+"eWalletTrueMoneyNote": "தினசரி RM1,000. மாதம் RM5,000.",
+
+"eWalletOkButton": "சரி",
+
+
+"eWalletReloadDetails": "இ-வாலட் ரீலோட்",
+"eWalletPhoneStepLabel": "இ-வாலட் எண்",
+"eWalletEnterPhoneTitle": "தொலைபேசி எண்",
+"eWalletPhoneNumber": "தொலைபேசி எண்",
+"eWalletPhoneHint": "எண்ணை உள்ளிடுக",
+
+"eWalletEnterAmountTitle": "ரீலோட் தொகை",
+"eWalletAmountStepSubtitle": "ரீலோட் தொகையைத் தேர்வு செய்க",
+"eWalletReloadAmount": "ரீலோட் தொகை",
+"eWalletSelectReloadValue": "ரீலோட் தொகை தேர்வு",
+
+"eWalletAmountRange": "வரம்பு: {minimum} - {maximum}",
+"@eWalletAmountRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletOrderSummary": "ஆர்டர் சுருக்கம்",
+"eWalletPinValue": "PIN தொகை",
+"eWalletReloadValue": "ரீலோட் தொகை",
+"eWalletServiceAdjustment": "சேவை மாற்றம்",
+"eWalletTotalPayment": "மொத்தம்",
+"eWalletLatestPricingInfo": "சமீபத்திய சேவை விலை பயன்படுத்தப்படுகிறது.",
+
+"eWalletContinuePayment": "பணம் செலுத்துக",
+
+"eWalletLoadingTitle": "ஏற்றப்படுகிறது",
+"eWalletLoadingMessage": "தகவல் பெறப்படுகிறது...",
+
+"eWalletCatalogErrorTitle": "ஏற்ற முடியவில்லை",
+"eWalletCatalogErrorMessage": "இ-வாலட் தகவல் கிடைக்கவில்லை.",
+"eWalletRetry": "மீண்டும் முயல்க",
+
+"eWalletPhoneRequiredTitle": "எண் தேவை",
+"eWalletPhoneRequiredMessage": "தொலைபேசி எண்ணை உள்ளிடுக.",
+
+"eWalletInvalidPhoneTitle": "தவறான எண்",
+"eWalletInvalidPhoneMessage": "சரியான மொபைல் எண்ணை உள்ளிடுக.",
+
+"eWalletAmountRequiredTitle": "தொகை தேவை",
+"eWalletAmountRequiredMessage": "ரீலோட் தொகையை உள்ளிடுக.",
+
+"eWalletInvalidAmountTitle": "தவறான தொகை",
+
+"eWalletMinimumAmount": "குறைந்தபட்சம் {amount}.",
+"@eWalletMinimumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletMaximumAmount": "அதிகபட்சம் {amount}.",
+"@eWalletMaximumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"eWalletTrueMoneyNote": "தினசரி RM1,000. மாதம் RM5,000.",
+
+"eWalletKeypadClear": "அழிக்க",
+"eWalletKeypadDone": "முடிந்தது",
+"eWalletKeypadCancel": "ரத்து",
+
+"eWalletOkButton": "சரி",
+
+"eWalletPinlessPhoneHint": "இ-வாலட் எண்ணை உள்ளிடுக.",
+"eWalletPinPhoneReferenceHint": "பரிவர்த்தனைக்கு தொலைபேசி எண் தேவை.",
+
+"eWalletConfirmNumberTitle": "எண்ணை உறுதிசெய்க",
+"eWalletConfirmNumberQuestion": "இந்த எண் சரியா?",
+"eWalletConfirmBack": "திரும்பு",
+"eWalletConfirmContinue": "தொடர்க",
+
+"electricPaymentRange": "குறைந்தது {minimum} • அதிகம் {maximum}",
+"@electricPaymentRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"electricOutstandingExceedsMaximum": "நிலுவை {outstanding}. அதிகபட்ச கட்டணம் {maximum}.",
+"@electricOutstandingExceedsMaximum": {
+  "placeholders": {
+    "outstanding": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+
+"eWalletPinReceiptTitle": "E-Wallet PIN ரசீது",
+"eWalletPinReceiptProvider": "E-Wallet",
+"eWalletPinReceiptTransactionDetails": "பரிவர்த்தனை",
+"eWalletPinReceiptProductCode": "தயாரிப்பு குறியீடு",
+"eWalletPinReceiptPhoneReference": "தொலைபேசி / குறிப்பு",
+"eWalletPinReceiptValue": "PIN தொகை",
+"eWalletPinReceiptPaymentMethod": "கட்டண முறை",
+"eWalletPinReceiptPaymentDate": "கட்டண தேதி",
+"eWalletPinReceiptBankTransaction": "வங்கி பரிவர்த்தனை",
+"eWalletPinReceiptPinDetails": "PIN விவரம்",
+"eWalletPinReceiptSerialNumber": "சீரியல் எண்",
+"eWalletPinReceiptPinCode": "PIN",
+"eWalletPinReceiptExpiry": "காலாவதி",
+"eWalletPinReceiptNote": "குறிப்பு",
+"eWalletPinReceiptVoucherLink": "வவுச்சர் இணைப்பு",
+"eWalletPinReceiptTotalPaid": "மொத்த கட்டணம்",
+"eWalletPinReceiptSavePinMessage": "இந்தப் பக்கத்தை விட்டு செல்லும் முன் PIN-ஐ சேமிக்கவும்.",
+
+"eWalletTngRedeemNote": "PIN-ஐ பெற Touch 'n Go eWallet செயலியில் உள்நுழையவும்",
+
+"mobilePinReceiptSavePinMessage": "இந்தப் பக்கத்திலிருந்து வெளியேறுவதற்கு முன் உங்கள் PIN-ஐ சேமிக்கவும்.",
+
+"eWalletProviderSurchargeTitle": "கூடுதல் கட்டணம்",
+"eWalletProviderSurchargeMessage": "{surcharge} கட்டணம் உண்டு. {reloadAmount} செலுத்தினால், e-wallet {receivedAmount} பெறும்.",
+"@eWalletProviderSurchargeMessage": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    },
+    "reloadAmount": {
+      "type": "String"
+    },
+    "receivedAmount": {
+      "type": "String"
+    }
+  }
+},
+
+
+"eWalletReloadReceiptTitle": "E-Wallet ரசீது",
+"eWalletReloadReceiptProvider": "E-Wallet",
+
+"eWalletProviderSurchargeTitle": "கூடுதல் கட்டணம்",
+"eWalletProviderSurchargeMessage": "{surcharge} கட்டணம் உண்டு. {reloadAmount} செலுத்தினால், e-wallet {receivedAmount} பெறும்.",
+"@eWalletProviderSurchargeMessage": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    },
+    "reloadAmount": {
+      "type": "String"
+    },
+    "receivedAmount": {
+      "type": "String"
+    }
+  }
+},
+
+
+"electricUpdateInstant": "உடனடி",
+
+"electricUpdateWithinHours": "{hours} மணி நேரத்தில்",
+"@electricUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"electricUpdateWithinDays": "{days} நாட்களில்",
+"@electricUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"electricProcessingTimeUnavailable": "செயலாக்க நேரம் கிடைக்கவில்லை",
+
+"waterUpdateWithinHours": "{hours} மணி நேரத்திற்குள்",
+"@waterUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"waterUpdateWithinDays": "{days} நாட்களுக்குள்",
+"@waterUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandUpdateInstant": "உடனடி",
+
+"broadbandUpdateWithinHours": "{hours} மணி நேரத்தில்",
+"@broadbandUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"broadbandUpdateWithinDays": "{days} நாட்களில்",
+"@broadbandUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"entertainmentUpdateInstant": "உடனடி",
+
+"entertainmentUpdateWithinHours": "{hours} மணி நேரத்தில்",
+"@entertainmentUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"entertainmentUpdateWithinDays": "{days} நாட்களில்",
+"@entertainmentUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+
+"telcoPaymentUpdateTime": "கட்டண புதுப்பிப்பு நேரம்",
+"telcoUpdateInstant": "உடனடி",
+"telcoUpdateWithinHours": "{hours} மணி நேரத்தில்",
+"@telcoUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+"telcoUpdateWithinDays": "{days} நாட்களில்",
+"@telcoUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+
+"eWalletProcessingTime": "செயலாக்க நேரம்",
+"eWalletUpdateInstant": "உடனடி",
+"eWalletUpdateWithinHours": "{hours} மணி நேரத்திற்குள்",
+"@eWalletUpdateWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+"eWalletUpdateWithinDays": "{days} நாட்களுக்குள்",
+"@eWalletUpdateWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"loanEducationButton": "கடன் & கல்வி",
+"loanEducationSupportingText": "கடன் மற்றும் கல்விக் கட்டணம்",
+
+"loanServiceLabel": "கடன் & கல்வி சேவை",
+"loanProviderTitle": "கடன் & கல்வி",
+"loanProviderSubtitle": "தொடர சேவையைத் தேர்ந்தெடுக்கவும்",
+"processingTimeLabel": "செயலாக்க நேரம்",
+"catalogUnavailableTitle": "சேவை தகவல் கிடைக்கவில்லை",
+"catalogUnavailableMessage": "சமீபத்திய சேவை தகவலைப் பெற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+"retryButton": "மீண்டும் முயற்சி",
+"serviceUnavailableTitle": "சேவை கிடைக்கவில்லை",
+"ptptnUnavailableMessage": "PTPTN சேவை தற்போது கிடைக்கவில்லை. பின்னர் முயற்சிக்கவும்.",
+"ptptnNextPageMessage": "PTPTN தேர்ந்தெடுக்கப்பட்டது. அடையாள எண் உள்ளீட்டிற்கு தொடரவும்.",
+
+"processingTimeLabel": "செயலாக்க நேரம்",
+"processingInstant": "உடனடி",
+"processing24Hours": "24 மணி நேரம்",
+"processing3Days": "3 நாட்கள்",
+
+
+"loanNricStepLabel": "PTPTN கணக்கு",
+"loanEnterNricTitle": "அடையாள எண்ணை உள்ளிடவும்",
+"loanEnterNricSubtitle": "தொடர 12 இலக்க அடையாள எண்ணை உள்ளிடவும்",
+"loanSelectedProvider": "தேர்ந்தெடுத்த சேவை",
+"loanNricHint": "அடையாள எண்ணை உள்ளிடவும்",
+"loanNricHintText": "இடைவெளி அல்லது கோடு இல்லாமல் 12 இலக்கங்களை உள்ளிடவும்",
+"loanContinue": "தொடரவும்",
+
+"loanConfirmNricTitle": "அடையாள எண்ணை உறுதிப்படுத்தவும்",
+"loanConfirmNricQuestion": "இந்த அடையாள எண் சரியா?",
+"loanConfirmBack": "திருத்து",
+"loanConfirmContinue": "தொடரவும்",
+
+"loanNricRequiredTitle": "அடையாள எண் தேவை",
+"loanNricRequiredMessage": "உங்கள் அடையாள எண்ணை உள்ளிடவும்.",
+
+"loanInvalidNricTitle": "தவறான அடையாள எண்",
+"loanInvalidNricMessage": "சரியான 12 இலக்க அடையாள எண்ணை உள்ளிடவும்.",
+
+"loanUnavailableTitle": "சேவை கிடைக்கவில்லை",
+"loanUnavailableMessage": "PTPTN சேவை தற்போது கிடைக்கவில்லை. பின்னர் முயற்சிக்கவும்.",
+
+"loanLoadingTitle": "PTPTN ஏற்றப்படுகிறது",
+"loanLoadingMessage": "PTPTN தகவல் ஏற்றப்படுகிறது. தயவுசெய்து காத்திருக்கவும்.",
+
+"loanCatalogErrorTitle": "PTPTN ஏற்ற முடியவில்லை",
+"loanCatalogErrorMessage": "PTPTN சேவை தகவலை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+
+"loanRetry": "மீண்டும் முயற்சி",
+"loanOkButton": "சரி",
+"loanNricConfirmedMessage": "அடையாள எண் உறுதிசெய்யப்பட்டது. PTPTN கணக்குகள் பெறப்படுகின்றன.",
+
+"loanAccountStepLabel": "PTPTN கணக்கு",
+"loanSelectAccountTitle": "கணக்கைத் தேர்ந்தெடுக்கவும்",
+"loanSelectAccountSubtitle": "செலுத்த வேண்டிய PTPTN அல்லது SSPN கணக்கைத் தேர்ந்தெடுக்கவும்",
+"loanNricLabel": "அடையாள எண்",
+
+"loanAccountNumber": "கணக்கு எண்",
+"loanAccountType": "கணக்கு வகை",
+
+"loanTypeConventional": "Konvensional",
+"loanTypeUjrah": "Ujrah",
+"loanTypeSspnPrime": "SSPN Prime",
+"loanTypeSspnPlus": "SSPN Plus",
+
+"loanAccountCategoryUnknown": "கணக்கு",
+
+"loanAccountLoadingTitle": "கணக்குகள் சரிபார்க்கப்படுகின்றன",
+"loanAccountLoadingMessage": "உங்கள் PTPTN மற்றும் SSPN கணக்குகள் பெறப்படுகின்றன.",
+
+"loanAccountErrorTitle": "கணக்குகளைப் பெற முடியவில்லை",
+"loanAccountErrorMessage": "PTPTN கணக்கு தகவலைப் பெற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+
+"loanNoAccountTitle": "கணக்கு கிடைக்கவில்லை",
+"loanNoAccountMessage": "இந்த அடையாள எண்ணுக்கு PTPTN அல்லது SSPN கணக்கு கிடைக்கவில்லை. பின்னர் முயற்சிக்கவும்.",
+
+"loanAccountRequiredTitle": "கணக்கைத் தேர்ந்தெடுக்கவும்",
+"loanAccountRequiredMessage": "தொடர ஒரு கணக்கைத் தேர்ந்தெடுக்கவும்.",
+
+"loanAccountSelectedMessage": "கணக்கு தேர்ந்தெடுக்கப்பட்டது. கட்டணத் தொகையை உள்ளிட தொடரவும்.",
+
+"loanAvailableAccounts": "கிடைக்கும் கணக்குகள்: {count}",
+"@loanAvailableAccounts": {
+  "placeholders": {
+    "count": {
+      "type": "int"
+    }
+  }
+},
+
+"loanAvailableAccountTitle": "கிடைக்கும் கணக்குகள்",
+
+"loanAccountSelectionTitle": "PTPTN கணக்கு தேர்வு"
 
 }

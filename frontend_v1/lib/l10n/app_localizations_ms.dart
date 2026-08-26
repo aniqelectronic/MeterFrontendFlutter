@@ -3485,7 +3485,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get electricPaymentUpdateTime => 'Tempoh Kemas Kini Bil';
 
   @override
-  String get electricUpdateInstant => 'SERTA-MERTA';
+  String get electricUpdateInstant => 'Serta-merta';
 
   @override
   String get electricUpdateWithinThreeDays => 'Dalam tempoh 3 hari';
@@ -3979,7 +3979,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get entertainmentPaymentUpdateTime => 'Masa Kemas Kini Bayaran';
 
   @override
-  String get entertainmentUpdateInstant => 'SERTA-MERTA';
+  String get entertainmentUpdateInstant => 'Serta-merta';
 
   @override
   String get entertainmentContinue => 'TERUSKAN';
@@ -4794,7 +4794,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get telcoBillNumberRequired => 'Sila masukkan nombor akaun atau nombor mudah alih anda.';
 
   @override
-  String get mobilePinNumberRequired => 'Sila masukkan nombor mudah alih.';
+  String get mobilePinNumberRequired => 'Sila masukkan nombor mudah alih penerima.';
 
   @override
   String get telcoNumberInvalid => 'Sila masukkan nombor yang sah menggunakan 8 hingga 15 digit.';
@@ -4934,4 +4934,819 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get telcoCancel => 'BATAL';
+
+  @override
+  String get mobilePinPurchaseTitle => 'Pembelian PIN Mudah Alih';
+
+  @override
+  String get mobilePinSelectedProvider => 'Penyedia Dipilih';
+
+  @override
+  String get mobilePinAvailable => 'TERSEDIA';
+
+  @override
+  String get mobilePinUnavailable => 'TIDAK TERSEDIA';
+
+  @override
+  String get mobilePinImportantNote => 'Nota Penting';
+
+  @override
+  String get mobilePinSelectAmount => 'Pilih Nilai PIN';
+
+  @override
+  String get mobilePinQuantity => 'Kuantiti';
+
+  @override
+  String get mobilePinQuantityHelp => 'Pilih bilangan PIN yang ingin dibeli.';
+
+  @override
+  String get mobilePinOrderSummary => 'Ringkasan Pesanan';
+
+  @override
+  String get mobilePinSubtotal => 'Jumlah Kecil';
+
+  @override
+  String get mobilePinTotalAmount => 'Jumlah Keseluruhan';
+
+  @override
+  String get mobilePinProceed => 'Teruskan ke Pembayaran';
+
+  @override
+  String get mobilePinLoadingTitle => 'Memuatkan PIN Mudah Alih';
+
+  @override
+  String get mobilePinLoadingMessage => 'Sila tunggu sementara pilihan PIN terkini diperoleh.';
+
+  @override
+  String get mobilePinCatalogErrorTitle => 'PIN Mudah Alih Tidak Dapat Dimuatkan';
+
+  @override
+  String get mobilePinCatalogErrorMessage => 'Maklumat PIN Mudah Alih terkini tidak dapat diperoleh. Sila cuba lagi.';
+
+  @override
+  String get mobilePinRetry => 'CUBA LAGI';
+
+  @override
+  String get mobilePinUnavailableTitle => 'Perkhidmatan Tidak Tersedia';
+
+  @override
+  String get mobilePinUnavailableMessage => 'Perkhidmatan PIN Mudah Alih ini tidak tersedia buat masa ini.';
+
+  @override
+  String get mobilePinSelectAmountTitle => 'Pilih Nilai';
+
+  @override
+  String get mobilePinSelectAmountMessage => 'Sila pilih nilai PIN sebelum meneruskan.';
+
+  @override
+  String get mobilePinDebugTitle => 'Pilihan Direkodkan';
+
+  @override
+  String get mobilePinDebugMessage => 'Pilihan PIN Mudah Alih anda telah tersedia. API pembelian akan disambungkan pada langkah seterusnya.';
+
+  @override
+  String get mobilePinNoteCelcom => 'Untuk tambah nilai, dail *122* diikuti nombor PIN 16 digit dan #, kemudian tekan PANGGIL.';
+
+  @override
+  String get mobilePinNoteDigi => 'Untuk tambah nilai, dail *123* diikuti nombor PIN 16 digit dan #, kemudian tekan PANGGIL.';
+
+  @override
+  String get mobilePinNoteHelloSim => 'Untuk tambah nilai, dail *178* diikuti nombor PIN dan #, kemudian tekan PANGGIL.';
+
+  @override
+  String get mobilePinNoteMaxis => 'Untuk tambah nilai, dail *111* diikuti nombor PIN 16 digit dan #, kemudian tekan PANGGIL.';
+
+  @override
+  String get mobilePinNoteRedOne => 'Untuk tambah nilai, dail *122* diikuti nombor PIN 16 digit dan #, kemudian tekan PANGGIL.';
+
+  @override
+  String get mobilePinNoteSpeakOut => 'Dail *129# dan tekan Hantar. Pilih pilihan 2 untuk tambah nilai, masukkan PIN tambah nilai dan tekan Hantar.';
+
+  @override
+  String get mobilePinNoteTuneTalk => 'Untuk tambah nilai, dail *122* diikuti PIN 16 digit dan #, kemudian tekan PANGGIL.';
+
+  @override
+  String get mobilePinNoteUnifi => 'Buka aplikasi unifi, pilih Reload, pilih Reload Voucher, masukkan PIN tambah nilai 12 digit dan tekan Continue.';
+
+  @override
+  String get mobilePinNoteUMobile => 'Untuk tambah nilai, dail *138* diikuti nombor PIN 14 digit dan #, kemudian tekan PANGGIL.';
+
+  @override
+  String get mobilePinNoteXox => 'Untuk tambah nilai, dail *132*1* diikuti nombor PIN 16 digit dan #, kemudian tekan PANGGIL.';
+
+  @override
+  String get mobilePinNoteYes => 'Untuk tambah nilai, taip REL diikuti nombor Yes dan kod PIN anda, kemudian hantar ke 0183301111.';
+
+  @override
+  String get mobilePinServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get eWalletReloadButton => 'Tambah Nilai E-Wallet';
+
+  @override
+  String get eWalletReloadSupportingText => 'Tambah nilai e-wallet pilihan anda dengan cepat dan mudah';
+
+  @override
+  String get eWalletServiceLabel => 'Perkhidmatan Tambah Nilai E-Wallet';
+
+  @override
+  String get eWalletProviderTitle => 'Pilih E-Wallet';
+
+  @override
+  String get eWalletProviderSubtitle => 'Pilih perkhidmatan e-wallet untuk diteruskan';
+
+  @override
+  String get touchNGoPin => 'PIN Touch \'n Go';
+
+  @override
+  String get touchNGoPinless => 'Tambah Nilai Touch \'n Go';
+
+  @override
+  String get trueMoneyEWallet => 'E-Wallet TrueMoney';
+
+  @override
+  String get telcoReceiptTitle => 'Resit Pembayaran Telko';
+
+  @override
+  String get telcoReceiptPaymentSuccessful => 'Pembayaran Berjaya';
+
+  @override
+  String get telcoReceiptThankYou => 'Terima kasih. Pembayaran Telko anda telah diterima dengan jayanya.';
+
+  @override
+  String get telcoReceiptProvider => 'Penyedia Telko';
+
+  @override
+  String get telcoReceiptTransactionDetails => 'Butiran Transaksi';
+
+  @override
+  String get telcoReceiptAccountNumber => 'Nombor Akaun / Mudah Alih';
+
+  @override
+  String get telcoReceiptProductCode => 'Kod Produk';
+
+  @override
+  String get telcoReceiptBillAmount => 'Jumlah Bil';
+
+  @override
+  String get telcoReceiptServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get telcoReceiptPaymentMethod => 'Kaedah Pembayaran';
+
+  @override
+  String get telcoReceiptPaymentDate => 'Tarikh & Masa Pembayaran';
+
+  @override
+  String get telcoReceiptOrderNumber => 'Nombor Pesanan';
+
+  @override
+  String get telcoReceiptBankTransaction => 'Transaksi Bank';
+
+  @override
+  String get telcoReceiptTotalPaid => 'Jumlah Dibayar';
+
+  @override
+  String telcoReceiptAutoReturn(int seconds) {
+    return 'Kembali ke halaman utama dalam $seconds saat.';
+  }
+
+  @override
+  String get receiptTransactionReference => 'Rujukan Transaksi';
+
+  @override
+  String get mobilePinReceiptTitle => 'Resit PIN Mudah Alih';
+
+  @override
+  String get mobilePinReceiptProvider => 'Penyedia PIN Mudah Alih';
+
+  @override
+  String get mobilePinReceiptTransactionDetails => 'Butiran Transaksi';
+
+  @override
+  String get mobilePinReceiptProductCode => 'Kod Produk';
+
+  @override
+  String get mobilePinReceiptPinValue => 'Nilai PIN';
+
+  @override
+  String get mobilePinReceiptQuantity => 'Kuantiti';
+
+  @override
+  String get mobilePinReceiptPaymentMethod => 'Kaedah Pembayaran';
+
+  @override
+  String get mobilePinReceiptPaymentDate => 'Tarikh & Masa Pembayaran';
+
+  @override
+  String get mobilePinReceiptOrderNumber => 'Nombor Pesanan';
+
+  @override
+  String get mobilePinReceiptBankTransaction => 'Transaksi Bank';
+
+  @override
+  String get mobilePinReceiptPinDetails => 'Butiran PIN';
+
+  @override
+  String mobilePinReceiptPinNumber(int number) {
+    return 'PIN $number';
+  }
+
+  @override
+  String get mobilePinReceiptSerialNumber => 'Nombor Siri';
+
+  @override
+  String get mobilePinReceiptPinCode => 'Kod PIN';
+
+  @override
+  String get mobilePinReceiptExpiry => 'Tarikh Luput';
+
+  @override
+  String get mobilePinReceiptNote => 'Arahan';
+
+  @override
+  String get mobilePinReceiptVoucherLink => 'Pautan Baucar';
+
+  @override
+  String get mobilePinReceiptTotalPaid => 'Jumlah Dibayar';
+
+  @override
+  String mobilePinReceiptAutoReturn(int seconds) {
+    return 'Kembali ke halaman utama dalam $seconds saat.';
+  }
+
+  @override
+  String get mobilePinRecipientMobileTitle => 'Nombor Mudah Alih Penerima';
+
+  @override
+  String get mobilePinRecipientMobileSubtitle => 'Masukkan nombor mudah alih yang akan digunakan sebagai rujukan penerima untuk pembelian PIN ini.';
+
+  @override
+  String get mobilePinRecipientMobileHint => 'Contoh: 0123456789';
+
+  @override
+  String get mobilePinRecipientMobileHelp => 'Sila semak nombor mudah alih dengan teliti sebelum meneruskan pembayaran.';
+
+  @override
+  String get mobilePinRecipientMobileSummary => 'Nombor Mudah Alih Penerima';
+
+  @override
+  String get mobilePinMobileNumberRequired => 'Sila masukkan nombor mudah alih.';
+
+  @override
+  String get mobilePinMobileNumberInvalid => 'Sila masukkan nombor mudah alih yang sah.';
+
+  @override
+  String get mobilePinContinue => 'Teruskan';
+
+  @override
+  String get mobilePinNumberServiceLabel => 'Pembelian PIN Mudah Alih';
+
+  @override
+  String get mobilePinEnterNumberTitle => 'Masukkan Nombor Mudah Alih';
+
+  @override
+  String get mobilePinEnterNumberSubtitle => 'Masukkan nombor mudah alih penerima sebelum meneruskan pembayaran.';
+
+  @override
+  String get mobilePinSelectedProduct => 'PIN Dipilih';
+
+  @override
+  String get mobilePinPaymentTotal => 'Jumlah';
+
+  @override
+  String get mobilePinNumberInstruction => 'Masukkan nombor mudah alih penerima menggunakan papan kekunci di bawah. Sila semak nombor dengan teliti sebelum pembayaran.';
+
+  @override
+  String get mobilePinNumberAlertTitle => 'Nombor Mudah Alih';
+
+  @override
+  String get mobilePinNumberInvalid => 'Sila masukkan nombor mudah alih Malaysia yang sah.';
+
+  @override
+  String get mobilePinContinueToPayment => 'Teruskan ke Pembayaran';
+
+  @override
+  String get mobilePinNextStepMobileNumber => 'Seterusnya, masukkan nombor mudah alih penerima.';
+
+  @override
+  String get eWalletPinPurchaseTitle => 'Pembelian PIN E-Wallet';
+
+  @override
+  String get eWalletSelectedProvider => 'E-Wallet Dipilih';
+
+  @override
+  String get eWalletAvailable => 'Tersedia';
+
+  @override
+  String get eWalletUnavailable => 'Tidak Tersedia';
+
+  @override
+  String get eWalletSelectReloadValue => 'Pilih Amaun Tambah Nilai';
+
+  @override
+  String get eWalletPinValue => 'Nilai PIN';
+
+  @override
+  String get eWalletReloadValue => 'Amaun Tambah Nilai';
+
+  @override
+  String get eWalletServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get eWalletTotalPayment => 'Jumlah Bayaran';
+
+  @override
+  String get eWalletContinue => 'Teruskan';
+
+  @override
+  String get eWalletContinuePayment => 'Teruskan Pembayaran';
+
+  @override
+  String get eWalletPhoneStepLabel => 'Nombor Telefon E-Wallet';
+
+  @override
+  String get eWalletAmountStepLabel => 'Amaun Tambah Nilai E-Wallet';
+
+  @override
+  String get eWalletEnterPhoneTitle => 'Masukkan Nombor Telefon';
+
+  @override
+  String get eWalletEnterPhoneSubtitle => 'Masukkan nombor telefon untuk transaksi e-wallet ini';
+
+  @override
+  String get eWalletPhoneNumber => 'Nombor Telefon';
+
+  @override
+  String get eWalletPhoneHint => 'Masukkan nombor telefon';
+
+  @override
+  String get eWalletPhoneReferenceHint => 'Masukkan nombor telefon yang digunakan sebagai rujukan transaksi.';
+
+  @override
+  String get eWalletEnterAmountTitle => 'Pilih Amaun Tambah Nilai';
+
+  @override
+  String get eWalletAmountHint => 'Masukkan amaun';
+
+  @override
+  String eWalletAmountRange(String minimum, String maximum) {
+    return 'Amaun dibenarkan: $minimum - $maximum';
+  }
+
+  @override
+  String get eWalletLoadingTitle => 'Memuatkan E-Wallet';
+
+  @override
+  String get eWalletLoadingMessage => 'Mendapatkan maklumat e-wallet terkini...';
+
+  @override
+  String get eWalletCatalogErrorTitle => 'Tidak Dapat Dimuatkan';
+
+  @override
+  String get eWalletCatalogErrorMessage => 'Maklumat e-wallet terkini tidak dapat diperoleh.';
+
+  @override
+  String get eWalletRetry => 'Cuba Lagi';
+
+  @override
+  String get eWalletUnavailableTitle => 'Perkhidmatan Tidak Tersedia';
+
+  @override
+  String get eWalletUnavailableMessage => 'Perkhidmatan e-wallet ini tidak tersedia buat masa ini.';
+
+  @override
+  String get eWalletSelectAmountTitle => 'Pilih Nilai Tambah Nilai';
+
+  @override
+  String get eWalletSelectAmountMessage => 'Sila pilih nilai tambah nilai sebelum meneruskan.';
+
+  @override
+  String get eWalletPhoneRequiredTitle => 'Nombor Telefon Diperlukan';
+
+  @override
+  String get eWalletPhoneRequiredMessage => 'Sila masukkan nombor telefon.';
+
+  @override
+  String get eWalletInvalidPhoneTitle => 'Nombor Telefon Tidak Sah';
+
+  @override
+  String get eWalletInvalidPhoneMessage => 'Sila masukkan nombor telefon bimbit Malaysia yang sah.';
+
+  @override
+  String get eWalletAmountRequiredTitle => 'Amaun Diperlukan';
+
+  @override
+  String get eWalletAmountRequiredMessage => 'Sila masukkan amaun tambah nilai.';
+
+  @override
+  String get eWalletInvalidAmountTitle => 'Amaun Tidak Sah';
+
+  @override
+  String eWalletMinimumAmount(String amount) {
+    return 'Amaun tambah nilai minimum ialah $amount.';
+  }
+
+  @override
+  String eWalletMaximumAmount(String amount) {
+    return 'Amaun tambah nilai maksimum ialah $amount.';
+  }
+
+  @override
+  String get eWalletTngPinNote => 'Pilih nilai PIN. Nombor telefon akan dimasukkan pada halaman seterusnya sebagai rujukan transaksi.';
+
+  @override
+  String get eWalletTrueMoneyNote => 'Had tambah nilai harian ialah RM1,000 dan had bulanan ialah RM5,000.';
+
+  @override
+  String get eWalletOkButton => 'OK';
+
+  @override
+  String get eWalletReloadDetails => 'Tambah Nilai E-Wallet';
+
+  @override
+  String get eWalletAmountStepSubtitle => 'Pilih atau masukkan amaun yang ingin ditambah nilai';
+
+  @override
+  String get eWalletReloadAmount => 'Amaun Tambah Nilai';
+
+  @override
+  String get eWalletOrderSummary => 'Ringkasan Pesanan';
+
+  @override
+  String get eWalletLatestPricingInfo => 'Jumlah yang dipaparkan menggunakan harga perkhidmatan terkini.';
+
+  @override
+  String get eWalletKeypadClear => 'Padam';
+
+  @override
+  String get eWalletKeypadDone => 'Selesai';
+
+  @override
+  String get eWalletKeypadCancel => 'Batal';
+
+  @override
+  String get eWalletPinlessPhoneHint => 'Masukkan nombor telefon e-wallet anda.';
+
+  @override
+  String get eWalletPinPhoneReferenceHint => 'Nombor telefon diperlukan sebagai rujukan transaksi.';
+
+  @override
+  String get eWalletConfirmNumberTitle => 'Sahkan Nombor Telefon';
+
+  @override
+  String get eWalletConfirmNumberQuestion => 'Adakah nombor ini betul?';
+
+  @override
+  String get eWalletConfirmBack => 'Kembali';
+
+  @override
+  String get eWalletConfirmContinue => 'Teruskan';
+
+  @override
+  String electricPaymentRange(String minimum, String maximum) {
+    return 'Minimum $minimum • Maksimum $maximum';
+  }
+
+  @override
+  String electricOutstandingExceedsMaximum(String outstanding, String maximum) {
+    return 'Amaun tertunggak ialah $outstanding, tetapi bayaran maksimum yang dibenarkan ialah $maximum.';
+  }
+
+  @override
+  String get eWalletPinReceiptTitle => 'Resit PIN E-Wallet';
+
+  @override
+  String get eWalletPinReceiptProvider => 'Penyedia E-Wallet';
+
+  @override
+  String get eWalletPinReceiptTransactionDetails => 'Butiran Transaksi';
+
+  @override
+  String get eWalletPinReceiptProductCode => 'Kod Produk';
+
+  @override
+  String get eWalletPinReceiptPhoneReference => 'Telefon / Rujukan';
+
+  @override
+  String get eWalletPinReceiptValue => 'Nilai PIN';
+
+  @override
+  String get eWalletPinReceiptPaymentMethod => 'Kaedah Bayaran';
+
+  @override
+  String get eWalletPinReceiptPaymentDate => 'Tarikh Bayaran';
+
+  @override
+  String get eWalletPinReceiptBankTransaction => 'Transaksi Bank';
+
+  @override
+  String get eWalletPinReceiptPinDetails => 'Butiran PIN';
+
+  @override
+  String get eWalletPinReceiptSerialNumber => 'Nombor Siri';
+
+  @override
+  String get eWalletPinReceiptPinCode => 'PIN';
+
+  @override
+  String get eWalletPinReceiptExpiry => 'Tarikh Luput';
+
+  @override
+  String get eWalletPinReceiptNote => 'Nota';
+
+  @override
+  String get eWalletPinReceiptVoucherLink => 'Pautan Baucar';
+
+  @override
+  String get eWalletPinReceiptTotalPaid => 'Jumlah Dibayar';
+
+  @override
+  String get eWalletPinReceiptSavePinMessage => 'Sila simpan PIN anda sebelum meninggalkan halaman ini.';
+
+  @override
+  String get eWalletTngRedeemNote => 'Untuk tebus PIN, log masuk ke aplikasi Touch \'n Go eWallet';
+
+  @override
+  String get mobilePinReceiptSavePinMessage => 'Sila simpan PIN anda sebelum meninggalkan halaman ini.';
+
+  @override
+  String get eWalletProviderSurchargeTitle => 'Caj Tambahan Penyedia';
+
+  @override
+  String eWalletProviderSurchargeMessage(String surcharge, String reloadAmount, String receivedAmount) {
+    return 'Caj penyedia $surcharge dikenakan. Tambah nilai $reloadAmount dan e-dompet menerima $receivedAmount.';
+  }
+
+  @override
+  String get eWalletReloadReceiptTitle => 'Resit Tambah Nilai E-Wallet';
+
+  @override
+  String get eWalletReloadReceiptProvider => 'Penyedia E-Wallet';
+
+  @override
+  String electricUpdateWithinHours(String hours) {
+    return 'Dalam tempoh $hours jam';
+  }
+
+  @override
+  String electricUpdateWithinDays(String days) {
+    return 'Dalam tempoh $days hari';
+  }
+
+  @override
+  String get electricProcessingTimeUnavailable => 'Tempoh pemprosesan tidak tersedia';
+
+  @override
+  String waterUpdateWithinHours(String hours) {
+    return 'Dalam tempoh $hours jam';
+  }
+
+  @override
+  String waterUpdateWithinDays(String days) {
+    return 'Dalam tempoh $days hari';
+  }
+
+  @override
+  String get broadbandUpdateInstant => 'Serta-merta';
+
+  @override
+  String broadbandUpdateWithinHours(String hours) {
+    return 'Dalam tempoh $hours jam';
+  }
+
+  @override
+  String broadbandUpdateWithinDays(String days) {
+    return 'Dalam tempoh $days hari';
+  }
+
+  @override
+  String entertainmentUpdateWithinHours(String hours) {
+    return 'Dalam tempoh $hours jam';
+  }
+
+  @override
+  String entertainmentUpdateWithinDays(String days) {
+    return 'Dalam tempoh $days hari';
+  }
+
+  @override
+  String get telcoPaymentUpdateTime => 'Tempoh Kemas Kini Bayaran';
+
+  @override
+  String get telcoUpdateInstant => 'Serta-merta';
+
+  @override
+  String telcoUpdateWithinHours(String hours) {
+    return 'Dalam tempoh $hours jam';
+  }
+
+  @override
+  String telcoUpdateWithinDays(String days) {
+    return 'Dalam tempoh $days hari';
+  }
+
+  @override
+  String get eWalletProcessingTime => 'Tempoh Pemprosesan';
+
+  @override
+  String get eWalletUpdateInstant => 'Serta-merta';
+
+  @override
+  String eWalletUpdateWithinHours(String hours) {
+    return 'Dalam tempoh $hours jam';
+  }
+
+  @override
+  String eWalletUpdateWithinDays(String days) {
+    return 'Dalam tempoh $days hari';
+  }
+
+  @override
+  String get loanEducationButton => 'Pinjaman & Pendidikan';
+
+  @override
+  String get loanEducationSupportingText => 'Bayaran pinjaman dan pembiayaan pendidikan';
+
+  @override
+  String get loanServiceLabel => 'PERKHIDMATAN PINJAMAN & PENDIDIKAN';
+
+  @override
+  String get loanProviderTitle => 'Pinjaman & Pendidikan';
+
+  @override
+  String get loanProviderSubtitle => 'Pilih penyedia untuk meneruskan';
+
+  @override
+  String get processingTimeLabel => 'Masa Pemprosesan';
+
+  @override
+  String get catalogUnavailableTitle => 'Maklumat Perkhidmatan Tidak Tersedia';
+
+  @override
+  String get catalogUnavailableMessage => 'Maklumat perkhidmatan terkini tidak dapat dimuatkan. Sila cuba lagi.';
+
+  @override
+  String get retryButton => 'CUBA LAGI';
+
+  @override
+  String get serviceUnavailableTitle => 'Perkhidmatan Tidak Tersedia';
+
+  @override
+  String get ptptnUnavailableMessage => 'Perkhidmatan PTPTN tidak tersedia buat masa ini. Sila cuba lagi nanti.';
+
+  @override
+  String get ptptnNextPageMessage => 'PTPTN dipilih. Teruskan ke kemasukan nombor IC.';
+
+  @override
+  String get processingInstant => 'Serta-merta';
+
+  @override
+  String get processing24Hours => '24 Jam';
+
+  @override
+  String get processing3Days => '3 Hari';
+
+  @override
+  String get loanNricStepLabel => 'AKAUN PTPTN';
+
+  @override
+  String get loanEnterNricTitle => 'Masukkan Nombor IC';
+
+  @override
+  String get loanEnterNricSubtitle => 'Masukkan 12 digit nombor IC anda untuk meneruskan';
+
+  @override
+  String get loanSelectedProvider => 'Penyedia Dipilih';
+
+  @override
+  String get loanNricHint => 'MASUKKAN NOMBOR IC';
+
+  @override
+  String get loanNricHintText => 'Masukkan 12 digit tanpa ruang atau sengkang';
+
+  @override
+  String get loanContinue => 'Teruskan';
+
+  @override
+  String get loanConfirmNricTitle => 'Sahkan Nombor IC';
+
+  @override
+  String get loanConfirmNricQuestion => 'Adakah nombor IC ini betul?';
+
+  @override
+  String get loanConfirmBack => 'Ubah';
+
+  @override
+  String get loanConfirmContinue => 'Teruskan';
+
+  @override
+  String get loanNricRequiredTitle => 'Nombor IC Diperlukan';
+
+  @override
+  String get loanNricRequiredMessage => 'Sila masukkan nombor IC anda.';
+
+  @override
+  String get loanInvalidNricTitle => 'Nombor IC Tidak Sah';
+
+  @override
+  String get loanInvalidNricMessage => 'Sila masukkan nombor IC 12 digit yang sah.';
+
+  @override
+  String get loanUnavailableTitle => 'Perkhidmatan Tidak Tersedia';
+
+  @override
+  String get loanUnavailableMessage => 'Perkhidmatan PTPTN tidak tersedia buat masa ini. Sila cuba lagi nanti.';
+
+  @override
+  String get loanLoadingTitle => 'Memuatkan PTPTN';
+
+  @override
+  String get loanLoadingMessage => 'Sila tunggu sementara maklumat terkini PTPTN dimuatkan.';
+
+  @override
+  String get loanCatalogErrorTitle => 'PTPTN Tidak Dapat Dimuatkan';
+
+  @override
+  String get loanCatalogErrorMessage => 'Maklumat perkhidmatan PTPTN tidak dapat dimuatkan. Sila cuba lagi.';
+
+  @override
+  String get loanRetry => 'CUBA LAGI';
+
+  @override
+  String get loanOkButton => 'OK';
+
+  @override
+  String get loanNricConfirmedMessage => 'Nombor IC disahkan. Mendapatkan pilihan akaun PTPTN.';
+
+  @override
+  String get loanAccountStepLabel => 'AKAUN PTPTN';
+
+  @override
+  String get loanSelectAccountTitle => 'Pilih Akaun';
+
+  @override
+  String get loanSelectAccountSubtitle => 'Pilih akaun PTPTN atau SSPN yang ingin dibayar';
+
+  @override
+  String get loanNricLabel => 'Nombor IC';
+
+  @override
+  String get loanAccountNumber => 'Nombor Akaun';
+
+  @override
+  String get loanAccountType => 'Jenis Akaun';
+
+  @override
+  String get loanTypeConventional => 'Konvensional';
+
+  @override
+  String get loanTypeUjrah => 'Ujrah';
+
+  @override
+  String get loanTypeSspnPrime => 'SSPN Prime';
+
+  @override
+  String get loanTypeSspnPlus => 'SSPN Plus';
+
+  @override
+  String get loanAccountCategoryUnknown => 'Akaun';
+
+  @override
+  String get loanAccountLoadingTitle => 'Menyemak Akaun';
+
+  @override
+  String get loanAccountLoadingMessage => 'Sila tunggu sementara akaun PTPTN dan SSPN anda diperoleh.';
+
+  @override
+  String get loanAccountErrorTitle => 'Akaun Tidak Dapat Diperoleh';
+
+  @override
+  String get loanAccountErrorMessage => 'Maklumat akaun PTPTN tidak dapat diperoleh. Sila cuba lagi.';
+
+  @override
+  String get loanNoAccountTitle => 'Tiada Akaun Tersedia';
+
+  @override
+  String get loanNoAccountMessage => 'Tiada akaun PTPTN atau SSPN tersedia untuk nombor IC ini. Sila cuba lagi nanti.';
+
+  @override
+  String get loanAccountRequiredTitle => 'Pilih Akaun';
+
+  @override
+  String get loanAccountRequiredMessage => 'Sila pilih akaun untuk meneruskan.';
+
+  @override
+  String get loanAccountSelectedMessage => 'Akaun dipilih. Teruskan untuk masukkan jumlah bayaran.';
+
+  @override
+  String loanAvailableAccounts(int count) {
+    return 'Akaun tersedia: $count';
+  }
+
+  @override
+  String get loanAvailableAccountTitle => 'AKAUN TERSEDIA';
+
+  @override
+  String get loanAccountSelectionTitle => 'Pilihan Akaun PTPTN';
 }

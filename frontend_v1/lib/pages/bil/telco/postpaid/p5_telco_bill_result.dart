@@ -6,6 +6,8 @@ import 'package:frontend_v1/model/telco/telco_bill_model.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/payment/bil_qr_payment_page.dart';
 
+import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
+
 class P5TelcoBillResultPage extends StatefulWidget {
   final TelcoBillModel bill;
   final String providerImageUrl;
@@ -35,9 +37,14 @@ class _P5TelcoBillResultPageState extends State<P5TelcoBillResultPage> {
   // PAYMENT SETTINGS
   // ============================================================
 
-  static const double _minimumAmount = 1.00;
-  static const double _maximumAmount = 10000.00;
+  double _minimumAmount = 1.00;
+  double _maximumAmount = 10000.00;
+
   static const double _amountStep = 1.00;
+
+  bool _isCatalogLimitLoading = true;
+
+  String _processingTime = '';
 
   double _selectedAmount = 1.00;
 
@@ -80,11 +87,16 @@ class _P5TelcoBillResultPageState extends State<P5TelcoBillResultPage> {
   void initState() {
     super.initState();
 
-    final initialAmount = _getInitialPaymentAmount();
+    final initialAmount =
+        _getInitialPaymentAmount();
 
     _selectedAmount = initialAmount;
 
-    _updateAmountController(initialAmount);
+    _updateAmountController(
+      initialAmount,
+    );
+
+    _loadTelcoPaymentLimits();
   }
 
   @override
@@ -94,6 +106,287 @@ class _P5TelcoBillResultPageState extends State<P5TelcoBillResultPage> {
 
     super.dispose();
   }
+
+  Future<void> _loadTelcoPaymentLimits() async {
+  try {
+    final Map<String, dynamic> catalog =
+        await IimmpactCatalogService.getCatalog();
+
+    final dynamic productsRaw =
+        catalog['products'];
+
+    if (productsRaw is! Map) {
+      throw Exception(
+        'Catalog products object is missing.',
+      );
+    }
+
+    final Map<String, dynamic> products =
+        Map<String, dynamic>.from(
+      productsRaw,
+    );
+
+    final String productCode =
+        bill.productCode
+            .trim()
+            .toUpperCase();
+
+    final dynamic rawProduct =
+        products[productCode];
+
+    if (rawProduct is! Map) {
+      throw Exception(
+        'Telco product $productCode '
+        'was not found in catalog.',
+      );
+    }
+
+    final Map<String, dynamic> product =
+        Map<String, dynamic>.from(
+      rawProduct,
+    );
+
+    final String processingTime =
+    product['processing_time']
+            ?.toString()
+            .trim() ??
+        '';
+
+    double minimum = 0;
+    double maximum = 0;
+
+    // ==========================================================
+    // PRIMARY:
+    // fields -> amount -> validation -> min / max
+    // ==========================================================
+
+    final dynamic fieldsRaw =
+        product['fields'];
+
+    if (fieldsRaw is List) {
+      for (final rawField in fieldsRaw) {
+        if (rawField is! Map) {
+          continue;
+        }
+
+        final Map<String, dynamic> field =
+            Map<String, dynamic>.from(
+          rawField,
+        );
+
+        final String fieldId =
+            field['id']
+                    ?.toString()
+                    .trim()
+                    .toLowerCase() ??
+                '';
+
+        if (fieldId != 'amount') {
+          continue;
+        }
+
+        final dynamic validationRaw =
+            field['validation'];
+
+        if (validationRaw is! Map) {
+          continue;
+        }
+
+        final Map<String, dynamic> validation =
+            Map<String, dynamic>.from(
+          validationRaw,
+        );
+
+        minimum = _toDouble(
+          validation['min'],
+        );
+
+        maximum = _toDouble(
+          validation['max'],
+        );
+
+        break;
+      }
+    }
+
+    // ==========================================================
+    // FALLBACK:
+    // denomination = "1-1000", "5-500", etc.
+    // ==========================================================
+
+    if (minimum <= 0 ||
+        maximum <= 0) {
+      final String denomination =
+          product['denomination']
+                  ?.toString()
+                  .trim() ??
+              '';
+
+      final range =
+          _parseAmountRange(
+        denomination,
+      );
+
+      if (minimum <= 0) {
+        minimum = range.$1;
+      }
+
+      if (maximum <= 0) {
+        maximum = range.$2;
+      }
+    }
+
+    if (minimum <= 0 ||
+        maximum <= 0 ||
+        maximum < minimum) {
+      throw Exception(
+        'Invalid payment limits for '
+        '$productCode.',
+      );
+    }
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _minimumAmount = minimum;
+      _maximumAmount = maximum;
+
+      _processingTime =
+          processingTime;
+
+      double newAmount =
+          _selectedAmount;
+
+      if (_outstandingAmount > 0) {
+        newAmount =
+            _outstandingAmount;
+      }
+
+      if (newAmount <
+          _minimumAmount) {
+        newAmount =
+            _minimumAmount;
+      }
+
+      if (newAmount >
+          _maximumAmount) {
+        newAmount =
+            _maximumAmount;
+      }
+
+      _selectedAmount =
+          newAmount;
+
+      _updateAmountController(
+        newAmount,
+      );
+
+      _isCatalogLimitLoading =
+          false;
+    });
+
+    debugPrint('');
+    debugPrint(
+      '========================================',
+    );
+    debugPrint(
+      'TELCO PAYMENT LIMIT LOADED',
+    );
+    debugPrint(
+      '========================================',
+    );
+    debugPrint(
+      'Product : $productCode',
+    );
+    debugPrint(
+      'Minimum : RM ${minimum.toStringAsFixed(2)}',
+    );
+    debugPrint(
+      'Maximum : RM ${maximum.toStringAsFixed(2)}',
+    );
+    debugPrint(
+      'Processing Time : $processingTime',
+    );
+    debugPrint(
+      '========================================',
+    );
+    debugPrint('');
+  } catch (error, stackTrace) {
+    debugPrint(
+      '[TELCO] Catalog payment-limit error: '
+      '$error',
+    );
+
+    debugPrintStack(
+      stackTrace: stackTrace,
+    );
+
+    if (!mounted) {
+      return;
+    }
+
+    // Same fallback as your other bill pages.
+    setState(() {
+      _minimumAmount = 1.00;
+      _maximumAmount = 10000.00;
+
+      _processingTime = '';
+
+      _isCatalogLimitLoading =
+          false;
+
+      final fallbackAmount =
+          _getInitialPaymentAmount();
+
+      _selectedAmount =
+          fallbackAmount;
+
+      _updateAmountController(
+        fallbackAmount,
+      );
+    });
+  }
+}
+
+double _toDouble(
+  dynamic value,
+) {
+  if (value is num) {
+    return value.toDouble();
+  }
+
+  return double.tryParse(
+        value?.toString() ?? '',
+      ) ??
+      0;
+}
+
+(double, double) _parseAmountRange(
+  String value,
+) {
+  final List<String> parts =
+      value.split('-');
+
+  if (parts.length != 2) {
+    return (
+      0,
+      0,
+    );
+  }
+
+  return (
+    double.tryParse(
+          parts[0].trim(),
+        ) ??
+        0,
+    double.tryParse(
+          parts[1].trim(),
+        ) ??
+        0,
+  );
+}
 
   // ============================================================
   // INITIAL PAYMENT AMOUNT
@@ -197,21 +490,51 @@ class _P5TelcoBillResultPageState extends State<P5TelcoBillResultPage> {
     _setPaymentAmount(amount);
   }
 
-  void _setOutstandingAmount() {
-    final loc = AppLocalizations.of(context)!;
+void _setOutstandingAmount() {
+  final loc =
+      AppLocalizations.of(context)!;
 
-    if (_outstandingAmount <= 0) {
-      _showMessage(
-        loc.telcoNoOutstandingBalance,
-      );
-
-      return;
-    }
-
-    _setPaymentAmount(
-      _outstandingAmount,
+  if (_outstandingAmount <= 0) {
+    _showMessage(
+      loc.telcoNoOutstandingBalance,
     );
+
+    return;
   }
+
+  if (_outstandingAmount >
+      _maximumAmount) {
+    _showMessage(
+      loc.electricOutstandingExceedsMaximum(
+        _formatAmount(
+          _outstandingAmount,
+        ),
+        _formatAmount(
+          _maximumAmount,
+        ),
+      ),
+    );
+
+    return;
+  }
+
+  if (_outstandingAmount <
+      _minimumAmount) {
+    _showMessage(
+      loc.telcoMinimumPayment(
+        _formatAmount(
+          _minimumAmount,
+        ),
+      ),
+    );
+
+    return;
+  }
+
+  _setPaymentAmount(
+    _outstandingAmount,
+  );
+}
 
   // ============================================================
   // PAGE STEP
@@ -276,17 +599,32 @@ class _P5TelcoBillResultPageState extends State<P5TelcoBillResultPage> {
         settings: const RouteSettings(
           name: '/payment',
         ),
-        builder: (_) => BilQrPaymentPage(
-          billType: bill.billerName,
-          billCode: bill.productCode,
-          accountNumber: bill.accountNumber,
+            builder: (_) => BilQrPaymentPage(
+              // ==========================================================
+              // IMPORTANT
+              //
+              // Tell the shared payment/receipt flow that this is
+              // Telco Postpaid.
+              //
+              // The receipt page will:
+              // - use Telco receipt information;
+              // - NOT generate the e-receipt QR yet.
+              //
+              // Other bill services do not set this.
+              // ==========================================================
 
-          // Amount sent to IIMMPACT/provider.
-          billAmount: _selectedAmount,
+              useTelcoReceipt: true,
 
-          // Amount customer pays after catalog pricing.
-          totalAmount: _totalAmount,
-        ),
+              billType: bill.billerName,
+              billCode: bill.productCode,
+              accountNumber: bill.accountNumber,
+
+              // Amount sent to IIMMPACT/provider.
+              billAmount: _selectedAmount,
+
+              // Amount customer pays after catalog pricing.
+              totalAmount: _totalAmount,
+            ),
       ),
     );
 
@@ -541,8 +879,9 @@ class _P5TelcoBillResultPageState extends State<P5TelcoBillResultPage> {
             }
 
             void pressNumber(String number) {
-              if (temporaryValue == '1.00' ||
-                  temporaryValue == '0.00') {
+            if (temporaryValue ==
+                    _minimumAmount.toStringAsFixed(2) ||
+                temporaryValue == '0.00') {
                 updateValue(number);
                 return;
               }
@@ -758,7 +1097,14 @@ class _P5TelcoBillResultPageState extends State<P5TelcoBillResultPage> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              loc.telcoPaymentRange,
+                            loc.electricPaymentRange(
+                              _formatAmount(
+                                _minimumAmount,
+                              ),
+                              _formatAmount(
+                                _maximumAmount,
+                              ),
+                            ),
                               style: const TextStyle(
                                 color: Color(0xFF60758D),
                                 fontSize: 21,
@@ -1199,9 +1545,11 @@ class _P5TelcoBillResultPageState extends State<P5TelcoBillResultPage> {
                   child: SizedBox(
                     height: 90,
                     child: ElevatedButton.icon(
-                      onPressed: _currentStep == 0
-                          ? _goToPaymentStep
-                          : _handleContinue,
+                    onPressed: _currentStep == 0
+                        ? _goToPaymentStep
+                        : (_isCatalogLimitLoading
+                            ? null
+                            : _handleContinue),
                       icon: const Icon(
                         Icons.arrow_forward_rounded,
                         size: 34,
@@ -1605,7 +1953,9 @@ class _P5TelcoBillResultPageState extends State<P5TelcoBillResultPage> {
 
                   Expanded(
                     child: GestureDetector(
-                      onTap: _openCustomAmountKeyboard,
+                      onTap: _isCatalogLimitLoading
+                        ? null
+                        : _openCustomAmountKeyboard,
                       child: Container(
                         height: 82,
                         padding: const EdgeInsets.symmetric(
@@ -1737,6 +2087,64 @@ class _P5TelcoBillResultPageState extends State<P5TelcoBillResultPage> {
     );
   }
 
+  String _getTelcoUpdateTime(
+  AppLocalizations loc,
+) {
+  final String value =
+      _processingTime
+          .trim()
+          .toLowerCase()
+          .replaceAll(' ', '_')
+          .replaceAll('-', '_');
+
+  if (value.isEmpty) {
+    return '-';
+  }
+
+  if (value == 'instant' ||
+      value == 'immediate') {
+    return loc
+        .telcoUpdateInstant
+        .toUpperCase();
+  }
+
+  final RegExpMatch? hoursMatch =
+      RegExp(
+    r'^(\d+)_hours?$',
+  ).firstMatch(value);
+
+  if (hoursMatch != null) {
+    final String hours =
+        hoursMatch.group(1) ?? '';
+
+    return loc
+        .telcoUpdateWithinHours(
+          hours,
+        )
+        .toUpperCase();
+  }
+
+  final RegExpMatch? daysMatch =
+      RegExp(
+    r'^(\d+)_days?$',
+  ).firstMatch(value);
+
+  if (daysMatch != null) {
+    final String days =
+        daysMatch.group(1) ?? '';
+
+    return loc
+        .telcoUpdateWithinDays(
+          days,
+        )
+        .toUpperCase();
+  }
+
+  return _processingTime
+      .replaceAll('_', ' ')
+      .toUpperCase();
+}
+
   // ============================================================
   // ORDER SUMMARY
   // ============================================================
@@ -1856,6 +2264,23 @@ class _P5TelcoBillResultPageState extends State<P5TelcoBillResultPage> {
                 ),
               ),
             ],
+          ),
+
+          const Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 20,
+            ),
+            child: Divider(
+              height: 1,
+              thickness: 1.5,
+            ),
+          ),
+
+          _summaryRow(
+            loc.telcoPaymentUpdateTime,
+            _getTelcoUpdateTime(
+              loc,
+            ),
           ),
 
           const SizedBox(height: 15),

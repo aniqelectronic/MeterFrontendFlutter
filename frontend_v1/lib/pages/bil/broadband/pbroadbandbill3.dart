@@ -6,6 +6,7 @@ import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbil3.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
+import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 
 // ============================================================================
 // BROADBAND BILLER STATUS
@@ -89,6 +90,11 @@ class _PBROADBANDBILL3PAGEState
 
   final Map<String, String?> _lastUpdated = {};
 
+  // ==========================================================================
+  // PROCESSING TIME FROM IIMMPACT CATALOG
+  // ==========================================================================
+  final Map<String, String> _processingTimes = {};
+
   @override
   void initState() {
     super.initState();
@@ -100,9 +106,96 @@ class _PBROADBANDBILL3PAGEState
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         _loadInitialNetworkStatuses();
+
+        _loadCatalogProcessingTimes();
+
         _handleScroll();
       },
     );
+  }
+
+  // ==========================================================================
+  // LOAD BROADBAND PROCESSING TIME FROM IIMMPACT CATALOG
+  // ==========================================================================
+  Future<void> _loadCatalogProcessingTimes() async {
+    try {
+      final Map<String, dynamic> catalog =
+          await IimmpactCatalogService.getCatalog();
+
+      final dynamic productsRaw =
+          catalog['products'];
+
+      if (productsRaw is! Map) {
+        debugPrint(
+          'Broadband catalog error: products not found.',
+        );
+        return;
+      }
+
+      final Map<String, dynamic> products =
+          Map<String, dynamic>.from(
+        productsRaw,
+      );
+
+      final Map<String, String> loadedTimes = {};
+
+      for (final BroadbandBiller biller
+          in _broadbandBillers) {
+        final dynamic rawProduct =
+            products[biller.productCode];
+
+        if (rawProduct is! Map) {
+          debugPrint(
+            'Broadband catalog product not found: '
+            '${biller.productCode}',
+          );
+          continue;
+        }
+
+        final Map<String, dynamic> product =
+            Map<String, dynamic>.from(
+          rawProduct,
+        );
+
+        final String processingTime =
+            product['processing_time']
+                    ?.toString()
+                    .trim() ??
+                '';
+
+        if (processingTime.isNotEmpty) {
+          loadedTimes[biller.productCode] =
+              processingTime;
+        }
+      }
+
+      if (!mounted) {
+        return;
+      }
+
+      setState(() {
+        _processingTimes
+          ..clear()
+          ..addAll(loadedTimes);
+      });
+
+      debugPrint(
+        'Broadband processing times loaded: '
+        '$_processingTimes',
+      );
+    } on IimmpactCatalogException catch (error) {
+      debugPrint(
+        'Broadband catalog error: ${error.message}',
+      );
+    } catch (error, stackTrace) {
+      debugPrint(
+        'Unexpected broadband catalog error: $error',
+      );
+
+      debugPrintStack(
+        stackTrace: stackTrace,
+      );
+    }
   }
 
   // ==========================================================================
@@ -715,14 +808,26 @@ class _PBROADBANDBILL3PAGEState
 
                     return _BroadbandProviderCard(
                       biller: biller,
+
                       networkStatus:
                           _billerStatuses[
                             biller.productCode
                           ] ??
-                          BroadbandBillerStatus
-                              .loading,
+                          BroadbandBillerStatus.loading,
+
                       networkLabel:
                           loc.networkLabel,
+
+                      // NEW
+                      processingTime:
+                          _processingTimes[
+                            biller.productCode
+                          ] ??
+                          '',
+
+                      processingLabel:
+                          loc.processingTimeLabel,
+
                       onPressed: () {
                         _handleBillerTap(
                           biller: biller,
@@ -960,12 +1065,17 @@ class _BroadbandProviderCard
   final BroadbandBiller biller;
   final BroadbandBillerStatus networkStatus;
   final String networkLabel;
+  final String processingTime;
+  final String processingLabel;
+
   final VoidCallback onPressed;
 
   const _BroadbandProviderCard({
     required this.biller,
     required this.networkStatus,
     required this.networkLabel,
+    required this.processingTime,
+    required this.processingLabel,
     required this.onPressed,
   });
 
@@ -986,6 +1096,55 @@ class _BroadbandProviderCardState
     setState(() {
       _isPressed = value;
     });
+  }
+
+    String _formatProcessingTime(
+    BuildContext context,
+    String value,
+  ) {
+    final loc =
+        AppLocalizations.of(context)!;
+
+    final String normalized =
+        value.toLowerCase().trim();
+
+    if (normalized == 'instant') {
+      return loc.processingInstant;
+    }
+
+    if (normalized == '24_hours') {
+      return loc.processing24Hours;
+    }
+
+    if (normalized == '3_days') {
+      return loc.processing3Days;
+    }
+
+    if (normalized.endsWith('_hours')) {
+      final String hours =
+          normalized.replaceAll(
+        '_hours',
+        '',
+      );
+
+      return loc.broadbandUpdateWithinHours(
+        hours,
+      );
+    }
+
+    if (normalized.endsWith('_days')) {
+      final String days =
+          normalized.replaceAll(
+        '_days',
+        '',
+      );
+
+      return loc.broadbandUpdateWithinDays(
+        days,
+      );
+    }
+
+    return value.replaceAll('_', ' ');
   }
 
   @override
@@ -1314,16 +1473,59 @@ class _BroadbandProviderCardState
                       // ====================================================
                       SizedBox(
                         width: double.infinity,
-
-                        child:
-                            _NetworkStatusBadge(
-                          status: widget
-                              .networkStatus,
-
-                          label:
-                              widget.networkLabel,
+                        child: _NetworkStatusBadge(
+                          status: widget.networkStatus,
+                          label: widget.networkLabel,
                         ),
                       ),
+
+                      // ====================================================
+                      // PROCESSING TIME
+                      // ====================================================
+                      if (widget.processingTime.isNotEmpty) ...[
+                        const SizedBox(
+                          height: 14,
+                        ),
+
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.schedule_rounded,
+                                size: 22,
+                                color: Color(0xFF647187),
+                              ),
+
+                              const SizedBox(
+                                width: 8,
+                              ),
+
+                              Expanded(
+                                child: Text(
+                                  '${widget.processingLabel}: '
+                                  '${_formatProcessingTime(
+                                    context,
+                                    widget.processingTime,
+                                  )}',
+                                  maxLines: 2,
+                                  overflow:
+                                      TextOverflow.ellipsis,
+                                  style:
+                                      const TextStyle(
+                                    color:
+                                        Color(0xFF647187),
+                                    fontSize: 17,
+                                    fontWeight:
+                                        FontWeight.w700,
+                                    height: 1.15,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
 
                       const SizedBox(
                         height: 20,

@@ -6,6 +6,7 @@ import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbil3.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
+import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 
 // ============================================================================
 // BILLER STATUS
@@ -70,6 +71,11 @@ class _PENTERTAINMENTBILL3PAGEState
 
   final Map<String, String?> _lastUpdated = {};
 
+  // ==========================================================================
+  // PROCESSING TIME FROM IIMMPACT CATALOG
+  // ==========================================================================
+  final Map<String, String> _processingTimes = {};
+
   @override
   void initState() {
     super.initState();
@@ -79,8 +85,87 @@ class _PENTERTAINMENTBILL3PAGEState
         _refreshNetworkStatus(
           _astroBiller.productCode,
         );
+        _loadCatalogProcessingTime();
       },
     );
+  }
+
+  // ==========================================================================
+  // LOAD ASTRO PROCESSING TIME FROM IIMMPACT CATALOG
+  // ==========================================================================
+  Future<void> _loadCatalogProcessingTime() async {
+    try {
+      final Map<String, dynamic> catalog =
+          await IimmpactCatalogService.getCatalog();
+
+      final dynamic productsRaw =
+          catalog['products'];
+
+      if (productsRaw is! Map) {
+        debugPrint(
+          'Entertainment catalog error: products not found.',
+        );
+        return;
+      }
+
+      final Map<String, dynamic> products =
+          Map<String, dynamic>.from(
+        productsRaw,
+      );
+
+      final dynamic rawProduct =
+          products[_astroBiller.productCode];
+
+      if (rawProduct is! Map) {
+        debugPrint(
+          'Entertainment catalog product not found: '
+          '${_astroBiller.productCode}',
+        );
+        return;
+      }
+
+      final Map<String, dynamic> product =
+          Map<String, dynamic>.from(
+        rawProduct,
+      );
+
+      final String processingTime =
+          product['processing_time']
+                  ?.toString()
+                  .trim() ??
+              '';
+
+      if (!mounted) {
+        return;
+      }
+
+      setState(() {
+        if (processingTime.isNotEmpty) {
+          _processingTimes[
+              _astroBiller.productCode] =
+              processingTime;
+        }
+      });
+
+      debugPrint(
+        'Entertainment processing time loaded: '
+        '$processingTime',
+      );
+    } on IimmpactCatalogException catch (error) {
+      debugPrint(
+        'Entertainment catalog error: '
+        '${error.message}',
+      );
+    } catch (error, stackTrace) {
+      debugPrint(
+        'Unexpected entertainment catalog error: '
+        '$error',
+      );
+
+      debugPrintStack(
+        stackTrace: stackTrace,
+      );
+    }
   }
 
   // ==========================================================================
@@ -565,6 +650,15 @@ class _PENTERTAINMENTBILL3PAGEState
                         BillerStatus.loading,
                     networkLabel:
                         loc.networkLabel,
+                    processingTime:
+                        _processingTimes[
+                          _astroBiller.productCode
+                        ] ??
+                        '',
+
+                    processingLabel:
+                        loc.processingTimeLabel,
+                        
                     onPressed:
                         _handleAstroTap,
                   ),
@@ -769,12 +863,18 @@ class _EntertainmentProviderCard
   final EntertainmentBiller biller;
   final BillerStatus networkStatus;
   final String networkLabel;
+
+  final String processingTime;
+  final String processingLabel;
+
   final VoidCallback onPressed;
 
   const _EntertainmentProviderCard({
     required this.biller,
     required this.networkStatus,
     required this.networkLabel,
+    required this.processingTime,
+    required this.processingLabel,
     required this.onPressed,
   });
 
@@ -797,6 +897,55 @@ class _EntertainmentProviderCardState
     setState(() {
       _isPressed = value;
     });
+  }
+
+  String _formatProcessingTime(
+    BuildContext context,
+    String value,
+  ) {
+    final loc =
+        AppLocalizations.of(context)!;
+
+    final String normalized =
+        value.toLowerCase().trim();
+
+    if (normalized == 'instant') {
+      return loc.processingInstant;
+    }
+
+    if (normalized == '24_hours') {
+      return loc.processing24Hours;
+    }
+
+    if (normalized == '3_days') {
+      return loc.processing3Days;
+    }
+
+    if (normalized.endsWith('_hours')) {
+      final String hours =
+          normalized.replaceAll(
+        '_hours',
+        '',
+      );
+
+      return loc.entertainmentUpdateWithinHours(
+        hours,
+      );
+    }
+
+    if (normalized.endsWith('_days')) {
+      final String days =
+          normalized.replaceAll(
+        '_days',
+        '',
+      );
+
+      return loc.entertainmentUpdateWithinDays(
+        days,
+      );
+    }
+
+    return value.replaceAll('_', ' ');
   }
 
   @override
@@ -1158,18 +1307,60 @@ class _EntertainmentProviderCardState
                       // NETWORK STATUS
                       // ====================================================
                       SizedBox(
-                        width:
-                            double.infinity,
-
-                        child:
-                            _NetworkStatusBadge(
-                          status: widget
-                              .networkStatus,
-
-                          label:
-                              widget.networkLabel,
+                        width: double.infinity,
+                        child: _NetworkStatusBadge(
+                          status: widget.networkStatus,
+                          label: widget.networkLabel,
                         ),
                       ),
+
+                      // ====================================================
+                      // PROCESSING TIME
+                      // ====================================================
+                      if (widget.processingTime.isNotEmpty) ...[
+                        const SizedBox(
+                          height: 14,
+                        ),
+
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.schedule_rounded,
+                                size: 22,
+                                color: Color(0xFF647187),
+                              ),
+
+                              const SizedBox(
+                                width: 8,
+                              ),
+
+                              Expanded(
+                                child: Text(
+                                  '${widget.processingLabel}: '
+                                  '${_formatProcessingTime(
+                                    context,
+                                    widget.processingTime,
+                                  )}',
+                                  maxLines: 2,
+                                  overflow:
+                                      TextOverflow.ellipsis,
+                                  style:
+                                      const TextStyle(
+                                    color:
+                                        Color(0xFF647187),
+                                    fontSize: 17,
+                                    fontWeight:
+                                        FontWeight.w700,
+                                    height: 1.15,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
 
                       const SizedBox(
                         height: 20,
