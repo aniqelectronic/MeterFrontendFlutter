@@ -142,7 +142,7 @@ class NativeSerialPort {
       
       // Open the serial port
       final pathPtr = portPath.toNativeUtf8();
-      _fd = _open(pathPtr, O_RDWR | O_NOCTTY);
+      _fd = _open(pathPtr, O_RDWR | O_NOCTTY | O_NONBLOCK);
       malloc.free(pathPtr);
       
       if (_fd! < 0) {
@@ -199,7 +199,11 @@ class NativeSerialPort {
       termios.c_ospeed = speed;
       
       // Set minimum characters and timeout
-      termios.c_cc[5] = 1;  // VTIME = 0.1 seconds (index 5 is VTIME)
+      // With O_NONBLOCK set on the fd, VTIME/VMIN are not used by the
+      // kernel for blocking behavior, but we set them to 0 anyway so the
+      // port behaves consistently as a pure non-blocking, poll-immediately
+      // read (returns instantly with whatever is available, or nothing).
+      termios.c_cc[5] = 0;  // VTIME = 0 (index 5 is VTIME)
       termios.c_cc[6] = 0;  // VMIN = 0 (index 6 is VMIN)
       
       // Apply settings
