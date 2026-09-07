@@ -347,6 +347,8 @@ class IimmpactPaymentService {
 
     Map<String, dynamic> extras =
         const <String, dynamic>{},
+
+    bool accountRequired = true,
   }) async {
     final String cleanRefId =
         refId.trim();
@@ -381,7 +383,8 @@ class IimmpactPaymentService {
       );
     }
 
-    if (cleanAccount.isEmpty) {
+    if (accountRequired &&
+        cleanAccount.isEmpty) {
       throw const IimmpactPaymentException(
         'IIMMPACT account is required.',
       );
@@ -450,6 +453,8 @@ class IimmpactPaymentService {
     Map<String, dynamic> extras =
         const <String, dynamic>{},
 
+    bool accountRequired = true,
+
     Duration interval =
         const Duration(seconds: 6),
 
@@ -484,6 +489,9 @@ class IimmpactPaymentService {
 
       extras:
           extras,
+
+      accountRequired:
+        accountRequired,
     );
 
     debugPrint(
@@ -543,6 +551,9 @@ class IimmpactPaymentService {
 
         extras:
             extras,
+        
+        accountRequired:
+            accountRequired,
       );
 
       debugPrint(

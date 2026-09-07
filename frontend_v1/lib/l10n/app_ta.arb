@@ -3019,6 +3019,373 @@
 
 "loanAvailableAccountTitle": "கிடைக்கும் கணக்குகள்",
 
-"loanAccountSelectionTitle": "PTPTN கணக்கு தேர்வு"
+"loanAccountSelectionTitle": "PTPTN கணக்கு தேர்வு",
+
+"loanPaymentTitle": "PTPTN கட்டணம்",
+"loanPaymentSubtitle": "செலுத்த வேண்டிய தொகையை உள்ளிடவும்",
+
+"loanAccountInformation": "கணக்கு விவரம்",
+"loanAccountCategory": "கணக்கு",
+
+"loanSelectPaymentAmount": "கட்டணத் தொகை",
+"loanAmountInstruction": "தொகையைத் தட்டச்சு செய்ய பெட்டியைத் தொடவும் அல்லது − / + பயன்படுத்தவும்.",
+
+"loanEnterPaymentAmount": "கட்டணத் தொகையை உள்ளிடவும்",
+"loanUseKeypad": "கீழே உள்ள எண் விசைகளை பயன்படுத்தவும்",
+"loanKeyboardTitle": "கட்டண விசைப்பலகை",
+
+"loanPaymentRange": "குறைந்தது {minimum} • அதிகபட்சம் {maximum}",
+"@loanPaymentRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"loanMinimumPayment": "குறைந்தபட்ச கட்டணம் {amount}.",
+"@loanMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"loanMaximumPayment": "அதிகபட்ச கட்டணம் {amount}.",
+"@loanMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"loanImportantNote": "முக்கிய குறிப்பு",
+
+"loanOrderSummary": "கட்டண சுருக்கம்",
+"loanPaymentAmount": "கட்டணத் தொகை",
+"loanServiceFee": "சேவை கட்டணம்",
+"loanServiceAdjustment": "சேவை மாற்றம்",
+"loanTotalPayment": "மொத்த கட்டணம்",
+
+"loanProcessingTime": "செயலாக்க நேரம்",
+
+"loanProcessingWithinHours": "{hours} மணி நேரத்திற்குள்",
+"@loanProcessingWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"loanProcessingWithinDays": "{days} நாட்களுக்குள்",
+"@loanProcessingWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"loanClear": "அழி",
+"loanDone": "முடிந்தது",
+"loanCancel": "ரத்து",
+
+"loanInformation": "தகவல்",
+
+"loanPaymentLoadingTitle": "கட்டண தகவல் ஏற்றப்படுகிறது",
+"loanPaymentLoadingMessage": "சமீபத்திய PTPTN கட்டண தகவலை பெறுகிறது.",
+
+"loanPaymentLoadErrorTitle": "கட்டண தகவல் கிடைக்கவில்லை",
+"loanPaymentLoadErrorMessage": "PTPTN கட்டண தகவலை பெற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+
+"loanPtptnSurchargeNote": "உங்கள் கட்டணத்திற்கு {surcharge} கூடுதல் கட்டணம் விதிக்கப்படும்.",
+"@loanPtptnSurchargeNote": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    }
+  }
+},
+
+
+"loanReceiptTitle": "PTPTN கட்டண ரசீது",
+"loanReceiptThankYou": "நன்றி. உங்கள் PTPTN அல்லது SSPN கட்டணம் பெறப்பட்டது.",
+
+"loanReceiptSuccessfulTitle": "கட்டணம் வெற்றிகரமாக முடிந்தது",
+"loanReceiptSuccessfulMessage": "உங்கள் கட்டணம் சேவை வழங்குநருக்கு வெற்றிகரமாக அனுப்பப்பட்டது.",
+
+"loanReceiptProcessingTitle": "கட்டணம் செயலாக்கத்தில்",
+"loanReceiptProcessingMessage": "உங்கள் கட்டணம் ஏற்றுக்கொள்ளப்பட்டு சேவை வழங்குநரால் செயலாக்கப்படுகிறது.",
+
+"loanReceiptAccountDetails": "கணக்கு விவரங்கள்",
+"loanReceiptProvider": "சேவை வழங்குநர்",
+"loanReceiptNric": "அடையாள அட்டை எண்",
+"loanReceiptAccountType": "கணக்கு வகை",
+"loanReceiptAccountNumber": "கணக்கு எண்",
+"loanReceiptCategory": "கணக்கு பிரிவு",
+"loanReceiptSubproductCode": "கணக்கு குறியீடு",
+
+"loanReceiptTransactionDetails": "பரிவர்த்தனை விவரங்கள்",
+"loanReceiptPaymentAmount": "கட்டணத் தொகை",
+"loanReceiptServiceAdjustment": "சேவை மாற்றம்",
+"loanReceiptPaymentMethod": "கட்டண முறை",
+"loanReceiptPaymentDate": "கட்டண தேதி & நேரம்",
+"loanReceiptOrderNumber": "ஆர்டர் எண்",
+"loanReceiptBankTransaction": "வங்கி பரிவர்த்தனை",
+"loanReceiptReference": "பரிவர்த்தனை குறிப்பு",
+"loanReceiptProviderStatus": "சேவை நிலை",
+
+"loanReceiptTotalPaid": "மொத்தம் செலுத்தியது",
+
+"gamingPlatformButton": "கேமிங் தளங்கள்",
+"gamingPlatformSupportingText": "கேமிங் கிரெடிட் ரீலோட்",
+
+
+"gamingPurchaseSubtitle": "கேமிங் வவுச்சர் வாங்குதல்",
+"gamingPlatformCategory": "கேமிங் தளங்கள்",
+"gamingHowToRedeem": "ரிடீம் செய்வது எப்படி",
+"gamingRedeemAfterPurchase": "கோடு, PIN அல்லது ரிடீம் இணைப்பு கிடைத்த பிறகு இந்த படிகளைப் பின்பற்றவும்.",
+"gamingKeepCodeSafe": "உங்கள் PIN, சீரியல் எண் அல்லது ரிடீம் இணைப்பை பாதுகாப்பாக வைத்திருங்கள். ஒரு கோடு பொதுவாக ஒருமுறை மட்டுமே பயன்படுத்தப்படும்.",
+"gamingSelectAmount": "தொகை / பேக்கேஜ் தேர்வு",
+"gamingSelectAmountHint": "வாங்க வேண்டிய கேமிங் கிரெடிட் அல்லது பேக்கேஜை தேர்வு செய்யவும்.",
+"gamingNoOptionsAvailable": "தற்போது வாங்கும் விருப்பங்கள் இல்லை.",
+"gamingQuantity": "எண்ணிக்கை",
+"gamingQuantityHint": "வாங்க வேண்டிய வவுச்சர் எண்ணிக்கையை தேர்வு செய்யவும்.",
+"gamingMaximumQuantity": "அதிகபட்ச எண்ணிக்கை எட்டப்பட்டது.",
+"gamingOrderSummary": "ஆர்டர் சுருக்கம்",
+"gamingProduct": "தயாரிப்பு",
+"gamingSelectedOption": "தேர்வு",
+"gamingUnitPrice": "ஒரு யூனிட் விலை",
+"gamingSubtotal": "கூட்டுத்தொகை",
+"gamingServiceFee": "சேவை கட்டணம்",
+"gamingServiceAdjustment": "சேவை சரிசெய்தல்",
+"gamingTotalAmount": "மொத்த தொகை",
+"gamingDeliveryMethod": "பெறும் முறை",
+"gamingDeliveryPin": "PIN",
+"gamingDeliveryLink": "ரிடீம் இணைப்பு",
+"gamingContinuePayment": "தொடரவும்",
+"gamingProductUnavailable": "இந்த கேமிங் தயாரிப்பு தற்போது கிடைக்கவில்லை.",
+"gamingSelectOptionRequired": "தொகை அல்லது பேக்கேஜை தேர்வு செய்யவும்.",
+"gamingUnableToLoad": "கேமிங் வாங்கும் விருப்பங்களை ஏற்ற முடியவில்லை.",
+"gamingTryAgain": "மீண்டும் முயற்சி",
+"gamingPaymentNextMessage": "தேர்வு உறுதிசெய்யப்பட்டது. அடுத்ததாக கட்டண பக்கத்துடன் இணைக்கவும்.",
+
+"gamingRedeemCcStep1": "Cherry Credits தளத்திற்குச் சென்று உங்கள் Cherry கணக்கில் உள்நுழையவும்.",
+"gamingRedeemCcStep2": "Top Up பக்கத்தைத் திறந்து Cherry Credits Prepaid Card / ePIN தேர்வு செய்யவும்.",
+"gamingRedeemCcStep3": "ரசீதில் உள்ள Serial Number மற்றும் Security Code ஐ உள்ளிடவும்.",
+"gamingRedeemCcStep4": "ரிடீமை உறுதிசெய்யவும். கிரெடிட் உங்கள் Cherry Credits இருப்பில் சேரும்.",
+
+"gamingRedeemGarenaStep1": "Garena அதிகாரப்பூர்வ Top Up Center ஐ திறந்து Garena கணக்கில் உள்நுழையவும்.",
+"gamingRedeemGarenaStep2": "Shell Top Up ஐ தேர்வு செய்து Redeem ஐ தேர்வு செய்யவும்.",
+"gamingRedeemGarenaStep3": "Prepaid card / voucher விருப்பத்தைத் தேர்வு செய்து ரசீதில் உள்ள கோட்டை உள்ளிடவும்.",
+"gamingRedeemGarenaStep4": "ரிடீமை உறுதிசெய்து Garena Shells கணக்கில் சேர்ந்ததா என பார்க்கவும்.",
+
+"gamingRedeemRazerStep1": "Razer Gold ஐ திறந்து உங்கள் Razer கணக்கில் உள்நுழையவும்.",
+"gamingRedeemRazerStep2": "Reload அல்லது Razer Gold PIN விருப்பத்தைத் தேர்வு செய்யவும்.",
+"gamingRedeemRazerStep3": "ரசீதில் உள்ள Razer Gold PIN அல்லது Serial Number மற்றும் PIN ஐ உள்ளிடவும்.",
+"gamingRedeemRazerStep4": "திரை வழிமுறைகளைப் பின்பற்றி reload அல்லது direct top-up உறுதியானதா என பார்க்கவும்.",
+
+"gamingRedeemOffgamersStep1": "உங்கள் OffGamers கணக்கில் உள்நுழையவும்.",
+"gamingRedeemOffgamersStep2": "Store Credit ஐ திறந்து Gift Card redeem விருப்பத்தைத் தேர்வு செய்யவும்.",
+"gamingRedeemOffgamersStep3": "ரசீதில் உள்ள Serial Number மற்றும் PIN Code ஐ உள்ளிடவும்.",
+"gamingRedeemOffgamersStep4": "ரிடீமை உறுதிசெய்து OffGamers Store Credit இருப்பை சரிபார்க்கவும்.",
+
+"gamingRedeemSteamStep1": "Wallet credit பெற வேண்டிய Steam கணக்கில் உள்நுழையவும்.",
+"gamingRedeemSteamStep2": "Account Details ஐ திறந்து Redeem a Steam Gift Card or Wallet Code ஐ தேர்வு செய்யவும்.",
+"gamingRedeemSteamStep3": "ரசீதில் உள்ள Steam Wallet Code ஐ உள்ளிடவும்.",
+"gamingRedeemSteamStep4": "Continue ஐ தேர்வு செய்து தொகை Steam Wallet இல் சேர்ந்ததா என உறுதிசெய்யவும்.",
+
+"gamingRedeemUnipinStep1": "உங்கள் UniPin கணக்கில் உள்நுழையவும்.",
+"gamingRedeemUnipinStep2": "Voucher அல்லது UniPin Credits redeem விருப்பத்தைத் திறக்கவும்.",
+"gamingRedeemUnipinStep3": "ரசீதில் உள்ள Serial Number மற்றும் PIN ஐ உள்ளிடவும்.",
+"gamingRedeemUnipinStep4": "ரிடீமை உறுதிசெய்து UniPin Credits புதுப்பிக்கப்பட்டதா என பார்க்கவும்.",
+
+"gamingRedeemGenericStep1": "அதிகாரப்பூர்வ தளம் அல்லது app ஐ திறந்து உள்நுழையவும்.",
+"gamingRedeemGenericStep2": "Redeem, Voucher அல்லது Wallet பகுதிக்கு சென்று ரசீதில் உள்ள கோட்டை உள்ளிடவும்.",
+"gamingRedeemGenericStep3": "ரிடீமை உறுதிசெய்து இருப்பை சரிபார்க்கவும்.",
+
+"gamingRedeemButtonHint": "ரிடீம் செய்யும் படிகளைப் பார்க்க இங்கே அழுத்தவும்.",
+"gamingClose": "மூடு",
+
+"gamingReviewSelection": "检查",
+"gamingConfirmTitle": "确认购买",
+"gamingConfirmSubtitle": "付款前请检查您的游戏购买资料",
+"gamingPleaseCheckTitle": "请检查您的选择",
+"gamingPleaseCheckMessage": "继续前，请确认游戏平台、金额或配套以及付款总额正确。",
+"gamingYouSelected": "您的选择",
+"gamingChangeSelection": "更改",
+"gamingPayNow": "立即付款",
+
+"gamingReceiptTitle": "கேமிங் ரசீது",
+"gamingReceiptPlatform": "கேமிங் தளம்",
+"gamingReceiptPurchaseDetails": "வாங்கிய விவரங்கள்",
+"gamingReceiptSelectedPackage": "தேர்ந்தெடுத்த தொகை / பேக்கேஜ்",
+"gamingReceiptDescription": "விவரம்",
+"gamingReceiptBaseAmount": "வவுச்சர் மதிப்பு",
+"gamingReceiptServiceAdjustment": "சேவை சரிசெய்தல்",
+"gamingReceiptPaymentMethod": "கட்டண முறை",
+"gamingReceiptPaymentDate": "கட்டண தேதி",
+"gamingReceiptBankTransaction": "வங்கி பரிவர்த்தனை",
+"gamingReceiptRedemptionDetails": "ரிடீம் விவரங்கள்",
+"gamingReceiptSerialNumber": "சீரியல் எண்",
+"gamingReceiptPinCode": "PIN / கோடு",
+"gamingReceiptExpiry": "காலாவதி",
+"gamingReceiptVoucherLink": "ரிடீம் இணைப்பு",
+"gamingReceiptProviderNote": "வழங்குநர் குறிப்பு",
+"gamingReceiptKeepCodeSafe": "உங்கள் PIN, சீரியல் எண் அல்லது ரிடீம் இணைப்பை பாதுகாப்பாக வைத்திருங்கள். கியோஸ்கை விட்டு செல்லும் முன் இந்த தகவலை சேமிக்கவும்.",
+"gamingReceiptTotalPaid": "மொத்தம் செலுத்தியது",
+
+"gamingPaymentTitle": "கேமிங் கட்டணம்",
+"gamingPaymentTotal": "மொத்த கட்டணம்",
+"gamingPreparingQrPayment": "கேமிங் QR தயாராகிறது",
+"gamingProcessingPurchaseTitle": "வாங்குதல் செயலாக்கப்படுகிறது",
+"gamingProcessingPurchaseMessage": "கட்டணம் பெறப்பட்டது. கேமிங் கோடு அல்லது ரிடீம் இணைப்பு தயாராகும் வரை காத்திருக்கவும்.",
+"gamingProcessingPurchaseLocked": "கேமிங் வாங்குதல் முடியும் வரை திரையைத் தொட வேண்டாம்.",
+"gamingPaymentInvalidProductTitle": "தவறான கேமிங் தயாரிப்பு",
+"gamingPaymentInvalidProductMessage": "கேமிங் தயாரிப்பு கோடு இல்லை.",
+"gamingPaymentProviderRejected": "கேமிங் வழங்குநர் பரிவர்த்தனையை நிராகரித்தார்.",
+"gamingPaymentProviderRefunded": "கேமிங் வழங்குநர் பரிவர்த்தனை திருப்பித் தரப்பட்டது.",
+"gamingPaymentUnexpectedStatus": "எதிர்பாராத கேமிங் வழங்குநர் நிலை",
+"gamingPaymentProviderErrorTitle": "கேமிங் செயலாக்க பிழை",
+"gamingPaymentReference": "கட்டண குறிப்பு",
+"gamingPaymentAlreadyReceivedWarning": "DuitNow கட்டணம் ஏற்கனவே பெறப்பட்டது. அதே பரிவர்த்தனைக்கு மீண்டும் கட்டணம் செலுத்த வேண்டாம்.",
+
+"telcoMobileReloadTitle": "மொபைல் ரீலோட்",
+"telcoMobileReloadDescription": "ப்ரீபெய்ட் ரீலோட் அல்லது இணையம் வாங்கவும்",
+
+"mobileReloadServiceLabel": "மொபைல் ரீலோட்",
+"mobileReloadProviderTitle": "மொபைல் சேவையைத் தேர்வு செய்க",
+"mobileReloadProviderSubtitle": "தொடர உங்கள் மொபைல் சேவையைத் தேர்வு செய்க",
+
+"mobileReloadLoadingTitle": "மொபைல் ரீலோட் ஏற்றப்படுகிறது",
+"mobileReloadLoadingMessage": "கிடைக்கும் சேவைகள் ஏற்றப்படுகின்றன. காத்திருக்கவும்.",
+
+"mobileReloadErrorTitle": "சேவையை ஏற்ற முடியவில்லை",
+"mobileReloadErrorMessage": "மொபைல் ரீலோட் தற்போது கிடைக்கவில்லை. மீண்டும் முயற்சிக்கவும்.",
+"mobileReloadRetry": "மீண்டும் முயற்சி",
+
+
+"mobileReloadPhoneStepLabel": "மொபைல் எண்",
+"mobileReloadEnterPhoneTitle": "மொபைல் எண்ணை உள்ளிடுக",
+"mobileReloadEnterPhoneSubtitle": "ரீலோட் செய்ய வேண்டிய மொபைல் எண்ணை உள்ளிடுக",
+"mobileReloadSelectedProvider": "தேர்ந்த சேவை",
+"mobileReloadPhoneHint": "மொபைல் எண்ணை உள்ளிடுக",
+
+"mobileReloadConfirmNumberTitle": "மொபைல் எண்ணை உறுதிசெய்க",
+"mobileReloadConfirmNumberQuestion": "இந்த மொபைல் எண் சரியா?",
+"mobileReloadConfirmBack": "மாற்று",
+"mobileReloadConfirmContinue": "தொடர்க",
+
+"mobileReloadPhoneRequiredTitle": "மொபைல் எண் தேவை",
+"mobileReloadPhoneRequiredMessage": "மொபைல் எண்ணை உள்ளிடவும்.",
+"mobileReloadInvalidPhoneTitle": "தவறான மொபைல் எண்",
+"mobileReloadInvalidPhoneMessage": "சரியான மலேசிய மொபைல் எண்ணை உள்ளிடவும்.",
+
+"mobileReloadUnavailableTitle": "சேவை கிடைக்கவில்லை",
+"mobileReloadUnavailableMessage": "இந்த மொபைல் ரீலோட் சேவை தற்போது கிடைக்கவில்லை.",
+"mobileReloadOkButton": "சரி",
+
+"mobileReloadInternetPlanSubtitle": "இந்த எண்ணிற்கு இணையத் திட்டத்தைத் தேர்வு செய்க",
+"mobileReloadPrepaidSubtitle": "இந்த எண்ணிற்கு ரீலோட் தொகையைத் தேர்வு செய்க",
+
+"mobileReloadPhoneNumber": "மொபைல் எண்",
+
+"mobileReloadSelectInternetPlan": "இணையத் திட்டத்தைத் தேர்வு செய்க",
+"mobileReloadSelectInternetPlanHint": "கிடைக்கும் இணையத் திட்டத்தைத் தேர்வு செய்க",
+
+"mobileReloadSelectReloadAmount": "ரீலோட் தொகையைத் தேர்வு செய்க",
+"mobileReloadSelectReloadAmountHint": "தேவையான ரீலோட் தொகையைத் தேர்வு செய்க",
+
+"mobileReloadEnterReloadAmount": "ரீலோட் தொகையை உள்ளிடுக",
+"mobileReloadEnterReloadAmountHint": "அனுமதிக்கப்பட்ட தொகையை உள்ளிடுக",
+
+"mobileReloadMinimum": "குறைந்தபட்சம்",
+"mobileReloadMaximum": "அதிகபட்சம்",
+
+"mobileReloadProvider": "சேவை",
+"mobileReloadSelectedPlan": "தேர்ந்த திட்டம்",
+"mobileReloadReloadAmount": "ரீலோட் தொகை",
+"mobileReloadServiceAdjustment": "சேவை சரிசெய்தல்",
+"mobileReloadTotalPayment": "மொத்த கட்டணம்",
+
+"mobileReloadNoOptions": "இந்த எண்ணிற்கு தற்போது விருப்பங்கள் இல்லை.",
+"mobileReloadSelectOptionRequired": "தொடர ஒரு விருப்பத்தைத் தேர்வு செய்க.",
+"mobileReloadInvalidAmount": "சரியான ரீலோட் தொகையை உள்ளிடவும்.",
+
+
+"mobileReloadMinimumAmountMessage": "குறைந்தபட்ச ரீலோட் தொகை {amount}.",
+"@mobileReloadMinimumAmountMessage": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"mobileReloadMaximumAmountMessage": "அதிகபட்ச ரீலோட் தொகை {amount}.",
+"@mobileReloadMaximumAmountMessage": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+
+"mobileReloadConfirmTitle": "கொள்முதலை சரிபார்க்கவும்",
+"mobileReloadConfirmSubtitle": "பணம் செலுத்தும் முன் ரீலோட் விவரங்களை சரிபார்க்கவும்",
+
+"mobileReloadPleaseCheckTitle": "சரிபார்க்கவும்",
+"mobileReloadPleaseCheckMessage": "பணம் செலுத்தும் முன் மொபைல் எண் மற்றும் தேர்ந்த சேவை சரியா என உறுதிசெய்க.",
+
+"mobileReloadYouSelected": "உங்கள் தேர்வு",
+"mobileReloadOrderSummary": "ஆர்டர் சுருக்கம்",
+"mobileReloadSubtotal": "துணை மொத்தம்",
+"mobileReloadServiceFee": "சேவை கட்டணம்",
+
+"mobileReloadChangeSelection": "மாற்று",
+"mobileReloadPayNow": "இப்போது செலுத்து",
+
+
+
+"mobileReloadPaymentTitle": "மொபைல் ரீலோட் கட்டணம்",
+"mobileReloadPaymentDetails": "மொபைல் ரீலோட் விவரம்",
+"mobileReloadPreparingQrPayment": "QR கட்டணம் தயாராகிறது",
+
+"mobileReloadProcessingTitle": "மொபைல் ரீலோட் செயலாக்கம்",
+"mobileReloadProcessingMessage": "கட்டணம் வெற்றியடைந்தது. உங்கள் ரீலோட் செயலாக்கப்படும் வரை காத்திருக்கவும்.",
+"mobileReloadProcessingLocked": "திரும்பிச் செல்லவோ மீண்டும் கட்டணம் செலுத்தவோ வேண்டாம்.",
+
+"mobileReloadPaymentInvalidProductTitle": "தவறான தயாரிப்பு",
+"mobileReloadPaymentInvalidProductMessage": "தேர்ந்த மொபைல் ரீலோட் தயாரிப்பு தவறானது.",
+
+"mobileReloadPaymentInvalidPlanTitle": "தவறான இணையத் திட்டம்",
+"mobileReloadPaymentInvalidPlanMessage": "தேர்ந்த இணையத் திட்டம் கிடைக்கவில்லை. திரும்பிச் சென்று மீண்டும் தேர்வு செய்யவும்.",
+
+"mobileReloadPaymentProviderRejected": "மொபைல் சேவை வழங்குநர் பரிவர்த்தனையை நிராகரித்தார்.",
+"mobileReloadPaymentProviderRefunded": "மொபைல் சேவை பரிவர்த்தனை திருப்பி செலுத்தப்பட்டது.",
+"mobileReloadPaymentProviderErrorTitle": "ரீலோட் பிழை",
+"mobileReloadPaymentStillProcessing": "மொபைல் சேவை வழங்குநர் இன்னும் பரிவர்த்தனையை செயலாக்குகிறார்.",
+"mobileReloadPaymentReference": "பரிவர்த்தனை குறிப்பு",
+"mobileReloadPaymentAlreadyReceivedWarning": "உங்கள் DuitNow கட்டணம் பெறப்பட்டுள்ளது. இதே பரிவர்த்தனைக்கு மீண்டும் கட்டணம் செலுத்த வேண்டாம்.",
+
+"mobileReloadInternetReceiptTitle": "இணையத் திட்ட ரசீது",
+"mobileReloadPrepaidReceiptTitle": "மொபைல் ரீலோட் ரசீது",
+"mobileReloadReceiptTransactionDetails": "பரிவர்த்தனை விவரங்கள்",
+"mobileReloadReceiptPlanDetails": "திட்ட விவரங்கள்",
+"mobileReloadReceiptPaymentDate": "கட்டண தேதி",
+"mobileReloadReceiptBankTransaction": "வங்கி பரிவர்த்தனை",
+"mobileReloadReceiptTotalPaid": "மொத்தம் செலுத்தியது",
+
+"mobileReloadReceiptSerialNumber": "வரிசை எண்",
+"mobileReloadReceiptPin": "PIN",
+"mobileReloadReceiptExpiry": "காலாவதி தேதி",
+"mobileReloadReceiptVoucherLink": "வவுச்சர் இணைப்பு"
 
 }

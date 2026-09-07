@@ -3186,7 +3186,372 @@
 
 "loanAvailableAccountTitle": "AKAUN TERSEDIA",
 
-"loanAccountSelectionTitle": "Pilihan Akaun PTPTN"
+"loanAccountSelectionTitle": "Pilihan Akaun PTPTN",
+
+"loanPaymentTitle": "Bayaran PTPTN",
+"loanPaymentSubtitle": "Masukkan jumlah yang ingin dibayar",
+
+"loanAccountInformation": "Maklumat Akaun",
+"loanAccountCategory": "Akaun",
+
+"loanSelectPaymentAmount": "Pilih Jumlah Bayaran",
+"loanAmountInstruction": "Tekan kotak jumlah untuk memasukkan bayaran, atau gunakan butang − dan +.",
+
+"loanEnterPaymentAmount": "Masukkan Jumlah Bayaran",
+"loanUseKeypad": "Gunakan papan kekunci di bawah",
+"loanKeyboardTitle": "Papan Kekunci Jumlah Bayaran",
+
+"loanPaymentRange": "Minimum {minimum} • Maksimum {maximum}",
+"@loanPaymentRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"loanMinimumPayment": "Jumlah bayaran minimum ialah {amount}.",
+"@loanMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"loanMaximumPayment": "Jumlah bayaran maksimum ialah {amount}.",
+"@loanMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"loanImportantNote": "Nota Penting",
+
+"loanOrderSummary": "Ringkasan Bayaran",
+"loanPaymentAmount": "Jumlah Bayaran",
+"loanServiceFee": "Caj Perkhidmatan",
+"loanServiceAdjustment": "Pelarasan Perkhidmatan",
+"loanTotalPayment": "Jumlah Keseluruhan",
+
+"loanProcessingTime": "Masa Pemprosesan",
+
+"loanProcessingWithinHours": "Dalam tempoh {hours} jam",
+"@loanProcessingWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"loanProcessingWithinDays": "Dalam tempoh {days} hari",
+"@loanProcessingWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"loanClear": "PADAM",
+"loanDone": "SELESAI",
+"loanCancel": "BATAL",
+
+"loanInformation": "Maklumat",
+
+"loanPaymentLoadingTitle": "Memuatkan Maklumat Bayaran",
+"loanPaymentLoadingMessage": "Sila tunggu sementara maklumat bayaran PTPTN terkini diperoleh.",
+
+"loanPaymentLoadErrorTitle": "Maklumat Bayaran Tidak Dapat Dimuatkan",
+"loanPaymentLoadErrorMessage": "Maklumat bayaran PTPTN terkini tidak dapat diperoleh. Sila cuba lagi.",
+
+"loanPtptnSurchargeNote": "Caj tambahan {surcharge} akan dikenakan pada bayaran anda.",
+"@loanPtptnSurchargeNote": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    }
+  }
+},
+
+
+"loanReceiptTitle": "Resit Bayaran PTPTN",
+"loanReceiptThankYou": "Terima kasih. Bayaran PTPTN atau SSPN anda telah diterima.",
+
+"loanReceiptSuccessfulTitle": "Bayaran Berjaya",
+"loanReceiptSuccessfulMessage": "Bayaran anda telah berjaya dihantar kepada penyedia.",
+
+"loanReceiptProcessingTitle": "Bayaran Sedang Diproses",
+"loanReceiptProcessingMessage": "Bayaran anda telah diterima dan masih sedang diproses oleh penyedia.",
+
+"loanReceiptAccountDetails": "Maklumat Akaun",
+"loanReceiptProvider": "Penyedia",
+"loanReceiptNric": "Nombor IC",
+"loanReceiptAccountType": "Jenis Akaun",
+"loanReceiptAccountNumber": "Nombor Akaun",
+"loanReceiptCategory": "Kategori Akaun",
+"loanReceiptSubproductCode": "Kod Akaun",
+
+"loanReceiptTransactionDetails": "Maklumat Transaksi",
+"loanReceiptPaymentAmount": "Jumlah Bayaran",
+"loanReceiptServiceAdjustment": "Pelarasan Perkhidmatan",
+"loanReceiptPaymentMethod": "Kaedah Pembayaran",
+"loanReceiptPaymentDate": "Tarikh & Masa Bayaran",
+"loanReceiptOrderNumber": "Nombor Pesanan",
+"loanReceiptBankTransaction": "Transaksi Bank",
+"loanReceiptReference": "Rujukan Transaksi",
+"loanReceiptProviderStatus": "Status Penyedia",
+
+"loanReceiptTotalPaid": "Jumlah Dibayar",
+
+"gamingPlatformButton": "PLATFORM PERMAINAN",
+"gamingPlatformSupportingText": "Tambah nilai kredit platform permainan",
+
+"gamingPurchaseSubtitle": "Pembelian baucar permainan",
+"gamingPlatformCategory": "Platform Permainan",
+"gamingHowToRedeem": "CARA MENEBUS",
+"gamingRedeemAfterPurchase": "Ikuti langkah ini selepas kod, PIN atau pautan penebusan diterima.",
+"gamingKeepCodeSafe": "Rahsiakan PIN, nombor siri atau pautan penebusan anda. Setiap kod biasanya hanya boleh digunakan sekali.",
+"gamingSelectAmount": "PILIH NILAI / PAKEJ",
+"gamingSelectAmountHint": "Pilih kredit permainan atau pakej yang ingin dibeli.",
+"gamingNoOptionsAvailable": "Tiada pilihan pembelian tersedia buat masa ini.",
+"gamingQuantity": "KUANTITI",
+"gamingQuantityHint": "Pilih bilangan baucar yang ingin dibeli.",
+"gamingMaximumQuantity": "Kuantiti maksimum telah dicapai.",
+"gamingOrderSummary": "RINGKASAN PESANAN",
+"gamingProduct": "Produk",
+"gamingSelectedOption": "Pilihan",
+"gamingUnitPrice": "Harga Seunit",
+"gamingSubtotal": "Jumlah Kecil",
+"gamingServiceFee": "Caj Perkhidmatan",
+"gamingServiceAdjustment": "Pelarasan Perkhidmatan",
+"gamingTotalAmount": "JUMLAH BAYARAN",
+"gamingDeliveryMethod": "Kaedah Penerimaan",
+"gamingDeliveryPin": "PIN",
+"gamingDeliveryLink": "PAUTAN PENEBUSAN",
+"gamingContinuePayment": "TERUSKAN",
+"gamingProductUnavailable": "Produk permainan ini tidak tersedia buat masa ini.",
+"gamingSelectOptionRequired": "Sila pilih nilai atau pakej.",
+"gamingUnableToLoad": "Pilihan pembelian permainan tidak dapat dimuatkan.",
+"gamingTryAgain": "CUBA LAGI",
+"gamingPaymentNextMessage": "Pilihan telah disahkan. Sambungkan butang ini ke halaman pembayaran seterusnya.",
+
+"gamingRedeemCcStep1": "Pergi ke Cherry Credits dan log masuk ke akaun Cherry anda.",
+"gamingRedeemCcStep2": "Buka halaman Top Up dan pilih Cherry Credits Prepaid Card / ePIN.",
+"gamingRedeemCcStep3": "Masukkan Nombor Siri dan Kod Keselamatan yang diberikan pada resit.",
+"gamingRedeemCcStep4": "Sahkan penebusan. Kredit akan dimasukkan ke baki Cherry Credits anda.",
+
+"gamingRedeemGarenaStep1": "Buka Garena Top Up Center rasmi dan log masuk ke akaun Garena anda.",
+"gamingRedeemGarenaStep2": "Pilih Shell Top Up, kemudian pilih Redeem.",
+"gamingRedeemGarenaStep3": "Pilih pilihan kad prabayar / baucar dan masukkan kod yang diberikan pada resit.",
+"gamingRedeemGarenaStep4": "Sahkan penebusan dan pastikan Garena Shells telah dimasukkan ke akaun anda.",
+
+"gamingRedeemRazerStep1": "Buka Razer Gold dan log masuk ke akaun Razer anda.",
+"gamingRedeemRazerStep2": "Pilih Reload atau pilihan Razer Gold PIN.",
+"gamingRedeemRazerStep3": "Masukkan Razer Gold PIN, atau Nombor Siri dan PIN, yang diberikan pada resit.",
+"gamingRedeemRazerStep4": "Ikuti arahan pada skrin sehingga tambah nilai atau direct top-up disahkan.",
+
+"gamingRedeemOffgamersStep1": "Log masuk ke akaun OffGamers anda.",
+"gamingRedeemOffgamersStep2": "Buka Store Credit dan pilih penebusan Gift Card.",
+"gamingRedeemOffgamersStep3": "Masukkan Nombor Siri dan PIN Code yang diberikan pada resit.",
+"gamingRedeemOffgamersStep4": "Sahkan penebusan dan semak baki OffGamers Store Credit anda.",
+
+"gamingRedeemSteamStep1": "Log masuk ke akaun Steam yang akan menerima kredit dompet.",
+"gamingRedeemSteamStep2": "Buka Account Details dan pilih Redeem a Steam Gift Card or Wallet Code.",
+"gamingRedeemSteamStep3": "Masukkan Steam Wallet Code yang diberikan pada resit.",
+"gamingRedeemSteamStep4": "Pilih Continue dan pastikan nilai telah dimasukkan ke Steam Wallet.",
+
+"gamingRedeemUnipinStep1": "Log masuk ke akaun UniPin anda.",
+"gamingRedeemUnipinStep2": "Buka pilihan penebusan baucar atau UniPin Credits.",
+"gamingRedeemUnipinStep3": "Masukkan Nombor Siri dan PIN yang diberikan pada resit.",
+"gamingRedeemUnipinStep4": "Sahkan penebusan dan pastikan UniPin Credits anda telah dikemas kini.",
+
+"gamingRedeemGenericStep1": "Buka laman atau aplikasi rasmi platform dan log masuk.",
+"gamingRedeemGenericStep2": "Buka bahagian Redeem, Voucher atau Wallet dan masukkan kod daripada resit.",
+"gamingRedeemGenericStep3": "Sahkan penebusan dan semak baki anda.",
+
+"gamingRedeemButtonHint": "Tekan di sini untuk melihat langkah penebusan.",
+"gamingClose": "TUTUP",
+
+"gamingReviewSelection": "SEMAK",
+"gamingConfirmTitle": "SAHKAN PEMBELIAN",
+"gamingConfirmSubtitle": "Semak pembelian permainan anda sebelum membuat bayaran",
+"gamingPleaseCheckTitle": "SILA SEMAK PILIHAN ANDA",
+"gamingPleaseCheckMessage": "Pastikan platform, nilai atau pakej dan jumlah bayaran adalah betul sebelum meneruskan.",
+"gamingYouSelected": "PILIHAN ANDA",
+"gamingChangeSelection": "UBAH",
+"gamingPayNow": "BAYAR SEKARANG",
+
+"gamingReceiptTitle": "RESIT PERMAINAN",
+"gamingReceiptPlatform": "Platform Permainan",
+"gamingReceiptPurchaseDetails": "Butiran Pembelian",
+"gamingReceiptSelectedPackage": "Nilai / Pakej Dipilih",
+"gamingReceiptDescription": "Keterangan",
+"gamingReceiptBaseAmount": "Nilai Baucar",
+"gamingReceiptServiceAdjustment": "Pelarasan Perkhidmatan",
+"gamingReceiptPaymentMethod": "Kaedah Bayaran",
+"gamingReceiptPaymentDate": "Tarikh Bayaran",
+"gamingReceiptBankTransaction": "Transaksi Bank",
+"gamingReceiptRedemptionDetails": "Butiran Penebusan",
+"gamingReceiptSerialNumber": "Nombor Siri",
+"gamingReceiptPinCode": "PIN / Kod",
+"gamingReceiptExpiry": "Tarikh Luput",
+"gamingReceiptVoucherLink": "Pautan Penebusan",
+"gamingReceiptProviderNote": "Nota Penyedia",
+"gamingReceiptKeepCodeSafe": "Rahsiakan PIN, nombor siri atau pautan penebusan anda. Simpan maklumat ini sebelum meninggalkan kiosk.",
+"gamingReceiptTotalPaid": "JUMLAH DIBAYAR",
+
+"gamingPaymentTitle": "BAYARAN PERMAINAN",
+"gamingPaymentTotal": "JUMLAH BAYARAN",
+"gamingPreparingQrPayment": "MENYEDIAKAN QR PERMAINAN",
+"gamingProcessingPurchaseTitle": "MEMPROSES PEMBELIAN",
+"gamingProcessingPurchaseMessage": "Bayaran telah diterima. Sila tunggu sementara kod permainan atau pautan penebusan disediakan.",
+"gamingProcessingPurchaseLocked": "Sila jangan sentuh skrin sementara pembelian permainan sedang diselesaikan.",
+"gamingPaymentInvalidProductTitle": "PRODUK PERMAINAN TIDAK SAH",
+"gamingPaymentInvalidProductMessage": "Kod produk permainan tiada.",
+"gamingPaymentProviderRejected": "Penyedia permainan menolak transaksi ini.",
+"gamingPaymentProviderRefunded": "Transaksi penyedia permainan telah dipulangkan.",
+"gamingPaymentUnexpectedStatus": "Status penyedia permainan tidak dijangka",
+"gamingPaymentProviderErrorTitle": "RALAT PEMPROSESAN PERMAINAN",
+"gamingPaymentReference": "Rujukan Bayaran",
+"gamingPaymentAlreadyReceivedWarning": "Bayaran DuitNow telah diterima. Jangan buat bayaran lain untuk transaksi yang sama.",
+
+"telcoMobileReloadTitle": "Tambah Nilai Mudah Alih",
+"telcoMobileReloadDescription": "Tambah nilai prabayar atau beli internet mudah alih",
+
+"mobileReloadServiceLabel": "Tambah Nilai Mudah Alih",
+"mobileReloadProviderTitle": "Pilih Penyedia Mudah Alih",
+"mobileReloadProviderSubtitle": "Pilih penyedia mudah alih anda untuk meneruskan",
+
+"mobileReloadLoadingTitle": "Memuatkan Tambah Nilai",
+"mobileReloadLoadingMessage": "Sila tunggu sementara perkhidmatan mudah alih dimuatkan.",
+
+"mobileReloadErrorTitle": "Perkhidmatan Tidak Dapat Dimuatkan",
+"mobileReloadErrorMessage": "Perkhidmatan tambah nilai tidak tersedia buat masa ini. Sila cuba lagi.",
+"mobileReloadRetry": "Cuba Lagi",
+
+
+"mobileReloadPhoneStepLabel": "Nombor Telefon",
+"mobileReloadEnterPhoneTitle": "Masukkan Nombor Telefon",
+"mobileReloadEnterPhoneSubtitle": "Masukkan nombor telefon yang ingin ditambah nilai",
+"mobileReloadSelectedProvider": "Penyedia Dipilih",
+"mobileReloadPhoneHint": "Masukkan Nombor Telefon",
+
+"mobileReloadConfirmNumberTitle": "Sahkan Nombor Telefon",
+"mobileReloadConfirmNumberQuestion": "Adakah nombor telefon ini betul?",
+"mobileReloadConfirmBack": "Ubah",
+"mobileReloadConfirmContinue": "Teruskan",
+
+"mobileReloadPhoneRequiredTitle": "Nombor Telefon Diperlukan",
+"mobileReloadPhoneRequiredMessage": "Sila masukkan nombor telefon.",
+"mobileReloadInvalidPhoneTitle": "Nombor Telefon Tidak Sah",
+"mobileReloadInvalidPhoneMessage": "Sila masukkan nombor telefon Malaysia yang sah.",
+
+"mobileReloadUnavailableTitle": "Perkhidmatan Tidak Tersedia",
+"mobileReloadUnavailableMessage": "Perkhidmatan tambah nilai ini tidak tersedia buat masa ini.",
+"mobileReloadOkButton": "OK",
+
+"mobileReloadInternetPlanSubtitle": "Pilih pelan internet untuk nombor telefon ini",
+"mobileReloadPrepaidSubtitle": "Pilih amaun tambah nilai untuk nombor telefon ini",
+
+"mobileReloadPhoneNumber": "Nombor Telefon",
+
+"mobileReloadSelectInternetPlan": "Pilih Pelan Internet",
+"mobileReloadSelectInternetPlanHint": "Pilih pelan internet yang tersedia",
+
+"mobileReloadSelectReloadAmount": "Pilih Amaun Tambah Nilai",
+"mobileReloadSelectReloadAmountHint": "Pilih amaun yang ingin ditambah nilai",
+
+"mobileReloadEnterReloadAmount": "Masukkan Amaun Tambah Nilai",
+"mobileReloadEnterReloadAmountHint": "Masukkan amaun dalam had penyedia",
+
+"mobileReloadMinimum": "Minimum",
+"mobileReloadMaximum": "Maksimum",
+
+"mobileReloadProvider": "Penyedia",
+"mobileReloadSelectedPlan": "Pelan Dipilih",
+"mobileReloadReloadAmount": "Amaun Tambah Nilai",
+"mobileReloadServiceAdjustment": "Pelarasan Perkhidmatan",
+"mobileReloadTotalPayment": "Jumlah Bayaran",
+
+"mobileReloadNoOptions": "Tiada pilihan tersedia untuk nombor telefon ini.",
+"mobileReloadSelectOptionRequired": "Sila pilih satu pilihan untuk meneruskan.",
+"mobileReloadInvalidAmount": "Sila masukkan amaun tambah nilai yang sah.",
+
+
+"mobileReloadMinimumAmountMessage": "Amaun tambah nilai minimum ialah {amount}.",
+"@mobileReloadMinimumAmountMessage": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"mobileReloadMaximumAmountMessage": "Amaun tambah nilai maksimum ialah {amount}.",
+"@mobileReloadMaximumAmountMessage": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+
+"mobileReloadConfirmTitle": "Semak Pembelian",
+"mobileReloadConfirmSubtitle": "Semak maklumat tambah nilai sebelum pembayaran",
+
+"mobileReloadPleaseCheckTitle": "Sila Semak",
+"mobileReloadPleaseCheckMessage": "Pastikan nombor telefon dan pilihan perkhidmatan adalah betul sebelum membuat pembayaran.",
+
+"mobileReloadYouSelected": "Pilihan Anda",
+"mobileReloadOrderSummary": "Ringkasan Pesanan",
+"mobileReloadSubtotal": "Jumlah Kecil",
+"mobileReloadServiceFee": "Caj Perkhidmatan",
+
+"mobileReloadChangeSelection": "Ubah Pilihan",
+"mobileReloadPayNow": "Bayar Sekarang",
+
+
+"mobileReloadPaymentTitle": "Pembayaran Tambah Nilai",
+"mobileReloadPaymentDetails": "Maklumat Tambah Nilai",
+"mobileReloadPreparingQrPayment": "Menyediakan Pembayaran QR",
+
+"mobileReloadProcessingTitle": "Memproses Tambah Nilai",
+"mobileReloadProcessingMessage": "Pembayaran berjaya. Sila tunggu sementara tambah nilai anda diproses.",
+"mobileReloadProcessingLocked": "Sila jangan kembali atau membuat pembayaran sekali lagi.",
+
+"mobileReloadPaymentInvalidProductTitle": "Produk Tidak Sah",
+"mobileReloadPaymentInvalidProductMessage": "Produk tambah nilai yang dipilih tidak sah.",
+
+"mobileReloadPaymentInvalidPlanTitle": "Pelan Internet Tidak Sah",
+"mobileReloadPaymentInvalidPlanMessage": "Pelan internet tidak ditemui. Sila kembali dan pilih semula pelan.",
+
+"mobileReloadPaymentProviderRejected": "Penyedia mudah alih menolak transaksi ini.",
+"mobileReloadPaymentProviderRefunded": "Transaksi penyedia mudah alih telah dipulangkan.",
+"mobileReloadPaymentProviderErrorTitle": "Ralat Tambah Nilai",
+"mobileReloadPaymentStillProcessing": "Penyedia mudah alih masih memproses transaksi ini.",
+"mobileReloadPaymentReference": "Rujukan Transaksi",
+"mobileReloadPaymentAlreadyReceivedWarning": "Pembayaran DuitNow anda telah diterima. Jangan buat pembayaran sekali lagi untuk transaksi yang sama.",
+
+"mobileReloadInternetReceiptTitle": "Resit Pelan Internet",
+"mobileReloadPrepaidReceiptTitle": "Resit Tambah Nilai",
+"mobileReloadReceiptTransactionDetails": "Butiran Transaksi",
+"mobileReloadReceiptPlanDetails": "Butiran Pelan",
+"mobileReloadReceiptPaymentDate": "Tarikh Pembayaran",
+"mobileReloadReceiptBankTransaction": "Transaksi Bank",
+"mobileReloadReceiptTotalPaid": "Jumlah Dibayar",
+
+"mobileReloadReceiptSerialNumber": "Nombor Siri",
+"mobileReloadReceiptPin": "PIN",
+"mobileReloadReceiptExpiry": "Tarikh Luput",
+"mobileReloadReceiptVoucherLink": "Pautan Baucar"
 
 
 

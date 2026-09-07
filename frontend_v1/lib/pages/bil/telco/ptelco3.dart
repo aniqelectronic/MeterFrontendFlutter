@@ -8,6 +8,8 @@ import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:frontend_v1/pages/bil/telco/postpaid/ptelcobill3.dart';
 import 'package:frontend_v1/pages/bil/telco/mobilepin/pmobilepin3.dart';
 
+import 'package:frontend_v1/pages/bil/telco/mobilereload/pmobilereload3.dart';
+
 class PTELCO3PAGE extends StatelessWidget {
   const PTELCO3PAGE({super.key});
 
@@ -166,60 +168,114 @@ class PTELCO3PAGE extends StatelessWidget {
           // ============================================================
           // OPTION CARDS
           // ============================================================
+
           Positioned(
-            top: 470,
+            top: 450,
             left: 55,
             right: 55,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
               children: [
-                // ======================================================
-                // BILL PAYMENT
-                // ======================================================
-                Expanded(
-                  child: _TelcoOptionCard(
-                    icon: Icons.receipt_long_rounded,
-                    title: loc.telcoBillPaymentTitle,
-                    description: loc.telcoBillPaymentDescription,
-                    accentColor: const Color(0xFF15946B),
-                    accentLightColor: const Color(0xFFE2F7EF),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const PTELCOBILL3PAGE(),
+                // ========================================================
+                // FIRST ROW
+                // ========================================================
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // ====================================================
+                    // BILL PAYMENT
+                    // ====================================================
+
+                    Expanded(
+                      child: _TelcoOptionCard(
+                        icon: Icons.receipt_long_rounded,
+                        title: loc.telcoBillPaymentTitle,
+                        description:
+                            loc.telcoBillPaymentDescription,
+                        accentColor:
+                            const Color(0xFF15946B),
+                        accentLightColor:
+                            const Color(0xFFE2F7EF),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  const PTELCOBILL3PAGE(),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                  ),
+                    ),
+
+                    const SizedBox(width: 34),
+
+                    // ====================================================
+                    // MOBILE PIN
+                    // ====================================================
+
+                    Expanded(
+                      child: _TelcoOptionCard(
+                        icon: Icons.phone_android_rounded,
+                        title: loc.telcoMobilePinTitle,
+                        description:
+                            loc.telcoMobilePinDescription,
+                        accentColor:
+                            const Color(0xFF1769D2),
+                        accentLightColor:
+                            const Color(0xFFE4F0FF),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  const PMOBILEPIN3PAGE(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
 
-                const SizedBox(width: 34),
+                const SizedBox(height: 32),
 
-                // ======================================================
-                // MOBILE PIN
-                // ======================================================
-                Expanded(
-                  child: _TelcoOptionCard(
-                    icon: Icons.phone_android_rounded,
-                    title: loc.telcoMobilePinTitle,
-                    description: loc.telcoMobilePinDescription,
-                    accentColor: const Color(0xFF1769D2),
-                    accentLightColor: const Color(0xFFE4F0FF),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const PMOBILEPIN3PAGE(),
+                // ========================================================
+                // MOBILE RELOAD
+                // ========================================================
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: _TelcoOptionCard(
+                        icon: Icons.signal_cellular_alt_rounded,
+                        title: loc.telcoMobileReloadTitle,
+                        description: loc.telcoMobileReloadDescription,
+                        accentColor: const Color(0xFF7B4DCC),
+                        accentLightColor: const Color(0xFFF1EAFF),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const PMOBILERELOAD3PAGE(),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                  ),
+                    ),
+
+                    const SizedBox(width: 34),
+
+                    // Empty right side so Mobile Reload
+                    // has exactly the same width as Bill / Mobile PIN
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-
 
           // ============================================================
           // BACK BUTTON

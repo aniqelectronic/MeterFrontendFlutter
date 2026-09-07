@@ -3078,6 +3078,374 @@
 
 "loanAvailableAccountTitle": "可用账户",
 
-"loanAccountSelectionTitle": "选择 PTPTN 账户"
+"loanAccountSelectionTitle": "选择 PTPTN 账户",
+
+"loanPaymentTitle": "PTPTN 付款",
+"loanPaymentSubtitle": "请输入您要支付的金额",
+
+"loanAccountInformation": "账户资料",
+"loanAccountCategory": "账户",
+
+"loanSelectPaymentAmount": "选择付款金额",
+"loanAmountInstruction": "点击金额框输入付款金额，或使用 − 和 + 按钮调整。",
+
+"loanEnterPaymentAmount": "输入付款金额",
+"loanUseKeypad": "请使用下方数字键盘",
+"loanKeyboardTitle": "付款金额键盘",
+
+"loanPaymentRange": "最低 {minimum} • 最高 {maximum}",
+"@loanPaymentRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"loanMinimumPayment": "最低付款金额为 {amount}。",
+"@loanMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"loanMaximumPayment": "最高付款金额为 {amount}。",
+"@loanMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"loanImportantNote": "重要提示",
+
+"loanOrderSummary": "付款摘要",
+"loanPaymentAmount": "付款金额",
+"loanServiceFee": "服务费",
+"loanServiceAdjustment": "服务调整",
+"loanTotalPayment": "付款总额",
+
+"loanProcessingTime": "处理时间",
+
+"loanProcessingWithinHours": "{hours} 小时内",
+"@loanProcessingWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"loanProcessingWithinDays": "{days} 天内",
+"@loanProcessingWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"loanClear": "清除",
+"loanDone": "完成",
+"loanCancel": "取消",
+
+"loanInformation": "提示",
+
+"loanPaymentLoadingTitle": "正在加载付款资料",
+"loanPaymentLoadingMessage": "请稍候，正在获取最新的 PTPTN 付款资料。",
+
+"loanPaymentLoadErrorTitle": "无法加载付款资料",
+"loanPaymentLoadErrorMessage": "无法获取最新的 PTPTN 付款资料，请重试。",
+
+"loanPtptnSurchargeNote": "您的付款将收取 {surcharge} 附加费。",
+"@loanPtptnSurchargeNote": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    }
+  }
+},
+
+
+"loanReceiptTitle": "PTPTN 付款收据",
+"loanReceiptThankYou": "谢谢。您的 PTPTN 或 SSPN 付款已收到。",
+
+"loanReceiptSuccessfulTitle": "付款成功",
+"loanReceiptSuccessfulMessage": "您的付款已成功提交给服务提供商。",
+
+"loanReceiptProcessingTitle": "付款处理中",
+"loanReceiptProcessingMessage": "您的付款已被接受，目前仍由服务提供商处理中。",
+
+"loanReceiptAccountDetails": "账户资料",
+"loanReceiptProvider": "服务提供商",
+"loanReceiptNric": "身份证号码",
+"loanReceiptAccountType": "账户类型",
+"loanReceiptAccountNumber": "账户号码",
+"loanReceiptCategory": "账户类别",
+"loanReceiptSubproductCode": "账户代码",
+
+"loanReceiptTransactionDetails": "交易资料",
+"loanReceiptPaymentAmount": "付款金额",
+"loanReceiptServiceAdjustment": "服务调整",
+"loanReceiptPaymentMethod": "付款方式",
+"loanReceiptPaymentDate": "付款日期与时间",
+"loanReceiptOrderNumber": "订单号码",
+"loanReceiptBankTransaction": "银行交易",
+"loanReceiptReference": "交易参考编号",
+"loanReceiptProviderStatus": "服务状态",
+
+"loanReceiptTotalPaid": "已付总额",
+
+"gamingPlatformButton": "游戏平台",
+"gamingPlatformSupportingText": "充值游戏平台点数",
+
+"gamingPurchaseSubtitle": "游戏代金券购买",
+"gamingPlatformCategory": "游戏平台",
+"gamingHowToRedeem": "兑换方法",
+"gamingRedeemAfterPurchase": "收到代码、PIN 或兑换链接后，请按照以下步骤操作。",
+"gamingKeepCodeSafe": "请妥善保管您的 PIN、序列号或兑换链接。每个代码通常只能使用一次。",
+"gamingSelectAmount": "选择金额 / 配套",
+"gamingSelectAmountHint": "请选择您要购买的游戏点数或配套。",
+"gamingNoOptionsAvailable": "目前没有可用的购买选项。",
+"gamingQuantity": "数量",
+"gamingQuantityHint": "请选择要购买的代金券数量。",
+"gamingMaximumQuantity": "已达到最大数量。",
+"gamingOrderSummary": "订单摘要",
+"gamingProduct": "产品",
+"gamingSelectedOption": "已选项目",
+"gamingUnitPrice": "单价",
+"gamingSubtotal": "小计",
+"gamingServiceFee": "服务费",
+"gamingServiceAdjustment": "服务调整",
+"gamingTotalAmount": "付款总额",
+"gamingDeliveryMethod": "领取方式",
+"gamingDeliveryPin": "PIN",
+"gamingDeliveryLink": "兑换链接",
+"gamingContinuePayment": "继续",
+"gamingProductUnavailable": "此游戏产品目前不可用。",
+"gamingSelectOptionRequired": "请选择金额或配套。",
+"gamingUnableToLoad": "无法加载游戏购买选项。",
+"gamingTryAgain": "重试",
+"gamingPaymentNextMessage": "选择已确认。下一步请连接到付款页面。",
+
+"gamingRedeemCcStep1": "前往 Cherry Credits，并登录您的 Cherry 账户。",
+"gamingRedeemCcStep2": "打开 Top Up 页面，选择 Cherry Credits Prepaid Card / ePIN。",
+"gamingRedeemCcStep3": "输入收据上提供的序列号和安全码。",
+"gamingRedeemCcStep4": "确认兑换，点数将加入您的 Cherry Credits 余额。",
+
+"gamingRedeemGarenaStep1": "打开 Garena 官方充值中心并登录 Garena 账户。",
+"gamingRedeemGarenaStep2": "选择 Shell Top Up，然后选择 Redeem。",
+"gamingRedeemGarenaStep3": "选择预付卡 / 代金券选项，并输入收据上的代码。",
+"gamingRedeemGarenaStep4": "确认兑换，并检查 Garena Shells 是否已加入账户。",
+
+"gamingRedeemRazerStep1": "打开 Razer Gold 并登录您的 Razer 账户。",
+"gamingRedeemRazerStep2": "选择 Reload 或 Razer Gold PIN 选项。",
+"gamingRedeemRazerStep3": "输入收据上的 Razer Gold PIN，或序列号和 PIN。",
+"gamingRedeemRazerStep4": "按照画面指示完成操作，并确认充值或直接充值成功。",
+
+"gamingRedeemOffgamersStep1": "登录您的 OffGamers 账户。",
+"gamingRedeemOffgamersStep2": "打开 Store Credit，并选择 Gift Card 兑换。",
+"gamingRedeemOffgamersStep3": "输入收据上的序列号和 PIN Code。",
+"gamingRedeemOffgamersStep4": "确认兑换，并检查 OffGamers Store Credit 余额。",
+
+"gamingRedeemSteamStep1": "登录要接收钱包余额的 Steam 账户。",
+"gamingRedeemSteamStep2": "打开 Account Details，并选择 Redeem a Steam Gift Card or Wallet Code。",
+"gamingRedeemSteamStep3": "输入收据上的 Steam Wallet Code。",
+"gamingRedeemSteamStep4": "选择 Continue，并确认金额已加入 Steam Wallet。",
+
+"gamingRedeemUnipinStep1": "登录您的 UniPin 账户。",
+"gamingRedeemUnipinStep2": "打开代金券或 UniPin Credits 兑换选项。",
+"gamingRedeemUnipinStep3": "输入收据上的序列号和 PIN。",
+"gamingRedeemUnipinStep4": "确认兑换，并检查 UniPin Credits 是否已更新。",
+
+"gamingRedeemGenericStep1": "打开该平台的官方网站或应用并登录。",
+"gamingRedeemGenericStep2": "进入 Redeem、Voucher 或 Wallet 页面，并输入收据上的代码。",
+"gamingRedeemGenericStep3": "确认兑换并检查余额。",
+
+"gamingRedeemButtonHint": "点击这里查看兑换步骤。",
+"gamingClose": "关闭",
+
+"gamingReviewSelection": "检查",
+"gamingConfirmTitle": "确认购买",
+"gamingConfirmSubtitle": "付款前请检查您的游戏购买资料",
+"gamingPleaseCheckTitle": "请检查您的选择",
+"gamingPleaseCheckMessage": "继续前，请确认游戏平台、金额或配套以及付款总额正确。",
+"gamingYouSelected": "您的选择",
+"gamingChangeSelection": "更改",
+"gamingPayNow": "立即付款",
+
+"gamingReceiptTitle": "游戏购买收据",
+"gamingReceiptPlatform": "游戏平台",
+"gamingReceiptPurchaseDetails": "购买详情",
+"gamingReceiptSelectedPackage": "已选金额 / 配套",
+"gamingReceiptDescription": "说明",
+"gamingReceiptBaseAmount": "代金券价值",
+"gamingReceiptServiceAdjustment": "服务调整",
+"gamingReceiptPaymentMethod": "付款方式",
+"gamingReceiptPaymentDate": "付款日期",
+"gamingReceiptBankTransaction": "银行交易",
+"gamingReceiptRedemptionDetails": "兑换资料",
+"gamingReceiptSerialNumber": "序列号",
+"gamingReceiptPinCode": "PIN / 代码",
+"gamingReceiptExpiry": "有效期",
+"gamingReceiptVoucherLink": "兑换链接",
+"gamingReceiptProviderNote": "供应商备注",
+"gamingReceiptKeepCodeSafe": "请妥善保管您的 PIN、序列号或兑换链接。离开自助终端前请保存这些资料。",
+"gamingReceiptTotalPaid": "已付总额",
+
+"gamingPaymentTitle": "游戏付款",
+"gamingPaymentTotal": "付款总额",
+"gamingPreparingQrPayment": "正在准备游戏付款二维码",
+"gamingProcessingPurchaseTitle": "正在处理购买",
+"gamingProcessingPurchaseMessage": "付款已收到。请稍候，系统正在准备游戏代码或兑换链接。",
+"gamingProcessingPurchaseLocked": "游戏购买完成前，请不要触碰屏幕。",
+"gamingPaymentInvalidProductTitle": "无效的游戏产品",
+"gamingPaymentInvalidProductMessage": "缺少游戏产品代码。",
+"gamingPaymentProviderRejected": "游戏平台拒绝了此交易。",
+"gamingPaymentProviderRefunded": "游戏平台交易已退款。",
+"gamingPaymentUnexpectedStatus": "游戏平台返回了非预期状态",
+"gamingPaymentProviderErrorTitle": "游戏处理错误",
+"gamingPaymentReference": "付款参考编号",
+"gamingPaymentAlreadyReceivedWarning": "DuitNow 付款已收到。请勿为同一交易再次付款。",
+
+
+"telcoMobileReloadTitle": "手机充值",
+"telcoMobileReloadDescription": "充值预付余额或购买手机上网配套",
+
+"mobileReloadServiceLabel": "手机充值",
+"mobileReloadProviderTitle": "选择电讯服务商",
+"mobileReloadProviderSubtitle": "请选择您的电讯服务商以继续",
+
+"mobileReloadLoadingTitle": "正在加载手机充值",
+"mobileReloadLoadingMessage": "请稍候，正在加载可用的手机服务。",
+
+"mobileReloadErrorTitle": "无法加载服务",
+"mobileReloadErrorMessage": "手机充值服务目前无法使用，请稍后再试。",
+"mobileReloadRetry": "重试",
+
+
+"mobileReloadPhoneStepLabel": "手机号码",
+"mobileReloadEnterPhoneTitle": "输入手机号码",
+"mobileReloadEnterPhoneSubtitle": "输入需要充值的手机号码",
+"mobileReloadSelectedProvider": "已选服务商",
+"mobileReloadPhoneHint": "输入手机号码",
+
+"mobileReloadConfirmNumberTitle": "确认手机号码",
+"mobileReloadConfirmNumberQuestion": "这个手机号码正确吗？",
+"mobileReloadConfirmBack": "修改",
+"mobileReloadConfirmContinue": "继续",
+
+"mobileReloadPhoneRequiredTitle": "请输入手机号码",
+"mobileReloadPhoneRequiredMessage": "请输入手机号码。",
+"mobileReloadInvalidPhoneTitle": "手机号码无效",
+"mobileReloadInvalidPhoneMessage": "请输入有效的马来西亚手机号码。",
+
+"mobileReloadUnavailableTitle": "服务暂不可用",
+"mobileReloadUnavailableMessage": "此手机充值服务目前无法使用。",
+"mobileReloadOkButton": "确定",
+
+"mobileReloadInternetPlanSubtitle": "为此手机号码选择上网配套",
+"mobileReloadPrepaidSubtitle": "为此手机号码选择充值金额",
+
+"mobileReloadPhoneNumber": "手机号码",
+
+"mobileReloadSelectInternetPlan": "选择上网配套",
+"mobileReloadSelectInternetPlanHint": "请选择可用的上网配套",
+
+"mobileReloadSelectReloadAmount": "选择充值金额",
+"mobileReloadSelectReloadAmountHint": "选择您要充值的金额",
+
+"mobileReloadEnterReloadAmount": "输入充值金额",
+"mobileReloadEnterReloadAmountHint": "请输入服务商允许的充值金额",
+
+"mobileReloadMinimum": "最低",
+"mobileReloadMaximum": "最高",
+
+"mobileReloadProvider": "电讯服务商",
+"mobileReloadSelectedPlan": "已选配套",
+"mobileReloadReloadAmount": "充值金额",
+"mobileReloadServiceAdjustment": "服务调整",
+"mobileReloadTotalPayment": "付款总额",
+
+"mobileReloadNoOptions": "此手机号码目前没有可用选项。",
+"mobileReloadSelectOptionRequired": "请选择一个选项以继续。",
+"mobileReloadInvalidAmount": "请输入有效的充值金额。",
+
+
+"mobileReloadMinimumAmountMessage": "最低充值金额为 {amount}。",
+"@mobileReloadMinimumAmountMessage": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"mobileReloadMaximumAmountMessage": "最高充值金额为 {amount}。",
+"@mobileReloadMaximumAmountMessage": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+
+"mobileReloadConfirmTitle": "确认购买",
+"mobileReloadConfirmSubtitle": "付款前请检查手机充值资料",
+
+"mobileReloadPleaseCheckTitle": "请检查",
+"mobileReloadPleaseCheckMessage": "付款前请确认手机号码及所选服务正确。",
+
+"mobileReloadYouSelected": "您的选择",
+"mobileReloadOrderSummary": "订单摘要",
+"mobileReloadSubtotal": "小计",
+"mobileReloadServiceFee": "服务费",
+
+"mobileReloadChangeSelection": "更改选择",
+"mobileReloadPayNow": "立即付款",
+
+
+
+"mobileReloadPaymentTitle": "手机充值付款",
+"mobileReloadPaymentDetails": "手机充值资料",
+"mobileReloadPreparingQrPayment": "正在准备 QR 付款",
+
+"mobileReloadProcessingTitle": "正在处理手机充值",
+"mobileReloadProcessingMessage": "付款成功。请稍候，我们正在处理您的手机充值。",
+"mobileReloadProcessingLocked": "请勿返回或再次付款。",
+
+"mobileReloadPaymentInvalidProductTitle": "产品无效",
+"mobileReloadPaymentInvalidProductMessage": "所选手机充值产品无效。",
+
+"mobileReloadPaymentInvalidPlanTitle": "上网配套无效",
+"mobileReloadPaymentInvalidPlanMessage": "找不到所选上网配套。请返回并重新选择。",
+
+"mobileReloadPaymentProviderRejected": "电讯服务商拒绝了此交易。",
+"mobileReloadPaymentProviderRefunded": "电讯服务商已退回此交易。",
+"mobileReloadPaymentProviderErrorTitle": "手机充值错误",
+"mobileReloadPaymentStillProcessing": "电讯服务商仍在处理此交易。",
+"mobileReloadPaymentReference": "交易参考编号",
+"mobileReloadPaymentAlreadyReceivedWarning": "您的 DuitNow 付款已收到。请勿为同一交易再次付款。",
+
+"mobileReloadInternetReceiptTitle": "上网配套收据",
+"mobileReloadPrepaidReceiptTitle": "手机充值收据",
+"mobileReloadReceiptTransactionDetails": "交易详情",
+"mobileReloadReceiptPlanDetails": "配套详情",
+"mobileReloadReceiptPaymentDate": "付款日期",
+"mobileReloadReceiptBankTransaction": "银行交易",
+"mobileReloadReceiptTotalPaid": "已付总额",
+
+
+"mobileReloadReceiptSerialNumber": "序列号",
+"mobileReloadReceiptPin": "PIN",
+"mobileReloadReceiptExpiry": "有效期",
+"mobileReloadReceiptVoucherLink": "兑换链接"
 
 }

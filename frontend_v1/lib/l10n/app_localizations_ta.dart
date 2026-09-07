@@ -5749,4 +5749,728 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get loanAccountSelectionTitle => 'PTPTN கணக்கு தேர்வு';
+
+  @override
+  String get loanPaymentTitle => 'PTPTN கட்டணம்';
+
+  @override
+  String get loanPaymentSubtitle => 'செலுத்த வேண்டிய தொகையை உள்ளிடவும்';
+
+  @override
+  String get loanAccountInformation => 'கணக்கு விவரம்';
+
+  @override
+  String get loanAccountCategory => 'கணக்கு';
+
+  @override
+  String get loanSelectPaymentAmount => 'கட்டணத் தொகை';
+
+  @override
+  String get loanAmountInstruction => 'தொகையைத் தட்டச்சு செய்ய பெட்டியைத் தொடவும் அல்லது − / + பயன்படுத்தவும்.';
+
+  @override
+  String get loanEnterPaymentAmount => 'கட்டணத் தொகையை உள்ளிடவும்';
+
+  @override
+  String get loanUseKeypad => 'கீழே உள்ள எண் விசைகளை பயன்படுத்தவும்';
+
+  @override
+  String get loanKeyboardTitle => 'கட்டண விசைப்பலகை';
+
+  @override
+  String loanPaymentRange(String minimum, String maximum) {
+    return 'குறைந்தது $minimum • அதிகபட்சம் $maximum';
+  }
+
+  @override
+  String loanMinimumPayment(String amount) {
+    return 'குறைந்தபட்ச கட்டணம் $amount.';
+  }
+
+  @override
+  String loanMaximumPayment(String amount) {
+    return 'அதிகபட்ச கட்டணம் $amount.';
+  }
+
+  @override
+  String get loanImportantNote => 'முக்கிய குறிப்பு';
+
+  @override
+  String get loanOrderSummary => 'கட்டண சுருக்கம்';
+
+  @override
+  String get loanPaymentAmount => 'கட்டணத் தொகை';
+
+  @override
+  String get loanServiceFee => 'சேவை கட்டணம்';
+
+  @override
+  String get loanServiceAdjustment => 'சேவை மாற்றம்';
+
+  @override
+  String get loanTotalPayment => 'மொத்த கட்டணம்';
+
+  @override
+  String get loanProcessingTime => 'செயலாக்க நேரம்';
+
+  @override
+  String loanProcessingWithinHours(String hours) {
+    return '$hours மணி நேரத்திற்குள்';
+  }
+
+  @override
+  String loanProcessingWithinDays(String days) {
+    return '$days நாட்களுக்குள்';
+  }
+
+  @override
+  String get loanClear => 'அழி';
+
+  @override
+  String get loanDone => 'முடிந்தது';
+
+  @override
+  String get loanCancel => 'ரத்து';
+
+  @override
+  String get loanInformation => 'தகவல்';
+
+  @override
+  String get loanPaymentLoadingTitle => 'கட்டண தகவல் ஏற்றப்படுகிறது';
+
+  @override
+  String get loanPaymentLoadingMessage => 'சமீபத்திய PTPTN கட்டண தகவலை பெறுகிறது.';
+
+  @override
+  String get loanPaymentLoadErrorTitle => 'கட்டண தகவல் கிடைக்கவில்லை';
+
+  @override
+  String get loanPaymentLoadErrorMessage => 'PTPTN கட்டண தகவலை பெற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String loanPtptnSurchargeNote(String surcharge) {
+    return 'உங்கள் கட்டணத்திற்கு $surcharge கூடுதல் கட்டணம் விதிக்கப்படும்.';
+  }
+
+  @override
+  String get loanReceiptTitle => 'PTPTN கட்டண ரசீது';
+
+  @override
+  String get loanReceiptThankYou => 'நன்றி. உங்கள் PTPTN அல்லது SSPN கட்டணம் பெறப்பட்டது.';
+
+  @override
+  String get loanReceiptSuccessfulTitle => 'கட்டணம் வெற்றிகரமாக முடிந்தது';
+
+  @override
+  String get loanReceiptSuccessfulMessage => 'உங்கள் கட்டணம் சேவை வழங்குநருக்கு வெற்றிகரமாக அனுப்பப்பட்டது.';
+
+  @override
+  String get loanReceiptProcessingTitle => 'கட்டணம் செயலாக்கத்தில்';
+
+  @override
+  String get loanReceiptProcessingMessage => 'உங்கள் கட்டணம் ஏற்றுக்கொள்ளப்பட்டு சேவை வழங்குநரால் செயலாக்கப்படுகிறது.';
+
+  @override
+  String get loanReceiptAccountDetails => 'கணக்கு விவரங்கள்';
+
+  @override
+  String get loanReceiptProvider => 'சேவை வழங்குநர்';
+
+  @override
+  String get loanReceiptNric => 'அடையாள அட்டை எண்';
+
+  @override
+  String get loanReceiptAccountType => 'கணக்கு வகை';
+
+  @override
+  String get loanReceiptAccountNumber => 'கணக்கு எண்';
+
+  @override
+  String get loanReceiptCategory => 'கணக்கு பிரிவு';
+
+  @override
+  String get loanReceiptSubproductCode => 'கணக்கு குறியீடு';
+
+  @override
+  String get loanReceiptTransactionDetails => 'பரிவர்த்தனை விவரங்கள்';
+
+  @override
+  String get loanReceiptPaymentAmount => 'கட்டணத் தொகை';
+
+  @override
+  String get loanReceiptServiceAdjustment => 'சேவை மாற்றம்';
+
+  @override
+  String get loanReceiptPaymentMethod => 'கட்டண முறை';
+
+  @override
+  String get loanReceiptPaymentDate => 'கட்டண தேதி & நேரம்';
+
+  @override
+  String get loanReceiptOrderNumber => 'ஆர்டர் எண்';
+
+  @override
+  String get loanReceiptBankTransaction => 'வங்கி பரிவர்த்தனை';
+
+  @override
+  String get loanReceiptReference => 'பரிவர்த்தனை குறிப்பு';
+
+  @override
+  String get loanReceiptProviderStatus => 'சேவை நிலை';
+
+  @override
+  String get loanReceiptTotalPaid => 'மொத்தம் செலுத்தியது';
+
+  @override
+  String get gamingPlatformButton => 'கேமிங் தளங்கள்';
+
+  @override
+  String get gamingPlatformSupportingText => 'கேமிங் கிரெடிட் ரீலோட்';
+
+  @override
+  String get gamingPurchaseSubtitle => 'கேமிங் வவுச்சர் வாங்குதல்';
+
+  @override
+  String get gamingPlatformCategory => 'கேமிங் தளங்கள்';
+
+  @override
+  String get gamingHowToRedeem => 'ரிடீம் செய்வது எப்படி';
+
+  @override
+  String get gamingRedeemAfterPurchase => 'கோடு, PIN அல்லது ரிடீம் இணைப்பு கிடைத்த பிறகு இந்த படிகளைப் பின்பற்றவும்.';
+
+  @override
+  String get gamingKeepCodeSafe => 'உங்கள் PIN, சீரியல் எண் அல்லது ரிடீம் இணைப்பை பாதுகாப்பாக வைத்திருங்கள். ஒரு கோடு பொதுவாக ஒருமுறை மட்டுமே பயன்படுத்தப்படும்.';
+
+  @override
+  String get gamingSelectAmount => 'தொகை / பேக்கேஜ் தேர்வு';
+
+  @override
+  String get gamingSelectAmountHint => 'வாங்க வேண்டிய கேமிங் கிரெடிட் அல்லது பேக்கேஜை தேர்வு செய்யவும்.';
+
+  @override
+  String get gamingNoOptionsAvailable => 'தற்போது வாங்கும் விருப்பங்கள் இல்லை.';
+
+  @override
+  String get gamingQuantity => 'எண்ணிக்கை';
+
+  @override
+  String get gamingQuantityHint => 'வாங்க வேண்டிய வவுச்சர் எண்ணிக்கையை தேர்வு செய்யவும்.';
+
+  @override
+  String get gamingMaximumQuantity => 'அதிகபட்ச எண்ணிக்கை எட்டப்பட்டது.';
+
+  @override
+  String get gamingOrderSummary => 'ஆர்டர் சுருக்கம்';
+
+  @override
+  String get gamingProduct => 'தயாரிப்பு';
+
+  @override
+  String get gamingSelectedOption => 'தேர்வு';
+
+  @override
+  String get gamingUnitPrice => 'ஒரு யூனிட் விலை';
+
+  @override
+  String get gamingSubtotal => 'கூட்டுத்தொகை';
+
+  @override
+  String get gamingServiceFee => 'சேவை கட்டணம்';
+
+  @override
+  String get gamingServiceAdjustment => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get gamingTotalAmount => 'மொத்த தொகை';
+
+  @override
+  String get gamingDeliveryMethod => 'பெறும் முறை';
+
+  @override
+  String get gamingDeliveryPin => 'PIN';
+
+  @override
+  String get gamingDeliveryLink => 'ரிடீம் இணைப்பு';
+
+  @override
+  String get gamingContinuePayment => 'தொடரவும்';
+
+  @override
+  String get gamingProductUnavailable => 'இந்த கேமிங் தயாரிப்பு தற்போது கிடைக்கவில்லை.';
+
+  @override
+  String get gamingSelectOptionRequired => 'தொகை அல்லது பேக்கேஜை தேர்வு செய்யவும்.';
+
+  @override
+  String get gamingUnableToLoad => 'கேமிங் வாங்கும் விருப்பங்களை ஏற்ற முடியவில்லை.';
+
+  @override
+  String get gamingTryAgain => 'மீண்டும் முயற்சி';
+
+  @override
+  String get gamingPaymentNextMessage => 'தேர்வு உறுதிசெய்யப்பட்டது. அடுத்ததாக கட்டண பக்கத்துடன் இணைக்கவும்.';
+
+  @override
+  String get gamingRedeemCcStep1 => 'Cherry Credits தளத்திற்குச் சென்று உங்கள் Cherry கணக்கில் உள்நுழையவும்.';
+
+  @override
+  String get gamingRedeemCcStep2 => 'Top Up பக்கத்தைத் திறந்து Cherry Credits Prepaid Card / ePIN தேர்வு செய்யவும்.';
+
+  @override
+  String get gamingRedeemCcStep3 => 'ரசீதில் உள்ள Serial Number மற்றும் Security Code ஐ உள்ளிடவும்.';
+
+  @override
+  String get gamingRedeemCcStep4 => 'ரிடீமை உறுதிசெய்யவும். கிரெடிட் உங்கள் Cherry Credits இருப்பில் சேரும்.';
+
+  @override
+  String get gamingRedeemGarenaStep1 => 'Garena அதிகாரப்பூர்வ Top Up Center ஐ திறந்து Garena கணக்கில் உள்நுழையவும்.';
+
+  @override
+  String get gamingRedeemGarenaStep2 => 'Shell Top Up ஐ தேர்வு செய்து Redeem ஐ தேர்வு செய்யவும்.';
+
+  @override
+  String get gamingRedeemGarenaStep3 => 'Prepaid card / voucher விருப்பத்தைத் தேர்வு செய்து ரசீதில் உள்ள கோட்டை உள்ளிடவும்.';
+
+  @override
+  String get gamingRedeemGarenaStep4 => 'ரிடீமை உறுதிசெய்து Garena Shells கணக்கில் சேர்ந்ததா என பார்க்கவும்.';
+
+  @override
+  String get gamingRedeemRazerStep1 => 'Razer Gold ஐ திறந்து உங்கள் Razer கணக்கில் உள்நுழையவும்.';
+
+  @override
+  String get gamingRedeemRazerStep2 => 'Reload அல்லது Razer Gold PIN விருப்பத்தைத் தேர்வு செய்யவும்.';
+
+  @override
+  String get gamingRedeemRazerStep3 => 'ரசீதில் உள்ள Razer Gold PIN அல்லது Serial Number மற்றும் PIN ஐ உள்ளிடவும்.';
+
+  @override
+  String get gamingRedeemRazerStep4 => 'திரை வழிமுறைகளைப் பின்பற்றி reload அல்லது direct top-up உறுதியானதா என பார்க்கவும்.';
+
+  @override
+  String get gamingRedeemOffgamersStep1 => 'உங்கள் OffGamers கணக்கில் உள்நுழையவும்.';
+
+  @override
+  String get gamingRedeemOffgamersStep2 => 'Store Credit ஐ திறந்து Gift Card redeem விருப்பத்தைத் தேர்வு செய்யவும்.';
+
+  @override
+  String get gamingRedeemOffgamersStep3 => 'ரசீதில் உள்ள Serial Number மற்றும் PIN Code ஐ உள்ளிடவும்.';
+
+  @override
+  String get gamingRedeemOffgamersStep4 => 'ரிடீமை உறுதிசெய்து OffGamers Store Credit இருப்பை சரிபார்க்கவும்.';
+
+  @override
+  String get gamingRedeemSteamStep1 => 'Wallet credit பெற வேண்டிய Steam கணக்கில் உள்நுழையவும்.';
+
+  @override
+  String get gamingRedeemSteamStep2 => 'Account Details ஐ திறந்து Redeem a Steam Gift Card or Wallet Code ஐ தேர்வு செய்யவும்.';
+
+  @override
+  String get gamingRedeemSteamStep3 => 'ரசீதில் உள்ள Steam Wallet Code ஐ உள்ளிடவும்.';
+
+  @override
+  String get gamingRedeemSteamStep4 => 'Continue ஐ தேர்வு செய்து தொகை Steam Wallet இல் சேர்ந்ததா என உறுதிசெய்யவும்.';
+
+  @override
+  String get gamingRedeemUnipinStep1 => 'உங்கள் UniPin கணக்கில் உள்நுழையவும்.';
+
+  @override
+  String get gamingRedeemUnipinStep2 => 'Voucher அல்லது UniPin Credits redeem விருப்பத்தைத் திறக்கவும்.';
+
+  @override
+  String get gamingRedeemUnipinStep3 => 'ரசீதில் உள்ள Serial Number மற்றும் PIN ஐ உள்ளிடவும்.';
+
+  @override
+  String get gamingRedeemUnipinStep4 => 'ரிடீமை உறுதிசெய்து UniPin Credits புதுப்பிக்கப்பட்டதா என பார்க்கவும்.';
+
+  @override
+  String get gamingRedeemGenericStep1 => 'அதிகாரப்பூர்வ தளம் அல்லது app ஐ திறந்து உள்நுழையவும்.';
+
+  @override
+  String get gamingRedeemGenericStep2 => 'Redeem, Voucher அல்லது Wallet பகுதிக்கு சென்று ரசீதில் உள்ள கோட்டை உள்ளிடவும்.';
+
+  @override
+  String get gamingRedeemGenericStep3 => 'ரிடீமை உறுதிசெய்து இருப்பை சரிபார்க்கவும்.';
+
+  @override
+  String get gamingRedeemButtonHint => 'ரிடீம் செய்யும் படிகளைப் பார்க்க இங்கே அழுத்தவும்.';
+
+  @override
+  String get gamingClose => 'மூடு';
+
+  @override
+  String get gamingReviewSelection => '检查';
+
+  @override
+  String get gamingConfirmTitle => '确认购买';
+
+  @override
+  String get gamingConfirmSubtitle => '付款前请检查您的游戏购买资料';
+
+  @override
+  String get gamingPleaseCheckTitle => '请检查您的选择';
+
+  @override
+  String get gamingPleaseCheckMessage => '继续前，请确认游戏平台、金额或配套以及付款总额正确。';
+
+  @override
+  String get gamingYouSelected => '您的选择';
+
+  @override
+  String get gamingChangeSelection => '更改';
+
+  @override
+  String get gamingPayNow => '立即付款';
+
+  @override
+  String get gamingReceiptTitle => 'கேமிங் ரசீது';
+
+  @override
+  String get gamingReceiptPlatform => 'கேமிங் தளம்';
+
+  @override
+  String get gamingReceiptPurchaseDetails => 'வாங்கிய விவரங்கள்';
+
+  @override
+  String get gamingReceiptSelectedPackage => 'தேர்ந்தெடுத்த தொகை / பேக்கேஜ்';
+
+  @override
+  String get gamingReceiptDescription => 'விவரம்';
+
+  @override
+  String get gamingReceiptBaseAmount => 'வவுச்சர் மதிப்பு';
+
+  @override
+  String get gamingReceiptServiceAdjustment => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get gamingReceiptPaymentMethod => 'கட்டண முறை';
+
+  @override
+  String get gamingReceiptPaymentDate => 'கட்டண தேதி';
+
+  @override
+  String get gamingReceiptBankTransaction => 'வங்கி பரிவர்த்தனை';
+
+  @override
+  String get gamingReceiptRedemptionDetails => 'ரிடீம் விவரங்கள்';
+
+  @override
+  String get gamingReceiptSerialNumber => 'சீரியல் எண்';
+
+  @override
+  String get gamingReceiptPinCode => 'PIN / கோடு';
+
+  @override
+  String get gamingReceiptExpiry => 'காலாவதி';
+
+  @override
+  String get gamingReceiptVoucherLink => 'ரிடீம் இணைப்பு';
+
+  @override
+  String get gamingReceiptProviderNote => 'வழங்குநர் குறிப்பு';
+
+  @override
+  String get gamingReceiptKeepCodeSafe => 'உங்கள் PIN, சீரியல் எண் அல்லது ரிடீம் இணைப்பை பாதுகாப்பாக வைத்திருங்கள். கியோஸ்கை விட்டு செல்லும் முன் இந்த தகவலை சேமிக்கவும்.';
+
+  @override
+  String get gamingReceiptTotalPaid => 'மொத்தம் செலுத்தியது';
+
+  @override
+  String get gamingPaymentTitle => 'கேமிங் கட்டணம்';
+
+  @override
+  String get gamingPaymentTotal => 'மொத்த கட்டணம்';
+
+  @override
+  String get gamingPreparingQrPayment => 'கேமிங் QR தயாராகிறது';
+
+  @override
+  String get gamingProcessingPurchaseTitle => 'வாங்குதல் செயலாக்கப்படுகிறது';
+
+  @override
+  String get gamingProcessingPurchaseMessage => 'கட்டணம் பெறப்பட்டது. கேமிங் கோடு அல்லது ரிடீம் இணைப்பு தயாராகும் வரை காத்திருக்கவும்.';
+
+  @override
+  String get gamingProcessingPurchaseLocked => 'கேமிங் வாங்குதல் முடியும் வரை திரையைத் தொட வேண்டாம்.';
+
+  @override
+  String get gamingPaymentInvalidProductTitle => 'தவறான கேமிங் தயாரிப்பு';
+
+  @override
+  String get gamingPaymentInvalidProductMessage => 'கேமிங் தயாரிப்பு கோடு இல்லை.';
+
+  @override
+  String get gamingPaymentProviderRejected => 'கேமிங் வழங்குநர் பரிவர்த்தனையை நிராகரித்தார்.';
+
+  @override
+  String get gamingPaymentProviderRefunded => 'கேமிங் வழங்குநர் பரிவர்த்தனை திருப்பித் தரப்பட்டது.';
+
+  @override
+  String get gamingPaymentUnexpectedStatus => 'எதிர்பாராத கேமிங் வழங்குநர் நிலை';
+
+  @override
+  String get gamingPaymentProviderErrorTitle => 'கேமிங் செயலாக்க பிழை';
+
+  @override
+  String get gamingPaymentReference => 'கட்டண குறிப்பு';
+
+  @override
+  String get gamingPaymentAlreadyReceivedWarning => 'DuitNow கட்டணம் ஏற்கனவே பெறப்பட்டது. அதே பரிவர்த்தனைக்கு மீண்டும் கட்டணம் செலுத்த வேண்டாம்.';
+
+  @override
+  String get telcoMobileReloadTitle => 'மொபைல் ரீலோட்';
+
+  @override
+  String get telcoMobileReloadDescription => 'ப்ரீபெய்ட் ரீலோட் அல்லது இணையம் வாங்கவும்';
+
+  @override
+  String get mobileReloadServiceLabel => 'மொபைல் ரீலோட்';
+
+  @override
+  String get mobileReloadProviderTitle => 'மொபைல் சேவையைத் தேர்வு செய்க';
+
+  @override
+  String get mobileReloadProviderSubtitle => 'தொடர உங்கள் மொபைல் சேவையைத் தேர்வு செய்க';
+
+  @override
+  String get mobileReloadLoadingTitle => 'மொபைல் ரீலோட் ஏற்றப்படுகிறது';
+
+  @override
+  String get mobileReloadLoadingMessage => 'கிடைக்கும் சேவைகள் ஏற்றப்படுகின்றன. காத்திருக்கவும்.';
+
+  @override
+  String get mobileReloadErrorTitle => 'சேவையை ஏற்ற முடியவில்லை';
+
+  @override
+  String get mobileReloadErrorMessage => 'மொபைல் ரீலோட் தற்போது கிடைக்கவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get mobileReloadRetry => 'மீண்டும் முயற்சி';
+
+  @override
+  String get mobileReloadPhoneStepLabel => 'மொபைல் எண்';
+
+  @override
+  String get mobileReloadEnterPhoneTitle => 'மொபைல் எண்ணை உள்ளிடுக';
+
+  @override
+  String get mobileReloadEnterPhoneSubtitle => 'ரீலோட் செய்ய வேண்டிய மொபைல் எண்ணை உள்ளிடுக';
+
+  @override
+  String get mobileReloadSelectedProvider => 'தேர்ந்த சேவை';
+
+  @override
+  String get mobileReloadPhoneHint => 'மொபைல் எண்ணை உள்ளிடுக';
+
+  @override
+  String get mobileReloadConfirmNumberTitle => 'மொபைல் எண்ணை உறுதிசெய்க';
+
+  @override
+  String get mobileReloadConfirmNumberQuestion => 'இந்த மொபைல் எண் சரியா?';
+
+  @override
+  String get mobileReloadConfirmBack => 'மாற்று';
+
+  @override
+  String get mobileReloadConfirmContinue => 'தொடர்க';
+
+  @override
+  String get mobileReloadPhoneRequiredTitle => 'மொபைல் எண் தேவை';
+
+  @override
+  String get mobileReloadPhoneRequiredMessage => 'மொபைல் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get mobileReloadInvalidPhoneTitle => 'தவறான மொபைல் எண்';
+
+  @override
+  String get mobileReloadInvalidPhoneMessage => 'சரியான மலேசிய மொபைல் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get mobileReloadUnavailableTitle => 'சேவை கிடைக்கவில்லை';
+
+  @override
+  String get mobileReloadUnavailableMessage => 'இந்த மொபைல் ரீலோட் சேவை தற்போது கிடைக்கவில்லை.';
+
+  @override
+  String get mobileReloadOkButton => 'சரி';
+
+  @override
+  String get mobileReloadInternetPlanSubtitle => 'இந்த எண்ணிற்கு இணையத் திட்டத்தைத் தேர்வு செய்க';
+
+  @override
+  String get mobileReloadPrepaidSubtitle => 'இந்த எண்ணிற்கு ரீலோட் தொகையைத் தேர்வு செய்க';
+
+  @override
+  String get mobileReloadPhoneNumber => 'மொபைல் எண்';
+
+  @override
+  String get mobileReloadSelectInternetPlan => 'இணையத் திட்டத்தைத் தேர்வு செய்க';
+
+  @override
+  String get mobileReloadSelectInternetPlanHint => 'கிடைக்கும் இணையத் திட்டத்தைத் தேர்வு செய்க';
+
+  @override
+  String get mobileReloadSelectReloadAmount => 'ரீலோட் தொகையைத் தேர்வு செய்க';
+
+  @override
+  String get mobileReloadSelectReloadAmountHint => 'தேவையான ரீலோட் தொகையைத் தேர்வு செய்க';
+
+  @override
+  String get mobileReloadEnterReloadAmount => 'ரீலோட் தொகையை உள்ளிடுக';
+
+  @override
+  String get mobileReloadEnterReloadAmountHint => 'அனுமதிக்கப்பட்ட தொகையை உள்ளிடுக';
+
+  @override
+  String get mobileReloadMinimum => 'குறைந்தபட்சம்';
+
+  @override
+  String get mobileReloadMaximum => 'அதிகபட்சம்';
+
+  @override
+  String get mobileReloadProvider => 'சேவை';
+
+  @override
+  String get mobileReloadSelectedPlan => 'தேர்ந்த திட்டம்';
+
+  @override
+  String get mobileReloadReloadAmount => 'ரீலோட் தொகை';
+
+  @override
+  String get mobileReloadServiceAdjustment => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get mobileReloadTotalPayment => 'மொத்த கட்டணம்';
+
+  @override
+  String get mobileReloadNoOptions => 'இந்த எண்ணிற்கு தற்போது விருப்பங்கள் இல்லை.';
+
+  @override
+  String get mobileReloadSelectOptionRequired => 'தொடர ஒரு விருப்பத்தைத் தேர்வு செய்க.';
+
+  @override
+  String get mobileReloadInvalidAmount => 'சரியான ரீலோட் தொகையை உள்ளிடவும்.';
+
+  @override
+  String mobileReloadMinimumAmountMessage(String amount) {
+    return 'குறைந்தபட்ச ரீலோட் தொகை $amount.';
+  }
+
+  @override
+  String mobileReloadMaximumAmountMessage(String amount) {
+    return 'அதிகபட்ச ரீலோட் தொகை $amount.';
+  }
+
+  @override
+  String get mobileReloadConfirmTitle => 'கொள்முதலை சரிபார்க்கவும்';
+
+  @override
+  String get mobileReloadConfirmSubtitle => 'பணம் செலுத்தும் முன் ரீலோட் விவரங்களை சரிபார்க்கவும்';
+
+  @override
+  String get mobileReloadPleaseCheckTitle => 'சரிபார்க்கவும்';
+
+  @override
+  String get mobileReloadPleaseCheckMessage => 'பணம் செலுத்தும் முன் மொபைல் எண் மற்றும் தேர்ந்த சேவை சரியா என உறுதிசெய்க.';
+
+  @override
+  String get mobileReloadYouSelected => 'உங்கள் தேர்வு';
+
+  @override
+  String get mobileReloadOrderSummary => 'ஆர்டர் சுருக்கம்';
+
+  @override
+  String get mobileReloadSubtotal => 'துணை மொத்தம்';
+
+  @override
+  String get mobileReloadServiceFee => 'சேவை கட்டணம்';
+
+  @override
+  String get mobileReloadChangeSelection => 'மாற்று';
+
+  @override
+  String get mobileReloadPayNow => 'இப்போது செலுத்து';
+
+  @override
+  String get mobileReloadPaymentTitle => 'மொபைல் ரீலோட் கட்டணம்';
+
+  @override
+  String get mobileReloadPaymentDetails => 'மொபைல் ரீலோட் விவரம்';
+
+  @override
+  String get mobileReloadPreparingQrPayment => 'QR கட்டணம் தயாராகிறது';
+
+  @override
+  String get mobileReloadProcessingTitle => 'மொபைல் ரீலோட் செயலாக்கம்';
+
+  @override
+  String get mobileReloadProcessingMessage => 'கட்டணம் வெற்றியடைந்தது. உங்கள் ரீலோட் செயலாக்கப்படும் வரை காத்திருக்கவும்.';
+
+  @override
+  String get mobileReloadProcessingLocked => 'திரும்பிச் செல்லவோ மீண்டும் கட்டணம் செலுத்தவோ வேண்டாம்.';
+
+  @override
+  String get mobileReloadPaymentInvalidProductTitle => 'தவறான தயாரிப்பு';
+
+  @override
+  String get mobileReloadPaymentInvalidProductMessage => 'தேர்ந்த மொபைல் ரீலோட் தயாரிப்பு தவறானது.';
+
+  @override
+  String get mobileReloadPaymentInvalidPlanTitle => 'தவறான இணையத் திட்டம்';
+
+  @override
+  String get mobileReloadPaymentInvalidPlanMessage => 'தேர்ந்த இணையத் திட்டம் கிடைக்கவில்லை. திரும்பிச் சென்று மீண்டும் தேர்வு செய்யவும்.';
+
+  @override
+  String get mobileReloadPaymentProviderRejected => 'மொபைல் சேவை வழங்குநர் பரிவர்த்தனையை நிராகரித்தார்.';
+
+  @override
+  String get mobileReloadPaymentProviderRefunded => 'மொபைல் சேவை பரிவர்த்தனை திருப்பி செலுத்தப்பட்டது.';
+
+  @override
+  String get mobileReloadPaymentProviderErrorTitle => 'ரீலோட் பிழை';
+
+  @override
+  String get mobileReloadPaymentStillProcessing => 'மொபைல் சேவை வழங்குநர் இன்னும் பரிவர்த்தனையை செயலாக்குகிறார்.';
+
+  @override
+  String get mobileReloadPaymentReference => 'பரிவர்த்தனை குறிப்பு';
+
+  @override
+  String get mobileReloadPaymentAlreadyReceivedWarning => 'உங்கள் DuitNow கட்டணம் பெறப்பட்டுள்ளது. இதே பரிவர்த்தனைக்கு மீண்டும் கட்டணம் செலுத்த வேண்டாம்.';
+
+  @override
+  String get mobileReloadInternetReceiptTitle => 'இணையத் திட்ட ரசீது';
+
+  @override
+  String get mobileReloadPrepaidReceiptTitle => 'மொபைல் ரீலோட் ரசீது';
+
+  @override
+  String get mobileReloadReceiptTransactionDetails => 'பரிவர்த்தனை விவரங்கள்';
+
+  @override
+  String get mobileReloadReceiptPlanDetails => 'திட்ட விவரங்கள்';
+
+  @override
+  String get mobileReloadReceiptPaymentDate => 'கட்டண தேதி';
+
+  @override
+  String get mobileReloadReceiptBankTransaction => 'வங்கி பரிவர்த்தனை';
+
+  @override
+  String get mobileReloadReceiptTotalPaid => 'மொத்தம் செலுத்தியது';
+
+  @override
+  String get mobileReloadReceiptSerialNumber => 'வரிசை எண்';
+
+  @override
+  String get mobileReloadReceiptPin => 'PIN';
+
+  @override
+  String get mobileReloadReceiptExpiry => 'காலாவதி தேதி';
+
+  @override
+  String get mobileReloadReceiptVoucherLink => 'வவுச்சர் இணைப்பு';
 }

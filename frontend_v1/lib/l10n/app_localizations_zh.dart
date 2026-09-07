@@ -5749,4 +5749,728 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get loanAccountSelectionTitle => '选择 PTPTN 账户';
+
+  @override
+  String get loanPaymentTitle => 'PTPTN 付款';
+
+  @override
+  String get loanPaymentSubtitle => '请输入您要支付的金额';
+
+  @override
+  String get loanAccountInformation => '账户资料';
+
+  @override
+  String get loanAccountCategory => '账户';
+
+  @override
+  String get loanSelectPaymentAmount => '选择付款金额';
+
+  @override
+  String get loanAmountInstruction => '点击金额框输入付款金额，或使用 − 和 + 按钮调整。';
+
+  @override
+  String get loanEnterPaymentAmount => '输入付款金额';
+
+  @override
+  String get loanUseKeypad => '请使用下方数字键盘';
+
+  @override
+  String get loanKeyboardTitle => '付款金额键盘';
+
+  @override
+  String loanPaymentRange(String minimum, String maximum) {
+    return '最低 $minimum • 最高 $maximum';
+  }
+
+  @override
+  String loanMinimumPayment(String amount) {
+    return '最低付款金额为 $amount。';
+  }
+
+  @override
+  String loanMaximumPayment(String amount) {
+    return '最高付款金额为 $amount。';
+  }
+
+  @override
+  String get loanImportantNote => '重要提示';
+
+  @override
+  String get loanOrderSummary => '付款摘要';
+
+  @override
+  String get loanPaymentAmount => '付款金额';
+
+  @override
+  String get loanServiceFee => '服务费';
+
+  @override
+  String get loanServiceAdjustment => '服务调整';
+
+  @override
+  String get loanTotalPayment => '付款总额';
+
+  @override
+  String get loanProcessingTime => '处理时间';
+
+  @override
+  String loanProcessingWithinHours(String hours) {
+    return '$hours 小时内';
+  }
+
+  @override
+  String loanProcessingWithinDays(String days) {
+    return '$days 天内';
+  }
+
+  @override
+  String get loanClear => '清除';
+
+  @override
+  String get loanDone => '完成';
+
+  @override
+  String get loanCancel => '取消';
+
+  @override
+  String get loanInformation => '提示';
+
+  @override
+  String get loanPaymentLoadingTitle => '正在加载付款资料';
+
+  @override
+  String get loanPaymentLoadingMessage => '请稍候，正在获取最新的 PTPTN 付款资料。';
+
+  @override
+  String get loanPaymentLoadErrorTitle => '无法加载付款资料';
+
+  @override
+  String get loanPaymentLoadErrorMessage => '无法获取最新的 PTPTN 付款资料，请重试。';
+
+  @override
+  String loanPtptnSurchargeNote(String surcharge) {
+    return '您的付款将收取 $surcharge 附加费。';
+  }
+
+  @override
+  String get loanReceiptTitle => 'PTPTN 付款收据';
+
+  @override
+  String get loanReceiptThankYou => '谢谢。您的 PTPTN 或 SSPN 付款已收到。';
+
+  @override
+  String get loanReceiptSuccessfulTitle => '付款成功';
+
+  @override
+  String get loanReceiptSuccessfulMessage => '您的付款已成功提交给服务提供商。';
+
+  @override
+  String get loanReceiptProcessingTitle => '付款处理中';
+
+  @override
+  String get loanReceiptProcessingMessage => '您的付款已被接受，目前仍由服务提供商处理中。';
+
+  @override
+  String get loanReceiptAccountDetails => '账户资料';
+
+  @override
+  String get loanReceiptProvider => '服务提供商';
+
+  @override
+  String get loanReceiptNric => '身份证号码';
+
+  @override
+  String get loanReceiptAccountType => '账户类型';
+
+  @override
+  String get loanReceiptAccountNumber => '账户号码';
+
+  @override
+  String get loanReceiptCategory => '账户类别';
+
+  @override
+  String get loanReceiptSubproductCode => '账户代码';
+
+  @override
+  String get loanReceiptTransactionDetails => '交易资料';
+
+  @override
+  String get loanReceiptPaymentAmount => '付款金额';
+
+  @override
+  String get loanReceiptServiceAdjustment => '服务调整';
+
+  @override
+  String get loanReceiptPaymentMethod => '付款方式';
+
+  @override
+  String get loanReceiptPaymentDate => '付款日期与时间';
+
+  @override
+  String get loanReceiptOrderNumber => '订单号码';
+
+  @override
+  String get loanReceiptBankTransaction => '银行交易';
+
+  @override
+  String get loanReceiptReference => '交易参考编号';
+
+  @override
+  String get loanReceiptProviderStatus => '服务状态';
+
+  @override
+  String get loanReceiptTotalPaid => '已付总额';
+
+  @override
+  String get gamingPlatformButton => '游戏平台';
+
+  @override
+  String get gamingPlatformSupportingText => '充值游戏平台点数';
+
+  @override
+  String get gamingPurchaseSubtitle => '游戏代金券购买';
+
+  @override
+  String get gamingPlatformCategory => '游戏平台';
+
+  @override
+  String get gamingHowToRedeem => '兑换方法';
+
+  @override
+  String get gamingRedeemAfterPurchase => '收到代码、PIN 或兑换链接后，请按照以下步骤操作。';
+
+  @override
+  String get gamingKeepCodeSafe => '请妥善保管您的 PIN、序列号或兑换链接。每个代码通常只能使用一次。';
+
+  @override
+  String get gamingSelectAmount => '选择金额 / 配套';
+
+  @override
+  String get gamingSelectAmountHint => '请选择您要购买的游戏点数或配套。';
+
+  @override
+  String get gamingNoOptionsAvailable => '目前没有可用的购买选项。';
+
+  @override
+  String get gamingQuantity => '数量';
+
+  @override
+  String get gamingQuantityHint => '请选择要购买的代金券数量。';
+
+  @override
+  String get gamingMaximumQuantity => '已达到最大数量。';
+
+  @override
+  String get gamingOrderSummary => '订单摘要';
+
+  @override
+  String get gamingProduct => '产品';
+
+  @override
+  String get gamingSelectedOption => '已选项目';
+
+  @override
+  String get gamingUnitPrice => '单价';
+
+  @override
+  String get gamingSubtotal => '小计';
+
+  @override
+  String get gamingServiceFee => '服务费';
+
+  @override
+  String get gamingServiceAdjustment => '服务调整';
+
+  @override
+  String get gamingTotalAmount => '付款总额';
+
+  @override
+  String get gamingDeliveryMethod => '领取方式';
+
+  @override
+  String get gamingDeliveryPin => 'PIN';
+
+  @override
+  String get gamingDeliveryLink => '兑换链接';
+
+  @override
+  String get gamingContinuePayment => '继续';
+
+  @override
+  String get gamingProductUnavailable => '此游戏产品目前不可用。';
+
+  @override
+  String get gamingSelectOptionRequired => '请选择金额或配套。';
+
+  @override
+  String get gamingUnableToLoad => '无法加载游戏购买选项。';
+
+  @override
+  String get gamingTryAgain => '重试';
+
+  @override
+  String get gamingPaymentNextMessage => '选择已确认。下一步请连接到付款页面。';
+
+  @override
+  String get gamingRedeemCcStep1 => '前往 Cherry Credits，并登录您的 Cherry 账户。';
+
+  @override
+  String get gamingRedeemCcStep2 => '打开 Top Up 页面，选择 Cherry Credits Prepaid Card / ePIN。';
+
+  @override
+  String get gamingRedeemCcStep3 => '输入收据上提供的序列号和安全码。';
+
+  @override
+  String get gamingRedeemCcStep4 => '确认兑换，点数将加入您的 Cherry Credits 余额。';
+
+  @override
+  String get gamingRedeemGarenaStep1 => '打开 Garena 官方充值中心并登录 Garena 账户。';
+
+  @override
+  String get gamingRedeemGarenaStep2 => '选择 Shell Top Up，然后选择 Redeem。';
+
+  @override
+  String get gamingRedeemGarenaStep3 => '选择预付卡 / 代金券选项，并输入收据上的代码。';
+
+  @override
+  String get gamingRedeemGarenaStep4 => '确认兑换，并检查 Garena Shells 是否已加入账户。';
+
+  @override
+  String get gamingRedeemRazerStep1 => '打开 Razer Gold 并登录您的 Razer 账户。';
+
+  @override
+  String get gamingRedeemRazerStep2 => '选择 Reload 或 Razer Gold PIN 选项。';
+
+  @override
+  String get gamingRedeemRazerStep3 => '输入收据上的 Razer Gold PIN，或序列号和 PIN。';
+
+  @override
+  String get gamingRedeemRazerStep4 => '按照画面指示完成操作，并确认充值或直接充值成功。';
+
+  @override
+  String get gamingRedeemOffgamersStep1 => '登录您的 OffGamers 账户。';
+
+  @override
+  String get gamingRedeemOffgamersStep2 => '打开 Store Credit，并选择 Gift Card 兑换。';
+
+  @override
+  String get gamingRedeemOffgamersStep3 => '输入收据上的序列号和 PIN Code。';
+
+  @override
+  String get gamingRedeemOffgamersStep4 => '确认兑换，并检查 OffGamers Store Credit 余额。';
+
+  @override
+  String get gamingRedeemSteamStep1 => '登录要接收钱包余额的 Steam 账户。';
+
+  @override
+  String get gamingRedeemSteamStep2 => '打开 Account Details，并选择 Redeem a Steam Gift Card or Wallet Code。';
+
+  @override
+  String get gamingRedeemSteamStep3 => '输入收据上的 Steam Wallet Code。';
+
+  @override
+  String get gamingRedeemSteamStep4 => '选择 Continue，并确认金额已加入 Steam Wallet。';
+
+  @override
+  String get gamingRedeemUnipinStep1 => '登录您的 UniPin 账户。';
+
+  @override
+  String get gamingRedeemUnipinStep2 => '打开代金券或 UniPin Credits 兑换选项。';
+
+  @override
+  String get gamingRedeemUnipinStep3 => '输入收据上的序列号和 PIN。';
+
+  @override
+  String get gamingRedeemUnipinStep4 => '确认兑换，并检查 UniPin Credits 是否已更新。';
+
+  @override
+  String get gamingRedeemGenericStep1 => '打开该平台的官方网站或应用并登录。';
+
+  @override
+  String get gamingRedeemGenericStep2 => '进入 Redeem、Voucher 或 Wallet 页面，并输入收据上的代码。';
+
+  @override
+  String get gamingRedeemGenericStep3 => '确认兑换并检查余额。';
+
+  @override
+  String get gamingRedeemButtonHint => '点击这里查看兑换步骤。';
+
+  @override
+  String get gamingClose => '关闭';
+
+  @override
+  String get gamingReviewSelection => '检查';
+
+  @override
+  String get gamingConfirmTitle => '确认购买';
+
+  @override
+  String get gamingConfirmSubtitle => '付款前请检查您的游戏购买资料';
+
+  @override
+  String get gamingPleaseCheckTitle => '请检查您的选择';
+
+  @override
+  String get gamingPleaseCheckMessage => '继续前，请确认游戏平台、金额或配套以及付款总额正确。';
+
+  @override
+  String get gamingYouSelected => '您的选择';
+
+  @override
+  String get gamingChangeSelection => '更改';
+
+  @override
+  String get gamingPayNow => '立即付款';
+
+  @override
+  String get gamingReceiptTitle => '游戏购买收据';
+
+  @override
+  String get gamingReceiptPlatform => '游戏平台';
+
+  @override
+  String get gamingReceiptPurchaseDetails => '购买详情';
+
+  @override
+  String get gamingReceiptSelectedPackage => '已选金额 / 配套';
+
+  @override
+  String get gamingReceiptDescription => '说明';
+
+  @override
+  String get gamingReceiptBaseAmount => '代金券价值';
+
+  @override
+  String get gamingReceiptServiceAdjustment => '服务调整';
+
+  @override
+  String get gamingReceiptPaymentMethod => '付款方式';
+
+  @override
+  String get gamingReceiptPaymentDate => '付款日期';
+
+  @override
+  String get gamingReceiptBankTransaction => '银行交易';
+
+  @override
+  String get gamingReceiptRedemptionDetails => '兑换资料';
+
+  @override
+  String get gamingReceiptSerialNumber => '序列号';
+
+  @override
+  String get gamingReceiptPinCode => 'PIN / 代码';
+
+  @override
+  String get gamingReceiptExpiry => '有效期';
+
+  @override
+  String get gamingReceiptVoucherLink => '兑换链接';
+
+  @override
+  String get gamingReceiptProviderNote => '供应商备注';
+
+  @override
+  String get gamingReceiptKeepCodeSafe => '请妥善保管您的 PIN、序列号或兑换链接。离开自助终端前请保存这些资料。';
+
+  @override
+  String get gamingReceiptTotalPaid => '已付总额';
+
+  @override
+  String get gamingPaymentTitle => '游戏付款';
+
+  @override
+  String get gamingPaymentTotal => '付款总额';
+
+  @override
+  String get gamingPreparingQrPayment => '正在准备游戏付款二维码';
+
+  @override
+  String get gamingProcessingPurchaseTitle => '正在处理购买';
+
+  @override
+  String get gamingProcessingPurchaseMessage => '付款已收到。请稍候，系统正在准备游戏代码或兑换链接。';
+
+  @override
+  String get gamingProcessingPurchaseLocked => '游戏购买完成前，请不要触碰屏幕。';
+
+  @override
+  String get gamingPaymentInvalidProductTitle => '无效的游戏产品';
+
+  @override
+  String get gamingPaymentInvalidProductMessage => '缺少游戏产品代码。';
+
+  @override
+  String get gamingPaymentProviderRejected => '游戏平台拒绝了此交易。';
+
+  @override
+  String get gamingPaymentProviderRefunded => '游戏平台交易已退款。';
+
+  @override
+  String get gamingPaymentUnexpectedStatus => '游戏平台返回了非预期状态';
+
+  @override
+  String get gamingPaymentProviderErrorTitle => '游戏处理错误';
+
+  @override
+  String get gamingPaymentReference => '付款参考编号';
+
+  @override
+  String get gamingPaymentAlreadyReceivedWarning => 'DuitNow 付款已收到。请勿为同一交易再次付款。';
+
+  @override
+  String get telcoMobileReloadTitle => '手机充值';
+
+  @override
+  String get telcoMobileReloadDescription => '充值预付余额或购买手机上网配套';
+
+  @override
+  String get mobileReloadServiceLabel => '手机充值';
+
+  @override
+  String get mobileReloadProviderTitle => '选择电讯服务商';
+
+  @override
+  String get mobileReloadProviderSubtitle => '请选择您的电讯服务商以继续';
+
+  @override
+  String get mobileReloadLoadingTitle => '正在加载手机充值';
+
+  @override
+  String get mobileReloadLoadingMessage => '请稍候，正在加载可用的手机服务。';
+
+  @override
+  String get mobileReloadErrorTitle => '无法加载服务';
+
+  @override
+  String get mobileReloadErrorMessage => '手机充值服务目前无法使用，请稍后再试。';
+
+  @override
+  String get mobileReloadRetry => '重试';
+
+  @override
+  String get mobileReloadPhoneStepLabel => '手机号码';
+
+  @override
+  String get mobileReloadEnterPhoneTitle => '输入手机号码';
+
+  @override
+  String get mobileReloadEnterPhoneSubtitle => '输入需要充值的手机号码';
+
+  @override
+  String get mobileReloadSelectedProvider => '已选服务商';
+
+  @override
+  String get mobileReloadPhoneHint => '输入手机号码';
+
+  @override
+  String get mobileReloadConfirmNumberTitle => '确认手机号码';
+
+  @override
+  String get mobileReloadConfirmNumberQuestion => '这个手机号码正确吗？';
+
+  @override
+  String get mobileReloadConfirmBack => '修改';
+
+  @override
+  String get mobileReloadConfirmContinue => '继续';
+
+  @override
+  String get mobileReloadPhoneRequiredTitle => '请输入手机号码';
+
+  @override
+  String get mobileReloadPhoneRequiredMessage => '请输入手机号码。';
+
+  @override
+  String get mobileReloadInvalidPhoneTitle => '手机号码无效';
+
+  @override
+  String get mobileReloadInvalidPhoneMessage => '请输入有效的马来西亚手机号码。';
+
+  @override
+  String get mobileReloadUnavailableTitle => '服务暂不可用';
+
+  @override
+  String get mobileReloadUnavailableMessage => '此手机充值服务目前无法使用。';
+
+  @override
+  String get mobileReloadOkButton => '确定';
+
+  @override
+  String get mobileReloadInternetPlanSubtitle => '为此手机号码选择上网配套';
+
+  @override
+  String get mobileReloadPrepaidSubtitle => '为此手机号码选择充值金额';
+
+  @override
+  String get mobileReloadPhoneNumber => '手机号码';
+
+  @override
+  String get mobileReloadSelectInternetPlan => '选择上网配套';
+
+  @override
+  String get mobileReloadSelectInternetPlanHint => '请选择可用的上网配套';
+
+  @override
+  String get mobileReloadSelectReloadAmount => '选择充值金额';
+
+  @override
+  String get mobileReloadSelectReloadAmountHint => '选择您要充值的金额';
+
+  @override
+  String get mobileReloadEnterReloadAmount => '输入充值金额';
+
+  @override
+  String get mobileReloadEnterReloadAmountHint => '请输入服务商允许的充值金额';
+
+  @override
+  String get mobileReloadMinimum => '最低';
+
+  @override
+  String get mobileReloadMaximum => '最高';
+
+  @override
+  String get mobileReloadProvider => '电讯服务商';
+
+  @override
+  String get mobileReloadSelectedPlan => '已选配套';
+
+  @override
+  String get mobileReloadReloadAmount => '充值金额';
+
+  @override
+  String get mobileReloadServiceAdjustment => '服务调整';
+
+  @override
+  String get mobileReloadTotalPayment => '付款总额';
+
+  @override
+  String get mobileReloadNoOptions => '此手机号码目前没有可用选项。';
+
+  @override
+  String get mobileReloadSelectOptionRequired => '请选择一个选项以继续。';
+
+  @override
+  String get mobileReloadInvalidAmount => '请输入有效的充值金额。';
+
+  @override
+  String mobileReloadMinimumAmountMessage(String amount) {
+    return '最低充值金额为 $amount。';
+  }
+
+  @override
+  String mobileReloadMaximumAmountMessage(String amount) {
+    return '最高充值金额为 $amount。';
+  }
+
+  @override
+  String get mobileReloadConfirmTitle => '确认购买';
+
+  @override
+  String get mobileReloadConfirmSubtitle => '付款前请检查手机充值资料';
+
+  @override
+  String get mobileReloadPleaseCheckTitle => '请检查';
+
+  @override
+  String get mobileReloadPleaseCheckMessage => '付款前请确认手机号码及所选服务正确。';
+
+  @override
+  String get mobileReloadYouSelected => '您的选择';
+
+  @override
+  String get mobileReloadOrderSummary => '订单摘要';
+
+  @override
+  String get mobileReloadSubtotal => '小计';
+
+  @override
+  String get mobileReloadServiceFee => '服务费';
+
+  @override
+  String get mobileReloadChangeSelection => '更改选择';
+
+  @override
+  String get mobileReloadPayNow => '立即付款';
+
+  @override
+  String get mobileReloadPaymentTitle => '手机充值付款';
+
+  @override
+  String get mobileReloadPaymentDetails => '手机充值资料';
+
+  @override
+  String get mobileReloadPreparingQrPayment => '正在准备 QR 付款';
+
+  @override
+  String get mobileReloadProcessingTitle => '正在处理手机充值';
+
+  @override
+  String get mobileReloadProcessingMessage => '付款成功。请稍候，我们正在处理您的手机充值。';
+
+  @override
+  String get mobileReloadProcessingLocked => '请勿返回或再次付款。';
+
+  @override
+  String get mobileReloadPaymentInvalidProductTitle => '产品无效';
+
+  @override
+  String get mobileReloadPaymentInvalidProductMessage => '所选手机充值产品无效。';
+
+  @override
+  String get mobileReloadPaymentInvalidPlanTitle => '上网配套无效';
+
+  @override
+  String get mobileReloadPaymentInvalidPlanMessage => '找不到所选上网配套。请返回并重新选择。';
+
+  @override
+  String get mobileReloadPaymentProviderRejected => '电讯服务商拒绝了此交易。';
+
+  @override
+  String get mobileReloadPaymentProviderRefunded => '电讯服务商已退回此交易。';
+
+  @override
+  String get mobileReloadPaymentProviderErrorTitle => '手机充值错误';
+
+  @override
+  String get mobileReloadPaymentStillProcessing => '电讯服务商仍在处理此交易。';
+
+  @override
+  String get mobileReloadPaymentReference => '交易参考编号';
+
+  @override
+  String get mobileReloadPaymentAlreadyReceivedWarning => '您的 DuitNow 付款已收到。请勿为同一交易再次付款。';
+
+  @override
+  String get mobileReloadInternetReceiptTitle => '上网配套收据';
+
+  @override
+  String get mobileReloadPrepaidReceiptTitle => '手机充值收据';
+
+  @override
+  String get mobileReloadReceiptTransactionDetails => '交易详情';
+
+  @override
+  String get mobileReloadReceiptPlanDetails => '配套详情';
+
+  @override
+  String get mobileReloadReceiptPaymentDate => '付款日期';
+
+  @override
+  String get mobileReloadReceiptBankTransaction => '银行交易';
+
+  @override
+  String get mobileReloadReceiptTotalPaid => '已付总额';
+
+  @override
+  String get mobileReloadReceiptSerialNumber => '序列号';
+
+  @override
+  String get mobileReloadReceiptPin => 'PIN';
+
+  @override
+  String get mobileReloadReceiptExpiry => '有效期';
+
+  @override
+  String get mobileReloadReceiptVoucherLink => '兑换链接';
 }

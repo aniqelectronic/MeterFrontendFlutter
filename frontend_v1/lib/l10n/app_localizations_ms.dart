@@ -5749,4 +5749,728 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get loanAccountSelectionTitle => 'Pilihan Akaun PTPTN';
+
+  @override
+  String get loanPaymentTitle => 'Bayaran PTPTN';
+
+  @override
+  String get loanPaymentSubtitle => 'Masukkan jumlah yang ingin dibayar';
+
+  @override
+  String get loanAccountInformation => 'Maklumat Akaun';
+
+  @override
+  String get loanAccountCategory => 'Akaun';
+
+  @override
+  String get loanSelectPaymentAmount => 'Pilih Jumlah Bayaran';
+
+  @override
+  String get loanAmountInstruction => 'Tekan kotak jumlah untuk memasukkan bayaran, atau gunakan butang − dan +.';
+
+  @override
+  String get loanEnterPaymentAmount => 'Masukkan Jumlah Bayaran';
+
+  @override
+  String get loanUseKeypad => 'Gunakan papan kekunci di bawah';
+
+  @override
+  String get loanKeyboardTitle => 'Papan Kekunci Jumlah Bayaran';
+
+  @override
+  String loanPaymentRange(String minimum, String maximum) {
+    return 'Minimum $minimum • Maksimum $maximum';
+  }
+
+  @override
+  String loanMinimumPayment(String amount) {
+    return 'Jumlah bayaran minimum ialah $amount.';
+  }
+
+  @override
+  String loanMaximumPayment(String amount) {
+    return 'Jumlah bayaran maksimum ialah $amount.';
+  }
+
+  @override
+  String get loanImportantNote => 'Nota Penting';
+
+  @override
+  String get loanOrderSummary => 'Ringkasan Bayaran';
+
+  @override
+  String get loanPaymentAmount => 'Jumlah Bayaran';
+
+  @override
+  String get loanServiceFee => 'Caj Perkhidmatan';
+
+  @override
+  String get loanServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get loanTotalPayment => 'Jumlah Keseluruhan';
+
+  @override
+  String get loanProcessingTime => 'Masa Pemprosesan';
+
+  @override
+  String loanProcessingWithinHours(String hours) {
+    return 'Dalam tempoh $hours jam';
+  }
+
+  @override
+  String loanProcessingWithinDays(String days) {
+    return 'Dalam tempoh $days hari';
+  }
+
+  @override
+  String get loanClear => 'PADAM';
+
+  @override
+  String get loanDone => 'SELESAI';
+
+  @override
+  String get loanCancel => 'BATAL';
+
+  @override
+  String get loanInformation => 'Maklumat';
+
+  @override
+  String get loanPaymentLoadingTitle => 'Memuatkan Maklumat Bayaran';
+
+  @override
+  String get loanPaymentLoadingMessage => 'Sila tunggu sementara maklumat bayaran PTPTN terkini diperoleh.';
+
+  @override
+  String get loanPaymentLoadErrorTitle => 'Maklumat Bayaran Tidak Dapat Dimuatkan';
+
+  @override
+  String get loanPaymentLoadErrorMessage => 'Maklumat bayaran PTPTN terkini tidak dapat diperoleh. Sila cuba lagi.';
+
+  @override
+  String loanPtptnSurchargeNote(String surcharge) {
+    return 'Caj tambahan $surcharge akan dikenakan pada bayaran anda.';
+  }
+
+  @override
+  String get loanReceiptTitle => 'Resit Bayaran PTPTN';
+
+  @override
+  String get loanReceiptThankYou => 'Terima kasih. Bayaran PTPTN atau SSPN anda telah diterima.';
+
+  @override
+  String get loanReceiptSuccessfulTitle => 'Bayaran Berjaya';
+
+  @override
+  String get loanReceiptSuccessfulMessage => 'Bayaran anda telah berjaya dihantar kepada penyedia.';
+
+  @override
+  String get loanReceiptProcessingTitle => 'Bayaran Sedang Diproses';
+
+  @override
+  String get loanReceiptProcessingMessage => 'Bayaran anda telah diterima dan masih sedang diproses oleh penyedia.';
+
+  @override
+  String get loanReceiptAccountDetails => 'Maklumat Akaun';
+
+  @override
+  String get loanReceiptProvider => 'Penyedia';
+
+  @override
+  String get loanReceiptNric => 'Nombor IC';
+
+  @override
+  String get loanReceiptAccountType => 'Jenis Akaun';
+
+  @override
+  String get loanReceiptAccountNumber => 'Nombor Akaun';
+
+  @override
+  String get loanReceiptCategory => 'Kategori Akaun';
+
+  @override
+  String get loanReceiptSubproductCode => 'Kod Akaun';
+
+  @override
+  String get loanReceiptTransactionDetails => 'Maklumat Transaksi';
+
+  @override
+  String get loanReceiptPaymentAmount => 'Jumlah Bayaran';
+
+  @override
+  String get loanReceiptServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get loanReceiptPaymentMethod => 'Kaedah Pembayaran';
+
+  @override
+  String get loanReceiptPaymentDate => 'Tarikh & Masa Bayaran';
+
+  @override
+  String get loanReceiptOrderNumber => 'Nombor Pesanan';
+
+  @override
+  String get loanReceiptBankTransaction => 'Transaksi Bank';
+
+  @override
+  String get loanReceiptReference => 'Rujukan Transaksi';
+
+  @override
+  String get loanReceiptProviderStatus => 'Status Penyedia';
+
+  @override
+  String get loanReceiptTotalPaid => 'Jumlah Dibayar';
+
+  @override
+  String get gamingPlatformButton => 'PLATFORM PERMAINAN';
+
+  @override
+  String get gamingPlatformSupportingText => 'Tambah nilai kredit platform permainan';
+
+  @override
+  String get gamingPurchaseSubtitle => 'Pembelian baucar permainan';
+
+  @override
+  String get gamingPlatformCategory => 'Platform Permainan';
+
+  @override
+  String get gamingHowToRedeem => 'CARA MENEBUS';
+
+  @override
+  String get gamingRedeemAfterPurchase => 'Ikuti langkah ini selepas kod, PIN atau pautan penebusan diterima.';
+
+  @override
+  String get gamingKeepCodeSafe => 'Rahsiakan PIN, nombor siri atau pautan penebusan anda. Setiap kod biasanya hanya boleh digunakan sekali.';
+
+  @override
+  String get gamingSelectAmount => 'PILIH NILAI / PAKEJ';
+
+  @override
+  String get gamingSelectAmountHint => 'Pilih kredit permainan atau pakej yang ingin dibeli.';
+
+  @override
+  String get gamingNoOptionsAvailable => 'Tiada pilihan pembelian tersedia buat masa ini.';
+
+  @override
+  String get gamingQuantity => 'KUANTITI';
+
+  @override
+  String get gamingQuantityHint => 'Pilih bilangan baucar yang ingin dibeli.';
+
+  @override
+  String get gamingMaximumQuantity => 'Kuantiti maksimum telah dicapai.';
+
+  @override
+  String get gamingOrderSummary => 'RINGKASAN PESANAN';
+
+  @override
+  String get gamingProduct => 'Produk';
+
+  @override
+  String get gamingSelectedOption => 'Pilihan';
+
+  @override
+  String get gamingUnitPrice => 'Harga Seunit';
+
+  @override
+  String get gamingSubtotal => 'Jumlah Kecil';
+
+  @override
+  String get gamingServiceFee => 'Caj Perkhidmatan';
+
+  @override
+  String get gamingServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get gamingTotalAmount => 'JUMLAH BAYARAN';
+
+  @override
+  String get gamingDeliveryMethod => 'Kaedah Penerimaan';
+
+  @override
+  String get gamingDeliveryPin => 'PIN';
+
+  @override
+  String get gamingDeliveryLink => 'PAUTAN PENEBUSAN';
+
+  @override
+  String get gamingContinuePayment => 'TERUSKAN';
+
+  @override
+  String get gamingProductUnavailable => 'Produk permainan ini tidak tersedia buat masa ini.';
+
+  @override
+  String get gamingSelectOptionRequired => 'Sila pilih nilai atau pakej.';
+
+  @override
+  String get gamingUnableToLoad => 'Pilihan pembelian permainan tidak dapat dimuatkan.';
+
+  @override
+  String get gamingTryAgain => 'CUBA LAGI';
+
+  @override
+  String get gamingPaymentNextMessage => 'Pilihan telah disahkan. Sambungkan butang ini ke halaman pembayaran seterusnya.';
+
+  @override
+  String get gamingRedeemCcStep1 => 'Pergi ke Cherry Credits dan log masuk ke akaun Cherry anda.';
+
+  @override
+  String get gamingRedeemCcStep2 => 'Buka halaman Top Up dan pilih Cherry Credits Prepaid Card / ePIN.';
+
+  @override
+  String get gamingRedeemCcStep3 => 'Masukkan Nombor Siri dan Kod Keselamatan yang diberikan pada resit.';
+
+  @override
+  String get gamingRedeemCcStep4 => 'Sahkan penebusan. Kredit akan dimasukkan ke baki Cherry Credits anda.';
+
+  @override
+  String get gamingRedeemGarenaStep1 => 'Buka Garena Top Up Center rasmi dan log masuk ke akaun Garena anda.';
+
+  @override
+  String get gamingRedeemGarenaStep2 => 'Pilih Shell Top Up, kemudian pilih Redeem.';
+
+  @override
+  String get gamingRedeemGarenaStep3 => 'Pilih pilihan kad prabayar / baucar dan masukkan kod yang diberikan pada resit.';
+
+  @override
+  String get gamingRedeemGarenaStep4 => 'Sahkan penebusan dan pastikan Garena Shells telah dimasukkan ke akaun anda.';
+
+  @override
+  String get gamingRedeemRazerStep1 => 'Buka Razer Gold dan log masuk ke akaun Razer anda.';
+
+  @override
+  String get gamingRedeemRazerStep2 => 'Pilih Reload atau pilihan Razer Gold PIN.';
+
+  @override
+  String get gamingRedeemRazerStep3 => 'Masukkan Razer Gold PIN, atau Nombor Siri dan PIN, yang diberikan pada resit.';
+
+  @override
+  String get gamingRedeemRazerStep4 => 'Ikuti arahan pada skrin sehingga tambah nilai atau direct top-up disahkan.';
+
+  @override
+  String get gamingRedeemOffgamersStep1 => 'Log masuk ke akaun OffGamers anda.';
+
+  @override
+  String get gamingRedeemOffgamersStep2 => 'Buka Store Credit dan pilih penebusan Gift Card.';
+
+  @override
+  String get gamingRedeemOffgamersStep3 => 'Masukkan Nombor Siri dan PIN Code yang diberikan pada resit.';
+
+  @override
+  String get gamingRedeemOffgamersStep4 => 'Sahkan penebusan dan semak baki OffGamers Store Credit anda.';
+
+  @override
+  String get gamingRedeemSteamStep1 => 'Log masuk ke akaun Steam yang akan menerima kredit dompet.';
+
+  @override
+  String get gamingRedeemSteamStep2 => 'Buka Account Details dan pilih Redeem a Steam Gift Card or Wallet Code.';
+
+  @override
+  String get gamingRedeemSteamStep3 => 'Masukkan Steam Wallet Code yang diberikan pada resit.';
+
+  @override
+  String get gamingRedeemSteamStep4 => 'Pilih Continue dan pastikan nilai telah dimasukkan ke Steam Wallet.';
+
+  @override
+  String get gamingRedeemUnipinStep1 => 'Log masuk ke akaun UniPin anda.';
+
+  @override
+  String get gamingRedeemUnipinStep2 => 'Buka pilihan penebusan baucar atau UniPin Credits.';
+
+  @override
+  String get gamingRedeemUnipinStep3 => 'Masukkan Nombor Siri dan PIN yang diberikan pada resit.';
+
+  @override
+  String get gamingRedeemUnipinStep4 => 'Sahkan penebusan dan pastikan UniPin Credits anda telah dikemas kini.';
+
+  @override
+  String get gamingRedeemGenericStep1 => 'Buka laman atau aplikasi rasmi platform dan log masuk.';
+
+  @override
+  String get gamingRedeemGenericStep2 => 'Buka bahagian Redeem, Voucher atau Wallet dan masukkan kod daripada resit.';
+
+  @override
+  String get gamingRedeemGenericStep3 => 'Sahkan penebusan dan semak baki anda.';
+
+  @override
+  String get gamingRedeemButtonHint => 'Tekan di sini untuk melihat langkah penebusan.';
+
+  @override
+  String get gamingClose => 'TUTUP';
+
+  @override
+  String get gamingReviewSelection => 'SEMAK';
+
+  @override
+  String get gamingConfirmTitle => 'SAHKAN PEMBELIAN';
+
+  @override
+  String get gamingConfirmSubtitle => 'Semak pembelian permainan anda sebelum membuat bayaran';
+
+  @override
+  String get gamingPleaseCheckTitle => 'SILA SEMAK PILIHAN ANDA';
+
+  @override
+  String get gamingPleaseCheckMessage => 'Pastikan platform, nilai atau pakej dan jumlah bayaran adalah betul sebelum meneruskan.';
+
+  @override
+  String get gamingYouSelected => 'PILIHAN ANDA';
+
+  @override
+  String get gamingChangeSelection => 'UBAH';
+
+  @override
+  String get gamingPayNow => 'BAYAR SEKARANG';
+
+  @override
+  String get gamingReceiptTitle => 'RESIT PERMAINAN';
+
+  @override
+  String get gamingReceiptPlatform => 'Platform Permainan';
+
+  @override
+  String get gamingReceiptPurchaseDetails => 'Butiran Pembelian';
+
+  @override
+  String get gamingReceiptSelectedPackage => 'Nilai / Pakej Dipilih';
+
+  @override
+  String get gamingReceiptDescription => 'Keterangan';
+
+  @override
+  String get gamingReceiptBaseAmount => 'Nilai Baucar';
+
+  @override
+  String get gamingReceiptServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get gamingReceiptPaymentMethod => 'Kaedah Bayaran';
+
+  @override
+  String get gamingReceiptPaymentDate => 'Tarikh Bayaran';
+
+  @override
+  String get gamingReceiptBankTransaction => 'Transaksi Bank';
+
+  @override
+  String get gamingReceiptRedemptionDetails => 'Butiran Penebusan';
+
+  @override
+  String get gamingReceiptSerialNumber => 'Nombor Siri';
+
+  @override
+  String get gamingReceiptPinCode => 'PIN / Kod';
+
+  @override
+  String get gamingReceiptExpiry => 'Tarikh Luput';
+
+  @override
+  String get gamingReceiptVoucherLink => 'Pautan Penebusan';
+
+  @override
+  String get gamingReceiptProviderNote => 'Nota Penyedia';
+
+  @override
+  String get gamingReceiptKeepCodeSafe => 'Rahsiakan PIN, nombor siri atau pautan penebusan anda. Simpan maklumat ini sebelum meninggalkan kiosk.';
+
+  @override
+  String get gamingReceiptTotalPaid => 'JUMLAH DIBAYAR';
+
+  @override
+  String get gamingPaymentTitle => 'BAYARAN PERMAINAN';
+
+  @override
+  String get gamingPaymentTotal => 'JUMLAH BAYARAN';
+
+  @override
+  String get gamingPreparingQrPayment => 'MENYEDIAKAN QR PERMAINAN';
+
+  @override
+  String get gamingProcessingPurchaseTitle => 'MEMPROSES PEMBELIAN';
+
+  @override
+  String get gamingProcessingPurchaseMessage => 'Bayaran telah diterima. Sila tunggu sementara kod permainan atau pautan penebusan disediakan.';
+
+  @override
+  String get gamingProcessingPurchaseLocked => 'Sila jangan sentuh skrin sementara pembelian permainan sedang diselesaikan.';
+
+  @override
+  String get gamingPaymentInvalidProductTitle => 'PRODUK PERMAINAN TIDAK SAH';
+
+  @override
+  String get gamingPaymentInvalidProductMessage => 'Kod produk permainan tiada.';
+
+  @override
+  String get gamingPaymentProviderRejected => 'Penyedia permainan menolak transaksi ini.';
+
+  @override
+  String get gamingPaymentProviderRefunded => 'Transaksi penyedia permainan telah dipulangkan.';
+
+  @override
+  String get gamingPaymentUnexpectedStatus => 'Status penyedia permainan tidak dijangka';
+
+  @override
+  String get gamingPaymentProviderErrorTitle => 'RALAT PEMPROSESAN PERMAINAN';
+
+  @override
+  String get gamingPaymentReference => 'Rujukan Bayaran';
+
+  @override
+  String get gamingPaymentAlreadyReceivedWarning => 'Bayaran DuitNow telah diterima. Jangan buat bayaran lain untuk transaksi yang sama.';
+
+  @override
+  String get telcoMobileReloadTitle => 'Tambah Nilai Mudah Alih';
+
+  @override
+  String get telcoMobileReloadDescription => 'Tambah nilai prabayar atau beli internet mudah alih';
+
+  @override
+  String get mobileReloadServiceLabel => 'Tambah Nilai Mudah Alih';
+
+  @override
+  String get mobileReloadProviderTitle => 'Pilih Penyedia Mudah Alih';
+
+  @override
+  String get mobileReloadProviderSubtitle => 'Pilih penyedia mudah alih anda untuk meneruskan';
+
+  @override
+  String get mobileReloadLoadingTitle => 'Memuatkan Tambah Nilai';
+
+  @override
+  String get mobileReloadLoadingMessage => 'Sila tunggu sementara perkhidmatan mudah alih dimuatkan.';
+
+  @override
+  String get mobileReloadErrorTitle => 'Perkhidmatan Tidak Dapat Dimuatkan';
+
+  @override
+  String get mobileReloadErrorMessage => 'Perkhidmatan tambah nilai tidak tersedia buat masa ini. Sila cuba lagi.';
+
+  @override
+  String get mobileReloadRetry => 'Cuba Lagi';
+
+  @override
+  String get mobileReloadPhoneStepLabel => 'Nombor Telefon';
+
+  @override
+  String get mobileReloadEnterPhoneTitle => 'Masukkan Nombor Telefon';
+
+  @override
+  String get mobileReloadEnterPhoneSubtitle => 'Masukkan nombor telefon yang ingin ditambah nilai';
+
+  @override
+  String get mobileReloadSelectedProvider => 'Penyedia Dipilih';
+
+  @override
+  String get mobileReloadPhoneHint => 'Masukkan Nombor Telefon';
+
+  @override
+  String get mobileReloadConfirmNumberTitle => 'Sahkan Nombor Telefon';
+
+  @override
+  String get mobileReloadConfirmNumberQuestion => 'Adakah nombor telefon ini betul?';
+
+  @override
+  String get mobileReloadConfirmBack => 'Ubah';
+
+  @override
+  String get mobileReloadConfirmContinue => 'Teruskan';
+
+  @override
+  String get mobileReloadPhoneRequiredTitle => 'Nombor Telefon Diperlukan';
+
+  @override
+  String get mobileReloadPhoneRequiredMessage => 'Sila masukkan nombor telefon.';
+
+  @override
+  String get mobileReloadInvalidPhoneTitle => 'Nombor Telefon Tidak Sah';
+
+  @override
+  String get mobileReloadInvalidPhoneMessage => 'Sila masukkan nombor telefon Malaysia yang sah.';
+
+  @override
+  String get mobileReloadUnavailableTitle => 'Perkhidmatan Tidak Tersedia';
+
+  @override
+  String get mobileReloadUnavailableMessage => 'Perkhidmatan tambah nilai ini tidak tersedia buat masa ini.';
+
+  @override
+  String get mobileReloadOkButton => 'OK';
+
+  @override
+  String get mobileReloadInternetPlanSubtitle => 'Pilih pelan internet untuk nombor telefon ini';
+
+  @override
+  String get mobileReloadPrepaidSubtitle => 'Pilih amaun tambah nilai untuk nombor telefon ini';
+
+  @override
+  String get mobileReloadPhoneNumber => 'Nombor Telefon';
+
+  @override
+  String get mobileReloadSelectInternetPlan => 'Pilih Pelan Internet';
+
+  @override
+  String get mobileReloadSelectInternetPlanHint => 'Pilih pelan internet yang tersedia';
+
+  @override
+  String get mobileReloadSelectReloadAmount => 'Pilih Amaun Tambah Nilai';
+
+  @override
+  String get mobileReloadSelectReloadAmountHint => 'Pilih amaun yang ingin ditambah nilai';
+
+  @override
+  String get mobileReloadEnterReloadAmount => 'Masukkan Amaun Tambah Nilai';
+
+  @override
+  String get mobileReloadEnterReloadAmountHint => 'Masukkan amaun dalam had penyedia';
+
+  @override
+  String get mobileReloadMinimum => 'Minimum';
+
+  @override
+  String get mobileReloadMaximum => 'Maksimum';
+
+  @override
+  String get mobileReloadProvider => 'Penyedia';
+
+  @override
+  String get mobileReloadSelectedPlan => 'Pelan Dipilih';
+
+  @override
+  String get mobileReloadReloadAmount => 'Amaun Tambah Nilai';
+
+  @override
+  String get mobileReloadServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get mobileReloadTotalPayment => 'Jumlah Bayaran';
+
+  @override
+  String get mobileReloadNoOptions => 'Tiada pilihan tersedia untuk nombor telefon ini.';
+
+  @override
+  String get mobileReloadSelectOptionRequired => 'Sila pilih satu pilihan untuk meneruskan.';
+
+  @override
+  String get mobileReloadInvalidAmount => 'Sila masukkan amaun tambah nilai yang sah.';
+
+  @override
+  String mobileReloadMinimumAmountMessage(String amount) {
+    return 'Amaun tambah nilai minimum ialah $amount.';
+  }
+
+  @override
+  String mobileReloadMaximumAmountMessage(String amount) {
+    return 'Amaun tambah nilai maksimum ialah $amount.';
+  }
+
+  @override
+  String get mobileReloadConfirmTitle => 'Semak Pembelian';
+
+  @override
+  String get mobileReloadConfirmSubtitle => 'Semak maklumat tambah nilai sebelum pembayaran';
+
+  @override
+  String get mobileReloadPleaseCheckTitle => 'Sila Semak';
+
+  @override
+  String get mobileReloadPleaseCheckMessage => 'Pastikan nombor telefon dan pilihan perkhidmatan adalah betul sebelum membuat pembayaran.';
+
+  @override
+  String get mobileReloadYouSelected => 'Pilihan Anda';
+
+  @override
+  String get mobileReloadOrderSummary => 'Ringkasan Pesanan';
+
+  @override
+  String get mobileReloadSubtotal => 'Jumlah Kecil';
+
+  @override
+  String get mobileReloadServiceFee => 'Caj Perkhidmatan';
+
+  @override
+  String get mobileReloadChangeSelection => 'Ubah Pilihan';
+
+  @override
+  String get mobileReloadPayNow => 'Bayar Sekarang';
+
+  @override
+  String get mobileReloadPaymentTitle => 'Pembayaran Tambah Nilai';
+
+  @override
+  String get mobileReloadPaymentDetails => 'Maklumat Tambah Nilai';
+
+  @override
+  String get mobileReloadPreparingQrPayment => 'Menyediakan Pembayaran QR';
+
+  @override
+  String get mobileReloadProcessingTitle => 'Memproses Tambah Nilai';
+
+  @override
+  String get mobileReloadProcessingMessage => 'Pembayaran berjaya. Sila tunggu sementara tambah nilai anda diproses.';
+
+  @override
+  String get mobileReloadProcessingLocked => 'Sila jangan kembali atau membuat pembayaran sekali lagi.';
+
+  @override
+  String get mobileReloadPaymentInvalidProductTitle => 'Produk Tidak Sah';
+
+  @override
+  String get mobileReloadPaymentInvalidProductMessage => 'Produk tambah nilai yang dipilih tidak sah.';
+
+  @override
+  String get mobileReloadPaymentInvalidPlanTitle => 'Pelan Internet Tidak Sah';
+
+  @override
+  String get mobileReloadPaymentInvalidPlanMessage => 'Pelan internet tidak ditemui. Sila kembali dan pilih semula pelan.';
+
+  @override
+  String get mobileReloadPaymentProviderRejected => 'Penyedia mudah alih menolak transaksi ini.';
+
+  @override
+  String get mobileReloadPaymentProviderRefunded => 'Transaksi penyedia mudah alih telah dipulangkan.';
+
+  @override
+  String get mobileReloadPaymentProviderErrorTitle => 'Ralat Tambah Nilai';
+
+  @override
+  String get mobileReloadPaymentStillProcessing => 'Penyedia mudah alih masih memproses transaksi ini.';
+
+  @override
+  String get mobileReloadPaymentReference => 'Rujukan Transaksi';
+
+  @override
+  String get mobileReloadPaymentAlreadyReceivedWarning => 'Pembayaran DuitNow anda telah diterima. Jangan buat pembayaran sekali lagi untuk transaksi yang sama.';
+
+  @override
+  String get mobileReloadInternetReceiptTitle => 'Resit Pelan Internet';
+
+  @override
+  String get mobileReloadPrepaidReceiptTitle => 'Resit Tambah Nilai';
+
+  @override
+  String get mobileReloadReceiptTransactionDetails => 'Butiran Transaksi';
+
+  @override
+  String get mobileReloadReceiptPlanDetails => 'Butiran Pelan';
+
+  @override
+  String get mobileReloadReceiptPaymentDate => 'Tarikh Pembayaran';
+
+  @override
+  String get mobileReloadReceiptBankTransaction => 'Transaksi Bank';
+
+  @override
+  String get mobileReloadReceiptTotalPaid => 'Jumlah Dibayar';
+
+  @override
+  String get mobileReloadReceiptSerialNumber => 'Nombor Siri';
+
+  @override
+  String get mobileReloadReceiptPin => 'PIN';
+
+  @override
+  String get mobileReloadReceiptExpiry => 'Tarikh Luput';
+
+  @override
+  String get mobileReloadReceiptVoucherLink => 'Pautan Baucar';
 }

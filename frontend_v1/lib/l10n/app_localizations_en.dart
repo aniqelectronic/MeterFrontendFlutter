@@ -5755,4 +5755,728 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loanAccountSelectionTitle => 'PTPTN Account Selection';
+
+  @override
+  String get loanPaymentTitle => 'PTPTN Payment';
+
+  @override
+  String get loanPaymentSubtitle => 'Enter the amount you want to pay';
+
+  @override
+  String get loanAccountInformation => 'Account Information';
+
+  @override
+  String get loanAccountCategory => 'Account';
+
+  @override
+  String get loanSelectPaymentAmount => 'Select Payment Amount';
+
+  @override
+  String get loanAmountInstruction => 'Tap the amount box to enter your payment amount, or use the − and + buttons.';
+
+  @override
+  String get loanEnterPaymentAmount => 'Enter Payment Amount';
+
+  @override
+  String get loanUseKeypad => 'Use the keypad below';
+
+  @override
+  String get loanKeyboardTitle => 'Payment Amount Keyboard';
+
+  @override
+  String loanPaymentRange(String minimum, String maximum) {
+    return 'Minimum $minimum • Maximum $maximum';
+  }
+
+  @override
+  String loanMinimumPayment(String amount) {
+    return 'The minimum payment amount is $amount.';
+  }
+
+  @override
+  String loanMaximumPayment(String amount) {
+    return 'The maximum payment amount is $amount.';
+  }
+
+  @override
+  String get loanImportantNote => 'Important Note';
+
+  @override
+  String get loanOrderSummary => 'Order Summary';
+
+  @override
+  String get loanPaymentAmount => 'Payment Amount';
+
+  @override
+  String get loanServiceFee => 'Service Fee';
+
+  @override
+  String get loanServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get loanTotalPayment => 'Total Payment';
+
+  @override
+  String get loanProcessingTime => 'Processing Time';
+
+  @override
+  String loanProcessingWithinHours(String hours) {
+    return 'Within $hours hours';
+  }
+
+  @override
+  String loanProcessingWithinDays(String days) {
+    return 'Within $days days';
+  }
+
+  @override
+  String get loanClear => 'CLEAR';
+
+  @override
+  String get loanDone => 'DONE';
+
+  @override
+  String get loanCancel => 'CANCEL';
+
+  @override
+  String get loanInformation => 'Information';
+
+  @override
+  String get loanPaymentLoadingTitle => 'Loading Payment Information';
+
+  @override
+  String get loanPaymentLoadingMessage => 'Please wait while we retrieve the latest PTPTN payment information.';
+
+  @override
+  String get loanPaymentLoadErrorTitle => 'Unable to Load Payment Information';
+
+  @override
+  String get loanPaymentLoadErrorMessage => 'The latest PTPTN payment information could not be retrieved. Please try again.';
+
+  @override
+  String loanPtptnSurchargeNote(String surcharge) {
+    return 'A $surcharge surcharge will be imposed on your payment.';
+  }
+
+  @override
+  String get loanReceiptTitle => 'PTPTN Payment Receipt';
+
+  @override
+  String get loanReceiptThankYou => 'Thank you. Your PTPTN or SSPN payment has been received.';
+
+  @override
+  String get loanReceiptSuccessfulTitle => 'Payment Successful';
+
+  @override
+  String get loanReceiptSuccessfulMessage => 'Your payment has been successfully submitted to the provider.';
+
+  @override
+  String get loanReceiptProcessingTitle => 'Payment Processing';
+
+  @override
+  String get loanReceiptProcessingMessage => 'Your payment has been accepted and is still being processed by the provider.';
+
+  @override
+  String get loanReceiptAccountDetails => 'Account Details';
+
+  @override
+  String get loanReceiptProvider => 'Provider';
+
+  @override
+  String get loanReceiptNric => 'NRIC Number';
+
+  @override
+  String get loanReceiptAccountType => 'Account Type';
+
+  @override
+  String get loanReceiptAccountNumber => 'Account Number';
+
+  @override
+  String get loanReceiptCategory => 'Account Category';
+
+  @override
+  String get loanReceiptSubproductCode => 'Account Code';
+
+  @override
+  String get loanReceiptTransactionDetails => 'Transaction Details';
+
+  @override
+  String get loanReceiptPaymentAmount => 'Payment Amount';
+
+  @override
+  String get loanReceiptServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get loanReceiptPaymentMethod => 'Payment Method';
+
+  @override
+  String get loanReceiptPaymentDate => 'Payment Date & Time';
+
+  @override
+  String get loanReceiptOrderNumber => 'Order Number';
+
+  @override
+  String get loanReceiptBankTransaction => 'Bank Transaction';
+
+  @override
+  String get loanReceiptReference => 'Transaction Reference';
+
+  @override
+  String get loanReceiptProviderStatus => 'Provider Status';
+
+  @override
+  String get loanReceiptTotalPaid => 'Total Paid';
+
+  @override
+  String get gamingPlatformButton => 'GAMING PLATFORMS';
+
+  @override
+  String get gamingPlatformSupportingText => 'Reload credit for gaming platforms';
+
+  @override
+  String get gamingPurchaseSubtitle => 'Gaming voucher purchase';
+
+  @override
+  String get gamingPlatformCategory => 'Gaming Platforms';
+
+  @override
+  String get gamingHowToRedeem => 'HOW TO REDEEM';
+
+  @override
+  String get gamingRedeemAfterPurchase => 'Use these steps after your code, PIN or redemption link is issued.';
+
+  @override
+  String get gamingKeepCodeSafe => 'Keep your PIN, serial number or redemption link private. Each code can normally be used only once.';
+
+  @override
+  String get gamingSelectAmount => 'SELECT AMOUNT / PACKAGE';
+
+  @override
+  String get gamingSelectAmountHint => 'Choose the gaming credit or package you want to purchase.';
+
+  @override
+  String get gamingNoOptionsAvailable => 'No purchase options are currently available.';
+
+  @override
+  String get gamingQuantity => 'QUANTITY';
+
+  @override
+  String get gamingQuantityHint => 'Choose how many vouchers you want to purchase.';
+
+  @override
+  String get gamingMaximumQuantity => 'Maximum quantity reached.';
+
+  @override
+  String get gamingOrderSummary => 'ORDER SUMMARY';
+
+  @override
+  String get gamingProduct => 'Product';
+
+  @override
+  String get gamingSelectedOption => 'Selected Option';
+
+  @override
+  String get gamingUnitPrice => 'Unit Price';
+
+  @override
+  String get gamingSubtotal => 'Subtotal';
+
+  @override
+  String get gamingServiceFee => 'Service Fee';
+
+  @override
+  String get gamingServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get gamingTotalAmount => 'TOTAL AMOUNT';
+
+  @override
+  String get gamingDeliveryMethod => 'Delivery';
+
+  @override
+  String get gamingDeliveryPin => 'PIN';
+
+  @override
+  String get gamingDeliveryLink => 'REDEMPTION LINK';
+
+  @override
+  String get gamingContinuePayment => 'CONTINUE';
+
+  @override
+  String get gamingProductUnavailable => 'This gaming product is currently unavailable.';
+
+  @override
+  String get gamingSelectOptionRequired => 'Please select an amount or package.';
+
+  @override
+  String get gamingUnableToLoad => 'Unable to load gaming purchase options.';
+
+  @override
+  String get gamingTryAgain => 'TRY AGAIN';
+
+  @override
+  String get gamingPaymentNextMessage => 'Selection confirmed. Connect this button to your payment page next.';
+
+  @override
+  String get gamingRedeemCcStep1 => 'Go to Cherry Credits and sign in to your Cherry account.';
+
+  @override
+  String get gamingRedeemCcStep2 => 'Open the Top Up page and choose Cherry Credits Prepaid Card / ePIN.';
+
+  @override
+  String get gamingRedeemCcStep3 => 'Enter the Serial Number and Security Code provided on your receipt.';
+
+  @override
+  String get gamingRedeemCcStep4 => 'Confirm the redemption. The credits will be added to your Cherry Credits balance.';
+
+  @override
+  String get gamingRedeemGarenaStep1 => 'Open the official Garena Top Up Center and sign in to your Garena account.';
+
+  @override
+  String get gamingRedeemGarenaStep2 => 'Choose Shell Top Up, then choose Redeem.';
+
+  @override
+  String get gamingRedeemGarenaStep3 => 'Select the prepaid-card / voucher option and enter the code provided on your receipt.';
+
+  @override
+  String get gamingRedeemGarenaStep4 => 'Confirm the redemption and check that the Garena Shells have been added to your account.';
+
+  @override
+  String get gamingRedeemRazerStep1 => 'Open Razer Gold and sign in to your Razer account.';
+
+  @override
+  String get gamingRedeemRazerStep2 => 'Choose Reload or the Razer Gold PIN option.';
+
+  @override
+  String get gamingRedeemRazerStep3 => 'Enter the Razer Gold PIN, or Serial Number and PIN, provided on your receipt.';
+
+  @override
+  String get gamingRedeemRazerStep4 => 'Follow the on-screen instructions until the reload or direct top-up is confirmed.';
+
+  @override
+  String get gamingRedeemOffgamersStep1 => 'Sign in to your OffGamers account.';
+
+  @override
+  String get gamingRedeemOffgamersStep2 => 'Open Store Credit and choose the Gift Card redemption option.';
+
+  @override
+  String get gamingRedeemOffgamersStep3 => 'Enter the Serial Number and PIN Code provided on your receipt.';
+
+  @override
+  String get gamingRedeemOffgamersStep4 => 'Confirm the redemption and check your updated OffGamers Store Credit balance.';
+
+  @override
+  String get gamingRedeemSteamStep1 => 'Sign in to the Steam account that will receive the wallet credit.';
+
+  @override
+  String get gamingRedeemSteamStep2 => 'Open Account Details and choose Redeem a Steam Gift Card or Wallet Code.';
+
+  @override
+  String get gamingRedeemSteamStep3 => 'Enter the Steam Wallet Code provided on your receipt.';
+
+  @override
+  String get gamingRedeemSteamStep4 => 'Choose Continue and confirm that the value has been added to your Steam Wallet.';
+
+  @override
+  String get gamingRedeemUnipinStep1 => 'Sign in to your UniPin account.';
+
+  @override
+  String get gamingRedeemUnipinStep2 => 'Open the voucher or UniPin Credits redemption option.';
+
+  @override
+  String get gamingRedeemUnipinStep3 => 'Enter the Serial Number and PIN provided on your receipt.';
+
+  @override
+  String get gamingRedeemUnipinStep4 => 'Confirm the redemption and check that your UniPin Credits have been updated.';
+
+  @override
+  String get gamingRedeemGenericStep1 => 'Open the official platform website or app and sign in.';
+
+  @override
+  String get gamingRedeemGenericStep2 => 'Open its Redeem, Voucher or Wallet section and enter the code from your receipt.';
+
+  @override
+  String get gamingRedeemGenericStep3 => 'Confirm the redemption and check your updated balance.';
+
+  @override
+  String get gamingRedeemButtonHint => 'Tap here to view the redemption steps.';
+
+  @override
+  String get gamingClose => 'CLOSE';
+
+  @override
+  String get gamingReviewSelection => 'REVIEW';
+
+  @override
+  String get gamingConfirmTitle => 'CONFIRM PURCHASE';
+
+  @override
+  String get gamingConfirmSubtitle => 'Review your gaming purchase before payment';
+
+  @override
+  String get gamingPleaseCheckTitle => 'PLEASE CHECK YOUR SELECTION';
+
+  @override
+  String get gamingPleaseCheckMessage => 'Make sure the platform, amount or package and total payment are correct before continuing.';
+
+  @override
+  String get gamingYouSelected => 'YOU SELECTED';
+
+  @override
+  String get gamingChangeSelection => 'CHANGE';
+
+  @override
+  String get gamingPayNow => 'PAY NOW';
+
+  @override
+  String get gamingReceiptTitle => 'GAMING RECEIPT';
+
+  @override
+  String get gamingReceiptPlatform => 'Gaming Platform';
+
+  @override
+  String get gamingReceiptPurchaseDetails => 'Purchase Details';
+
+  @override
+  String get gamingReceiptSelectedPackage => 'Selected Package';
+
+  @override
+  String get gamingReceiptDescription => 'Description';
+
+  @override
+  String get gamingReceiptBaseAmount => 'Voucher Value';
+
+  @override
+  String get gamingReceiptServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get gamingReceiptPaymentMethod => 'Payment Method';
+
+  @override
+  String get gamingReceiptPaymentDate => 'Payment Date';
+
+  @override
+  String get gamingReceiptBankTransaction => 'Bank Transaction';
+
+  @override
+  String get gamingReceiptRedemptionDetails => 'Redemption Details';
+
+  @override
+  String get gamingReceiptSerialNumber => 'Serial Number';
+
+  @override
+  String get gamingReceiptPinCode => 'PIN / Code';
+
+  @override
+  String get gamingReceiptExpiry => 'Expiry';
+
+  @override
+  String get gamingReceiptVoucherLink => 'Redemption Link';
+
+  @override
+  String get gamingReceiptProviderNote => 'Provider Note';
+
+  @override
+  String get gamingReceiptKeepCodeSafe => 'Keep your PIN, serial number or redemption link private. Save this information before leaving the kiosk.';
+
+  @override
+  String get gamingReceiptTotalPaid => 'TOTAL PAID';
+
+  @override
+  String get gamingPaymentTitle => 'GAMING PAYMENT';
+
+  @override
+  String get gamingPaymentTotal => 'TOTAL PAYMENT';
+
+  @override
+  String get gamingPreparingQrPayment => 'PREPARING GAMING QR';
+
+  @override
+  String get gamingProcessingPurchaseTitle => 'PROCESSING PURCHASE';
+
+  @override
+  String get gamingProcessingPurchaseMessage => 'Your payment was received. Please wait while the gaming code or redemption link is prepared.';
+
+  @override
+  String get gamingProcessingPurchaseLocked => 'Please do not touch the screen while your gaming purchase is being completed.';
+
+  @override
+  String get gamingPaymentInvalidProductTitle => 'INVALID GAMING PRODUCT';
+
+  @override
+  String get gamingPaymentInvalidProductMessage => 'The gaming product code is missing.';
+
+  @override
+  String get gamingPaymentProviderRejected => 'The gaming provider rejected the transaction.';
+
+  @override
+  String get gamingPaymentProviderRefunded => 'The gaming provider transaction was refunded.';
+
+  @override
+  String get gamingPaymentUnexpectedStatus => 'Unexpected gaming provider status';
+
+  @override
+  String get gamingPaymentProviderErrorTitle => 'GAMING PROCESSING ERROR';
+
+  @override
+  String get gamingPaymentReference => 'Payment Reference';
+
+  @override
+  String get gamingPaymentAlreadyReceivedWarning => 'The DuitNow payment has already been received. Do not make another payment for the same transaction.';
+
+  @override
+  String get telcoMobileReloadTitle => 'Mobile Reload';
+
+  @override
+  String get telcoMobileReloadDescription => 'Reload prepaid credit or buy mobile internet';
+
+  @override
+  String get mobileReloadServiceLabel => 'Mobile Reload';
+
+  @override
+  String get mobileReloadProviderTitle => 'Select Mobile Provider';
+
+  @override
+  String get mobileReloadProviderSubtitle => 'Select your mobile provider to continue';
+
+  @override
+  String get mobileReloadLoadingTitle => 'Loading Mobile Reload';
+
+  @override
+  String get mobileReloadLoadingMessage => 'Please wait while available mobile services are loaded.';
+
+  @override
+  String get mobileReloadErrorTitle => 'Unable to Load Services';
+
+  @override
+  String get mobileReloadErrorMessage => 'Mobile Reload services are currently unavailable. Please try again.';
+
+  @override
+  String get mobileReloadRetry => 'Retry';
+
+  @override
+  String get mobileReloadPhoneStepLabel => 'Mobile Number';
+
+  @override
+  String get mobileReloadEnterPhoneTitle => 'Enter Mobile Number';
+
+  @override
+  String get mobileReloadEnterPhoneSubtitle => 'Enter the mobile number you want to reload';
+
+  @override
+  String get mobileReloadSelectedProvider => 'Selected Provider';
+
+  @override
+  String get mobileReloadPhoneHint => 'Enter Mobile Number';
+
+  @override
+  String get mobileReloadConfirmNumberTitle => 'Confirm Mobile Number';
+
+  @override
+  String get mobileReloadConfirmNumberQuestion => 'Is this mobile number correct?';
+
+  @override
+  String get mobileReloadConfirmBack => 'Edit';
+
+  @override
+  String get mobileReloadConfirmContinue => 'Continue';
+
+  @override
+  String get mobileReloadPhoneRequiredTitle => 'Mobile Number Required';
+
+  @override
+  String get mobileReloadPhoneRequiredMessage => 'Please enter a mobile number.';
+
+  @override
+  String get mobileReloadInvalidPhoneTitle => 'Invalid Mobile Number';
+
+  @override
+  String get mobileReloadInvalidPhoneMessage => 'Please enter a valid Malaysian mobile number.';
+
+  @override
+  String get mobileReloadUnavailableTitle => 'Service Unavailable';
+
+  @override
+  String get mobileReloadUnavailableMessage => 'This mobile reload service is currently unavailable.';
+
+  @override
+  String get mobileReloadOkButton => 'OK';
+
+  @override
+  String get mobileReloadInternetPlanSubtitle => 'Choose an internet plan for this mobile number';
+
+  @override
+  String get mobileReloadPrepaidSubtitle => 'Choose the reload amount for this mobile number';
+
+  @override
+  String get mobileReloadPhoneNumber => 'Mobile Number';
+
+  @override
+  String get mobileReloadSelectInternetPlan => 'Select Internet Plan';
+
+  @override
+  String get mobileReloadSelectInternetPlanHint => 'Choose an available internet plan';
+
+  @override
+  String get mobileReloadSelectReloadAmount => 'Select Reload Amount';
+
+  @override
+  String get mobileReloadSelectReloadAmountHint => 'Choose the amount you want to reload';
+
+  @override
+  String get mobileReloadEnterReloadAmount => 'Enter Reload Amount';
+
+  @override
+  String get mobileReloadEnterReloadAmountHint => 'Enter an amount within the provider limit';
+
+  @override
+  String get mobileReloadMinimum => 'Minimum';
+
+  @override
+  String get mobileReloadMaximum => 'Maximum';
+
+  @override
+  String get mobileReloadProvider => 'Provider';
+
+  @override
+  String get mobileReloadSelectedPlan => 'Selected Plan';
+
+  @override
+  String get mobileReloadReloadAmount => 'Reload Amount';
+
+  @override
+  String get mobileReloadServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get mobileReloadTotalPayment => 'Total Payment';
+
+  @override
+  String get mobileReloadNoOptions => 'No options are available for this mobile number.';
+
+  @override
+  String get mobileReloadSelectOptionRequired => 'Please select an option to continue.';
+
+  @override
+  String get mobileReloadInvalidAmount => 'Please enter a valid reload amount.';
+
+  @override
+  String mobileReloadMinimumAmountMessage(String amount) {
+    return 'The minimum reload amount is $amount.';
+  }
+
+  @override
+  String mobileReloadMaximumAmountMessage(String amount) {
+    return 'The maximum reload amount is $amount.';
+  }
+
+  @override
+  String get mobileReloadConfirmTitle => 'Review Purchase';
+
+  @override
+  String get mobileReloadConfirmSubtitle => 'Review your Mobile Reload details before payment';
+
+  @override
+  String get mobileReloadPleaseCheckTitle => 'Please Check';
+
+  @override
+  String get mobileReloadPleaseCheckMessage => 'Please make sure the mobile number and selected service are correct before payment.';
+
+  @override
+  String get mobileReloadYouSelected => 'You Selected';
+
+  @override
+  String get mobileReloadOrderSummary => 'Order Summary';
+
+  @override
+  String get mobileReloadSubtotal => 'Subtotal';
+
+  @override
+  String get mobileReloadServiceFee => 'Service Fee';
+
+  @override
+  String get mobileReloadChangeSelection => 'Change';
+
+  @override
+  String get mobileReloadPayNow => 'Pay Now';
+
+  @override
+  String get mobileReloadPaymentTitle => 'Mobile Reload Payment';
+
+  @override
+  String get mobileReloadPaymentDetails => 'Mobile Reload Details';
+
+  @override
+  String get mobileReloadPreparingQrPayment => 'Preparing QR Payment';
+
+  @override
+  String get mobileReloadProcessingTitle => 'Processing Mobile Reload';
+
+  @override
+  String get mobileReloadProcessingMessage => 'Your payment was successful. Please wait while we process your mobile reload.';
+
+  @override
+  String get mobileReloadProcessingLocked => 'Please do not go back or make another payment.';
+
+  @override
+  String get mobileReloadPaymentInvalidProductTitle => 'Invalid Product';
+
+  @override
+  String get mobileReloadPaymentInvalidProductMessage => 'The selected mobile reload product is invalid.';
+
+  @override
+  String get mobileReloadPaymentInvalidPlanTitle => 'Invalid Internet Plan';
+
+  @override
+  String get mobileReloadPaymentInvalidPlanMessage => 'The selected internet plan is missing. Please return and select the plan again.';
+
+  @override
+  String get mobileReloadPaymentProviderRejected => 'The mobile provider rejected the transaction.';
+
+  @override
+  String get mobileReloadPaymentProviderRefunded => 'The mobile provider transaction was refunded.';
+
+  @override
+  String get mobileReloadPaymentProviderErrorTitle => 'Mobile Reload Error';
+
+  @override
+  String get mobileReloadPaymentStillProcessing => 'The mobile provider is still processing this transaction.';
+
+  @override
+  String get mobileReloadPaymentReference => 'Transaction Reference';
+
+  @override
+  String get mobileReloadPaymentAlreadyReceivedWarning => 'Your DuitNow payment has already been received. Please do not make another payment for the same transaction.';
+
+  @override
+  String get mobileReloadInternetReceiptTitle => 'Internet Plan Receipt';
+
+  @override
+  String get mobileReloadPrepaidReceiptTitle => 'Mobile Reload Receipt';
+
+  @override
+  String get mobileReloadReceiptTransactionDetails => 'Transaction Details';
+
+  @override
+  String get mobileReloadReceiptPlanDetails => 'Plan Details';
+
+  @override
+  String get mobileReloadReceiptPaymentDate => 'Payment Date';
+
+  @override
+  String get mobileReloadReceiptBankTransaction => 'Bank Transaction';
+
+  @override
+  String get mobileReloadReceiptTotalPaid => 'Total Paid';
+
+  @override
+  String get mobileReloadReceiptSerialNumber => 'Serial Number';
+
+  @override
+  String get mobileReloadReceiptPin => 'PIN';
+
+  @override
+  String get mobileReloadReceiptExpiry => 'Expiry';
+
+  @override
+  String get mobileReloadReceiptVoucherLink => 'Voucher Link';
 }

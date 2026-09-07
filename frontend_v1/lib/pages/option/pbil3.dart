@@ -14,6 +14,8 @@ import 'package:frontend_v1/pages/bil/loan/ploan3.dart';
 
 import 'p2.dart';
 
+import 'package:frontend_v1/pages/bil/gaming/pgaming3.dart';
+
 class PBIL3PAGE extends StatefulWidget {
   const PBIL3PAGE({super.key});
 
@@ -445,8 +447,29 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
 
                       const SizedBox(width: 34),
 
-                      const Expanded(
-                        child: SizedBox(),
+                      // ============================================================
+                      // GAMING PLATFORMS
+                      // ============================================================
+                      Expanded(
+                        child: _ModernServiceCard(
+                          height: 455,
+                          icon: Icons.sports_esports_rounded,
+                          label: loc.gamingPlatformButton,
+                          supportingText: loc.gamingPlatformSupportingText,
+                          accentColor: const Color(0xFF7C4DFF),
+                          accentLightColor: const Color(0xFFEDE7FF),
+
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PGAMING3PAGE(),
+                              ),
+                            );
+                          },
+
+                          comingSoon: false,
+                        ),
                       ),
                     ],
                   ),

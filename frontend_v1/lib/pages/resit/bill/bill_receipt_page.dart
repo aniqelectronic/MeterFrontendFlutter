@@ -890,11 +890,11 @@ EWalletReceiptExtraData?
       title:
           loc.mobilePinReceiptTitle,
 
-      subtitle:
-          _safeValue(
-        _mobilePin?.providerName ??
-            '',
-      ),
+      // subtitle:
+      //     _safeValue(
+      //   _mobilePin?.providerName ??
+      //       '',
+      // ),
     );
   }
 
@@ -1651,18 +1651,18 @@ EWalletReceiptExtraData?
               // PRODUCT CODE
               // ==============================================================
 
-              _ReceiptInfoRow(
-                icon:
-                    Icons.code_rounded,
+              // _ReceiptInfoRow(
+              //   icon:
+              //       Icons.code_rounded,
 
-                label:
-                    loc.mobilePinReceiptProductCode,
+              //   label:
+              //       loc.mobilePinReceiptProductCode,
 
-                value:
-                    _safeValue(
-                  mobilePin.productCode,
-                ),
-              ),
+              //   value:
+              //       _safeValue(
+              //     mobilePin.productCode,
+              //   ),
+              // ),
 
               // ==============================================================
               // PIN VALUE
@@ -2034,28 +2034,28 @@ Widget _buildEWalletPinReceiptCard(
   // SERIAL NUMBER
   // ========================================================================
 
-  // if (_safeValue(
-  //       eWallet.serialNumber,
-  //     ) !=
-  //     '-') {
-  //   pinRows.add(
-  //     _ReceiptInfoRow(
-  //       icon:
-  //           Icons.confirmation_number_rounded,
+  if (_safeValue(
+        eWallet.serialNumber,
+      ) !=
+      '-') {
+    pinRows.add(
+      _ReceiptInfoRow(
+        icon:
+            Icons.confirmation_number_rounded,
 
-  //       label:
-  //           loc.eWalletPinReceiptSerialNumber,
+        label:
+            loc.eWalletPinReceiptSerialNumber,
 
-  //       value:
-  //           _safeValue(
-  //         eWallet.serialNumber,
-  //       ),
+        value:
+            _safeValue(
+          eWallet.serialNumber,
+        ),
 
-  //       compactValue:
-  //           true,
-  //     ),
-  //   );
-  // }
+        compactValue:
+            true,
+      ),
+    );
+  }
 
   // ========================================================================
   // PIN
@@ -2805,28 +2805,28 @@ Widget _buildEWalletPinReceiptCard(
     // SERIAL NUMBER
     // ========================================================================
 
-    // if (_safeValue(
-    //       item.serialNumber,
-    //     ) !=
-    //     '-') {
-    //   rows.add(
-    //     _ReceiptInfoRow(
-    //       icon:
-    //           Icons.confirmation_number_rounded,
+    if (_safeValue(
+          item.serialNumber,
+        ) !=
+        '-') {
+      rows.add(
+        _ReceiptInfoRow(
+          icon:
+              Icons.confirmation_number_rounded,
 
-    //       label:
-    //           loc.mobilePinReceiptSerialNumber,
+          label:
+              loc.mobilePinReceiptSerialNumber,
 
-    //       value:
-    //           _safeValue(
-    //         item.serialNumber,
-    //       ),
+          value:
+              _safeValue(
+            item.serialNumber,
+          ),
 
-    //       compactValue:
-    //           true,
-    //     ),
-    //   );
-    // }
+          compactValue:
+              true,
+        ),
+      );
+    }
 
     // ========================================================================
     // PIN CODE

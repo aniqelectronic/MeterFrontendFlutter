@@ -11318,6 +11318,1422 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'PTPTN Account Selection'**
   String get loanAccountSelectionTitle;
+
+  /// No description provided for @loanPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PTPTN Payment'**
+  String get loanPaymentTitle;
+
+  /// No description provided for @loanPaymentSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the amount you want to pay'**
+  String get loanPaymentSubtitle;
+
+  /// No description provided for @loanAccountInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Information'**
+  String get loanAccountInformation;
+
+  /// No description provided for @loanAccountCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get loanAccountCategory;
+
+  /// No description provided for @loanSelectPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Payment Amount'**
+  String get loanSelectPaymentAmount;
+
+  /// No description provided for @loanAmountInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the amount box to enter your payment amount, or use the − and + buttons.'**
+  String get loanAmountInstruction;
+
+  /// No description provided for @loanEnterPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Payment Amount'**
+  String get loanEnterPaymentAmount;
+
+  /// No description provided for @loanUseKeypad.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the keypad below'**
+  String get loanUseKeypad;
+
+  /// No description provided for @loanKeyboardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Amount Keyboard'**
+  String get loanKeyboardTitle;
+
+  /// No description provided for @loanPaymentRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum {minimum} • Maximum {maximum}'**
+  String loanPaymentRange(String minimum, String maximum);
+
+  /// No description provided for @loanMinimumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'The minimum payment amount is {amount}.'**
+  String loanMinimumPayment(String amount);
+
+  /// No description provided for @loanMaximumPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'The maximum payment amount is {amount}.'**
+  String loanMaximumPayment(String amount);
+
+  /// No description provided for @loanImportantNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Important Note'**
+  String get loanImportantNote;
+
+  /// No description provided for @loanOrderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get loanOrderSummary;
+
+  /// No description provided for @loanPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Amount'**
+  String get loanPaymentAmount;
+
+  /// No description provided for @loanServiceFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fee'**
+  String get loanServiceFee;
+
+  /// No description provided for @loanServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get loanServiceAdjustment;
+
+  /// No description provided for @loanTotalPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Payment'**
+  String get loanTotalPayment;
+
+  /// No description provided for @loanProcessingTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing Time'**
+  String get loanProcessingTime;
+
+  /// No description provided for @loanProcessingWithinHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {hours} hours'**
+  String loanProcessingWithinHours(String hours);
+
+  /// No description provided for @loanProcessingWithinDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Within {days} days'**
+  String loanProcessingWithinDays(String days);
+
+  /// No description provided for @loanClear.
+  ///
+  /// In en, this message translates to:
+  /// **'CLEAR'**
+  String get loanClear;
+
+  /// No description provided for @loanDone.
+  ///
+  /// In en, this message translates to:
+  /// **'DONE'**
+  String get loanDone;
+
+  /// No description provided for @loanCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'CANCEL'**
+  String get loanCancel;
+
+  /// No description provided for @loanInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get loanInformation;
+
+  /// No description provided for @loanPaymentLoadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Payment Information'**
+  String get loanPaymentLoadingTitle;
+
+  /// No description provided for @loanPaymentLoadingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we retrieve the latest PTPTN payment information.'**
+  String get loanPaymentLoadingMessage;
+
+  /// No description provided for @loanPaymentLoadErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to Load Payment Information'**
+  String get loanPaymentLoadErrorTitle;
+
+  /// No description provided for @loanPaymentLoadErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The latest PTPTN payment information could not be retrieved. Please try again.'**
+  String get loanPaymentLoadErrorMessage;
+
+  /// No description provided for @loanPtptnSurchargeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'A {surcharge} surcharge will be imposed on your payment.'**
+  String loanPtptnSurchargeNote(String surcharge);
+
+  /// No description provided for @loanReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PTPTN Payment Receipt'**
+  String get loanReceiptTitle;
+
+  /// No description provided for @loanReceiptThankYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you. Your PTPTN or SSPN payment has been received.'**
+  String get loanReceiptThankYou;
+
+  /// No description provided for @loanReceiptSuccessfulTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Successful'**
+  String get loanReceiptSuccessfulTitle;
+
+  /// No description provided for @loanReceiptSuccessfulMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment has been successfully submitted to the provider.'**
+  String get loanReceiptSuccessfulMessage;
+
+  /// No description provided for @loanReceiptProcessingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Processing'**
+  String get loanReceiptProcessingTitle;
+
+  /// No description provided for @loanReceiptProcessingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment has been accepted and is still being processed by the provider.'**
+  String get loanReceiptProcessingMessage;
+
+  /// No description provided for @loanReceiptAccountDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Details'**
+  String get loanReceiptAccountDetails;
+
+  /// No description provided for @loanReceiptProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider'**
+  String get loanReceiptProvider;
+
+  /// No description provided for @loanReceiptNric.
+  ///
+  /// In en, this message translates to:
+  /// **'NRIC Number'**
+  String get loanReceiptNric;
+
+  /// No description provided for @loanReceiptAccountType.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Type'**
+  String get loanReceiptAccountType;
+
+  /// No description provided for @loanReceiptAccountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Number'**
+  String get loanReceiptAccountNumber;
+
+  /// No description provided for @loanReceiptCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Category'**
+  String get loanReceiptCategory;
+
+  /// No description provided for @loanReceiptSubproductCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Code'**
+  String get loanReceiptSubproductCode;
+
+  /// No description provided for @loanReceiptTransactionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Details'**
+  String get loanReceiptTransactionDetails;
+
+  /// No description provided for @loanReceiptPaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Amount'**
+  String get loanReceiptPaymentAmount;
+
+  /// No description provided for @loanReceiptServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get loanReceiptServiceAdjustment;
+
+  /// No description provided for @loanReceiptPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get loanReceiptPaymentMethod;
+
+  /// No description provided for @loanReceiptPaymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date & Time'**
+  String get loanReceiptPaymentDate;
+
+  /// No description provided for @loanReceiptOrderNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Number'**
+  String get loanReceiptOrderNumber;
+
+  /// No description provided for @loanReceiptBankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction'**
+  String get loanReceiptBankTransaction;
+
+  /// No description provided for @loanReceiptReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Reference'**
+  String get loanReceiptReference;
+
+  /// No description provided for @loanReceiptProviderStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider Status'**
+  String get loanReceiptProviderStatus;
+
+  /// No description provided for @loanReceiptTotalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Paid'**
+  String get loanReceiptTotalPaid;
+
+  /// No description provided for @gamingPlatformButton.
+  ///
+  /// In en, this message translates to:
+  /// **'GAMING PLATFORMS'**
+  String get gamingPlatformButton;
+
+  /// No description provided for @gamingPlatformSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload credit for gaming platforms'**
+  String get gamingPlatformSupportingText;
+
+  /// No description provided for @gamingPurchaseSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Gaming voucher purchase'**
+  String get gamingPurchaseSubtitle;
+
+  /// No description provided for @gamingPlatformCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Gaming Platforms'**
+  String get gamingPlatformCategory;
+
+  /// No description provided for @gamingHowToRedeem.
+  ///
+  /// In en, this message translates to:
+  /// **'HOW TO REDEEM'**
+  String get gamingHowToRedeem;
+
+  /// No description provided for @gamingRedeemAfterPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Use these steps after your code, PIN or redemption link is issued.'**
+  String get gamingRedeemAfterPurchase;
+
+  /// No description provided for @gamingKeepCodeSafe.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your PIN, serial number or redemption link private. Each code can normally be used only once.'**
+  String get gamingKeepCodeSafe;
+
+  /// No description provided for @gamingSelectAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'SELECT AMOUNT / PACKAGE'**
+  String get gamingSelectAmount;
+
+  /// No description provided for @gamingSelectAmountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the gaming credit or package you want to purchase.'**
+  String get gamingSelectAmountHint;
+
+  /// No description provided for @gamingNoOptionsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No purchase options are currently available.'**
+  String get gamingNoOptionsAvailable;
+
+  /// No description provided for @gamingQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'QUANTITY'**
+  String get gamingQuantity;
+
+  /// No description provided for @gamingQuantityHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose how many vouchers you want to purchase.'**
+  String get gamingQuantityHint;
+
+  /// No description provided for @gamingMaximumQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum quantity reached.'**
+  String get gamingMaximumQuantity;
+
+  /// No description provided for @gamingOrderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'ORDER SUMMARY'**
+  String get gamingOrderSummary;
+
+  /// No description provided for @gamingProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get gamingProduct;
+
+  /// No description provided for @gamingSelectedOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Option'**
+  String get gamingSelectedOption;
+
+  /// No description provided for @gamingUnitPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit Price'**
+  String get gamingUnitPrice;
+
+  /// No description provided for @gamingSubtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get gamingSubtotal;
+
+  /// No description provided for @gamingServiceFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fee'**
+  String get gamingServiceFee;
+
+  /// No description provided for @gamingServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get gamingServiceAdjustment;
+
+  /// No description provided for @gamingTotalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'TOTAL AMOUNT'**
+  String get gamingTotalAmount;
+
+  /// No description provided for @gamingDeliveryMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery'**
+  String get gamingDeliveryMethod;
+
+  /// No description provided for @gamingDeliveryPin.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN'**
+  String get gamingDeliveryPin;
+
+  /// No description provided for @gamingDeliveryLink.
+  ///
+  /// In en, this message translates to:
+  /// **'REDEMPTION LINK'**
+  String get gamingDeliveryLink;
+
+  /// No description provided for @gamingContinuePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'CONTINUE'**
+  String get gamingContinuePayment;
+
+  /// No description provided for @gamingProductUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This gaming product is currently unavailable.'**
+  String get gamingProductUnavailable;
+
+  /// No description provided for @gamingSelectOptionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an amount or package.'**
+  String get gamingSelectOptionRequired;
+
+  /// No description provided for @gamingUnableToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load gaming purchase options.'**
+  String get gamingUnableToLoad;
+
+  /// No description provided for @gamingTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'TRY AGAIN'**
+  String get gamingTryAgain;
+
+  /// No description provided for @gamingPaymentNextMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Selection confirmed. Connect this button to your payment page next.'**
+  String get gamingPaymentNextMessage;
+
+  /// No description provided for @gamingRedeemCcStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Cherry Credits and sign in to your Cherry account.'**
+  String get gamingRedeemCcStep1;
+
+  /// No description provided for @gamingRedeemCcStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the Top Up page and choose Cherry Credits Prepaid Card / ePIN.'**
+  String get gamingRedeemCcStep2;
+
+  /// No description provided for @gamingRedeemCcStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Serial Number and Security Code provided on your receipt.'**
+  String get gamingRedeemCcStep3;
+
+  /// No description provided for @gamingRedeemCcStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm the redemption. The credits will be added to your Cherry Credits balance.'**
+  String get gamingRedeemCcStep4;
+
+  /// No description provided for @gamingRedeemGarenaStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the official Garena Top Up Center and sign in to your Garena account.'**
+  String get gamingRedeemGarenaStep1;
+
+  /// No description provided for @gamingRedeemGarenaStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Shell Top Up, then choose Redeem.'**
+  String get gamingRedeemGarenaStep2;
+
+  /// No description provided for @gamingRedeemGarenaStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the prepaid-card / voucher option and enter the code provided on your receipt.'**
+  String get gamingRedeemGarenaStep3;
+
+  /// No description provided for @gamingRedeemGarenaStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm the redemption and check that the Garena Shells have been added to your account.'**
+  String get gamingRedeemGarenaStep4;
+
+  /// No description provided for @gamingRedeemRazerStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Razer Gold and sign in to your Razer account.'**
+  String get gamingRedeemRazerStep1;
+
+  /// No description provided for @gamingRedeemRazerStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Reload or the Razer Gold PIN option.'**
+  String get gamingRedeemRazerStep2;
+
+  /// No description provided for @gamingRedeemRazerStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Razer Gold PIN, or Serial Number and PIN, provided on your receipt.'**
+  String get gamingRedeemRazerStep3;
+
+  /// No description provided for @gamingRedeemRazerStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow the on-screen instructions until the reload or direct top-up is confirmed.'**
+  String get gamingRedeemRazerStep4;
+
+  /// No description provided for @gamingRedeemOffgamersStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to your OffGamers account.'**
+  String get gamingRedeemOffgamersStep1;
+
+  /// No description provided for @gamingRedeemOffgamersStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Store Credit and choose the Gift Card redemption option.'**
+  String get gamingRedeemOffgamersStep2;
+
+  /// No description provided for @gamingRedeemOffgamersStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Serial Number and PIN Code provided on your receipt.'**
+  String get gamingRedeemOffgamersStep3;
+
+  /// No description provided for @gamingRedeemOffgamersStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm the redemption and check your updated OffGamers Store Credit balance.'**
+  String get gamingRedeemOffgamersStep4;
+
+  /// No description provided for @gamingRedeemSteamStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to the Steam account that will receive the wallet credit.'**
+  String get gamingRedeemSteamStep1;
+
+  /// No description provided for @gamingRedeemSteamStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Account Details and choose Redeem a Steam Gift Card or Wallet Code.'**
+  String get gamingRedeemSteamStep2;
+
+  /// No description provided for @gamingRedeemSteamStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Steam Wallet Code provided on your receipt.'**
+  String get gamingRedeemSteamStep3;
+
+  /// No description provided for @gamingRedeemSteamStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Continue and confirm that the value has been added to your Steam Wallet.'**
+  String get gamingRedeemSteamStep4;
+
+  /// No description provided for @gamingRedeemUnipinStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to your UniPin account.'**
+  String get gamingRedeemUnipinStep1;
+
+  /// No description provided for @gamingRedeemUnipinStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the voucher or UniPin Credits redemption option.'**
+  String get gamingRedeemUnipinStep2;
+
+  /// No description provided for @gamingRedeemUnipinStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Serial Number and PIN provided on your receipt.'**
+  String get gamingRedeemUnipinStep3;
+
+  /// No description provided for @gamingRedeemUnipinStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm the redemption and check that your UniPin Credits have been updated.'**
+  String get gamingRedeemUnipinStep4;
+
+  /// No description provided for @gamingRedeemGenericStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the official platform website or app and sign in.'**
+  String get gamingRedeemGenericStep1;
+
+  /// No description provided for @gamingRedeemGenericStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'Open its Redeem, Voucher or Wallet section and enter the code from your receipt.'**
+  String get gamingRedeemGenericStep2;
+
+  /// No description provided for @gamingRedeemGenericStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm the redemption and check your updated balance.'**
+  String get gamingRedeemGenericStep3;
+
+  /// No description provided for @gamingRedeemButtonHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap here to view the redemption steps.'**
+  String get gamingRedeemButtonHint;
+
+  /// No description provided for @gamingClose.
+  ///
+  /// In en, this message translates to:
+  /// **'CLOSE'**
+  String get gamingClose;
+
+  /// No description provided for @gamingReviewSelection.
+  ///
+  /// In en, this message translates to:
+  /// **'REVIEW'**
+  String get gamingReviewSelection;
+
+  /// No description provided for @gamingConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'CONFIRM PURCHASE'**
+  String get gamingConfirmTitle;
+
+  /// No description provided for @gamingConfirmSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review your gaming purchase before payment'**
+  String get gamingConfirmSubtitle;
+
+  /// No description provided for @gamingPleaseCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PLEASE CHECK YOUR SELECTION'**
+  String get gamingPleaseCheckTitle;
+
+  /// No description provided for @gamingPleaseCheckMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Make sure the platform, amount or package and total payment are correct before continuing.'**
+  String get gamingPleaseCheckMessage;
+
+  /// No description provided for @gamingYouSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'YOU SELECTED'**
+  String get gamingYouSelected;
+
+  /// No description provided for @gamingChangeSelection.
+  ///
+  /// In en, this message translates to:
+  /// **'CHANGE'**
+  String get gamingChangeSelection;
+
+  /// No description provided for @gamingPayNow.
+  ///
+  /// In en, this message translates to:
+  /// **'PAY NOW'**
+  String get gamingPayNow;
+
+  /// No description provided for @gamingReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'GAMING RECEIPT'**
+  String get gamingReceiptTitle;
+
+  /// No description provided for @gamingReceiptPlatform.
+  ///
+  /// In en, this message translates to:
+  /// **'Gaming Platform'**
+  String get gamingReceiptPlatform;
+
+  /// No description provided for @gamingReceiptPurchaseDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Details'**
+  String get gamingReceiptPurchaseDetails;
+
+  /// No description provided for @gamingReceiptSelectedPackage.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Package'**
+  String get gamingReceiptSelectedPackage;
+
+  /// No description provided for @gamingReceiptDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get gamingReceiptDescription;
+
+  /// No description provided for @gamingReceiptBaseAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Value'**
+  String get gamingReceiptBaseAmount;
+
+  /// No description provided for @gamingReceiptServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get gamingReceiptServiceAdjustment;
+
+  /// No description provided for @gamingReceiptPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get gamingReceiptPaymentMethod;
+
+  /// No description provided for @gamingReceiptPaymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get gamingReceiptPaymentDate;
+
+  /// No description provided for @gamingReceiptBankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction'**
+  String get gamingReceiptBankTransaction;
+
+  /// No description provided for @gamingReceiptRedemptionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Redemption Details'**
+  String get gamingReceiptRedemptionDetails;
+
+  /// No description provided for @gamingReceiptSerialNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number'**
+  String get gamingReceiptSerialNumber;
+
+  /// No description provided for @gamingReceiptPinCode.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN / Code'**
+  String get gamingReceiptPinCode;
+
+  /// No description provided for @gamingReceiptExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get gamingReceiptExpiry;
+
+  /// No description provided for @gamingReceiptVoucherLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Redemption Link'**
+  String get gamingReceiptVoucherLink;
+
+  /// No description provided for @gamingReceiptProviderNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider Note'**
+  String get gamingReceiptProviderNote;
+
+  /// No description provided for @gamingReceiptKeepCodeSafe.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your PIN, serial number or redemption link private. Save this information before leaving the kiosk.'**
+  String get gamingReceiptKeepCodeSafe;
+
+  /// No description provided for @gamingReceiptTotalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'TOTAL PAID'**
+  String get gamingReceiptTotalPaid;
+
+  /// No description provided for @gamingPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'GAMING PAYMENT'**
+  String get gamingPaymentTitle;
+
+  /// No description provided for @gamingPaymentTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'TOTAL PAYMENT'**
+  String get gamingPaymentTotal;
+
+  /// No description provided for @gamingPreparingQrPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'PREPARING GAMING QR'**
+  String get gamingPreparingQrPayment;
+
+  /// No description provided for @gamingProcessingPurchaseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PROCESSING PURCHASE'**
+  String get gamingProcessingPurchaseTitle;
+
+  /// No description provided for @gamingProcessingPurchaseMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment was received. Please wait while the gaming code or redemption link is prepared.'**
+  String get gamingProcessingPurchaseMessage;
+
+  /// No description provided for @gamingProcessingPurchaseLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Please do not touch the screen while your gaming purchase is being completed.'**
+  String get gamingProcessingPurchaseLocked;
+
+  /// No description provided for @gamingPaymentInvalidProductTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'INVALID GAMING PRODUCT'**
+  String get gamingPaymentInvalidProductTitle;
+
+  /// No description provided for @gamingPaymentInvalidProductMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The gaming product code is missing.'**
+  String get gamingPaymentInvalidProductMessage;
+
+  /// No description provided for @gamingPaymentProviderRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'The gaming provider rejected the transaction.'**
+  String get gamingPaymentProviderRejected;
+
+  /// No description provided for @gamingPaymentProviderRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'The gaming provider transaction was refunded.'**
+  String get gamingPaymentProviderRefunded;
+
+  /// No description provided for @gamingPaymentUnexpectedStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Unexpected gaming provider status'**
+  String get gamingPaymentUnexpectedStatus;
+
+  /// No description provided for @gamingPaymentProviderErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'GAMING PROCESSING ERROR'**
+  String get gamingPaymentProviderErrorTitle;
+
+  /// No description provided for @gamingPaymentReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Reference'**
+  String get gamingPaymentReference;
+
+  /// No description provided for @gamingPaymentAlreadyReceivedWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'The DuitNow payment has already been received. Do not make another payment for the same transaction.'**
+  String get gamingPaymentAlreadyReceivedWarning;
+
+  /// No description provided for @telcoMobileReloadTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Reload'**
+  String get telcoMobileReloadTitle;
+
+  /// No description provided for @telcoMobileReloadDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload prepaid credit or buy mobile internet'**
+  String get telcoMobileReloadDescription;
+
+  /// No description provided for @mobileReloadServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Reload'**
+  String get mobileReloadServiceLabel;
+
+  /// No description provided for @mobileReloadProviderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Mobile Provider'**
+  String get mobileReloadProviderTitle;
+
+  /// No description provided for @mobileReloadProviderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your mobile provider to continue'**
+  String get mobileReloadProviderSubtitle;
+
+  /// No description provided for @mobileReloadLoadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Mobile Reload'**
+  String get mobileReloadLoadingTitle;
+
+  /// No description provided for @mobileReloadLoadingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while available mobile services are loaded.'**
+  String get mobileReloadLoadingMessage;
+
+  /// No description provided for @mobileReloadErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to Load Services'**
+  String get mobileReloadErrorTitle;
+
+  /// No description provided for @mobileReloadErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Reload services are currently unavailable. Please try again.'**
+  String get mobileReloadErrorMessage;
+
+  /// No description provided for @mobileReloadRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get mobileReloadRetry;
+
+  /// No description provided for @mobileReloadPhoneStepLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Number'**
+  String get mobileReloadPhoneStepLabel;
+
+  /// No description provided for @mobileReloadEnterPhoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Mobile Number'**
+  String get mobileReloadEnterPhoneTitle;
+
+  /// No description provided for @mobileReloadEnterPhoneSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the mobile number you want to reload'**
+  String get mobileReloadEnterPhoneSubtitle;
+
+  /// No description provided for @mobileReloadSelectedProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Provider'**
+  String get mobileReloadSelectedProvider;
+
+  /// No description provided for @mobileReloadPhoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Mobile Number'**
+  String get mobileReloadPhoneHint;
+
+  /// No description provided for @mobileReloadConfirmNumberTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Mobile Number'**
+  String get mobileReloadConfirmNumberTitle;
+
+  /// No description provided for @mobileReloadConfirmNumberQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Is this mobile number correct?'**
+  String get mobileReloadConfirmNumberQuestion;
+
+  /// No description provided for @mobileReloadConfirmBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get mobileReloadConfirmBack;
+
+  /// No description provided for @mobileReloadConfirmContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get mobileReloadConfirmContinue;
+
+  /// No description provided for @mobileReloadPhoneRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Number Required'**
+  String get mobileReloadPhoneRequiredTitle;
+
+  /// No description provided for @mobileReloadPhoneRequiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a mobile number.'**
+  String get mobileReloadPhoneRequiredMessage;
+
+  /// No description provided for @mobileReloadInvalidPhoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Mobile Number'**
+  String get mobileReloadInvalidPhoneTitle;
+
+  /// No description provided for @mobileReloadInvalidPhoneMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid Malaysian mobile number.'**
+  String get mobileReloadInvalidPhoneMessage;
+
+  /// No description provided for @mobileReloadUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Unavailable'**
+  String get mobileReloadUnavailableTitle;
+
+  /// No description provided for @mobileReloadUnavailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This mobile reload service is currently unavailable.'**
+  String get mobileReloadUnavailableMessage;
+
+  /// No description provided for @mobileReloadOkButton.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get mobileReloadOkButton;
+
+  /// No description provided for @mobileReloadInternetPlanSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an internet plan for this mobile number'**
+  String get mobileReloadInternetPlanSubtitle;
+
+  /// No description provided for @mobileReloadPrepaidSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the reload amount for this mobile number'**
+  String get mobileReloadPrepaidSubtitle;
+
+  /// No description provided for @mobileReloadPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Number'**
+  String get mobileReloadPhoneNumber;
+
+  /// No description provided for @mobileReloadSelectInternetPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Internet Plan'**
+  String get mobileReloadSelectInternetPlan;
+
+  /// No description provided for @mobileReloadSelectInternetPlanHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an available internet plan'**
+  String get mobileReloadSelectInternetPlanHint;
+
+  /// No description provided for @mobileReloadSelectReloadAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Reload Amount'**
+  String get mobileReloadSelectReloadAmount;
+
+  /// No description provided for @mobileReloadSelectReloadAmountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the amount you want to reload'**
+  String get mobileReloadSelectReloadAmountHint;
+
+  /// No description provided for @mobileReloadEnterReloadAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Reload Amount'**
+  String get mobileReloadEnterReloadAmount;
+
+  /// No description provided for @mobileReloadEnterReloadAmountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an amount within the provider limit'**
+  String get mobileReloadEnterReloadAmountHint;
+
+  /// No description provided for @mobileReloadMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum'**
+  String get mobileReloadMinimum;
+
+  /// No description provided for @mobileReloadMaximum.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum'**
+  String get mobileReloadMaximum;
+
+  /// No description provided for @mobileReloadProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider'**
+  String get mobileReloadProvider;
+
+  /// No description provided for @mobileReloadSelectedPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Plan'**
+  String get mobileReloadSelectedPlan;
+
+  /// No description provided for @mobileReloadReloadAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload Amount'**
+  String get mobileReloadReloadAmount;
+
+  /// No description provided for @mobileReloadServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get mobileReloadServiceAdjustment;
+
+  /// No description provided for @mobileReloadTotalPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Payment'**
+  String get mobileReloadTotalPayment;
+
+  /// No description provided for @mobileReloadNoOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'No options are available for this mobile number.'**
+  String get mobileReloadNoOptions;
+
+  /// No description provided for @mobileReloadSelectOptionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an option to continue.'**
+  String get mobileReloadSelectOptionRequired;
+
+  /// No description provided for @mobileReloadInvalidAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid reload amount.'**
+  String get mobileReloadInvalidAmount;
+
+  /// No description provided for @mobileReloadMinimumAmountMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The minimum reload amount is {amount}.'**
+  String mobileReloadMinimumAmountMessage(String amount);
+
+  /// No description provided for @mobileReloadMaximumAmountMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The maximum reload amount is {amount}.'**
+  String mobileReloadMaximumAmountMessage(String amount);
+
+  /// No description provided for @mobileReloadConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Purchase'**
+  String get mobileReloadConfirmTitle;
+
+  /// No description provided for @mobileReloadConfirmSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review your Mobile Reload details before payment'**
+  String get mobileReloadConfirmSubtitle;
+
+  /// No description provided for @mobileReloadPleaseCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Check'**
+  String get mobileReloadPleaseCheckTitle;
+
+  /// No description provided for @mobileReloadPleaseCheckMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please make sure the mobile number and selected service are correct before payment.'**
+  String get mobileReloadPleaseCheckMessage;
+
+  /// No description provided for @mobileReloadYouSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'You Selected'**
+  String get mobileReloadYouSelected;
+
+  /// No description provided for @mobileReloadOrderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get mobileReloadOrderSummary;
+
+  /// No description provided for @mobileReloadSubtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get mobileReloadSubtotal;
+
+  /// No description provided for @mobileReloadServiceFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fee'**
+  String get mobileReloadServiceFee;
+
+  /// No description provided for @mobileReloadChangeSelection.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get mobileReloadChangeSelection;
+
+  /// No description provided for @mobileReloadPayNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay Now'**
+  String get mobileReloadPayNow;
+
+  /// No description provided for @mobileReloadPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Reload Payment'**
+  String get mobileReloadPaymentTitle;
+
+  /// No description provided for @mobileReloadPaymentDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Reload Details'**
+  String get mobileReloadPaymentDetails;
+
+  /// No description provided for @mobileReloadPreparingQrPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing QR Payment'**
+  String get mobileReloadPreparingQrPayment;
+
+  /// No description provided for @mobileReloadProcessingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing Mobile Reload'**
+  String get mobileReloadProcessingTitle;
+
+  /// No description provided for @mobileReloadProcessingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment was successful. Please wait while we process your mobile reload.'**
+  String get mobileReloadProcessingMessage;
+
+  /// No description provided for @mobileReloadProcessingLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Please do not go back or make another payment.'**
+  String get mobileReloadProcessingLocked;
+
+  /// No description provided for @mobileReloadPaymentInvalidProductTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Product'**
+  String get mobileReloadPaymentInvalidProductTitle;
+
+  /// No description provided for @mobileReloadPaymentInvalidProductMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected mobile reload product is invalid.'**
+  String get mobileReloadPaymentInvalidProductMessage;
+
+  /// No description provided for @mobileReloadPaymentInvalidPlanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Internet Plan'**
+  String get mobileReloadPaymentInvalidPlanTitle;
+
+  /// No description provided for @mobileReloadPaymentInvalidPlanMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected internet plan is missing. Please return and select the plan again.'**
+  String get mobileReloadPaymentInvalidPlanMessage;
+
+  /// No description provided for @mobileReloadPaymentProviderRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'The mobile provider rejected the transaction.'**
+  String get mobileReloadPaymentProviderRejected;
+
+  /// No description provided for @mobileReloadPaymentProviderRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'The mobile provider transaction was refunded.'**
+  String get mobileReloadPaymentProviderRefunded;
+
+  /// No description provided for @mobileReloadPaymentProviderErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Reload Error'**
+  String get mobileReloadPaymentProviderErrorTitle;
+
+  /// No description provided for @mobileReloadPaymentStillProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'The mobile provider is still processing this transaction.'**
+  String get mobileReloadPaymentStillProcessing;
+
+  /// No description provided for @mobileReloadPaymentReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Reference'**
+  String get mobileReloadPaymentReference;
+
+  /// No description provided for @mobileReloadPaymentAlreadyReceivedWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Your DuitNow payment has already been received. Please do not make another payment for the same transaction.'**
+  String get mobileReloadPaymentAlreadyReceivedWarning;
+
+  /// No description provided for @mobileReloadInternetReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Internet Plan Receipt'**
+  String get mobileReloadInternetReceiptTitle;
+
+  /// No description provided for @mobileReloadPrepaidReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Reload Receipt'**
+  String get mobileReloadPrepaidReceiptTitle;
+
+  /// No description provided for @mobileReloadReceiptTransactionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Details'**
+  String get mobileReloadReceiptTransactionDetails;
+
+  /// No description provided for @mobileReloadReceiptPlanDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan Details'**
+  String get mobileReloadReceiptPlanDetails;
+
+  /// No description provided for @mobileReloadReceiptPaymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get mobileReloadReceiptPaymentDate;
+
+  /// No description provided for @mobileReloadReceiptBankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction'**
+  String get mobileReloadReceiptBankTransaction;
+
+  /// No description provided for @mobileReloadReceiptTotalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Paid'**
+  String get mobileReloadReceiptTotalPaid;
+
+  /// No description provided for @mobileReloadReceiptSerialNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number'**
+  String get mobileReloadReceiptSerialNumber;
+
+  /// No description provided for @mobileReloadReceiptPin.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN'**
+  String get mobileReloadReceiptPin;
+
+  /// No description provided for @mobileReloadReceiptExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get mobileReloadReceiptExpiry;
+
+  /// No description provided for @mobileReloadReceiptVoucherLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Link'**
+  String get mobileReloadReceiptVoucherLink;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

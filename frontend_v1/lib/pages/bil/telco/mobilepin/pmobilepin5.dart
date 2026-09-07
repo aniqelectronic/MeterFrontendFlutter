@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
 
-import 'package:frontend_v1/pages/payment/bil_qr_payment_page.dart';
-import 'package:frontend_v1/pages/resit/bill_receipt_page.dart';
+import 'package:frontend_v1/pages/payment/bill/bil_qr_payment_page.dart';
+import 'package:frontend_v1/pages/resit/bill/bill_receipt_page.dart';
 
 // ============================================================================
 // MOBILE PIN PAGE 5 - RECIPIENT MOBILE NUMBER

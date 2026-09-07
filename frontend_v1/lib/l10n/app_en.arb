@@ -3177,7 +3177,374 @@
 
 "loanAvailableAccountTitle": "AVAILABLE ACCOUNTS",
 
-"loanAccountSelectionTitle": "PTPTN Account Selection"
+"loanAccountSelectionTitle": "PTPTN Account Selection",
+
+"loanPaymentTitle": "PTPTN Payment",
+"loanPaymentSubtitle": "Enter the amount you want to pay",
+
+"loanAccountInformation": "Account Information",
+"loanAccountCategory": "Account",
+
+"loanSelectPaymentAmount": "Select Payment Amount",
+"loanAmountInstruction": "Tap the amount box to enter your payment amount, or use the − and + buttons.",
+
+"loanEnterPaymentAmount": "Enter Payment Amount",
+"loanUseKeypad": "Use the keypad below",
+"loanKeyboardTitle": "Payment Amount Keyboard",
+
+"loanPaymentRange": "Minimum {minimum} • Maximum {maximum}",
+"@loanPaymentRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"loanMinimumPayment": "The minimum payment amount is {amount}.",
+"@loanMinimumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"loanMaximumPayment": "The maximum payment amount is {amount}.",
+"@loanMaximumPayment": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"loanImportantNote": "Important Note",
+
+"loanOrderSummary": "Order Summary",
+"loanPaymentAmount": "Payment Amount",
+"loanServiceFee": "Service Fee",
+"loanServiceAdjustment": "Service Adjustment",
+"loanTotalPayment": "Total Payment",
+
+"loanProcessingTime": "Processing Time",
+
+"loanProcessingWithinHours": "Within {hours} hours",
+"@loanProcessingWithinHours": {
+  "placeholders": {
+    "hours": {
+      "type": "String"
+    }
+  }
+},
+
+"loanProcessingWithinDays": "Within {days} days",
+"@loanProcessingWithinDays": {
+  "placeholders": {
+    "days": {
+      "type": "String"
+    }
+  }
+},
+
+"loanClear": "CLEAR",
+"loanDone": "DONE",
+"loanCancel": "CANCEL",
+
+"loanInformation": "Information",
+
+"loanPaymentLoadingTitle": "Loading Payment Information",
+"loanPaymentLoadingMessage": "Please wait while we retrieve the latest PTPTN payment information.",
+
+"loanPaymentLoadErrorTitle": "Unable to Load Payment Information",
+"loanPaymentLoadErrorMessage": "The latest PTPTN payment information could not be retrieved. Please try again.",
+
+"loanPtptnSurchargeNote": "A {surcharge} surcharge will be imposed on your payment.",
+"@loanPtptnSurchargeNote": {
+  "placeholders": {
+    "surcharge": {
+      "type": "String"
+    }
+  }
+},
+
+
+"loanReceiptTitle": "PTPTN Payment Receipt",
+"loanReceiptThankYou": "Thank you. Your PTPTN or SSPN payment has been received.",
+
+"loanReceiptSuccessfulTitle": "Payment Successful",
+"loanReceiptSuccessfulMessage": "Your payment has been successfully submitted to the provider.",
+
+"loanReceiptProcessingTitle": "Payment Processing",
+"loanReceiptProcessingMessage": "Your payment has been accepted and is still being processed by the provider.",
+
+"loanReceiptAccountDetails": "Account Details",
+"loanReceiptProvider": "Provider",
+"loanReceiptNric": "NRIC Number",
+"loanReceiptAccountType": "Account Type",
+"loanReceiptAccountNumber": "Account Number",
+"loanReceiptCategory": "Account Category",
+"loanReceiptSubproductCode": "Account Code",
+
+"loanReceiptTransactionDetails": "Transaction Details",
+"loanReceiptPaymentAmount": "Payment Amount",
+"loanReceiptServiceAdjustment": "Service Adjustment",
+"loanReceiptPaymentMethod": "Payment Method",
+"loanReceiptPaymentDate": "Payment Date & Time",
+"loanReceiptOrderNumber": "Order Number",
+"loanReceiptBankTransaction": "Bank Transaction",
+"loanReceiptReference": "Transaction Reference",
+"loanReceiptProviderStatus": "Provider Status",
+
+"loanReceiptTotalPaid": "Total Paid",
+
+"gamingPlatformButton": "GAMING PLATFORMS",
+"gamingPlatformSupportingText": "Reload credit for gaming platforms",
+
+"gamingPurchaseSubtitle": "Gaming voucher purchase",
+"gamingPlatformCategory": "Gaming Platforms",
+"gamingHowToRedeem": "HOW TO REDEEM",
+"gamingRedeemAfterPurchase": "Use these steps after your code, PIN or redemption link is issued.",
+"gamingKeepCodeSafe": "Keep your PIN, serial number or redemption link private. Each code can normally be used only once.",
+"gamingSelectAmount": "SELECT AMOUNT / PACKAGE",
+"gamingSelectAmountHint": "Choose the gaming credit or package you want to purchase.",
+"gamingNoOptionsAvailable": "No purchase options are currently available.",
+"gamingQuantity": "QUANTITY",
+"gamingQuantityHint": "Choose how many vouchers you want to purchase.",
+"gamingMaximumQuantity": "Maximum quantity reached.",
+"gamingOrderSummary": "ORDER SUMMARY",
+"gamingProduct": "Product",
+"gamingSelectedOption": "Selected Option",
+"gamingUnitPrice": "Unit Price",
+"gamingSubtotal": "Subtotal",
+"gamingServiceFee": "Service Fee",
+"gamingServiceAdjustment": "Service Adjustment",
+"gamingTotalAmount": "TOTAL AMOUNT",
+"gamingDeliveryMethod": "Delivery",
+"gamingDeliveryPin": "PIN",
+"gamingDeliveryLink": "REDEMPTION LINK",
+"gamingContinuePayment": "CONTINUE",
+"gamingProductUnavailable": "This gaming product is currently unavailable.",
+"gamingSelectOptionRequired": "Please select an amount or package.",
+"gamingUnableToLoad": "Unable to load gaming purchase options.",
+"gamingTryAgain": "TRY AGAIN",
+"gamingPaymentNextMessage": "Selection confirmed. Connect this button to your payment page next.",
+
+"gamingRedeemCcStep1": "Go to Cherry Credits and sign in to your Cherry account.",
+"gamingRedeemCcStep2": "Open the Top Up page and choose Cherry Credits Prepaid Card / ePIN.",
+"gamingRedeemCcStep3": "Enter the Serial Number and Security Code provided on your receipt.",
+"gamingRedeemCcStep4": "Confirm the redemption. The credits will be added to your Cherry Credits balance.",
+
+"gamingRedeemGarenaStep1": "Open the official Garena Top Up Center and sign in to your Garena account.",
+"gamingRedeemGarenaStep2": "Choose Shell Top Up, then choose Redeem.",
+"gamingRedeemGarenaStep3": "Select the prepaid-card / voucher option and enter the code provided on your receipt.",
+"gamingRedeemGarenaStep4": "Confirm the redemption and check that the Garena Shells have been added to your account.",
+
+"gamingRedeemRazerStep1": "Open Razer Gold and sign in to your Razer account.",
+"gamingRedeemRazerStep2": "Choose Reload or the Razer Gold PIN option.",
+"gamingRedeemRazerStep3": "Enter the Razer Gold PIN, or Serial Number and PIN, provided on your receipt.",
+"gamingRedeemRazerStep4": "Follow the on-screen instructions until the reload or direct top-up is confirmed.",
+
+"gamingRedeemOffgamersStep1": "Sign in to your OffGamers account.",
+"gamingRedeemOffgamersStep2": "Open Store Credit and choose the Gift Card redemption option.",
+"gamingRedeemOffgamersStep3": "Enter the Serial Number and PIN Code provided on your receipt.",
+"gamingRedeemOffgamersStep4": "Confirm the redemption and check your updated OffGamers Store Credit balance.",
+
+"gamingRedeemSteamStep1": "Sign in to the Steam account that will receive the wallet credit.",
+"gamingRedeemSteamStep2": "Open Account Details and choose Redeem a Steam Gift Card or Wallet Code.",
+"gamingRedeemSteamStep3": "Enter the Steam Wallet Code provided on your receipt.",
+"gamingRedeemSteamStep4": "Choose Continue and confirm that the value has been added to your Steam Wallet.",
+
+"gamingRedeemUnipinStep1": "Sign in to your UniPin account.",
+"gamingRedeemUnipinStep2": "Open the voucher or UniPin Credits redemption option.",
+"gamingRedeemUnipinStep3": "Enter the Serial Number and PIN provided on your receipt.",
+"gamingRedeemUnipinStep4": "Confirm the redemption and check that your UniPin Credits have been updated.",
+
+"gamingRedeemGenericStep1": "Open the official platform website or app and sign in.",
+"gamingRedeemGenericStep2": "Open its Redeem, Voucher or Wallet section and enter the code from your receipt.",
+"gamingRedeemGenericStep3": "Confirm the redemption and check your updated balance.",
+
+"gamingRedeemButtonHint": "Tap here to view the redemption steps.",
+"gamingClose": "CLOSE",
+
+"gamingReviewSelection": "REVIEW",
+"gamingConfirmTitle": "CONFIRM PURCHASE",
+"gamingConfirmSubtitle": "Review your gaming purchase before payment",
+"gamingPleaseCheckTitle": "PLEASE CHECK YOUR SELECTION",
+"gamingPleaseCheckMessage": "Make sure the platform, amount or package and total payment are correct before continuing.",
+"gamingYouSelected": "YOU SELECTED",
+"gamingChangeSelection": "CHANGE",
+"gamingPayNow": "PAY NOW",
+
+"gamingReceiptTitle": "GAMING RECEIPT",
+"gamingReceiptPlatform": "Gaming Platform",
+"gamingReceiptPurchaseDetails": "Purchase Details",
+"gamingReceiptSelectedPackage": "Selected Package",
+"gamingReceiptDescription": "Description",
+"gamingReceiptBaseAmount": "Voucher Value",
+"gamingReceiptServiceAdjustment": "Service Adjustment",
+"gamingReceiptPaymentMethod": "Payment Method",
+"gamingReceiptPaymentDate": "Payment Date",
+"gamingReceiptBankTransaction": "Bank Transaction",
+"gamingReceiptRedemptionDetails": "Redemption Details",
+"gamingReceiptSerialNumber": "Serial Number",
+"gamingReceiptPinCode": "PIN / Code",
+"gamingReceiptExpiry": "Expiry",
+"gamingReceiptVoucherLink": "Redemption Link",
+"gamingReceiptProviderNote": "Provider Note",
+"gamingReceiptKeepCodeSafe": "Keep your PIN, serial number or redemption link private. Save this information before leaving the kiosk.",
+"gamingReceiptTotalPaid": "TOTAL PAID",
+
+"gamingPaymentTitle": "GAMING PAYMENT",
+"gamingPaymentTotal": "TOTAL PAYMENT",
+"gamingPreparingQrPayment": "PREPARING GAMING QR",
+"gamingProcessingPurchaseTitle": "PROCESSING PURCHASE",
+"gamingProcessingPurchaseMessage": "Your payment was received. Please wait while the gaming code or redemption link is prepared.",
+"gamingProcessingPurchaseLocked": "Please do not touch the screen while your gaming purchase is being completed.",
+"gamingPaymentInvalidProductTitle": "INVALID GAMING PRODUCT",
+"gamingPaymentInvalidProductMessage": "The gaming product code is missing.",
+"gamingPaymentProviderRejected": "The gaming provider rejected the transaction.",
+"gamingPaymentProviderRefunded": "The gaming provider transaction was refunded.",
+"gamingPaymentUnexpectedStatus": "Unexpected gaming provider status",
+"gamingPaymentProviderErrorTitle": "GAMING PROCESSING ERROR",
+"gamingPaymentReference": "Payment Reference",
+"gamingPaymentAlreadyReceivedWarning": "The DuitNow payment has already been received. Do not make another payment for the same transaction.",
+
+
+"telcoMobileReloadTitle": "Mobile Reload",
+"telcoMobileReloadDescription": "Reload prepaid credit or buy mobile internet",
+
+"mobileReloadServiceLabel": "Mobile Reload",
+"mobileReloadProviderTitle": "Select Mobile Provider",
+"mobileReloadProviderSubtitle": "Select your mobile provider to continue",
+
+"mobileReloadLoadingTitle": "Loading Mobile Reload",
+"mobileReloadLoadingMessage": "Please wait while available mobile services are loaded.",
+
+"mobileReloadErrorTitle": "Unable to Load Services",
+"mobileReloadErrorMessage": "Mobile Reload services are currently unavailable. Please try again.",
+"mobileReloadRetry": "Retry",
+
+"mobileReloadPhoneStepLabel": "Mobile Number",
+"mobileReloadEnterPhoneTitle": "Enter Mobile Number",
+"mobileReloadEnterPhoneSubtitle": "Enter the mobile number you want to reload",
+"mobileReloadSelectedProvider": "Selected Provider",
+"mobileReloadPhoneHint": "Enter Mobile Number",
+
+"mobileReloadConfirmNumberTitle": "Confirm Mobile Number",
+"mobileReloadConfirmNumberQuestion": "Is this mobile number correct?",
+"mobileReloadConfirmBack": "Edit",
+"mobileReloadConfirmContinue": "Continue",
+
+"mobileReloadPhoneRequiredTitle": "Mobile Number Required",
+"mobileReloadPhoneRequiredMessage": "Please enter a mobile number.",
+"mobileReloadInvalidPhoneTitle": "Invalid Mobile Number",
+"mobileReloadInvalidPhoneMessage": "Please enter a valid Malaysian mobile number.",
+
+"mobileReloadUnavailableTitle": "Service Unavailable",
+"mobileReloadUnavailableMessage": "This mobile reload service is currently unavailable.",
+"mobileReloadOkButton": "OK",
+
+"mobileReloadInternetPlanSubtitle": "Choose an internet plan for this mobile number",
+"mobileReloadPrepaidSubtitle": "Choose the reload amount for this mobile number",
+
+"mobileReloadPhoneNumber": "Mobile Number",
+
+"mobileReloadSelectInternetPlan": "Select Internet Plan",
+"mobileReloadSelectInternetPlanHint": "Choose an available internet plan",
+
+"mobileReloadSelectReloadAmount": "Select Reload Amount",
+"mobileReloadSelectReloadAmountHint": "Choose the amount you want to reload",
+
+"mobileReloadEnterReloadAmount": "Enter Reload Amount",
+"mobileReloadEnterReloadAmountHint": "Enter an amount within the provider limit",
+
+"mobileReloadMinimum": "Minimum",
+"mobileReloadMaximum": "Maximum",
+
+"mobileReloadProvider": "Provider",
+"mobileReloadSelectedPlan": "Selected Plan",
+"mobileReloadReloadAmount": "Reload Amount",
+"mobileReloadServiceAdjustment": "Service Adjustment",
+"mobileReloadTotalPayment": "Total Payment",
+
+"mobileReloadNoOptions": "No options are available for this mobile number.",
+"mobileReloadSelectOptionRequired": "Please select an option to continue.",
+"mobileReloadInvalidAmount": "Please enter a valid reload amount.",
+
+
+"mobileReloadMinimumAmountMessage": "The minimum reload amount is {amount}.",
+"@mobileReloadMinimumAmountMessage": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"mobileReloadMaximumAmountMessage": "The maximum reload amount is {amount}.",
+"@mobileReloadMaximumAmountMessage": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+
+"mobileReloadConfirmTitle": "Review Purchase",
+"mobileReloadConfirmSubtitle": "Review your Mobile Reload details before payment",
+
+"mobileReloadPleaseCheckTitle": "Please Check",
+"mobileReloadPleaseCheckMessage": "Please make sure the mobile number and selected service are correct before payment.",
+
+"mobileReloadYouSelected": "You Selected",
+"mobileReloadOrderSummary": "Order Summary",
+"mobileReloadSubtotal": "Subtotal",
+"mobileReloadServiceFee": "Service Fee",
+
+"mobileReloadChangeSelection": "Change",
+"mobileReloadPayNow": "Pay Now",
+
+
+"mobileReloadPaymentTitle": "Mobile Reload Payment",
+"mobileReloadPaymentDetails": "Mobile Reload Details",
+"mobileReloadPreparingQrPayment": "Preparing QR Payment",
+
+"mobileReloadProcessingTitle": "Processing Mobile Reload",
+"mobileReloadProcessingMessage": "Your payment was successful. Please wait while we process your mobile reload.",
+"mobileReloadProcessingLocked": "Please do not go back or make another payment.",
+
+"mobileReloadPaymentInvalidProductTitle": "Invalid Product",
+"mobileReloadPaymentInvalidProductMessage": "The selected mobile reload product is invalid.",
+
+"mobileReloadPaymentInvalidPlanTitle": "Invalid Internet Plan",
+"mobileReloadPaymentInvalidPlanMessage": "The selected internet plan is missing. Please return and select the plan again.",
+
+"mobileReloadPaymentProviderRejected": "The mobile provider rejected the transaction.",
+"mobileReloadPaymentProviderRefunded": "The mobile provider transaction was refunded.",
+"mobileReloadPaymentProviderErrorTitle": "Mobile Reload Error",
+"mobileReloadPaymentStillProcessing": "The mobile provider is still processing this transaction.",
+"mobileReloadPaymentReference": "Transaction Reference",
+"mobileReloadPaymentAlreadyReceivedWarning": "Your DuitNow payment has already been received. Please do not make another payment for the same transaction.",
+
+"mobileReloadInternetReceiptTitle": "Internet Plan Receipt",
+"mobileReloadPrepaidReceiptTitle": "Mobile Reload Receipt",
+"mobileReloadReceiptTransactionDetails": "Transaction Details",
+"mobileReloadReceiptPlanDetails": "Plan Details",
+"mobileReloadReceiptPaymentDate": "Payment Date",
+"mobileReloadReceiptBankTransaction": "Bank Transaction",
+"mobileReloadReceiptTotalPaid": "Total Paid",
+
+
+"mobileReloadReceiptSerialNumber": "Serial Number",
+"mobileReloadReceiptPin": "PIN",
+"mobileReloadReceiptExpiry": "Expiry",
+"mobileReloadReceiptVoucherLink": "Voucher Link"
+
 
 
 

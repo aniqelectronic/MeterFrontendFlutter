@@ -4,6 +4,7 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
 
 import 'package:frontend_v1/pages/bil/loan/services/ptptn_subproduct_service.dart';
+import 'package:frontend_v1/pages/bil/loan/ptptn/ptptn6.dart';
 
 // ============================================================================
 // PTPTN PAGE 5
@@ -218,8 +219,7 @@ class _PTPTN5PAGEState
       return;
     }
 
-    final PtptnSubproduct?
-        selected =
+    final PtptnSubproduct? selected =
         _selectedAccount;
 
     if (selected == null) {
@@ -267,39 +267,25 @@ class _PTPTN5PAGEState
     );
     debugPrint('');
 
-    // ========================================================================
-    // NEXT PAGE LATER
-    //
-    // Example:
-    //
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (_) => PLOAN6PAGE(
-    //       productCode: widget.productCode,
-    //       nric: widget.nric,
-    //       subproductCode:
-    //           selected.subproductCode,
-    //       accountNumber:
-    //           selected.accountNumber,
-    //       accountName:
-    //           selected.displayName,
-    //       accountCategory:
-    //           selected.description,
-    //     ),
-    //   ),
-    // );
-    //
-    // ========================================================================
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            PTPTN6PAGE(
+          productCode:
+              widget.productCode,
 
-    ScaffoldMessenger.of(context)
-        .hideCurrentSnackBar();
+          providerName:
+              widget.providerName,
 
-    ScaffoldMessenger.of(context)
-        .showSnackBar(
-      SnackBar(
-        content: Text(
-          loc.loanAccountSelectedMessage,
+          providerImageUrl:
+              widget.providerImageUrl,
+
+          nric:
+              widget.nric,
+
+          selectedAccount:
+              selected,
         ),
       ),
     );

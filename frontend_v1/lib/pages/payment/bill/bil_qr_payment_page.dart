@@ -4,7 +4,7 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 
-import 'package:frontend_v1/pages/resit/bill_receipt_page.dart';
+import 'package:frontend_v1/pages/resit/bill/bill_receipt_page.dart';
 
 import 'package:frontend_v1/services/iimmpact/iimmpact_payment_service.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_refid_service.dart';
@@ -15,6 +15,8 @@ import 'package:frontend_v1/services/pegepay/pegepay_webview_helper.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
 import 'package:window_manager/window_manager.dart';
+
+import 'package:frontend_v1/pages/resit/bill/ptptn_receipt_page.dart';
 
 // ============================================================================
 // QR PAYMENT RESULT
@@ -170,6 +172,29 @@ class BilQrPaymentPage extends StatefulWidget {
 
   final MobilePinReceiptExtraData? mobilePinReceiptData;
 
+  // ==========================================================================
+  // PTPTN
+  // ==========================================================================
+
+  final bool usePtptnReceipt;
+
+  final String ptptnNric;
+
+  final String ptptnSubproductCode;
+
+  final String ptptnAccountType;
+
+  final String ptptnAccountCategory;
+
+  final double ptptnServiceAdjustment;
+
+  // ==========================================================================
+  // IIMMPACT PRODUCT-SPECIFIC EXTRAS
+  // ==========================================================================
+
+  final Map<String, dynamic>
+      iimmpactExtras;
+
   const BilQrPaymentPage({
     super.key,
     required this.billType,
@@ -178,14 +203,49 @@ class BilQrPaymentPage extends StatefulWidget {
     required this.billAmount,
     required this.totalAmount,
 
+  // ==========================================================================
+  // TELCO POSTPAID
+  // ==========================================================================
+
     this.useTelcoReceipt = false,
+
+  // ==========================================================================
+  // MOBILE PIN
+  // ==========================================================================
 
     this.useMobilePinReceipt = false,
     this.mobilePinReceiptData,
 
+  // ==========================================================================
+  // EWALLET
+  // ==========================================================================
+
     this.useEWalletPinReceipt = false,
     this.useEWalletPinlessReceipt = false,
     this.eWalletReceiptData,
+
+    // ========================================================================
+    // PTPTN
+    // ========================================================================
+
+    this.usePtptnReceipt = false,
+
+    this.ptptnNric = '',
+
+    this.ptptnSubproductCode = '',
+
+    this.ptptnAccountType = '',
+
+    this.ptptnAccountCategory = '',
+
+    this.ptptnServiceAdjustment = 0,
+
+    // ========================================================================
+    // IIMMPACT EXTRAS
+    // ========================================================================
+
+    this.iimmpactExtras =
+        const <String, dynamic>{},
   });
 
   @override
@@ -705,7 +765,7 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
                   successfulOrderNo,
 
               extras:
-                  const <String, dynamic>{},
+                  widget.iimmpactExtras,
 
               // IIMMPACT recommends 5-10 sec polling.
               interval:
@@ -1152,7 +1212,103 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
           if (!mounted) {
             return;
           }
+          // ==========================================================================
+          // PTPTN RECEIPT
+          // ==========================================================================
 
+          if (widget.usePtptnReceipt) {
+            Navigator.pushReplacement(
+              context,
+
+              MaterialPageRoute(
+                settings:
+                    const RouteSettings(
+                  name: '/receipt',
+                ),
+
+                builder:
+                    (_) =>
+                        PtptnReceiptPage(
+                  data:
+                      PtptnReceiptData(
+                    // ================================================================
+                    // PROVIDER
+                    // ================================================================
+
+                    providerName:
+                        widget.billType,
+
+                    productCode:
+                        widget.billCode,
+
+                    // ================================================================
+                    // PTPTN ACCOUNT
+                    // ================================================================
+
+                    nric:
+                        widget.ptptnNric,
+
+                    subproductCode:
+                        widget
+                            .ptptnSubproductCode,
+
+                    accountType:
+                        widget
+                            .ptptnAccountType,
+
+                    accountCategory:
+                        widget
+                            .ptptnAccountCategory,
+
+                    accountNumber:
+                        widget.accountNumber,
+
+                    // ================================================================
+                    // PAYMENT
+                    // ================================================================
+
+                    paymentAmount:
+                        widget.billAmount,
+
+                    serviceAdjustment:
+                        widget
+                            .ptptnServiceAdjustment,
+
+                    totalAmount:
+                        widget.totalAmount,
+
+                    // ================================================================
+                    // TRANSACTION
+                    // ================================================================
+
+                    refId:
+                        iimmpactResult!
+                                .refId
+                                .isNotEmpty
+                            ? iimmpactResult.refId
+                            : _currentRefId,
+
+                    orderNo:
+                        successfulOrderNo,
+
+                    bankTransactionNo:
+                        bankTransactionNo,
+
+                    paymentMethod:
+                        'DuitNow QR',
+
+                    providerStatus:
+                        iimmpactResult.status,
+
+                    paidAt:
+                        DateTime.now(),
+                  ),
+                ),
+              ),
+            );
+
+            return;
+          }
           // ==================================================================
           // OPEN RECEIPT
           // ==================================================================

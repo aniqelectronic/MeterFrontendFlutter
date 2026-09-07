@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/pricing/catalog_pricing.dart';
 import 'package:frontend_v1/pages/data.dart';
-import 'package:frontend_v1/pages/payment/bil_qr_payment_page.dart';
+import 'package:frontend_v1/pages/payment/bill/bil_qr_payment_page.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 
-import 'package:frontend_v1/pages/resit/bill_receipt_page.dart';
+import 'package:frontend_v1/pages/resit/bill/bill_receipt_page.dart';
 
 // ============================================================================
 // E-WALLET PAGE 5
