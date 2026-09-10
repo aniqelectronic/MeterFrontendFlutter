@@ -2167,8 +2167,19 @@
 
   "weatherButton": "天气",
   "weatherSupportingText": "查看文冬7天官方天气预报",
-  "weatherPageTitle": "天气",
-  "weatherPageSubtitle": "透过data.gov.my提供的马来西亚气象局官方7天预报",
+  "weatherPageTitle": "{place}天气",
+  "@weatherPageTitle": {
+    "place": {
+      "type": "String"
+    }
+  },
+
+  "weatherPageSubtitle": "{place}未来7天天气预报",
+  "@weatherPageSubtitle": {
+    "place": {
+      "type": "String"
+    }
+  },
   "weatherLoadingTitle": "正在加载天气",
   "weatherLoadingMessage": "请稍候，最新预报正在准备中。",
   "weatherUnavailableTitle": "天气数据暂不可用",
@@ -3446,6 +3457,288 @@
 "mobileReloadReceiptSerialNumber": "序列号",
 "mobileReloadReceiptPin": "PIN",
 "mobileReloadReceiptExpiry": "有效期",
-"mobileReloadReceiptVoucherLink": "兑换链接"
+"mobileReloadReceiptVoucherLink": "兑换链接",
+
+"iddButton": "国际直拨",
+"iddBillSupportingText": "充值国际通话余额",
+
+
+"iddHeaderLabel": "国际通话",
+"iddPageTitle": "国际直拨",
+"iddPageSubtitle": "请选择您的服务供应商",
+
+"iddBillSupportingText": "充值国际通话余额",
+
+"iddCatalogLoadError": "无法加载国际直拨服务",
+"iddCatalogRetryMessage": "请重试。",
+"iddNoServices": "目前没有可用的国际直拨服务。",
+
+"networkUnavailableMessage": "{billerName} 目前无法使用，请稍后再试。",
+"@networkUnavailableMessage": {
+  "placeholders": {
+    "billerName": {}
+  }
+},
+
+
+"iddCategoryLabel": "IDD 国际直拨",
+"iddSelectAmountTitle": "选择金额",
+"iddSelectAmountSubtitle": "请选择您要购买的 IDD 充值金额。",
+"iddQuantityTitle": "数量",
+"iddQuantitySubtitle": "请选择您要购买的 PIN 数量。",
+"iddOrderSummaryTitle": "订单摘要",
+"iddSubtotalLabel": "小计",
+"iddServiceAdjustmentLabel": "服务调整费",
+"iddTotalAmountLabel": "总金额",
+"iddDeliveryPin": "PIN",
+"iddNoAmountsAvailable": "目前没有可用的充值金额。",
+"iddUnableToLoadOptions": "无法加载 IDD 选项",
+"iddUnableToLoadOptionsSubtitle": "无法加载 IDD 选项，请再试一次。",
+"iddProductUnavailable": "此 IDD 服务目前不可用。",
+"iddSelectAmountRequired": "请先选择金额再继续。",
+
+"providerLoading": "正在加载服务商",
+"providerLoadingSubtitle": "请稍候，我们正在获取最新可用的服务。",
+
+"providerLoadError": "无法加载服务商",
+"providerLoadErrorSubtitle": "无法加载服务商资料，请再试一次。",
+
+"gameCreditsButton": "游戏点数",
+"gameCreditsSupportingText": "为支持的游戏充值点数",
+"gameCreditsPageTitle": "游戏点数",
+"gameCreditsPageSubtitle": "请选择您要充值的游戏",
+"gameCreditsNoServices": "目前没有可用的游戏点数服务",
+
+"gameCreditsCategoryLabel": "游戏点数",
+"gameCreditsSelectAmountTitle": "选择金额",
+"gameCreditsSelectAmountSubtitle": "请选择您要购买的游戏点数或配套",
+"gameCreditsNoAmountsAvailable": "目前没有可用的游戏点数选项。",
+"gameCreditsOrderSummaryTitle": "订单摘要",
+"gameCreditsProductLabel": "产品",
+"gameCreditsSelectedOptionLabel": "已选选项",
+"gameCreditsCreditLabel": "游戏点数",
+"gameCreditsSubtotalLabel": "小计",
+"gameCreditsServiceAdjustmentLabel": "服务调整",
+"gameCreditsTotalAmountLabel": "付款总额",
+"gameCreditsDeliveryLink": "电子链接",
+"gameCreditsDeliveryPin": "PIN",
+"gameCreditsProductUnavailable": "此游戏点数产品目前不可用。",
+"gameCreditsSelectAmountRequired": "请选择游戏点数金额后再继续。",
+"gameCreditsUnableToLoadOptions": "无法加载游戏点数",
+"gameCreditsUnableToLoadOptionsSubtitle": "无法加载可用的游戏点数选项。请重试。",
+
+
+
+"gameCreditsReviewTitle": "检查游戏点数",
+"gameCreditsReviewSelection": "检查您的选择",
+
+"gameCreditsEnterAccountTitle": "输入游戏账户资料",
+"gameCreditsEnterAccountSubtitle": "请输入此游戏所需的玩家 ID 或账户资料",
+"gameCreditsAccountLabel": "玩家 ID / 账户",
+"gameCreditsAccountHint": "输入玩家 ID 或账户号码",
+"gameCreditsCheckAccountMessage": "请仔细检查此资料。游戏点数可能会发送到您所输入的账户。",
+
+"gameCreditsNoAccountRequiredTitle": "无需玩家 ID",
+"gameCreditsNoAccountRequiredMessage": "此游戏点数无需玩家 ID 或账户号码。您可以继续付款。",
+
+"gameCreditsAccountRequired": "请输入所需的玩家 ID 或账户资料。",
+"gameCreditsAccountInvalid": "输入的玩家 ID 或账户资料无效。",
+"gameCreditsAccountRequiredTitle": "需要账户资料",
+
+"gameCreditsContinuePayment": "继续付款",
+
+"gameCreditsUnableToLoadDetails": "无法加载游戏点数资料。",
+"gameCreditsInformation": "资料",
+
+"gameCreditsPaymentTitle": "游戏点数付款",
+"gameCreditsGameLabel": "游戏",
+"gameCreditsPaymentTotal": "付款总额",
+
+"gameCreditsPreparingQrPayment": "正在准备游戏点数二维码",
+
+"gameCreditsProcessingPurchaseTitle": "正在处理游戏点数",
+"gameCreditsProcessingPurchaseMessage": "您的付款已收到。请稍候，游戏点数交易正在处理中。",
+"gameCreditsProcessingPurchaseLocked": "游戏点数交易处理期间请勿触碰屏幕。",
+
+"gameCreditsPaymentInvalidProductTitle": "游戏点数产品无效",
+"gameCreditsPaymentInvalidProductMessage": "缺少游戏点数产品代码。",
+
+"gameCreditsPaymentProviderRejected": "游戏点数供应商拒绝了此交易。",
+"gameCreditsPaymentProviderRefunded": "游戏点数交易已退款。",
+"gameCreditsPaymentUnexpectedStatus": "游戏点数供应商返回了未知状态",
+"gameCreditsPaymentProviderErrorTitle": "游戏点数处理错误",
+"gameCreditsPaymentReference": "付款参考",
+"gameCreditsPaymentAlreadyReceivedWarning": "DuitNow 付款已经收到。请勿为同一笔交易再次付款。",
+
+
+"gameCreditsReceiptTitle": "游戏点数收据",
+"gameCreditsReceiptGame": "游戏",
+"gameCreditsReceiptPurchaseDetails": "购买详情",
+"gameCreditsReceiptSelectedCredit": "已选点数",
+"gameCreditsReceiptCreditReceived": "游戏点数",
+"gameCreditsReceiptAccount": "玩家 ID / 账户",
+"gameCreditsReceiptBaseAmount": "金额",
+"gameCreditsReceiptServiceAdjustment": "服务调整",
+"gameCreditsReceiptPaymentMethod": "付款方式",
+"gameCreditsReceiptPaymentDate": "付款日期",
+"gameCreditsReceiptBankTransaction": "银行交易",
+"gameCreditsReceiptDeliveryDetails": "交付详情",
+"gameCreditsReceiptSerialNumber": "序列号",
+"gameCreditsReceiptPin": "PIN",
+"gameCreditsReceiptExpiry": "有效期",
+"gameCreditsReceiptVoucherLink": "兑换链接",
+"gameCreditsReceiptKeepCodeSafe": "请妥善保管您的 PIN、序列号或兑换链接，请勿与他人分享。",
+"gameCreditsReceiptDeliveryMessage": "您的游戏点数交易已完成。请检查购买时输入的游戏账户。",
+"gameCreditsReceiptTotalPaid": "已付款总额",
+
+
+"iddPaymentTitle": "IDD 付款",
+"iddPaymentDetails": "IDD 购买详情",
+"iddSelectedAmount": "所选金额",
+"iddPreparingQrPayment": "正在准备二维码付款",
+"iddProcessingTitle": "正在处理 IDD 购买",
+"iddProcessingMessage": "付款已收到。请稍候，正在处理您的 IDD 购买。",
+"iddProcessingLocked": "处理期间请勿关闭此页面。",
+"iddPaymentInvalidProductTitle": "IDD 产品无效",
+"iddPaymentInvalidProductMessage": "所选的 IDD 产品无效。请返回并重新选择。",
+"iddPaymentInvalidAmountTitle": "IDD 金额无效",
+"iddPaymentInvalidAmountMessage": "请先选择 IDD 金额再继续。",
+"iddPaymentProviderRejected": "IDD 服务商已拒绝此交易。",
+"iddPaymentProviderRefunded": "IDD 交易已退款。",
+"iddPaymentStillProcessing": "IDD 交易仍在处理中。",
+"iddPaymentReference": "参考编号",
+"iddPaymentProviderErrorTitle": "IDD 处理错误",
+"iddPaymentAlreadyReceivedWarning": "您的二维码付款已收到。请勿再次付款。",
+
+"iddReceiptTitle": "IDD 购买成功",
+"iddReceiptProvider": "IDD 服务商",
+"iddReceiptPurchaseDetails": "IDD 购买详情",
+"iddReceiptProduct": "所选 IDD",
+"iddReceiptAmount": "IDD 金额",
+"iddReceiptPinDetails": "PIN 详情",
+"iddReceiptSerialNumber": "序列号",
+"iddReceiptPin": "PIN",
+"iddReceiptExpiry": "有效期",
+"iddReceiptVoucherLink": "充值券链接",
+"iddReceiptTransactionDetails": "交易详情",
+"iddReceiptPaymentDate": "付款日期",
+"iddReceiptBankTransaction": "银行交易",
+"iddReceiptProviderNote": "服务商信息",
+"iddReceiptTotalPaid": "已付总额",
+
+
+"consoleStoresButton": "游戏主机与应用商店",
+"consoleStoresSupportingText": "购买游戏主机及应用商店礼品卡",
+
+"consoleStoresTitle": "游戏主机与应用商店",
+"consoleStoresSubtitle": "请选择您要购买的商店",
+"consoleStoresBadge": "数码商店",
+
+"consoleStoreCategoryLabel": "游戏主机与应用商店",
+"consoleStoreSelectPackageTitle": "选择面额",
+"consoleStoreSelectPackageSubtitle": "请选择您要购买的面额",
+"consoleStoreNoPackagesAvailable": "目前没有可用的面额。",
+"consoleStoreOrderSummaryTitle": "订单摘要",
+"consoleStoreProductLabel": "产品",
+"consoleStoreSelectedPackageLabel": "已选面额",
+"consoleStorePackageDescriptionLabel": "说明",
+"consoleStoreSubtotalLabel": "小计",
+"consoleStoreServiceAdjustmentLabel": "服务调整",
+"consoleStoreTotalAmountLabel": "付款总额",
+"consoleStoreProductUnavailable": "此产品目前无法使用。",
+"consoleStoreSelectPackageRequired": "请选择一个面额以继续。",
+"consoleStoreUnableToLoadOptions": "无法加载可用面额",
+"consoleStoreUnableToLoadOptionsSubtitle": "请稍后再试。",
+
+
+"consoleStorePaymentTitle": "游戏主机与应用商店付款",
+"consoleStorePaymentTotal": "付款总额",
+"consoleStorePreparingQrPayment": "正在准备二维码付款",
+"consoleStoreProcessingPurchaseTitle": "正在处理购买",
+"consoleStoreProcessingPurchaseMessage": "付款已收到。我们正在向供应商处理您的购买。",
+"consoleStoreProcessingPurchaseLocked": "请勿关闭或离开此页面。",
+"consoleStorePaymentInvalidProductTitle": "产品无效",
+"consoleStorePaymentInvalidProductMessage": "所选产品无效。请返回并重新选择产品。",
+"consoleStorePaymentProviderRejected": "供应商无法完成此购买。",
+"consoleStorePaymentProviderRefunded": "供应商已退还此交易款项。",
+"consoleStorePaymentUnexpectedStatus": "供应商状态异常",
+"consoleStorePaymentProviderErrorTitle": "无法完成购买",
+"consoleStorePaymentReference": "参考编号",
+"consoleStorePaymentAlreadyReceivedWarning": "您的二维码付款已收到。请保留此参考编号以便寻求协助。",
+
+"consoleStoreReceiptTitle": "购买收据",
+"consoleStoreReceiptProduct": "产品",
+"consoleStoreReceiptPurchaseDetails": "购买详情",
+"consoleStoreReceiptSelectedValue": "已选面额",
+"consoleStoreReceiptDescription": "说明",
+"consoleStoreReceiptBaseAmount": "基本金额",
+"consoleStoreReceiptServiceAdjustment": "服务调整",
+"consoleStoreReceiptPaymentMethod": "付款方式",
+"consoleStoreReceiptPaymentDate": "付款日期",
+"consoleStoreReceiptBankTransaction": "银行交易",
+"consoleStoreReceiptDeliveryDetails": "兑换详情",
+"consoleStoreReceiptSerialNumber": "序列号",
+"consoleStoreReceiptPin": "PIN / 兑换码",
+"consoleStoreReceiptExpiry": "有效期限",
+"consoleStoreReceiptVoucherLink": "礼券链接",
+"consoleStoreReceiptProviderInstructions": "供应商说明",
+"consoleStoreReceiptKeepCodeSafe": "请妥善保管您的 PIN、兑换码或礼券链接。兑换购买内容时可能需要使用。",
+"consoleStoreReceiptSuccessMessage": "您的购买已成功处理。",
+"consoleStoreReceiptTotalPaid": "已付总额",
+"consoleStoreInvalidOptionValue": "所选面额无法处理。请选择其他面额或重试。",
+
+
+"putrajayaExplorationTitle": "探索布城",
+"putrajayaTabHistorical": "历史景点",
+"putrajayaTabInteresting": "旅游景点",
+"putrajayaTabEating": "美食",
+"putrajayaViewDetails": "查看详情",
+"putrajayaGoogleMap": "Google 地图",
+"putrajayaScanMap": "扫描二维码查看地点",
+"putrajayaClose": "关闭",
+"putrajayaNoPlaces": "暂无地点",
+
+"putrajayaInterestingDesc": "探索 {place}，布城值得参观的景点之一。",
+"@putrajayaInterestingDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaInterestingFull": "{place} 是游客到访布城时可以探索的地点之一。请扫描下方的 Google 地图二维码查看地点并规划您的行程。",
+"@putrajayaInterestingFull": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaHistoricalDesc": "认识 {place}，布城其中一个著名地标。",
+"@putrajayaHistoricalDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaHistoricalFull": "{place} 是游客在布城可以参观和探索的地标之一。请扫描下方的 Google 地图二维码查看地点。",
+"@putrajayaHistoricalFull": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaFoodDesc": "探索 {place}，布城其中一个用餐选择。",
+"@putrajayaFoodDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaFoodFull": "{place} 是游客在布城期间可以考虑的用餐地点之一。请扫描下方的 Google 地图二维码查看地点。",
+"@putrajayaFoodFull": {
+  "place": {
+    "type": "String"
+  }
+}
+
 
 }

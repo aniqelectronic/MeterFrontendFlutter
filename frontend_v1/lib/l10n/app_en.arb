@@ -2264,8 +2264,19 @@
 
     "weatherButton": "Weather",
   "weatherSupportingText": "View Bentong's official 7-day weather forecast",
-  "weatherPageTitle": "Weather",
-  "weatherPageSubtitle": "Official 7-day forecast provided by MET Malaysia through data.gov.my",
+  "weatherPageTitle": "{place} Weather",
+  "@weatherPageTitle": {
+    "place": {
+      "type": "String"
+    }
+  },
+
+  "weatherPageSubtitle": "7-day weather forecast for {place}",
+  "@weatherPageSubtitle": {
+    "place": {
+      "type": "String"
+    }
+  },
   "weatherLoadingTitle": "Loading Weather",
   "weatherLoadingMessage": "Please wait while the latest forecast is being prepared.",
   "weatherUnavailableTitle": "Weather Unavailable",
@@ -3543,7 +3554,290 @@
 "mobileReloadReceiptSerialNumber": "Serial Number",
 "mobileReloadReceiptPin": "PIN",
 "mobileReloadReceiptExpiry": "Expiry",
-"mobileReloadReceiptVoucherLink": "Voucher Link"
+"mobileReloadReceiptVoucherLink": "Voucher Link",
+
+"iddButton": "INTERNATIONAL DIRECT DIALING",
+"iddBillSupportingText": "Reload credit for international calls",
+
+"iddHeaderLabel": "INTERNATIONAL CALLING",
+"iddPageTitle": "INTERNATIONAL DIRECT DIALING",
+"iddPageSubtitle": "PLEASE SELECT YOUR SERVICE PROVIDER",
+
+"iddBillSupportingText": "Reload credit for international calls",
+
+"iddCatalogLoadError": "Unable to load IDD services",
+"iddCatalogRetryMessage": "Please try again.",
+"iddNoServices": "No IDD services are currently available.",
+
+"networkUnavailableMessage": "{billerName} is currently unavailable. Please try again later.",
+"@networkUnavailableMessage": {
+  "placeholders": {
+    "billerName": {}
+  }
+},
+
+
+"iddCategoryLabel": "IDD",
+"iddSelectAmountTitle": "Select Amount",
+"iddSelectAmountSubtitle": "Select the IDD reload value you want to purchase.",
+"iddQuantityTitle": "Quantity",
+"iddQuantitySubtitle": "Select the number of PINs you want to purchase.",
+"iddOrderSummaryTitle": "Order Summary",
+"iddSubtotalLabel": "Subtotal",
+"iddServiceAdjustmentLabel": "Service Adjustment",
+"iddTotalAmountLabel": "Total Amount",
+"iddDeliveryPin": "PIN",
+"iddNoAmountsAvailable": "No reload amount is currently available.",
+"iddUnableToLoadOptions": "Unable to load IDD options",
+"iddUnableToLoadOptionsSubtitle": "The IDD options could not be loaded. Please try again.",
+"iddProductUnavailable": "This IDD service is currently unavailable.",
+"iddSelectAmountRequired": "Please select an amount before continuing.",
+
+"providerLoading": "Loading Providers",
+"providerLoadingSubtitle": "Please wait while we retrieve the latest available services.",
+
+"providerLoadError": "Unable to Load Providers",
+"providerLoadErrorSubtitle": "Provider information could not be loaded. Please try again.",
+
+"gameCreditsButton": "Game Credits",
+"gameCreditsSupportingText": "Top up credits for supported games and mobile games",
+"gameCreditsPageTitle": "Game Credits",
+"gameCreditsPageSubtitle": "Select the game you want to top up",
+"gameCreditsNoServices": "No game credit services are currently available",
+
+"gameCreditsCategoryLabel": "Game Credits",
+"gameCreditsSelectAmountTitle": "Select Amount",
+"gameCreditsSelectAmountSubtitle": "Select the game credits or package you want to purchase",
+"gameCreditsNoAmountsAvailable": "No game credit options are currently available.",
+"gameCreditsOrderSummaryTitle": "Order Summary",
+"gameCreditsProductLabel": "Product",
+"gameCreditsSelectedOptionLabel": "Selected Option",
+"gameCreditsCreditLabel": "Game Credits",
+"gameCreditsSubtotalLabel": "Subtotal",
+"gameCreditsServiceAdjustmentLabel": "Service Adjustment",
+"gameCreditsTotalAmountLabel": "Total Payment",
+"gameCreditsDeliveryLink": "Digital Link",
+"gameCreditsDeliveryPin": "PIN",
+"gameCreditsProductUnavailable": "This game credit product is currently unavailable.",
+"gameCreditsSelectAmountRequired": "Please select a game credit amount before continuing.",
+"gameCreditsUnableToLoadOptions": "Unable to load game credits",
+"gameCreditsUnableToLoadOptionsSubtitle": "The available game credit options could not be loaded. Please try again.",
+
+
+"gameCreditsReviewTitle": "Review Game Credit",
+"gameCreditsReviewSelection": "Review Your Selection",
+
+"gameCreditsEnterAccountTitle": "Enter Game Account Details",
+"gameCreditsEnterAccountSubtitle": "Enter the Player ID or account information required for this game",
+"gameCreditsAccountLabel": "Player ID / Account",
+"gameCreditsAccountHint": "Enter Player ID or account number",
+"gameCreditsCheckAccountMessage": "Please check this information carefully. Game credits may be delivered to the account entered here.",
+
+"gameCreditsNoAccountRequiredTitle": "No Player ID Required",
+"gameCreditsNoAccountRequiredMessage": "This game credit does not require a Player ID or account number. You may continue to payment.",
+
+"gameCreditsAccountRequired": "Please enter the required Player ID or account information.",
+"gameCreditsAccountInvalid": "The Player ID or account information entered is not valid.",
+"gameCreditsAccountRequiredTitle": "Account Information Required",
+
+"gameCreditsContinuePayment": "CONTINUE TO PAYMENT",
+
+"gameCreditsUnableToLoadDetails": "Unable to load game credit information.",
+"gameCreditsInformation": "Information",
+
+"gameCreditsPaymentTitle": "Game Credits Payment",
+"gameCreditsGameLabel": "Game",
+"gameCreditsPaymentTotal": "TOTAL PAYMENT",
+
+"gameCreditsPreparingQrPayment": "PREPARING GAME CREDIT QR",
+
+"gameCreditsProcessingPurchaseTitle": "PROCESSING GAME CREDIT",
+"gameCreditsProcessingPurchaseMessage": "Your payment was received. Please wait while your game credit transaction is being completed.",
+"gameCreditsProcessingPurchaseLocked": "Please do not touch the screen while the game credit transaction is being processed.",
+
+"gameCreditsPaymentInvalidProductTitle": "INVALID GAME CREDIT PRODUCT",
+"gameCreditsPaymentInvalidProductMessage": "The game credit product code is missing.",
+
+"gameCreditsPaymentProviderRejected": "The game credit provider rejected the transaction.",
+"gameCreditsPaymentProviderRefunded": "The game credit transaction was refunded.",
+"gameCreditsPaymentUnexpectedStatus": "Unexpected game credit provider status",
+"gameCreditsPaymentProviderErrorTitle": "GAME CREDIT PROCESSING ERROR",
+"gameCreditsPaymentReference": "Payment Reference",
+"gameCreditsPaymentAlreadyReceivedWarning": "The DuitNow payment has already been received. Do not make another payment for the same transaction.",
+
+"gameCreditsReceiptTitle": "GAME CREDIT RECEIPT",
+"gameCreditsReceiptGame": "Game",
+"gameCreditsReceiptPurchaseDetails": "Purchase Details",
+"gameCreditsReceiptSelectedCredit": "Selected Credit",
+"gameCreditsReceiptCreditReceived": "Game Credit",
+"gameCreditsReceiptAccount": "Player ID / Account",
+"gameCreditsReceiptBaseAmount": "Amount",
+"gameCreditsReceiptServiceAdjustment": "Service Adjustment",
+"gameCreditsReceiptPaymentMethod": "Payment Method",
+"gameCreditsReceiptPaymentDate": "Payment Date",
+"gameCreditsReceiptBankTransaction": "Bank Transaction",
+"gameCreditsReceiptDeliveryDetails": "Delivery Details",
+"gameCreditsReceiptSerialNumber": "Serial Number",
+"gameCreditsReceiptPin": "PIN",
+"gameCreditsReceiptExpiry": "Expiry",
+"gameCreditsReceiptVoucherLink": "Voucher Link",
+"gameCreditsReceiptKeepCodeSafe": "Keep your PIN, serial number or voucher link safe. Do not share it with anyone.",
+"gameCreditsReceiptDeliveryMessage": "Your game credit transaction has been completed. Please check the game account entered during the purchase.",
+"gameCreditsReceiptTotalPaid": "TOTAL PAID",
+
+
+"iddPaymentTitle": "IDD Payment",
+"iddPaymentDetails": "IDD Purchase Details",
+"iddSelectedAmount": "Selected Amount",
+"iddPreparingQrPayment": "Preparing QR Payment",
+"iddProcessingTitle": "Processing IDD Purchase",
+"iddProcessingMessage": "Payment received. Please wait while your IDD purchase is being processed.",
+"iddProcessingLocked": "Please do not close this screen while processing.",
+"iddPaymentInvalidProductTitle": "Invalid IDD Product",
+"iddPaymentInvalidProductMessage": "The selected IDD product is invalid. Please go back and select again.",
+"iddPaymentInvalidAmountTitle": "Invalid IDD Amount",
+"iddPaymentInvalidAmountMessage": "Please select an IDD amount before continuing.",
+"iddPaymentProviderRejected": "The IDD provider rejected the transaction.",
+"iddPaymentProviderRefunded": "The IDD transaction was refunded.",
+"iddPaymentStillProcessing": "The IDD transaction is still being processed.",
+"iddPaymentReference": "Reference",
+"iddPaymentProviderErrorTitle": "IDD Processing Error",
+"iddPaymentAlreadyReceivedWarning": "Your QR payment has already been received. Please do not make another payment.",
+
+
+"iddReceiptTitle": "IDD Purchase Successful",
+"iddReceiptProvider": "IDD Provider",
+"iddReceiptPurchaseDetails": "IDD Purchase Details",
+"iddReceiptProduct": "Selected IDD",
+"iddReceiptAmount": "IDD Amount",
+"iddReceiptPinDetails": "PIN Details",
+"iddReceiptSerialNumber": "Serial Number",
+"iddReceiptPin": "PIN",
+"iddReceiptExpiry": "Expiry",
+"iddReceiptVoucherLink": "Voucher Link",
+"iddReceiptTransactionDetails": "Transaction Details",
+"iddReceiptPaymentDate": "Payment Date",
+"iddReceiptBankTransaction": "Bank Transaction",
+"iddReceiptProviderNote": "Provider Information",
+"iddReceiptTotalPaid": "Total Paid",
+
+
+"consoleStoresButton": "Console & App Stores",
+"consoleStoresSupportingText": "Purchase console and app store gift cards",
+
+"consoleStoresTitle": "Console & App Stores",
+"consoleStoresSubtitle": "Select the store you want to purchase from",
+"consoleStoresBadge": "Digital Stores",
+
+"consoleStoreCategoryLabel": "Console & App Store",
+"consoleStoreSelectPackageTitle": "Select Value",
+"consoleStoreSelectPackageSubtitle": "Select the value you want to purchase",
+"consoleStoreNoPackagesAvailable": "No values are currently available.",
+"consoleStoreOrderSummaryTitle": "Order Summary",
+"consoleStoreProductLabel": "Product",
+"consoleStoreSelectedPackageLabel": "Selected Value",
+"consoleStorePackageDescriptionLabel": "Description",
+"consoleStoreSubtotalLabel": "Subtotal",
+"consoleStoreServiceAdjustmentLabel": "Service Adjustment",
+"consoleStoreTotalAmountLabel": "Total Payment",
+"consoleStoreProductUnavailable": "This product is currently unavailable.",
+"consoleStoreSelectPackageRequired": "Please select a value to continue.",
+"consoleStoreUnableToLoadOptions": "Unable to load available values",
+"consoleStoreUnableToLoadOptionsSubtitle": "Please try again in a moment.",
+
+
+"consoleStorePaymentTitle": "Console & App Store Payment",
+"consoleStorePaymentTotal": "Total Payment",
+"consoleStorePreparingQrPayment": "Preparing QR Payment",
+"consoleStoreProcessingPurchaseTitle": "Processing Purchase",
+"consoleStoreProcessingPurchaseMessage": "Payment received. We are now processing your purchase with the provider.",
+"consoleStoreProcessingPurchaseLocked": "Please do not close or leave this page.",
+"consoleStorePaymentInvalidProductTitle": "Invalid Product",
+"consoleStorePaymentInvalidProductMessage": "The selected product is invalid. Please return and select the product again.",
+"consoleStorePaymentProviderRejected": "The provider was unable to complete this purchase.",
+"consoleStorePaymentProviderRefunded": "The provider has refunded this transaction.",
+"consoleStorePaymentUnexpectedStatus": "Unexpected provider status",
+"consoleStorePaymentProviderErrorTitle": "Purchase Could Not Be Completed",
+"consoleStorePaymentReference": "Reference",
+"consoleStorePaymentAlreadyReceivedWarning": "Your QR payment has already been received. Please keep this reference for assistance.",
+
+"consoleStoreReceiptTitle": "Purchase Receipt",
+"consoleStoreReceiptProduct": "Product",
+"consoleStoreReceiptPurchaseDetails": "Purchase Details",
+"consoleStoreReceiptSelectedValue": "Selected Value",
+"consoleStoreReceiptDescription": "Description",
+"consoleStoreReceiptBaseAmount": "Base Amount",
+"consoleStoreReceiptServiceAdjustment": "Service Adjustment",
+"consoleStoreReceiptPaymentMethod": "Payment Method",
+"consoleStoreReceiptPaymentDate": "Payment Date",
+"consoleStoreReceiptBankTransaction": "Bank Transaction",
+"consoleStoreReceiptDeliveryDetails": "Redemption Details",
+"consoleStoreReceiptSerialNumber": "Serial Number",
+"consoleStoreReceiptPin": "PIN / Code",
+"consoleStoreReceiptExpiry": "Expiry",
+"consoleStoreReceiptVoucherLink": "Voucher Link",
+"consoleStoreReceiptProviderInstructions": "Provider Instructions",
+"consoleStoreReceiptKeepCodeSafe": "Keep your PIN, code or voucher link safe. You may need it to redeem your purchase.",
+"consoleStoreReceiptSuccessMessage": "Your purchase has been processed successfully.",
+"consoleStoreReceiptTotalPaid": "Total Paid",
+"consoleStoreInvalidOptionValue": "The selected value cannot be processed. Please select another value or try again.",
+
+
+"putrajayaExplorationTitle": "Explore Putrajaya",
+"putrajayaTabHistorical": "Historical",
+"putrajayaTabInteresting": "Attractions",
+"putrajayaTabEating": "Food",
+"putrajayaViewDetails": "View Details",
+"putrajayaGoogleMap": "Google Maps",
+"putrajayaScanMap": "Scan the QR code to view the location",
+"putrajayaClose": "Close",
+"putrajayaNoPlaces": "No places available",
+
+"putrajayaInterestingDesc": "Discover {place}, one of the interesting places to visit around Putrajaya.",
+"@putrajayaInterestingDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaInterestingFull": "{place} is one of the places visitors can explore while visiting Putrajaya. Scan the Google Maps QR code below to view its location and plan your visit.",
+"@putrajayaInterestingFull": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaHistoricalDesc": "Discover {place}, one of Putrajaya's notable landmarks.",
+"@putrajayaHistoricalDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaHistoricalFull": "{place} is one of the notable landmarks visitors can explore in Putrajaya. Scan the Google Maps QR code below to view its location.",
+"@putrajayaHistoricalFull": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaFoodDesc": "Explore {place}, one of the dining options around Putrajaya.",
+"@putrajayaFoodDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaFoodFull": "{place} is one of the dining places visitors can consider while in Putrajaya. Scan the Google Maps QR code below to view its location.",
+"@putrajayaFoodFull": {
+  "place": {
+    "type": "String"
+  }
+}
+
+
+
+
 
 
 

@@ -4441,10 +4441,14 @@ class AppLocalizationsZh extends AppLocalizations {
   String get weatherSupportingText => '查看霹雳州怡保未来7天的官方天气预报';
 
   @override
-  String get weatherPageTitle => '天气';
+  String weatherPageTitle(Object place) {
+    return '$place天气';
+  }
 
   @override
-  String get weatherPageSubtitle => '由马来西亚气象局通过 data.gov.my 提供的7天官方预报';
+  String weatherPageSubtitle(Object place) {
+    return '由马来西亚气象局通过 data.gov.my 提供的7天官方预报';
+  }
 
   @override
   String get weatherLoadingTitle => '正在加载天气';
@@ -6473,4 +6477,618 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mobileReloadReceiptVoucherLink => '兑换链接';
+
+  @override
+  String get iddButton => '国际直拨';
+
+  @override
+  String get iddBillSupportingText => '充值国际通话余额';
+
+  @override
+  String get iddHeaderLabel => '国际通话';
+
+  @override
+  String get iddPageTitle => '国际直拨';
+
+  @override
+  String get iddPageSubtitle => '请选择您的服务供应商';
+
+  @override
+  String get iddCatalogLoadError => '无法加载国际直拨服务';
+
+  @override
+  String get iddCatalogRetryMessage => '请重试。';
+
+  @override
+  String get iddNoServices => '目前没有可用的国际直拨服务。';
+
+  @override
+  String networkUnavailableMessage(Object billerName) {
+    return '$billerName 目前无法使用，请稍后再试。';
+  }
+
+  @override
+  String get iddCategoryLabel => 'IDD 国际直拨';
+
+  @override
+  String get iddSelectAmountTitle => '选择金额';
+
+  @override
+  String get iddSelectAmountSubtitle => '请选择您要购买的 IDD 充值金额。';
+
+  @override
+  String get iddQuantityTitle => '数量';
+
+  @override
+  String get iddQuantitySubtitle => '请选择您要购买的 PIN 数量。';
+
+  @override
+  String get iddOrderSummaryTitle => '订单摘要';
+
+  @override
+  String get iddSubtotalLabel => '小计';
+
+  @override
+  String get iddServiceAdjustmentLabel => '服务调整费';
+
+  @override
+  String get iddTotalAmountLabel => '总金额';
+
+  @override
+  String get iddDeliveryPin => 'PIN';
+
+  @override
+  String get iddNoAmountsAvailable => '目前没有可用的充值金额。';
+
+  @override
+  String get iddUnableToLoadOptions => '无法加载 IDD 选项';
+
+  @override
+  String get iddUnableToLoadOptionsSubtitle => '无法加载 IDD 选项，请再试一次。';
+
+  @override
+  String get iddProductUnavailable => '此 IDD 服务目前不可用。';
+
+  @override
+  String get iddSelectAmountRequired => '请先选择金额再继续。';
+
+  @override
+  String get providerLoading => '正在加载服务商';
+
+  @override
+  String get providerLoadingSubtitle => '请稍候，我们正在获取最新可用的服务。';
+
+  @override
+  String get providerLoadError => '无法加载服务商';
+
+  @override
+  String get providerLoadErrorSubtitle => '无法加载服务商资料，请再试一次。';
+
+  @override
+  String get gameCreditsButton => '游戏点数';
+
+  @override
+  String get gameCreditsSupportingText => '为支持的游戏充值点数';
+
+  @override
+  String get gameCreditsPageTitle => '游戏点数';
+
+  @override
+  String get gameCreditsPageSubtitle => '请选择您要充值的游戏';
+
+  @override
+  String get gameCreditsNoServices => '目前没有可用的游戏点数服务';
+
+  @override
+  String get gameCreditsCategoryLabel => '游戏点数';
+
+  @override
+  String get gameCreditsSelectAmountTitle => '选择金额';
+
+  @override
+  String get gameCreditsSelectAmountSubtitle => '请选择您要购买的游戏点数或配套';
+
+  @override
+  String get gameCreditsNoAmountsAvailable => '目前没有可用的游戏点数选项。';
+
+  @override
+  String get gameCreditsOrderSummaryTitle => '订单摘要';
+
+  @override
+  String get gameCreditsProductLabel => '产品';
+
+  @override
+  String get gameCreditsSelectedOptionLabel => '已选选项';
+
+  @override
+  String get gameCreditsCreditLabel => '游戏点数';
+
+  @override
+  String get gameCreditsSubtotalLabel => '小计';
+
+  @override
+  String get gameCreditsServiceAdjustmentLabel => '服务调整';
+
+  @override
+  String get gameCreditsTotalAmountLabel => '付款总额';
+
+  @override
+  String get gameCreditsDeliveryLink => '电子链接';
+
+  @override
+  String get gameCreditsDeliveryPin => 'PIN';
+
+  @override
+  String get gameCreditsProductUnavailable => '此游戏点数产品目前不可用。';
+
+  @override
+  String get gameCreditsSelectAmountRequired => '请选择游戏点数金额后再继续。';
+
+  @override
+  String get gameCreditsUnableToLoadOptions => '无法加载游戏点数';
+
+  @override
+  String get gameCreditsUnableToLoadOptionsSubtitle => '无法加载可用的游戏点数选项。请重试。';
+
+  @override
+  String get gameCreditsReviewTitle => '检查游戏点数';
+
+  @override
+  String get gameCreditsReviewSelection => '检查您的选择';
+
+  @override
+  String get gameCreditsEnterAccountTitle => '输入游戏账户资料';
+
+  @override
+  String get gameCreditsEnterAccountSubtitle => '请输入此游戏所需的玩家 ID 或账户资料';
+
+  @override
+  String get gameCreditsAccountLabel => '玩家 ID / 账户';
+
+  @override
+  String get gameCreditsAccountHint => '输入玩家 ID 或账户号码';
+
+  @override
+  String get gameCreditsCheckAccountMessage => '请仔细检查此资料。游戏点数可能会发送到您所输入的账户。';
+
+  @override
+  String get gameCreditsNoAccountRequiredTitle => '无需玩家 ID';
+
+  @override
+  String get gameCreditsNoAccountRequiredMessage => '此游戏点数无需玩家 ID 或账户号码。您可以继续付款。';
+
+  @override
+  String get gameCreditsAccountRequired => '请输入所需的玩家 ID 或账户资料。';
+
+  @override
+  String get gameCreditsAccountInvalid => '输入的玩家 ID 或账户资料无效。';
+
+  @override
+  String get gameCreditsAccountRequiredTitle => '需要账户资料';
+
+  @override
+  String get gameCreditsContinuePayment => '继续付款';
+
+  @override
+  String get gameCreditsUnableToLoadDetails => '无法加载游戏点数资料。';
+
+  @override
+  String get gameCreditsInformation => '资料';
+
+  @override
+  String get gameCreditsPaymentTitle => '游戏点数付款';
+
+  @override
+  String get gameCreditsGameLabel => '游戏';
+
+  @override
+  String get gameCreditsPaymentTotal => '付款总额';
+
+  @override
+  String get gameCreditsPreparingQrPayment => '正在准备游戏点数二维码';
+
+  @override
+  String get gameCreditsProcessingPurchaseTitle => '正在处理游戏点数';
+
+  @override
+  String get gameCreditsProcessingPurchaseMessage => '您的付款已收到。请稍候，游戏点数交易正在处理中。';
+
+  @override
+  String get gameCreditsProcessingPurchaseLocked => '游戏点数交易处理期间请勿触碰屏幕。';
+
+  @override
+  String get gameCreditsPaymentInvalidProductTitle => '游戏点数产品无效';
+
+  @override
+  String get gameCreditsPaymentInvalidProductMessage => '缺少游戏点数产品代码。';
+
+  @override
+  String get gameCreditsPaymentProviderRejected => '游戏点数供应商拒绝了此交易。';
+
+  @override
+  String get gameCreditsPaymentProviderRefunded => '游戏点数交易已退款。';
+
+  @override
+  String get gameCreditsPaymentUnexpectedStatus => '游戏点数供应商返回了未知状态';
+
+  @override
+  String get gameCreditsPaymentProviderErrorTitle => '游戏点数处理错误';
+
+  @override
+  String get gameCreditsPaymentReference => '付款参考';
+
+  @override
+  String get gameCreditsPaymentAlreadyReceivedWarning => 'DuitNow 付款已经收到。请勿为同一笔交易再次付款。';
+
+  @override
+  String get gameCreditsReceiptTitle => '游戏点数收据';
+
+  @override
+  String get gameCreditsReceiptGame => '游戏';
+
+  @override
+  String get gameCreditsReceiptPurchaseDetails => '购买详情';
+
+  @override
+  String get gameCreditsReceiptSelectedCredit => '已选点数';
+
+  @override
+  String get gameCreditsReceiptCreditReceived => '游戏点数';
+
+  @override
+  String get gameCreditsReceiptAccount => '玩家 ID / 账户';
+
+  @override
+  String get gameCreditsReceiptBaseAmount => '金额';
+
+  @override
+  String get gameCreditsReceiptServiceAdjustment => '服务调整';
+
+  @override
+  String get gameCreditsReceiptPaymentMethod => '付款方式';
+
+  @override
+  String get gameCreditsReceiptPaymentDate => '付款日期';
+
+  @override
+  String get gameCreditsReceiptBankTransaction => '银行交易';
+
+  @override
+  String get gameCreditsReceiptDeliveryDetails => '交付详情';
+
+  @override
+  String get gameCreditsReceiptSerialNumber => '序列号';
+
+  @override
+  String get gameCreditsReceiptPin => 'PIN';
+
+  @override
+  String get gameCreditsReceiptExpiry => '有效期';
+
+  @override
+  String get gameCreditsReceiptVoucherLink => '兑换链接';
+
+  @override
+  String get gameCreditsReceiptKeepCodeSafe => '请妥善保管您的 PIN、序列号或兑换链接，请勿与他人分享。';
+
+  @override
+  String get gameCreditsReceiptDeliveryMessage => '您的游戏点数交易已完成。请检查购买时输入的游戏账户。';
+
+  @override
+  String get gameCreditsReceiptTotalPaid => '已付款总额';
+
+  @override
+  String get iddPaymentTitle => 'IDD 付款';
+
+  @override
+  String get iddPaymentDetails => 'IDD 购买详情';
+
+  @override
+  String get iddSelectedAmount => '所选金额';
+
+  @override
+  String get iddPreparingQrPayment => '正在准备二维码付款';
+
+  @override
+  String get iddProcessingTitle => '正在处理 IDD 购买';
+
+  @override
+  String get iddProcessingMessage => '付款已收到。请稍候，正在处理您的 IDD 购买。';
+
+  @override
+  String get iddProcessingLocked => '处理期间请勿关闭此页面。';
+
+  @override
+  String get iddPaymentInvalidProductTitle => 'IDD 产品无效';
+
+  @override
+  String get iddPaymentInvalidProductMessage => '所选的 IDD 产品无效。请返回并重新选择。';
+
+  @override
+  String get iddPaymentInvalidAmountTitle => 'IDD 金额无效';
+
+  @override
+  String get iddPaymentInvalidAmountMessage => '请先选择 IDD 金额再继续。';
+
+  @override
+  String get iddPaymentProviderRejected => 'IDD 服务商已拒绝此交易。';
+
+  @override
+  String get iddPaymentProviderRefunded => 'IDD 交易已退款。';
+
+  @override
+  String get iddPaymentStillProcessing => 'IDD 交易仍在处理中。';
+
+  @override
+  String get iddPaymentReference => '参考编号';
+
+  @override
+  String get iddPaymentProviderErrorTitle => 'IDD 处理错误';
+
+  @override
+  String get iddPaymentAlreadyReceivedWarning => '您的二维码付款已收到。请勿再次付款。';
+
+  @override
+  String get iddReceiptTitle => 'IDD 购买成功';
+
+  @override
+  String get iddReceiptProvider => 'IDD 服务商';
+
+  @override
+  String get iddReceiptPurchaseDetails => 'IDD 购买详情';
+
+  @override
+  String get iddReceiptProduct => '所选 IDD';
+
+  @override
+  String get iddReceiptAmount => 'IDD 金额';
+
+  @override
+  String get iddReceiptPinDetails => 'PIN 详情';
+
+  @override
+  String get iddReceiptSerialNumber => '序列号';
+
+  @override
+  String get iddReceiptPin => 'PIN';
+
+  @override
+  String get iddReceiptExpiry => '有效期';
+
+  @override
+  String get iddReceiptVoucherLink => '充值券链接';
+
+  @override
+  String get iddReceiptTransactionDetails => '交易详情';
+
+  @override
+  String get iddReceiptPaymentDate => '付款日期';
+
+  @override
+  String get iddReceiptBankTransaction => '银行交易';
+
+  @override
+  String get iddReceiptProviderNote => '服务商信息';
+
+  @override
+  String get iddReceiptTotalPaid => '已付总额';
+
+  @override
+  String get consoleStoresButton => '游戏主机与应用商店';
+
+  @override
+  String get consoleStoresSupportingText => '购买游戏主机及应用商店礼品卡';
+
+  @override
+  String get consoleStoresTitle => '游戏主机与应用商店';
+
+  @override
+  String get consoleStoresSubtitle => '请选择您要购买的商店';
+
+  @override
+  String get consoleStoresBadge => '数码商店';
+
+  @override
+  String get consoleStoreCategoryLabel => '游戏主机与应用商店';
+
+  @override
+  String get consoleStoreSelectPackageTitle => '选择面额';
+
+  @override
+  String get consoleStoreSelectPackageSubtitle => '请选择您要购买的面额';
+
+  @override
+  String get consoleStoreNoPackagesAvailable => '目前没有可用的面额。';
+
+  @override
+  String get consoleStoreOrderSummaryTitle => '订单摘要';
+
+  @override
+  String get consoleStoreProductLabel => '产品';
+
+  @override
+  String get consoleStoreSelectedPackageLabel => '已选面额';
+
+  @override
+  String get consoleStorePackageDescriptionLabel => '说明';
+
+  @override
+  String get consoleStoreSubtotalLabel => '小计';
+
+  @override
+  String get consoleStoreServiceAdjustmentLabel => '服务调整';
+
+  @override
+  String get consoleStoreTotalAmountLabel => '付款总额';
+
+  @override
+  String get consoleStoreProductUnavailable => '此产品目前无法使用。';
+
+  @override
+  String get consoleStoreSelectPackageRequired => '请选择一个面额以继续。';
+
+  @override
+  String get consoleStoreUnableToLoadOptions => '无法加载可用面额';
+
+  @override
+  String get consoleStoreUnableToLoadOptionsSubtitle => '请稍后再试。';
+
+  @override
+  String get consoleStorePaymentTitle => '游戏主机与应用商店付款';
+
+  @override
+  String get consoleStorePaymentTotal => '付款总额';
+
+  @override
+  String get consoleStorePreparingQrPayment => '正在准备二维码付款';
+
+  @override
+  String get consoleStoreProcessingPurchaseTitle => '正在处理购买';
+
+  @override
+  String get consoleStoreProcessingPurchaseMessage => '付款已收到。我们正在向供应商处理您的购买。';
+
+  @override
+  String get consoleStoreProcessingPurchaseLocked => '请勿关闭或离开此页面。';
+
+  @override
+  String get consoleStorePaymentInvalidProductTitle => '产品无效';
+
+  @override
+  String get consoleStorePaymentInvalidProductMessage => '所选产品无效。请返回并重新选择产品。';
+
+  @override
+  String get consoleStorePaymentProviderRejected => '供应商无法完成此购买。';
+
+  @override
+  String get consoleStorePaymentProviderRefunded => '供应商已退还此交易款项。';
+
+  @override
+  String get consoleStorePaymentUnexpectedStatus => '供应商状态异常';
+
+  @override
+  String get consoleStorePaymentProviderErrorTitle => '无法完成购买';
+
+  @override
+  String get consoleStorePaymentReference => '参考编号';
+
+  @override
+  String get consoleStorePaymentAlreadyReceivedWarning => '您的二维码付款已收到。请保留此参考编号以便寻求协助。';
+
+  @override
+  String get consoleStoreReceiptTitle => '购买收据';
+
+  @override
+  String get consoleStoreReceiptProduct => '产品';
+
+  @override
+  String get consoleStoreReceiptPurchaseDetails => '购买详情';
+
+  @override
+  String get consoleStoreReceiptSelectedValue => '已选面额';
+
+  @override
+  String get consoleStoreReceiptDescription => '说明';
+
+  @override
+  String get consoleStoreReceiptBaseAmount => '基本金额';
+
+  @override
+  String get consoleStoreReceiptServiceAdjustment => '服务调整';
+
+  @override
+  String get consoleStoreReceiptPaymentMethod => '付款方式';
+
+  @override
+  String get consoleStoreReceiptPaymentDate => '付款日期';
+
+  @override
+  String get consoleStoreReceiptBankTransaction => '银行交易';
+
+  @override
+  String get consoleStoreReceiptDeliveryDetails => '兑换详情';
+
+  @override
+  String get consoleStoreReceiptSerialNumber => '序列号';
+
+  @override
+  String get consoleStoreReceiptPin => 'PIN / 兑换码';
+
+  @override
+  String get consoleStoreReceiptExpiry => '有效期限';
+
+  @override
+  String get consoleStoreReceiptVoucherLink => '礼券链接';
+
+  @override
+  String get consoleStoreReceiptProviderInstructions => '供应商说明';
+
+  @override
+  String get consoleStoreReceiptKeepCodeSafe => '请妥善保管您的 PIN、兑换码或礼券链接。兑换购买内容时可能需要使用。';
+
+  @override
+  String get consoleStoreReceiptSuccessMessage => '您的购买已成功处理。';
+
+  @override
+  String get consoleStoreReceiptTotalPaid => '已付总额';
+
+  @override
+  String get consoleStoreInvalidOptionValue => '所选面额无法处理。请选择其他面额或重试。';
+
+  @override
+  String get putrajayaExplorationTitle => '探索布城';
+
+  @override
+  String get putrajayaTabHistorical => '历史景点';
+
+  @override
+  String get putrajayaTabInteresting => '旅游景点';
+
+  @override
+  String get putrajayaTabEating => '美食';
+
+  @override
+  String get putrajayaViewDetails => '查看详情';
+
+  @override
+  String get putrajayaGoogleMap => 'Google 地图';
+
+  @override
+  String get putrajayaScanMap => '扫描二维码查看地点';
+
+  @override
+  String get putrajayaClose => '关闭';
+
+  @override
+  String get putrajayaNoPlaces => '暂无地点';
+
+  @override
+  String putrajayaInterestingDesc(Object place) {
+    return '探索 $place，布城值得参观的景点之一。';
+  }
+
+  @override
+  String putrajayaInterestingFull(Object place) {
+    return '$place 是游客到访布城时可以探索的地点之一。请扫描下方的 Google 地图二维码查看地点并规划您的行程。';
+  }
+
+  @override
+  String putrajayaHistoricalDesc(Object place) {
+    return '认识 $place，布城其中一个著名地标。';
+  }
+
+  @override
+  String putrajayaHistoricalFull(Object place) {
+    return '$place 是游客在布城可以参观和探索的地标之一。请扫描下方的 Google 地图二维码查看地点。';
+  }
+
+  @override
+  String putrajayaFoodDesc(Object place) {
+    return '探索 $place，布城其中一个用餐选择。';
+  }
+
+  @override
+  String putrajayaFoodFull(Object place) {
+    return '$place 是游客在布城期间可以考虑的用餐地点之一。请扫描下方的 Google 地图二维码查看地点。';
+  }
 }

@@ -1098,208 +1098,170 @@ for (final String productCode
   // LOADING
   // ==========================================================================
 
-  Widget _buildLoading(
-    AppLocalizations loc,
-  ) {
-    return Center(
-      child: Container(
-        width: 600,
-        padding:
-            const EdgeInsets.all(
-          45,
+Widget _buildLoading(
+  AppLocalizations loc,
+) {
+  return Column(
+    children: [
+      // ======================================================================
+      // MAIN LOADING CARD
+      // ======================================================================
+
+      Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 35,
+          vertical: 30,
         ),
-        decoration:
-            BoxDecoration(
-          color:
-              Colors.white.withOpacity(
-            0.96,
-          ),
-          borderRadius:
-              BorderRadius.circular(
-            35,
-          ),
-        ),
-        child: Column(
-          mainAxisSize:
-              MainAxisSize.min,
-          children: [
-            const CircularProgressIndicator(
-              strokeWidth: 7,
-              color:
-                  _primaryColor,
-            ),
-
-            const SizedBox(
-              height: 30,
-            ),
-
-            Text(
-              loc.mobileReloadLoadingTitle,
-              textAlign:
-                  TextAlign.center,
-              style:
-                  const TextStyle(
-                color:
-                    Color(
-                  0xFF17283E,
-                ),
-                fontSize: 38,
-                fontWeight:
-                    FontWeight.w900,
-              ),
-            ),
-
-            const SizedBox(
-              height: 12,
-            ),
-
-            Text(
-              loc.mobileReloadLoadingMessage,
-              textAlign:
-                  TextAlign.center,
-              style:
-                  const TextStyle(
-                color:
-                    Color(
-                  0xFF657386,
-                ),
-                fontSize: 26,
-                fontWeight:
-                    FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // ==========================================================================
-  // ERROR
-  // ==========================================================================
-
-  Widget _buildError(
-    AppLocalizations loc,
-  ) {
-    return Center(
-      child: Container(
-        width: 680,
-        padding:
-            const EdgeInsets.all(
-          42,
-        ),
-        decoration:
-            BoxDecoration(
-          color:
-              Colors.white.withOpacity(
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(
             0.97,
           ),
-          borderRadius:
-              BorderRadius.circular(
-            35,
+          borderRadius: BorderRadius.circular(
+            30,
           ),
-          border:
-              Border.all(
-            color:
-                const Color(
-              0xFFE57373,
+          border: Border.all(
+            color: _primaryColor.withOpacity(
+              0.22,
             ),
             width: 2,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: _primaryColor.withOpacity(
+                0.12,
+              ),
+              blurRadius: 24,
+              offset: const Offset(
+                0,
+                10,
+              ),
+            ),
+          ],
         ),
-        child: Column(
-          mainAxisSize:
-              MainAxisSize.min,
+        child: Row(
           children: [
-            const Icon(
-              Icons.cloud_off_rounded,
-              color:
-                  Color(
-                0xFFD32F2F,
-              ),
-              size: 85,
-            ),
+            // =================================================================
+            // ICON + SPINNER
+            // =================================================================
 
-            const SizedBox(
-              height: 22,
-            ),
-
-            Text(
-              loc.mobileReloadErrorTitle,
-              textAlign:
-                  TextAlign.center,
-              style:
-                  const TextStyle(
-                color:
-                    Color(
-                  0xFF17283E,
+            Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                color: _primaryColor.withOpacity(
+                  0.10,
                 ),
-                fontSize: 39,
-                fontWeight:
-                    FontWeight.w900,
-              ),
-            ),
-
-            const SizedBox(
-              height: 14,
-            ),
-
-            Text(
-              loc.mobileReloadErrorMessage,
-              textAlign:
-                  TextAlign.center,
-              style:
-                  const TextStyle(
-                color:
-                    Color(
-                  0xFF657386,
-                ),
-                fontSize: 26,
-                fontWeight:
-                    FontWeight.w600,
-              ),
-            ),
-
-            const SizedBox(
-              height: 28,
-            ),
-
-            SizedBox(
-              width:
-                  double.infinity,
-              height: 80,
-              child:
-                  ElevatedButton.icon(
-                onPressed:
-                    _loadMobileReloadProducts,
-                icon:
-                    const Icon(
-                  Icons.refresh_rounded,
-                ),
-                label: Text(
-                  loc.mobileReloadRetry,
-                  style:
-                      const TextStyle(
-                    fontSize: 27,
-                    fontWeight:
-                        FontWeight.w900,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: _primaryColor.withOpacity(
+                    0.18,
                   ),
+                  width: 2,
                 ),
-                style:
-                    ElevatedButton.styleFrom(
-                  backgroundColor:
-                      _primaryColor,
-                  foregroundColor:
-                      Colors.white,
-                ),
+              ),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 5,
+                      color: _primaryColor,
+                      backgroundColor:
+                          _primaryColor.withOpacity(
+                        0.12,
+                      ),
+                    ),
+                  ),
+
+                  const Icon(
+                    Icons.phone_android_rounded,
+                    color: _primaryColor,
+                    size: 40,
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(
+              width: 25,
+            ),
+
+            // =================================================================
+            // GENERIC TEXT
+            // =================================================================
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    loc.providerLoading,
+                    style: const TextStyle(
+                      color: Color(
+                        0xFF16324F,
+                      ),
+                      fontSize: 30,
+                      fontWeight:
+                          FontWeight.w900,
+                      height: 1.15,
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 9,
+                  ),
+
+                  Text(
+                    loc.providerLoadingSubtitle,
+                    style: const TextStyle(
+                      color: Color(
+                        0xFF6A7B90,
+                      ),
+                      fontSize: 20,
+                      fontWeight:
+                          FontWeight.w600,
+                      height: 1.35,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
       ),
-    );
-  }
 
+      const SizedBox(
+        height: 28,
+      ),
+
+      // ======================================================================
+      // SKELETON PROVIDER CARDS
+      // ======================================================================
+
+      Row(
+        children: [
+          Expanded(
+            child:
+                _buildLoadingProviderCard(),
+          ),
+
+          const SizedBox(
+            width: 30,
+          ),
+
+          Expanded(
+            child:
+                _buildLoadingProviderCard(),
+          ),
+        ],
+      ),
+    ],
+  );
+}
   // ==========================================================================
   // PRODUCTS
   // ==========================================================================
@@ -1440,6 +1402,277 @@ for (final String productCode
 
     return rows;
   }
+
+
+  // ============================================================================
+// LOADING PROVIDER SKELETON
+// ============================================================================
+
+Widget _buildLoadingProviderCard() {
+  return Container(
+    height: 330,
+    padding: const EdgeInsets.all(
+      27,
+    ),
+    decoration: BoxDecoration(
+      color: Colors.white.withOpacity(
+        0.94,
+      ),
+      borderRadius: BorderRadius.circular(
+        34,
+      ),
+      border: Border.all(
+        color: const Color(
+          0xFFE3DDF0,
+        ),
+        width: 2,
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: _primaryColor.withOpacity(
+            0.07,
+          ),
+          blurRadius: 18,
+          offset: const Offset(
+            0,
+            8,
+          ),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment:
+          CrossAxisAlignment.start,
+      children: [
+        // ====================================================================
+        // FAKE LOGO
+        // ====================================================================
+
+        Container(
+          width: 150,
+          height: 115,
+          decoration: BoxDecoration(
+            color: const Color(
+              0xFFECE8F4,
+            ),
+            borderRadius: BorderRadius.circular(
+              24,
+            ),
+          ),
+        ),
+
+        const Spacer(),
+
+        // ====================================================================
+        // FAKE PROVIDER NAME
+        // ====================================================================
+
+        Container(
+          width: double.infinity,
+          height: 25,
+          decoration: BoxDecoration(
+            color: const Color(
+              0xFFE2DEE9,
+            ),
+            borderRadius: BorderRadius.circular(
+              20,
+            ),
+          ),
+        ),
+
+        const SizedBox(
+          height: 13,
+        ),
+
+        Container(
+          width: 170,
+          height: 20,
+          decoration: BoxDecoration(
+            color: const Color(
+              0xFFF0EDF5,
+            ),
+            borderRadius: BorderRadius.circular(
+              20,
+            ),
+          ),
+        ),
+
+        const SizedBox(
+          height: 22,
+        ),
+
+        // ====================================================================
+        // FAKE NETWORK STATUS
+        // ====================================================================
+
+        Container(
+          width: 185,
+          height: 48,
+          decoration: BoxDecoration(
+            color: const Color(
+              0xFFEAE6F1,
+            ),
+            borderRadius: BorderRadius.circular(
+              30,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+
+// ============================================================================
+// ERROR
+// ============================================================================
+
+Widget _buildError(
+  AppLocalizations loc,
+) {
+  return Center(
+    child: Container(
+      width: 680,
+      padding: const EdgeInsets.all(
+        42,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(
+          0.97,
+        ),
+        borderRadius: BorderRadius.circular(
+          35,
+        ),
+        border: Border.all(
+          color: const Color(
+            0xFFE57373,
+          ),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(
+              0.10,
+            ),
+            blurRadius: 25,
+            offset: const Offset(
+              0,
+              12,
+            ),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // ================================================================
+          // ERROR ICON
+          // ================================================================
+
+          Container(
+            width: 115,
+            height: 115,
+            decoration: const BoxDecoration(
+              color: Color(
+                0xFFFFEBEE,
+              ),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.cloud_off_rounded,
+              color: Color(
+                0xFFD32F2F,
+              ),
+              size: 65,
+            ),
+          ),
+
+          const SizedBox(
+            height: 25,
+          ),
+
+          // ================================================================
+          // TITLE
+          // ================================================================
+
+          Text(
+            loc.providerLoadError,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(
+                0xFF17283E,
+              ),
+              fontSize: 35,
+              fontWeight: FontWeight.w900,
+              height: 1.15,
+            ),
+          ),
+
+          const SizedBox(
+            height: 14,
+          ),
+
+          // ================================================================
+          // MESSAGE
+          // ================================================================
+
+          Text(
+            loc.providerLoadErrorSubtitle,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(
+                0xFF657386,
+              ),
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              height: 1.35,
+            ),
+          ),
+
+          const SizedBox(
+            height: 30,
+          ),
+
+          // ================================================================
+          // RETRY
+          // ================================================================
+
+          SizedBox(
+            width: double.infinity,
+            height: 80,
+            child: ElevatedButton.icon(
+              onPressed:
+                  _loadMobileReloadProducts,
+              icon: const Icon(
+                Icons.refresh_rounded,
+                size: 30,
+              ),
+              label: Text(
+                loc.retryButton,
+                style: const TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    _primaryColor,
+                foregroundColor:
+                    Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(
+                    22,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
 }
 
 // ============================================================================

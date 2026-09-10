@@ -8802,14 +8802,14 @@ abstract class AppLocalizations {
   /// No description provided for @weatherPageTitle.
   ///
   /// In en, this message translates to:
-  /// **'Weather'**
-  String get weatherPageTitle;
+  /// **'{place} Weather'**
+  String weatherPageTitle(Object place);
 
   /// No description provided for @weatherPageSubtitle.
   ///
   /// In en, this message translates to:
   /// **'Official 7-day forecast from MET Malaysia through data.gov.my'**
-  String get weatherPageSubtitle;
+  String weatherPageSubtitle(Object place);
 
   /// No description provided for @weatherLoadingTitle.
   ///
@@ -12734,6 +12734,1206 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Voucher Link'**
   String get mobileReloadReceiptVoucherLink;
+
+  /// No description provided for @iddButton.
+  ///
+  /// In en, this message translates to:
+  /// **'INTERNATIONAL DIRECT DIALING'**
+  String get iddButton;
+
+  /// No description provided for @iddBillSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload credit for international calls'**
+  String get iddBillSupportingText;
+
+  /// No description provided for @iddHeaderLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'INTERNATIONAL CALLING'**
+  String get iddHeaderLabel;
+
+  /// No description provided for @iddPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'INTERNATIONAL DIRECT DIALING'**
+  String get iddPageTitle;
+
+  /// No description provided for @iddPageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PLEASE SELECT YOUR SERVICE PROVIDER'**
+  String get iddPageSubtitle;
+
+  /// No description provided for @iddCatalogLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load IDD services'**
+  String get iddCatalogLoadError;
+
+  /// No description provided for @iddCatalogRetryMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again.'**
+  String get iddCatalogRetryMessage;
+
+  /// No description provided for @iddNoServices.
+  ///
+  /// In en, this message translates to:
+  /// **'No IDD services are currently available.'**
+  String get iddNoServices;
+
+  /// No description provided for @networkUnavailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'{billerName} is currently unavailable. Please try again later.'**
+  String networkUnavailableMessage(Object billerName);
+
+  /// No description provided for @iddCategoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'IDD'**
+  String get iddCategoryLabel;
+
+  /// No description provided for @iddSelectAmountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Amount'**
+  String get iddSelectAmountTitle;
+
+  /// No description provided for @iddSelectAmountSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the IDD reload value you want to purchase.'**
+  String get iddSelectAmountSubtitle;
+
+  /// No description provided for @iddQuantityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get iddQuantityTitle;
+
+  /// No description provided for @iddQuantitySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the number of PINs you want to purchase.'**
+  String get iddQuantitySubtitle;
+
+  /// No description provided for @iddOrderSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get iddOrderSummaryTitle;
+
+  /// No description provided for @iddSubtotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get iddSubtotalLabel;
+
+  /// No description provided for @iddServiceAdjustmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get iddServiceAdjustmentLabel;
+
+  /// No description provided for @iddTotalAmountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get iddTotalAmountLabel;
+
+  /// No description provided for @iddDeliveryPin.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN'**
+  String get iddDeliveryPin;
+
+  /// No description provided for @iddNoAmountsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No reload amount is currently available.'**
+  String get iddNoAmountsAvailable;
+
+  /// No description provided for @iddUnableToLoadOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load IDD options'**
+  String get iddUnableToLoadOptions;
+
+  /// No description provided for @iddUnableToLoadOptionsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The IDD options could not be loaded. Please try again.'**
+  String get iddUnableToLoadOptionsSubtitle;
+
+  /// No description provided for @iddProductUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This IDD service is currently unavailable.'**
+  String get iddProductUnavailable;
+
+  /// No description provided for @iddSelectAmountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an amount before continuing.'**
+  String get iddSelectAmountRequired;
+
+  /// No description provided for @providerLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Providers'**
+  String get providerLoading;
+
+  /// No description provided for @providerLoadingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we retrieve the latest available services.'**
+  String get providerLoadingSubtitle;
+
+  /// No description provided for @providerLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to Load Providers'**
+  String get providerLoadError;
+
+  /// No description provided for @providerLoadErrorSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider information could not be loaded. Please try again.'**
+  String get providerLoadErrorSubtitle;
+
+  /// No description provided for @gameCreditsButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Game Credits'**
+  String get gameCreditsButton;
+
+  /// No description provided for @gameCreditsSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Top up credits for supported games and mobile games'**
+  String get gameCreditsSupportingText;
+
+  /// No description provided for @gameCreditsPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Game Credits'**
+  String get gameCreditsPageTitle;
+
+  /// No description provided for @gameCreditsPageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the game you want to top up'**
+  String get gameCreditsPageSubtitle;
+
+  /// No description provided for @gameCreditsNoServices.
+  ///
+  /// In en, this message translates to:
+  /// **'No game credit services are currently available'**
+  String get gameCreditsNoServices;
+
+  /// No description provided for @gameCreditsCategoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Game Credits'**
+  String get gameCreditsCategoryLabel;
+
+  /// No description provided for @gameCreditsSelectAmountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Amount'**
+  String get gameCreditsSelectAmountTitle;
+
+  /// No description provided for @gameCreditsSelectAmountSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the game credits or package you want to purchase'**
+  String get gameCreditsSelectAmountSubtitle;
+
+  /// No description provided for @gameCreditsNoAmountsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No game credit options are currently available.'**
+  String get gameCreditsNoAmountsAvailable;
+
+  /// No description provided for @gameCreditsOrderSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get gameCreditsOrderSummaryTitle;
+
+  /// No description provided for @gameCreditsProductLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get gameCreditsProductLabel;
+
+  /// No description provided for @gameCreditsSelectedOptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Option'**
+  String get gameCreditsSelectedOptionLabel;
+
+  /// No description provided for @gameCreditsCreditLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Game Credits'**
+  String get gameCreditsCreditLabel;
+
+  /// No description provided for @gameCreditsSubtotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get gameCreditsSubtotalLabel;
+
+  /// No description provided for @gameCreditsServiceAdjustmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get gameCreditsServiceAdjustmentLabel;
+
+  /// No description provided for @gameCreditsTotalAmountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Payment'**
+  String get gameCreditsTotalAmountLabel;
+
+  /// No description provided for @gameCreditsDeliveryLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Link'**
+  String get gameCreditsDeliveryLink;
+
+  /// No description provided for @gameCreditsDeliveryPin.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN'**
+  String get gameCreditsDeliveryPin;
+
+  /// No description provided for @gameCreditsProductUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This game credit product is currently unavailable.'**
+  String get gameCreditsProductUnavailable;
+
+  /// No description provided for @gameCreditsSelectAmountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a game credit amount before continuing.'**
+  String get gameCreditsSelectAmountRequired;
+
+  /// No description provided for @gameCreditsUnableToLoadOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load game credits'**
+  String get gameCreditsUnableToLoadOptions;
+
+  /// No description provided for @gameCreditsUnableToLoadOptionsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The available game credit options could not be loaded. Please try again.'**
+  String get gameCreditsUnableToLoadOptionsSubtitle;
+
+  /// No description provided for @gameCreditsReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Game Credit'**
+  String get gameCreditsReviewTitle;
+
+  /// No description provided for @gameCreditsReviewSelection.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Your Selection'**
+  String get gameCreditsReviewSelection;
+
+  /// No description provided for @gameCreditsEnterAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Game Account Details'**
+  String get gameCreditsEnterAccountTitle;
+
+  /// No description provided for @gameCreditsEnterAccountSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the Player ID or account information required for this game'**
+  String get gameCreditsEnterAccountSubtitle;
+
+  /// No description provided for @gameCreditsAccountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Player ID / Account'**
+  String get gameCreditsAccountLabel;
+
+  /// No description provided for @gameCreditsAccountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Player ID or account number'**
+  String get gameCreditsAccountHint;
+
+  /// No description provided for @gameCreditsCheckAccountMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check this information carefully. Game credits may be delivered to the account entered here.'**
+  String get gameCreditsCheckAccountMessage;
+
+  /// No description provided for @gameCreditsNoAccountRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No Player ID Required'**
+  String get gameCreditsNoAccountRequiredTitle;
+
+  /// No description provided for @gameCreditsNoAccountRequiredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This game credit does not require a Player ID or account number. You may continue to payment.'**
+  String get gameCreditsNoAccountRequiredMessage;
+
+  /// No description provided for @gameCreditsAccountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the required Player ID or account information.'**
+  String get gameCreditsAccountRequired;
+
+  /// No description provided for @gameCreditsAccountInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The Player ID or account information entered is not valid.'**
+  String get gameCreditsAccountInvalid;
+
+  /// No description provided for @gameCreditsAccountRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Information Required'**
+  String get gameCreditsAccountRequiredTitle;
+
+  /// No description provided for @gameCreditsContinuePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'CONTINUE TO PAYMENT'**
+  String get gameCreditsContinuePayment;
+
+  /// No description provided for @gameCreditsUnableToLoadDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load game credit information.'**
+  String get gameCreditsUnableToLoadDetails;
+
+  /// No description provided for @gameCreditsInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get gameCreditsInformation;
+
+  /// No description provided for @gameCreditsPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Game Credits Payment'**
+  String get gameCreditsPaymentTitle;
+
+  /// No description provided for @gameCreditsGameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Game'**
+  String get gameCreditsGameLabel;
+
+  /// No description provided for @gameCreditsPaymentTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'TOTAL PAYMENT'**
+  String get gameCreditsPaymentTotal;
+
+  /// No description provided for @gameCreditsPreparingQrPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'PREPARING GAME CREDIT QR'**
+  String get gameCreditsPreparingQrPayment;
+
+  /// No description provided for @gameCreditsProcessingPurchaseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PROCESSING GAME CREDIT'**
+  String get gameCreditsProcessingPurchaseTitle;
+
+  /// No description provided for @gameCreditsProcessingPurchaseMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment was received. Please wait while your game credit transaction is being completed.'**
+  String get gameCreditsProcessingPurchaseMessage;
+
+  /// No description provided for @gameCreditsProcessingPurchaseLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Please do not touch the screen while the game credit transaction is being processed.'**
+  String get gameCreditsProcessingPurchaseLocked;
+
+  /// No description provided for @gameCreditsPaymentInvalidProductTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'INVALID GAME CREDIT PRODUCT'**
+  String get gameCreditsPaymentInvalidProductTitle;
+
+  /// No description provided for @gameCreditsPaymentInvalidProductMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The game credit product code is missing.'**
+  String get gameCreditsPaymentInvalidProductMessage;
+
+  /// No description provided for @gameCreditsPaymentProviderRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'The game credit provider rejected the transaction.'**
+  String get gameCreditsPaymentProviderRejected;
+
+  /// No description provided for @gameCreditsPaymentProviderRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'The game credit transaction was refunded.'**
+  String get gameCreditsPaymentProviderRefunded;
+
+  /// No description provided for @gameCreditsPaymentUnexpectedStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Unexpected game credit provider status'**
+  String get gameCreditsPaymentUnexpectedStatus;
+
+  /// No description provided for @gameCreditsPaymentProviderErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'GAME CREDIT PROCESSING ERROR'**
+  String get gameCreditsPaymentProviderErrorTitle;
+
+  /// No description provided for @gameCreditsPaymentReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Reference'**
+  String get gameCreditsPaymentReference;
+
+  /// No description provided for @gameCreditsPaymentAlreadyReceivedWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'The DuitNow payment has already been received. Do not make another payment for the same transaction.'**
+  String get gameCreditsPaymentAlreadyReceivedWarning;
+
+  /// No description provided for @gameCreditsReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'GAME CREDIT RECEIPT'**
+  String get gameCreditsReceiptTitle;
+
+  /// No description provided for @gameCreditsReceiptGame.
+  ///
+  /// In en, this message translates to:
+  /// **'Game'**
+  String get gameCreditsReceiptGame;
+
+  /// No description provided for @gameCreditsReceiptPurchaseDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Details'**
+  String get gameCreditsReceiptPurchaseDetails;
+
+  /// No description provided for @gameCreditsReceiptSelectedCredit.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Credit'**
+  String get gameCreditsReceiptSelectedCredit;
+
+  /// No description provided for @gameCreditsReceiptCreditReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Game Credit'**
+  String get gameCreditsReceiptCreditReceived;
+
+  /// No description provided for @gameCreditsReceiptAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Player ID / Account'**
+  String get gameCreditsReceiptAccount;
+
+  /// No description provided for @gameCreditsReceiptBaseAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get gameCreditsReceiptBaseAmount;
+
+  /// No description provided for @gameCreditsReceiptServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get gameCreditsReceiptServiceAdjustment;
+
+  /// No description provided for @gameCreditsReceiptPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get gameCreditsReceiptPaymentMethod;
+
+  /// No description provided for @gameCreditsReceiptPaymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get gameCreditsReceiptPaymentDate;
+
+  /// No description provided for @gameCreditsReceiptBankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction'**
+  String get gameCreditsReceiptBankTransaction;
+
+  /// No description provided for @gameCreditsReceiptDeliveryDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery Details'**
+  String get gameCreditsReceiptDeliveryDetails;
+
+  /// No description provided for @gameCreditsReceiptSerialNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number'**
+  String get gameCreditsReceiptSerialNumber;
+
+  /// No description provided for @gameCreditsReceiptPin.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN'**
+  String get gameCreditsReceiptPin;
+
+  /// No description provided for @gameCreditsReceiptExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get gameCreditsReceiptExpiry;
+
+  /// No description provided for @gameCreditsReceiptVoucherLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Link'**
+  String get gameCreditsReceiptVoucherLink;
+
+  /// No description provided for @gameCreditsReceiptKeepCodeSafe.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your PIN, serial number or voucher link safe. Do not share it with anyone.'**
+  String get gameCreditsReceiptKeepCodeSafe;
+
+  /// No description provided for @gameCreditsReceiptDeliveryMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your game credit transaction has been completed. Please check the game account entered during the purchase.'**
+  String get gameCreditsReceiptDeliveryMessage;
+
+  /// No description provided for @gameCreditsReceiptTotalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'TOTAL PAID'**
+  String get gameCreditsReceiptTotalPaid;
+
+  /// No description provided for @iddPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'IDD Payment'**
+  String get iddPaymentTitle;
+
+  /// No description provided for @iddPaymentDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'IDD Purchase Details'**
+  String get iddPaymentDetails;
+
+  /// No description provided for @iddSelectedAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Amount'**
+  String get iddSelectedAmount;
+
+  /// No description provided for @iddPreparingQrPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing QR Payment'**
+  String get iddPreparingQrPayment;
+
+  /// No description provided for @iddProcessingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing IDD Purchase'**
+  String get iddProcessingTitle;
+
+  /// No description provided for @iddProcessingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment received. Please wait while your IDD purchase is being processed.'**
+  String get iddProcessingMessage;
+
+  /// No description provided for @iddProcessingLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Please do not close this screen while processing.'**
+  String get iddProcessingLocked;
+
+  /// No description provided for @iddPaymentInvalidProductTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid IDD Product'**
+  String get iddPaymentInvalidProductTitle;
+
+  /// No description provided for @iddPaymentInvalidProductMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected IDD product is invalid. Please go back and select again.'**
+  String get iddPaymentInvalidProductMessage;
+
+  /// No description provided for @iddPaymentInvalidAmountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid IDD Amount'**
+  String get iddPaymentInvalidAmountTitle;
+
+  /// No description provided for @iddPaymentInvalidAmountMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an IDD amount before continuing.'**
+  String get iddPaymentInvalidAmountMessage;
+
+  /// No description provided for @iddPaymentProviderRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'The IDD provider rejected the transaction.'**
+  String get iddPaymentProviderRejected;
+
+  /// No description provided for @iddPaymentProviderRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'The IDD transaction was refunded.'**
+  String get iddPaymentProviderRefunded;
+
+  /// No description provided for @iddPaymentStillProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'The IDD transaction is still being processed.'**
+  String get iddPaymentStillProcessing;
+
+  /// No description provided for @iddPaymentReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference'**
+  String get iddPaymentReference;
+
+  /// No description provided for @iddPaymentProviderErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'IDD Processing Error'**
+  String get iddPaymentProviderErrorTitle;
+
+  /// No description provided for @iddPaymentAlreadyReceivedWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Your QR payment has already been received. Please do not make another payment.'**
+  String get iddPaymentAlreadyReceivedWarning;
+
+  /// No description provided for @iddReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'IDD Purchase Successful'**
+  String get iddReceiptTitle;
+
+  /// No description provided for @iddReceiptProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'IDD Provider'**
+  String get iddReceiptProvider;
+
+  /// No description provided for @iddReceiptPurchaseDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'IDD Purchase Details'**
+  String get iddReceiptPurchaseDetails;
+
+  /// No description provided for @iddReceiptProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected IDD'**
+  String get iddReceiptProduct;
+
+  /// No description provided for @iddReceiptAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'IDD Amount'**
+  String get iddReceiptAmount;
+
+  /// No description provided for @iddReceiptPinDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN Details'**
+  String get iddReceiptPinDetails;
+
+  /// No description provided for @iddReceiptSerialNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number'**
+  String get iddReceiptSerialNumber;
+
+  /// No description provided for @iddReceiptPin.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN'**
+  String get iddReceiptPin;
+
+  /// No description provided for @iddReceiptExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get iddReceiptExpiry;
+
+  /// No description provided for @iddReceiptVoucherLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Link'**
+  String get iddReceiptVoucherLink;
+
+  /// No description provided for @iddReceiptTransactionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Details'**
+  String get iddReceiptTransactionDetails;
+
+  /// No description provided for @iddReceiptPaymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get iddReceiptPaymentDate;
+
+  /// No description provided for @iddReceiptBankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction'**
+  String get iddReceiptBankTransaction;
+
+  /// No description provided for @iddReceiptProviderNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider Information'**
+  String get iddReceiptProviderNote;
+
+  /// No description provided for @iddReceiptTotalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Paid'**
+  String get iddReceiptTotalPaid;
+
+  /// No description provided for @consoleStoresButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Console & App Stores'**
+  String get consoleStoresButton;
+
+  /// No description provided for @consoleStoresSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase console and app store gift cards'**
+  String get consoleStoresSupportingText;
+
+  /// No description provided for @consoleStoresTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Console & App Stores'**
+  String get consoleStoresTitle;
+
+  /// No description provided for @consoleStoresSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the store you want to purchase from'**
+  String get consoleStoresSubtitle;
+
+  /// No description provided for @consoleStoresBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Stores'**
+  String get consoleStoresBadge;
+
+  /// No description provided for @consoleStoreCategoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Console & App Store'**
+  String get consoleStoreCategoryLabel;
+
+  /// No description provided for @consoleStoreSelectPackageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Value'**
+  String get consoleStoreSelectPackageTitle;
+
+  /// No description provided for @consoleStoreSelectPackageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the value you want to purchase'**
+  String get consoleStoreSelectPackageSubtitle;
+
+  /// No description provided for @consoleStoreNoPackagesAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No values are currently available.'**
+  String get consoleStoreNoPackagesAvailable;
+
+  /// No description provided for @consoleStoreOrderSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get consoleStoreOrderSummaryTitle;
+
+  /// No description provided for @consoleStoreProductLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get consoleStoreProductLabel;
+
+  /// No description provided for @consoleStoreSelectedPackageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Value'**
+  String get consoleStoreSelectedPackageLabel;
+
+  /// No description provided for @consoleStorePackageDescriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get consoleStorePackageDescriptionLabel;
+
+  /// No description provided for @consoleStoreSubtotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get consoleStoreSubtotalLabel;
+
+  /// No description provided for @consoleStoreServiceAdjustmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get consoleStoreServiceAdjustmentLabel;
+
+  /// No description provided for @consoleStoreTotalAmountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Payment'**
+  String get consoleStoreTotalAmountLabel;
+
+  /// No description provided for @consoleStoreProductUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This product is currently unavailable.'**
+  String get consoleStoreProductUnavailable;
+
+  /// No description provided for @consoleStoreSelectPackageRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a value to continue.'**
+  String get consoleStoreSelectPackageRequired;
+
+  /// No description provided for @consoleStoreUnableToLoadOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load available values'**
+  String get consoleStoreUnableToLoadOptions;
+
+  /// No description provided for @consoleStoreUnableToLoadOptionsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again in a moment.'**
+  String get consoleStoreUnableToLoadOptionsSubtitle;
+
+  /// No description provided for @consoleStorePaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Console & App Store Payment'**
+  String get consoleStorePaymentTitle;
+
+  /// No description provided for @consoleStorePaymentTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Payment'**
+  String get consoleStorePaymentTotal;
+
+  /// No description provided for @consoleStorePreparingQrPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing QR Payment'**
+  String get consoleStorePreparingQrPayment;
+
+  /// No description provided for @consoleStoreProcessingPurchaseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing Purchase'**
+  String get consoleStoreProcessingPurchaseTitle;
+
+  /// No description provided for @consoleStoreProcessingPurchaseMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment received. We are now processing your purchase with the provider.'**
+  String get consoleStoreProcessingPurchaseMessage;
+
+  /// No description provided for @consoleStoreProcessingPurchaseLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Please do not close or leave this page.'**
+  String get consoleStoreProcessingPurchaseLocked;
+
+  /// No description provided for @consoleStorePaymentInvalidProductTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Product'**
+  String get consoleStorePaymentInvalidProductTitle;
+
+  /// No description provided for @consoleStorePaymentInvalidProductMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected product is invalid. Please return and select the product again.'**
+  String get consoleStorePaymentInvalidProductMessage;
+
+  /// No description provided for @consoleStorePaymentProviderRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'The provider was unable to complete this purchase.'**
+  String get consoleStorePaymentProviderRejected;
+
+  /// No description provided for @consoleStorePaymentProviderRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'The provider has refunded this transaction.'**
+  String get consoleStorePaymentProviderRefunded;
+
+  /// No description provided for @consoleStorePaymentUnexpectedStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Unexpected provider status'**
+  String get consoleStorePaymentUnexpectedStatus;
+
+  /// No description provided for @consoleStorePaymentProviderErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Could Not Be Completed'**
+  String get consoleStorePaymentProviderErrorTitle;
+
+  /// No description provided for @consoleStorePaymentReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference'**
+  String get consoleStorePaymentReference;
+
+  /// No description provided for @consoleStorePaymentAlreadyReceivedWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Your QR payment has already been received. Please keep this reference for assistance.'**
+  String get consoleStorePaymentAlreadyReceivedWarning;
+
+  /// No description provided for @consoleStoreReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Receipt'**
+  String get consoleStoreReceiptTitle;
+
+  /// No description provided for @consoleStoreReceiptProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get consoleStoreReceiptProduct;
+
+  /// No description provided for @consoleStoreReceiptPurchaseDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Details'**
+  String get consoleStoreReceiptPurchaseDetails;
+
+  /// No description provided for @consoleStoreReceiptSelectedValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Value'**
+  String get consoleStoreReceiptSelectedValue;
+
+  /// No description provided for @consoleStoreReceiptDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get consoleStoreReceiptDescription;
+
+  /// No description provided for @consoleStoreReceiptBaseAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Base Amount'**
+  String get consoleStoreReceiptBaseAmount;
+
+  /// No description provided for @consoleStoreReceiptServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get consoleStoreReceiptServiceAdjustment;
+
+  /// No description provided for @consoleStoreReceiptPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get consoleStoreReceiptPaymentMethod;
+
+  /// No description provided for @consoleStoreReceiptPaymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get consoleStoreReceiptPaymentDate;
+
+  /// No description provided for @consoleStoreReceiptBankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction'**
+  String get consoleStoreReceiptBankTransaction;
+
+  /// No description provided for @consoleStoreReceiptDeliveryDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Redemption Details'**
+  String get consoleStoreReceiptDeliveryDetails;
+
+  /// No description provided for @consoleStoreReceiptSerialNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number'**
+  String get consoleStoreReceiptSerialNumber;
+
+  /// No description provided for @consoleStoreReceiptPin.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN / Code'**
+  String get consoleStoreReceiptPin;
+
+  /// No description provided for @consoleStoreReceiptExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get consoleStoreReceiptExpiry;
+
+  /// No description provided for @consoleStoreReceiptVoucherLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Link'**
+  String get consoleStoreReceiptVoucherLink;
+
+  /// No description provided for @consoleStoreReceiptProviderInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider Instructions'**
+  String get consoleStoreReceiptProviderInstructions;
+
+  /// No description provided for @consoleStoreReceiptKeepCodeSafe.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your PIN, code or voucher link safe. You may need it to redeem your purchase.'**
+  String get consoleStoreReceiptKeepCodeSafe;
+
+  /// No description provided for @consoleStoreReceiptSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your purchase has been processed successfully.'**
+  String get consoleStoreReceiptSuccessMessage;
+
+  /// No description provided for @consoleStoreReceiptTotalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Paid'**
+  String get consoleStoreReceiptTotalPaid;
+
+  /// No description provided for @consoleStoreInvalidOptionValue.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected value cannot be processed. Please select another value or try again.'**
+  String get consoleStoreInvalidOptionValue;
+
+  /// No description provided for @putrajayaExplorationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Putrajaya'**
+  String get putrajayaExplorationTitle;
+
+  /// No description provided for @putrajayaTabHistorical.
+  ///
+  /// In en, this message translates to:
+  /// **'Historical'**
+  String get putrajayaTabHistorical;
+
+  /// No description provided for @putrajayaTabInteresting.
+  ///
+  /// In en, this message translates to:
+  /// **'Attractions'**
+  String get putrajayaTabInteresting;
+
+  /// No description provided for @putrajayaTabEating.
+  ///
+  /// In en, this message translates to:
+  /// **'Food'**
+  String get putrajayaTabEating;
+
+  /// No description provided for @putrajayaViewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get putrajayaViewDetails;
+
+  /// No description provided for @putrajayaGoogleMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Maps'**
+  String get putrajayaGoogleMap;
+
+  /// No description provided for @putrajayaScanMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan the QR code to view the location'**
+  String get putrajayaScanMap;
+
+  /// No description provided for @putrajayaClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get putrajayaClose;
+
+  /// No description provided for @putrajayaNoPlaces.
+  ///
+  /// In en, this message translates to:
+  /// **'No places available'**
+  String get putrajayaNoPlaces;
+
+  /// No description provided for @putrajayaInterestingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover {place}, one of the interesting places to visit around Putrajaya.'**
+  String putrajayaInterestingDesc(Object place);
+
+  /// No description provided for @putrajayaInterestingFull.
+  ///
+  /// In en, this message translates to:
+  /// **'{place} is one of the places visitors can explore while visiting Putrajaya. Scan the Google Maps QR code below to view its location and plan your visit.'**
+  String putrajayaInterestingFull(Object place);
+
+  /// No description provided for @putrajayaHistoricalDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover {place}, one of Putrajaya\'s notable landmarks.'**
+  String putrajayaHistoricalDesc(Object place);
+
+  /// No description provided for @putrajayaHistoricalFull.
+  ///
+  /// In en, this message translates to:
+  /// **'{place} is one of the notable landmarks visitors can explore in Putrajaya. Scan the Google Maps QR code below to view its location.'**
+  String putrajayaHistoricalFull(Object place);
+
+  /// No description provided for @putrajayaFoodDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore {place}, one of the dining options around Putrajaya.'**
+  String putrajayaFoodDesc(Object place);
+
+  /// No description provided for @putrajayaFoodFull.
+  ///
+  /// In en, this message translates to:
+  /// **'{place} is one of the dining places visitors can consider while in Putrajaya. Scan the Google Maps QR code below to view its location.'**
+  String putrajayaFoodFull(Object place);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

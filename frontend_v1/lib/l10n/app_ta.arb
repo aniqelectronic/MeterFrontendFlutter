@@ -2122,8 +2122,19 @@
 
   "weatherButton": "வானிலை",
   "weatherSupportingText": "பெந்தோங் 7 நாள் வானிலை முன்னறிவிப்பு",
-  "weatherPageTitle": "வானிலை",
-  "weatherPageSubtitle": "MET Malaysia வழங்கும் அதிகாரப்பூர்வ முன்னறிவிப்பு",
+  "weatherPageTitle": "{place} வானிலை",
+  "@weatherPageTitle": {
+    "place": {
+      "type": "String"
+    }
+  },
+
+  "weatherPageSubtitle": "{place} 7 நாள் வானிலை முன்னறிவிப்பு",
+  "@weatherPageSubtitle": {
+    "place": {
+      "type": "String"
+    }
+  },
   "weatherLoadingTitle": "வானிலை ஏற்றப்படுகிறது",
   "weatherLoadingMessage": "சமீபத்திய வானிலை தகவல் பெறப்படும் வரை காத்திருக்கவும்.",
   "weatherUnavailableTitle": "வானிலை கிடைக்கவில்லை",
@@ -3386,6 +3397,291 @@
 "mobileReloadReceiptSerialNumber": "வரிசை எண்",
 "mobileReloadReceiptPin": "PIN",
 "mobileReloadReceiptExpiry": "காலாவதி தேதி",
-"mobileReloadReceiptVoucherLink": "வவுச்சர் இணைப்பு"
+"mobileReloadReceiptVoucherLink": "வவுச்சர் இணைப்பு",
+
+"iddButton": "சர்வதேச நேரடி அழைப்பு",
+"iddBillSupportingText": "சர்வதேச அழைப்புகளுக்கான கிரெடிட்டை ரீலோட் செய்யவும்",
+
+
+"iddHeaderLabel": "சர்வதேச அழைப்புகள்",
+"iddPageTitle": "சர்வதேச நேரடி அழைப்பு",
+"iddPageSubtitle": "உங்கள் சேவை வழங்குநரைத் தேர்ந்தெடுக்கவும்",
+
+"iddBillSupportingText": "சர்வதேச அழைப்புகளுக்கான கிரெடிட்டை ரீலோட் செய்யவும்",
+
+"iddCatalogLoadError": "IDD சேவைகளை ஏற்ற முடியவில்லை",
+"iddCatalogRetryMessage": "மீண்டும் முயற்சிக்கவும்.",
+"iddNoServices": "தற்போது IDD சேவைகள் எதுவும் கிடைக்கவில்லை.",
+
+"networkUnavailableMessage": "{billerName} தற்போது கிடைக்கவில்லை. தயவுசெய்து பின்னர் முயற்சிக்கவும்.",
+"@networkUnavailableMessage": {
+  "placeholders": {
+    "billerName": {}
+  }
+},
+
+
+"iddCategoryLabel": "IDD சர்வதேச அழைப்பு",
+"iddSelectAmountTitle": "தொகையைத் தேர்ந்தெடுக்கவும்",
+"iddSelectAmountSubtitle": "வாங்க வேண்டிய IDD ரீலோட் தொகையைத் தேர்ந்தெடுக்கவும்.",
+"iddQuantityTitle": "எண்ணிக்கை",
+"iddQuantitySubtitle": "வாங்க வேண்டிய PIN எண்ணிக்கையைத் தேர்ந்தெடுக்கவும்.",
+"iddOrderSummaryTitle": "ஆர்டர் சுருக்கம்",
+"iddSubtotalLabel": "இடைத் தொகை",
+"iddServiceAdjustmentLabel": "சேவை சரிசெய்தல்",
+"iddTotalAmountLabel": "மொத்த தொகை",
+"iddDeliveryPin": "PIN",
+"iddNoAmountsAvailable": "தற்போது ரீலோட் தொகைகள் கிடைக்கவில்லை.",
+"iddUnableToLoadOptions": "IDD விருப்பங்களை ஏற்ற முடியவில்லை",
+"iddUnableToLoadOptionsSubtitle": "IDD விருப்பங்களை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+"iddProductUnavailable": "இந்த IDD சேவை தற்போது கிடைக்கவில்லை.",
+"iddSelectAmountRequired": "தொடர்வதற்கு முன் தொகையைத் தேர்ந்தெடுக்கவும்.",
+
+"providerLoading": "சேவை வழங்குநர்கள் ஏற்றப்படுகின்றனர்",
+"providerLoadingSubtitle": "சமீபத்திய கிடைக்கக்கூடிய சேவைகளைப் பெறுகிறோம். தயவு செய்து காத்திருக்கவும்.",
+
+"providerLoadError": "சேவை வழங்குநர்களை ஏற்ற முடியவில்லை",
+"providerLoadErrorSubtitle": "சேவை வழங்குநர் தகவலை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+
+"gameCreditsButton": "கேம் கிரெடிட்ஸ்",
+"gameCreditsSupportingText": "ஆதரிக்கப்படும் கேம்களுக்கு கிரெடிட் டாப் அப் செய்யுங்கள்",
+"gameCreditsPageTitle": "கேம் கிரெடிட்ஸ்",
+"gameCreditsPageSubtitle": "டாப் அப் செய்ய வேண்டிய கேமைத் தேர்ந்தெடுக்கவும்",
+"gameCreditsNoServices": "தற்போது கேம் கிரெடிட் சேவைகள் இல்லை",
+
+"gameCreditsCategoryLabel": "கேம் கிரெடிட்ஸ்",
+"gameCreditsSelectAmountTitle": "தொகையைத் தேர்ந்தெடுக்கவும்",
+"gameCreditsSelectAmountSubtitle": "வாங்க வேண்டிய கேம் கிரெடிட் அல்லது பேக்கேஜைத் தேர்ந்தெடுக்கவும்",
+"gameCreditsNoAmountsAvailable": "தற்போது கேம் கிரெடிட் தேர்வுகள் இல்லை.",
+"gameCreditsOrderSummaryTitle": "ஆர்டர் சுருக்கம்",
+"gameCreditsProductLabel": "தயாரிப்பு",
+"gameCreditsSelectedOptionLabel": "தேர்ந்தெடுத்தது",
+"gameCreditsCreditLabel": "கேம் கிரெடிட்ஸ்",
+"gameCreditsSubtotalLabel": "துணை மொத்தம்",
+"gameCreditsServiceAdjustmentLabel": "சேவை சரிசெய்தல்",
+"gameCreditsTotalAmountLabel": "மொத்த கட்டணம்",
+"gameCreditsDeliveryLink": "டிஜிட்டல் இணைப்பு",
+"gameCreditsDeliveryPin": "PIN",
+"gameCreditsProductUnavailable": "இந்த கேம் கிரெடிட் தற்போது கிடைக்கவில்லை.",
+"gameCreditsSelectAmountRequired": "தொடர்வதற்கு முன் கேம் கிரெடிட் தொகையைத் தேர்ந்தெடுக்கவும்.",
+"gameCreditsUnableToLoadOptions": "கேம் கிரெடிட்களை ஏற்ற முடியவில்லை",
+"gameCreditsUnableToLoadOptionsSubtitle": "கிடைக்கக்கூடிய கேம் கிரெடிட் தேர்வுகளை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+
+
+
+"gameCreditsReviewTitle": "கேம் கிரெடிட் சரிபார்ப்பு",
+"gameCreditsReviewSelection": "உங்கள் தேர்வைச் சரிபார்க்கவும்",
+
+"gameCreditsEnterAccountTitle": "கேம் கணக்கு விவரங்களை உள்ளிடவும்",
+"gameCreditsEnterAccountSubtitle": "இந்த கேமிற்கு தேவையான Player ID அல்லது கணக்கு விவரத்தை உள்ளிடவும்",
+"gameCreditsAccountLabel": "Player ID / கணக்கு",
+"gameCreditsAccountHint": "Player ID அல்லது கணக்கு எண்ணை உள்ளிடவும்",
+"gameCreditsCheckAccountMessage": "இந்த தகவலை கவனமாக சரிபார்க்கவும். கேம் கிரெடிட் நீங்கள் உள்ளிட்ட கணக்கிற்கு அனுப்பப்படலாம்.",
+
+"gameCreditsNoAccountRequiredTitle": "Player ID தேவையில்லை",
+"gameCreditsNoAccountRequiredMessage": "இந்த கேம் கிரெடிட்டிற்கு Player ID அல்லது கணக்கு எண் தேவையில்லை. பணம் செலுத்த தொடரலாம்.",
+
+"gameCreditsAccountRequired": "தேவையான Player ID அல்லது கணக்கு விவரத்தை உள்ளிடவும்.",
+"gameCreditsAccountInvalid": "உள்ளிட்ட Player ID அல்லது கணக்கு விவரம் செல்லுபடியாகாது.",
+"gameCreditsAccountRequiredTitle": "கணக்கு தகவல் தேவை",
+
+"gameCreditsContinuePayment": "பணம் செலுத்த தொடரவும்",
+
+"gameCreditsUnableToLoadDetails": "கேம் கிரெடிட் தகவலை ஏற்ற முடியவில்லை.",
+"gameCreditsInformation": "தகவல்",
+
+"gameCreditsPaymentTitle": "கேம் கிரெடிட் கட்டணம்",
+"gameCreditsGameLabel": "கேம்",
+"gameCreditsPaymentTotal": "மொத்த கட்டணம்",
+
+"gameCreditsPreparingQrPayment": "கேம் கிரெடிட் QR தயாராகிறது",
+
+"gameCreditsProcessingPurchaseTitle": "கேம் கிரெடிட் செயலாக்கப்படுகிறது",
+"gameCreditsProcessingPurchaseMessage": "உங்கள் கட்டணம் பெறப்பட்டது. கேம் கிரெடிட் பரிவர்த்தனை முடியும் வரை காத்திருக்கவும்.",
+"gameCreditsProcessingPurchaseLocked": "கேம் கிரெடிட் பரிவர்த்தனை செயலாக்கப்படும் போது திரையைத் தொட வேண்டாம்.",
+
+"gameCreditsPaymentInvalidProductTitle": "தவறான கேம் கிரெடிட் தயாரிப்பு",
+"gameCreditsPaymentInvalidProductMessage": "கேம் கிரெடிட் தயாரிப்பு குறியீடு இல்லை.",
+
+"gameCreditsPaymentProviderRejected": "கேம் கிரெடிட் வழங்குநர் பரிவர்த்தனையை நிராகரித்தார்.",
+"gameCreditsPaymentProviderRefunded": "கேம் கிரெடிட் பரிவர்த்தனை திருப்பி வழங்கப்பட்டது.",
+"gameCreditsPaymentUnexpectedStatus": "எதிர்பாராத கேம் கிரெடிட் நிலை",
+"gameCreditsPaymentProviderErrorTitle": "கேம் கிரெடிட் செயலாக்க பிழை",
+"gameCreditsPaymentReference": "கட்டண குறிப்பு",
+"gameCreditsPaymentAlreadyReceivedWarning": "DuitNow கட்டணம் ஏற்கனவே பெறப்பட்டுள்ளது. அதே பரிவர்த்தனைக்கு மீண்டும் பணம் செலுத்த வேண்டாம்.",
+
+"gameCreditsReceiptTitle": "கேம் கிரெடிட் ரசீது",
+"gameCreditsReceiptGame": "கேம்",
+"gameCreditsReceiptPurchaseDetails": "வாங்கிய விவரங்கள்",
+"gameCreditsReceiptSelectedCredit": "தேர்ந்தெடுத்த கிரெடிட்",
+"gameCreditsReceiptCreditReceived": "கேம் கிரெடிட்",
+"gameCreditsReceiptAccount": "Player ID / கணக்கு",
+"gameCreditsReceiptBaseAmount": "தொகை",
+"gameCreditsReceiptServiceAdjustment": "சேவை சரிசெய்தல்",
+"gameCreditsReceiptPaymentMethod": "கட்டண முறை",
+"gameCreditsReceiptPaymentDate": "கட்டண தேதி",
+"gameCreditsReceiptBankTransaction": "வங்கி பரிவர்த்தனை",
+"gameCreditsReceiptDeliveryDetails": "வழங்கல் விவரங்கள்",
+"gameCreditsReceiptSerialNumber": "வரிசை எண்",
+"gameCreditsReceiptPin": "PIN",
+"gameCreditsReceiptExpiry": "காலாவதி",
+"gameCreditsReceiptVoucherLink": "வவுச்சர் இணைப்பு",
+"gameCreditsReceiptKeepCodeSafe": "உங்கள் PIN, வரிசை எண் அல்லது வவுச்சர் இணைப்பை பாதுகாப்பாக வைத்திருங்கள். யாருடனும் பகிர வேண்டாம்.",
+"gameCreditsReceiptDeliveryMessage": "உங்கள் கேம் கிரெடிட் பரிவர்த்தனை முடிந்தது. வாங்கும்போது உள்ளிட்ட கேம் கணக்கைச் சரிபார்க்கவும்.",
+"gameCreditsReceiptTotalPaid": "மொத்தம் செலுத்தியது",
+
+
+
+"iddPaymentTitle": "IDD கட்டணம்",
+"iddPaymentDetails": "IDD வாங்கும் விவரங்கள்",
+"iddSelectedAmount": "தேர்ந்தெடுக்கப்பட்ட தொகை",
+"iddPreparingQrPayment": "QR கட்டணம் தயாராகிறது",
+"iddProcessingTitle": "IDD வாங்குதல் செயலாக்கப்படுகிறது",
+"iddProcessingMessage": "கட்டணம் பெறப்பட்டது. உங்கள் IDD வாங்குதல் செயலாக்கப்படும் வரை காத்திருக்கவும்.",
+"iddProcessingLocked": "செயலாக்கத்தின் போது இந்த திரையை மூட வேண்டாம்.",
+"iddPaymentInvalidProductTitle": "தவறான IDD தயாரிப்பு",
+"iddPaymentInvalidProductMessage": "தேர்ந்தெடுக்கப்பட்ட IDD தயாரிப்பு செல்லுபடியாகாது. திரும்பிச் சென்று மீண்டும் தேர்ந்தெடுக்கவும்.",
+"iddPaymentInvalidAmountTitle": "தவறான IDD தொகை",
+"iddPaymentInvalidAmountMessage": "தொடர்வதற்கு முன் IDD தொகையைத் தேர்ந்தெடுக்கவும்.",
+"iddPaymentProviderRejected": "IDD சேவை வழங்குநர் பரிவர்த்தனையை நிராகரித்துள்ளார்.",
+"iddPaymentProviderRefunded": "IDD பரிவர்த்தனை பணம் திருப்பி வழங்கப்பட்டது.",
+"iddPaymentStillProcessing": "IDD பரிவர்த்தனை இன்னும் செயலாக்கப்படுகிறது.",
+"iddPaymentReference": "குறிப்பு",
+"iddPaymentProviderErrorTitle": "IDD செயலாக்கப் பிழை",
+"iddPaymentAlreadyReceivedWarning": "உங்கள் QR கட்டணம் ஏற்கனவே பெறப்பட்டுள்ளது. மீண்டும் கட்டணம் செலுத்த வேண்டாம்.",
+
+
+"iddReceiptTitle": "IDD வாங்குதல் வெற்றிகரமாக முடிந்தது",
+"iddReceiptProvider": "IDD சேவை வழங்குநர்",
+"iddReceiptPurchaseDetails": "IDD வாங்குதல் விவரங்கள்",
+"iddReceiptProduct": "தேர்ந்தெடுக்கப்பட்ட IDD",
+"iddReceiptAmount": "IDD தொகை",
+"iddReceiptPinDetails": "PIN விவரங்கள்",
+"iddReceiptSerialNumber": "வரிசை எண்",
+"iddReceiptPin": "PIN",
+"iddReceiptExpiry": "காலாவதி தேதி",
+"iddReceiptVoucherLink": "வவுச்சர் இணைப்பு",
+"iddReceiptTransactionDetails": "பரிவர்த்தனை விவரங்கள்",
+"iddReceiptPaymentDate": "கட்டண தேதி",
+"iddReceiptBankTransaction": "வங்கி பரிவர்த்தனை",
+"iddReceiptProviderNote": "சேவை வழங்குநர் தகவல்",
+"iddReceiptTotalPaid": "செலுத்திய மொத்தம்",
+
+
+"consoleStoresButton": "கன்சோல் & ஆப் ஸ்டோர்",
+"consoleStoresSupportingText": "கன்சோல் மற்றும் ஆப் ஸ்டோர் பரிசு அட்டைகளை வாங்கவும்",
+
+"consoleStoresTitle": "கன்சோல் & ஆப் ஸ்டோர்",
+"consoleStoresSubtitle": "வாங்க வேண்டிய ஸ்டோரை தேர்ந்தெடுக்கவும்",
+"consoleStoresBadge": "டிஜிட்டல் ஸ்டோர்",
+
+
+"consoleStoreCategoryLabel": "கன்சோல் & ஆப் ஸ்டோர்",
+"consoleStoreSelectPackageTitle": "மதிப்பைத் தேர்வு செய்யவும்",
+"consoleStoreSelectPackageSubtitle": "வாங்க வேண்டிய மதிப்பைத் தேர்வு செய்யவும்",
+"consoleStoreNoPackagesAvailable": "தற்போது மதிப்புகள் கிடைக்கவில்லை.",
+"consoleStoreOrderSummaryTitle": "ஆர்டர் சுருக்கம்",
+"consoleStoreProductLabel": "தயாரிப்பு",
+"consoleStoreSelectedPackageLabel": "தேர்ந்தெடுத்த மதிப்பு",
+"consoleStorePackageDescriptionLabel": "விவரம்",
+"consoleStoreSubtotalLabel": "இடைத் தொகை",
+"consoleStoreServiceAdjustmentLabel": "சேவை சரிசெய்தல்",
+"consoleStoreTotalAmountLabel": "மொத்த கட்டணம்",
+"consoleStoreProductUnavailable": "இந்த தயாரிப்பு தற்போது கிடைக்கவில்லை.",
+"consoleStoreSelectPackageRequired": "தொடர ஒரு மதிப்பைத் தேர்வு செய்யவும்.",
+"consoleStoreUnableToLoadOptions": "கிடைக்கும் மதிப்புகளை ஏற்ற முடியவில்லை",
+"consoleStoreUnableToLoadOptionsSubtitle": "சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
+
+
+
+"consoleStorePaymentTitle": "கன்சோல் & ஆப் ஸ்டோர் கட்டணம்",
+"consoleStorePaymentTotal": "மொத்த கட்டணம்",
+"consoleStorePreparingQrPayment": "QR கட்டணம் தயாராகிறது",
+"consoleStoreProcessingPurchaseTitle": "வாங்குதல் செயலாக்கப்படுகிறது",
+"consoleStoreProcessingPurchaseMessage": "கட்டணம் பெறப்பட்டது. உங்கள் வாங்குதல் வழங்குநரிடம் செயலாக்கப்படுகிறது.",
+"consoleStoreProcessingPurchaseLocked": "இந்தப் பக்கத்தை மூடவோ விட்டு செல்லவோ வேண்டாம்.",
+"consoleStorePaymentInvalidProductTitle": "தவறான தயாரிப்பு",
+"consoleStorePaymentInvalidProductMessage": "தேர்ந்தெடுக்கப்பட்ட தயாரிப்பு செல்லாது. திரும்பிச் சென்று மீண்டும் தேர்வு செய்யவும்.",
+"consoleStorePaymentProviderRejected": "வழங்குநரால் இந்த வாங்குதலை முடிக்க முடியவில்லை.",
+"consoleStorePaymentProviderRefunded": "இந்த பரிவர்த்தனைக்கான தொகையை வழங்குநர் திருப்பி வழங்கியுள்ளார்.",
+"consoleStorePaymentUnexpectedStatus": "எதிர்பாராத வழங்குநர் நிலை",
+"consoleStorePaymentProviderErrorTitle": "வாங்குதலை முடிக்க முடியவில்லை",
+"consoleStorePaymentReference": "குறிப்பு எண்",
+"consoleStorePaymentAlreadyReceivedWarning": "உங்கள் QR கட்டணம் பெறப்பட்டுள்ளது. உதவிக்காக இந்தக் குறிப்பு எண்ணை வைத்திருக்கவும்.",
+
+"consoleStoreReceiptTitle": "வாங்குதல் ரசீது",
+"consoleStoreReceiptProduct": "தயாரிப்பு",
+"consoleStoreReceiptPurchaseDetails": "வாங்குதல் விவரங்கள்",
+"consoleStoreReceiptSelectedValue": "தேர்ந்தெடுத்த மதிப்பு",
+"consoleStoreReceiptDescription": "விவரம்",
+"consoleStoreReceiptBaseAmount": "அடிப்படை தொகை",
+"consoleStoreReceiptServiceAdjustment": "சேவை சரிசெய்தல்",
+"consoleStoreReceiptPaymentMethod": "கட்டண முறை",
+"consoleStoreReceiptPaymentDate": "கட்டண தேதி",
+"consoleStoreReceiptBankTransaction": "வங்கி பரிவர்த்தனை",
+"consoleStoreReceiptDeliveryDetails": "மீட்பு விவரங்கள்",
+"consoleStoreReceiptSerialNumber": "வரிசை எண்",
+"consoleStoreReceiptPin": "PIN / குறியீடு",
+"consoleStoreReceiptExpiry": "காலாவதி",
+"consoleStoreReceiptVoucherLink": "வவுச்சர் இணைப்பு",
+"consoleStoreReceiptProviderInstructions": "வழங்குநர் வழிமுறைகள்",
+"consoleStoreReceiptKeepCodeSafe": "உங்கள் PIN, குறியீடு அல்லது வவுச்சர் இணைப்பை பாதுகாப்பாக வைத்திருக்கவும். வாங்கியதை மீட்க இது தேவைப்படலாம்.",
+"consoleStoreReceiptSuccessMessage": "உங்கள் வாங்குதல் வெற்றிகரமாக செயலாக்கப்பட்டது.",
+"consoleStoreReceiptTotalPaid": "செலுத்திய மொத்தம்",
+"consoleStoreInvalidOptionValue": "தேர்ந்தெடுத்த மதிப்பை செயலாக்க முடியவில்லை. வேறு மதிப்பைத் தேர்வு செய்யவும் அல்லது மீண்டும் முயற்சிக்கவும்.",
+
+
+"putrajayaExplorationTitle": "புத்ராஜெயாவை ஆராயுங்கள்",
+"putrajayaTabHistorical": "வரலாற்று இடங்கள்",
+"putrajayaTabInteresting": "சுற்றுலா இடங்கள்",
+"putrajayaTabEating": "உணவகங்கள்",
+"putrajayaViewDetails": "விவரங்களைப் பார்க்க",
+"putrajayaGoogleMap": "Google வரைபடம்",
+"putrajayaScanMap": "இடத்தைப் பார்க்க QR குறியீட்டை ஸ்கேன் செய்யவும்",
+"putrajayaClose": "மூடு",
+"putrajayaNoPlaces": "இடங்கள் எதுவும் இல்லை",
+
+"putrajayaInterestingDesc": "புத்ராஜெயாவில் பார்க்கக்கூடிய சுவாரஸ்யமான இடங்களில் ஒன்றான {place} ஐ ஆராயுங்கள்.",
+"@putrajayaInterestingDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaInterestingFull": "புத்ராஜெயாவிற்கு வருகை தரும் போது பார்வையாளர்கள் ஆராயக்கூடிய இடங்களில் {place} ஒன்றாகும். இடத்தைப் பார்க்கவும் உங்கள் பயணத்தைத் திட்டமிடவும் கீழே உள்ள Google Maps QR குறியீட்டை ஸ்கேன் செய்யவும்.",
+"@putrajayaInterestingFull": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaHistoricalDesc": "புத்ராஜெயாவின் குறிப்பிடத்தக்க அடையாளங்களில் ஒன்றான {place} ஐ அறிந்துகொள்ளுங்கள்.",
+"@putrajayaHistoricalDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaHistoricalFull": "புத்ராஜெயாவில் பார்வையாளர்கள் சென்று பார்க்கக்கூடிய குறிப்பிடத்தக்க இடங்களில் {place} ஒன்றாகும். அதன் இடத்தைப் பார்க்க கீழே உள்ள Google Maps QR குறியீட்டை ஸ்கேன் செய்யவும்.",
+"@putrajayaHistoricalFull": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaFoodDesc": "புத்ராஜெயாவில் உள்ள உணவு இடங்களில் ஒன்றான {place} ஐப் பாருங்கள்.",
+"@putrajayaFoodDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaFoodFull": "புத்ராஜெயாவில் இருக்கும் போது பார்வையாளர்கள் பரிசீலிக்கக்கூடிய உணவு இடங்களில் {place} ஒன்றாகும். அதன் இடத்தைப் பார்க்க கீழே உள்ள Google Maps QR குறியீட்டை ஸ்கேன் செய்யவும்.",
+"@putrajayaFoodFull": {
+  "place": {
+    "type": "String"
+  }
+}
+
 
 }

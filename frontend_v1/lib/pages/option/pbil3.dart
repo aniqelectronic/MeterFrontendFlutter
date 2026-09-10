@@ -15,6 +15,10 @@ import 'package:frontend_v1/pages/bil/loan/ploan3.dart';
 import 'p2.dart';
 
 import 'package:frontend_v1/pages/bil/gaming/pgaming3.dart';
+import 'package:frontend_v1/pages/bil/idd/piddbill3.dart';
+import 'package:frontend_v1/pages/bil/gamecredits/pgamecredits3.dart';
+
+import 'package:frontend_v1/pages/bil/consolestores/pconsolestores3.dart';
 
 class PBIL3PAGE extends StatefulWidget {
   const PBIL3PAGE({super.key});
@@ -474,6 +478,103 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                     ],
                   ),
 
+                  const SizedBox(height: 34),
+
+                  // ============================================================
+                  // IDD + GAME CREDITS
+                  // ============================================================
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // ============================================================
+                      // INTERNATIONAL DIRECT DIALING
+                      // ============================================================
+                      Expanded(
+                        child: _ModernServiceCard(
+                          height: 455,
+                          icon: Icons.public_rounded,
+                          label: loc.iddButton,
+                          supportingText: loc.iddBillSupportingText,
+                          accentColor: const Color(0xFF1469E8),
+                          accentLightColor: const Color(0xFFE3F0FF),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PIDDBILL3PAGE(),
+                              ),
+                            );
+                          },
+                          comingSoon: false,
+                        ),
+                      ),
+
+                      const SizedBox(width: 34),
+
+                      // ============================================================
+                      // GAME CREDITS
+                      // ============================================================
+                      Expanded(
+                        child: _ModernServiceCard(
+                          height: 455,
+                          icon: Icons.videogame_asset_rounded,
+                          label: loc.gameCreditsButton,
+                          supportingText: loc.gameCreditsSupportingText,
+                          accentColor: const Color(0xFF009688),
+                          accentLightColor: const Color(0xFFE0F5F2),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PGAMECREDITS3PAGE(),
+                              ),
+                            );
+                          },
+                          comingSoon: false,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 34),
+
+                  // ============================================================
+                  // CONSOLE & APP STORES
+                  // ============================================================
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: _ModernServiceCard(
+                          height: 455,
+                          icon: Icons.devices_other_rounded,
+                          label: loc.consoleStoresButton,
+                          supportingText:
+                              loc.consoleStoresSupportingText,
+                          accentColor: const Color(0xFF3949AB),
+                          accentLightColor: const Color(0xFFE8EAF6),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    const PCONSOLESTORES3PAGE(),
+                              ),
+                            );
+                          },
+                          comingSoon: false,
+                        ),
+                      ),
+
+                      const SizedBox(width: 34),
+
+                      // Keep second column empty for now.
+                      const Expanded(
+                        child: SizedBox(),
+                      ),
+                    ],
+                  ),
+                  
                   ],
                 ),
               ),

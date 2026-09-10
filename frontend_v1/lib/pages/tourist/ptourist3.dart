@@ -5,12 +5,11 @@ import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/p2.dart';
-import 'package:frontend_v1/pages/tourist/eksplorasi/pbentongexploration.dart';
 import 'package:frontend_v1/pages/tourist/eksplorasi/pexploration_ipoh.dart';
+import 'package:frontend_v1/pages/tourist/eksplorasi/pexploration_putrajaya.dart';
 import 'package:frontend_v1/pages/tourist/map/pmapgoogle.dart';
 import 'package:frontend_v1/pages/tourist/waktusolat/pwaktusolat.dart';
-import 'package:frontend_v1/pages/tourist/weather/pweather_bentong.dart';
-import 'package:frontend_v1/pages/tourist/weather/pweather_ipoh.dart';
+import 'package:frontend_v1/pages/tourist/weather/weather_page.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
 class PTOURISTPAGE extends StatefulWidget {
@@ -193,7 +192,7 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
                               context,
                               MaterialPageRoute(
                                 builder: (_) =>
-                                    const PExplorationIpohPage(),
+                                    const PExplorationPutrajayaPage(),
                               ),
                             );
                           },
@@ -257,7 +256,7 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
                               context,
                               MaterialPageRoute(
                                 builder: (_) =>
-                                    const PWeatherPageIpoh(),
+                                    const PWeatherPage(),
                               ),
                             );
                           },

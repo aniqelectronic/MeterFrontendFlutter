@@ -14,6 +14,7 @@ import 'package:frontend_v1/pages/bil/gaming/pgaming4.dart';
 // ============================================================================
 // GAMING PLATFORM STATUS
 // ============================================================================
+
 enum GamingStatus {
   loading,
   healthy,
@@ -23,54 +24,101 @@ enum GamingStatus {
 
 // ============================================================================
 // GAMING PLATFORM MODEL
+//
+// Provider information comes from /v2/catalog.
+//
+// The colors are decorative UI colors only. They do NOT represent
+// provider/product business data.
 // ============================================================================
+
 class GamingPlatform {
   final String productCode;
   final String name;
   final String imageUrl;
   final String processingTime;
-  final bool isActive;
+
+  final Color accentColor;
+  final Color lightAccentColor;
 
   const GamingPlatform({
     required this.productCode,
     required this.name,
     required this.imageUrl,
     required this.processingTime,
-    required this.isActive,
+    required this.accentColor,
+    required this.lightAccentColor,
   });
 }
 
 // ============================================================================
 // GAMING PLATFORM PAGE
-// SAME DESIGN / FLOW AS ELECTRIC PAGE
 // ============================================================================
+
 class PGAMING3PAGE extends StatefulWidget {
-  const PGAMING3PAGE({super.key});
+  const PGAMING3PAGE({
+    super.key,
+  });
 
   @override
-  State<PGAMING3PAGE> createState() => _PGAMING3PAGEState();
+  State<PGAMING3PAGE> createState() =>
+      _PGAMING3PAGEState();
 }
 
-class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
+class _PGAMING3PAGEState
+    extends State<PGAMING3PAGE> {
   // ==========================================================================
   // DATA
   // ==========================================================================
 
   final List<GamingPlatform> _platforms = [];
 
-  final Map<String, GamingStatus> _platformStatuses = {};
+  final Map<String, GamingStatus>
+      _platformStatuses = {};
+
   final Map<String, String?> _lastUpdated = {};
 
   bool _isLoadingCatalog = true;
+
+  String? _catalogError;
+
+  // ==========================================================================
+  // DECORATIVE CARD COLORS
+  //
+  // These are NOT tied to any specific provider code.
+  // If IIMMPACT adds more providers, colors repeat automatically.
+  // ==========================================================================
+
+  static const List<Color> _accentColors = [
+    Color(0xFF7048E8),
+    Color(0xFF00897B),
+    Color(0xFFE65100),
+    Color(0xFF3949AB),
+    Color(0xFF455A64),
+    Color(0xFF8E24AA),
+    Color(0xFF1469E8),
+    Color(0xFFD64D8B),
+  ];
+
+  static const List<Color> _lightAccentColors = [
+    Color(0xFFEDE7FF),
+    Color(0xFFE0F2F1),
+    Color(0xFFFFE9DD),
+    Color(0xFFE8EAF6),
+    Color(0xFFECEFF1),
+    Color(0xFFF3E5F5),
+    Color(0xFFE5F0FF),
+    Color(0xFFFFE6F2),
+  ];
 
   // ==========================================================================
   // SCROLL
   // ==========================================================================
 
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController =
+      ScrollController();
 
   bool showScrollUp = false;
-  bool showScrollDown = true;
+  bool showScrollDown = false;
 
   // ==========================================================================
   // LIFE CYCLE
@@ -80,34 +128,48 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
   void initState() {
     super.initState();
 
-    _scrollController.addListener(_handleScroll);
+    _scrollController.addListener(
+      _handleScroll,
+    );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadGamingPlatforms();
-      _handleScroll();
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _loadGamingPlatforms();
+      },
+    );
   }
 
   // ==========================================================================
-  // LOAD GAMING PLATFORMS FROM /v2/catalog
+  // LOAD GAMING PLATFORMS
   //
-  // It reads:
+  // /v2/catalog
   //
-  // GAMES
-  //   -> GAMING_PLATFORMS
-  //      -> product_codes
+  // tree
+  //   -> groups
+  //      -> GAMES
+  //         -> categories
+  //            -> GAMING_PLATFORMS
+  //               -> product_codes
   //
-  // Then gets product:
-  // - name
-  // - image_url
-  // - processing_time
-  // - is_active
+  // products[code]
+  //   -> code
+  //   -> name
+  //   -> image_url
+  //   -> processing_time
+  //   -> is_active
+  //
+  // IMPORTANT:
+  // Inactive products are NOT shown.
   // ==========================================================================
 
   Future<void> _loadGamingPlatforms() async {
     if (mounted) {
       setState(() {
         _isLoadingCatalog = true;
+        _catalogError = null;
+
+        showScrollUp = false;
+        showScrollDown = false;
       });
     }
 
@@ -115,46 +177,63 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
       final Map<String, dynamic> catalog =
           await IimmpactCatalogService.getCatalog();
 
-      final dynamic treeRaw = catalog['tree'];
-      final dynamic productsRaw = catalog['products'];
+      // ======================================================================
+      // TREE
+      // ======================================================================
 
-      if (treeRaw is! Map || productsRaw is! Map) {
-        debugPrint(
-          'Gaming catalog error: tree/products not found.',
+      final dynamic treeRaw =
+          catalog['tree'];
+
+      if (treeRaw is! Map) {
+        throw Exception(
+          'Catalog tree not found.',
         );
-
-        if (mounted) {
-          setState(() {
-            _isLoadingCatalog = false;
-          });
-        }
-
-        return;
       }
 
       final Map<String, dynamic> tree =
-          Map<String, dynamic>.from(treeRaw);
+          Map<String, dynamic>.from(
+        treeRaw,
+      );
 
-      final Map<String, dynamic> products =
-          Map<String, dynamic>.from(productsRaw);
+      // ======================================================================
+      // PRODUCTS
+      // ======================================================================
 
-      final dynamic groupsRaw = tree['groups'];
+      final dynamic productsRaw =
+          catalog['products'];
 
-      if (groupsRaw is! List) {
-        debugPrint(
-          'Gaming catalog error: groups not found.',
+      if (productsRaw is! Map) {
+        throw Exception(
+          'Catalog products not found.',
         );
-
-        if (mounted) {
-          setState(() {
-            _isLoadingCatalog = false;
-          });
-        }
-
-        return;
       }
 
-      List<String> gamingProductCodes = [];
+      final Map<String, dynamic> products =
+          Map<String, dynamic>.from(
+        productsRaw,
+      );
+
+      // ======================================================================
+      // GROUPS
+      // ======================================================================
+
+      final dynamic groupsRaw =
+          tree['groups'];
+
+      if (groupsRaw is! List) {
+        throw Exception(
+          'Catalog groups not found.',
+        );
+      }
+
+      final List<String> gamingProductCodes = [];
+
+      // ======================================================================
+      // FIND:
+      //
+      // GAMES
+      //   -> GAMING_PLATFORMS
+      // ======================================================================
 
       for (final dynamic rawGroup in groupsRaw) {
         if (rawGroup is! Map) {
@@ -162,27 +241,47 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
         }
 
         final Map<String, dynamic> group =
-            Map<String, dynamic>.from(rawGroup);
+            Map<String, dynamic>.from(
+          rawGroup,
+        );
 
-        if (group['id']?.toString() != 'GAMES') {
+        final String groupId =
+            group['id']
+                    ?.toString()
+                    .trim()
+                    .toUpperCase() ??
+                '';
+
+        if (groupId != 'GAMES') {
           continue;
         }
 
-        final dynamic categoriesRaw = group['categories'];
+        final dynamic categoriesRaw =
+            group['categories'];
 
         if (categoriesRaw is! List) {
           continue;
         }
 
-        for (final dynamic rawCategory in categoriesRaw) {
+        for (final dynamic rawCategory
+            in categoriesRaw) {
           if (rawCategory is! Map) {
             continue;
           }
 
           final Map<String, dynamic> category =
-              Map<String, dynamic>.from(rawCategory);
+              Map<String, dynamic>.from(
+            rawCategory,
+          );
 
-          if (category['id']?.toString() !=
+          final String categoryId =
+              category['id']
+                      ?.toString()
+                      .trim()
+                      .toUpperCase() ??
+                  '';
+
+          if (categoryId !=
               'GAMING_PLATFORMS') {
             continue;
           }
@@ -190,57 +289,148 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
           final dynamic productCodesRaw =
               category['product_codes'];
 
-          if (productCodesRaw is List) {
-            gamingProductCodes = productCodesRaw
-                .map(
-                  (dynamic code) =>
-                      code.toString().trim(),
-                )
-                .where(
-                  (String code) => code.isNotEmpty,
-                )
-                .toList();
+          if (productCodesRaw is! List) {
+            continue;
           }
 
-          break;
-        }
+          for (final dynamic rawCode
+              in productCodesRaw) {
+            final String code =
+                rawCode
+                        ?.toString()
+                        .trim()
+                        .toUpperCase() ??
+                    '';
 
-        break;
+            if (code.isEmpty) {
+              continue;
+            }
+
+            if (!gamingProductCodes.contains(
+              code,
+            )) {
+              gamingProductCodes.add(
+                code,
+              );
+            }
+          }
+        }
       }
 
-      final List<GamingPlatform> loadedPlatforms = [];
+      // ======================================================================
+      // BUILD ACTIVE PLATFORM LIST
+      // ======================================================================
 
-      for (final String code in gamingProductCodes) {
-        final dynamic rawProduct = products[code];
+      final List<GamingPlatform>
+          loadedPlatforms = [];
+
+      for (
+        int index = 0;
+        index < gamingProductCodes.length;
+        index++
+      ) {
+        final String catalogCode =
+            gamingProductCodes[index];
+
+        final dynamic rawProduct =
+            products[catalogCode];
 
         if (rawProduct is! Map) {
           debugPrint(
-            'Gaming product not found: $code',
+            'Gaming product not found: '
+            '$catalogCode',
           );
+
           continue;
         }
 
         final Map<String, dynamic> product =
-            Map<String, dynamic>.from(rawProduct);
+            Map<String, dynamic>.from(
+          rawProduct,
+        );
+
+        // ====================================================================
+        // ACTIVE FILTER
+        // ====================================================================
+
+        if (product['is_active'] != true) {
+          debugPrint(
+            'Gaming product inactive: '
+            '$catalogCode',
+          );
+
+          continue;
+        }
+
+        // ====================================================================
+        // PRODUCT CODE
+        // ====================================================================
+
+        final String productCode =
+            product['code']
+                    ?.toString()
+                    .trim()
+                    .toUpperCase() ??
+                catalogCode;
+
+        // ====================================================================
+        // NAME
+        // ====================================================================
+
+        final String rawName =
+            product['name']
+                    ?.toString()
+                    .trim() ??
+                '';
+
+        final String name =
+            rawName.isNotEmpty
+                ? rawName
+                : productCode;
+
+        // ====================================================================
+        // IMAGE
+        // ====================================================================
+
+        final String imageUrl =
+            product['image_url']
+                    ?.toString()
+                    .trim() ??
+                '';
+
+        // ====================================================================
+        // PROCESSING TIME
+        // ====================================================================
+
+        final String processingTime =
+            product['processing_time']
+                    ?.toString()
+                    .trim() ??
+                '';
+
+        // ====================================================================
+        // ADD PLATFORM
+        // ====================================================================
 
         loadedPlatforms.add(
           GamingPlatform(
-            productCode: code,
-            name:
-                product['name']?.toString().trim().isNotEmpty ==
-                        true
-                    ? product['name']
-                        .toString()
-                        .trim()
-                    : code,
-            imageUrl:
-                product['image_url']?.toString().trim() ?? '',
+            productCode: productCode,
+            name: name,
+            imageUrl: imageUrl,
             processingTime:
-                product['processing_time']
-                        ?.toString()
-                        .trim() ??
-                    '',
-            isActive: product['is_active'] == true,
+                processingTime,
+
+            accentColor:
+                _accentColors[
+              index %
+                  _accentColors.length
+            ],
+
+            lightAccentColor:
+                _lightAccentColors[
+              index %
+                  _lightAccentColors.length
+            ],
           ),
         );
       }
@@ -249,48 +439,70 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
         return;
       }
 
+      // ======================================================================
+      // UPDATE UI
+      // ======================================================================
+
       setState(() {
         _platforms
           ..clear()
-          ..addAll(loadedPlatforms);
+          ..addAll(
+            loadedPlatforms,
+          );
 
         _platformStatuses.clear();
+        _lastUpdated.clear();
 
         for (final GamingPlatform platform
             in loadedPlatforms) {
-          _platformStatuses[platform.productCode] =
-              platform.isActive
-                  ? GamingStatus.loading
-                  : GamingStatus.unavailable;
+          _platformStatuses[
+                  platform.productCode] =
+              GamingStatus.loading;
         }
 
         _isLoadingCatalog = false;
+        _catalogError = null;
       });
 
-      // Same concept as Electricity:
-      // load network status for every active provider.
-      await Future.wait(
-        loadedPlatforms
-            .where(
-              (GamingPlatform platform) =>
-                  platform.isActive,
-            )
-            .map(
-              (GamingPlatform platform) =>
-                  _refreshNetworkStatus(
-                platform.productCode,
-              ),
-            ),
+      debugPrint(
+        'Gaming platforms loaded: '
+        '${loadedPlatforms.map(
+          (platform) => platform.productCode,
+        ).toList()}',
       );
 
-      if (mounted) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _handleScroll();
-        });
+      // ======================================================================
+      // NETWORK STATUS
+      // ======================================================================
+
+      await Future.wait(
+        loadedPlatforms.map(
+          (GamingPlatform platform) =>
+              _refreshNetworkStatus(
+            platform.productCode,
+          ),
+        ),
+      );
+
+      if (!mounted) {
+        return;
       }
-    } on IimmpactCatalogException catch (error) {
+
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) {
+          _handleScroll();
+        },
+      );
+    }
+
+    // ========================================================================
+    // CATALOG ERROR
+    // ========================================================================
+
+    on IimmpactCatalogException catch (error) {
       debugPrint(
-        'Gaming catalog error: ${error.message}',
+        'Gaming catalog error: '
+        '${error.message}',
       );
 
       if (!mounted) {
@@ -299,10 +511,27 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
 
       setState(() {
         _isLoadingCatalog = false;
+
+        _catalogError =
+            error.message;
+
+        _platforms.clear();
+        _platformStatuses.clear();
+        _lastUpdated.clear();
+
+        showScrollUp = false;
+        showScrollDown = false;
       });
-    } catch (error, stackTrace) {
+    }
+
+    // ========================================================================
+    // UNKNOWN ERROR
+    // ========================================================================
+
+    catch (error, stackTrace) {
       debugPrint(
-        'Unexpected gaming catalog error: $error',
+        'Unexpected gaming catalog error: '
+        '$error',
       );
 
       debugPrintStack(
@@ -315,6 +544,16 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
 
       setState(() {
         _isLoadingCatalog = false;
+
+        _catalogError =
+            error.toString();
+
+        _platforms.clear();
+        _platformStatuses.clear();
+        _lastUpdated.clear();
+
+        showScrollUp = false;
+        showScrollDown = false;
       });
     }
   }
@@ -339,14 +578,19 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
         productCode: productCode,
       );
 
-      final GamingStatus status = result.isHealthy
-          ? GamingStatus.healthy
-          : GamingStatus.interruption;
+      final GamingStatus status =
+          result.isHealthy
+              ? GamingStatus.healthy
+              : GamingStatus.interruption;
 
       if (mounted) {
         setState(() {
-          _platformStatuses[productCode] = status;
-          _lastUpdated[productCode] =
+          _platformStatuses[
+                  productCode] =
+              status;
+
+          _lastUpdated[
+                  productCode] =
               result.lastUpdated;
         });
       }
@@ -354,13 +598,14 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
       return status;
     } catch (error) {
       debugPrint(
-        'Network status error for '
+        'Gaming network status error for '
         '$productCode: $error',
       );
 
       if (mounted) {
         setState(() {
-          _platformStatuses[productCode] =
+          _platformStatuses[
+                  productCode] =
               GamingStatus.unavailable;
         });
       }
@@ -371,27 +616,31 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
 
   // ==========================================================================
   // INTERRUPTION WARNING
-  // SAME AS ELECTRIC
   // ==========================================================================
 
   Future<bool> _showInterruptionWarning({
     required String platformName,
     required String productCode,
   }) async {
-    final loc = AppLocalizations.of(context)!;
+    final loc =
+        AppLocalizations.of(context)!;
 
-    final bool? result = await showDialog<bool>(
+    final bool? result =
+        await showDialog<bool>(
       context: context,
       barrierDismissible: false,
       builder: (dialogContext) {
         return Dialog(
-          backgroundColor: Colors.transparent,
-          insetPadding: const EdgeInsets.symmetric(
+          backgroundColor:
+              Colors.transparent,
+          insetPadding:
+              const EdgeInsets.symmetric(
             horizontal: 80,
           ),
           child: Container(
             width: 800,
-            padding: const EdgeInsets.fromLTRB(
+            padding:
+                const EdgeInsets.fromLTRB(
               45,
               42,
               45,
@@ -399,67 +648,112 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
             ),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(38),
+              borderRadius:
+                  BorderRadius.circular(
+                38,
+              ),
               border: Border.all(
-                color: const Color(0xFFF2A520),
+                color: const Color(
+                  0xFFF2A520,
+                ),
                 width: 3,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.25),
+                  color:
+                      Colors.black.withOpacity(
+                    0.25,
+                  ),
                   blurRadius: 35,
-                  offset: const Offset(0, 18),
+                  offset:
+                      const Offset(
+                    0,
+                    18,
+                  ),
                 ),
               ],
             ),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize:
+                  MainAxisSize.min,
               children: [
                 Container(
                   width: 125,
                   height: 125,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFF2D9),
-                    shape: BoxShape.circle,
+                  decoration:
+                      BoxDecoration(
+                    color: const Color(
+                      0xFFFFF2D9,
+                    ),
+                    shape:
+                        BoxShape.circle,
                     border: Border.all(
-                      color: const Color(0xFFF2A520)
-                          .withOpacity(0.30),
+                      color:
+                          const Color(
+                        0xFFF2A520,
+                      ).withOpacity(
+                        0.30,
+                      ),
                       width: 2,
                     ),
                   ),
                   child: const Icon(
-                    Icons.warning_amber_rounded,
-                    color: Color(0xFFD87900),
+                    Icons
+                        .warning_amber_rounded,
+                    color:
+                        Color(
+                      0xFFD87900,
+                    ),
                     size: 78,
                   ),
                 ),
 
-                const SizedBox(height: 28),
+                const SizedBox(
+                  height: 28,
+                ),
 
                 Text(
                   loc.networkInterruptionTitle,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Color(0xFF17283E),
+                  textAlign:
+                      TextAlign.center,
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF17283E,
+                    ),
                     fontSize: 40,
-                    fontWeight: FontWeight.w900,
+                    fontWeight:
+                        FontWeight.w900,
                     height: 1.1,
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(
+                  height: 24,
+                ),
 
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
+                  padding:
+                      const EdgeInsets.symmetric(
                     horizontal: 28,
                     vertical: 25,
                   ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFF9ED),
-                    borderRadius: BorderRadius.circular(24),
+                  decoration:
+                      BoxDecoration(
+                    color: const Color(
+                      0xFFFFF9ED,
+                    ),
+                    borderRadius:
+                        BorderRadius.circular(
+                      24,
+                    ),
                     border: Border.all(
-                      color: const Color(0xFFF4D69D),
+                      color:
+                          const Color(
+                        0xFFF4D69D,
+                      ),
                       width: 1.5,
                     ),
                   ),
@@ -467,40 +761,63 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
                     loc.networkInterruptionMessage(
                       platformName,
                     ),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color(0xFF4B4234),
+                    textAlign:
+                        TextAlign.center,
+                    style:
+                        const TextStyle(
+                      color:
+                          Color(
+                        0xFF4B4234,
+                      ),
                       fontSize: 29,
                       height: 1.4,
-                      fontWeight: FontWeight.w600,
+                      fontWeight:
+                          FontWeight.w600,
                     ),
                   ),
                 ),
 
-                if (_lastUpdated[productCode] != null) ...[
-                  const SizedBox(height: 20),
+                if (_lastUpdated[
+                        productCode] !=
+                    null) ...[
+                  const SizedBox(
+                    height: 20,
+                  ),
 
                   Row(
                     mainAxisAlignment:
-                        MainAxisAlignment.center,
+                        MainAxisAlignment
+                            .center,
                     children: [
                       const Icon(
-                        Icons.schedule_rounded,
+                        Icons
+                            .schedule_rounded,
                         size: 24,
-                        color: Color(0xFF758399),
+                        color:
+                            Color(
+                          0xFF758399,
+                        ),
                       ),
 
-                      const SizedBox(width: 8),
+                      const SizedBox(
+                        width: 8,
+                      ),
 
                       Flexible(
                         child: Text(
                           '${loc.networkLastUpdated}: '
                           '${_lastUpdated[productCode]}',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          textAlign:
+                              TextAlign.center,
+                          style:
+                              const TextStyle(
                             fontSize: 21,
-                            color: Color(0xFF758399),
-                            fontWeight: FontWeight.w600,
+                            color:
+                                Color(
+                              0xFF758399,
+                            ),
+                            fontWeight:
+                                FontWeight.w600,
                           ),
                         ),
                       ),
@@ -508,80 +825,113 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
                   ),
                 ],
 
-                const SizedBox(height: 36),
+                const SizedBox(
+                  height: 36,
+                ),
 
                 Row(
                   children: [
                     Expanded(
                       child: SizedBox(
                         height: 78,
-                        child: OutlinedButton.icon(
+                        child:
+                            OutlinedButton.icon(
                           onPressed: () {
                             Navigator.pop(
                               dialogContext,
                               false,
                             );
                           },
-                          icon: const Icon(
-                            Icons.arrow_back_rounded,
+                          icon:
+                              const Icon(
+                            Icons
+                                .arrow_back_rounded,
                             size: 29,
                           ),
                           label: Text(
                             loc.backButton,
-                            style: const TextStyle(
+                            style:
+                                const TextStyle(
                               fontSize: 24,
-                              fontWeight: FontWeight.w900,
+                              fontWeight:
+                                  FontWeight.w900,
                             ),
                           ),
-                          style: OutlinedButton.styleFrom(
+                          style: OutlinedButton
+                              .styleFrom(
                             backgroundColor:
-                                const Color(0xFFFFE8E8),
+                                const Color(
+                              0xFFFFE8E8,
+                            ),
                             foregroundColor:
-                                const Color(0xFFC62828),
-                            side: const BorderSide(
-                              color: Color(0xFFE57373),
+                                const Color(
+                              0xFFC62828,
+                            ),
+                            side:
+                                const BorderSide(
+                              color:
+                                  Color(
+                                0xFFE57373,
+                              ),
                               width: 2,
                             ),
-                            shape: RoundedRectangleBorder(
+                            shape:
+                                RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.circular(22),
+                                  BorderRadius.circular(
+                                22,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
 
-                    const SizedBox(width: 22),
+                    const SizedBox(
+                      width: 22,
+                    ),
 
                     Expanded(
                       child: SizedBox(
                         height: 78,
-                        child: ElevatedButton.icon(
+                        child:
+                            ElevatedButton.icon(
                           onPressed: () {
                             Navigator.pop(
                               dialogContext,
                               true,
                             );
                           },
-                          icon: const Icon(
-                            Icons.arrow_forward_rounded,
+                          icon:
+                              const Icon(
+                            Icons
+                                .arrow_forward_rounded,
                             size: 29,
                           ),
                           label: Text(
                             loc.continueButton,
-                            style: const TextStyle(
+                            style:
+                                const TextStyle(
                               fontSize: 24,
-                              fontWeight: FontWeight.w900,
+                              fontWeight:
+                                  FontWeight.w900,
                             ),
                           ),
-                          style: ElevatedButton.styleFrom(
+                          style: ElevatedButton
+                              .styleFrom(
                             backgroundColor:
-                                const Color(0xFF168A50),
-                            foregroundColor: Colors.white,
+                                const Color(
+                              0xFF168A50,
+                            ),
+                            foregroundColor:
+                                Colors.white,
                             elevation: 0,
-                            shape: RoundedRectangleBorder(
+                            shape:
+                                RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.circular(22),
+                                  BorderRadius.circular(
+                                22,
+                              ),
                             ),
                           ),
                         ),
@@ -600,16 +950,19 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
   }
 
   // ==========================================================================
-  // PROVIDER TAP
+  // PLATFORM TAP
+  //
+  // IMPORTANT:
+  // Network status unavailable does NOT automatically mean the catalog
+  // product is inactive.
+  //
+  // The product is already known to be active because inactive products
+  // were filtered during catalog loading.
   // ==========================================================================
 
   Future<void> _handlePlatformTap(
     GamingPlatform platform,
   ) async {
-    if (!platform.isActive) {
-      return;
-    }
-
     final GamingStatus status =
         await _refreshNetworkStatus(
       platform.productCode,
@@ -619,11 +972,14 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
       return;
     }
 
-    if (status == GamingStatus.interruption) {
+    if (status ==
+        GamingStatus.interruption) {
       final bool shouldContinue =
           await _showInterruptionWarning(
-        platformName: platform.name,
-        productCode: platform.productCode,
+        platformName:
+            platform.name,
+        productCode:
+            platform.productCode,
       );
 
       if (!shouldContinue) {
@@ -635,13 +991,20 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
       return;
     }
 
+    // Keep your existing behaviour:
+    // even if the network-status check itself failed,
+    // the active catalog product remains selectable.
     await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => PGAMING4PAGE(
-          productCode: platform.productCode,
-          platformName: platform.name,
-          imageUrl: platform.imageUrl,
+        builder: (_) =>
+            PGAMING4PAGE(
+          productCode:
+              platform.productCode,
+          platformName:
+              platform.name,
+          imageUrl:
+              platform.imageUrl,
         ),
       ),
     );
@@ -652,12 +1015,15 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
   // ==========================================================================
 
   void _handleScroll() {
-    if (!_scrollController.hasClients || !mounted) {
+    if (!_scrollController.hasClients ||
+        !mounted) {
       return;
     }
 
     final double maxScroll =
-        _scrollController.position.maxScrollExtent;
+        _scrollController
+            .position
+            .maxScrollExtent;
 
     final double currentScroll =
         _scrollController.offset;
@@ -666,13 +1032,20 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
         currentScroll > 10;
 
     final bool shouldShowScrollDown =
-        currentScroll < maxScroll - 10;
+        maxScroll > 10 &&
+            currentScroll <
+                maxScroll - 10;
 
-    if (showScrollUp != shouldShowScrollUp ||
-        showScrollDown != shouldShowScrollDown) {
+    if (showScrollUp !=
+            shouldShowScrollUp ||
+        showScrollDown !=
+            shouldShowScrollDown) {
       setState(() {
-        showScrollUp = shouldShowScrollUp;
-        showScrollDown = shouldShowScrollDown;
+        showScrollUp =
+            shouldShowScrollUp;
+
+        showScrollDown =
+            shouldShowScrollDown;
       });
     }
   }
@@ -687,14 +1060,18 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
     }
 
     final double destination =
-        (_scrollController.offset - 600).clamp(
+        (_scrollController.offset - 600)
+            .clamp(
       0.0,
-      _scrollController.position.maxScrollExtent,
+      _scrollController
+          .position
+          .maxScrollExtent,
     );
 
     _scrollController.animateTo(
       destination,
-      duration: const Duration(
+      duration:
+          const Duration(
         milliseconds: 400,
       ),
       curve: Curves.easeOut,
@@ -711,14 +1088,18 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
     }
 
     final double destination =
-        (_scrollController.offset + 600).clamp(
+        (_scrollController.offset + 600)
+            .clamp(
       0.0,
-      _scrollController.position.maxScrollExtent,
+      _scrollController
+          .position
+          .maxScrollExtent,
     );
 
     _scrollController.animateTo(
       destination,
-      duration: const Duration(
+      duration:
+          const Duration(
         milliseconds: 400,
       ),
       curve: Curves.easeOut,
@@ -745,8 +1126,11 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
   // ==========================================================================
 
   @override
-  Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
+  Widget build(
+    BuildContext context,
+  ) {
+    final loc =
+        AppLocalizations.of(context)!;
 
     return Scaffold(
       body: Stack(
@@ -754,6 +1138,7 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
           // ==================================================================
           // BACKGROUND
           // ==================================================================
+
           Positioned.fill(
             child: Image.asset(
               'lib/images/pnew.png',
@@ -763,14 +1148,27 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
 
           Positioned.fill(
             child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+              decoration:
+                  BoxDecoration(
+                gradient:
+                    LinearGradient(
+                  begin:
+                      Alignment.topCenter,
+                  end:
+                      Alignment.bottomCenter,
                   colors: [
-                    Colors.white.withOpacity(0.02),
-                    Colors.white.withOpacity(0.12),
-                    Colors.white.withOpacity(0.04),
+                    Colors.white
+                        .withOpacity(
+                      0.02,
+                    ),
+                    Colors.white
+                        .withOpacity(
+                      0.12,
+                    ),
+                    Colors.white
+                        .withOpacity(
+                      0.04,
+                    ),
                   ],
                 ),
               ),
@@ -779,103 +1177,102 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
 
           // ==================================================================
           // HEADER
-          // SAME POSITION AS ELECTRIC
           // ==================================================================
+
           Positioned(
             top: 82,
             left: 65,
             right: 65,
-            child: _ModernPageHeader(
-              title: loc.gamingPlatformButton,
-              subtitle: loc.gamingPlatformSupportingText,
+            child:
+                _ModernPageHeader(
+              title:
+                  loc.gamingPlatformButton,
+              subtitle:
+                  loc.gamingPlatformSupportingText,
             ),
           ),
 
           // ==================================================================
           // PLATFORM AREA
-          // SAME POSITION AS ELECTRIC
+          //
+          // LOADING
+          // ERROR
+          // EMPTY
+          // PRODUCTS
           // ==================================================================
+
           Positioned(
             top: 400,
             left: 45,
             right: 45,
             bottom: 305,
-            child: _isLoadingCatalog
-                ? const Center(
-                    child: CircularProgressIndicator(
-                      strokeWidth: 5,
-                      color: Color(0xFF7048E8),
-                    ),
-                  )
-                : Scrollbar(
-                    controller: _scrollController,
-                    thumbVisibility: true,
-                    trackVisibility: true,
-                    interactive: true,
-                    thickness: 11,
-                    radius: const Radius.circular(20),
-                    child: SingleChildScrollView(
-                      controller: _scrollController,
-                      physics:
-                          const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.only(
-                        right: 24,
-                        bottom: 55,
-                      ),
-                      child: Column(
-                        children: _buildPlatformRows(
-                          loc,
-                        ),
-                      ),
-                    ),
-                  ),
+            child:
+                _buildPlatformArea(
+              loc,
+            ),
           ),
 
           // ==================================================================
           // SCROLL UP
           // ==================================================================
-          if (showScrollUp)
+
+          if (!_isLoadingCatalog &&
+              _catalogError == null &&
+              showScrollUp)
             Positioned(
               right: 18,
               top: 365,
-              child: _ScrollIndicatorButton(
-                icon:
-                    Icons.keyboard_arrow_up_rounded,
-                label: loc.scrollup,
-                onPressed: _scrollUp,
+              child:
+                  _ScrollIndicatorButton(
+                icon: Icons
+                    .keyboard_arrow_up_rounded,
+                label:
+                    loc.scrollup,
+                onPressed:
+                    _scrollUp,
               ),
             ),
 
           // ==================================================================
           // SCROLL DOWN
           // ==================================================================
-          if (showScrollDown)
+
+          if (!_isLoadingCatalog &&
+              _catalogError == null &&
+              showScrollDown)
             Positioned(
               right: 18,
               bottom: 290,
-              child: _ScrollIndicatorButton(
-                icon:
-                    Icons.keyboard_arrow_down_rounded,
-                label: loc.scrolldown,
-                onPressed: _scrollDown,
-                iconBelowText: true,
+              child:
+                  _ScrollIndicatorButton(
+                icon: Icons
+                    .keyboard_arrow_down_rounded,
+                label:
+                    loc.scrolldown,
+                onPressed:
+                    _scrollDown,
+                iconBelowText:
+                    true,
               ),
             ),
 
           // ==================================================================
           // BACK
-          // SAME AS ELECTRIC
           // ==================================================================
+
           Positioned(
             bottom: 105,
             left: 300,
             right: 300,
-            child: KioskBackButton(
+            child:
+                KioskBackButton(
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator
+                    .pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const PBIL3PAGE(),
+                    builder: (_) =>
+                        const PBIL3PAGE(),
                   ),
                 );
               },
@@ -885,6 +1282,7 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
           // ==================================================================
           // FOOTER
           // ==================================================================
+
           Positioned(
             bottom: 25,
             left: 0,
@@ -892,16 +1290,698 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
             child: Center(
               child: Text(
                 Data.copyrightText,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Color(0xFF26364A),
+                textAlign:
+                    TextAlign.center,
+                style:
+                    const TextStyle(
+                  color:
+                      Color(
+                    0xFF26364A,
+                  ),
                   fontSize: 20,
-                  fontWeight: FontWeight.w800,
+                  fontWeight:
+                      FontWeight.w800,
                 ),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // PLATFORM AREA
+  // ==========================================================================
+
+  Widget _buildPlatformArea(
+    AppLocalizations loc,
+  ) {
+    // ========================================================================
+    // LOADING
+    // ========================================================================
+
+    if (_isLoadingCatalog) {
+      return _buildLoading(
+        loc,
+      );
+    }
+
+    // ========================================================================
+    // ERROR
+    // ========================================================================
+
+    if (_catalogError != null) {
+      return _buildError(
+        loc,
+      );
+    }
+
+    // ========================================================================
+    // NO ACTIVE PROVIDERS
+    // ========================================================================
+
+    if (_platforms.isEmpty) {
+      return _buildEmptyState(
+        loc,
+      );
+    }
+
+    // ========================================================================
+    // PROVIDERS
+    // ========================================================================
+
+    return Scrollbar(
+      controller:
+          _scrollController,
+      thumbVisibility: true,
+      trackVisibility: true,
+      interactive: true,
+      thickness: 11,
+      radius:
+          const Radius.circular(
+        20,
+      ),
+      child:
+          SingleChildScrollView(
+        controller:
+            _scrollController,
+        physics:
+            const BouncingScrollPhysics(),
+        padding:
+            const EdgeInsets.only(
+          right: 24,
+          bottom: 55,
+        ),
+        child: Column(
+          children:
+              _buildPlatformRows(
+            loc,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // MODERN LOADING
+  // ==========================================================================
+
+  Widget _buildLoading(
+    AppLocalizations loc,
+  ) {
+    const Color color =
+        Color(0xFF7048E8);
+
+    return SingleChildScrollView(
+      physics:
+          const NeverScrollableScrollPhysics(),
+      child: Column(
+        children: [
+          // ==================================================================
+          // MAIN LOADING CARD
+          // ==================================================================
+
+          Container(
+            width: double.infinity,
+            padding:
+                const EdgeInsets.symmetric(
+              horizontal: 35,
+              vertical: 30,
+            ),
+            decoration:
+                BoxDecoration(
+              color:
+                  Colors.white.withOpacity(
+                0.97,
+              ),
+              borderRadius:
+                  BorderRadius.circular(
+                30,
+              ),
+              border: Border.all(
+                color:
+                    color.withOpacity(
+                  0.20,
+                ),
+                width: 2,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color:
+                      color.withOpacity(
+                    0.12,
+                  ),
+                  blurRadius: 24,
+                  offset:
+                      const Offset(
+                    0,
+                    10,
+                  ),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                // ============================================================
+                // LOADING ICON
+                // ============================================================
+
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration:
+                      BoxDecoration(
+                    color:
+                        color.withOpacity(
+                      0.10,
+                    ),
+                    shape:
+                        BoxShape.circle,
+                    border: Border.all(
+                      color:
+                          color.withOpacity(
+                        0.18,
+                      ),
+                      width: 2,
+                    ),
+                  ),
+                  child: Stack(
+                    alignment:
+                        Alignment.center,
+                    children: [
+                      SizedBox(
+                        width: 70,
+                        height: 70,
+                        child:
+                            CircularProgressIndicator(
+                          strokeWidth: 5,
+                          color: color,
+                          backgroundColor:
+                              color.withOpacity(
+                            0.12,
+                          ),
+                        ),
+                      ),
+
+                      const Icon(
+                        Icons
+                            .sports_esports_rounded,
+                        color: color,
+                        size: 40,
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(
+                  width: 25,
+                ),
+
+                // ============================================================
+                // TEXT
+                // ============================================================
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment
+                            .start,
+                    children: [
+                      Text(
+                        loc.providerLoading,
+                        style:
+                            const TextStyle(
+                          color:
+                              Color(
+                            0xFF16324F,
+                          ),
+                          fontSize: 30,
+                          fontWeight:
+                              FontWeight.w900,
+                          height: 1.15,
+                        ),
+                      ),
+
+                      const SizedBox(
+                        height: 9,
+                      ),
+
+                      Text(
+                        loc.providerLoadingSubtitle,
+                        style:
+                            const TextStyle(
+                          color:
+                              Color(
+                            0xFF6A7B90,
+                          ),
+                          fontSize: 20,
+                          fontWeight:
+                              FontWeight.w600,
+                          height: 1.35,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(
+            height: 28,
+          ),
+
+          // ==================================================================
+          // SKELETON CARDS
+          // ==================================================================
+
+          Row(
+            children: [
+              Expanded(
+                child:
+                    _buildLoadingProviderCard(),
+              ),
+
+              const SizedBox(
+                width: 34,
+              ),
+
+              Expanded(
+                child:
+                    _buildLoadingProviderCard(),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // LOADING SKELETON CARD
+  // ==========================================================================
+
+  Widget _buildLoadingProviderCard() {
+    return Container(
+      height: 330,
+      padding:
+          const EdgeInsets.all(
+        27,
+      ),
+      decoration:
+          BoxDecoration(
+        color:
+            Colors.white.withOpacity(
+          0.94,
+        ),
+        borderRadius:
+            BorderRadius.circular(
+          34,
+        ),
+        border: Border.all(
+          color: const Color(
+            0xFFE5E0F2,
+          ),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color:
+                const Color(
+              0xFF7048E8,
+            ).withOpacity(
+              0.07,
+            ),
+            blurRadius: 18,
+            offset:
+                const Offset(
+              0,
+              8,
+            ),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
+        children: [
+          // ==================================================================
+          // FAKE LOGO
+          // ==================================================================
+
+          Container(
+            width: 150,
+            height: 115,
+            decoration:
+                BoxDecoration(
+              color:
+                  const Color(
+                0xFFEDEAF5,
+              ),
+              borderRadius:
+                  BorderRadius.circular(
+                24,
+              ),
+            ),
+          ),
+
+          const Spacer(),
+
+          // ==================================================================
+          // FAKE NAME
+          // ==================================================================
+
+          Container(
+            width: double.infinity,
+            height: 25,
+            decoration:
+                BoxDecoration(
+              color:
+                  const Color(
+                0xFFE3E0EB,
+              ),
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
+            ),
+          ),
+
+          const SizedBox(
+            height: 13,
+          ),
+
+          Container(
+            width: 170,
+            height: 20,
+            decoration:
+                BoxDecoration(
+              color:
+                  const Color(
+                0xFFF0EDF5,
+              ),
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
+            ),
+          ),
+
+          const SizedBox(
+            height: 22,
+          ),
+
+          // ==================================================================
+          // FAKE STATUS
+          // ==================================================================
+
+          Container(
+            width: 185,
+            height: 48,
+            decoration:
+                BoxDecoration(
+              color:
+                  const Color(
+                0xFFEAE7F1,
+              ),
+              borderRadius:
+                  BorderRadius.circular(
+                30,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // ERROR
+  // ==========================================================================
+
+  Widget _buildError(
+    AppLocalizations loc,
+  ) {
+    return Center(
+      child: Container(
+        width: 680,
+        padding:
+            const EdgeInsets.all(
+          42,
+        ),
+        decoration:
+            BoxDecoration(
+          color:
+              Colors.white.withOpacity(
+            0.97,
+          ),
+          borderRadius:
+              BorderRadius.circular(
+            35,
+          ),
+          border: Border.all(
+            color:
+                const Color(
+              0xFFE57373,
+            ),
+            width: 2,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color:
+                  Colors.black.withOpacity(
+                0.10,
+              ),
+              blurRadius: 25,
+              offset:
+                  const Offset(
+                0,
+                12,
+              ),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize:
+              MainAxisSize.min,
+          children: [
+            // ================================================================
+            // ICON
+            // ================================================================
+
+            Container(
+              width: 115,
+              height: 115,
+              decoration:
+                  const BoxDecoration(
+                color:
+                    Color(
+                  0xFFFFEBEE,
+                ),
+                shape:
+                    BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.cloud_off_rounded,
+                color:
+                    Color(
+                  0xFFD32F2F,
+                ),
+                size: 65,
+              ),
+            ),
+
+            const SizedBox(
+              height: 25,
+            ),
+
+            // ================================================================
+            // TITLE
+            // ================================================================
+
+            Text(
+              loc.providerLoadError,
+              textAlign:
+                  TextAlign.center,
+              style:
+                  const TextStyle(
+                color:
+                    Color(
+                  0xFF17283E,
+                ),
+                fontSize: 35,
+                fontWeight:
+                    FontWeight.w900,
+                height: 1.15,
+              ),
+            ),
+
+            const SizedBox(
+              height: 14,
+            ),
+
+            // ================================================================
+            // MESSAGE
+            // ================================================================
+
+            Text(
+              loc.providerLoadErrorSubtitle,
+              textAlign:
+                  TextAlign.center,
+              style:
+                  const TextStyle(
+                color:
+                    Color(
+                  0xFF657386,
+                ),
+                fontSize: 24,
+                fontWeight:
+                    FontWeight.w600,
+                height: 1.35,
+              ),
+            ),
+
+            const SizedBox(
+              height: 30,
+            ),
+
+            // ================================================================
+            // RETRY
+            // ================================================================
+
+            SizedBox(
+              width: double.infinity,
+              height: 80,
+              child:
+                  ElevatedButton.icon(
+                onPressed:
+                    _loadGamingPlatforms,
+                icon:
+                    const Icon(
+                  Icons.refresh_rounded,
+                  size: 30,
+                ),
+                label: Text(
+                  loc.retryButton,
+                  style:
+                      const TextStyle(
+                    fontSize: 27,
+                    fontWeight:
+                        FontWeight.w900,
+                  ),
+                ),
+                style:
+                    ElevatedButton.styleFrom(
+                  backgroundColor:
+                      const Color(
+                    0xFF7048E8,
+                  ),
+                  foregroundColor:
+                      Colors.white,
+                  elevation: 0,
+                  shape:
+                      RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(
+                      22,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // EMPTY STATE
+  //
+  // This happens when catalog loaded successfully but there are no active
+  // Gaming Platform products.
+  //
+  // Uses an existing localization so no additional ARB is required.
+  // ==========================================================================
+
+  Widget _buildEmptyState(
+    AppLocalizations loc,
+  ) {
+    return Center(
+      child: Container(
+        width: 680,
+        padding:
+            const EdgeInsets.all(
+          42,
+        ),
+        decoration:
+            BoxDecoration(
+          color:
+              Colors.white.withOpacity(
+            0.97,
+          ),
+          borderRadius:
+              BorderRadius.circular(
+            35,
+          ),
+          border: Border.all(
+            color:
+                const Color(
+              0xFFD7D0F1,
+            ),
+            width: 2,
+          ),
+        ),
+        child: Column(
+          mainAxisSize:
+              MainAxisSize.min,
+          children: [
+            Container(
+              width: 115,
+              height: 115,
+              decoration:
+                  const BoxDecoration(
+                color:
+                    Color(
+                  0xFFF1EDFF,
+                ),
+                shape:
+                    BoxShape.circle,
+              ),
+              child:
+                  const Icon(
+                Icons
+                    .sports_esports_rounded,
+                color:
+                    Color(
+                  0xFF7048E8,
+                ),
+                size: 65,
+              ),
+            ),
+
+            const SizedBox(
+              height: 25,
+            ),
+
+            Text(
+              loc.networkStatusUnknown,
+              textAlign:
+                  TextAlign.center,
+              style:
+                  const TextStyle(
+                color:
+                    Color(
+                  0xFF17283E,
+                ),
+                fontSize: 30,
+                fontWeight:
+                    FontWeight.w900,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -915,7 +1995,11 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
   ) {
     final List<Widget> widgets = [];
 
-    for (int i = 0; i < _platforms.length; i += 2) {
+    for (
+      int i = 0;
+      i < _platforms.length;
+      i += 2
+    ) {
       final GamingPlatform left =
           _platforms[i];
 
@@ -929,39 +2013,57 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
           crossAxisAlignment:
               CrossAxisAlignment.start,
           children: [
+            // ================================================================
+            // LEFT
+            // ================================================================
+
             Expanded(
-              child: _GamingProviderCard(
+              child:
+                  _GamingProviderCard(
                 platform: left,
                 networkStatus:
                     _platformStatuses[
                             left.productCode] ??
                         GamingStatus.loading,
-                networkLabel: loc.networkLabel,
+                networkLabel:
+                    loc.networkLabel,
                 processingLabel:
                     loc.processingTimeLabel,
                 onPressed: () {
-                  _handlePlatformTap(left);
+                  _handlePlatformTap(
+                    left,
+                  );
                 },
               ),
             ),
 
-            const SizedBox(width: 34),
+            const SizedBox(
+              width: 34,
+            ),
+
+            // ================================================================
+            // RIGHT
+            // ================================================================
 
             Expanded(
               child: right == null
                   ? const SizedBox()
                   : _GamingProviderCard(
-                      platform: right,
+                      platform:
+                          right,
                       networkStatus:
                           _platformStatuses[
                                   right.productCode] ??
-                              GamingStatus.loading,
+                              GamingStatus
+                                  .loading,
                       networkLabel:
                           loc.networkLabel,
                       processingLabel:
                           loc.processingTimeLabel,
                       onPressed: () {
-                        _handlePlatformTap(right);
+                        _handlePlatformTap(
+                          right,
+                        );
                       },
                     ),
             ),
@@ -969,9 +2071,12 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
         ),
       );
 
-      if (i + 2 < _platforms.length) {
+      if (i + 2 <
+          _platforms.length) {
         widgets.add(
-          const SizedBox(height: 36),
+          const SizedBox(
+            height: 36,
+          ),
         );
       }
     }
@@ -982,9 +2087,10 @@ class _PGAMING3PAGEState extends State<PGAMING3PAGE> {
 
 // ============================================================================
 // MODERN HEADER
-// SAME STRUCTURE AS ELECTRIC
 // ============================================================================
-class _ModernPageHeader extends StatelessWidget {
+
+class _ModernPageHeader
+    extends StatelessWidget {
   final String title;
   final String subtitle;
 
@@ -994,7 +2100,9 @@ class _ModernPageHeader extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     const Color accentColor =
         Color(0xFF7048E8);
 
@@ -1016,8 +2124,7 @@ class _ModernPageHeader extends StatelessWidget {
                 BorderRadius.circular(
               100,
             ),
-            border:
-                Border.all(
+            border: Border.all(
               color:
                   accentColor.withOpacity(
                 0.24,
@@ -1030,8 +2137,10 @@ class _ModernPageHeader extends StatelessWidget {
                 MainAxisSize.min,
             children: [
               const Icon(
-                Icons.sports_esports_rounded,
-                color: accentColor,
+                Icons
+                    .sports_esports_rounded,
+                color:
+                    accentColor,
                 size: 25,
               ),
 
@@ -1040,11 +2149,15 @@ class _ModernPageHeader extends StatelessWidget {
               ),
 
               Text(
-                AppLocalizations.of(context)!
+                AppLocalizations.of(
+                  context,
+                )!
                     .gamingPlatformButton
                     .toUpperCase(),
-                style: const TextStyle(
-                  color: accentColor,
+                style:
+                    const TextStyle(
+                  color:
+                      accentColor,
                   fontSize: 17,
                   fontWeight:
                       FontWeight.w900,
@@ -1062,11 +2175,17 @@ class _ModernPageHeader extends StatelessWidget {
         ShaderMask(
           blendMode:
               BlendMode.srcIn,
-          shaderCallback: (bounds) {
+          shaderCallback: (
+            bounds,
+          ) {
             return const LinearGradient(
               colors: [
-                Color(0xFF5630C7),
-                Color(0xFF8B5CF6),
+                Color(
+                  0xFF5630C7,
+                ),
+                Color(
+                  0xFF8B5CF6,
+                ),
               ],
             ).createShader(
               bounds,
@@ -1115,8 +2234,7 @@ class _ModernPageHeader extends StatelessWidget {
                 BorderRadius.circular(
               23,
             ),
-            border:
-                Border.all(
+            border: Border.all(
               color:
                   Colors.black.withOpacity(
                 0.17,
@@ -1164,8 +2282,8 @@ class _ModernPageHeader extends StatelessWidget {
 
 // ============================================================================
 // GAMING PROVIDER CARD
-// SAME SIZE / STRUCTURE AS ELECTRIC
 // ============================================================================
+
 class _GamingProviderCard
     extends StatefulWidget {
   final GamingPlatform platform;
@@ -1173,12 +2291,12 @@ class _GamingProviderCard
   final VoidCallback onPressed;
 
   final GamingStatus networkStatus;
+
   final String networkLabel;
 
   final String processingLabel;
 
   const _GamingProviderCard({
-    super.key,
     required this.platform,
     required this.onPressed,
     required this.networkStatus,
@@ -1195,12 +2313,20 @@ class _GamingProviderCard
 // ============================================================================
 // CARD STATE
 // ============================================================================
+
 class _GamingProviderCardState
     extends State<_GamingProviderCard> {
   bool _isPressed = false;
 
-  bool get _isEnabled =>
-      widget.platform.isActive;
+  // ==========================================================================
+  // PROVIDER IS ACTIVE BECAUSE INACTIVE PRODUCTS WERE FILTERED DURING
+  // CATALOG LOADING.
+  //
+  // Do NOT disable the card just because the separate network-status
+  // endpoint fails.
+  // ==========================================================================
+
+  bool get _isEnabled => true;
 
   // ==========================================================================
   // PRESS STATE
@@ -1209,7 +2335,8 @@ class _GamingProviderCardState
   void _changePressedState(
     bool value,
   ) {
-    if (!mounted || !_isEnabled) {
+    if (!mounted ||
+        !_isEnabled) {
       return;
     }
 
@@ -1219,61 +2346,7 @@ class _GamingProviderCardState
   }
 
   // ==========================================================================
-  // COLOR
-  // ==========================================================================
-
-  Color get _accentColor {
-    switch (widget.platform.productCode) {
-      case 'CC':
-        return const Color(0xFF5C6BC0);
-
-      case 'GSMY':
-        return const Color(0xFF00897B);
-
-      case 'MOL':
-        return const Color(0xFFE65100);
-
-      case 'OF':
-        return const Color(0xFF3949AB);
-
-      case 'STEAMMY':
-        return const Color(0xFF455A64);
-
-      case 'UNI':
-        return const Color(0xFF8E24AA);
-
-      default:
-        return const Color(0xFF7048E8);
-    }
-  }
-
-  Color get _lightAccentColor {
-    switch (widget.platform.productCode) {
-      case 'CC':
-        return const Color(0xFFE8EAFB);
-
-      case 'GSMY':
-        return const Color(0xFFE0F2F1);
-
-      case 'MOL':
-        return const Color(0xFFFFE9DD);
-
-      case 'OF':
-        return const Color(0xFFE8EAF6);
-
-      case 'STEAMMY':
-        return const Color(0xFFECEFF1);
-
-      case 'UNI':
-        return const Color(0xFFF3E5F5);
-
-      default:
-        return const Color(0xFFEDE7FF);
-    }
-  }
-
-  // ==========================================================================
-  // PROCESSING TIME LOCALIZATION
+  // PROCESSING TIME
   // ==========================================================================
 
   String _formatProcessingTime(
@@ -1283,8 +2356,12 @@ class _GamingProviderCardState
     final loc =
         AppLocalizations.of(context)!;
 
-    switch (
-        value.toLowerCase().trim()) {
+    final String normalized =
+        value
+            .trim()
+            .toLowerCase();
+
+    switch (normalized) {
       case 'instant':
         return loc.processingInstant;
 
@@ -1315,7 +2392,15 @@ class _GamingProviderCardState
   // ==========================================================================
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
+    final Color accentColor =
+        widget.platform.accentColor;
+
+    final Color lightAccentColor =
+        widget.platform.lightAccentColor;
+
     return GestureDetector(
       behavior:
           HitTestBehavior.opaque,
@@ -1347,7 +2432,9 @@ class _GamingProviderCardState
 
       child: AnimatedScale(
         scale:
-            _isPressed ? 0.965 : 1,
+            _isPressed
+                ? 0.965
+                : 1,
 
         duration:
             const Duration(
@@ -1367,16 +2454,13 @@ class _GamingProviderCardState
           curve:
               Curves.easeOut,
 
-          // EXACT SAME HEIGHT AS ELECTRIC
           height: 510,
 
           decoration:
               BoxDecoration(
             color:
                 Colors.white.withOpacity(
-              _isEnabled
-                  ? 0.96
-                  : 0.72,
+              0.96,
             ),
 
             borderRadius:
@@ -1384,16 +2468,15 @@ class _GamingProviderCardState
               40,
             ),
 
-            border:
-                Border.all(
-              color: _isPressed
-                  ? _accentColor
-                  : _isEnabled
-                      ? Colors.black
-                      : Colors.grey,
-
+            border: Border.all(
+              color:
+                  _isPressed
+                      ? accentColor
+                      : Colors.black,
               width:
-                  _isPressed ? 4 : 3,
+                  _isPressed
+                      ? 4
+                      : 3,
             ),
 
             boxShadow:
@@ -1401,7 +2484,7 @@ class _GamingProviderCardState
                     ? [
                         BoxShadow(
                           color:
-                              _accentColor
+                              accentColor
                                   .withOpacity(
                             0.18,
                           ),
@@ -1446,6 +2529,7 @@ class _GamingProviderCardState
                 // ============================================================
                 // DECORATIVE CIRCLE
                 // ============================================================
+
                 Positioned(
                   right: -50,
                   top: -50,
@@ -1469,7 +2553,7 @@ class _GamingProviderCardState
                       shape:
                           BoxShape.circle,
                       color:
-                          _lightAccentColor
+                          lightAccentColor
                               .withOpacity(
                         0.90,
                       ),
@@ -1488,7 +2572,7 @@ class _GamingProviderCardState
                       shape:
                           BoxShape.circle,
                       color:
-                          _accentColor
+                          accentColor
                               .withOpacity(
                         0.08,
                       ),
@@ -1499,6 +2583,7 @@ class _GamingProviderCardState
                 // ============================================================
                 // CONTENT
                 // ============================================================
+
                 Padding(
                   padding:
                       const EdgeInsets
@@ -1508,388 +2593,344 @@ class _GamingProviderCardState
                     30,
                     28,
                   ),
+                  child: Column(
+                    children: [
+                      // ======================================================
+                      // LOGO + ARROW
+                      // ======================================================
 
-                  child: Opacity(
-                    opacity:
-                        _isEnabled
-                            ? 1
-                            : 0.50,
-
-                    child: Column(
-                      children: [
-                        // ====================================================
-                        // LOGO + ARROW
-                        // ====================================================
-                        Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment
-                                  .spaceBetween,
-
-                          crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .start,
-
-                          children: [
-                            Container(
-                              width: 220,
-                              height: 180,
-
-                              padding:
-                                  const EdgeInsets
-                                      .all(
-                                24,
-                              ),
-
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    Colors.white,
-
-                                borderRadius:
-                                    BorderRadius
-                                        .circular(
-                                  34,
-                                ),
-
-                                border:
-                                    Border.all(
-                                  color:
-                                      _accentColor
-                                          .withOpacity(
-                                    0.20,
-                                  ),
-                                  width:
-                                      1.5,
-                                ),
-
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors
-                                        .black
-                                        .withOpacity(
-                                      0.08,
-                                    ),
-                                    blurRadius:
-                                        16,
-                                    offset:
-                                        const Offset(
-                                      0,
-                                      8,
-                                    ),
-                                  ),
-                                ],
-                              ),
-
-                              child: widget.platform.imageUrl.isEmpty
-                                  ? Icon(
-                                      Icons.sports_esports_rounded,
-                                      size: 90,
-                                      color: _accentColor,
-                                    )
-                                  : Image.network(
-                                      widget.platform.imageUrl,
-
-                                      fit:
-                                          BoxFit.contain,
-
-                                      loadingBuilder:
-                                          (
-                                        context,
-                                        child,
-                                        loadingProgress,
-                                      ) {
-                                        if (loadingProgress ==
-                                            null) {
-                                          return child;
-                                        }
-
-                                        return Center(
-                                          child:
-                                              CircularProgressIndicator(
-                                            strokeWidth:
-                                                3,
-                                            color:
-                                                _accentColor,
-                                          ),
-                                        );
-                                      },
-
-                                      errorBuilder:
-                                          (
-                                        context,
-                                        error,
-                                        stackTrace,
-                                      ) {
-                                        debugPrint(
-                                          'Failed to load gaming logo: '
-                                          '${widget.platform.imageUrl}',
-                                        );
-
-                                        return Icon(
-                                          Icons.sports_esports_rounded,
-                                          size: 90,
-                                          color:
-                                              _accentColor,
-                                        );
-                                      },
-                                    ),
+                      Row(
+                        mainAxisAlignment:
+                            MainAxisAlignment
+                                .spaceBetween,
+                        crossAxisAlignment:
+                            CrossAxisAlignment
+                                .start,
+                        children: [
+                          Container(
+                            width: 220,
+                            height: 180,
+                            padding:
+                                const EdgeInsets
+                                    .all(
+                              24,
                             ),
-
-                            AnimatedContainer(
-                              duration:
-                                  const Duration(
-                                milliseconds:
-                                    160,
-                              ),
-
-                              transform:
-                                  Matrix4
-                                      .translationValues(
-                                _isPressed
-                                    ? 6
-                                    : 0,
-                                0,
-                                0,
-                              ),
-
-                              width: 58,
-                              height: 58,
-
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    _accentColor,
-
-                                shape:
-                                    BoxShape.circle,
-
-                                boxShadow: [
-                                  BoxShadow(
-                                    color:
-                                        _accentColor
-                                            .withOpacity(
-                                      0.25,
-                                    ),
-                                    blurRadius:
-                                        14,
-                                    offset:
-                                        const Offset(
-                                      0,
-                                      7,
-                                    ),
-                                  ),
-                                ],
-                              ),
-
-                              child:
-                                  const Icon(
-                                Icons
-                                    .arrow_forward_rounded,
-                                color:
-                                    Colors.white,
-                                size: 32,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const Spacer(),
-
-                        // ====================================================
-                        // PLATFORM NAME
-                        // ====================================================
-                        Align(
-                          alignment:
-                              Alignment
-                                  .centerLeft,
-
-                          child: Text(
-                            widget.platform.name
-                                .toUpperCase(),
-
-                            maxLines: 2,
-
-                            overflow:
-                                TextOverflow
-                                    .ellipsis,
-
-                            textAlign:
-                                TextAlign.left,
-
-                            style:
-                                const TextStyle(
+                            decoration:
+                                BoxDecoration(
                               color:
-                                  Color(
-                                0xFF15253A,
+                                  Colors.white,
+                              borderRadius:
+                                  BorderRadius
+                                      .circular(
+                                34,
                               ),
-
-                              fontSize:
-                                  34,
-
-                              fontWeight:
-                                  FontWeight
-                                      .w900,
-
-                              height:
-                                  1.08,
-
-                              letterSpacing:
-                                  0.3,
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(
-                          height: 18,
-                        ),
-
-                        // ====================================================
-                        // NETWORK STATUS
-                        // ====================================================
-                        Align(
-                          alignment:
-                              Alignment
-                                  .centerLeft,
-
-                          child:
-                              _NetworkStatusBadge(
-                            status:
-                                widget.platform.isActive
-                                    ? widget.networkStatus
-                                    : GamingStatus
-                                        .unavailable,
-
-                            label:
-                                widget.networkLabel,
-                          ),
-                        ),
-
-                        // ====================================================
-                        // PROCESSING TIME
-                        // ====================================================
-                        if (widget
-                            .platform
-                            .processingTime
-                            .isNotEmpty) ...[
-                          const SizedBox(
-                            height: 14,
-                          ),
-
-                          Align(
-                            alignment:
-                                Alignment
-                                    .centerLeft,
-
-                            child: Row(
-                              mainAxisSize:
-                                  MainAxisSize
-                                      .min,
-
-                              children: [
-                                const Icon(
-                                  Icons
-                                      .schedule_rounded,
-                                  size:
-                                      23,
+                              border:
+                                  Border.all(
+                                color:
+                                    accentColor
+                                        .withOpacity(
+                                  0.20,
+                                ),
+                                width: 1.5,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
                                   color:
-                                      Color(
-                                    0xFF647187,
+                                      Colors.black
+                                          .withOpacity(
+                                    0.08,
                                   ),
-                                ),
-
-                                const SizedBox(
-                                  width: 8,
-                                ),
-
-                                Flexible(
-                                  child:
-                                      Text(
-                                    '${widget.processingLabel}: '
-                                    '${_formatProcessingTime(
-                                      context,
-                                      widget.platform.processingTime,
-                                    )}',
-
-                                    maxLines:
-                                        1,
-
-                                    overflow:
-                                        TextOverflow
-                                            .ellipsis,
-
-                                    style:
-                                        const TextStyle(
-                                      color:
-                                          Color(
-                                        0xFF647187,
-                                      ),
-
-                                      fontSize:
-                                          18,
-
-                                      fontWeight:
-                                          FontWeight
-                                              .w700,
-                                    ),
+                                  blurRadius:
+                                      16,
+                                  offset:
+                                      const Offset(
+                                    0,
+                                    8,
                                   ),
                                 ),
                               ],
                             ),
+
+                            child: widget
+                                    .platform
+                                    .imageUrl
+                                    .isEmpty
+                                ? Icon(
+                                    Icons
+                                        .sports_esports_rounded,
+                                    size: 90,
+                                    color:
+                                        accentColor,
+                                  )
+                                : Image.network(
+                                    widget
+                                        .platform
+                                        .imageUrl,
+                                    fit:
+                                        BoxFit.contain,
+                                    loadingBuilder: (
+                                      context,
+                                      child,
+                                      loadingProgress,
+                                    ) {
+                                      if (loadingProgress ==
+                                          null) {
+                                        return child;
+                                      }
+
+                                      return Center(
+                                        child:
+                                            CircularProgressIndicator(
+                                          strokeWidth:
+                                              3,
+                                          color:
+                                              accentColor,
+                                        ),
+                                      );
+                                    },
+                                    errorBuilder: (
+                                      context,
+                                      error,
+                                      stackTrace,
+                                    ) {
+                                      debugPrint(
+                                        'Failed to load gaming logo: '
+                                        '${widget.platform.imageUrl}',
+                                      );
+
+                                      return Icon(
+                                        Icons
+                                            .sports_esports_rounded,
+                                        size: 90,
+                                        color:
+                                            accentColor,
+                                      );
+                                    },
+                                  ),
+                          ),
+
+                          AnimatedContainer(
+                            duration:
+                                const Duration(
+                              milliseconds:
+                                  160,
+                            ),
+                            transform:
+                                Matrix4
+                                    .translationValues(
+                              _isPressed
+                                  ? 6
+                                  : 0,
+                              0,
+                              0,
+                            ),
+                            width: 58,
+                            height: 58,
+                            decoration:
+                                BoxDecoration(
+                              color:
+                                  accentColor,
+                              shape:
+                                  BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color:
+                                      accentColor
+                                          .withOpacity(
+                                    0.25,
+                                  ),
+                                  blurRadius:
+                                      14,
+                                  offset:
+                                      const Offset(
+                                    0,
+                                    7,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            child:
+                                const Icon(
+                              Icons
+                                  .arrow_forward_rounded,
+                              color:
+                                  Colors.white,
+                              size: 32,
+                            ),
                           ),
                         ],
+                      ),
 
+                      const Spacer(),
+
+                      // ======================================================
+                      // PLATFORM NAME
+                      // ======================================================
+
+                      Align(
+                        alignment:
+                            Alignment
+                                .centerLeft,
+                        child: Text(
+                          widget
+                              .platform
+                              .name
+                              .toUpperCase(),
+                          maxLines: 2,
+                          overflow:
+                              TextOverflow
+                                  .ellipsis,
+                          textAlign:
+                              TextAlign.left,
+                          style:
+                              const TextStyle(
+                            color:
+                                Color(
+                              0xFF15253A,
+                            ),
+                            fontSize: 34,
+                            fontWeight:
+                                FontWeight.w900,
+                            height: 1.08,
+                            letterSpacing:
+                                0.3,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(
+                        height: 18,
+                      ),
+
+                      // ======================================================
+                      // NETWORK STATUS
+                      // ======================================================
+
+                      Align(
+                        alignment:
+                            Alignment
+                                .centerLeft,
+                        child:
+                            _NetworkStatusBadge(
+                          status:
+                              widget.networkStatus,
+                          label:
+                              widget.networkLabel,
+                        ),
+                      ),
+
+                      // ======================================================
+                      // PROCESSING TIME
+                      // ======================================================
+
+                      if (widget
+                          .platform
+                          .processingTime
+                          .isNotEmpty) ...[
                         const SizedBox(
-                          height: 18,
+                          height: 14,
                         ),
 
-                        // ====================================================
-                        // DECORATIVE LINE
-                        // ====================================================
-                        Row(
-                          children: [
-                            Container(
-                              width: 60,
-                              height: 7,
-                              decoration:
-                                  BoxDecoration(
+                        Align(
+                          alignment:
+                              Alignment
+                                  .centerLeft,
+                          child: Row(
+                            mainAxisSize:
+                                MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons
+                                    .schedule_rounded,
+                                size: 23,
                                 color:
-                                    _accentColor,
-
-                                borderRadius:
-                                    BorderRadius
-                                        .circular(
-                                  50,
+                                    Color(
+                                  0xFF647187,
                                 ),
                               ),
-                            ),
 
-                            const SizedBox(
-                              width: 8,
-                            ),
+                              const SizedBox(
+                                width: 8,
+                              ),
 
-                            Container(
-                              width: 13,
-                              height: 7,
-
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    _accentColor
-                                        .withOpacity(
-                                  0.28,
-                                ),
-
-                                borderRadius:
-                                    BorderRadius
-                                        .circular(
-                                  50,
+                              Flexible(
+                                child: Text(
+                                  '${widget.processingLabel}: '
+                                  '${_formatProcessingTime(
+                                    context,
+                                    widget.platform.processingTime,
+                                  )}',
+                                  maxLines: 1,
+                                  overflow:
+                                      TextOverflow
+                                          .ellipsis,
+                                  style:
+                                      const TextStyle(
+                                    color:
+                                        Color(
+                                      0xFF647187,
+                                    ),
+                                    fontSize:
+                                        18,
+                                    fontWeight:
+                                        FontWeight.w700,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
-                    ),
+
+                      const SizedBox(
+                        height: 18,
+                      ),
+
+                      // ======================================================
+                      // DECORATIVE LINE
+                      // ======================================================
+
+                      Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 7,
+                            decoration:
+                                BoxDecoration(
+                              color:
+                                  accentColor,
+                              borderRadius:
+                                  BorderRadius
+                                      .circular(
+                                50,
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(
+                            width: 8,
+                          ),
+
+                          Container(
+                            width: 13,
+                            height: 7,
+                            decoration:
+                                BoxDecoration(
+                              color:
+                                  accentColor
+                                      .withOpacity(
+                                0.28,
+                              ),
+                              borderRadius:
+                                  BorderRadius
+                                      .circular(
+                                50,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -1903,8 +2944,8 @@ class _GamingProviderCardState
 
 // ============================================================================
 // NETWORK STATUS BADGE
-// SAME AS ELECTRIC
 // ============================================================================
+
 class _NetworkStatusBadge
     extends StatelessWidget {
   final GamingStatus status;
@@ -1916,7 +2957,9 @@ class _NetworkStatusBadge
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final loc =
         AppLocalizations.of(context)!;
 
@@ -1934,13 +2977,19 @@ class _NetworkStatusBadge
             loc.networkStatusChecking;
 
         backgroundColor =
-            const Color(0xFFF0F4F8);
+            const Color(
+          0xFFF0F4F8,
+        );
 
         borderColor =
-            const Color(0xFFC7D2DE);
+            const Color(
+          0xFFC7D2DE,
+        );
 
         foregroundColor =
-            const Color(0xFF536272);
+            const Color(
+          0xFF536272,
+        );
 
         icon =
             Icons.sync_rounded;
@@ -1952,13 +3001,19 @@ class _NetworkStatusBadge
             loc.networkStatusGood;
 
         backgroundColor =
-            const Color(0xFFE2F8EC);
+            const Color(
+          0xFFE2F8EC,
+        );
 
         borderColor =
-            const Color(0xFF78C99B);
+            const Color(
+          0xFF78C99B,
+        );
 
         foregroundColor =
-            const Color(0xFF08783E);
+            const Color(
+          0xFF08783E,
+        );
 
         icon =
             Icons.check_circle_rounded;
@@ -1970,13 +3025,19 @@ class _NetworkStatusBadge
             loc.networkStatusSlow;
 
         backgroundColor =
-            const Color(0xFFFFF0D7);
+            const Color(
+          0xFFFFF0D7,
+        );
 
         borderColor =
-            const Color(0xFFF1B95D);
+            const Color(
+          0xFFF1B95D,
+        );
 
         foregroundColor =
-            const Color(0xFFB75B00);
+            const Color(
+          0xFFB75B00,
+        );
 
         icon =
             Icons.warning_amber_rounded;
@@ -1988,13 +3049,19 @@ class _NetworkStatusBadge
             loc.networkStatusUnknown;
 
         backgroundColor =
-            const Color(0xFFF1F1F1);
+            const Color(
+          0xFFF1F1F1,
+        );
 
         borderColor =
-            const Color(0xFFC8C8C8);
+            const Color(
+          0xFFC8C8C8,
+        );
 
         foregroundColor =
-            const Color(0xFF555555);
+            const Color(
+          0xFF555555,
+        );
 
         icon =
             Icons.help_outline_rounded;
@@ -2007,42 +3074,34 @@ class _NetworkStatusBadge
           const BoxConstraints(
         minHeight: 54,
       ),
-
       padding:
           const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 12,
       ),
-
       decoration:
           BoxDecoration(
         color:
             backgroundColor,
-
         borderRadius:
             BorderRadius.circular(
           30,
         ),
-
-        border:
-            Border.all(
+        border: Border.all(
           color:
               borderColor,
           width: 1.7,
         ),
       ),
-
       child: Row(
         mainAxisSize:
             MainAxisSize.min,
-
         children: [
           if (status ==
               GamingStatus.loading)
             SizedBox(
               width: 24,
               height: 24,
-
               child:
                   CircularProgressIndicator(
                 strokeWidth: 3,
@@ -2064,27 +3123,17 @@ class _NetworkStatusBadge
 
           Flexible(
             child: Text(
-              '$label: '
-              '$statusText',
-
+              '$label: $statusText',
               maxLines: 1,
-
               overflow:
-                  TextOverflow
-                      .ellipsis,
-
-              style:
-                  TextStyle(
+                  TextOverflow.ellipsis,
+              style: TextStyle(
                 color:
                     foregroundColor,
-
                 fontSize: 17,
-
                 fontWeight:
                     FontWeight.w900,
-
-                letterSpacing:
-                    0.5,
+                letterSpacing: 0.5,
               ),
             ),
           ),
@@ -2096,8 +3145,8 @@ class _NetworkStatusBadge
 
 // ============================================================================
 // SCROLL INDICATOR BUTTON
-// SAME AS ELECTRIC
 // ============================================================================
+
 class _ScrollIndicatorButton
     extends StatelessWidget {
   final IconData icon;
@@ -2113,7 +3162,9 @@ class _ScrollIndicatorButton
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final Widget iconWidget =
         Icon(
       icon,
@@ -2129,7 +3180,6 @@ class _ScrollIndicatorButton
       label,
       textAlign:
           TextAlign.center,
-
       style:
           const TextStyle(
         color:
@@ -2147,51 +3197,39 @@ class _ScrollIndicatorButton
           Colors.white.withOpacity(
         0.96,
       ),
-
       borderRadius:
           BorderRadius.circular(
         22,
       ),
-
       elevation: 5,
-
       child: InkWell(
         onTap:
             onPressed,
-
         borderRadius:
             BorderRadius.circular(
           22,
         ),
-
         child: Container(
           padding:
-              const EdgeInsets
-                  .symmetric(
+              const EdgeInsets.symmetric(
             horizontal: 13,
             vertical: 10,
           ),
-
           decoration:
               BoxDecoration(
             borderRadius:
-                BorderRadius
-                    .circular(
+                BorderRadius.circular(
               22,
             ),
-
-            border:
-                Border.all(
+            border: Border.all(
               color:
                   Colors.black,
               width: 2,
             ),
           ),
-
           child: Column(
             mainAxisSize:
                 MainAxisSize.min,
-
             children:
                 iconBelowText
                     ? [

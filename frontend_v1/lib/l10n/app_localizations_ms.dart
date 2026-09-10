@@ -4441,10 +4441,14 @@ class AppLocalizationsMs extends AppLocalizations {
   String get weatherSupportingText => 'Lihat ramalan cuaca rasmi Bentong untuk 7 hari';
 
   @override
-  String get weatherPageTitle => 'Cuaca';
+  String weatherPageTitle(Object place) {
+    return 'Cuaca $place';
+  }
 
   @override
-  String get weatherPageSubtitle => 'Ramalan rasmi 7 hari daripada MET Malaysia melalui data.gov.my';
+  String weatherPageSubtitle(Object place) {
+    return 'Ramalan cuaca 7 hari untuk $place';
+  }
 
   @override
   String get weatherLoadingTitle => 'Memuatkan Cuaca';
@@ -6473,4 +6477,618 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get mobileReloadReceiptVoucherLink => 'Pautan Baucar';
+
+  @override
+  String get iddButton => 'DIAL TERUS ANTARABANGSA';
+
+  @override
+  String get iddBillSupportingText => 'Tambah nilai kredit untuk panggilan antarabangsa';
+
+  @override
+  String get iddHeaderLabel => 'PANGGILAN ANTARABANGSA';
+
+  @override
+  String get iddPageTitle => 'DIAL TERUS ANTARABANGSA';
+
+  @override
+  String get iddPageSubtitle => 'SILA PILIH PENYEDIA PERKHIDMATAN';
+
+  @override
+  String get iddCatalogLoadError => 'Tidak dapat memuatkan perkhidmatan IDD';
+
+  @override
+  String get iddCatalogRetryMessage => 'Sila cuba lagi.';
+
+  @override
+  String get iddNoServices => 'Tiada perkhidmatan IDD tersedia buat masa ini.';
+
+  @override
+  String networkUnavailableMessage(Object billerName) {
+    return '$billerName tidak tersedia buat masa ini. Sila cuba lagi kemudian.';
+  }
+
+  @override
+  String get iddCategoryLabel => 'IDD';
+
+  @override
+  String get iddSelectAmountTitle => 'Pilih Amaun';
+
+  @override
+  String get iddSelectAmountSubtitle => 'Pilih nilai tambah nilai IDD yang ingin dibeli.';
+
+  @override
+  String get iddQuantityTitle => 'Kuantiti';
+
+  @override
+  String get iddQuantitySubtitle => 'Pilih bilangan PIN yang ingin dibeli.';
+
+  @override
+  String get iddOrderSummaryTitle => 'Ringkasan Pesanan';
+
+  @override
+  String get iddSubtotalLabel => 'Jumlah Kecil';
+
+  @override
+  String get iddServiceAdjustmentLabel => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get iddTotalAmountLabel => 'Jumlah Keseluruhan';
+
+  @override
+  String get iddDeliveryPin => 'PIN';
+
+  @override
+  String get iddNoAmountsAvailable => 'Tiada amaun tambah nilai tersedia buat masa ini.';
+
+  @override
+  String get iddUnableToLoadOptions => 'Pilihan IDD Tidak Dapat Dimuatkan';
+
+  @override
+  String get iddUnableToLoadOptionsSubtitle => 'Pilihan IDD tidak dapat dimuatkan. Sila cuba lagi.';
+
+  @override
+  String get iddProductUnavailable => 'Perkhidmatan IDD ini tidak tersedia buat masa ini.';
+
+  @override
+  String get iddSelectAmountRequired => 'Sila pilih amaun sebelum meneruskan.';
+
+  @override
+  String get providerLoading => 'Memuatkan Penyedia';
+
+  @override
+  String get providerLoadingSubtitle => 'Sila tunggu sementara kami mendapatkan perkhidmatan terkini yang tersedia.';
+
+  @override
+  String get providerLoadError => 'Penyedia Tidak Dapat Dimuatkan';
+
+  @override
+  String get providerLoadErrorSubtitle => 'Maklumat penyedia tidak dapat dimuatkan. Sila cuba lagi.';
+
+  @override
+  String get gameCreditsButton => 'Kredit Permainan';
+
+  @override
+  String get gameCreditsSupportingText => 'Tambah nilai kredit untuk permainan yang disokong';
+
+  @override
+  String get gameCreditsPageTitle => 'Kredit Permainan';
+
+  @override
+  String get gameCreditsPageSubtitle => 'Pilih permainan yang ingin anda tambah nilai';
+
+  @override
+  String get gameCreditsNoServices => 'Tiada perkhidmatan kredit permainan tersedia buat masa ini';
+
+  @override
+  String get gameCreditsCategoryLabel => 'Kredit Permainan';
+
+  @override
+  String get gameCreditsSelectAmountTitle => 'Pilih Amaun';
+
+  @override
+  String get gameCreditsSelectAmountSubtitle => 'Pilih kredit atau pakej permainan yang ingin dibeli';
+
+  @override
+  String get gameCreditsNoAmountsAvailable => 'Tiada pilihan kredit permainan tersedia buat masa ini.';
+
+  @override
+  String get gameCreditsOrderSummaryTitle => 'Ringkasan Pesanan';
+
+  @override
+  String get gameCreditsProductLabel => 'Produk';
+
+  @override
+  String get gameCreditsSelectedOptionLabel => 'Pilihan Dipilih';
+
+  @override
+  String get gameCreditsCreditLabel => 'Kredit Permainan';
+
+  @override
+  String get gameCreditsSubtotalLabel => 'Jumlah Kecil';
+
+  @override
+  String get gameCreditsServiceAdjustmentLabel => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get gameCreditsTotalAmountLabel => 'Jumlah Bayaran';
+
+  @override
+  String get gameCreditsDeliveryLink => 'Pautan Digital';
+
+  @override
+  String get gameCreditsDeliveryPin => 'PIN';
+
+  @override
+  String get gameCreditsProductUnavailable => 'Produk kredit permainan ini tidak tersedia buat masa ini.';
+
+  @override
+  String get gameCreditsSelectAmountRequired => 'Sila pilih amaun kredit permainan sebelum meneruskan.';
+
+  @override
+  String get gameCreditsUnableToLoadOptions => 'Tidak dapat memuatkan kredit permainan';
+
+  @override
+  String get gameCreditsUnableToLoadOptionsSubtitle => 'Pilihan kredit permainan tidak dapat dimuatkan. Sila cuba lagi.';
+
+  @override
+  String get gameCreditsReviewTitle => 'Semak Kredit Permainan';
+
+  @override
+  String get gameCreditsReviewSelection => 'Semak Pilihan Anda';
+
+  @override
+  String get gameCreditsEnterAccountTitle => 'Masukkan Maklumat Akaun Permainan';
+
+  @override
+  String get gameCreditsEnterAccountSubtitle => 'Masukkan ID Pemain atau maklumat akaun yang diperlukan untuk permainan ini';
+
+  @override
+  String get gameCreditsAccountLabel => 'ID Pemain / Akaun';
+
+  @override
+  String get gameCreditsAccountHint => 'Masukkan ID Pemain atau nombor akaun';
+
+  @override
+  String get gameCreditsCheckAccountMessage => 'Sila semak maklumat ini dengan teliti. Kredit permainan mungkin dihantar ke akaun yang dimasukkan.';
+
+  @override
+  String get gameCreditsNoAccountRequiredTitle => 'ID Pemain Tidak Diperlukan';
+
+  @override
+  String get gameCreditsNoAccountRequiredMessage => 'Kredit permainan ini tidak memerlukan ID Pemain atau nombor akaun. Anda boleh teruskan ke pembayaran.';
+
+  @override
+  String get gameCreditsAccountRequired => 'Sila masukkan ID Pemain atau maklumat akaun yang diperlukan.';
+
+  @override
+  String get gameCreditsAccountInvalid => 'ID Pemain atau maklumat akaun yang dimasukkan tidak sah.';
+
+  @override
+  String get gameCreditsAccountRequiredTitle => 'Maklumat Akaun Diperlukan';
+
+  @override
+  String get gameCreditsContinuePayment => 'TERUSKAN KE PEMBAYARAN';
+
+  @override
+  String get gameCreditsUnableToLoadDetails => 'Tidak dapat memuatkan maklumat kredit permainan.';
+
+  @override
+  String get gameCreditsInformation => 'Maklumat';
+
+  @override
+  String get gameCreditsPaymentTitle => 'Pembayaran Kredit Permainan';
+
+  @override
+  String get gameCreditsGameLabel => 'Permainan';
+
+  @override
+  String get gameCreditsPaymentTotal => 'JUMLAH BAYARAN';
+
+  @override
+  String get gameCreditsPreparingQrPayment => 'MENYEDIAKAN QR KREDIT PERMAINAN';
+
+  @override
+  String get gameCreditsProcessingPurchaseTitle => 'MEMPROSES KREDIT PERMAINAN';
+
+  @override
+  String get gameCreditsProcessingPurchaseMessage => 'Bayaran anda telah diterima. Sila tunggu sementara transaksi kredit permainan diproses.';
+
+  @override
+  String get gameCreditsProcessingPurchaseLocked => 'Sila jangan sentuh skrin semasa transaksi kredit permainan sedang diproses.';
+
+  @override
+  String get gameCreditsPaymentInvalidProductTitle => 'PRODUK KREDIT PERMAINAN TIDAK SAH';
+
+  @override
+  String get gameCreditsPaymentInvalidProductMessage => 'Kod produk kredit permainan tiada.';
+
+  @override
+  String get gameCreditsPaymentProviderRejected => 'Penyedia kredit permainan menolak transaksi ini.';
+
+  @override
+  String get gameCreditsPaymentProviderRefunded => 'Transaksi kredit permainan telah dikembalikan.';
+
+  @override
+  String get gameCreditsPaymentUnexpectedStatus => 'Status penyedia kredit permainan yang tidak dijangka';
+
+  @override
+  String get gameCreditsPaymentProviderErrorTitle => 'RALAT PEMPROSESAN KREDIT PERMAINAN';
+
+  @override
+  String get gameCreditsPaymentReference => 'Rujukan Pembayaran';
+
+  @override
+  String get gameCreditsPaymentAlreadyReceivedWarning => 'Bayaran DuitNow telah diterima. Jangan buat bayaran lain untuk transaksi yang sama.';
+
+  @override
+  String get gameCreditsReceiptTitle => 'RESIT KREDIT PERMAINAN';
+
+  @override
+  String get gameCreditsReceiptGame => 'Permainan';
+
+  @override
+  String get gameCreditsReceiptPurchaseDetails => 'Butiran Pembelian';
+
+  @override
+  String get gameCreditsReceiptSelectedCredit => 'Kredit Dipilih';
+
+  @override
+  String get gameCreditsReceiptCreditReceived => 'Kredit Permainan';
+
+  @override
+  String get gameCreditsReceiptAccount => 'ID Pemain / Akaun';
+
+  @override
+  String get gameCreditsReceiptBaseAmount => 'Amaun';
+
+  @override
+  String get gameCreditsReceiptServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get gameCreditsReceiptPaymentMethod => 'Kaedah Pembayaran';
+
+  @override
+  String get gameCreditsReceiptPaymentDate => 'Tarikh Pembayaran';
+
+  @override
+  String get gameCreditsReceiptBankTransaction => 'Transaksi Bank';
+
+  @override
+  String get gameCreditsReceiptDeliveryDetails => 'Butiran Penghantaran';
+
+  @override
+  String get gameCreditsReceiptSerialNumber => 'Nombor Siri';
+
+  @override
+  String get gameCreditsReceiptPin => 'PIN';
+
+  @override
+  String get gameCreditsReceiptExpiry => 'Tarikh Luput';
+
+  @override
+  String get gameCreditsReceiptVoucherLink => 'Pautan Baucar';
+
+  @override
+  String get gameCreditsReceiptKeepCodeSafe => 'Simpan PIN, nombor siri atau pautan baucar anda dengan selamat. Jangan kongsikan dengan sesiapa.';
+
+  @override
+  String get gameCreditsReceiptDeliveryMessage => 'Transaksi kredit permainan anda telah selesai. Sila semak akaun permainan yang dimasukkan semasa pembelian.';
+
+  @override
+  String get gameCreditsReceiptTotalPaid => 'JUMLAH DIBAYAR';
+
+  @override
+  String get iddPaymentTitle => 'Pembayaran IDD';
+
+  @override
+  String get iddPaymentDetails => 'Butiran Pembelian IDD';
+
+  @override
+  String get iddSelectedAmount => 'Amaun Dipilih';
+
+  @override
+  String get iddPreparingQrPayment => 'Menyediakan Pembayaran QR';
+
+  @override
+  String get iddProcessingTitle => 'Memproses Pembelian IDD';
+
+  @override
+  String get iddProcessingMessage => 'Pembayaran telah diterima. Sila tunggu sementara pembelian IDD anda diproses.';
+
+  @override
+  String get iddProcessingLocked => 'Sila jangan tutup skrin ini semasa pemprosesan.';
+
+  @override
+  String get iddPaymentInvalidProductTitle => 'Produk IDD Tidak Sah';
+
+  @override
+  String get iddPaymentInvalidProductMessage => 'Produk IDD yang dipilih tidak sah. Sila kembali dan pilih semula.';
+
+  @override
+  String get iddPaymentInvalidAmountTitle => 'Amaun IDD Tidak Sah';
+
+  @override
+  String get iddPaymentInvalidAmountMessage => 'Sila pilih amaun IDD sebelum meneruskan.';
+
+  @override
+  String get iddPaymentProviderRejected => 'Penyedia IDD telah menolak transaksi.';
+
+  @override
+  String get iddPaymentProviderRefunded => 'Transaksi IDD telah dipulangkan.';
+
+  @override
+  String get iddPaymentStillProcessing => 'Transaksi IDD masih sedang diproses.';
+
+  @override
+  String get iddPaymentReference => 'Rujukan';
+
+  @override
+  String get iddPaymentProviderErrorTitle => 'Ralat Pemprosesan IDD';
+
+  @override
+  String get iddPaymentAlreadyReceivedWarning => 'Pembayaran QR anda telah diterima. Sila jangan membuat pembayaran sekali lagi.';
+
+  @override
+  String get iddReceiptTitle => 'Pembelian IDD Berjaya';
+
+  @override
+  String get iddReceiptProvider => 'Penyedia IDD';
+
+  @override
+  String get iddReceiptPurchaseDetails => 'Butiran Pembelian IDD';
+
+  @override
+  String get iddReceiptProduct => 'IDD Dipilih';
+
+  @override
+  String get iddReceiptAmount => 'Amaun IDD';
+
+  @override
+  String get iddReceiptPinDetails => 'Butiran PIN';
+
+  @override
+  String get iddReceiptSerialNumber => 'Nombor Siri';
+
+  @override
+  String get iddReceiptPin => 'PIN';
+
+  @override
+  String get iddReceiptExpiry => 'Tarikh Luput';
+
+  @override
+  String get iddReceiptVoucherLink => 'Pautan Baucar';
+
+  @override
+  String get iddReceiptTransactionDetails => 'Butiran Transaksi';
+
+  @override
+  String get iddReceiptPaymentDate => 'Tarikh Pembayaran';
+
+  @override
+  String get iddReceiptBankTransaction => 'Transaksi Bank';
+
+  @override
+  String get iddReceiptProviderNote => 'Maklumat Penyedia';
+
+  @override
+  String get iddReceiptTotalPaid => 'Jumlah Dibayar';
+
+  @override
+  String get consoleStoresButton => 'Konsol & Kedai Aplikasi';
+
+  @override
+  String get consoleStoresSupportingText => 'Beli kad hadiah konsol dan kedai aplikasi';
+
+  @override
+  String get consoleStoresTitle => 'Konsol & Kedai Aplikasi';
+
+  @override
+  String get consoleStoresSubtitle => 'Pilih kedai yang ingin anda beli';
+
+  @override
+  String get consoleStoresBadge => 'Kedai Digital';
+
+  @override
+  String get consoleStoreCategoryLabel => 'Konsol & Kedai Aplikasi';
+
+  @override
+  String get consoleStoreSelectPackageTitle => 'Pilih Nilai';
+
+  @override
+  String get consoleStoreSelectPackageSubtitle => 'Pilih nilai yang ingin dibeli';
+
+  @override
+  String get consoleStoreNoPackagesAvailable => 'Tiada nilai tersedia buat masa ini.';
+
+  @override
+  String get consoleStoreOrderSummaryTitle => 'Ringkasan Pesanan';
+
+  @override
+  String get consoleStoreProductLabel => 'Produk';
+
+  @override
+  String get consoleStoreSelectedPackageLabel => 'Nilai Dipilih';
+
+  @override
+  String get consoleStorePackageDescriptionLabel => 'Keterangan';
+
+  @override
+  String get consoleStoreSubtotalLabel => 'Jumlah Kecil';
+
+  @override
+  String get consoleStoreServiceAdjustmentLabel => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get consoleStoreTotalAmountLabel => 'Jumlah Bayaran';
+
+  @override
+  String get consoleStoreProductUnavailable => 'Produk ini tidak tersedia buat masa ini.';
+
+  @override
+  String get consoleStoreSelectPackageRequired => 'Sila pilih nilai untuk teruskan.';
+
+  @override
+  String get consoleStoreUnableToLoadOptions => 'Tidak dapat memuatkan nilai yang tersedia';
+
+  @override
+  String get consoleStoreUnableToLoadOptionsSubtitle => 'Sila cuba semula sebentar lagi.';
+
+  @override
+  String get consoleStorePaymentTitle => 'Bayaran Konsol & Kedai Aplikasi';
+
+  @override
+  String get consoleStorePaymentTotal => 'Jumlah Bayaran';
+
+  @override
+  String get consoleStorePreparingQrPayment => 'Menyediakan Bayaran QR';
+
+  @override
+  String get consoleStoreProcessingPurchaseTitle => 'Memproses Pembelian';
+
+  @override
+  String get consoleStoreProcessingPurchaseMessage => 'Bayaran telah diterima. Pembelian anda sedang diproses dengan penyedia.';
+
+  @override
+  String get consoleStoreProcessingPurchaseLocked => 'Sila jangan tutup atau tinggalkan halaman ini.';
+
+  @override
+  String get consoleStorePaymentInvalidProductTitle => 'Produk Tidak Sah';
+
+  @override
+  String get consoleStorePaymentInvalidProductMessage => 'Produk yang dipilih tidak sah. Sila kembali dan pilih produk semula.';
+
+  @override
+  String get consoleStorePaymentProviderRejected => 'Penyedia tidak dapat melengkapkan pembelian ini.';
+
+  @override
+  String get consoleStorePaymentProviderRefunded => 'Penyedia telah memulangkan bayaran untuk transaksi ini.';
+
+  @override
+  String get consoleStorePaymentUnexpectedStatus => 'Status penyedia tidak dijangka';
+
+  @override
+  String get consoleStorePaymentProviderErrorTitle => 'Pembelian Tidak Dapat Diselesaikan';
+
+  @override
+  String get consoleStorePaymentReference => 'Rujukan';
+
+  @override
+  String get consoleStorePaymentAlreadyReceivedWarning => 'Bayaran QR anda telah diterima. Sila simpan rujukan ini untuk bantuan.';
+
+  @override
+  String get consoleStoreReceiptTitle => 'Resit Pembelian';
+
+  @override
+  String get consoleStoreReceiptProduct => 'Produk';
+
+  @override
+  String get consoleStoreReceiptPurchaseDetails => 'Butiran Pembelian';
+
+  @override
+  String get consoleStoreReceiptSelectedValue => 'Nilai Dipilih';
+
+  @override
+  String get consoleStoreReceiptDescription => 'Keterangan';
+
+  @override
+  String get consoleStoreReceiptBaseAmount => 'Amaun Asas';
+
+  @override
+  String get consoleStoreReceiptServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get consoleStoreReceiptPaymentMethod => 'Kaedah Bayaran';
+
+  @override
+  String get consoleStoreReceiptPaymentDate => 'Tarikh Bayaran';
+
+  @override
+  String get consoleStoreReceiptBankTransaction => 'Transaksi Bank';
+
+  @override
+  String get consoleStoreReceiptDeliveryDetails => 'Butiran Penebusan';
+
+  @override
+  String get consoleStoreReceiptSerialNumber => 'Nombor Siri';
+
+  @override
+  String get consoleStoreReceiptPin => 'PIN / Kod';
+
+  @override
+  String get consoleStoreReceiptExpiry => 'Tarikh Luput';
+
+  @override
+  String get consoleStoreReceiptVoucherLink => 'Pautan Baucar';
+
+  @override
+  String get consoleStoreReceiptProviderInstructions => 'Arahan Penyedia';
+
+  @override
+  String get consoleStoreReceiptKeepCodeSafe => 'Simpan PIN, kod atau pautan baucar anda dengan selamat. Ia mungkin diperlukan untuk menebus pembelian anda.';
+
+  @override
+  String get consoleStoreReceiptSuccessMessage => 'Pembelian anda telah berjaya diproses.';
+
+  @override
+  String get consoleStoreReceiptTotalPaid => 'Jumlah Dibayar';
+
+  @override
+  String get consoleStoreInvalidOptionValue => 'Nilai yang dipilih tidak dapat diproses. Sila pilih nilai lain atau cuba semula.';
+
+  @override
+  String get putrajayaExplorationTitle => 'Jelajah Putrajaya';
+
+  @override
+  String get putrajayaTabHistorical => 'Bersejarah';
+
+  @override
+  String get putrajayaTabInteresting => 'Tempat Menarik';
+
+  @override
+  String get putrajayaTabEating => 'Tempat Makan';
+
+  @override
+  String get putrajayaViewDetails => 'Lihat Butiran';
+
+  @override
+  String get putrajayaGoogleMap => 'Google Maps';
+
+  @override
+  String get putrajayaScanMap => 'Imbas kod QR untuk melihat lokasi';
+
+  @override
+  String get putrajayaClose => 'Tutup';
+
+  @override
+  String get putrajayaNoPlaces => 'Tiada tempat tersedia';
+
+  @override
+  String putrajayaInterestingDesc(Object place) {
+    return 'Terokai $place, salah satu tempat menarik untuk dikunjungi di sekitar Putrajaya.';
+  }
+
+  @override
+  String putrajayaInterestingFull(Object place) {
+    return '$place merupakan salah satu tempat yang boleh diterokai oleh pengunjung ketika berada di Putrajaya. Imbas kod QR Google Maps di bawah untuk melihat lokasi dan merancang lawatan anda.';
+  }
+
+  @override
+  String putrajayaHistoricalDesc(Object place) {
+    return 'Kenali $place, salah satu mercu tanda terkenal di Putrajaya.';
+  }
+
+  @override
+  String putrajayaHistoricalFull(Object place) {
+    return '$place merupakan salah satu mercu tanda yang boleh dikunjungi dan diterokai di Putrajaya. Imbas kod QR Google Maps di bawah untuk melihat lokasinya.';
+  }
+
+  @override
+  String putrajayaFoodDesc(Object place) {
+    return 'Terokai $place, salah satu pilihan tempat makan di sekitar Putrajaya.';
+  }
+
+  @override
+  String putrajayaFoodFull(Object place) {
+    return '$place merupakan salah satu tempat makan yang boleh dipertimbangkan ketika berada di Putrajaya. Imbas kod QR Google Maps di bawah untuk melihat lokasinya.';
+  }
 }

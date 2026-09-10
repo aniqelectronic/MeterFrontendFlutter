@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:frontend_v1/l10n/app_localizations.dart';
-import 'package:frontend_v1/pages/bil/p4bil.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbil3.dart';
+
+import 'package:frontend_v1/pages/bil/idd/piddbill4.dart';
 
 import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
@@ -11,10 +12,10 @@ import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.da
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
 // ============================================================================
-// BROADBAND BILLER STATUS
+// BILLER STATUS
 // ============================================================================
 
-enum BroadbandBillerStatus {
+enum IddBillerStatus {
   loading,
   healthy,
   interruption,
@@ -22,60 +23,65 @@ enum BroadbandBillerStatus {
 }
 
 // ============================================================================
-// BROADBAND PRODUCT
+// IDD PRODUCT MODEL
+// ============================================================================
 //
-// Product information comes from:
+// Product information comes directly from:
 //
 // /v2/catalog
 //
 // tree.groups
 //      ↓
-// categories
+// category.id == IDD
 //      ↓
-// category.id == BROADBAND
-//      ↓
-// product_codes
+// category.product_codes
 //      ↓
 // products[code]
+//      ↓
+// is_active == true
+//
+// Newly-added active IDD products automatically appear.
 // ============================================================================
 
-class _BroadbandProduct {
+class _IddProduct {
   final String code;
   final String name;
   final String imageUrl;
   final String processingTime;
-  final bool isActive;
 
-  const _BroadbandProduct({
+  const _IddProduct({
     required this.code,
     required this.name,
     required this.imageUrl,
     required this.processingTime,
-    required this.isActive,
   });
 }
 
 // ============================================================================
-// BROADBAND BILL PROVIDER PAGE
+// IDD PROVIDER PAGE
 // ============================================================================
 
-class PBROADBANDBILL3PAGE extends StatefulWidget {
-  const PBROADBANDBILL3PAGE({
+class PIDDBILL3PAGE extends StatefulWidget {
+  const PIDDBILL3PAGE({
     super.key,
   });
 
   @override
-  State<PBROADBANDBILL3PAGE> createState() =>
-      _PBROADBANDBILL3PAGEState();
+  State<PIDDBILL3PAGE> createState() =>
+      _PIDDBILL3PAGEState();
 }
 
-class _PBROADBANDBILL3PAGEState
-    extends State<PBROADBANDBILL3PAGE> {
+// ============================================================================
+// IDD PROVIDER PAGE STATE
+// ============================================================================
+
+class _PIDDBILL3PAGEState
+    extends State<PIDDBILL3PAGE> {
   // ==========================================================================
-  // PRODUCTS FROM CATALOG
+  // PRODUCTS
   // ==========================================================================
 
-  final List<_BroadbandProduct> _broadbandProducts = [];
+  final List<_IddProduct> _iddProducts = [];
 
   bool _catalogLoading = true;
 
@@ -85,9 +91,11 @@ class _PBROADBANDBILL3PAGEState
   // NETWORK STATUS
   // ==========================================================================
 
-  final Map<String, BroadbandBillerStatus> _billerStatuses = {};
+  final Map<String, IddBillerStatus>
+      _billerStatuses = {};
 
-  final Map<String, String?> _lastUpdated = {};
+  final Map<String, String?>
+      _lastUpdated = {};
 
   // ==========================================================================
   // SCROLL
@@ -100,31 +108,30 @@ class _PBROADBANDBILL3PAGEState
   bool showScrollDown = false;
 
   // ==========================================================================
-  // UI COLORS
+  // DECORATIVE COLORS
   //
-  // Decorative only.
+  // These are UI-only.
   //
-  // Provider identity does NOT depend on these.
-  //
-  // If API adds more providers, colors repeat automatically.
+  // They are NOT mapped to specific IDD providers.
+  // If more providers are added, colors repeat automatically.
   // ==========================================================================
 
   static const List<Color> _accentColors = [
-    Color(0xFF6255D9),
-    Color(0xFF9A3CCE),
-    Color(0xFF4E7CE5),
-    Color(0xFF8B50C7),
-    Color(0xFF5470C6),
-    Color(0xFFB85FC6),
+    Color(0xFF1469E8),
+    Color(0xFF15946B),
+    Color(0xFF7356D8),
+    Color(0xFFE56B21),
+    Color(0xFFD64D8B),
+    Color(0xFF1687D9),
   ];
 
   static const List<Color> _lightAccentColors = [
-    Color(0xFFECE9FF),
-    Color(0xFFF4E6FC),
-    Color(0xFFE8EEFF),
-    Color(0xFFF2E9FC),
-    Color(0xFFE9EDFA),
-    Color(0xFFF8EAFB),
+    Color(0xFFE5F0FF),
+    Color(0xFFE2F7EF),
+    Color(0xFFEDE9FF),
+    Color(0xFFFFECDD),
+    Color(0xFFFFE6F2),
+    Color(0xFFE3F3FF),
   ];
 
   // ==========================================================================
@@ -141,22 +148,16 @@ class _PBROADBANDBILL3PAGEState
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        _loadBroadbandCatalog();
+        _loadIddCatalog();
       },
     );
   }
 
   // ==========================================================================
-  // LOAD BROADBAND PROVIDERS FROM /v2/catalog
-  //
-  // We only identify category:
-  //
-  // BROADBAND
-  //
-  // Actual provider codes come from product_codes.
+  // LOAD IDD CATALOG
   // ==========================================================================
 
-  Future<void> _loadBroadbandCatalog() async {
+  Future<void> _loadIddCatalog() async {
     if (mounted) {
       setState(() {
         _catalogLoading = true;
@@ -207,10 +208,10 @@ class _PBROADBANDBILL3PAGEState
       }
 
       // ======================================================================
-      // 4. FIND BROADBAND CATEGORY
+      // 4. FIND IDD CATEGORY
       // ======================================================================
 
-      final List<String> broadbandCodes = [];
+      final List<String> iddCodes = [];
 
       for (final dynamic groupRaw in groupsRaw) {
         if (groupRaw is! Map) {
@@ -247,7 +248,7 @@ class _PBROADBANDBILL3PAGEState
                       .toUpperCase() ??
                   '';
 
-          if (categoryId != 'BROADBAND') {
+          if (categoryId != 'IDD') {
             continue;
           }
 
@@ -271,10 +272,8 @@ class _PBROADBANDBILL3PAGEState
               continue;
             }
 
-            if (!broadbandCodes.contains(
-              code,
-            )) {
-              broadbandCodes.add(
+            if (!iddCodes.contains(code)) {
+              iddCodes.add(
                 code,
               );
             }
@@ -301,19 +300,18 @@ class _PBROADBANDBILL3PAGEState
       );
 
       // ======================================================================
-      // 6. BUILD ACTIVE PRODUCTS
+      // 6. BUILD ACTIVE IDD PRODUCTS
       // ======================================================================
 
-      final List<_BroadbandProduct> loadedProducts = [];
+      final List<_IddProduct> loadedProducts = [];
 
-      for (final String code
-          in broadbandCodes) {
+      for (final String code in iddCodes) {
         final dynamic rawProduct =
             products[code];
 
         if (rawProduct is! Map) {
           debugPrint(
-            'Broadband product not found: $code',
+            'IDD catalog product not found: $code',
           );
 
           continue;
@@ -328,12 +326,9 @@ class _PBROADBANDBILL3PAGEState
         // ACTIVE
         // ====================================================================
 
-        final bool isActive =
-            product['is_active'] == true;
-
-        if (!isActive) {
+        if (product['is_active'] != true) {
           debugPrint(
-            'Broadband product inactive: $code',
+            'IDD product inactive: $code',
           );
 
           continue;
@@ -381,18 +376,17 @@ class _PBROADBANDBILL3PAGEState
                 '';
 
         loadedProducts.add(
-          _BroadbandProduct(
+          _IddProduct(
             code: productCode,
             name: productName,
             imageUrl: imageUrl,
             processingTime: processingTime,
-            isActive: isActive,
           ),
         );
       }
 
       // ======================================================================
-      // UPDATE UI
+      // 7. UPDATE UI
       // ======================================================================
 
       if (!mounted) {
@@ -400,13 +394,24 @@ class _PBROADBANDBILL3PAGEState
       }
 
       setState(() {
-        _broadbandProducts
+        _iddProducts
           ..clear()
           ..addAll(
             loadedProducts,
           );
 
+        _billerStatuses.clear();
+        _lastUpdated.clear();
+
+        for (final _IddProduct product
+            in loadedProducts) {
+          _billerStatuses[
+                  product.code] =
+              IddBillerStatus.loading;
+        }
+
         _catalogLoading = false;
+        _catalogError = null;
       });
 
       debugPrint('');
@@ -414,14 +419,14 @@ class _PBROADBANDBILL3PAGEState
         '========================================',
       );
       debugPrint(
-        'BROADBAND CATALOG LOADED',
+        'IDD CATALOG LOADED',
       );
       debugPrint(
         '========================================',
       );
       debugPrint(
         'Products: '
-        '${_broadbandProducts.map((e) => e.code).toList()}',
+        '${_iddProducts.map((e) => e.code).toList()}',
       );
       debugPrint(
         '========================================',
@@ -429,7 +434,7 @@ class _PBROADBANDBILL3PAGEState
       debugPrint('');
 
       // ======================================================================
-      // 7. NETWORK STATUS
+      // 8. NETWORK STATUS
       // ======================================================================
 
       await _loadNetworkStatuses();
@@ -451,7 +456,7 @@ class _PBROADBANDBILL3PAGEState
 
     on IimmpactCatalogException catch (error) {
       debugPrint(
-        'Broadband catalog error: '
+        'IDD catalog error: '
         '${error.message}',
       );
 
@@ -460,7 +465,9 @@ class _PBROADBANDBILL3PAGEState
       }
 
       setState(() {
-        _broadbandProducts.clear();
+        _iddProducts.clear();
+        _billerStatuses.clear();
+        _lastUpdated.clear();
 
         _catalogLoading = false;
 
@@ -478,7 +485,7 @@ class _PBROADBANDBILL3PAGEState
 
     catch (error, stackTrace) {
       debugPrint(
-        'Unexpected broadband catalog error: '
+        'Unexpected IDD catalog error: '
         '$error',
       );
 
@@ -491,7 +498,9 @@ class _PBROADBANDBILL3PAGEState
       }
 
       setState(() {
-        _broadbandProducts.clear();
+        _iddProducts.clear();
+        _billerStatuses.clear();
+        _lastUpdated.clear();
 
         _catalogLoading = false;
 
@@ -505,18 +514,18 @@ class _PBROADBANDBILL3PAGEState
   }
 
   // ==========================================================================
-  // LOAD NETWORK STATUS FOR ALL PROVIDERS
+  // LOAD NETWORK STATUS
   // ==========================================================================
 
   Future<void> _loadNetworkStatuses() async {
-    if (_broadbandProducts.isEmpty) {
+    if (_iddProducts.isEmpty) {
       return;
     }
 
     await Future.wait(
-      _broadbandProducts.map(
+      _iddProducts.map(
         (
-          _BroadbandProduct product,
+          _IddProduct product,
         ) {
           return _refreshNetworkStatus(
             product.code,
@@ -530,14 +539,13 @@ class _PBROADBANDBILL3PAGEState
   // REFRESH NETWORK STATUS
   // ==========================================================================
 
-  Future<BroadbandBillerStatus>
-      _refreshNetworkStatus(
+  Future<IddBillerStatus> _refreshNetworkStatus(
     String productCode,
   ) async {
     if (mounted) {
       setState(() {
         _billerStatuses[productCode] =
-            BroadbandBillerStatus.loading;
+            IddBillerStatus.loading;
       });
     }
 
@@ -547,10 +555,10 @@ class _PBROADBANDBILL3PAGEState
         productCode: productCode,
       );
 
-      final BroadbandBillerStatus status =
+      final IddBillerStatus status =
           result.isHealthy
-              ? BroadbandBillerStatus.healthy
-              : BroadbandBillerStatus.interruption;
+              ? IddBillerStatus.healthy
+              : IddBillerStatus.interruption;
 
       if (mounted) {
         setState(() {
@@ -565,137 +573,19 @@ class _PBROADBANDBILL3PAGEState
       return status;
     } catch (error) {
       debugPrint(
-        'Broadband network status error for '
+        'IDD network status error for '
         '$productCode: $error',
       );
 
       if (mounted) {
         setState(() {
           _billerStatuses[productCode] =
-              BroadbandBillerStatus.unavailable;
+              IddBillerStatus.unavailable;
         });
       }
 
-      return BroadbandBillerStatus.unavailable;
+      return IddBillerStatus.unavailable;
     }
-  }
-
-  // ==========================================================================
-  // PROVIDER TAP
-  // ==========================================================================
-
-  Future<void> _handleBillerTap(
-    _BroadbandProduct product,
-  ) async {
-    final BroadbandBillerStatus status =
-        await _refreshNetworkStatus(
-      product.code,
-    );
-
-    if (!mounted) {
-      return;
-    }
-
-    // ========================================================================
-    // INTERRUPTION
-    // ========================================================================
-
-    if (status ==
-        BroadbandBillerStatus.interruption) {
-      final bool shouldContinue =
-          await _showInterruptionWarning(
-        billerName:
-            product.name,
-        productCode:
-            product.code,
-      );
-
-      if (!shouldContinue) {
-        return;
-      }
-    }
-
-    if (!mounted) {
-      return;
-    }
-
-    // ========================================================================
-    // UNAVAILABLE
-    // ========================================================================
-
-    if (status ==
-        BroadbandBillerStatus.unavailable) {
-      final loc =
-          AppLocalizations.of(context)!;
-
-      await showDialog<void>(
-        context: context,
-        builder:
-            (
-          BuildContext dialogContext,
-        ) {
-          return AlertDialog(
-            title: Text(
-              loc.alertTitle,
-              style:
-                  const TextStyle(
-                fontWeight:
-                    FontWeight.bold,
-              ),
-            ),
-            content: Text(
-              loc.networkUnavailableMessage(
-                product.name,
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(
-                    dialogContext,
-                  );
-                },
-                child: Text(
-                  loc.electricOk,
-                ),
-              ),
-            ],
-          );
-        },
-      );
-
-      return;
-    }
-
-    if (!mounted) {
-      return;
-    }
-
-    // ========================================================================
-    // PAGE 4
-    // ========================================================================
-
-    final loc =
-        AppLocalizations.of(context)!;
-
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) =>
-            P4BILPAGE(
-          title:
-              loc.broadbandAccountTitle,
-          hint:
-              loc.broadbandAccountHint,
-          productCode:
-              product.code,
-          billerName:
-              product.name,
-          serviceType:
-              BillServiceType.broadband,
-        ),
-      ),
-    );
   }
 
   // ==========================================================================
@@ -733,17 +623,14 @@ class _PBROADBANDBILL3PAGEState
               45,
               38,
             ),
-            decoration:
-                BoxDecoration(
+            decoration: BoxDecoration(
               color: Colors.white,
               borderRadius:
                   BorderRadius.circular(
                 38,
               ),
-              border:
-                  Border.all(
-                color:
-                    const Color(
+              border: Border.all(
+                color: const Color(
                   0xFFF2A520,
                 ),
                 width: 3,
@@ -776,14 +663,12 @@ class _PBROADBANDBILL3PAGEState
                   height: 125,
                   decoration:
                       BoxDecoration(
-                    color:
-                        const Color(
+                    color: const Color(
                       0xFFFFF2D9,
                     ),
                     shape:
                         BoxShape.circle,
-                    border:
-                        Border.all(
+                    border: Border.all(
                       color:
                           const Color(
                         0xFFF2A520,
@@ -793,8 +678,7 @@ class _PBROADBANDBILL3PAGEState
                       width: 2,
                     ),
                   ),
-                  child:
-                      const Icon(
+                  child: const Icon(
                     Icons
                         .warning_amber_rounded,
                     color:
@@ -839,8 +723,7 @@ class _PBROADBANDBILL3PAGEState
                 // ============================================================
 
                 Container(
-                  width:
-                      double.infinity,
+                  width: double.infinity,
                   padding:
                       const EdgeInsets.symmetric(
                     horizontal: 28,
@@ -848,16 +731,14 @@ class _PBROADBANDBILL3PAGEState
                   ),
                   decoration:
                       BoxDecoration(
-                    color:
-                        const Color(
+                    color: const Color(
                       0xFFFFF9ED,
                     ),
                     borderRadius:
                         BorderRadius.circular(
                       24,
                     ),
-                    border:
-                        Border.all(
+                    border: Border.all(
                       color:
                           const Color(
                         0xFFF4D69D,
@@ -1064,7 +945,116 @@ class _PBROADBANDBILL3PAGEState
   }
 
   // ==========================================================================
-  // SCROLL LISTENER
+  // PROVIDER TAP
+  // ==========================================================================
+
+  Future<void> _handleBillerTap(
+    _IddProduct product,
+  ) async {
+    final IddBillerStatus status =
+        await _refreshNetworkStatus(
+      product.code,
+    );
+
+    if (!mounted) {
+      return;
+    }
+
+    // ========================================================================
+    // INTERRUPTION
+    // ========================================================================
+
+    if (status ==
+        IddBillerStatus.interruption) {
+      final bool shouldContinue =
+          await _showInterruptionWarning(
+        billerName:
+            product.name,
+        productCode:
+            product.code,
+      );
+
+      if (!shouldContinue) {
+        return;
+      }
+    }
+
+    if (!mounted) {
+      return;
+    }
+
+    // ========================================================================
+    // UNAVAILABLE
+    // ========================================================================
+
+    if (status ==
+        IddBillerStatus.unavailable) {
+      final loc =
+          AppLocalizations.of(context)!;
+
+      await showDialog<void>(
+        context: context,
+        builder:
+            (
+          BuildContext dialogContext,
+        ) {
+          return AlertDialog(
+            title: Text(
+              loc.alertTitle,
+              style:
+                  const TextStyle(
+                fontWeight:
+                    FontWeight.bold,
+              ),
+            ),
+            content: Text(
+              loc.networkUnavailableMessage(
+                product.name,
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(
+                    dialogContext,
+                  );
+                },
+                child: Text(
+                  loc.electricOk,
+                ),
+              ),
+            ],
+          );
+        },
+      );
+
+      return;
+    }
+
+    if (!mounted) {
+      return;
+    }
+
+    // ========================================================================
+    // PAGE 4
+    // ========================================================================
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            PIDDBILL4PAGE(
+          productCode:
+              product.code,
+          billerName:
+              product.name,
+        ),
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // SCROLL POSITION
   // ==========================================================================
 
   void _handleScroll() {
@@ -1075,28 +1065,31 @@ class _PBROADBANDBILL3PAGEState
     }
 
     final double maxScroll =
-        _scrollController.position.maxScrollExtent;
+        _scrollController
+            .position
+            .maxScrollExtent;
 
     final double currentScroll =
         _scrollController.offset;
 
-    final bool newShowScrollUp =
+    final bool shouldShowScrollUp =
         currentScroll > 10;
 
-    final bool newShowScrollDown =
+    final bool shouldShowScrollDown =
         maxScroll > 10 &&
         currentScroll <
             maxScroll - 10;
 
-    if (showScrollUp != newShowScrollUp ||
+    if (showScrollUp !=
+            shouldShowScrollUp ||
         showScrollDown !=
-            newShowScrollDown) {
+            shouldShowScrollDown) {
       setState(() {
         showScrollUp =
-            newShowScrollUp;
+            shouldShowScrollUp;
 
         showScrollDown =
-            newShowScrollDown;
+            shouldShowScrollDown;
       });
     }
   }
@@ -1115,7 +1108,8 @@ class _PBROADBANDBILL3PAGEState
             .clamp(
       0.0,
       _scrollController
-          .position.maxScrollExtent,
+          .position
+          .maxScrollExtent,
     );
 
     _scrollController.animateTo(
@@ -1143,7 +1137,8 @@ class _PBROADBANDBILL3PAGEState
             .clamp(
       0.0,
       _scrollController
-          .position.maxScrollExtent,
+          .position
+          .maxScrollExtent,
     );
 
     _scrollController.animateTo(
@@ -1212,7 +1207,7 @@ class _PBROADBANDBILL3PAGEState
                       0.02,
                     ),
                     Colors.white.withOpacity(
-                      0.13,
+                      0.12,
                     ),
                     Colors.white.withOpacity(
                       0.04,
@@ -1228,15 +1223,15 @@ class _PBROADBANDBILL3PAGEState
           // ==================================================================
 
           Positioned(
-            top: 75,
+            top: 82,
             left: 65,
             right: 65,
             child:
-                _ModernBroadbandHeader(
+                _ModernIddPageHeader(
               title:
-                  loc.broadbandSelectionTitle,
+                  loc.iddPageTitle,
               subtitle:
-                  loc.pbil3Subtitle,
+                  loc.iddPageSubtitle,
             ),
           ),
 
@@ -1245,7 +1240,7 @@ class _PBROADBANDBILL3PAGEState
           // ==================================================================
 
           Positioned(
-            top: 390,
+            top: 400,
             left: 45,
             right: 45,
             bottom: 305,
@@ -1260,13 +1255,14 @@ class _PBROADBANDBILL3PAGEState
           // ==================================================================
 
           if (!_catalogLoading &&
-              _broadbandProducts.isNotEmpty &&
+              _catalogError == null &&
+              _iddProducts.isNotEmpty &&
               showScrollUp)
             Positioned(
               right: 18,
-              top: 355,
+              top: 365,
               child:
-                  _ScrollIndicatorButton(
+                  _IddScrollIndicatorButton(
                 icon:
                     Icons
                         .keyboard_arrow_up_rounded,
@@ -1282,13 +1278,14 @@ class _PBROADBANDBILL3PAGEState
           // ==================================================================
 
           if (!_catalogLoading &&
-              _broadbandProducts.isNotEmpty &&
+              _catalogError == null &&
+              _iddProducts.isNotEmpty &&
               showScrollDown)
             Positioned(
               right: 18,
               bottom: 290,
               child:
-                  _ScrollIndicatorButton(
+                  _IddScrollIndicatorButton(
                 icon:
                     Icons
                         .keyboard_arrow_down_rounded,
@@ -1331,19 +1328,21 @@ class _PBROADBANDBILL3PAGEState
             bottom: 25,
             left: 0,
             right: 0,
-            child: Text(
-              Data.copyrightText,
-              textAlign:
-                  TextAlign.center,
-              style:
-                  const TextStyle(
-                color:
-                    Color(
-                  0xFF26364A,
+            child: Center(
+              child: Text(
+                Data.copyrightText,
+                textAlign:
+                    TextAlign.center,
+                style:
+                    const TextStyle(
+                  color:
+                      Color(
+                    0xFF26364A,
+                  ),
+                  fontSize: 20,
+                  fontWeight:
+                      FontWeight.w800,
                 ),
-                fontSize: 20,
-                fontWeight:
-                    FontWeight.w800,
               ),
             ),
           ),
@@ -1364,7 +1363,7 @@ class _PBROADBANDBILL3PAGEState
     // ========================================================================
 
     if (_catalogLoading) {
-      return _buildModernLoading(
+      return _buildLoading(
         loc,
       );
     }
@@ -1374,145 +1373,8 @@ class _PBROADBANDBILL3PAGEState
     // ========================================================================
 
     if (_catalogError != null) {
-      return Center(
-        child: Container(
-          width:
-              double.infinity,
-          padding:
-              const EdgeInsets.all(
-            35,
-          ),
-          decoration:
-              BoxDecoration(
-            color:
-                Colors.white.withOpacity(
-              0.96,
-            ),
-            borderRadius:
-                BorderRadius.circular(
-              28,
-            ),
-            border:
-                Border.all(
-              color:
-                  const Color(
-                0xFFD7E2F0,
-              ),
-              width: 2,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color:
-                    const Color(
-                  0xFF33256D,
-                ).withOpacity(
-                  0.10,
-                ),
-                blurRadius: 22,
-                offset:
-                    const Offset(
-                  0,
-                  10,
-                ),
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize:
-                MainAxisSize.min,
-            children: [
-              Container(
-                width: 100,
-                height: 100,
-                decoration:
-                    const BoxDecoration(
-                  color:
-                      Color(
-                    0xFFF0ECFF,
-                  ),
-                  shape:
-                      BoxShape.circle,
-                ),
-                child:
-                    const Icon(
-                  Icons.cloud_off_rounded,
-                  size: 55,
-                  color:
-                      Color(
-                    0xFF6255D9,
-                  ),
-                ),
-              ),
-
-              const SizedBox(
-                height: 22,
-              ),
-
-              Text(
-                loc.billUnknownError,
-                textAlign:
-                    TextAlign.center,
-                style:
-                    const TextStyle(
-                  fontSize: 27,
-                  fontWeight:
-                      FontWeight.bold,
-                  color:
-                      Color(
-                    0xFF33256D,
-                  ),
-                ),
-              ),
-
-              const SizedBox(
-                height: 25,
-              ),
-
-              SizedBox(
-                height: 70,
-                child:
-                    ElevatedButton.icon(
-                  onPressed:
-                      _loadBroadbandCatalog,
-                  icon:
-                      const Icon(
-                    Icons.refresh_rounded,
-                    size: 28,
-                  ),
-                  label: Text(
-                    loc.retryButton,
-                    style:
-                        const TextStyle(
-                      fontSize: 23,
-                      fontWeight:
-                          FontWeight.w900,
-                    ),
-                  ),
-                  style:
-                      ElevatedButton.styleFrom(
-                    backgroundColor:
-                        const Color(
-                      0xFF6255D9,
-                    ),
-                    foregroundColor:
-                        Colors.white,
-                    padding:
-                        const EdgeInsets.symmetric(
-                      horizontal: 35,
-                    ),
-                    shape:
-                        RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(
-                        18,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+      return _buildError(
+        loc,
       );
     }
 
@@ -1520,160 +1382,99 @@ class _PBROADBANDBILL3PAGEState
     // EMPTY
     // ========================================================================
 
-    if (_broadbandProducts.isEmpty) {
-      return Center(
-        child: Container(
-          width:
-              double.infinity,
-          padding:
-              const EdgeInsets.all(
-            35,
-          ),
-          decoration:
-              BoxDecoration(
-            color:
-                Colors.white.withOpacity(
-              0.96,
-            ),
-            borderRadius:
-                BorderRadius.circular(
-              28,
-            ),
-            border:
-                Border.all(
-              color:
-                  const Color(
-                0xFFD7E2F0,
-              ),
-              width: 2,
-            ),
-          ),
-          child: Column(
-            mainAxisSize:
-                MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.router_outlined,
-                size: 65,
-                color:
-                    Color(
-                  0xFF60758D,
-                ),
-              ),
-
-              const SizedBox(
-                height: 20,
-              ),
-
-              Text(
-                loc.networkStatusUnknown,
-                textAlign:
-                    TextAlign.center,
-                style:
-                    const TextStyle(
-                  color:
-                      Color(
-                    0xFF17283E,
-                  ),
-                  fontSize: 27,
-                  fontWeight:
-                      FontWeight.w800,
-                ),
-              ),
-            ],
-          ),
-        ),
+    if (_iddProducts.isEmpty) {
+      return _buildEmptyState(
+        loc,
       );
     }
 
     // ========================================================================
-    // DYNAMIC PROVIDER GRID
+    // PROVIDERS
     // ========================================================================
 
-    return Container(
-      padding:
-          const EdgeInsets.fromLTRB(
-        14,
-        16,
-        14,
+    return Scrollbar(
+      controller:
+          _scrollController,
+      thumbVisibility: true,
+      trackVisibility: true,
+      interactive: true,
+      thickness: 11,
+      radius:
+          const Radius.circular(
         20,
       ),
-      decoration:
-          BoxDecoration(
-        color:
-            Colors.white.withOpacity(
-          0.20,
-        ),
-        borderRadius:
-            BorderRadius.circular(
-          36,
-        ),
-        border:
-            Border.all(
-          color:
-              Colors.white.withOpacity(
-            0.60,
-          ),
-          width: 1.5,
-        ),
-      ),
-      child: Scrollbar(
+      child:
+          SingleChildScrollView(
         controller:
             _scrollController,
-        thumbVisibility:
-            true,
-        trackVisibility:
-            true,
-        interactive:
-            true,
-        thickness: 11,
-        radius:
-            const Radius.circular(
-          20,
+        physics:
+            const BouncingScrollPhysics(),
+        padding:
+            const EdgeInsets.only(
+          right: 24,
+          bottom: 55,
         ),
-        child:
-            GridView.builder(
-          controller:
-              _scrollController,
-          padding:
-              const EdgeInsets.only(
-            right: 24,
-            bottom: 45,
-          ),
-          physics:
-              const BouncingScrollPhysics(),
-          itemCount:
-              _broadbandProducts.length,
-          gridDelegate:
-              const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount:
-                2,
-            crossAxisSpacing:
-                34,
-            mainAxisSpacing:
-                36,
-            childAspectRatio:
-                1.0,
-          ),
-          itemBuilder:
-              (
-            context,
-            index,
-          ) {
-            final _BroadbandProduct product =
-                _broadbandProducts[
-                  index
-                ];
+        child: Column(
+          children: [
+            for (
+              int index = 0;
+              index < _iddProducts.length;
+              index += 2
+            )
+              Padding(
+                padding:
+                    EdgeInsets.only(
+                  bottom:
+                      index + 2 <
+                              _iddProducts.length
+                          ? 36
+                          : 0,
+                ),
+                child: Row(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child:
+                          _buildIddCard(
+                        product:
+                            _iddProducts[
+                              index
+                            ],
+                        index:
+                            index,
+                        loc:
+                            loc,
+                      ),
+                    ),
 
-            return _buildBroadbandCard(
-              product:
-                  product,
-              index:
-                  index,
-              loc:
-                  loc,
-            );
-          },
+                    const SizedBox(
+                      width: 34,
+                    ),
+
+                    Expanded(
+                      child:
+                          index + 1 <
+                                  _iddProducts
+                                      .length
+                              ? _buildIddCard(
+                                  product:
+                                      _iddProducts[
+                                        index +
+                                            1
+                                      ],
+                                  index:
+                                      index +
+                                          1,
+                                  loc:
+                                      loc,
+                                )
+                              : const SizedBox(),
+                    ),
+                  ],
+                ),
+              ),
+          ],
         ),
       ),
     );
@@ -1683,18 +1484,20 @@ class _PBROADBANDBILL3PAGEState
   // MODERN LOADING
   // ==========================================================================
 
-  Widget _buildModernLoading(
+  Widget _buildLoading(
     AppLocalizations loc,
   ) {
+    const Color color =
+        Color(0xFF1469E8);
+
     return Column(
       children: [
         // ====================================================================
-        // LOADING CARD
+        // MAIN LOADING CARD
         // ====================================================================
 
         Container(
-          width:
-              double.infinity,
+          width: double.infinity,
           padding:
               const EdgeInsets.symmetric(
             horizontal: 35,
@@ -1710,20 +1513,17 @@ class _PBROADBANDBILL3PAGEState
                 BorderRadius.circular(
               30,
             ),
-            border:
-                Border.all(
+            border: Border.all(
               color:
-                  const Color(
-                0xFFDDD7FA,
+                  color.withOpacity(
+                0.20,
               ),
               width: 2,
             ),
             boxShadow: [
               BoxShadow(
                 color:
-                    const Color(
-                  0xFF6255D9,
-                ).withOpacity(
+                    color.withOpacity(
                   0.12,
                 ),
                 blurRadius: 24,
@@ -1738,7 +1538,7 @@ class _PBROADBANDBILL3PAGEState
           child: Row(
             children: [
               // ==============================================================
-              // ICON
+              // ICON + SPINNER
               // ==============================================================
 
               Container(
@@ -1747,16 +1547,15 @@ class _PBROADBANDBILL3PAGEState
                 decoration:
                     BoxDecoration(
                   color:
-                      const Color(
-                    0xFFF0EDFF,
+                      color.withOpacity(
+                    0.10,
                   ),
                   shape:
                       BoxShape.circle,
-                  border:
-                      Border.all(
+                  border: Border.all(
                     color:
-                        const Color(
-                      0xFFD9D2FA,
+                        color.withOpacity(
+                      0.18,
                     ),
                     width: 2,
                   ),
@@ -1765,29 +1564,24 @@ class _PBROADBANDBILL3PAGEState
                   alignment:
                       Alignment.center,
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       width: 70,
                       height: 70,
                       child:
                           CircularProgressIndicator(
                         strokeWidth: 5,
-                        color:
-                            Color(
-                          0xFF6255D9,
-                        ),
+                        color: color,
                         backgroundColor:
-                            Color(
-                          0xFFE1DDF6,
+                            color.withOpacity(
+                          0.12,
                         ),
                       ),
                     ),
 
                     const Icon(
-                      Icons.router_rounded,
-                      color:
-                          Color(
-                        0xFF6255D9,
-                      ),
+                      Icons
+                          .phone_in_talk_rounded,
+                      color: color,
                       size: 40,
                     ),
                   ],
@@ -1813,7 +1607,7 @@ class _PBROADBANDBILL3PAGEState
                           const TextStyle(
                         color:
                             Color(
-                          0xFF33256D,
+                          0xFF16324F,
                         ),
                         fontSize: 30,
                         fontWeight:
@@ -1877,7 +1671,7 @@ class _PBROADBANDBILL3PAGEState
   }
 
   // ==========================================================================
-  // SKELETON CARD
+  // LOADING SKELETON
   // ==========================================================================
 
   Widget _buildLoadingProviderCard() {
@@ -1897,11 +1691,10 @@ class _PBROADBANDBILL3PAGEState
             BorderRadius.circular(
           34,
         ),
-        border:
-            Border.all(
+        border: Border.all(
           color:
               const Color(
-            0xFFE2DFEF,
+            0xFFDCE5EF,
           ),
           width: 2,
         ),
@@ -1909,7 +1702,7 @@ class _PBROADBANDBILL3PAGEState
           BoxShadow(
             color:
                 const Color(
-              0xFF33256D,
+              0xFF1469E8,
             ).withOpacity(
               0.07,
             ),
@@ -1926,10 +1719,6 @@ class _PBROADBANDBILL3PAGEState
         crossAxisAlignment:
             CrossAxisAlignment.start,
         children: [
-          // ==================================================================
-          // LOGO PLACEHOLDER
-          // ==================================================================
-
           Container(
             width: 150,
             height: 115,
@@ -1937,7 +1726,7 @@ class _PBROADBANDBILL3PAGEState
                 BoxDecoration(
               color:
                   const Color(
-                0xFFE9E7F5,
+                0xFFE9EFF6,
               ),
               borderRadius:
                   BorderRadius.circular(
@@ -1948,19 +1737,14 @@ class _PBROADBANDBILL3PAGEState
 
           const Spacer(),
 
-          // ==================================================================
-          // TEXT PLACEHOLDER
-          // ==================================================================
-
           Container(
-            width:
-                double.infinity,
+            width: double.infinity,
             height: 25,
             decoration:
                 BoxDecoration(
               color:
                   const Color(
-                0xFFE1DFEC,
+                0xFFE1E8F0,
               ),
               borderRadius:
                   BorderRadius.circular(
@@ -1980,7 +1764,7 @@ class _PBROADBANDBILL3PAGEState
                 BoxDecoration(
               color:
                   const Color(
-                0xFFEFEDF6,
+                0xFFEDF2F7,
               ),
               borderRadius:
                   BorderRadius.circular(
@@ -2000,7 +1784,7 @@ class _PBROADBANDBILL3PAGEState
                 BoxDecoration(
               color:
                   const Color(
-                0xFFEAE8F3,
+                0xFFE8EEF5,
               ),
               borderRadius:
                   BorderRadius.circular(
@@ -2014,11 +1798,261 @@ class _PBROADBANDBILL3PAGEState
   }
 
   // ==========================================================================
-  // BUILD BROADBAND CARD
+  // ERROR
   // ==========================================================================
 
-  Widget _buildBroadbandCard({
-    required _BroadbandProduct product,
+  Widget _buildError(
+    AppLocalizations loc,
+  ) {
+    return Center(
+      child: Container(
+        width: 680,
+        padding:
+            const EdgeInsets.all(
+          42,
+        ),
+        decoration:
+            BoxDecoration(
+          color:
+              Colors.white.withOpacity(
+            0.97,
+          ),
+          borderRadius:
+              BorderRadius.circular(
+            35,
+          ),
+          border: Border.all(
+            color:
+                const Color(
+              0xFFE57373,
+            ),
+            width: 2,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color:
+                  Colors.black.withOpacity(
+                0.10,
+              ),
+              blurRadius: 25,
+              offset:
+                  const Offset(
+                0,
+                12,
+              ),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize:
+              MainAxisSize.min,
+          children: [
+            Container(
+              width: 115,
+              height: 115,
+              decoration:
+                  const BoxDecoration(
+                color:
+                    Color(
+                  0xFFFFEBEE,
+                ),
+                shape:
+                    BoxShape.circle,
+              ),
+              child:
+                  const Icon(
+                Icons.cloud_off_rounded,
+                color:
+                    Color(
+                  0xFFD32F2F,
+                ),
+                size: 65,
+              ),
+            ),
+
+            const SizedBox(
+              height: 25,
+            ),
+
+            Text(
+              loc.providerLoadError,
+              textAlign:
+                  TextAlign.center,
+              style:
+                  const TextStyle(
+                color:
+                    Color(
+                  0xFF17283E,
+                ),
+                fontSize: 35,
+                fontWeight:
+                    FontWeight.w900,
+                height: 1.15,
+              ),
+            ),
+
+            const SizedBox(
+              height: 14,
+            ),
+
+            Text(
+              loc.providerLoadErrorSubtitle,
+              textAlign:
+                  TextAlign.center,
+              style:
+                  const TextStyle(
+                color:
+                    Color(
+                  0xFF657386,
+                ),
+                fontSize: 24,
+                fontWeight:
+                    FontWeight.w600,
+                height: 1.35,
+              ),
+            ),
+
+            const SizedBox(
+              height: 30,
+            ),
+
+            SizedBox(
+              width: double.infinity,
+              height: 80,
+              child:
+                  ElevatedButton.icon(
+                onPressed:
+                    _loadIddCatalog,
+                icon:
+                    const Icon(
+                  Icons.refresh_rounded,
+                  size: 30,
+                ),
+                label: Text(
+                  loc.retryButton,
+                  style:
+                      const TextStyle(
+                    fontSize: 27,
+                    fontWeight:
+                        FontWeight.w900,
+                  ),
+                ),
+                style:
+                    ElevatedButton.styleFrom(
+                  backgroundColor:
+                      const Color(
+                    0xFF1469E8,
+                  ),
+                  foregroundColor:
+                      Colors.white,
+                  elevation: 0,
+                  shape:
+                      RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(
+                      22,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // EMPTY
+  // ==========================================================================
+
+  Widget _buildEmptyState(
+    AppLocalizations loc,
+  ) {
+    return Center(
+      child: Container(
+        width: 680,
+        padding:
+            const EdgeInsets.all(
+          42,
+        ),
+        decoration:
+            BoxDecoration(
+          color:
+              Colors.white.withOpacity(
+            0.97,
+          ),
+          borderRadius:
+              BorderRadius.circular(
+            35,
+          ),
+          border: Border.all(
+            color:
+                const Color(
+              0xFFD7E2F0,
+            ),
+            width: 2,
+          ),
+        ),
+        child: Column(
+          mainAxisSize:
+              MainAxisSize.min,
+          children: [
+            Container(
+              width: 115,
+              height: 115,
+              decoration:
+                  const BoxDecoration(
+                color:
+                    Color(
+                  0xFFEAF2FC,
+                ),
+                shape:
+                    BoxShape.circle,
+              ),
+              child:
+                  const Icon(
+                Icons
+                    .phone_in_talk_rounded,
+                color:
+                    Color(
+                  0xFF1469E8,
+                ),
+                size: 65,
+              ),
+            ),
+
+            const SizedBox(
+              height: 25,
+            ),
+
+            Text(
+              loc.iddNoServices,
+              textAlign:
+                  TextAlign.center,
+              style:
+                  const TextStyle(
+                color:
+                    Color(
+                  0xFF17283E,
+                ),
+                fontSize: 30,
+                fontWeight:
+                    FontWeight.w900,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // BUILD IDD CARD
+  // ==========================================================================
+
+  Widget _buildIddCard({
+    required _IddProduct product,
     required int index,
     required AppLocalizations loc,
   }) {
@@ -2034,9 +2068,12 @@ class _PBROADBANDBILL3PAGEState
               _lightAccentColors.length
         ];
 
-    return _BroadbandProviderCard(
-      product:
-          product,
+    return _IddProviderCard(
+      imageUrl:
+          product.imageUrl,
+
+      label:
+          product.name,
 
       accentColor:
           accentColor,
@@ -2047,7 +2084,7 @@ class _PBROADBANDBILL3PAGEState
       networkStatus:
           _billerStatuses[
                   product.code] ??
-              BroadbandBillerStatus.loading,
+              IddBillerStatus.loading,
 
       networkLabel:
           loc.networkLabel,
@@ -2068,15 +2105,15 @@ class _PBROADBANDBILL3PAGEState
 }
 
 // ============================================================================
-// MODERN BROADBAND HEADER
+// MODERN IDD HEADER
 // ============================================================================
 
-class _ModernBroadbandHeader
+class _ModernIddPageHeader
     extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const _ModernBroadbandHeader({
+  const _ModernIddPageHeader({
     required this.title,
     required this.subtitle,
   });
@@ -2085,16 +2122,16 @@ class _ModernBroadbandHeader
   Widget build(
     BuildContext context,
   ) {
-    const Color accentColor =
-        Color(0xFF6255D9);
-
     final loc =
         AppLocalizations.of(context)!;
+
+    const Color accentColor =
+        Color(0xFF1469E8);
 
     return Column(
       children: [
         // ====================================================================
-        // CATEGORY BADGE
+        // IDD BADGE
         // ====================================================================
 
         Container(
@@ -2113,11 +2150,10 @@ class _ModernBroadbandHeader
                 BorderRadius.circular(
               100,
             ),
-            border:
-                Border.all(
+            border: Border.all(
               color:
                   accentColor.withOpacity(
-                0.25,
+                0.24,
               ),
               width: 1.5,
             ),
@@ -2127,7 +2163,8 @@ class _ModernBroadbandHeader
                 MainAxisSize.min,
             children: [
               const Icon(
-                Icons.router_rounded,
+                Icons
+                    .phone_in_talk_rounded,
                 color:
                     accentColor,
                 size: 25,
@@ -2138,7 +2175,7 @@ class _ModernBroadbandHeader
               ),
 
               Text(
-                loc.billbroadbandButton
+                loc.iddHeaderLabel
                     .toUpperCase(),
                 style:
                     const TextStyle(
@@ -2147,8 +2184,7 @@ class _ModernBroadbandHeader
                   fontSize: 17,
                   fontWeight:
                       FontWeight.w900,
-                  letterSpacing:
-                      1.4,
+                  letterSpacing: 1.4,
                 ),
               ),
             ],
@@ -2173,10 +2209,10 @@ class _ModernBroadbandHeader
             return const LinearGradient(
               colors: [
                 Color(
-                  0xFF493CB5,
+                  0xFF064CAC,
                 ),
                 Color(
-                  0xFF9A3CCE,
+                  0xFF1987EB,
                 ),
               ],
             ).createShader(
@@ -2194,12 +2230,12 @@ class _ModernBroadbandHeader
                 const TextStyle(
               color:
                   Colors.white,
-              fontSize: 61,
+              fontSize: 62,
               fontWeight:
                   FontWeight.w900,
               height: 1.05,
               letterSpacing:
-                  -0.7,
+                  -0.8,
             ),
           ),
         ),
@@ -2226,14 +2262,13 @@ class _ModernBroadbandHeader
               BoxDecoration(
             color:
                 Colors.white.withOpacity(
-              0.92,
+              0.91,
             ),
             borderRadius:
                 BorderRadius.circular(
               23,
             ),
-            border:
-                Border.all(
+            border: Border.all(
               color:
                   Colors.black.withOpacity(
                 0.17,
@@ -2244,7 +2279,7 @@ class _ModernBroadbandHeader
               BoxShadow(
                 color:
                     const Color(
-                  0xFF33256D,
+                  0xFF113968,
                 ).withOpacity(
                   0.10,
                 ),
@@ -2280,52 +2315,69 @@ class _ModernBroadbandHeader
 }
 
 // ============================================================================
-// BROADBAND PROVIDER CARD
+// IDD PROVIDER CARD
 // ============================================================================
 
-class _BroadbandProviderCard
+class _IddProviderCard
     extends StatefulWidget {
-  final _BroadbandProduct product;
+  final String imageUrl;
+  final String label;
+
+  final VoidCallback onPressed;
 
   final Color accentColor;
   final Color lightAccentColor;
 
-  final BroadbandBillerStatus networkStatus;
+  final IddBillerStatus networkStatus;
+
   final String networkLabel;
 
   final String processingTime;
+
   final String processingLabel;
 
-  final VoidCallback onPressed;
-
-  const _BroadbandProviderCard({
-    required this.product,
+  const _IddProviderCard({
+    required this.imageUrl,
+    required this.label,
+    required this.onPressed,
     required this.accentColor,
     required this.lightAccentColor,
     required this.networkStatus,
     required this.networkLabel,
     required this.processingTime,
     required this.processingLabel,
-    required this.onPressed,
   });
 
   @override
-  State<_BroadbandProviderCard> createState() =>
-      _BroadbandProviderCardState();
+  State<_IddProviderCard> createState() =>
+      _IddProviderCardState();
 }
 
 // ============================================================================
-// PROVIDER CARD STATE
+// IDD PROVIDER CARD STATE
 // ============================================================================
 
-class _BroadbandProviderCardState
-    extends State<_BroadbandProviderCard> {
+class _IddProviderCardState
+    extends State<_IddProviderCard> {
   bool _isPressed = false;
 
-  void _setPressed(
+  // ==========================================================================
+  // ENABLED
+  // ==========================================================================
+
+  bool get _isEnabled =>
+      widget.networkStatus !=
+      IddBillerStatus.unavailable;
+
+  // ==========================================================================
+  // PRESS STATE
+  // ==========================================================================
+
+  void _changePressedState(
     bool value,
   ) {
-    if (!mounted) {
+    if (!mounted ||
+        !_isEnabled) {
       return;
     }
 
@@ -2347,71 +2399,30 @@ class _BroadbandProviderCardState
 
     final String normalized =
         value
-            .toLowerCase()
-            .trim();
+            .trim()
+            .toLowerCase();
 
-    if (normalized == 'instant') {
-      return loc.processingInstant;
+    switch (normalized) {
+      case 'instant':
+        return loc.processingInstant;
+
+      case '24_hours':
+        return loc.processing24Hours;
+
+      case '3_days':
+        return loc.processing3Days;
+
+      case 'pin':
+        return 'PIN';
+
+      default:
+        return value
+            .replaceAll(
+              '_',
+              ' ',
+            )
+            .toUpperCase();
     }
-
-    if (normalized == '24_hours') {
-      return loc.processing24Hours;
-    }
-
-    if (normalized == '3_days') {
-      return loc.processing3Days;
-    }
-
-    // ========================================================================
-    // GENERIC HOURS
-    //
-    // Example:
-    //
-    // 48_hours
-    // 72_hours
-    // ========================================================================
-
-    if (normalized.endsWith(
-      '_hours',
-    )) {
-      final String hours =
-          normalized.replaceAll(
-        '_hours',
-        '',
-      );
-
-      return loc.broadbandUpdateWithinHours(
-        hours,
-      );
-    }
-
-    // ========================================================================
-    // GENERIC DAYS
-    //
-    // Example:
-    //
-    // 2_days
-    // 5_days
-    // ========================================================================
-
-    if (normalized.endsWith(
-      '_days',
-    )) {
-      final String days =
-          normalized.replaceAll(
-        '_days',
-        '',
-      );
-
-      return loc.broadbandUpdateWithinDays(
-        days,
-      );
-    }
-
-    return value.replaceAll(
-      '_',
-      ' ',
-    );
   }
 
   // ==========================================================================
@@ -2422,48 +2433,43 @@ class _BroadbandProviderCardState
   Widget build(
     BuildContext context,
   ) {
-    final bool isEnabled =
-        widget.networkStatus !=
-            BroadbandBillerStatus.unavailable;
-
     return GestureDetector(
       behavior:
           HitTestBehavior.opaque,
 
       onTapDown:
-          isEnabled
+          _isEnabled
               ? (_) {
-                  _setPressed(
+                  _changePressedState(
                     true,
                   );
                 }
               : null,
 
       onTapUp:
-          isEnabled
+          _isEnabled
               ? (_) {
-                  _setPressed(
+                  _changePressedState(
                     false,
                   );
                 }
               : null,
 
       onTapCancel:
-          isEnabled
+          _isEnabled
               ? () {
-                  _setPressed(
+                  _changePressedState(
                     false,
                   );
                 }
               : null,
 
       onTap:
-          isEnabled
+          _isEnabled
               ? widget.onPressed
               : null,
 
-      child:
-          AnimatedScale(
+      child: AnimatedScale(
         scale:
             _isPressed
                 ? 0.965
@@ -2487,28 +2493,27 @@ class _BroadbandProviderCardState
           curve:
               Curves.easeOut,
 
+          height: 510,
+
           decoration:
               BoxDecoration(
             color:
                 Colors.white.withOpacity(
-              isEnabled
+              _isEnabled
                   ? 0.96
                   : 0.72,
             ),
 
             borderRadius:
                 BorderRadius.circular(
-              38,
+              40,
             ),
 
-            border:
-                Border.all(
+            border: Border.all(
               color:
                   _isPressed
-                      ? widget
-                          .accentColor
+                      ? widget.accentColor
                       : Colors.black,
-
               width:
                   _isPressed
                       ? 4
@@ -2526,7 +2531,7 @@ class _BroadbandProviderCardState
                             0.18,
                           ),
                           blurRadius:
-                              17,
+                              18,
                           offset:
                               const Offset(
                             0,
@@ -2543,23 +2548,22 @@ class _BroadbandProviderCardState
                             0.16,
                           ),
                           blurRadius:
-                              28,
+                              30,
                           spreadRadius:
                               1,
                           offset:
                               const Offset(
                             0,
-                            14,
+                            15,
                           ),
                         ),
                       ],
           ),
 
-          child:
-              ClipRRect(
+          child: ClipRRect(
             borderRadius:
                 BorderRadius.circular(
-              35,
+              37,
             ),
             child: Stack(
               children: [
@@ -2574,16 +2578,17 @@ class _BroadbandProviderCardState
                       AnimatedContainer(
                     duration:
                         const Duration(
-                      milliseconds: 180,
+                      milliseconds:
+                          180,
                     ),
                     width:
                         _isPressed
-                            ? 215
-                            : 200,
+                            ? 225
+                            : 210,
                     height:
                         _isPressed
-                            ? 215
-                            : 200,
+                            ? 225
+                            : 210,
                     decoration:
                         BoxDecoration(
                       shape:
@@ -2592,18 +2597,18 @@ class _BroadbandProviderCardState
                           widget
                               .lightAccentColor
                               .withOpacity(
-                        0.92,
+                        0.90,
                       ),
                     ),
                   ),
                 ),
 
                 Positioned(
-                  right: 92,
-                  top: 105,
+                  right: 95,
+                  top: 110,
                   child: Container(
-                    width: 34,
-                    height: 34,
+                    width: 36,
+                    height: 36,
                     decoration:
                         BoxDecoration(
                       shape:
@@ -2625,15 +2630,14 @@ class _BroadbandProviderCardState
                 Padding(
                   padding:
                       const EdgeInsets.fromLTRB(
-                    27,
-                    27,
-                    27,
-                    25,
+                    30,
+                    28,
+                    30,
+                    28,
                   ),
-                  child:
-                      Opacity(
+                  child: Opacity(
                     opacity:
-                        isEnabled
+                        _isEnabled
                             ? 1
                             : 0.50,
                     child: Column(
@@ -2647,14 +2651,15 @@ class _BroadbandProviderCardState
                               MainAxisAlignment
                                   .spaceBetween,
                           crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              CrossAxisAlignment
+                                  .start,
                           children: [
                             Container(
-                              width: 210,
-                              height: 170,
+                              width: 220,
+                              height: 180,
                               padding:
                                   const EdgeInsets.all(
-                                22,
+                                24,
                               ),
                               decoration:
                                   BoxDecoration(
@@ -2662,32 +2667,30 @@ class _BroadbandProviderCardState
                                     Colors.white,
                                 borderRadius:
                                     BorderRadius.circular(
-                                  32,
+                                  34,
                                 ),
-                                border:
-                                    Border.all(
+                                border: Border.all(
                                   color:
                                       widget
                                           .accentColor
                                           .withOpacity(
                                     0.20,
                                   ),
-                                  width:
-                                      1.5,
+                                  width: 1.5,
                                 ),
                                 boxShadow: [
                                   BoxShadow(
                                     color:
                                         Colors.black
                                             .withOpacity(
-                                      0.07,
+                                      0.08,
                                     ),
                                     blurRadius:
-                                        15,
+                                        16,
                                     offset:
                                         const Offset(
                                       0,
-                                      7,
+                                      8,
                                     ),
                                   ),
                                 ],
@@ -2699,18 +2702,20 @@ class _BroadbandProviderCardState
                             AnimatedContainer(
                               duration:
                                   const Duration(
-                                milliseconds: 160,
+                                milliseconds:
+                                    160,
                               ),
                               transform:
-                                  Matrix4.translationValues(
+                                  Matrix4
+                                      .translationValues(
                                 _isPressed
                                     ? 6
                                     : 0,
                                 0,
                                 0,
                               ),
-                              width: 54,
-                              height: 54,
+                              width: 58,
+                              height: 58,
                               decoration:
                                   BoxDecoration(
                                 color:
@@ -2724,14 +2729,14 @@ class _BroadbandProviderCardState
                                         widget
                                             .accentColor
                                             .withOpacity(
-                                      0.24,
+                                      0.25,
                                     ),
                                     blurRadius:
-                                        13,
+                                        14,
                                     offset:
                                         const Offset(
                                       0,
-                                      6,
+                                      7,
                                     ),
                                   ),
                                 ],
@@ -2742,7 +2747,7 @@ class _BroadbandProviderCardState
                                     .arrow_forward_rounded,
                                 color:
                                     Colors.white,
-                                size: 30,
+                                size: 32,
                               ),
                             ),
                           ],
@@ -2751,32 +2756,29 @@ class _BroadbandProviderCardState
                         const Spacer(),
 
                         // ====================================================
-                        // PROVIDER NAME
+                        // NAME
                         // ====================================================
 
                         Align(
                           alignment:
                               Alignment.centerLeft,
                           child: Text(
-                            widget
-                                .product
-                                .name
+                            widget.label
                                 .toUpperCase(),
-                            textAlign:
-                                TextAlign.left,
-                            maxLines: 3,
+                            maxLines: 2,
                             overflow:
-                                TextOverflow.ellipsis,
+                                TextOverflow
+                                    .ellipsis,
                             style:
                                 const TextStyle(
                               color:
                                   Color(
                                 0xFF15253A,
                               ),
-                              fontSize: 30,
+                              fontSize: 34,
                               fontWeight:
                                   FontWeight.w900,
-                              height: 1.10,
+                              height: 1.08,
                               letterSpacing:
                                   0.3,
                             ),
@@ -2791,11 +2793,11 @@ class _BroadbandProviderCardState
                         // NETWORK STATUS
                         // ====================================================
 
-                        SizedBox(
-                          width:
-                              double.infinity,
+                        Align(
+                          alignment:
+                              Alignment.centerLeft,
                           child:
-                              _NetworkStatusBadge(
+                              _IddNetworkStatusBadge(
                             status:
                                 widget
                                     .networkStatus,
@@ -2820,11 +2822,13 @@ class _BroadbandProviderCardState
                             alignment:
                                 Alignment.centerLeft,
                             child: Row(
+                              mainAxisSize:
+                                  MainAxisSize.min,
                               children: [
                                 const Icon(
                                   Icons
                                       .schedule_rounded,
-                                  size: 22,
+                                  size: 23,
                                   color:
                                       Color(
                                     0xFF647187,
@@ -2835,14 +2839,14 @@ class _BroadbandProviderCardState
                                   width: 8,
                                 ),
 
-                                Expanded(
+                                Flexible(
                                   child: Text(
                                     '${widget.processingLabel}: '
                                     '${_formatProcessingTime(
                                       context,
                                       widget.processingTime,
                                     )}',
-                                    maxLines: 2,
+                                    maxLines: 1,
                                     overflow:
                                         TextOverflow
                                             .ellipsis,
@@ -2852,10 +2856,9 @@ class _BroadbandProviderCardState
                                           Color(
                                         0xFF647187,
                                       ),
-                                      fontSize: 17,
+                                      fontSize: 18,
                                       fontWeight:
                                           FontWeight.w700,
-                                      height: 1.15,
                                     ),
                                   ),
                                 ),
@@ -2865,17 +2868,17 @@ class _BroadbandProviderCardState
                         ],
 
                         const SizedBox(
-                          height: 20,
+                          height: 18,
                         ),
 
                         // ====================================================
-                        // ACCENT BARS
+                        // DECORATIVE LINE
                         // ====================================================
 
                         Row(
                           children: [
                             Container(
-                              width: 58,
+                              width: 60,
                               height: 7,
                               decoration:
                                   BoxDecoration(
@@ -2925,23 +2928,23 @@ class _BroadbandProviderCardState
   }
 
   // ==========================================================================
-  // LOGO FROM API
+  // LOGO
   // ==========================================================================
 
   Widget _buildLogo() {
-    if (widget.product.imageUrl.isEmpty) {
+    if (widget.imageUrl.isEmpty) {
       return Icon(
-        Icons.router_rounded,
-        size: 85,
+        Icons
+            .phone_in_talk_rounded,
+        size: 90,
         color:
             widget.accentColor,
       );
     }
 
     return Image.network(
-      widget.product.imageUrl,
-      fit:
-          BoxFit.contain,
+      widget.imageUrl,
+      fit: BoxFit.contain,
       loadingBuilder:
           (
         context,
@@ -2968,13 +2971,14 @@ class _BroadbandProviderCardState
         stackTrace,
       ) {
         debugPrint(
-          'Failed to load broadband logo: '
-          '${widget.product.imageUrl}',
+          'Failed to load IDD logo: '
+          '${widget.imageUrl}',
         );
 
         return Icon(
-          Icons.router_rounded,
-          size: 85,
+          Icons
+              .phone_in_talk_rounded,
+          size: 90,
           color:
               widget.accentColor,
         );
@@ -2987,12 +2991,13 @@ class _BroadbandProviderCardState
 // NETWORK STATUS BADGE
 // ============================================================================
 
-class _NetworkStatusBadge
+class _IddNetworkStatusBadge
     extends StatelessWidget {
-  final BroadbandBillerStatus status;
+  final IddBillerStatus status;
+
   final String label;
 
-  const _NetworkStatusBadge({
+  const _IddNetworkStatusBadge({
     required this.status,
     required this.label,
   });
@@ -3005,13 +3010,15 @@ class _NetworkStatusBadge
         AppLocalizations.of(context)!;
 
     late final String statusText;
+
     late final Color backgroundColor;
     late final Color borderColor;
     late final Color foregroundColor;
+
     late final IconData icon;
 
     switch (status) {
-      case BroadbandBillerStatus.loading:
+      case IddBillerStatus.loading:
         statusText =
             loc.networkStatusChecking;
 
@@ -3035,7 +3042,7 @@ class _NetworkStatusBadge
 
         break;
 
-      case BroadbandBillerStatus.healthy:
+      case IddBillerStatus.healthy:
         statusText =
             loc.networkStatusGood;
 
@@ -3060,7 +3067,7 @@ class _NetworkStatusBadge
 
         break;
 
-      case BroadbandBillerStatus.interruption:
+      case IddBillerStatus.interruption:
         statusText =
             loc.networkStatusSlow;
 
@@ -3085,7 +3092,7 @@ class _NetworkStatusBadge
 
         break;
 
-      case BroadbandBillerStatus.unavailable:
+      case IddBillerStatus.unavailable:
         statusText =
             loc.networkStatusUnknown;
 
@@ -3114,12 +3121,12 @@ class _NetworkStatusBadge
     return Container(
       constraints:
           const BoxConstraints(
-        minHeight: 58,
+        minHeight: 54,
       ),
       padding:
           const EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 14,
+        horizontal: 16,
+        vertical: 12,
       ),
       decoration:
           BoxDecoration(
@@ -3127,24 +3134,23 @@ class _NetworkStatusBadge
             backgroundColor,
         borderRadius:
             BorderRadius.circular(
-          22,
+          30,
         ),
-        border:
-            Border.all(
+        border: Border.all(
           color:
               borderColor,
           width: 1.7,
         ),
       ),
       child: Row(
-        mainAxisAlignment:
-            MainAxisAlignment.center,
+        mainAxisSize:
+            MainAxisSize.min,
         children: [
           if (status ==
-              BroadbandBillerStatus.loading)
+              IddBillerStatus.loading)
             SizedBox(
-              width: 26,
-              height: 26,
+              width: 24,
+              height: 24,
               child:
                   CircularProgressIndicator(
                 strokeWidth: 3,
@@ -3155,33 +3161,29 @@ class _NetworkStatusBadge
           else
             Icon(
               icon,
-              size: 28,
+              size: 26,
               color:
                   foregroundColor,
             ),
 
           const SizedBox(
-            width: 8,
+            width: 9,
           ),
 
           Flexible(
             child: Text(
               '$label: $statusText',
-              textAlign:
-                  TextAlign.center,
-              maxLines: 2,
+              maxLines: 1,
               overflow:
                   TextOverflow.ellipsis,
-              style:
-                  TextStyle(
+              style: TextStyle(
                 color:
                     foregroundColor,
-                fontSize: 18,
+                fontSize: 17,
                 fontWeight:
                     FontWeight.w900,
-                height: 1.1,
                 letterSpacing:
-                    0.3,
+                    0.5,
               ),
             ),
           ),
@@ -3195,14 +3197,17 @@ class _NetworkStatusBadge
 // SCROLL INDICATOR BUTTON
 // ============================================================================
 
-class _ScrollIndicatorButton
+class _IddScrollIndicatorButton
     extends StatelessWidget {
   final IconData icon;
+
   final String label;
+
   final VoidCallback onPressed;
+
   final bool iconBelowText;
 
-  const _ScrollIndicatorButton({
+  const _IddScrollIndicatorButton({
     required this.icon,
     required this.label,
     required this.onPressed,
@@ -3219,7 +3224,7 @@ class _ScrollIndicatorButton
       size: 52,
       color:
           const Color(
-        0xFF6255D9,
+        0xFF1469E8,
       ),
     );
 
@@ -3269,8 +3274,7 @@ class _ScrollIndicatorButton
                 BorderRadius.circular(
               22,
             ),
-            border:
-                Border.all(
+            border: Border.all(
               color:
                   Colors.black,
               width: 2,

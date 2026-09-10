@@ -2287,8 +2287,19 @@
 
    "weatherButton": "Cuaca",
   "weatherSupportingText": "Lihat ramalan cuaca rasmi Bentong untuk 7 hari",
-  "weatherPageTitle": "Cuaca",
-  "weatherPageSubtitle": "Ramalan rasmi 7 hari daripada MET Malaysia melalui data.gov.my",
+  "weatherPageTitle": "Cuaca {place}",
+  "@weatherPageTitle": {
+    "place": {
+      "type": "String"
+    }
+  },
+
+  "weatherPageSubtitle": "Ramalan cuaca 7 hari untuk {place}",
+  "@weatherPageSubtitle": {
+    "place": {
+      "type": "String"
+    }
+  },
   "weatherLoadingTitle": "Memuatkan Cuaca",
   "weatherLoadingMessage": "Sila tunggu sementara ramalan terkini disediakan.",
   "weatherUnavailableTitle": "Cuaca Tidak Tersedia",
@@ -3551,7 +3562,289 @@
 "mobileReloadReceiptSerialNumber": "Nombor Siri",
 "mobileReloadReceiptPin": "PIN",
 "mobileReloadReceiptExpiry": "Tarikh Luput",
-"mobileReloadReceiptVoucherLink": "Pautan Baucar"
+"mobileReloadReceiptVoucherLink": "Pautan Baucar",
+
+"iddButton": "DIAL TERUS ANTARABANGSA",
+"iddBillSupportingText": "Tambah nilai kredit untuk panggilan antarabangsa",
+
+
+"iddHeaderLabel": "PANGGILAN ANTARABANGSA",
+"iddPageTitle": "DIAL TERUS ANTARABANGSA",
+"iddPageSubtitle": "SILA PILIH PENYEDIA PERKHIDMATAN",
+
+"iddBillSupportingText": "Tambah nilai kredit untuk panggilan antarabangsa",
+
+"iddCatalogLoadError": "Tidak dapat memuatkan perkhidmatan IDD",
+"iddCatalogRetryMessage": "Sila cuba lagi.",
+"iddNoServices": "Tiada perkhidmatan IDD tersedia buat masa ini.",
+
+"networkUnavailableMessage": "{billerName} tidak tersedia buat masa ini. Sila cuba lagi kemudian.",
+"@networkUnavailableMessage": {
+  "placeholders": {
+    "billerName": {}
+  }
+},
+
+
+"iddCategoryLabel": "IDD",
+"iddSelectAmountTitle": "Pilih Amaun",
+"iddSelectAmountSubtitle": "Pilih nilai tambah nilai IDD yang ingin dibeli.",
+"iddQuantityTitle": "Kuantiti",
+"iddQuantitySubtitle": "Pilih bilangan PIN yang ingin dibeli.",
+"iddOrderSummaryTitle": "Ringkasan Pesanan",
+"iddSubtotalLabel": "Jumlah Kecil",
+"iddServiceAdjustmentLabel": "Pelarasan Perkhidmatan",
+"iddTotalAmountLabel": "Jumlah Keseluruhan",
+"iddDeliveryPin": "PIN",
+"iddNoAmountsAvailable": "Tiada amaun tambah nilai tersedia buat masa ini.",
+"iddUnableToLoadOptions": "Pilihan IDD Tidak Dapat Dimuatkan",
+"iddUnableToLoadOptionsSubtitle": "Pilihan IDD tidak dapat dimuatkan. Sila cuba lagi.",
+"iddProductUnavailable": "Perkhidmatan IDD ini tidak tersedia buat masa ini.",
+"iddSelectAmountRequired": "Sila pilih amaun sebelum meneruskan.",
+
+"providerLoading": "Memuatkan Penyedia",
+"providerLoadingSubtitle": "Sila tunggu sementara kami mendapatkan perkhidmatan terkini yang tersedia.",
+
+"providerLoadError": "Penyedia Tidak Dapat Dimuatkan",
+"providerLoadErrorSubtitle": "Maklumat penyedia tidak dapat dimuatkan. Sila cuba lagi.",
+
+"gameCreditsButton": "Kredit Permainan",
+"gameCreditsSupportingText": "Tambah nilai kredit untuk permainan yang disokong",
+"gameCreditsPageTitle": "Kredit Permainan",
+"gameCreditsPageSubtitle": "Pilih permainan yang ingin anda tambah nilai",
+"gameCreditsNoServices": "Tiada perkhidmatan kredit permainan tersedia buat masa ini",
+
+"gameCreditsCategoryLabel": "Kredit Permainan",
+"gameCreditsSelectAmountTitle": "Pilih Amaun",
+"gameCreditsSelectAmountSubtitle": "Pilih kredit atau pakej permainan yang ingin dibeli",
+"gameCreditsNoAmountsAvailable": "Tiada pilihan kredit permainan tersedia buat masa ini.",
+"gameCreditsOrderSummaryTitle": "Ringkasan Pesanan",
+"gameCreditsProductLabel": "Produk",
+"gameCreditsSelectedOptionLabel": "Pilihan Dipilih",
+"gameCreditsCreditLabel": "Kredit Permainan",
+"gameCreditsSubtotalLabel": "Jumlah Kecil",
+"gameCreditsServiceAdjustmentLabel": "Pelarasan Perkhidmatan",
+"gameCreditsTotalAmountLabel": "Jumlah Bayaran",
+"gameCreditsDeliveryLink": "Pautan Digital",
+"gameCreditsDeliveryPin": "PIN",
+"gameCreditsProductUnavailable": "Produk kredit permainan ini tidak tersedia buat masa ini.",
+"gameCreditsSelectAmountRequired": "Sila pilih amaun kredit permainan sebelum meneruskan.",
+"gameCreditsUnableToLoadOptions": "Tidak dapat memuatkan kredit permainan",
+"gameCreditsUnableToLoadOptionsSubtitle": "Pilihan kredit permainan tidak dapat dimuatkan. Sila cuba lagi.",
+
+
+"gameCreditsReviewTitle": "Semak Kredit Permainan",
+"gameCreditsReviewSelection": "Semak Pilihan Anda",
+
+"gameCreditsEnterAccountTitle": "Masukkan Maklumat Akaun Permainan",
+"gameCreditsEnterAccountSubtitle": "Masukkan ID Pemain atau maklumat akaun yang diperlukan untuk permainan ini",
+"gameCreditsAccountLabel": "ID Pemain / Akaun",
+"gameCreditsAccountHint": "Masukkan ID Pemain atau nombor akaun",
+"gameCreditsCheckAccountMessage": "Sila semak maklumat ini dengan teliti. Kredit permainan mungkin dihantar ke akaun yang dimasukkan.",
+
+"gameCreditsNoAccountRequiredTitle": "ID Pemain Tidak Diperlukan",
+"gameCreditsNoAccountRequiredMessage": "Kredit permainan ini tidak memerlukan ID Pemain atau nombor akaun. Anda boleh teruskan ke pembayaran.",
+
+"gameCreditsAccountRequired": "Sila masukkan ID Pemain atau maklumat akaun yang diperlukan.",
+"gameCreditsAccountInvalid": "ID Pemain atau maklumat akaun yang dimasukkan tidak sah.",
+"gameCreditsAccountRequiredTitle": "Maklumat Akaun Diperlukan",
+
+"gameCreditsContinuePayment": "TERUSKAN KE PEMBAYARAN",
+
+"gameCreditsUnableToLoadDetails": "Tidak dapat memuatkan maklumat kredit permainan.",
+"gameCreditsInformation": "Maklumat",
+
+"gameCreditsPaymentTitle": "Pembayaran Kredit Permainan",
+"gameCreditsGameLabel": "Permainan",
+"gameCreditsPaymentTotal": "JUMLAH BAYARAN",
+
+"gameCreditsPreparingQrPayment": "MENYEDIAKAN QR KREDIT PERMAINAN",
+
+"gameCreditsProcessingPurchaseTitle": "MEMPROSES KREDIT PERMAINAN",
+"gameCreditsProcessingPurchaseMessage": "Bayaran anda telah diterima. Sila tunggu sementara transaksi kredit permainan diproses.",
+"gameCreditsProcessingPurchaseLocked": "Sila jangan sentuh skrin semasa transaksi kredit permainan sedang diproses.",
+
+"gameCreditsPaymentInvalidProductTitle": "PRODUK KREDIT PERMAINAN TIDAK SAH",
+"gameCreditsPaymentInvalidProductMessage": "Kod produk kredit permainan tiada.",
+
+"gameCreditsPaymentProviderRejected": "Penyedia kredit permainan menolak transaksi ini.",
+"gameCreditsPaymentProviderRefunded": "Transaksi kredit permainan telah dikembalikan.",
+"gameCreditsPaymentUnexpectedStatus": "Status penyedia kredit permainan yang tidak dijangka",
+"gameCreditsPaymentProviderErrorTitle": "RALAT PEMPROSESAN KREDIT PERMAINAN",
+"gameCreditsPaymentReference": "Rujukan Pembayaran",
+"gameCreditsPaymentAlreadyReceivedWarning": "Bayaran DuitNow telah diterima. Jangan buat bayaran lain untuk transaksi yang sama.",
+
+
+"gameCreditsReceiptTitle": "RESIT KREDIT PERMAINAN",
+"gameCreditsReceiptGame": "Permainan",
+"gameCreditsReceiptPurchaseDetails": "Butiran Pembelian",
+"gameCreditsReceiptSelectedCredit": "Kredit Dipilih",
+"gameCreditsReceiptCreditReceived": "Kredit Permainan",
+"gameCreditsReceiptAccount": "ID Pemain / Akaun",
+"gameCreditsReceiptBaseAmount": "Amaun",
+"gameCreditsReceiptServiceAdjustment": "Pelarasan Perkhidmatan",
+"gameCreditsReceiptPaymentMethod": "Kaedah Pembayaran",
+"gameCreditsReceiptPaymentDate": "Tarikh Pembayaran",
+"gameCreditsReceiptBankTransaction": "Transaksi Bank",
+"gameCreditsReceiptDeliveryDetails": "Butiran Penghantaran",
+"gameCreditsReceiptSerialNumber": "Nombor Siri",
+"gameCreditsReceiptPin": "PIN",
+"gameCreditsReceiptExpiry": "Tarikh Luput",
+"gameCreditsReceiptVoucherLink": "Pautan Baucar",
+"gameCreditsReceiptKeepCodeSafe": "Simpan PIN, nombor siri atau pautan baucar anda dengan selamat. Jangan kongsikan dengan sesiapa.",
+"gameCreditsReceiptDeliveryMessage": "Transaksi kredit permainan anda telah selesai. Sila semak akaun permainan yang dimasukkan semasa pembelian.",
+"gameCreditsReceiptTotalPaid": "JUMLAH DIBAYAR",
+
+
+"iddPaymentTitle": "Pembayaran IDD",
+"iddPaymentDetails": "Butiran Pembelian IDD",
+"iddSelectedAmount": "Amaun Dipilih",
+"iddPreparingQrPayment": "Menyediakan Pembayaran QR",
+"iddProcessingTitle": "Memproses Pembelian IDD",
+"iddProcessingMessage": "Pembayaran telah diterima. Sila tunggu sementara pembelian IDD anda diproses.",
+"iddProcessingLocked": "Sila jangan tutup skrin ini semasa pemprosesan.",
+"iddPaymentInvalidProductTitle": "Produk IDD Tidak Sah",
+"iddPaymentInvalidProductMessage": "Produk IDD yang dipilih tidak sah. Sila kembali dan pilih semula.",
+"iddPaymentInvalidAmountTitle": "Amaun IDD Tidak Sah",
+"iddPaymentInvalidAmountMessage": "Sila pilih amaun IDD sebelum meneruskan.",
+"iddPaymentProviderRejected": "Penyedia IDD telah menolak transaksi.",
+"iddPaymentProviderRefunded": "Transaksi IDD telah dipulangkan.",
+"iddPaymentStillProcessing": "Transaksi IDD masih sedang diproses.",
+"iddPaymentReference": "Rujukan",
+"iddPaymentProviderErrorTitle": "Ralat Pemprosesan IDD",
+"iddPaymentAlreadyReceivedWarning": "Pembayaran QR anda telah diterima. Sila jangan membuat pembayaran sekali lagi.",
+
+"iddReceiptTitle": "Pembelian IDD Berjaya",
+"iddReceiptProvider": "Penyedia IDD",
+"iddReceiptPurchaseDetails": "Butiran Pembelian IDD",
+"iddReceiptProduct": "IDD Dipilih",
+"iddReceiptAmount": "Amaun IDD",
+"iddReceiptPinDetails": "Butiran PIN",
+"iddReceiptSerialNumber": "Nombor Siri",
+"iddReceiptPin": "PIN",
+"iddReceiptExpiry": "Tarikh Luput",
+"iddReceiptVoucherLink": "Pautan Baucar",
+"iddReceiptTransactionDetails": "Butiran Transaksi",
+"iddReceiptPaymentDate": "Tarikh Pembayaran",
+"iddReceiptBankTransaction": "Transaksi Bank",
+"iddReceiptProviderNote": "Maklumat Penyedia",
+"iddReceiptTotalPaid": "Jumlah Dibayar",
+
+
+"consoleStoresButton": "Konsol & Kedai Aplikasi",
+"consoleStoresSupportingText": "Beli kad hadiah konsol dan kedai aplikasi",
+
+"consoleStoresTitle": "Konsol & Kedai Aplikasi",
+"consoleStoresSubtitle": "Pilih kedai yang ingin anda beli",
+"consoleStoresBadge": "Kedai Digital",
+
+
+"consoleStoreCategoryLabel": "Konsol & Kedai Aplikasi",
+"consoleStoreSelectPackageTitle": "Pilih Nilai",
+"consoleStoreSelectPackageSubtitle": "Pilih nilai yang ingin dibeli",
+"consoleStoreNoPackagesAvailable": "Tiada nilai tersedia buat masa ini.",
+"consoleStoreOrderSummaryTitle": "Ringkasan Pesanan",
+"consoleStoreProductLabel": "Produk",
+"consoleStoreSelectedPackageLabel": "Nilai Dipilih",
+"consoleStorePackageDescriptionLabel": "Keterangan",
+"consoleStoreSubtotalLabel": "Jumlah Kecil",
+"consoleStoreServiceAdjustmentLabel": "Pelarasan Perkhidmatan",
+"consoleStoreTotalAmountLabel": "Jumlah Bayaran",
+"consoleStoreProductUnavailable": "Produk ini tidak tersedia buat masa ini.",
+"consoleStoreSelectPackageRequired": "Sila pilih nilai untuk teruskan.",
+"consoleStoreUnableToLoadOptions": "Tidak dapat memuatkan nilai yang tersedia",
+"consoleStoreUnableToLoadOptionsSubtitle": "Sila cuba semula sebentar lagi.",
+
+
+"consoleStorePaymentTitle": "Bayaran Konsol & Kedai Aplikasi",
+"consoleStorePaymentTotal": "Jumlah Bayaran",
+"consoleStorePreparingQrPayment": "Menyediakan Bayaran QR",
+"consoleStoreProcessingPurchaseTitle": "Memproses Pembelian",
+"consoleStoreProcessingPurchaseMessage": "Bayaran telah diterima. Pembelian anda sedang diproses dengan penyedia.",
+"consoleStoreProcessingPurchaseLocked": "Sila jangan tutup atau tinggalkan halaman ini.",
+"consoleStorePaymentInvalidProductTitle": "Produk Tidak Sah",
+"consoleStorePaymentInvalidProductMessage": "Produk yang dipilih tidak sah. Sila kembali dan pilih produk semula.",
+"consoleStorePaymentProviderRejected": "Penyedia tidak dapat melengkapkan pembelian ini.",
+"consoleStorePaymentProviderRefunded": "Penyedia telah memulangkan bayaran untuk transaksi ini.",
+"consoleStorePaymentUnexpectedStatus": "Status penyedia tidak dijangka",
+"consoleStorePaymentProviderErrorTitle": "Pembelian Tidak Dapat Diselesaikan",
+"consoleStorePaymentReference": "Rujukan",
+"consoleStorePaymentAlreadyReceivedWarning": "Bayaran QR anda telah diterima. Sila simpan rujukan ini untuk bantuan.",
+
+"consoleStoreReceiptTitle": "Resit Pembelian",
+"consoleStoreReceiptProduct": "Produk",
+"consoleStoreReceiptPurchaseDetails": "Butiran Pembelian",
+"consoleStoreReceiptSelectedValue": "Nilai Dipilih",
+"consoleStoreReceiptDescription": "Keterangan",
+"consoleStoreReceiptBaseAmount": "Amaun Asas",
+"consoleStoreReceiptServiceAdjustment": "Pelarasan Perkhidmatan",
+"consoleStoreReceiptPaymentMethod": "Kaedah Bayaran",
+"consoleStoreReceiptPaymentDate": "Tarikh Bayaran",
+"consoleStoreReceiptBankTransaction": "Transaksi Bank",
+"consoleStoreReceiptDeliveryDetails": "Butiran Penebusan",
+"consoleStoreReceiptSerialNumber": "Nombor Siri",
+"consoleStoreReceiptPin": "PIN / Kod",
+"consoleStoreReceiptExpiry": "Tarikh Luput",
+"consoleStoreReceiptVoucherLink": "Pautan Baucar",
+"consoleStoreReceiptProviderInstructions": "Arahan Penyedia",
+"consoleStoreReceiptKeepCodeSafe": "Simpan PIN, kod atau pautan baucar anda dengan selamat. Ia mungkin diperlukan untuk menebus pembelian anda.",
+"consoleStoreReceiptSuccessMessage": "Pembelian anda telah berjaya diproses.",
+"consoleStoreReceiptTotalPaid": "Jumlah Dibayar",
+"consoleStoreInvalidOptionValue": "Nilai yang dipilih tidak dapat diproses. Sila pilih nilai lain atau cuba semula.",
+
+
+"putrajayaExplorationTitle": "Jelajah Putrajaya",
+"putrajayaTabHistorical": "Bersejarah",
+"putrajayaTabInteresting": "Tempat Menarik",
+"putrajayaTabEating": "Tempat Makan",
+"putrajayaViewDetails": "Lihat Butiran",
+"putrajayaGoogleMap": "Google Maps",
+"putrajayaScanMap": "Imbas kod QR untuk melihat lokasi",
+"putrajayaClose": "Tutup",
+"putrajayaNoPlaces": "Tiada tempat tersedia",
+
+"putrajayaInterestingDesc": "Terokai {place}, salah satu tempat menarik untuk dikunjungi di sekitar Putrajaya.",
+"@putrajayaInterestingDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaInterestingFull": "{place} merupakan salah satu tempat yang boleh diterokai oleh pengunjung ketika berada di Putrajaya. Imbas kod QR Google Maps di bawah untuk melihat lokasi dan merancang lawatan anda.",
+"@putrajayaInterestingFull": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaHistoricalDesc": "Kenali {place}, salah satu mercu tanda terkenal di Putrajaya.",
+"@putrajayaHistoricalDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaHistoricalFull": "{place} merupakan salah satu mercu tanda yang boleh dikunjungi dan diterokai di Putrajaya. Imbas kod QR Google Maps di bawah untuk melihat lokasinya.",
+"@putrajayaHistoricalFull": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaFoodDesc": "Terokai {place}, salah satu pilihan tempat makan di sekitar Putrajaya.",
+"@putrajayaFoodDesc": {
+  "place": {
+    "type": "String"
+  }
+},
+
+"putrajayaFoodFull": "{place} merupakan salah satu tempat makan yang boleh dipertimbangkan ketika berada di Putrajaya. Imbas kod QR Google Maps di bawah untuk melihat lokasinya.",
+"@putrajayaFoodFull": {
+  "place": {
+    "type": "String"
+  }
+}
+
 
 
 

@@ -4447,10 +4447,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weatherSupportingText => 'View the official 7-day weather forecast for Ipoh, Perak';
 
   @override
-  String get weatherPageTitle => 'Weather';
+  String weatherPageTitle(Object place) {
+    return '$place Weather';
+  }
 
   @override
-  String get weatherPageSubtitle => 'Official 7-day forecast from MET Malaysia through data.gov.my';
+  String weatherPageSubtitle(Object place) {
+    return 'Official 7-day forecast from MET Malaysia through data.gov.my';
+  }
 
   @override
   String get weatherLoadingTitle => 'Loading Weather';
@@ -6479,4 +6483,618 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mobileReloadReceiptVoucherLink => 'Voucher Link';
+
+  @override
+  String get iddButton => 'INTERNATIONAL DIRECT DIALING';
+
+  @override
+  String get iddBillSupportingText => 'Reload credit for international calls';
+
+  @override
+  String get iddHeaderLabel => 'INTERNATIONAL CALLING';
+
+  @override
+  String get iddPageTitle => 'INTERNATIONAL DIRECT DIALING';
+
+  @override
+  String get iddPageSubtitle => 'PLEASE SELECT YOUR SERVICE PROVIDER';
+
+  @override
+  String get iddCatalogLoadError => 'Unable to load IDD services';
+
+  @override
+  String get iddCatalogRetryMessage => 'Please try again.';
+
+  @override
+  String get iddNoServices => 'No IDD services are currently available.';
+
+  @override
+  String networkUnavailableMessage(Object billerName) {
+    return '$billerName is currently unavailable. Please try again later.';
+  }
+
+  @override
+  String get iddCategoryLabel => 'IDD';
+
+  @override
+  String get iddSelectAmountTitle => 'Select Amount';
+
+  @override
+  String get iddSelectAmountSubtitle => 'Select the IDD reload value you want to purchase.';
+
+  @override
+  String get iddQuantityTitle => 'Quantity';
+
+  @override
+  String get iddQuantitySubtitle => 'Select the number of PINs you want to purchase.';
+
+  @override
+  String get iddOrderSummaryTitle => 'Order Summary';
+
+  @override
+  String get iddSubtotalLabel => 'Subtotal';
+
+  @override
+  String get iddServiceAdjustmentLabel => 'Service Adjustment';
+
+  @override
+  String get iddTotalAmountLabel => 'Total Amount';
+
+  @override
+  String get iddDeliveryPin => 'PIN';
+
+  @override
+  String get iddNoAmountsAvailable => 'No reload amount is currently available.';
+
+  @override
+  String get iddUnableToLoadOptions => 'Unable to load IDD options';
+
+  @override
+  String get iddUnableToLoadOptionsSubtitle => 'The IDD options could not be loaded. Please try again.';
+
+  @override
+  String get iddProductUnavailable => 'This IDD service is currently unavailable.';
+
+  @override
+  String get iddSelectAmountRequired => 'Please select an amount before continuing.';
+
+  @override
+  String get providerLoading => 'Loading Providers';
+
+  @override
+  String get providerLoadingSubtitle => 'Please wait while we retrieve the latest available services.';
+
+  @override
+  String get providerLoadError => 'Unable to Load Providers';
+
+  @override
+  String get providerLoadErrorSubtitle => 'Provider information could not be loaded. Please try again.';
+
+  @override
+  String get gameCreditsButton => 'Game Credits';
+
+  @override
+  String get gameCreditsSupportingText => 'Top up credits for supported games and mobile games';
+
+  @override
+  String get gameCreditsPageTitle => 'Game Credits';
+
+  @override
+  String get gameCreditsPageSubtitle => 'Select the game you want to top up';
+
+  @override
+  String get gameCreditsNoServices => 'No game credit services are currently available';
+
+  @override
+  String get gameCreditsCategoryLabel => 'Game Credits';
+
+  @override
+  String get gameCreditsSelectAmountTitle => 'Select Amount';
+
+  @override
+  String get gameCreditsSelectAmountSubtitle => 'Select the game credits or package you want to purchase';
+
+  @override
+  String get gameCreditsNoAmountsAvailable => 'No game credit options are currently available.';
+
+  @override
+  String get gameCreditsOrderSummaryTitle => 'Order Summary';
+
+  @override
+  String get gameCreditsProductLabel => 'Product';
+
+  @override
+  String get gameCreditsSelectedOptionLabel => 'Selected Option';
+
+  @override
+  String get gameCreditsCreditLabel => 'Game Credits';
+
+  @override
+  String get gameCreditsSubtotalLabel => 'Subtotal';
+
+  @override
+  String get gameCreditsServiceAdjustmentLabel => 'Service Adjustment';
+
+  @override
+  String get gameCreditsTotalAmountLabel => 'Total Payment';
+
+  @override
+  String get gameCreditsDeliveryLink => 'Digital Link';
+
+  @override
+  String get gameCreditsDeliveryPin => 'PIN';
+
+  @override
+  String get gameCreditsProductUnavailable => 'This game credit product is currently unavailable.';
+
+  @override
+  String get gameCreditsSelectAmountRequired => 'Please select a game credit amount before continuing.';
+
+  @override
+  String get gameCreditsUnableToLoadOptions => 'Unable to load game credits';
+
+  @override
+  String get gameCreditsUnableToLoadOptionsSubtitle => 'The available game credit options could not be loaded. Please try again.';
+
+  @override
+  String get gameCreditsReviewTitle => 'Review Game Credit';
+
+  @override
+  String get gameCreditsReviewSelection => 'Review Your Selection';
+
+  @override
+  String get gameCreditsEnterAccountTitle => 'Enter Game Account Details';
+
+  @override
+  String get gameCreditsEnterAccountSubtitle => 'Enter the Player ID or account information required for this game';
+
+  @override
+  String get gameCreditsAccountLabel => 'Player ID / Account';
+
+  @override
+  String get gameCreditsAccountHint => 'Enter Player ID or account number';
+
+  @override
+  String get gameCreditsCheckAccountMessage => 'Please check this information carefully. Game credits may be delivered to the account entered here.';
+
+  @override
+  String get gameCreditsNoAccountRequiredTitle => 'No Player ID Required';
+
+  @override
+  String get gameCreditsNoAccountRequiredMessage => 'This game credit does not require a Player ID or account number. You may continue to payment.';
+
+  @override
+  String get gameCreditsAccountRequired => 'Please enter the required Player ID or account information.';
+
+  @override
+  String get gameCreditsAccountInvalid => 'The Player ID or account information entered is not valid.';
+
+  @override
+  String get gameCreditsAccountRequiredTitle => 'Account Information Required';
+
+  @override
+  String get gameCreditsContinuePayment => 'CONTINUE TO PAYMENT';
+
+  @override
+  String get gameCreditsUnableToLoadDetails => 'Unable to load game credit information.';
+
+  @override
+  String get gameCreditsInformation => 'Information';
+
+  @override
+  String get gameCreditsPaymentTitle => 'Game Credits Payment';
+
+  @override
+  String get gameCreditsGameLabel => 'Game';
+
+  @override
+  String get gameCreditsPaymentTotal => 'TOTAL PAYMENT';
+
+  @override
+  String get gameCreditsPreparingQrPayment => 'PREPARING GAME CREDIT QR';
+
+  @override
+  String get gameCreditsProcessingPurchaseTitle => 'PROCESSING GAME CREDIT';
+
+  @override
+  String get gameCreditsProcessingPurchaseMessage => 'Your payment was received. Please wait while your game credit transaction is being completed.';
+
+  @override
+  String get gameCreditsProcessingPurchaseLocked => 'Please do not touch the screen while the game credit transaction is being processed.';
+
+  @override
+  String get gameCreditsPaymentInvalidProductTitle => 'INVALID GAME CREDIT PRODUCT';
+
+  @override
+  String get gameCreditsPaymentInvalidProductMessage => 'The game credit product code is missing.';
+
+  @override
+  String get gameCreditsPaymentProviderRejected => 'The game credit provider rejected the transaction.';
+
+  @override
+  String get gameCreditsPaymentProviderRefunded => 'The game credit transaction was refunded.';
+
+  @override
+  String get gameCreditsPaymentUnexpectedStatus => 'Unexpected game credit provider status';
+
+  @override
+  String get gameCreditsPaymentProviderErrorTitle => 'GAME CREDIT PROCESSING ERROR';
+
+  @override
+  String get gameCreditsPaymentReference => 'Payment Reference';
+
+  @override
+  String get gameCreditsPaymentAlreadyReceivedWarning => 'The DuitNow payment has already been received. Do not make another payment for the same transaction.';
+
+  @override
+  String get gameCreditsReceiptTitle => 'GAME CREDIT RECEIPT';
+
+  @override
+  String get gameCreditsReceiptGame => 'Game';
+
+  @override
+  String get gameCreditsReceiptPurchaseDetails => 'Purchase Details';
+
+  @override
+  String get gameCreditsReceiptSelectedCredit => 'Selected Credit';
+
+  @override
+  String get gameCreditsReceiptCreditReceived => 'Game Credit';
+
+  @override
+  String get gameCreditsReceiptAccount => 'Player ID / Account';
+
+  @override
+  String get gameCreditsReceiptBaseAmount => 'Amount';
+
+  @override
+  String get gameCreditsReceiptServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get gameCreditsReceiptPaymentMethod => 'Payment Method';
+
+  @override
+  String get gameCreditsReceiptPaymentDate => 'Payment Date';
+
+  @override
+  String get gameCreditsReceiptBankTransaction => 'Bank Transaction';
+
+  @override
+  String get gameCreditsReceiptDeliveryDetails => 'Delivery Details';
+
+  @override
+  String get gameCreditsReceiptSerialNumber => 'Serial Number';
+
+  @override
+  String get gameCreditsReceiptPin => 'PIN';
+
+  @override
+  String get gameCreditsReceiptExpiry => 'Expiry';
+
+  @override
+  String get gameCreditsReceiptVoucherLink => 'Voucher Link';
+
+  @override
+  String get gameCreditsReceiptKeepCodeSafe => 'Keep your PIN, serial number or voucher link safe. Do not share it with anyone.';
+
+  @override
+  String get gameCreditsReceiptDeliveryMessage => 'Your game credit transaction has been completed. Please check the game account entered during the purchase.';
+
+  @override
+  String get gameCreditsReceiptTotalPaid => 'TOTAL PAID';
+
+  @override
+  String get iddPaymentTitle => 'IDD Payment';
+
+  @override
+  String get iddPaymentDetails => 'IDD Purchase Details';
+
+  @override
+  String get iddSelectedAmount => 'Selected Amount';
+
+  @override
+  String get iddPreparingQrPayment => 'Preparing QR Payment';
+
+  @override
+  String get iddProcessingTitle => 'Processing IDD Purchase';
+
+  @override
+  String get iddProcessingMessage => 'Payment received. Please wait while your IDD purchase is being processed.';
+
+  @override
+  String get iddProcessingLocked => 'Please do not close this screen while processing.';
+
+  @override
+  String get iddPaymentInvalidProductTitle => 'Invalid IDD Product';
+
+  @override
+  String get iddPaymentInvalidProductMessage => 'The selected IDD product is invalid. Please go back and select again.';
+
+  @override
+  String get iddPaymentInvalidAmountTitle => 'Invalid IDD Amount';
+
+  @override
+  String get iddPaymentInvalidAmountMessage => 'Please select an IDD amount before continuing.';
+
+  @override
+  String get iddPaymentProviderRejected => 'The IDD provider rejected the transaction.';
+
+  @override
+  String get iddPaymentProviderRefunded => 'The IDD transaction was refunded.';
+
+  @override
+  String get iddPaymentStillProcessing => 'The IDD transaction is still being processed.';
+
+  @override
+  String get iddPaymentReference => 'Reference';
+
+  @override
+  String get iddPaymentProviderErrorTitle => 'IDD Processing Error';
+
+  @override
+  String get iddPaymentAlreadyReceivedWarning => 'Your QR payment has already been received. Please do not make another payment.';
+
+  @override
+  String get iddReceiptTitle => 'IDD Purchase Successful';
+
+  @override
+  String get iddReceiptProvider => 'IDD Provider';
+
+  @override
+  String get iddReceiptPurchaseDetails => 'IDD Purchase Details';
+
+  @override
+  String get iddReceiptProduct => 'Selected IDD';
+
+  @override
+  String get iddReceiptAmount => 'IDD Amount';
+
+  @override
+  String get iddReceiptPinDetails => 'PIN Details';
+
+  @override
+  String get iddReceiptSerialNumber => 'Serial Number';
+
+  @override
+  String get iddReceiptPin => 'PIN';
+
+  @override
+  String get iddReceiptExpiry => 'Expiry';
+
+  @override
+  String get iddReceiptVoucherLink => 'Voucher Link';
+
+  @override
+  String get iddReceiptTransactionDetails => 'Transaction Details';
+
+  @override
+  String get iddReceiptPaymentDate => 'Payment Date';
+
+  @override
+  String get iddReceiptBankTransaction => 'Bank Transaction';
+
+  @override
+  String get iddReceiptProviderNote => 'Provider Information';
+
+  @override
+  String get iddReceiptTotalPaid => 'Total Paid';
+
+  @override
+  String get consoleStoresButton => 'Console & App Stores';
+
+  @override
+  String get consoleStoresSupportingText => 'Purchase console and app store gift cards';
+
+  @override
+  String get consoleStoresTitle => 'Console & App Stores';
+
+  @override
+  String get consoleStoresSubtitle => 'Select the store you want to purchase from';
+
+  @override
+  String get consoleStoresBadge => 'Digital Stores';
+
+  @override
+  String get consoleStoreCategoryLabel => 'Console & App Store';
+
+  @override
+  String get consoleStoreSelectPackageTitle => 'Select Value';
+
+  @override
+  String get consoleStoreSelectPackageSubtitle => 'Select the value you want to purchase';
+
+  @override
+  String get consoleStoreNoPackagesAvailable => 'No values are currently available.';
+
+  @override
+  String get consoleStoreOrderSummaryTitle => 'Order Summary';
+
+  @override
+  String get consoleStoreProductLabel => 'Product';
+
+  @override
+  String get consoleStoreSelectedPackageLabel => 'Selected Value';
+
+  @override
+  String get consoleStorePackageDescriptionLabel => 'Description';
+
+  @override
+  String get consoleStoreSubtotalLabel => 'Subtotal';
+
+  @override
+  String get consoleStoreServiceAdjustmentLabel => 'Service Adjustment';
+
+  @override
+  String get consoleStoreTotalAmountLabel => 'Total Payment';
+
+  @override
+  String get consoleStoreProductUnavailable => 'This product is currently unavailable.';
+
+  @override
+  String get consoleStoreSelectPackageRequired => 'Please select a value to continue.';
+
+  @override
+  String get consoleStoreUnableToLoadOptions => 'Unable to load available values';
+
+  @override
+  String get consoleStoreUnableToLoadOptionsSubtitle => 'Please try again in a moment.';
+
+  @override
+  String get consoleStorePaymentTitle => 'Console & App Store Payment';
+
+  @override
+  String get consoleStorePaymentTotal => 'Total Payment';
+
+  @override
+  String get consoleStorePreparingQrPayment => 'Preparing QR Payment';
+
+  @override
+  String get consoleStoreProcessingPurchaseTitle => 'Processing Purchase';
+
+  @override
+  String get consoleStoreProcessingPurchaseMessage => 'Payment received. We are now processing your purchase with the provider.';
+
+  @override
+  String get consoleStoreProcessingPurchaseLocked => 'Please do not close or leave this page.';
+
+  @override
+  String get consoleStorePaymentInvalidProductTitle => 'Invalid Product';
+
+  @override
+  String get consoleStorePaymentInvalidProductMessage => 'The selected product is invalid. Please return and select the product again.';
+
+  @override
+  String get consoleStorePaymentProviderRejected => 'The provider was unable to complete this purchase.';
+
+  @override
+  String get consoleStorePaymentProviderRefunded => 'The provider has refunded this transaction.';
+
+  @override
+  String get consoleStorePaymentUnexpectedStatus => 'Unexpected provider status';
+
+  @override
+  String get consoleStorePaymentProviderErrorTitle => 'Purchase Could Not Be Completed';
+
+  @override
+  String get consoleStorePaymentReference => 'Reference';
+
+  @override
+  String get consoleStorePaymentAlreadyReceivedWarning => 'Your QR payment has already been received. Please keep this reference for assistance.';
+
+  @override
+  String get consoleStoreReceiptTitle => 'Purchase Receipt';
+
+  @override
+  String get consoleStoreReceiptProduct => 'Product';
+
+  @override
+  String get consoleStoreReceiptPurchaseDetails => 'Purchase Details';
+
+  @override
+  String get consoleStoreReceiptSelectedValue => 'Selected Value';
+
+  @override
+  String get consoleStoreReceiptDescription => 'Description';
+
+  @override
+  String get consoleStoreReceiptBaseAmount => 'Base Amount';
+
+  @override
+  String get consoleStoreReceiptServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get consoleStoreReceiptPaymentMethod => 'Payment Method';
+
+  @override
+  String get consoleStoreReceiptPaymentDate => 'Payment Date';
+
+  @override
+  String get consoleStoreReceiptBankTransaction => 'Bank Transaction';
+
+  @override
+  String get consoleStoreReceiptDeliveryDetails => 'Redemption Details';
+
+  @override
+  String get consoleStoreReceiptSerialNumber => 'Serial Number';
+
+  @override
+  String get consoleStoreReceiptPin => 'PIN / Code';
+
+  @override
+  String get consoleStoreReceiptExpiry => 'Expiry';
+
+  @override
+  String get consoleStoreReceiptVoucherLink => 'Voucher Link';
+
+  @override
+  String get consoleStoreReceiptProviderInstructions => 'Provider Instructions';
+
+  @override
+  String get consoleStoreReceiptKeepCodeSafe => 'Keep your PIN, code or voucher link safe. You may need it to redeem your purchase.';
+
+  @override
+  String get consoleStoreReceiptSuccessMessage => 'Your purchase has been processed successfully.';
+
+  @override
+  String get consoleStoreReceiptTotalPaid => 'Total Paid';
+
+  @override
+  String get consoleStoreInvalidOptionValue => 'The selected value cannot be processed. Please select another value or try again.';
+
+  @override
+  String get putrajayaExplorationTitle => 'Explore Putrajaya';
+
+  @override
+  String get putrajayaTabHistorical => 'Historical';
+
+  @override
+  String get putrajayaTabInteresting => 'Attractions';
+
+  @override
+  String get putrajayaTabEating => 'Food';
+
+  @override
+  String get putrajayaViewDetails => 'View Details';
+
+  @override
+  String get putrajayaGoogleMap => 'Google Maps';
+
+  @override
+  String get putrajayaScanMap => 'Scan the QR code to view the location';
+
+  @override
+  String get putrajayaClose => 'Close';
+
+  @override
+  String get putrajayaNoPlaces => 'No places available';
+
+  @override
+  String putrajayaInterestingDesc(Object place) {
+    return 'Discover $place, one of the interesting places to visit around Putrajaya.';
+  }
+
+  @override
+  String putrajayaInterestingFull(Object place) {
+    return '$place is one of the places visitors can explore while visiting Putrajaya. Scan the Google Maps QR code below to view its location and plan your visit.';
+  }
+
+  @override
+  String putrajayaHistoricalDesc(Object place) {
+    return 'Discover $place, one of Putrajaya\'s notable landmarks.';
+  }
+
+  @override
+  String putrajayaHistoricalFull(Object place) {
+    return '$place is one of the notable landmarks visitors can explore in Putrajaya. Scan the Google Maps QR code below to view its location.';
+  }
+
+  @override
+  String putrajayaFoodDesc(Object place) {
+    return 'Explore $place, one of the dining options around Putrajaya.';
+  }
+
+  @override
+  String putrajayaFoodFull(Object place) {
+    return '$place is one of the dining places visitors can consider while in Putrajaya. Scan the Google Maps QR code below to view its location.';
+  }
 }

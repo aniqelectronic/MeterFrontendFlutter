@@ -4441,10 +4441,14 @@ class AppLocalizationsTa extends AppLocalizations {
   String get weatherSupportingText => 'ஈப்போ, பேராக்கிற்கான அதிகாரப்பூர்வ 7 நாள் வானிலை முன்னறிவிப்பைப் பார்க்கவும்';
 
   @override
-  String get weatherPageTitle => 'வானிலை';
+  String weatherPageTitle(Object place) {
+    return '$place வானிலை';
+  }
 
   @override
-  String get weatherPageSubtitle => 'data.gov.my வழியாக MET Malaysia வழங்கும் அதிகாரப்பூர்வ 7 நாள் முன்னறிவிப்பு';
+  String weatherPageSubtitle(Object place) {
+    return 'data.gov.my வழியாக MET Malaysia வழங்கும் அதிகாரப்பூர்வ 7 நாள் முன்னறிவிப்பு';
+  }
 
   @override
   String get weatherLoadingTitle => 'வானிலை ஏற்றப்படுகிறது';
@@ -6473,4 +6477,618 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get mobileReloadReceiptVoucherLink => 'வவுச்சர் இணைப்பு';
+
+  @override
+  String get iddButton => 'சர்வதேச நேரடி அழைப்பு';
+
+  @override
+  String get iddBillSupportingText => 'சர்வதேச அழைப்புகளுக்கான கிரெடிட்டை ரீலோட் செய்யவும்';
+
+  @override
+  String get iddHeaderLabel => 'சர்வதேச அழைப்புகள்';
+
+  @override
+  String get iddPageTitle => 'சர்வதேச நேரடி அழைப்பு';
+
+  @override
+  String get iddPageSubtitle => 'உங்கள் சேவை வழங்குநரைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get iddCatalogLoadError => 'IDD சேவைகளை ஏற்ற முடியவில்லை';
+
+  @override
+  String get iddCatalogRetryMessage => 'மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get iddNoServices => 'தற்போது IDD சேவைகள் எதுவும் கிடைக்கவில்லை.';
+
+  @override
+  String networkUnavailableMessage(Object billerName) {
+    return '$billerName தற்போது கிடைக்கவில்லை. தயவுசெய்து பின்னர் முயற்சிக்கவும்.';
+  }
+
+  @override
+  String get iddCategoryLabel => 'IDD சர்வதேச அழைப்பு';
+
+  @override
+  String get iddSelectAmountTitle => 'தொகையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get iddSelectAmountSubtitle => 'வாங்க வேண்டிய IDD ரீலோட் தொகையைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get iddQuantityTitle => 'எண்ணிக்கை';
+
+  @override
+  String get iddQuantitySubtitle => 'வாங்க வேண்டிய PIN எண்ணிக்கையைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get iddOrderSummaryTitle => 'ஆர்டர் சுருக்கம்';
+
+  @override
+  String get iddSubtotalLabel => 'இடைத் தொகை';
+
+  @override
+  String get iddServiceAdjustmentLabel => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get iddTotalAmountLabel => 'மொத்த தொகை';
+
+  @override
+  String get iddDeliveryPin => 'PIN';
+
+  @override
+  String get iddNoAmountsAvailable => 'தற்போது ரீலோட் தொகைகள் கிடைக்கவில்லை.';
+
+  @override
+  String get iddUnableToLoadOptions => 'IDD விருப்பங்களை ஏற்ற முடியவில்லை';
+
+  @override
+  String get iddUnableToLoadOptionsSubtitle => 'IDD விருப்பங்களை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get iddProductUnavailable => 'இந்த IDD சேவை தற்போது கிடைக்கவில்லை.';
+
+  @override
+  String get iddSelectAmountRequired => 'தொடர்வதற்கு முன் தொகையைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get providerLoading => 'சேவை வழங்குநர்கள் ஏற்றப்படுகின்றனர்';
+
+  @override
+  String get providerLoadingSubtitle => 'சமீபத்திய கிடைக்கக்கூடிய சேவைகளைப் பெறுகிறோம். தயவு செய்து காத்திருக்கவும்.';
+
+  @override
+  String get providerLoadError => 'சேவை வழங்குநர்களை ஏற்ற முடியவில்லை';
+
+  @override
+  String get providerLoadErrorSubtitle => 'சேவை வழங்குநர் தகவலை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get gameCreditsButton => 'கேம் கிரெடிட்ஸ்';
+
+  @override
+  String get gameCreditsSupportingText => 'ஆதரிக்கப்படும் கேம்களுக்கு கிரெடிட் டாப் அப் செய்யுங்கள்';
+
+  @override
+  String get gameCreditsPageTitle => 'கேம் கிரெடிட்ஸ்';
+
+  @override
+  String get gameCreditsPageSubtitle => 'டாப் அப் செய்ய வேண்டிய கேமைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get gameCreditsNoServices => 'தற்போது கேம் கிரெடிட் சேவைகள் இல்லை';
+
+  @override
+  String get gameCreditsCategoryLabel => 'கேம் கிரெடிட்ஸ்';
+
+  @override
+  String get gameCreditsSelectAmountTitle => 'தொகையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get gameCreditsSelectAmountSubtitle => 'வாங்க வேண்டிய கேம் கிரெடிட் அல்லது பேக்கேஜைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get gameCreditsNoAmountsAvailable => 'தற்போது கேம் கிரெடிட் தேர்வுகள் இல்லை.';
+
+  @override
+  String get gameCreditsOrderSummaryTitle => 'ஆர்டர் சுருக்கம்';
+
+  @override
+  String get gameCreditsProductLabel => 'தயாரிப்பு';
+
+  @override
+  String get gameCreditsSelectedOptionLabel => 'தேர்ந்தெடுத்தது';
+
+  @override
+  String get gameCreditsCreditLabel => 'கேம் கிரெடிட்ஸ்';
+
+  @override
+  String get gameCreditsSubtotalLabel => 'துணை மொத்தம்';
+
+  @override
+  String get gameCreditsServiceAdjustmentLabel => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get gameCreditsTotalAmountLabel => 'மொத்த கட்டணம்';
+
+  @override
+  String get gameCreditsDeliveryLink => 'டிஜிட்டல் இணைப்பு';
+
+  @override
+  String get gameCreditsDeliveryPin => 'PIN';
+
+  @override
+  String get gameCreditsProductUnavailable => 'இந்த கேம் கிரெடிட் தற்போது கிடைக்கவில்லை.';
+
+  @override
+  String get gameCreditsSelectAmountRequired => 'தொடர்வதற்கு முன் கேம் கிரெடிட் தொகையைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get gameCreditsUnableToLoadOptions => 'கேம் கிரெடிட்களை ஏற்ற முடியவில்லை';
+
+  @override
+  String get gameCreditsUnableToLoadOptionsSubtitle => 'கிடைக்கக்கூடிய கேம் கிரெடிட் தேர்வுகளை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get gameCreditsReviewTitle => 'கேம் கிரெடிட் சரிபார்ப்பு';
+
+  @override
+  String get gameCreditsReviewSelection => 'உங்கள் தேர்வைச் சரிபார்க்கவும்';
+
+  @override
+  String get gameCreditsEnterAccountTitle => 'கேம் கணக்கு விவரங்களை உள்ளிடவும்';
+
+  @override
+  String get gameCreditsEnterAccountSubtitle => 'இந்த கேமிற்கு தேவையான Player ID அல்லது கணக்கு விவரத்தை உள்ளிடவும்';
+
+  @override
+  String get gameCreditsAccountLabel => 'Player ID / கணக்கு';
+
+  @override
+  String get gameCreditsAccountHint => 'Player ID அல்லது கணக்கு எண்ணை உள்ளிடவும்';
+
+  @override
+  String get gameCreditsCheckAccountMessage => 'இந்த தகவலை கவனமாக சரிபார்க்கவும். கேம் கிரெடிட் நீங்கள் உள்ளிட்ட கணக்கிற்கு அனுப்பப்படலாம்.';
+
+  @override
+  String get gameCreditsNoAccountRequiredTitle => 'Player ID தேவையில்லை';
+
+  @override
+  String get gameCreditsNoAccountRequiredMessage => 'இந்த கேம் கிரெடிட்டிற்கு Player ID அல்லது கணக்கு எண் தேவையில்லை. பணம் செலுத்த தொடரலாம்.';
+
+  @override
+  String get gameCreditsAccountRequired => 'தேவையான Player ID அல்லது கணக்கு விவரத்தை உள்ளிடவும்.';
+
+  @override
+  String get gameCreditsAccountInvalid => 'உள்ளிட்ட Player ID அல்லது கணக்கு விவரம் செல்லுபடியாகாது.';
+
+  @override
+  String get gameCreditsAccountRequiredTitle => 'கணக்கு தகவல் தேவை';
+
+  @override
+  String get gameCreditsContinuePayment => 'பணம் செலுத்த தொடரவும்';
+
+  @override
+  String get gameCreditsUnableToLoadDetails => 'கேம் கிரெடிட் தகவலை ஏற்ற முடியவில்லை.';
+
+  @override
+  String get gameCreditsInformation => 'தகவல்';
+
+  @override
+  String get gameCreditsPaymentTitle => 'கேம் கிரெடிட் கட்டணம்';
+
+  @override
+  String get gameCreditsGameLabel => 'கேம்';
+
+  @override
+  String get gameCreditsPaymentTotal => 'மொத்த கட்டணம்';
+
+  @override
+  String get gameCreditsPreparingQrPayment => 'கேம் கிரெடிட் QR தயாராகிறது';
+
+  @override
+  String get gameCreditsProcessingPurchaseTitle => 'கேம் கிரெடிட் செயலாக்கப்படுகிறது';
+
+  @override
+  String get gameCreditsProcessingPurchaseMessage => 'உங்கள் கட்டணம் பெறப்பட்டது. கேம் கிரெடிட் பரிவர்த்தனை முடியும் வரை காத்திருக்கவும்.';
+
+  @override
+  String get gameCreditsProcessingPurchaseLocked => 'கேம் கிரெடிட் பரிவர்த்தனை செயலாக்கப்படும் போது திரையைத் தொட வேண்டாம்.';
+
+  @override
+  String get gameCreditsPaymentInvalidProductTitle => 'தவறான கேம் கிரெடிட் தயாரிப்பு';
+
+  @override
+  String get gameCreditsPaymentInvalidProductMessage => 'கேம் கிரெடிட் தயாரிப்பு குறியீடு இல்லை.';
+
+  @override
+  String get gameCreditsPaymentProviderRejected => 'கேம் கிரெடிட் வழங்குநர் பரிவர்த்தனையை நிராகரித்தார்.';
+
+  @override
+  String get gameCreditsPaymentProviderRefunded => 'கேம் கிரெடிட் பரிவர்த்தனை திருப்பி வழங்கப்பட்டது.';
+
+  @override
+  String get gameCreditsPaymentUnexpectedStatus => 'எதிர்பாராத கேம் கிரெடிட் நிலை';
+
+  @override
+  String get gameCreditsPaymentProviderErrorTitle => 'கேம் கிரெடிட் செயலாக்க பிழை';
+
+  @override
+  String get gameCreditsPaymentReference => 'கட்டண குறிப்பு';
+
+  @override
+  String get gameCreditsPaymentAlreadyReceivedWarning => 'DuitNow கட்டணம் ஏற்கனவே பெறப்பட்டுள்ளது. அதே பரிவர்த்தனைக்கு மீண்டும் பணம் செலுத்த வேண்டாம்.';
+
+  @override
+  String get gameCreditsReceiptTitle => 'கேம் கிரெடிட் ரசீது';
+
+  @override
+  String get gameCreditsReceiptGame => 'கேம்';
+
+  @override
+  String get gameCreditsReceiptPurchaseDetails => 'வாங்கிய விவரங்கள்';
+
+  @override
+  String get gameCreditsReceiptSelectedCredit => 'தேர்ந்தெடுத்த கிரெடிட்';
+
+  @override
+  String get gameCreditsReceiptCreditReceived => 'கேம் கிரெடிட்';
+
+  @override
+  String get gameCreditsReceiptAccount => 'Player ID / கணக்கு';
+
+  @override
+  String get gameCreditsReceiptBaseAmount => 'தொகை';
+
+  @override
+  String get gameCreditsReceiptServiceAdjustment => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get gameCreditsReceiptPaymentMethod => 'கட்டண முறை';
+
+  @override
+  String get gameCreditsReceiptPaymentDate => 'கட்டண தேதி';
+
+  @override
+  String get gameCreditsReceiptBankTransaction => 'வங்கி பரிவர்த்தனை';
+
+  @override
+  String get gameCreditsReceiptDeliveryDetails => 'வழங்கல் விவரங்கள்';
+
+  @override
+  String get gameCreditsReceiptSerialNumber => 'வரிசை எண்';
+
+  @override
+  String get gameCreditsReceiptPin => 'PIN';
+
+  @override
+  String get gameCreditsReceiptExpiry => 'காலாவதி';
+
+  @override
+  String get gameCreditsReceiptVoucherLink => 'வவுச்சர் இணைப்பு';
+
+  @override
+  String get gameCreditsReceiptKeepCodeSafe => 'உங்கள் PIN, வரிசை எண் அல்லது வவுச்சர் இணைப்பை பாதுகாப்பாக வைத்திருங்கள். யாருடனும் பகிர வேண்டாம்.';
+
+  @override
+  String get gameCreditsReceiptDeliveryMessage => 'உங்கள் கேம் கிரெடிட் பரிவர்த்தனை முடிந்தது. வாங்கும்போது உள்ளிட்ட கேம் கணக்கைச் சரிபார்க்கவும்.';
+
+  @override
+  String get gameCreditsReceiptTotalPaid => 'மொத்தம் செலுத்தியது';
+
+  @override
+  String get iddPaymentTitle => 'IDD கட்டணம்';
+
+  @override
+  String get iddPaymentDetails => 'IDD வாங்கும் விவரங்கள்';
+
+  @override
+  String get iddSelectedAmount => 'தேர்ந்தெடுக்கப்பட்ட தொகை';
+
+  @override
+  String get iddPreparingQrPayment => 'QR கட்டணம் தயாராகிறது';
+
+  @override
+  String get iddProcessingTitle => 'IDD வாங்குதல் செயலாக்கப்படுகிறது';
+
+  @override
+  String get iddProcessingMessage => 'கட்டணம் பெறப்பட்டது. உங்கள் IDD வாங்குதல் செயலாக்கப்படும் வரை காத்திருக்கவும்.';
+
+  @override
+  String get iddProcessingLocked => 'செயலாக்கத்தின் போது இந்த திரையை மூட வேண்டாம்.';
+
+  @override
+  String get iddPaymentInvalidProductTitle => 'தவறான IDD தயாரிப்பு';
+
+  @override
+  String get iddPaymentInvalidProductMessage => 'தேர்ந்தெடுக்கப்பட்ட IDD தயாரிப்பு செல்லுபடியாகாது. திரும்பிச் சென்று மீண்டும் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get iddPaymentInvalidAmountTitle => 'தவறான IDD தொகை';
+
+  @override
+  String get iddPaymentInvalidAmountMessage => 'தொடர்வதற்கு முன் IDD தொகையைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get iddPaymentProviderRejected => 'IDD சேவை வழங்குநர் பரிவர்த்தனையை நிராகரித்துள்ளார்.';
+
+  @override
+  String get iddPaymentProviderRefunded => 'IDD பரிவர்த்தனை பணம் திருப்பி வழங்கப்பட்டது.';
+
+  @override
+  String get iddPaymentStillProcessing => 'IDD பரிவர்த்தனை இன்னும் செயலாக்கப்படுகிறது.';
+
+  @override
+  String get iddPaymentReference => 'குறிப்பு';
+
+  @override
+  String get iddPaymentProviderErrorTitle => 'IDD செயலாக்கப் பிழை';
+
+  @override
+  String get iddPaymentAlreadyReceivedWarning => 'உங்கள் QR கட்டணம் ஏற்கனவே பெறப்பட்டுள்ளது. மீண்டும் கட்டணம் செலுத்த வேண்டாம்.';
+
+  @override
+  String get iddReceiptTitle => 'IDD வாங்குதல் வெற்றிகரமாக முடிந்தது';
+
+  @override
+  String get iddReceiptProvider => 'IDD சேவை வழங்குநர்';
+
+  @override
+  String get iddReceiptPurchaseDetails => 'IDD வாங்குதல் விவரங்கள்';
+
+  @override
+  String get iddReceiptProduct => 'தேர்ந்தெடுக்கப்பட்ட IDD';
+
+  @override
+  String get iddReceiptAmount => 'IDD தொகை';
+
+  @override
+  String get iddReceiptPinDetails => 'PIN விவரங்கள்';
+
+  @override
+  String get iddReceiptSerialNumber => 'வரிசை எண்';
+
+  @override
+  String get iddReceiptPin => 'PIN';
+
+  @override
+  String get iddReceiptExpiry => 'காலாவதி தேதி';
+
+  @override
+  String get iddReceiptVoucherLink => 'வவுச்சர் இணைப்பு';
+
+  @override
+  String get iddReceiptTransactionDetails => 'பரிவர்த்தனை விவரங்கள்';
+
+  @override
+  String get iddReceiptPaymentDate => 'கட்டண தேதி';
+
+  @override
+  String get iddReceiptBankTransaction => 'வங்கி பரிவர்த்தனை';
+
+  @override
+  String get iddReceiptProviderNote => 'சேவை வழங்குநர் தகவல்';
+
+  @override
+  String get iddReceiptTotalPaid => 'செலுத்திய மொத்தம்';
+
+  @override
+  String get consoleStoresButton => 'கன்சோல் & ஆப் ஸ்டோர்';
+
+  @override
+  String get consoleStoresSupportingText => 'கன்சோல் மற்றும் ஆப் ஸ்டோர் பரிசு அட்டைகளை வாங்கவும்';
+
+  @override
+  String get consoleStoresTitle => 'கன்சோல் & ஆப் ஸ்டோர்';
+
+  @override
+  String get consoleStoresSubtitle => 'வாங்க வேண்டிய ஸ்டோரை தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get consoleStoresBadge => 'டிஜிட்டல் ஸ்டோர்';
+
+  @override
+  String get consoleStoreCategoryLabel => 'கன்சோல் & ஆப் ஸ்டோர்';
+
+  @override
+  String get consoleStoreSelectPackageTitle => 'மதிப்பைத் தேர்வு செய்யவும்';
+
+  @override
+  String get consoleStoreSelectPackageSubtitle => 'வாங்க வேண்டிய மதிப்பைத் தேர்வு செய்யவும்';
+
+  @override
+  String get consoleStoreNoPackagesAvailable => 'தற்போது மதிப்புகள் கிடைக்கவில்லை.';
+
+  @override
+  String get consoleStoreOrderSummaryTitle => 'ஆர்டர் சுருக்கம்';
+
+  @override
+  String get consoleStoreProductLabel => 'தயாரிப்பு';
+
+  @override
+  String get consoleStoreSelectedPackageLabel => 'தேர்ந்தெடுத்த மதிப்பு';
+
+  @override
+  String get consoleStorePackageDescriptionLabel => 'விவரம்';
+
+  @override
+  String get consoleStoreSubtotalLabel => 'இடைத் தொகை';
+
+  @override
+  String get consoleStoreServiceAdjustmentLabel => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get consoleStoreTotalAmountLabel => 'மொத்த கட்டணம்';
+
+  @override
+  String get consoleStoreProductUnavailable => 'இந்த தயாரிப்பு தற்போது கிடைக்கவில்லை.';
+
+  @override
+  String get consoleStoreSelectPackageRequired => 'தொடர ஒரு மதிப்பைத் தேர்வு செய்யவும்.';
+
+  @override
+  String get consoleStoreUnableToLoadOptions => 'கிடைக்கும் மதிப்புகளை ஏற்ற முடியவில்லை';
+
+  @override
+  String get consoleStoreUnableToLoadOptionsSubtitle => 'சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get consoleStorePaymentTitle => 'கன்சோல் & ஆப் ஸ்டோர் கட்டணம்';
+
+  @override
+  String get consoleStorePaymentTotal => 'மொத்த கட்டணம்';
+
+  @override
+  String get consoleStorePreparingQrPayment => 'QR கட்டணம் தயாராகிறது';
+
+  @override
+  String get consoleStoreProcessingPurchaseTitle => 'வாங்குதல் செயலாக்கப்படுகிறது';
+
+  @override
+  String get consoleStoreProcessingPurchaseMessage => 'கட்டணம் பெறப்பட்டது. உங்கள் வாங்குதல் வழங்குநரிடம் செயலாக்கப்படுகிறது.';
+
+  @override
+  String get consoleStoreProcessingPurchaseLocked => 'இந்தப் பக்கத்தை மூடவோ விட்டு செல்லவோ வேண்டாம்.';
+
+  @override
+  String get consoleStorePaymentInvalidProductTitle => 'தவறான தயாரிப்பு';
+
+  @override
+  String get consoleStorePaymentInvalidProductMessage => 'தேர்ந்தெடுக்கப்பட்ட தயாரிப்பு செல்லாது. திரும்பிச் சென்று மீண்டும் தேர்வு செய்யவும்.';
+
+  @override
+  String get consoleStorePaymentProviderRejected => 'வழங்குநரால் இந்த வாங்குதலை முடிக்க முடியவில்லை.';
+
+  @override
+  String get consoleStorePaymentProviderRefunded => 'இந்த பரிவர்த்தனைக்கான தொகையை வழங்குநர் திருப்பி வழங்கியுள்ளார்.';
+
+  @override
+  String get consoleStorePaymentUnexpectedStatus => 'எதிர்பாராத வழங்குநர் நிலை';
+
+  @override
+  String get consoleStorePaymentProviderErrorTitle => 'வாங்குதலை முடிக்க முடியவில்லை';
+
+  @override
+  String get consoleStorePaymentReference => 'குறிப்பு எண்';
+
+  @override
+  String get consoleStorePaymentAlreadyReceivedWarning => 'உங்கள் QR கட்டணம் பெறப்பட்டுள்ளது. உதவிக்காக இந்தக் குறிப்பு எண்ணை வைத்திருக்கவும்.';
+
+  @override
+  String get consoleStoreReceiptTitle => 'வாங்குதல் ரசீது';
+
+  @override
+  String get consoleStoreReceiptProduct => 'தயாரிப்பு';
+
+  @override
+  String get consoleStoreReceiptPurchaseDetails => 'வாங்குதல் விவரங்கள்';
+
+  @override
+  String get consoleStoreReceiptSelectedValue => 'தேர்ந்தெடுத்த மதிப்பு';
+
+  @override
+  String get consoleStoreReceiptDescription => 'விவரம்';
+
+  @override
+  String get consoleStoreReceiptBaseAmount => 'அடிப்படை தொகை';
+
+  @override
+  String get consoleStoreReceiptServiceAdjustment => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get consoleStoreReceiptPaymentMethod => 'கட்டண முறை';
+
+  @override
+  String get consoleStoreReceiptPaymentDate => 'கட்டண தேதி';
+
+  @override
+  String get consoleStoreReceiptBankTransaction => 'வங்கி பரிவர்த்தனை';
+
+  @override
+  String get consoleStoreReceiptDeliveryDetails => 'மீட்பு விவரங்கள்';
+
+  @override
+  String get consoleStoreReceiptSerialNumber => 'வரிசை எண்';
+
+  @override
+  String get consoleStoreReceiptPin => 'PIN / குறியீடு';
+
+  @override
+  String get consoleStoreReceiptExpiry => 'காலாவதி';
+
+  @override
+  String get consoleStoreReceiptVoucherLink => 'வவுச்சர் இணைப்பு';
+
+  @override
+  String get consoleStoreReceiptProviderInstructions => 'வழங்குநர் வழிமுறைகள்';
+
+  @override
+  String get consoleStoreReceiptKeepCodeSafe => 'உங்கள் PIN, குறியீடு அல்லது வவுச்சர் இணைப்பை பாதுகாப்பாக வைத்திருக்கவும். வாங்கியதை மீட்க இது தேவைப்படலாம்.';
+
+  @override
+  String get consoleStoreReceiptSuccessMessage => 'உங்கள் வாங்குதல் வெற்றிகரமாக செயலாக்கப்பட்டது.';
+
+  @override
+  String get consoleStoreReceiptTotalPaid => 'செலுத்திய மொத்தம்';
+
+  @override
+  String get consoleStoreInvalidOptionValue => 'தேர்ந்தெடுத்த மதிப்பை செயலாக்க முடியவில்லை. வேறு மதிப்பைத் தேர்வு செய்யவும் அல்லது மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get putrajayaExplorationTitle => 'புத்ராஜெயாவை ஆராயுங்கள்';
+
+  @override
+  String get putrajayaTabHistorical => 'வரலாற்று இடங்கள்';
+
+  @override
+  String get putrajayaTabInteresting => 'சுற்றுலா இடங்கள்';
+
+  @override
+  String get putrajayaTabEating => 'உணவகங்கள்';
+
+  @override
+  String get putrajayaViewDetails => 'விவரங்களைப் பார்க்க';
+
+  @override
+  String get putrajayaGoogleMap => 'Google வரைபடம்';
+
+  @override
+  String get putrajayaScanMap => 'இடத்தைப் பார்க்க QR குறியீட்டை ஸ்கேன் செய்யவும்';
+
+  @override
+  String get putrajayaClose => 'மூடு';
+
+  @override
+  String get putrajayaNoPlaces => 'இடங்கள் எதுவும் இல்லை';
+
+  @override
+  String putrajayaInterestingDesc(Object place) {
+    return 'புத்ராஜெயாவில் பார்க்கக்கூடிய சுவாரஸ்யமான இடங்களில் ஒன்றான $place ஐ ஆராயுங்கள்.';
+  }
+
+  @override
+  String putrajayaInterestingFull(Object place) {
+    return 'புத்ராஜெயாவிற்கு வருகை தரும் போது பார்வையாளர்கள் ஆராயக்கூடிய இடங்களில் $place ஒன்றாகும். இடத்தைப் பார்க்கவும் உங்கள் பயணத்தைத் திட்டமிடவும் கீழே உள்ள Google Maps QR குறியீட்டை ஸ்கேன் செய்யவும்.';
+  }
+
+  @override
+  String putrajayaHistoricalDesc(Object place) {
+    return 'புத்ராஜெயாவின் குறிப்பிடத்தக்க அடையாளங்களில் ஒன்றான $place ஐ அறிந்துகொள்ளுங்கள்.';
+  }
+
+  @override
+  String putrajayaHistoricalFull(Object place) {
+    return 'புத்ராஜெயாவில் பார்வையாளர்கள் சென்று பார்க்கக்கூடிய குறிப்பிடத்தக்க இடங்களில் $place ஒன்றாகும். அதன் இடத்தைப் பார்க்க கீழே உள்ள Google Maps QR குறியீட்டை ஸ்கேன் செய்யவும்.';
+  }
+
+  @override
+  String putrajayaFoodDesc(Object place) {
+    return 'புத்ராஜெயாவில் உள்ள உணவு இடங்களில் ஒன்றான $place ஐப் பாருங்கள்.';
+  }
+
+  @override
+  String putrajayaFoodFull(Object place) {
+    return 'புத்ராஜெயாவில் இருக்கும் போது பார்வையாளர்கள் பரிசீலிக்கக்கூடிய உணவு இடங்களில் $place ஒன்றாகும். அதன் இடத்தைப் பார்க்க கீழே உள்ள Google Maps QR குறியீட்டை ஸ்கேன் செய்யவும்.';
+  }
 }
