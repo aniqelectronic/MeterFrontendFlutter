@@ -157,8 +157,36 @@ void WebviewWindow::SetApplicationNameForUserAgent(const std::string &app_name) 
   webkit_settings_set_user_agent(setting, (default_user_agent_ + app_name).c_str());
 }
 
+// void WebviewWindow::Close() {
+//   gtk_window_close(GTK_WINDOW(window_));
+// }
+
 void WebviewWindow::Close() {
-  gtk_window_close(GTK_WINDOW(window_));
+  if (close_scheduled_ || window_ == nullptr) {
+    return;
+  }
+
+  close_scheduled_ = true;
+
+  // Keep the GTK widget alive until the deferred callback finishes.
+  g_object_ref(window_);
+
+  // Do not destroy WebKit while it is processing a navigation callback.
+  // Schedule closing for the next GTK event-loop cycle.
+  g_idle_add_full(
+      G_PRIORITY_DEFAULT_IDLE,
+      +[](gpointer data) -> gboolean {
+        auto *window = GTK_WIDGET(data);
+
+        if (GTK_IS_WINDOW(window)) {
+          gtk_window_close(GTK_WINDOW(window));
+        }
+
+        g_object_unref(window);
+        return G_SOURCE_REMOVE;
+      },
+      window_,
+      nullptr);
 }
 
 void WebviewWindow::OnLoadChanged(WebKitLoadEvent load_event) {

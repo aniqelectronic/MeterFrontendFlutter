@@ -57,7 +57,7 @@ class WebviewWindow {
   GtkWidget *window_ = nullptr;
   GtkWidget *webview_ = nullptr;
   GtkBox *box_ = nullptr;
-
+  bool close_scheduled_ = false;
 };
 
 #endif //WEBVIEW_WINDOW_LINUX_WEBVIEW_WINDOW_H_
