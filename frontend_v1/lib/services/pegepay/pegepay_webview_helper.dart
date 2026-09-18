@@ -31,6 +31,10 @@ class PegePayWebViewHelper {
 
   static bool _isClosing = false;
 
+  static DateTime? _lastWebViewClosedAt;
+  static const Duration _webViewCooldown = Duration(seconds: 3);
+  static int? _restoredSessionId;
+
   // ============================================================
   // OPEN PEGEpay QR WEBVIEW
   // ============================================================
@@ -58,6 +62,8 @@ class PegePayWebViewHelper {
     currentRouteName = '/payment';
 
     await _closeOldWebView();
+
+    await _waitForWebViewCooldown();
 
     /*
      * Another open() might have started while cleanup was running.
@@ -110,7 +116,7 @@ class PegePayWebViewHelper {
 
       if (sessionId == _activeSessionId) {
         finished = true;
-        await _restoreFlutterWindow();
+        await _restoreFlutterWindow(sessionId: sessionId);
 
         if (!cancelCallbackCalled) {
           cancelCallbackCalled = true;
@@ -153,7 +159,9 @@ class PegePayWebViewHelper {
         _currentWebview = null;
       }
 
-      await _restoreFlutterWindow();
+      _lastWebViewClosedAt = DateTime.now();
+
+      await _restoreFlutterWindow(sessionId: sessionId);
 
       /*
        * Flutter intentionally closed this window because:
@@ -306,8 +314,6 @@ class PegePayWebViewHelper {
           sessionId: sessionId,
         );
 
-        await _restoreFlutterWindow();
-
         if (!cancelCallbackCalled) {
           cancelCallbackCalled = true;
           onCancel();
@@ -332,8 +338,6 @@ class PegePayWebViewHelper {
         await _closeCurrentWebView(
           sessionId: sessionId,
         );
-
-        await _restoreFlutterWindow();
 
         if (!cancelCallbackCalled) {
           cancelCallbackCalled = true;
@@ -443,8 +447,6 @@ class PegePayWebViewHelper {
             sessionId: sessionId,
           );
 
-          await _restoreFlutterWindow();
-
           try {
             onSuccess(paymentResult);
           } catch (e) {
@@ -477,8 +479,6 @@ class PegePayWebViewHelper {
       sessionId: sessionId,
     );
 
-    await _restoreFlutterWindow();
-
     if (sessionId != _activeSessionId) {
       return;
     }
@@ -505,8 +505,6 @@ class PegePayWebViewHelper {
     await _closeCurrentWebView(
       sessionId: sessionId,
     );
-
-    await _restoreFlutterWindow();
   }
 
   // ============================================================
@@ -541,34 +539,37 @@ class PegePayWebViewHelper {
           'for session $sessionId',
         );
 
-        /*
-         * This closes only the separate QR WebView window.
-         * It does not close the Flutter application.
-         */
+        final closeCompleted = webview.onClose;
+
         webview.close();
+
+        await closeCompleted.timeout(
+          const Duration(seconds: 5),
+        );
+
+        _lastWebViewClosedAt = DateTime.now();
+
+        print(
+          '[PegePay] Native WebView closed '
+          'for session $sessionId',
+        );
+      } on TimeoutException {
+        print(
+          '[PegePay] Timed out waiting for WebView close '
+          'for session $sessionId',
+        );
+
+        await _forceClosePegePayWindows();
+        _lastWebViewClosedAt = DateTime.now();
       } catch (e) {
         print('[PegePay] webview.close() failed: $e');
+        _lastWebViewClosedAt = DateTime.now();
       }
     }
 
-    await Future.delayed(
-      const Duration(milliseconds: 400),
-    );
-
-    /*
-     * Remove any Linux QR window that failed to close normally.
-     */
-    await _forceClosePegePayWindows();
-
     _isClosing = false;
 
-    /*
-     * Keep the programmatic-close marker briefly because onClose
-     * may be delivered slightly later.
-     */
-    await Future.delayed(
-      const Duration(milliseconds: 300),
-    );
+    await _waitForWebViewCooldown();
 
     if (_programmaticClosingSessionId == sessionId) {
       _programmaticClosingSessionId = null;
@@ -587,22 +588,58 @@ class PegePayWebViewHelper {
     _currentWebview = null;
 
     if (oldWebview != null) {
+      _isClosing = true;
+
       try {
         print('[PegePay] Closing previous QR WebView');
+
+        final closeCompleted = oldWebview.onClose;
         oldWebview.close();
+
+        await closeCompleted.timeout(
+          const Duration(seconds: 5),
+        );
+
+        _lastWebViewClosedAt = DateTime.now();
+      } on TimeoutException {
+        print('[PegePay] Previous WebView close timed out');
+        await _forceClosePegePayWindows();
+        _lastWebViewClosedAt = DateTime.now();
       } catch (e) {
         print(
           '[PegePay] Failed to close previous WebView: $e',
         );
+        _lastWebViewClosedAt = DateTime.now();
+      } finally {
+        _isClosing = false;
       }
-
-      await Future.delayed(
-        const Duration(milliseconds: 400),
-      );
     }
 
-    // This also closes a previously minimized PegePay window.
-    await _forceClosePegePayWindows();
+    await _waitForWebViewCooldown();
+  }
+
+  // ============================================================
+  // WAIT FOR WEBKIT/GTK TO FINISH NATIVE WINDOW TEARDOWN
+  // ============================================================
+
+  static Future<void> _waitForWebViewCooldown() async {
+    final lastClosed = _lastWebViewClosedAt;
+
+    if (lastClosed == null) {
+      return;
+    }
+
+    final elapsed = DateTime.now().difference(lastClosed);
+    final remaining = _webViewCooldown - elapsed;
+
+    if (remaining > Duration.zero) {
+      print(
+        '[PegePay] Waiting ${remaining.inMilliseconds}ms '
+        'for WebKit teardown',
+      );
+
+      await Future<void>.delayed(remaining);
+    }
   }
 
   // ============================================================
@@ -856,7 +893,19 @@ done
   // RESTORE MAIN FLUTTER WINDOW
   // ============================================================
 
-  static Future<void> _restoreFlutterWindow() async {
+  static Future<void> _restoreFlutterWindow({
+    required int sessionId,
+  }) async {
+    if (_restoredSessionId == sessionId) {
+      print(
+        '[PegePay] Flutter window already restored '
+        'for session $sessionId',
+      );
+      return;
+    }
+
+    _restoredSessionId = sessionId;
+
     try {
       await Future<void>.delayed(
         const Duration(milliseconds: 200),
