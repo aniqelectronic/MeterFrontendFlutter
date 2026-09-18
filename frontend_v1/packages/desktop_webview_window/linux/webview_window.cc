@@ -66,18 +66,58 @@ WebviewWindow::WebviewWindow(
   gtk_window_set_decorated(GTK_WINDOW(window_), FALSE);
   gtk_window_set_keep_above(GTK_WINDOW(window_), TRUE);
   gtk_window_fullscreen(GTK_WINDOW(window_));
-  g_signal_connect(G_OBJECT(window_), "destroy",
-                   G_CALLBACK(+[](GtkWidget *, gpointer arg) {
-                     auto *window = static_cast<WebviewWindow *>(arg);
-                     if (window->on_close_callback_) {
-                       window->on_close_callback_();
-                     }
-                     auto *args = fl_value_new_map();
-                     fl_value_set(args, fl_value_new_string("id"), fl_value_new_int(window->window_id_));
-                     fl_method_channel_invoke_method(
-                         FL_METHOD_CHANNEL(window->method_channel_), "onWindowClose", args,
-                         nullptr, nullptr, nullptr);
-                   }), this);
+  // g_signal_connect(G_OBJECT(window_), "destroy",
+  //                  G_CALLBACK(+[](GtkWidget *, gpointer arg) {
+  //                    auto *window = static_cast<WebviewWindow *>(arg);
+  //                    if (window->on_close_callback_) {
+  //                      window->on_close_callback_();
+  //                    }
+  //                    auto *args = fl_value_new_map();
+  //                    fl_value_set(args, fl_value_new_string("id"), fl_value_new_int(window->window_id_));
+  //                    fl_method_channel_invoke_method(
+  //                        FL_METHOD_CHANNEL(window->method_channel_), "onWindowClose", args,
+  //                        nullptr, nullptr, nullptr);
+  //                  }), this);
+
+  g_signal_connect(
+    G_OBJECT(window_),
+    "destroy",
+    G_CALLBACK(+[](GtkWidget *, gpointer arg) {
+      auto *window = static_cast<WebviewWindow *>(arg);
+
+      /*
+       * IMPORTANT:
+       * Notify Dart before on_close_callback_().
+       *
+       * on_close_callback_() removes this WebviewWindow from the
+       * plugin map and destroys the C++ object. Therefore, nothing
+       * belonging to `window` may be accessed after that callback.
+       */
+      auto *args = fl_value_new_map();
+
+      fl_value_set(
+          args,
+          fl_value_new_string("id"),
+          fl_value_new_int(window->window_id_));
+
+      fl_method_channel_invoke_method(
+          FL_METHOD_CHANNEL(window->method_channel_),
+          "onWindowClose",
+          args,
+          nullptr,
+          nullptr,
+          nullptr);
+
+      /*
+       * This must always be the final operation because it may
+       * immediately delete `window`.
+       */
+      if (window->on_close_callback_) {
+        window->on_close_callback_();
+      }
+    }),
+    this);
+
   gtk_window_set_title(GTK_WINDOW(window_), title.c_str());
   gtk_window_set_default_size(GTK_WINDOW(window_), width, height);
   gtk_window_set_position(GTK_WINDOW(window_), GTK_WIN_POS_CENTER);
