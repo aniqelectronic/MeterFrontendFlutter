@@ -7091,4 +7091,364 @@ class AppLocalizationsMs extends AppLocalizations {
   String putrajayaFoodFull(Object place) {
     return '$place merupakan salah satu tempat makan yang boleh dipertimbangkan ketika berada di Putrajaya. Imbas kod QR Google Maps di bawah untuk melihat lokasinya.';
   }
+
+  @override
+  String get gameCreditsEnterPhoneReferenceTitle => 'Masukkan Nombor Telefon';
+
+  @override
+  String get gameCreditsEnterPhoneReferenceSubtitle => 'Masukkan nombor telefon mudah alih Malaysia sebagai rujukan transaksi ini';
+
+  @override
+  String get gameCreditsPhoneReferenceLabel => 'Rujukan Nombor Telefon';
+
+  @override
+  String get gameCreditsPhoneReferenceHint => 'Masukkan nombor telefon';
+
+  @override
+  String get gameCreditsPhoneReferenceNotice => 'Nombor telefon ini hanya digunakan sebagai rujukan transaksi. Ia bukan akaun permainan anda.';
+
+  @override
+  String get gameCreditsPhoneRequired => 'Sila masukkan nombor telefon.';
+
+  @override
+  String get gameCreditsPhoneInvalid => 'Sila masukkan nombor telefon mudah alih Malaysia yang sah dan bermula dengan 01.';
+
+  @override
+  String get digitalVoucherButton => 'Baucar Digital';
+
+  @override
+  String get digitalVoucherSupportingText => 'Beli baucar digital dan kod hadiah';
+
+  @override
+  String get digitalVoucherTitle => 'Baucar Digital';
+
+  @override
+  String get digitalVoucherSubtitle => 'Pilih baucar digital pilihan anda';
+
+  @override
+  String get digitalVoucherSelectValueTitle => 'Pilih Nilai Baucar';
+
+  @override
+  String get digitalVoucherPurchaseSubtitle => 'Pilih nilai atau pakej baucar anda';
+
+  @override
+  String get digitalVoucherCategory => 'Baucar Digital';
+
+  @override
+  String get digitalVoucherImportantNote => 'Nota Penting';
+
+  @override
+  String get digitalVoucherDelivery => 'Penghantaran';
+
+  @override
+  String get digitalVoucherDeliveryPin => 'PIN';
+
+  @override
+  String get digitalVoucherDeliveryLink => 'PAUTAN';
+
+  @override
+  String get digitalVoucherSelectPackage => 'Pilih Pakej';
+
+  @override
+  String get digitalVoucherSelectPackageHint => 'Pilih satu pakej yang tersedia untuk meneruskan';
+
+  @override
+  String get digitalVoucherSelectAmount => 'Pilih Nilai';
+
+  @override
+  String get digitalVoucherSelectAmountHint => 'Pilih satu nilai baucar yang tersedia untuk meneruskan';
+
+  @override
+  String get digitalVoucherNoOptionsAvailable => 'Tiada pilihan baucar tersedia buat masa ini';
+
+  @override
+  String get digitalVoucherTapAmountHint => 'Sentuh ruangan amaun atau gunakan butang untuk memilih nilai baucar';
+
+  @override
+  String digitalVoucherAmountRange(String minimum, String maximum) {
+    return 'Amaun dibenarkan: $minimum - $maximum';
+  }
+
+  @override
+  String get digitalVoucherEnterAmount => 'Masukkan Nilai Baucar';
+
+  @override
+  String get digitalVoucherKeypadHint => 'Gunakan papan kekunci untuk memasukkan nilai baucar';
+
+  @override
+  String get digitalVoucherClear => 'Padam';
+
+  @override
+  String get digitalVoucherDone => 'Selesai';
+
+  @override
+  String get digitalVoucherCancel => 'Batal';
+
+  @override
+  String digitalVoucherMinimumAmount(String amount) {
+    return 'Nilai minimum baucar ialah $amount.';
+  }
+
+  @override
+  String digitalVoucherMaximumAmount(String amount) {
+    return 'Nilai maksimum baucar ialah $amount.';
+  }
+
+  @override
+  String get digitalVoucherOrderSummary => 'Ringkasan Pesanan';
+
+  @override
+  String get digitalVoucherSelectedPackage => 'Pakej Dipilih';
+
+  @override
+  String get digitalVoucherSelectedAmount => 'Nilai Dipilih';
+
+  @override
+  String get digitalVoucherServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get digitalVoucherTotalPayment => 'Jumlah Bayaran';
+
+  @override
+  String get digitalVoucherReviewSelection => 'Semak Pilihan';
+
+  @override
+  String get digitalVoucherProductUnavailable => 'Baucar digital ini tidak tersedia buat masa ini.';
+
+  @override
+  String get digitalVoucherSelectOptionRequired => 'Sila pilih pilihan baucar sebelum meneruskan.';
+
+  @override
+  String get digitalVoucherInvalidAmount => 'Sila masukkan nilai baucar yang sah.';
+
+  @override
+  String get digitalVoucherUnableToLoad => 'Maklumat baucar digital tidak dapat dimuatkan.';
+
+  @override
+  String get digitalVoucherTryAgain => 'Cuba Lagi';
+
+  @override
+  String get digitalVoucherNoteAdidas => 'Masukkan kod baucar di bahagian \'Promo Code\' semasa pembayaran di https://www.adidas.com.my. Baucar ini hanya boleh digunakan untuk akaun berdaftar dan tidak boleh digunakan untuk pembayaran sebagai tetamu.';
+
+  @override
+  String get digitalVoucherNoteDiscord => 'RM43 = 1 bulan, RM432 = 12 bulan.';
+
+  @override
+  String get digitalVoucherNoteEatCakeToday => 'Sah untuk pembelian dalam talian di https://www.eatcaketoday.com. Masukkan kod diskaun pada halaman pembayaran.';
+
+  @override
+  String get digitalVoucherNoteGrabGiftCode => 'Masukkan kod baucar di bahagian \'Use Grab Gifts\' di bawah \'Use Offers\' semasa pembayaran.';
+
+  @override
+  String get digitalVoucherNoteGrabFood => 'Buka Pautan Baucar (URL Pengaktifan) dan tebus dalam aplikasi Grab. Jika menggunakan komputer, imbas kod QR menggunakan telefon bimbit. Pergi ke My Rewards untuk mendapatkan baucar. e-Baucar ini hanya boleh digunakan untuk pembelian GrabFood.';
+
+  @override
+  String get digitalVoucherNoteGrabMart => 'Tebus menggunakan pautan baucar. Buka Pautan Baucar (URL Pengaktifan) dan tebus dalam aplikasi Grab. Jika menggunakan komputer, imbas kod QR menggunakan telefon bimbit. Pergi ke My Rewards untuk mendapatkan baucar.';
+
+  @override
+  String get digitalVoucherNoteShopee => 'Sah selama 3 bulan dari tarikh dikeluarkan. Sah untuk pengguna baharu dan sedia ada serta hanya boleh digunakan sekali. Baucar hanya boleh digunakan di Shopee Mall dan Preferred Sellers. Masukkan kod promo semasa pembayaran dalam aplikasi mudah alih Shopee.';
+
+  @override
+  String get digitalVoucherNoteZalora => '1. Log masuk ke www.zalora.my. 2. Pilih My Store Credit di bawah My Account. 3. Masukkan kod baucar dan pilih Add Credit. 4. Nilai Kad Hadiah akan dipaparkan dalam My Store Credit dan anda boleh mula membeli-belah.';
+
+  @override
+  String get digitalVoucherPaymentTitle => 'Pembayaran Baucar Digital';
+
+  @override
+  String get digitalVoucherPaymentDetails => 'Butiran Baucar';
+
+  @override
+  String get digitalVoucherVoucherValue => 'Nilai Baucar';
+
+  @override
+  String get digitalVoucherOptionDetails => 'Butiran Pakej';
+
+  @override
+  String get digitalVoucherPreparingQrPayment => 'Menyediakan Pembayaran QR';
+
+  @override
+  String get digitalVoucherProcessingTitle => 'Memproses Baucar';
+
+  @override
+  String get digitalVoucherProcessingMessage => 'Bayaran telah diterima. Sila tunggu sementara baucar digital anda diproses.';
+
+  @override
+  String get digitalVoucherProcessingLocked => 'Sila jangan tutup halaman ini semasa baucar anda sedang diproses.';
+
+  @override
+  String get digitalVoucherPaymentInvalidProductTitle => 'Baucar Tidak Sah';
+
+  @override
+  String get digitalVoucherPaymentInvalidProductMessage => 'Baucar digital yang dipilih tidak sah. Sila kembali dan pilih semula baucar.';
+
+  @override
+  String get digitalVoucherPaymentProviderRejected => 'Penyedia baucar telah menolak transaksi ini.';
+
+  @override
+  String get digitalVoucherPaymentProviderRefunded => 'Transaksi baucar telah dikembalikan oleh penyedia.';
+
+  @override
+  String get digitalVoucherPaymentStillProcessing => 'Baucar masih sedang diproses.';
+
+  @override
+  String get digitalVoucherPaymentReference => 'Rujukan Transaksi';
+
+  @override
+  String get digitalVoucherPaymentProviderErrorTitle => 'Ralat Pemprosesan Baucar';
+
+  @override
+  String get digitalVoucherPaymentAlreadyReceivedWarning => 'Bayaran anda telah diterima. Jangan buat pembayaran lain. Sila simpan rujukan transaksi untuk bantuan.';
+
+  @override
+  String get digitalVoucherReceiptTitle => 'Resit Baucar Digital';
+
+  @override
+  String get digitalVoucherReceiptProvider => 'Penyedia Baucar';
+
+  @override
+  String get digitalVoucherReceiptTransactionDetails => 'Butiran Transaksi';
+
+  @override
+  String get digitalVoucherReceiptVoucherDetails => 'Butiran Baucar';
+
+  @override
+  String get digitalVoucherReceiptPaymentDate => 'Tarikh & Masa Pembayaran';
+
+  @override
+  String get digitalVoucherReceiptBankTransaction => 'No. Transaksi Bank';
+
+  @override
+  String get digitalVoucherReceiptSerialNumber => 'Nombor Siri';
+
+  @override
+  String get digitalVoucherReceiptPin => 'PIN';
+
+  @override
+  String get digitalVoucherReceiptExpiry => 'Tarikh Luput';
+
+  @override
+  String get digitalVoucherReceiptVoucherLink => 'Pautan Baucar';
+
+  @override
+  String get digitalVoucherReceiptTotalPaid => 'Jumlah Dibayar';
+
+  @override
+  String get digitalVoucherHowToRedeem => 'Cara Menebus';
+
+  @override
+  String get fuelButton => 'Bahan Api';
+
+  @override
+  String get fuelSupportingText => 'Beli baucar bahan api digital daripada penyedia yang tersedia.';
+
+  @override
+  String get fuelPageTitle => 'BAUCAR BAHAN API';
+
+  @override
+  String get fuelSelectAmountNext => 'Pilih penyedia untuk meneruskan ke pemilihan nilai baucar bahan api.';
+
+  @override
+  String get fuelPurchaseSubtitle => 'Pilih nilai baucar bahan api pilihan anda';
+
+  @override
+  String get fuelDelivery => 'Kaedah Penghantaran';
+
+  @override
+  String get fuelDeliveryPin => 'PIN Baucar';
+
+  @override
+  String get fuelDeliveryLink => 'Pautan Baucar';
+
+  @override
+  String get fuelHowToRedeem => 'CARA MENEBUS';
+
+  @override
+  String get fuelOptionDetails => 'Butiran Pilihan';
+
+  @override
+  String get fuelPaymentAlreadyReceivedWarning => 'Bayaran QR anda telah diterima. Jangan buat bayaran sekali lagi.';
+
+  @override
+  String get fuelPaymentDetails => 'BUTIRAN BAYARAN BAHAN API';
+
+  @override
+  String get fuelPaymentInvalidProductMessage => 'Penyedia bahan api yang dipilih tidak sah. Sila kembali dan pilih semula penyedia.';
+
+  @override
+  String get fuelPaymentInvalidProductTitle => 'Penyedia Bahan Api Tidak Sah';
+
+  @override
+  String get fuelPaymentProviderErrorTitle => 'Ralat Pemprosesan Baucar Bahan Api';
+
+  @override
+  String get fuelPaymentProviderRefunded => 'Penyedia telah memulangkan bayaran transaksi ini.';
+
+  @override
+  String get fuelPaymentProviderRejected => 'Penyedia telah menolak transaksi baucar bahan api ini.';
+
+  @override
+  String get fuelPaymentReference => 'Rujukan Transaksi';
+
+  @override
+  String get fuelPaymentStillProcessing => 'Bayaran anda telah diterima, tetapi baucar bahan api masih sedang diproses.';
+
+  @override
+  String get fuelPaymentTitle => 'BAYARAN BAUCAR BAHAN API';
+
+  @override
+  String get fuelPreparingQrPayment => 'SEDANG MENYEDIAKAN DUITNOW QR';
+
+  @override
+  String get fuelProcessingLocked => 'Jangan tutup halaman ini semasa baucar bahan api anda sedang diproses.';
+
+  @override
+  String get fuelProcessingMessage => 'Bayaran diterima. Kami sedang memproses baucar bahan api anda.';
+
+  @override
+  String get fuelProcessingTitle => 'MEMPROSES BAUCAR BAHAN API';
+
+  @override
+  String get fuelReceiptBankTransaction => 'Nombor Transaksi Bank';
+
+  @override
+  String get fuelReceiptExpiry => 'Tarikh Luput';
+
+  @override
+  String get fuelReceiptPaymentDate => 'Tarikh Bayaran';
+
+  @override
+  String get fuelReceiptPin => 'PIN Baucar';
+
+  @override
+  String get fuelReceiptProvider => 'Penyedia Bahan Api';
+
+  @override
+  String get fuelReceiptSerialNumber => 'Nombor Siri';
+
+  @override
+  String get fuelReceiptTitle => 'RESIT BAUCAR BAHAN API';
+
+  @override
+  String get fuelReceiptTotalPaid => 'JUMLAH DIBAYAR';
+
+  @override
+  String get fuelReceiptTransactionDetails => 'BUTIRAN TRANSAKSI';
+
+  @override
+  String get fuelReceiptVoucherDetails => 'BUTIRAN BAUCAR BAHAN API';
+
+  @override
+  String get fuelReceiptVoucherLink => 'Pautan Baucar';
+
+  @override
+  String get fuelSelectedPackage => 'Pakej Dipilih';
+
+  @override
+  String get fuelServiceAdjustment => 'Pelarasan Perkhidmatan';
+
+  @override
+  String get fuelTotalPayment => 'JUMLAH BAYARAN';
+
+  @override
+  String get fuelVoucherValue => 'Nilai Baucar Bahan Api';
 }

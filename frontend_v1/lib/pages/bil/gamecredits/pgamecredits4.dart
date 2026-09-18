@@ -840,6 +840,28 @@ class _PGAMECREDITS4PAGEState
     debugPrint(
       'Processing         : $_processingTime',
     );
+
+    debugPrint(
+  'OPTION CODE        : ${selected.code}',
+);
+
+    debugPrint(
+      'OPTION NAME        : ${selected.displayName}',
+    );
+
+    debugPrint(
+      'OPTION DESCRIPTION : ${selected.description}',
+    );
+
+    debugPrint(
+      'RM PRICE           : ${selected.priceAmount}',
+    );
+
+    debugPrint(
+      'IIMMPACT AMOUNT    : '
+      '${double.tryParse(selected.code.trim())}',
+    );
+    
     debugPrint(
       '========================================',
     );
@@ -875,6 +897,21 @@ class _PGAMECREDITS4PAGEState
           optionDescription:
               selected.description,
 
+          // ================================================================
+          // DENOMINATION FOR IIMMPACT
+          //
+          // MLBB:
+          // code = "14"
+          // RM price = 1.09
+          // ================================================================
+
+          iimmpactAmount:
+              double.tryParse(
+                selected.code.trim(),
+              ) ??
+              _baseAmount,
+
+          // Customer price
           baseAmount:
               _baseAmount,
 

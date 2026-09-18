@@ -11,6 +11,7 @@ import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:frontend_v1/pages/bil/telco/ptelco3.dart';
 import 'package:frontend_v1/pages/bil/ewallet/pewallet3.dart';
 import 'package:frontend_v1/pages/bil/loan/ploan3.dart';
+import 'package:frontend_v1/pages/bil/digitalvoucher/pdigitalvoucher3.dart';
 
 import 'p2.dart';
 
@@ -19,6 +20,7 @@ import 'package:frontend_v1/pages/bil/idd/piddbill3.dart';
 import 'package:frontend_v1/pages/bil/gamecredits/pgamecredits3.dart';
 
 import 'package:frontend_v1/pages/bil/consolestores/pconsolestores3.dart';
+import 'package:frontend_v1/pages/bil/fuel/pfuel3.dart';
 
 class PBIL3PAGE extends StatefulWidget {
   const PBIL3PAGE({super.key});
@@ -568,12 +570,70 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
 
                       const SizedBox(width: 34),
 
-                      // Keep second column empty for now.
+                      // ============================================================
+                      // DIGITAL VOUCHER
+                      // ============================================================
+                      Expanded(
+                        child: _ModernServiceCard(
+                          height: 455,
+                          icon: Icons.card_giftcard_rounded,
+                          label: loc.digitalVoucherButton,
+                          supportingText: loc.digitalVoucherSupportingText,
+                          accentColor: const Color(0xFFE65175),
+                          accentLightColor: const Color(0xFFFFE7EE),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PDIGITALVOUCHER3PAGE(),
+                              ),
+                            );
+                          },
+                          comingSoon: false,
+                        ),
+                      ),
+                      
+                    ],
+                  ),
+
+                  const SizedBox(height: 34),
+
+                  // ============================================================
+                  // FUEL
+                  // ============================================================
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: _ModernServiceCard(
+                          height: 455,
+                          icon: Icons.local_gas_station_rounded,
+                          label: loc.fuelButton,
+                          supportingText: loc.fuelSupportingText,
+                          accentColor: const Color(0xFFD62828),
+                          accentLightColor: const Color(0xFFFFE5E5),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PFUEL3PAGE(),
+                              ),
+                            );
+                          },
+                          comingSoon: false,
+                        ),
+                      ),
+
+                      const SizedBox(width: 34),
+
+                      // Empty right side keeps Fuel aligned to the left.
                       const Expanded(
                         child: SizedBox(),
                       ),
                     ],
                   ),
+
+                  const SizedBox(height: 34),
                   
                   ],
                 ),
@@ -920,7 +980,8 @@ class _KnowledgeNavigationButtonState
 }
 
 // ============================================================================
-// MODERN PAGE HEADER
+// MODERN + GOVERNMENT PAGE HEADER
+// ONLY THIS WIDGET IS CHANGED
 // ============================================================================
 class _ModernPageHeader extends StatelessWidget {
   final String badgeText;
@@ -935,106 +996,160 @@ class _ModernPageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color accentColor = Color(0xFF1469E8);
-
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 25,
-            vertical: 11,
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
           ),
-          decoration: BoxDecoration(
-            color: accentColor.withOpacity(0.10),
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              color: accentColor.withOpacity(0.25),
-              width: 1.5,
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT ICON
+          // ==========================================================
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF064AA3),
+                  Color(0xFF1478D4),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF095AB8).withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.account_balance_rounded,
+              color: Colors.white,
+              size: 56,
             ),
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.receipt_long_rounded,
-                size: 25,
-                color: accentColor,
-              ),
-              const SizedBox(width: 10),
-              Flexible(
-                child: Text(
-                  badgeText.toUpperCase(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: accentColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 1.3,
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // TEXT AREA
+          // ==========================================================
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Small service badge.
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE9F3FF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.apartment_rounded,
+                        size: 20,
+                        color: Color(0xFF1265BC),
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Text(
+                        badgeText.toUpperCase(),
+                        style: const TextStyle(
+                          color: Color(0xFF1265BC),
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.1,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 18),
-        ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) {
-            return const LinearGradient(
-              colors: [
-                Color(0xFF064CAC),
-                Color(0xFF1987EB),
+
+                const SizedBox(height: 12),
+
+                // Main page title.
+                Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // Subtitle.
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
               ],
-            ).createShader(bounds);
-          },
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 64,
-              fontWeight: FontWeight.w900,
-              letterSpacing: -1.1,
-              height: 1.05,
             ),
           ),
-        ),
-        const SizedBox(height: 15),
-        Container(
-          constraints: const BoxConstraints(maxWidth: 860),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 32,
-            vertical: 15,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.90),
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: Colors.black.withOpacity(0.18),
-              width: 1.5,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF113968).withOpacity(0.10),
-                blurRadius: 24,
-                offset: const Offset(0, 10),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ACCENT BAR
+          // ==========================================================
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF0751A8),
+                  Color(0xFF2196E8),
+                ],
               ),
-            ],
-          ),
-          child: Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xFF435166),
-              fontSize: 25,
-              fontWeight: FontWeight.w700,
-              height: 1.25,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

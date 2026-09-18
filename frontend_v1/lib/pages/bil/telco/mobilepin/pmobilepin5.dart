@@ -916,132 +916,17 @@ class _PMOBILEPIN5PAGEState
           ),
 
           // ==================================================================
-          // HEADER
+          // MODERN + GOVERNMENT HEADER
           // ==================================================================
 
           Positioned(
-            top:
-                50,
-            left:
-                65,
-            right:
-                65,
-            child:
-                Column(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(
-                    horizontal:
-                        24,
-                    vertical:
-                        10,
-                  ),
-                  decoration:
-                      BoxDecoration(
-                    color:
-                        _primaryColor
-                            .withValues(
-                          alpha:
-                              0.10,
-                        ),
-                    borderRadius:
-                        BorderRadius.circular(
-                      100,
-                    ),
-                    border:
-                        Border.all(
-                      color:
-                          _primaryColor
-                              .withValues(
-                            alpha:
-                                0.25,
-                          ),
-                      width:
-                          1.5,
-                    ),
-                  ),
-                  child:
-                      Row(
-                    mainAxisSize:
-                        MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons
-                            .sim_card_download_rounded,
-                        color:
-                            _primaryColor,
-                        size:
-                            30,
-                      ),
-
-                      const SizedBox(
-                        width:
-                            9,
-                      ),
-
-                      Text(
-                        loc.mobilePinNumberServiceLabel
-                            .toUpperCase(),
-                        style:
-                            const TextStyle(
-                          color:
-                              _primaryColor,
-                          fontSize:
-                              21,
-                          fontWeight:
-                              FontWeight.w900,
-                          letterSpacing:
-                              1.3,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(
-                  height:
-                      14,
-                ),
-
-                Text(
-                  loc.mobilePinEnterNumberTitle
-                      .toUpperCase(),
-                  textAlign:
-                      TextAlign.center,
-                  style:
-                      const TextStyle(
-                    color:
-                        _darkColor,
-                    fontSize:
-                        45,
-                    fontWeight:
-                        FontWeight.w900,
-                  ),
-                ),
-
-                const SizedBox(
-                  height:
-                      10,
-                ),
-
-                Text(
-                  loc.mobilePinEnterNumberSubtitle,
-                  textAlign:
-                      TextAlign.center,
-                  style:
-                      const TextStyle(
-                    color:
-                        Color(
-                      0xFF53677E,
-                    ),
-                    fontSize:
-                        27,
-                    fontWeight:
-                        FontWeight.w700,
-                  ),
-                ),
-              ],
+            top: 50,
+            left: 65,
+            right: 65,
+            child: _MobilePinNumberHeader(
+              serviceLabel: loc.mobilePinNumberServiceLabel,
+              title: loc.mobilePinEnterNumberTitle,
+              subtitle: loc.mobilePinEnterNumberSubtitle,
             ),
           ),
 
@@ -1051,7 +936,7 @@ class _PMOBILEPIN5PAGEState
 
           Positioned(
             top:
-                300,
+                350,
             left:
                 70,
             right:
@@ -1387,7 +1272,7 @@ class _PMOBILEPIN5PAGEState
 
           Positioned(
             top:
-                750,
+                850,
             left:
                 80,
             right:
@@ -1470,7 +1355,7 @@ class _PMOBILEPIN5PAGEState
 
           Positioned(
             bottom:
-                200,
+                130,
             left:
                 80,
             right:
@@ -1662,6 +1547,208 @@ class _PMOBILEPIN5PAGEState
                     20,
                 fontWeight:
                     FontWeight.w800,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+// ============================================================================
+// MODERN + GOVERNMENT MOBILE PIN NUMBER HEADER
+// KEEPS EXISTING SERVICE LABEL + TITLE + SUBTITLE
+// ============================================================================
+
+class _MobilePinNumberHeader extends StatelessWidget {
+  final String serviceLabel;
+  final String title;
+  final String subtitle;
+
+  const _MobilePinNumberHeader({
+    required this.serviceLabel,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    const Color accentColor = Color(0xFF1769D2);
+    const Color darkColor = Color(0xFF0D47A1);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(
+          alpha: 0.96,
+        ),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withValues(
+              alpha: 0.14,
+            ),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT ICON
+          // ==========================================================
+
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  darkColor,
+                  Color(0xFF42A5F5),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withValues(
+                    alpha: 0.28,
+                  ),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.sim_card_download_rounded,
+              color: Colors.white,
+              size: 56,
+            ),
+          ),
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // EXISTING TEXT
+          // ==========================================================
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // SERVICE LABEL
+                // ------------------------------------------------------
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE9F3FF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.sim_card_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Flexible(
+                        child: Text(
+                          serviceLabel.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // TITLE
+                // ------------------------------------------------------
+
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 48,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.7,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // SUBTITLE
+                // ------------------------------------------------------
+
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ACCENT BAR
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  darkColor,
+                  Color(0xFF42A5F5),
+                ],
               ),
             ),
           ),

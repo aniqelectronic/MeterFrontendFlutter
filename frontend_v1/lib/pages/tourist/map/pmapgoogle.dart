@@ -922,8 +922,10 @@ class _PMAPGOOGLEPAGEState extends State<PMAPGOOGLEPAGE>
 }
 
 // ============================================================================
-// PREMIUM MAP HEADER
+// MODERN + GOVERNMENT MAP HEADER
+// KEEPS EXISTING BADGE + TITLE + SUBTITLE
 // ============================================================================
+
 class _PremiumMapHeader extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -937,85 +939,183 @@ class _PremiumMapHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.88),
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              color: const Color(0xFFC7A34B).withValues(alpha: 0.45),
-              width: 1.5,
-            ),
+    const Color accentColor = Color(0xFF1769D3);
+    const Color darkAccent = Color(0xFF0B4F9C);
+    const Color lightAccent = Color(0xFF3498E8);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withValues(alpha: 0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.map_rounded, color: Color(0xFF9A7628), size: 25),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT MAP ICON
+          // ==========================================================
 
-              const SizedBox(width: 9),
-
-              Text(
-                badgeText,
-                style: const TextStyle(
-                  color: Color(0xFF8A6A2A),
-                  fontSize: 17,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.5,
-                ),
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  darkAccent,
+                  lightAccent,
+                ],
               ),
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 15),
-
-        ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) {
-            return const LinearGradient(
-              colors: [Color(0xFF223A55), Color(0xFF70869B)],
-            ).createShader(bounds);
-          },
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withValues(alpha: 0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.map_rounded,
               color: Colors.white,
-              fontSize: 65,
-              fontWeight: FontWeight.w900,
-              height: 1.05,
+              size: 56,
             ),
           ),
-        ),
 
-        const SizedBox(height: 10),
+          const SizedBox(width: 28),
 
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.90),
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: const Color(0xFFD4DCE4), width: 1.5),
-          ),
-          child: Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xFF536273),
-              fontSize: 26,
-              fontWeight: FontWeight.w700,
+          // ==========================================================
+          // EXISTING HEADER INFORMATION
+          // ==========================================================
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING BADGE
+                // ------------------------------------------------------
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE9F3FF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.explore_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Flexible(
+                        child: Text(
+                          badgeText.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+
+                Text(
+                  subtitle.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-      ],
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT GOVERNMENT-BLUE ACCENT
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  darkAccent,
+                  lightAccent,
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
-
 class _LiveSuggestionPanel extends StatefulWidget {
   const _LiveSuggestionPanel({
     required this.results,

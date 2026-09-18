@@ -72,6 +72,8 @@ class GameCreditsReceiptData {
   final String expiry;
   final String voucherLink;
 
+  final bool isGameAccount;
+
   const GameCreditsReceiptData({
     required this.gameName,
     required this.productCode,
@@ -93,6 +95,8 @@ class GameCreditsReceiptData {
     required this.pin,
     required this.expiry,
     required this.voucherLink,
+
+    required this.isGameAccount,
   });
 }
 

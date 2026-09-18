@@ -7097,4 +7097,364 @@ class AppLocalizationsEn extends AppLocalizations {
   String putrajayaFoodFull(Object place) {
     return '$place is one of the dining places visitors can consider while in Putrajaya. Scan the Google Maps QR code below to view its location.';
   }
+
+  @override
+  String get gameCreditsEnterPhoneReferenceTitle => 'Enter Phone Number';
+
+  @override
+  String get gameCreditsEnterPhoneReferenceSubtitle => 'Enter your Malaysian mobile number as a reference for this transaction';
+
+  @override
+  String get gameCreditsPhoneReferenceLabel => 'Phone Number Reference';
+
+  @override
+  String get gameCreditsPhoneReferenceHint => 'Enter phone number';
+
+  @override
+  String get gameCreditsPhoneReferenceNotice => 'This phone number is used as a transaction reference only. It is not your game account.';
+
+  @override
+  String get gameCreditsPhoneRequired => 'Please enter a phone number.';
+
+  @override
+  String get gameCreditsPhoneInvalid => 'Please enter a valid Malaysian mobile number beginning with 01.';
+
+  @override
+  String get digitalVoucherButton => 'Digital Voucher';
+
+  @override
+  String get digitalVoucherSupportingText => 'Purchase digital vouchers and gift codes';
+
+  @override
+  String get digitalVoucherTitle => 'Digital Voucher';
+
+  @override
+  String get digitalVoucherSubtitle => 'Select your preferred digital voucher';
+
+  @override
+  String get digitalVoucherSelectValueTitle => 'Select Voucher Value';
+
+  @override
+  String get digitalVoucherPurchaseSubtitle => 'Choose your voucher value or package';
+
+  @override
+  String get digitalVoucherCategory => 'Digital Voucher';
+
+  @override
+  String get digitalVoucherImportantNote => 'Important Note';
+
+  @override
+  String get digitalVoucherDelivery => 'Delivery';
+
+  @override
+  String get digitalVoucherDeliveryPin => 'PIN';
+
+  @override
+  String get digitalVoucherDeliveryLink => 'LINK';
+
+  @override
+  String get digitalVoucherSelectPackage => 'Select Package';
+
+  @override
+  String get digitalVoucherSelectPackageHint => 'Select one available package to continue';
+
+  @override
+  String get digitalVoucherSelectAmount => 'Select Amount';
+
+  @override
+  String get digitalVoucherSelectAmountHint => 'Select one available voucher value to continue';
+
+  @override
+  String get digitalVoucherNoOptionsAvailable => 'No voucher options are currently available';
+
+  @override
+  String get digitalVoucherTapAmountHint => 'Tap the amount box or use the buttons to choose your voucher value';
+
+  @override
+  String digitalVoucherAmountRange(String minimum, String maximum) {
+    return 'Allowed amount: $minimum - $maximum';
+  }
+
+  @override
+  String get digitalVoucherEnterAmount => 'Enter Voucher Amount';
+
+  @override
+  String get digitalVoucherKeypadHint => 'Use the keypad to enter the voucher value';
+
+  @override
+  String get digitalVoucherClear => 'Clear';
+
+  @override
+  String get digitalVoucherDone => 'Done';
+
+  @override
+  String get digitalVoucherCancel => 'Cancel';
+
+  @override
+  String digitalVoucherMinimumAmount(String amount) {
+    return 'The minimum voucher amount is $amount.';
+  }
+
+  @override
+  String digitalVoucherMaximumAmount(String amount) {
+    return 'The maximum voucher amount is $amount.';
+  }
+
+  @override
+  String get digitalVoucherOrderSummary => 'Order Summary';
+
+  @override
+  String get digitalVoucherSelectedPackage => 'Selected Package';
+
+  @override
+  String get digitalVoucherSelectedAmount => 'Selected Amount';
+
+  @override
+  String get digitalVoucherServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get digitalVoucherTotalPayment => 'Total Payment';
+
+  @override
+  String get digitalVoucherReviewSelection => 'Review Selection';
+
+  @override
+  String get digitalVoucherProductUnavailable => 'This digital voucher is currently unavailable.';
+
+  @override
+  String get digitalVoucherSelectOptionRequired => 'Please select a voucher option before continuing.';
+
+  @override
+  String get digitalVoucherInvalidAmount => 'Please enter a valid voucher amount.';
+
+  @override
+  String get digitalVoucherUnableToLoad => 'Unable to load digital voucher information.';
+
+  @override
+  String get digitalVoucherTryAgain => 'Try Again';
+
+  @override
+  String get digitalVoucherNoteAdidas => 'Enter the voucher code in the \'Promo Code\' section during checkout at https://www.adidas.com.my. This voucher is only applicable to registered accounts and cannot be used for guest checkout.';
+
+  @override
+  String get digitalVoucherNoteDiscord => 'RM43 = 1 month, RM432 = 12 months.';
+
+  @override
+  String get digitalVoucherNoteEatCakeToday => 'Valid for online purchases at https://www.eatcaketoday.com. Enter the discount code on the checkout page.';
+
+  @override
+  String get digitalVoucherNoteGrabGiftCode => 'Enter the voucher code under \'Use Grab Gifts\' in the \'Use Offers\' section during checkout.';
+
+  @override
+  String get digitalVoucherNoteGrabFood => 'Open the Voucher Link (Activation URL) and redeem it in the Grab App. If using a computer, scan the QR code with your mobile phone. Go to My Rewards to find the voucher. This e-Voucher is only applicable to GrabFood purchases.';
+
+  @override
+  String get digitalVoucherNoteGrabMart => 'Redeem using the voucher link. Open the Voucher Link (Activation URL) and redeem it in the Grab App. If using a computer, scan the QR code with your mobile phone. Go to My Rewards to find the voucher.';
+
+  @override
+  String get digitalVoucherNoteShopee => 'Valid for 3 months from the date of issue. Valid for new and existing users and for one-time use only. The voucher is applicable to Shopee Mall and Preferred Sellers only. Enter the promo code at checkout in the Shopee Mobile App.';
+
+  @override
+  String get digitalVoucherNoteZalora => '1. Log in to www.zalora.my. 2. Select My Store Credit under My Account. 3. Enter your voucher code and select Add Credit. 4. The Gift Card value will appear in My Store Credit and you may start shopping.';
+
+  @override
+  String get digitalVoucherPaymentTitle => 'Digital Voucher Payment';
+
+  @override
+  String get digitalVoucherPaymentDetails => 'Voucher Details';
+
+  @override
+  String get digitalVoucherVoucherValue => 'Voucher Value';
+
+  @override
+  String get digitalVoucherOptionDetails => 'Package Details';
+
+  @override
+  String get digitalVoucherPreparingQrPayment => 'Preparing QR Payment';
+
+  @override
+  String get digitalVoucherProcessingTitle => 'Processing Voucher';
+
+  @override
+  String get digitalVoucherProcessingMessage => 'Payment received. Please wait while we process your digital voucher.';
+
+  @override
+  String get digitalVoucherProcessingLocked => 'Please do not close this page while your voucher is being processed.';
+
+  @override
+  String get digitalVoucherPaymentInvalidProductTitle => 'Invalid Voucher';
+
+  @override
+  String get digitalVoucherPaymentInvalidProductMessage => 'The selected digital voucher is invalid. Please go back and select the voucher again.';
+
+  @override
+  String get digitalVoucherPaymentProviderRejected => 'The voucher provider rejected the transaction.';
+
+  @override
+  String get digitalVoucherPaymentProviderRefunded => 'The voucher transaction was refunded by the provider.';
+
+  @override
+  String get digitalVoucherPaymentStillProcessing => 'The voucher is still being processed.';
+
+  @override
+  String get digitalVoucherPaymentReference => 'Transaction Reference';
+
+  @override
+  String get digitalVoucherPaymentProviderErrorTitle => 'Voucher Processing Error';
+
+  @override
+  String get digitalVoucherPaymentAlreadyReceivedWarning => 'Your payment has already been received. Do not make another payment. Please keep the transaction reference for assistance.';
+
+  @override
+  String get digitalVoucherReceiptTitle => 'Digital Voucher Receipt';
+
+  @override
+  String get digitalVoucherReceiptProvider => 'Voucher Provider';
+
+  @override
+  String get digitalVoucherReceiptTransactionDetails => 'Transaction Details';
+
+  @override
+  String get digitalVoucherReceiptVoucherDetails => 'Voucher Details';
+
+  @override
+  String get digitalVoucherReceiptPaymentDate => 'Payment Date & Time';
+
+  @override
+  String get digitalVoucherReceiptBankTransaction => 'Bank Transaction No.';
+
+  @override
+  String get digitalVoucherReceiptSerialNumber => 'Serial Number';
+
+  @override
+  String get digitalVoucherReceiptPin => 'PIN';
+
+  @override
+  String get digitalVoucherReceiptExpiry => 'Expiry';
+
+  @override
+  String get digitalVoucherReceiptVoucherLink => 'Voucher Link';
+
+  @override
+  String get digitalVoucherReceiptTotalPaid => 'Total Paid';
+
+  @override
+  String get digitalVoucherHowToRedeem => 'How to Redeem';
+
+  @override
+  String get fuelButton => 'Fuel';
+
+  @override
+  String get fuelSupportingText => 'Purchase digital fuel vouchers from available providers.';
+
+  @override
+  String get fuelPageTitle => 'FUEL VOUCHERS';
+
+  @override
+  String get fuelSelectAmountNext => 'Select the provider to continue to fuel voucher amount selection.';
+
+  @override
+  String get fuelPurchaseSubtitle => 'Select your preferred fuel voucher amount';
+
+  @override
+  String get fuelDelivery => 'Delivery Method';
+
+  @override
+  String get fuelDeliveryPin => 'Voucher PIN';
+
+  @override
+  String get fuelDeliveryLink => 'Voucher Link';
+
+  @override
+  String get fuelHowToRedeem => 'HOW TO REDEEM';
+
+  @override
+  String get fuelOptionDetails => 'Option Details';
+
+  @override
+  String get fuelPaymentAlreadyReceivedWarning => 'Your QR payment has already been received. Do not make another payment.';
+
+  @override
+  String get fuelPaymentDetails => 'FUEL PAYMENT DETAILS';
+
+  @override
+  String get fuelPaymentInvalidProductMessage => 'The selected fuel provider is invalid. Please return and select the provider again.';
+
+  @override
+  String get fuelPaymentInvalidProductTitle => 'Invalid Fuel Provider';
+
+  @override
+  String get fuelPaymentProviderErrorTitle => 'Fuel Voucher Processing Error';
+
+  @override
+  String get fuelPaymentProviderRefunded => 'The provider refunded this transaction.';
+
+  @override
+  String get fuelPaymentProviderRejected => 'The provider rejected this fuel voucher transaction.';
+
+  @override
+  String get fuelPaymentReference => 'Transaction Reference';
+
+  @override
+  String get fuelPaymentStillProcessing => 'Your payment was received, but the fuel voucher is still being processed.';
+
+  @override
+  String get fuelPaymentTitle => 'FUEL VOUCHER PAYMENT';
+
+  @override
+  String get fuelPreparingQrPayment => 'PREPARING DUITNOW QR';
+
+  @override
+  String get fuelProcessingLocked => 'Please do not close this page while your fuel voucher is being processed.';
+
+  @override
+  String get fuelProcessingMessage => 'Payment received. We are processing your fuel voucher.';
+
+  @override
+  String get fuelProcessingTitle => 'PROCESSING FUEL VOUCHER';
+
+  @override
+  String get fuelReceiptBankTransaction => 'Bank Transaction Number';
+
+  @override
+  String get fuelReceiptExpiry => 'Expiry';
+
+  @override
+  String get fuelReceiptPaymentDate => 'Payment Date';
+
+  @override
+  String get fuelReceiptPin => 'Voucher PIN';
+
+  @override
+  String get fuelReceiptProvider => 'Fuel Provider';
+
+  @override
+  String get fuelReceiptSerialNumber => 'Serial Number';
+
+  @override
+  String get fuelReceiptTitle => 'FUEL VOUCHER RECEIPT';
+
+  @override
+  String get fuelReceiptTotalPaid => 'TOTAL PAID';
+
+  @override
+  String get fuelReceiptTransactionDetails => 'TRANSACTION DETAILS';
+
+  @override
+  String get fuelReceiptVoucherDetails => 'FUEL VOUCHER DETAILS';
+
+  @override
+  String get fuelReceiptVoucherLink => 'Voucher Link';
+
+  @override
+  String get fuelSelectedPackage => 'Selected Package';
+
+  @override
+  String get fuelServiceAdjustment => 'Service Adjustment';
+
+  @override
+  String get fuelTotalPayment => 'TOTAL PAYMENT';
+
+  @override
+  String get fuelVoucherValue => 'Fuel Voucher Value';
 }

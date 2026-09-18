@@ -714,8 +714,8 @@ class _PENTERTAINMENTBILL3PAGEState
 // ============================================================================
 // MODERN ENTERTAINMENT HEADER
 // ============================================================================
-class _ModernEntertainmentHeader
-    extends StatelessWidget {
+
+class _ModernEntertainmentHeader extends StatelessWidget {
   final String title;
   final String subtitle;
 
@@ -726,131 +726,170 @@ class _ModernEntertainmentHeader
 
   @override
   Widget build(BuildContext context) {
-    const Color accentColor =
-        Color(0xFFE32675);
+    const Color accentColor = Color(0xFFE32675);
 
-    return Column(
-      children: [
-        Container(
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 10,
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
           ),
-          decoration: BoxDecoration(
-            color:
-                accentColor.withOpacity(0.10),
-            borderRadius:
-                BorderRadius.circular(100),
-            border: Border.all(
-              color:
-                  accentColor.withOpacity(0.25),
-              width: 1.5,
-            ),
-          ),
-          child: const Row(
-            mainAxisSize:
-                MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.live_tv_rounded,
-                color: accentColor,
-                size: 25,
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT ENTERTAINMENT ICON
+          // ==========================================================
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFB21558),
+                  Color(0xFFF04F9A),
+                ],
               ),
-
-              SizedBox(width: 9),
-
-              Text(
-                'ENTERTAINMENT SERVICES',
-                style: TextStyle(
-                  color: accentColor,
-                  fontSize: 17,
-                  fontWeight:
-                      FontWeight.w900,
-                  letterSpacing: 1.4,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
-              ),
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 17),
-
-        ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) {
-            return const LinearGradient(
-              colors: [
-                Color(0xFFB21558),
-                Color(0xFFF04F9A),
               ],
-            ).createShader(bounds);
-          },
-          child: Text(
-            title.toUpperCase(),
-            textAlign:
-                TextAlign.center,
-            maxLines: 2,
-            overflow:
-                TextOverflow.ellipsis,
-            style: const TextStyle(
+            ),
+            child: const Icon(
+              Icons.live_tv_rounded,
               color: Colors.white,
-              fontSize: 61,
-              fontWeight:
-                  FontWeight.w900,
-              height: 1.05,
-              letterSpacing: -0.7,
+              size: 56,
             ),
           ),
-        ),
 
-        const SizedBox(height: 14),
+          const SizedBox(width: 28),
 
-        Container(
-          constraints:
-              const BoxConstraints(
-            maxWidth: 850,
-          ),
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 30,
-            vertical: 14,
-          ),
-          decoration: BoxDecoration(
-            color:
-                Colors.white.withOpacity(0.92),
-            borderRadius:
-                BorderRadius.circular(23),
-            border: Border.all(
-              color: Colors.black
-                  .withOpacity(0.17),
-              width: 1.5,
+          // ==========================================================
+          // TEXT AREA
+          // ==========================================================
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING BADGE
+                // ------------------------------------------------------
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFE9F2),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.live_tv_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      SizedBox(width: 8),
+
+                      Text(
+                        'ENTERTAINMENT SERVICES',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: accentColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+                Text(
+                  subtitle.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
             ),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(
-                  0xFF6A1842,
-                ).withOpacity(0.10),
-                blurRadius: 22,
-                offset:
-                    const Offset(0, 9),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ENTERTAINMENT ACCENT
+          // ==========================================================
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFFB21558),
+                  Color(0xFFF04F9A),
+                ],
               ),
-            ],
-          ),
-          child: Text(
-            subtitle.toUpperCase(),
-            textAlign:
-                TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xFF435166),
-              fontSize: 28,
-              fontWeight:
-                  FontWeight.w700,
-              height: 1.2,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

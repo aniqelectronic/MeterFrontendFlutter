@@ -84,36 +84,159 @@ class P5SingleCompoundScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(AppLocalizations loc) {
-    return Positioned(
-      top: 70,
-      left: 0,
-      right: 0,
-      child: Column(
-        children: [
-          Text(
-            loc.p5SingleCompoundTitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: _primaryBlue,
-              fontSize: 64,
-              fontWeight: FontWeight.w900,
-              letterSpacing: 1.2,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            width: 110,
-            height: 6,
-            decoration: BoxDecoration(
-              color: _primaryBlue,
-              borderRadius: BorderRadius.circular(999),
-            ),
+Widget _buildTitle(AppLocalizations loc) {
+  return Positioned(
+    top: 45,
+    left: 85,
+    right: 85,
+    child: Container(
+      height: 145,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 28,
+            offset: const Offset(0, 12),
           ),
         ],
       ),
-    );
-  }
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Subtle background decoration
+          Positioned(
+            left: -35,
+            top: -55,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _primaryBlue.withOpacity(0.045),
+              ),
+            ),
+          ),
+
+          Positioned(
+            right: -25,
+            bottom: -65,
+            child: Container(
+              width: 145,
+              height: 145,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFF1987EB).withOpacity(0.045),
+              ),
+            ),
+          ),
+
+          // ==========================================================
+          // ICON + EXISTING TITLE
+          // ==========================================================
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 88,
+                height: 88,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFF064AA3),
+                      Color(0xFF1787E5),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(26),
+                  boxShadow: [
+                    BoxShadow(
+                      color: _primaryBlue.withOpacity(0.24),
+                      blurRadius: 16,
+                      offset: const Offset(0, 7),
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.gavel_rounded,
+                  color: Colors.white,
+                  size: 52,
+                ),
+              ),
+
+              const SizedBox(width: 25),
+
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: 650,
+                    ),
+                    child: Text(
+                      loc.p5SingleCompoundTitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: _darkBlue,
+                        fontSize: 45,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 0.4,
+                        height: 0.98,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 11),
+
+                  // Accent line
+                  Row(
+                    children: [
+                      Container(
+                        width: 105,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xFF075FD8),
+                              Color(0xFF2196E8),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+
+                      const SizedBox(width: 7),
+
+                      Container(
+                        width: 15,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF2196E8)
+                              .withOpacity(0.25),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
   Widget _buildCompoundCard(
     BuildContext context,

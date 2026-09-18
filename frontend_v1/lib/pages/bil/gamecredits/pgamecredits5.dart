@@ -11,29 +11,25 @@ import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 // ============================================================================
 // GAME CREDITS PAGE 5
 //
-// PURPOSE:
+// NEW FLOW:
 //
-// - Review selected game credit package
-// - Read product fields from /v2/catalog
-// - Detect role == account dynamically
-// - If account/player ID is required:
-//      ask user to enter it
-// - If no account field:
-//      no input required
-// - Continue to GameCreditsQrPaymentPage
+// IF catalog has:
+//   role == account
 //
-// CURRENT CATALOG EXAMPLES:
-//
-// FCMOBILEFC:
-//   package only
-//   no account required
-//
-// FF:
+// Example:
+//   Free Fire
 //   player_id
-//   role = account
-//   input_mode = numeric
 //
-// Nothing below hardcodes FF or FCMOBILEFC.
+// THEN:
+//   Ask for actual game account / Player ID.
+//
+// OTHERWISE:
+//   Ask for Malaysian phone number.
+//   Phone number is only a transaction/reference number.
+//   It is NOT described as the user's game account.
+//
+// Both values are sent to IIMMPACT through the "account" parameter because
+// /v2/topup expects an account/reference value.
 // ============================================================================
 
 class PGAMECREDITS5PAGE extends StatefulWidget {
@@ -52,6 +48,8 @@ class PGAMECREDITS5PAGE extends StatefulWidget {
   final double totalAmount;
 
   final String processingTime;
+  final double iimmpactAmount;
+
 
   const PGAMECREDITS5PAGE({
     super.key,
@@ -66,6 +64,7 @@ class PGAMECREDITS5PAGE extends StatefulWidget {
     required this.adjustmentAmount,
     required this.totalAmount,
     required this.processingTime,
+    required this.iimmpactAmount,
   });
 
   @override
@@ -79,11 +78,8 @@ class _PGAMECREDITS5PAGEState
   // CONTROLLER
   // ==========================================================================
 
-  final TextEditingController _accountController =
+  final TextEditingController _referenceController =
       TextEditingController();
-
-  final FocusNode _accountFocusNode =
-      FocusNode();
 
   // ==========================================================================
   // PRODUCT DATA
@@ -117,7 +113,7 @@ class _PGAMECREDITS5PAGEState
       Color(0xFFD93A3A);
 
   // ==========================================================================
-  // BASIC VALUES
+  // BASIC
   // ==========================================================================
 
   String get _code =>
@@ -150,12 +146,23 @@ class _PGAMECREDITS5PAGEState
   }
 
   // ==========================================================================
-  // ACCOUNT FIELD
+  // DOES THIS PRODUCT HAVE AN ACTUAL GAME ACCOUNT FIELD?
+  //
+  // We do NOT hardcode Free Fire.
+  //
+  // Catalog decides:
+  // role == account
   // ==========================================================================
 
-  bool get _accountRequired =>
-      _accountField != null &&
+  bool get _hasGameAccountField =>
+      _accountField != null;
+
+  bool get _gameAccountRequired =>
       _accountField?['required'] == true;
+
+  // ==========================================================================
+  // CATALOG ACCOUNT FIELD
+  // ==========================================================================
 
   String get _accountFieldId =>
       _accountField?['id']
@@ -163,40 +170,32 @@ class _PGAMECREDITS5PAGEState
               .trim() ??
           '';
 
-  String get _accountFieldLabel {
-    final String value =
-        _accountField?['label']
-                ?.toString()
-                .trim() ??
-            '';
+  String get _catalogAccountLabel =>
+      _accountField?['label']
+              ?.toString()
+              .trim() ??
+          '';
 
-    return value;
-  }
+  String get _catalogAccountPlaceholder =>
+      _accountField?['placeholder']
+              ?.toString()
+              .trim() ??
+          '';
 
-  String get _accountPlaceholder {
-    final String value =
-        _accountField?['placeholder']
-                ?.toString()
-                .trim() ??
-            '';
-
-    return value;
-  }
-
-  String get _accountInputMode =>
+  String get _catalogInputMode =>
       _accountField?['input_mode']
               ?.toString()
               .trim()
               .toLowerCase() ??
           'text';
 
-  bool get _numericAccount =>
-      _accountInputMode == 'numeric' ||
-      _accountInputMode == 'number' ||
-      _accountInputMode == 'tel';
+  bool get _catalogNumeric =>
+      _catalogInputMode == 'numeric' ||
+      _catalogInputMode == 'number' ||
+      _catalogInputMode == 'tel';
 
   // ==========================================================================
-  // VALIDATION
+  // CATALOG VALIDATION
   // ==========================================================================
 
   String get _validationPattern {
@@ -208,20 +207,6 @@ class _PGAMECREDITS5PAGEState
     }
 
     return validationRaw['pattern']
-            ?.toString()
-            .trim() ??
-        '';
-  }
-
-  String get _validationMessage {
-    final dynamic validationRaw =
-        _accountField?['validation'];
-
-    if (validationRaw is! Map) {
-      return '';
-    }
-
-    return validationRaw['message']
             ?.toString()
             .trim() ??
         '';
@@ -240,14 +225,13 @@ class _PGAMECREDITS5PAGEState
 
   @override
   void dispose() {
-    _accountController.dispose();
-    _accountFocusNode.dispose();
+    _referenceController.dispose();
 
     super.dispose();
   }
 
   // ==========================================================================
-  // LOAD PRODUCT
+  // LOAD CATALOG PRODUCT
   // ==========================================================================
 
   Future<void> _loadProduct() async {
@@ -260,8 +244,7 @@ class _PGAMECREDITS5PAGEState
 
     try {
       final Map<String, dynamic> catalog =
-          await IimmpactCatalogService
-              .getCatalog();
+          await IimmpactCatalogService.getCatalog();
 
       final dynamic productsRaw =
           catalog['products'];
@@ -293,9 +276,17 @@ class _PGAMECREDITS5PAGEState
       }
 
       // ======================================================================
-      // FIND ACCOUNT FIELD
+      // FIND ACTUAL GAME ACCOUNT FIELD
       //
-      // role == account
+      // Example:
+      //
+      // Free Fire:
+      // {
+      //   "id": "player_id",
+      //   "label": "Player ID",
+      //   "role": "account",
+      //   "required": true
+      // }
       // ======================================================================
 
       Map<String, dynamic>? accountField;
@@ -304,8 +295,7 @@ class _PGAMECREDITS5PAGEState
           product['fields'];
 
       if (fieldsRaw is List) {
-        for (final dynamic rawField
-            in fieldsRaw) {
+        for (final dynamic rawField in fieldsRaw) {
           if (rawField is! Map) {
             continue;
           }
@@ -323,9 +313,7 @@ class _PGAMECREDITS5PAGEState
                   '';
 
           if (role == 'account') {
-            accountField =
-                field;
-
+            accountField = field;
             break;
           }
         }
@@ -336,17 +324,13 @@ class _PGAMECREDITS5PAGEState
       }
 
       setState(() {
-        _product =
-            product;
+        _product = product;
+        _accountField = accountField;
 
-        _accountField =
-            accountField;
+        _isLoading = false;
+        _errorMessage = null;
 
-        _isLoading =
-            false;
-
-        _errorMessage =
-            null;
+        _referenceController.clear();
       });
 
       debugPrint('');
@@ -360,16 +344,20 @@ class _PGAMECREDITS5PAGEState
         '========================================',
       );
       debugPrint(
-        'Product       : $_code',
+        'Product            : $_code',
       );
       debugPrint(
-        'Account Field : $_accountFieldId',
+        'Has Game Account   : $_hasGameAccountField',
       );
       debugPrint(
-        'Account Req   : $_accountRequired',
+        'Account Field      : $_accountFieldId',
       );
       debugPrint(
-        'Input Mode    : $_accountInputMode',
+        'Game Account Req   : $_gameAccountRequired',
+      );
+      debugPrint(
+        'Reference Type     : '
+        '${_hasGameAccountField ? 'GAME ACCOUNT' : 'PHONE REFERENCE'}',
       );
       debugPrint(
         '========================================',
@@ -381,13 +369,11 @@ class _PGAMECREDITS5PAGEState
       );
     } catch (error, stackTrace) {
       debugPrint(
-        'Game Credits Page 5 error: '
-        '$error',
+        'Game Credits Page 5 error: $error',
       );
 
       debugPrintStack(
-        stackTrace:
-            stackTrace,
+        stackTrace: stackTrace,
       );
 
       _setError(
@@ -395,6 +381,10 @@ class _PGAMECREDITS5PAGEState
       );
     }
   }
+
+  // ==========================================================================
+  // ERROR
+  // ==========================================================================
 
   void _setError(
     String message,
@@ -404,11 +394,8 @@ class _PGAMECREDITS5PAGEState
     }
 
     setState(() {
-      _errorMessage =
-          message;
-
-      _isLoading =
-          false;
+      _errorMessage = message;
+      _isLoading = false;
     });
   }
 
@@ -422,18 +409,6 @@ class _PGAMECREDITS5PAGEState
     return 'RM ${amount.toStringAsFixed(2)}';
   }
 
-  String _formatSignedMoney(
-    double amount,
-  ) {
-    final String sign =
-        amount >= 0
-            ? '+'
-            : '-';
-
-    return '$sign RM '
-        '${amount.abs().toStringAsFixed(2)}';
-  }
-
   // ==========================================================================
   // KEYPAD
   // ==========================================================================
@@ -442,101 +417,145 @@ class _PGAMECREDITS5PAGEState
     String number,
   ) {
     final String current =
-        _accountController.text;
+        _referenceController.text;
 
-    if (current.length >= 30) {
+    // Phone max = 11.
+    // Game account allows longer IDs.
+    final int maxLength =
+        _hasGameAccountField
+            ? 30
+            : 11;
+
+    if (current.length >= maxLength) {
       return;
     }
 
     setState(() {
-      _accountController.text =
+      _referenceController.text =
           '$current$number';
 
-      _accountController.selection =
+      _referenceController.selection =
           TextSelection.collapsed(
         offset:
-            _accountController
-                .text.length,
+            _referenceController
+                .text
+                .length,
       );
     });
   }
 
   void _backspace() {
     final String current =
-        _accountController.text;
+        _referenceController.text;
 
     if (current.isEmpty) {
       return;
     }
 
     setState(() {
-      _accountController.text =
+      _referenceController.text =
           current.substring(
         0,
         current.length - 1,
       );
 
-      _accountController.selection =
+      _referenceController.selection =
           TextSelection.collapsed(
         offset:
-            _accountController
-                .text.length,
+            _referenceController
+                .text
+                .length,
       );
     });
   }
 
-  void _clearAccount() {
+  void _clearReference() {
     setState(() {
-      _accountController.clear();
+      _referenceController.clear();
     });
   }
 
   // ==========================================================================
-  // VALIDATE ACCOUNT
+  // VALIDATE
   // ==========================================================================
 
-  bool _validateAccount() {
-    if (!_accountRequired) {
-      return true;
-    }
-
-    final String value =
-        _accountController.text.trim();
-
+  bool _validateReference() {
     final AppLocalizations loc =
         AppLocalizations.of(context)!;
 
+    final String value =
+        _referenceController.text.trim();
+
+    // ========================================================================
+    // GAME ACCOUNT MODE
+    //
+    // Use catalog validation.
+    // ========================================================================
+
+    if (_hasGameAccountField) {
+      if (_gameAccountRequired &&
+          value.isEmpty) {
+        _showMessage(
+          loc.gameCreditsAccountRequired,
+        );
+
+        return false;
+      }
+
+      final String pattern =
+          _validationPattern;
+
+      if (pattern.isNotEmpty &&
+          value.isNotEmpty) {
+        try {
+          final RegExp regex =
+              RegExp(
+            pattern,
+          );
+
+          if (!regex.hasMatch(value)) {
+            _showMessage(
+              loc.gameCreditsAccountInvalid,
+            );
+
+            return false;
+          }
+        } catch (error) {
+          debugPrint(
+            'Invalid catalog account regex: '
+            '$pattern | $error',
+          );
+        }
+      }
+
+      return true;
+    }
+
+    // ========================================================================
+    // PHONE REFERENCE MODE
+    //
+    // Malaysian mobile:
+    // - numeric
+    // - starts 01
+    // - 9 - 11 digits
+    // ========================================================================
+
     if (value.isEmpty) {
       _showMessage(
-        loc.gameCreditsAccountRequired,
+        loc.gameCreditsPhoneRequired,
       );
 
       return false;
     }
 
-    final String pattern =
-        _validationPattern;
+    if (!RegExp(
+      r'^01[0-9]{7,9}$',
+    ).hasMatch(value)) {
+      _showMessage(
+        loc.gameCreditsPhoneInvalid,
+      );
 
-    if (pattern.isNotEmpty) {
-      try {
-        final RegExp regex =
-            RegExp(
-          pattern,
-        );
-
-        if (!regex.hasMatch(value)) {
-          _showMessage(
-            loc.gameCreditsAccountInvalid,
-          );
-
-          return false;
-        }
-      } catch (error) {
-        debugPrint(
-          'Invalid account regex from catalog: '
-          '$pattern | $error',
-        );
-      }
+      return false;
     }
 
     return true;
@@ -547,16 +566,37 @@ class _PGAMECREDITS5PAGEState
   // ==========================================================================
 
   Future<void> _handleContinue() async {
-    if (!_validateAccount()) {
+    if (!_validateReference()) {
       return;
     }
 
-    final String account =
-        _accountRequired
-            ? _accountController
-                .text
-                .trim()
-            : '';
+    final String reference =
+        _referenceController.text.trim();
+
+    // ========================================================================
+    // ACCOUNT LABEL FOR PAYMENT / RECEIPT
+    //
+    // Free Fire:
+    // "Player ID"
+    //
+    // Other products:
+    // localized "Phone Number Reference"
+    // ========================================================================
+
+    final AppLocalizations loc =
+        AppLocalizations.of(context)!;
+
+    final String accountLabel =
+        _hasGameAccountField
+            ? (
+                _catalogAccountLabel
+                        .isNotEmpty
+                    ? _catalogAccountLabel
+                    : loc
+                        .gameCreditsAccountLabel
+              )
+            : loc
+                .gameCreditsPhoneReferenceLabel;
 
     await Navigator.push(
       context,
@@ -580,22 +620,16 @@ class _PGAMECREDITS5PAGEState
               widget.optionDescription,
 
           // ================================================================
-          // IMPORTANT
-          //
-          // Game Credit fulfillment in catalog:
-          //
-          // selected option
-          //      ↓
-          // price.amount
-          //      ↓
-          // amount sent to IIMMPACT
-          //
-          // Therefore this is baseAmount.
+          // DENOMINATION SENT TO IIMMPACT
+          // MLBB example = 14
           // ================================================================
 
           iimmpactAmount:
-              widget.baseAmount,
+              widget.iimmpactAmount,
 
+          // ================================================================
+          // FULFILLMENT AMOUNT
+          // ================================================================
           baseAmount:
               widget.baseAmount,
 
@@ -605,14 +639,31 @@ class _PGAMECREDITS5PAGEState
           totalAmount:
               widget.totalAmount,
 
-          account:
-              account,
+          // ================================================================
+          // IMPORTANT
+          //
+          // Free Fire:
+          // account = Player ID
+          //
+          // Others:
+          // account = phone reference
+          // ================================================================
 
+          account:
+              reference,
+
+          // Always true now because Page 5 always
+          // provides either Player ID or phone reference.
           accountRequired:
-              _accountRequired,
+              true,
 
           accountLabel:
-              _accountFieldLabel,
+              accountLabel,
+
+          // Allows payment/receipt UI to distinguish
+          // actual game account vs reference phone.
+          isGameAccount:
+              _hasGameAccountField,
 
           processingTime:
               widget.processingTime,
@@ -638,8 +689,7 @@ class _PGAMECREDITS5PAGEState
           Positioned.fill(
             child: Image.asset(
               'lib/images/pnew.png',
-              fit:
-                  BoxFit.cover,
+              fit: BoxFit.cover,
             ),
           ),
 
@@ -656,8 +706,7 @@ class _PGAMECREDITS5PAGEState
                           ? const Center(
                               child:
                                   CircularProgressIndicator(
-                                strokeWidth:
-                                    6,
+                                strokeWidth: 6,
                                 color:
                                     _primaryColor,
                               ),
@@ -699,10 +748,8 @@ class _PGAMECREDITS5PAGEState
       ),
       padding:
           const EdgeInsets.symmetric(
-        horizontal:
-            32,
-        vertical:
-            22,
+        horizontal: 32,
+        vertical: 22,
       ),
       decoration:
           BoxDecoration(
@@ -713,15 +760,9 @@ class _PGAMECREDITS5PAGEState
         gradient:
             const LinearGradient(
           colors: [
-            Color(
-              0xFF087A70,
-            ),
-            Color(
-              0xFF009688,
-            ),
-            Color(
-              0xFF35B7A8,
-            ),
+            Color(0xFF087A70),
+            Color(0xFF009688),
+            Color(0xFF35B7A8),
           ],
         ),
       ),
@@ -736,8 +777,7 @@ class _PGAMECREDITS5PAGEState
             ),
             decoration:
                 BoxDecoration(
-              color:
-                  Colors.white,
+              color: Colors.white,
               borderRadius:
                   BorderRadius.circular(
                 22,
@@ -750,8 +790,7 @@ class _PGAMECREDITS5PAGEState
           ),
 
           const SizedBox(
-            width:
-                24,
+            width: 24,
           ),
 
           Expanded(
@@ -760,26 +799,21 @@ class _PGAMECREDITS5PAGEState
                   CrossAxisAlignment.start,
               children: [
                 Text(
-                  _productName
-                      .toUpperCase(),
-                  maxLines:
-                      2,
+                  _productName.toUpperCase(),
+                  maxLines: 2,
                   overflow:
                       TextOverflow.ellipsis,
                   style:
                       const TextStyle(
-                    color:
-                        Colors.white,
-                    fontSize:
-                        35,
+                    color: Colors.white,
+                    fontSize: 35,
                     fontWeight:
                         FontWeight.w900,
                   ),
                 ),
 
                 const SizedBox(
-                  height:
-                      6,
+                  height: 6,
                 ),
 
                 Text(
@@ -788,8 +822,7 @@ class _PGAMECREDITS5PAGEState
                       const TextStyle(
                     color:
                         Colors.white70,
-                    fontSize:
-                        23,
+                    fontSize: 23,
                     fontWeight:
                         FontWeight.w700,
                   ),
@@ -799,12 +832,9 @@ class _PGAMECREDITS5PAGEState
           ),
 
           const Icon(
-            Icons
-                .verified_user_rounded,
-            color:
-                Colors.white,
-            size:
-                58,
+            Icons.verified_user_rounded,
+            color: Colors.white,
+            size: 58,
           ),
         ],
       ),
@@ -833,18 +863,22 @@ class _PGAMECREDITS5PAGEState
           ),
 
           const SizedBox(
-            height:
-                26,
+            height: 26,
           ),
 
-          if (_accountRequired)
-            _buildAccountCard(
-              loc,
-            )
-          else
-            _buildNoAccountCard(
-              loc,
-            ),
+          // ==================================================================
+          // ALWAYS SHOW AN INPUT PAGE
+          //
+          // Actual account field:
+          // Player ID etc.
+          //
+          // Otherwise:
+          // Phone transaction reference.
+          // ==================================================================
+
+          _buildReferenceCard(
+            loc,
+          ),
         ],
       ),
     );
@@ -866,8 +900,7 @@ class _PGAMECREDITS5PAGEState
       ),
       decoration:
           BoxDecoration(
-        color:
-            Colors.white,
+        color: Colors.white,
         borderRadius:
             BorderRadius.circular(
           28,
@@ -878,8 +911,7 @@ class _PGAMECREDITS5PAGEState
               const Color(
             0xFFD3DCE8,
           ),
-          width:
-              2,
+          width: 2,
         ),
       ),
       child: Column(
@@ -894,16 +926,14 @@ class _PGAMECREDITS5PAGEState
                   Color(
                 0xFF102A43,
               ),
-              fontSize:
-                  33,
+              fontSize: 33,
               fontWeight:
                   FontWeight.w900,
             ),
           ),
 
           const SizedBox(
-            height:
-                24,
+            height: 24,
           ),
 
           _infoRow(
@@ -912,8 +942,7 @@ class _PGAMECREDITS5PAGEState
           ),
 
           const Divider(
-            height:
-                34,
+            height: 34,
           ),
 
           _infoRow(
@@ -925,8 +954,7 @@ class _PGAMECREDITS5PAGEState
               .trim()
               .isNotEmpty) ...[
             const Divider(
-              height:
-                  34,
+              height: 34,
             ),
 
             _infoRow(
@@ -936,8 +964,7 @@ class _PGAMECREDITS5PAGEState
           ],
 
           const Divider(
-            height:
-                34,
+            height: 34,
           ),
 
           _infoRow(
@@ -945,8 +972,7 @@ class _PGAMECREDITS5PAGEState
             _formatMoney(
               widget.totalAmount,
             ),
-            highlight:
-                true,
+            highlight: true,
           ),
         ],
       ),
@@ -954,16 +980,38 @@ class _PGAMECREDITS5PAGEState
   }
 
   // ==========================================================================
-  // ACCOUNT INPUT
+  // REFERENCE CARD
   // ==========================================================================
 
-  Widget _buildAccountCard(
+  Widget _buildReferenceCard(
     AppLocalizations loc,
   ) {
-    final String title =
-        _accountFieldLabel.isNotEmpty
-            ? _accountFieldLabel
-            : loc.gameCreditsAccountLabel;
+    final bool gameAccount =
+        _hasGameAccountField;
+
+    final String fieldLabel =
+        gameAccount
+            ? (
+                _catalogAccountLabel
+                        .isNotEmpty
+                    ? _catalogAccountLabel
+                    : loc
+                        .gameCreditsAccountLabel
+              )
+            : loc
+                .gameCreditsPhoneReferenceLabel;
+
+    final String hint =
+        gameAccount
+            ? (
+                _catalogAccountPlaceholder
+                        .isNotEmpty
+                    ? _catalogAccountPlaceholder
+                    : loc
+                        .gameCreditsAccountHint
+              )
+            : loc
+                .gameCreditsPhoneReferenceHint;
 
     return Container(
       width:
@@ -974,8 +1022,7 @@ class _PGAMECREDITS5PAGEState
       ),
       decoration:
           BoxDecoration(
-        color:
-            Colors.white,
+        color: Colors.white,
         borderRadius:
             BorderRadius.circular(
           28,
@@ -983,32 +1030,33 @@ class _PGAMECREDITS5PAGEState
         border:
             Border.all(
           color:
-              _primaryColor
-                  .withOpacity(
+              _primaryColor.withOpacity(
             0.35,
           ),
-          width:
-              2,
+          width: 2,
         ),
       ),
       child: Column(
         children: [
-          const Icon(
-            Icons
-                .person_search_rounded,
+          Icon(
+            gameAccount
+                ? Icons.person_search_rounded
+                : Icons.phone_iphone_rounded,
             color:
                 _primaryColor,
-            size:
-                72,
+            size: 72,
           ),
 
           const SizedBox(
-            height:
-                18,
+            height: 18,
           ),
 
           Text(
-            loc.gameCreditsEnterAccountTitle,
+            gameAccount
+                ? loc
+                    .gameCreditsEnterAccountTitle
+                : loc
+                    .gameCreditsEnterPhoneReferenceTitle,
             textAlign:
                 TextAlign.center,
             style:
@@ -1017,20 +1065,22 @@ class _PGAMECREDITS5PAGEState
                   Color(
                 0xFF102A43,
               ),
-              fontSize:
-                  34,
+              fontSize: 34,
               fontWeight:
                   FontWeight.w900,
             ),
           ),
 
           const SizedBox(
-            height:
-                10,
+            height: 10,
           ),
 
           Text(
-            loc.gameCreditsEnterAccountSubtitle,
+            gameAccount
+                ? loc
+                    .gameCreditsEnterAccountSubtitle
+                : loc
+                    .gameCreditsEnterPhoneReferenceSubtitle,
             textAlign:
                 TextAlign.center,
             style:
@@ -1039,31 +1089,29 @@ class _PGAMECREDITS5PAGEState
                   Color(
                 0xFF66758A,
               ),
-              fontSize:
-                  28,
+              fontSize: 28,
+              height: 1.3,
               fontWeight:
                   FontWeight.w600,
             ),
           ),
 
           const SizedBox(
-            height:
-                26,
+            height: 26,
           ),
 
           Align(
             alignment:
                 Alignment.centerLeft,
             child: Text(
-              title,
+              fieldLabel,
               style:
                   const TextStyle(
                 color:
                     Color(
                   0xFF17283E,
                 ),
-                fontSize:
-                    30,
+                fontSize: 30,
                 fontWeight:
                     FontWeight.w900,
               ),
@@ -1071,63 +1119,66 @@ class _PGAMECREDITS5PAGEState
           ),
 
           const SizedBox(
-            height:
-                20,
+            height: 20,
           ),
+
+          // ==================================================================
+          // INPUT
+          //
+          // Use kiosk keypad.
+          // ==================================================================
 
           TextField(
             controller:
-                _accountController,
-            focusNode:
-                _accountFocusNode,
-            readOnly:
-                _numericAccount,
+                _referenceController,
+
+            readOnly: true,
+
             keyboardType:
-                _numericAccount
-                    ? TextInputType.none
-                    : TextInputType.text,
+                TextInputType.none,
+
             inputFormatters:
-                _numericAccount
-                    ? <TextInputFormatter>[
-                        FilteringTextInputFormatter
-                            .digitsOnly,
-                      ]
-                    : null,
+                <TextInputFormatter>[
+              FilteringTextInputFormatter
+                  .digitsOnly,
+            ],
+
             style:
                 const TextStyle(
-              fontSize:
-                  34,
+              fontSize: 36,
               fontWeight:
                   FontWeight.w900,
             ),
+
             decoration:
                 InputDecoration(
               hintText:
-                  _accountPlaceholder.isNotEmpty
-                      ? _accountPlaceholder
-                      : loc.gameCreditsAccountHint,
+                  hint,
+
               hintStyle:
                   const TextStyle(
-                fontSize:
-                    30,
+                fontSize: 28,
                 color:
                     Color(
                   0xFF8A98A8,
                 ),
+                fontWeight:
+                    FontWeight.w700,
               ),
+
               contentPadding:
                   const EdgeInsets.symmetric(
-                horizontal:
-                    24,
-                vertical:
-                    24,
+                horizontal: 24,
+                vertical: 25,
               ),
-              filled:
-                  true,
+
+              filled: true,
+
               fillColor:
                   const Color(
                 0xFFF7FAFC,
               ),
+
               enabledBorder:
                   OutlineInputBorder(
                 borderRadius:
@@ -1140,10 +1191,10 @@ class _PGAMECREDITS5PAGEState
                       Color(
                     0xFFC9D5E2,
                   ),
-                  width:
-                      2,
+                  width: 2,
                 ),
               ),
+
               focusedBorder:
                   OutlineInputBorder(
                 borderRadius:
@@ -1154,138 +1205,94 @@ class _PGAMECREDITS5PAGEState
                     const BorderSide(
                   color:
                       _primaryColor,
-                  width:
-                      3,
+                  width: 3,
                 ),
               ),
             ),
           ),
 
-          if (_numericAccount) ...[
-            const SizedBox(
-              height:
-                  24,
-            ),
-
-            _buildKeypad(
-              loc,
-            ),
-          ],
-
           const SizedBox(
-            height:
-                40,
+            height: 24,
           ),
 
-          Text(
-            loc.gameCreditsCheckAccountMessage,
-            textAlign:
-                TextAlign.center,
-            style:
-                const TextStyle(
-              color:
-                  Color(
-                0xFF657386,
-              ),
-              fontSize:
-                  30,
-              fontWeight:
-                  FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ==========================================================================
-  // NO ACCOUNT REQUIRED
-  // ==========================================================================
-
-  Widget _buildNoAccountCard(
-    AppLocalizations loc,
-  ) {
-    return Container(
-      width:
-          double.infinity,
-      padding:
-          const EdgeInsets.all(
-        34,
-      ),
-      decoration:
-          BoxDecoration(
-        color:
-            const Color(
-          0xFFEAF8F3,
-        ),
-        borderRadius:
-            BorderRadius.circular(
-          28,
-        ),
-        border:
-            Border.all(
-          color:
-              const Color(
-            0xFF87CDB4,
-          ),
-          width:
-              2,
-        ),
-      ),
-      child: Column(
-        children: [
-          const Icon(
-            Icons
-                .check_circle_rounded,
-            color:
-                _greenColor,
-            size:
-                78,
+          _buildKeypad(
+            loc,
           ),
 
           const SizedBox(
-            height:
-                16,
+            height: 35,
           ),
 
-          Text(
-            loc.gameCreditsNoAccountRequiredTitle,
-            textAlign:
-                TextAlign.center,
-            style:
-                const TextStyle(
-              color:
-                  Color(
-                0xFF12613D,
-              ),
-              fontSize:
-                  30,
-              fontWeight:
-                  FontWeight.w900,
+          // ==================================================================
+          // EXPLANATION
+          // ==================================================================
+
+          Container(
+            width:
+                double.infinity,
+            padding:
+                const EdgeInsets.all(
+              18,
             ),
-          ),
-
-          const SizedBox(
-            height:
-                10,
-          ),
-
-          Text(
-            loc.gameCreditsNoAccountRequiredMessage,
-            textAlign:
-                TextAlign.center,
-            style:
-                const TextStyle(
+            decoration:
+                BoxDecoration(
               color:
-                  Color(
-                0xFF376552,
+                  gameAccount
+                      ? const Color(
+                          0xFFFFF8E8,
+                        )
+                      : const Color(
+                          0xFFEAF8F3,
+                        ),
+              borderRadius:
+                  BorderRadius.circular(
+                18,
               ),
-              fontSize:
-                  22,
-              height:
-                  1.35,
-              fontWeight:
-                  FontWeight.w600,
+            ),
+            child: Row(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  gameAccount
+                      ? Icons
+                          .warning_amber_rounded
+                      : Icons
+                          .info_outline_rounded,
+                  color:
+                      gameAccount
+                          ? const Color(
+                              0xFFE38A00,
+                            )
+                          : _primaryColor,
+                  size: 34,
+                ),
+
+                const SizedBox(
+                  width: 14,
+                ),
+
+                Expanded(
+                  child: Text(
+                    gameAccount
+                        ? loc
+                            .gameCreditsCheckAccountMessage
+                        : loc
+                            .gameCreditsPhoneReferenceNotice,
+                    style:
+                        const TextStyle(
+                      color:
+                          Color(
+                        0xFF4D6375,
+                      ),
+                      fontSize: 24,
+                      height: 1.35,
+                      fontWeight:
+                          FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -1302,134 +1309,125 @@ class _PGAMECREDITS5PAGEState
   ) {
     return Column(
       children: [
-        // ================================================================
-        // ROW 1
-        // ================================================================
-
-        Row(
-          children: [
-            Expanded(
-              child: _keypadButton(
-                '1',
-                () => _addNumber('1'),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _keypadButton(
-                '2',
-                () => _addNumber('2'),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _keypadButton(
-                '3',
-                () => _addNumber('3'),
-              ),
-            ),
-          ],
+        _numberRow(
+          '1',
+          '2',
+          '3',
         ),
 
-        const SizedBox(height: 12),
-
-        // ================================================================
-        // ROW 2
-        // ================================================================
-
-        Row(
-          children: [
-            Expanded(
-              child: _keypadButton(
-                '4',
-                () => _addNumber('4'),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _keypadButton(
-                '5',
-                () => _addNumber('5'),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _keypadButton(
-                '6',
-                () => _addNumber('6'),
-              ),
-            ),
-          ],
+        const SizedBox(
+          height: 15,
         ),
 
-        const SizedBox(height: 12),
-
-        // ================================================================
-        // ROW 3
-        // ================================================================
-
-        Row(
-          children: [
-            Expanded(
-              child: _keypadButton(
-                '7',
-                () => _addNumber('7'),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _keypadButton(
-                '8',
-                () => _addNumber('8'),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _keypadButton(
-                '9',
-                () => _addNumber('9'),
-              ),
-            ),
-          ],
+        _numberRow(
+          '4',
+          '5',
+          '6',
         ),
 
-        const SizedBox(height: 12),
+        const SizedBox(
+          height: 15,
+        ),
 
-        // ================================================================
-        // ROW 4
-        //
-        // ALL THREE USE EXACTLY THE SAME SIZE
-        // ================================================================
+        _numberRow(
+          '7',
+          '8',
+          '9',
+        ),
+
+        const SizedBox(
+          height: 15,
+        ),
 
         Row(
           children: [
             Expanded(
-              child: _keypadActionButton(
+              child:
+                  _keypadActionButton(
                 loc.keyboardClearAll,
-                Icons.delete_sweep_rounded,
-                _clearAccount,
+                Icons
+                    .delete_sweep_rounded,
+                _clearReference,
               ),
             ),
 
-            const SizedBox(width: 12),
+            const SizedBox(
+              width: 15,
+            ),
 
             Expanded(
-              child: _keypadButton(
+              child:
+                  _keypadButton(
                 '0',
-                () => _addNumber('0'),
+                () =>
+                    _addNumber(
+                  '0',
+                ),
               ),
             ),
 
-            const SizedBox(width: 12),
+            const SizedBox(
+              width: 15,
+            ),
 
             Expanded(
-              child: _keypadActionButton(
+              child:
+                  _keypadActionButton(
                 loc.keyboardBackspace,
-                Icons.backspace_outlined,
+                Icons
+                    .backspace_outlined,
                 _backspace,
               ),
             ),
           ],
+        ),
+      ],
+    );
+  }
+
+  Widget _numberRow(
+    String first,
+    String second,
+    String third,
+  ) {
+    return Row(
+      children: [
+        Expanded(
+          child:
+              _keypadButton(
+            first,
+            () => _addNumber(
+              first,
+            ),
+          ),
+        ),
+
+        const SizedBox(
+          width: 15,
+        ),
+
+        Expanded(
+          child:
+              _keypadButton(
+            second,
+            () => _addNumber(
+              second,
+            ),
+          ),
+        ),
+
+        const SizedBox(
+          width: 15,
+        ),
+
+        Expanded(
+          child:
+              _keypadButton(
+            third,
+            () => _addNumber(
+              third,
+            ),
+          ),
         ),
       ],
     );
@@ -1440,40 +1438,49 @@ class _PGAMECREDITS5PAGEState
     VoidCallback onPressed,
   ) {
     return SizedBox(
-      width: double.infinity,
-
-      // Change this to control keypad button height
+      width:
+          double.infinity,
       height: 112,
-
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          backgroundColor: const Color(
+      child:
+          ElevatedButton(
+        onPressed:
+            onPressed,
+        style:
+            ElevatedButton.styleFrom(
+          padding:
+              EdgeInsets.zero,
+          backgroundColor:
+              const Color(
             0xFFF4F7FA,
           ),
-          foregroundColor: const Color(
+          foregroundColor:
+              const Color(
             0xFF17283E,
           ),
           elevation: 0,
-          side: const BorderSide(
-            color: Color(
+          side:
+              const BorderSide(
+            color:
+                Color(
               0xFFC9D5E2,
             ),
             width: 2.5,
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
+          shape:
+              RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(
               20,
             ),
           ),
         ),
         child: Text(
           text,
-          style: const TextStyle(
-            // Bigger number
+          style:
+              const TextStyle(
             fontSize: 44,
-            fontWeight: FontWeight.w900,
+            fontWeight:
+                FontWeight.w900,
           ),
         ),
       ),
@@ -1486,43 +1493,49 @@ class _PGAMECREDITS5PAGEState
     VoidCallback onPressed,
   ) {
     return SizedBox(
-      width: double.infinity,
-      height: 112, // SAME height as number buttons
-
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(
+      width:
+          double.infinity,
+      height: 112,
+      child:
+          ElevatedButton(
+        onPressed:
+            onPressed,
+        style:
+            ElevatedButton.styleFrom(
+          padding:
+              const EdgeInsets.symmetric(
             horizontal: 8,
             vertical: 8,
           ),
-          backgroundColor: const Color(
+          backgroundColor:
+              const Color(
             0xFFE2EAF2,
           ),
-          foregroundColor: const Color(
+          foregroundColor:
+              const Color(
             0xFF17283E,
           ),
           elevation: 0,
-          side: const BorderSide(
-            color: Color(
+          side:
+              const BorderSide(
+            color:
+                Color(
               0xFFC9D5E2,
             ),
             width: 2.5,
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
+          shape:
+              RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(
               20,
             ),
           ),
         ),
-
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment:
+              MainAxisAlignment.center,
           children: [
-            // ============================================================
-            // BIGGER ICON
-            // ============================================================
-
             Icon(
               icon,
               size: 40,
@@ -1532,19 +1545,19 @@ class _PGAMECREDITS5PAGEState
               height: 5,
             ),
 
-            // ============================================================
-            // BIGGER PADAM SEMUA / PADAM TEXT
-            // ============================================================
-
             FittedBox(
-              fit: BoxFit.scaleDown,
+              fit:
+                  BoxFit.scaleDown,
               child: Text(
                 text,
                 maxLines: 1,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
+                textAlign:
+                    TextAlign.center,
+                style:
+                    const TextStyle(
                   fontSize: 24,
-                  fontWeight: FontWeight.w900,
+                  fontWeight:
+                      FontWeight.w900,
                 ),
               ),
             ),
@@ -1568,8 +1581,7 @@ class _PGAMECREDITS5PAGEState
           CrossAxisAlignment.start,
       children: [
         Expanded(
-          child:
-              Text(
+          child: Text(
             label,
             style:
                 const TextStyle(
@@ -1577,8 +1589,7 @@ class _PGAMECREDITS5PAGEState
                   Color(
                 0xFF66758A,
               ),
-              fontSize:
-                  24,
+              fontSize: 24,
               fontWeight:
                   FontWeight.w700,
             ),
@@ -1586,13 +1597,11 @@ class _PGAMECREDITS5PAGEState
         ),
 
         const SizedBox(
-          width:
-              20,
+          width: 20,
         ),
 
         Expanded(
-          child:
-              Text(
+          child: Text(
             value,
             textAlign:
                 TextAlign.right,
@@ -1639,12 +1648,10 @@ class _PGAMECREDITS5PAGEState
               Expanded(
                 child:
                     SizedBox(
-                  height:
-                      95,
+                  height: 95,
                   child:
                       ElevatedButton.icon(
-                    onPressed:
-                        () {
+                    onPressed: () {
                       Navigator.pop(
                         context,
                       );
@@ -1653,16 +1660,13 @@ class _PGAMECREDITS5PAGEState
                         const Icon(
                       Icons
                           .arrow_back_rounded,
-                      size:
-                          32,
+                      size: 32,
                     ),
-                    label:
-                        Text(
+                    label: Text(
                       loc.buttonBack,
                       style:
                           const TextStyle(
-                        fontSize:
-                            34,
+                        fontSize: 34,
                         fontWeight:
                             FontWeight.w900,
                       ),
@@ -1679,8 +1683,7 @@ class _PGAMECREDITS5PAGEState
                             Color(
                           0xFFD5DCE5,
                         ),
-                        width:
-                            2,
+                        width: 2,
                       ),
                       shape:
                           RoundedRectangleBorder(
@@ -1695,15 +1698,13 @@ class _PGAMECREDITS5PAGEState
               ),
 
               const SizedBox(
-                width:
-                    24,
+                width: 24,
               ),
 
               Expanded(
                 child:
                     SizedBox(
-                  height:
-                      95,
+                  height: 95,
                   child:
                       ElevatedButton.icon(
                     onPressed:
@@ -1714,16 +1715,14 @@ class _PGAMECREDITS5PAGEState
                         const Icon(
                       Icons
                           .arrow_forward_rounded,
-                      size:
-                          32,
+                      size: 32,
                     ),
-                    label:
-                        Text(
-                      loc.gameCreditsContinuePayment,
+                    label: Text(
+                      loc
+                          .gameCreditsContinuePayment,
                       style:
                           const TextStyle(
-                        fontSize:
-                            25,
+                        fontSize: 25,
                         fontWeight:
                             FontWeight.w900,
                       ),
@@ -1749,8 +1748,7 @@ class _PGAMECREDITS5PAGEState
           ),
 
           const SizedBox(
-            height:
-                30,
+            height: 30,
           ),
 
           Text(
@@ -1763,8 +1761,7 @@ class _PGAMECREDITS5PAGEState
                   Color(
                 0xFF17375E,
               ),
-              fontSize:
-                  20,
+              fontSize: 20,
               fontWeight:
                   FontWeight.w800,
             ),
@@ -1783,16 +1780,14 @@ class _PGAMECREDITS5PAGEState
   ) {
     return Center(
       child: Container(
-        width:
-            680,
+        width: 680,
         padding:
             const EdgeInsets.all(
           40,
         ),
         decoration:
             BoxDecoration(
-          color:
-              Colors.white,
+          color: Colors.white,
           borderRadius:
               BorderRadius.circular(
             30,
@@ -1803,8 +1798,7 @@ class _PGAMECREDITS5PAGEState
                 const Color(
               0xFFE57373,
             ),
-            width:
-                2,
+            width: 2,
           ),
         ),
         child: Column(
@@ -1812,21 +1806,18 @@ class _PGAMECREDITS5PAGEState
               MainAxisSize.min,
           children: [
             const Icon(
-              Icons
-                  .cloud_off_rounded,
-              color:
-                  _redColor,
-              size:
-                  80,
+              Icons.cloud_off_rounded,
+              color: _redColor,
+              size: 80,
             ),
 
             const SizedBox(
-              height:
-                  20,
+              height: 20,
             ),
 
             Text(
-              loc.gameCreditsUnableToLoadDetails,
+              loc
+                  .gameCreditsUnableToLoadDetails,
               textAlign:
                   TextAlign.center,
               style:
@@ -1835,39 +1826,32 @@ class _PGAMECREDITS5PAGEState
                     Color(
                   0xFF17283E,
                 ),
-                fontSize:
-                    30,
+                fontSize: 30,
                 fontWeight:
                     FontWeight.w900,
               ),
             ),
 
             const SizedBox(
-              height:
-                  25,
+              height: 25,
             ),
 
             SizedBox(
-              height:
-                  75,
-              width:
-                  300,
+              height: 75,
+              width: 300,
               child:
                   ElevatedButton.icon(
                 onPressed:
                     _loadProduct,
                 icon:
                     const Icon(
-                  Icons
-                      .refresh_rounded,
+                  Icons.refresh_rounded,
                 ),
-                label:
-                    Text(
+                label: Text(
                   loc.retryButton,
                   style:
                       const TextStyle(
-                    fontSize:
-                        23,
+                    fontSize: 23,
                     fontWeight:
                         FontWeight.w900,
                   ),
@@ -1889,8 +1873,7 @@ class _PGAMECREDITS5PAGEState
   ) {
     if (_imageUrl.isEmpty) {
       return Icon(
-        Icons
-            .videogame_asset_rounded,
+        Icons.videogame_asset_rounded,
         color:
             _primaryColor,
         size:
@@ -1909,8 +1892,7 @@ class _PGAMECREDITS5PAGEState
         stackTrace,
       ) {
         return Icon(
-          Icons
-              .videogame_asset_rounded,
+          Icons.videogame_asset_rounded,
           color:
               _primaryColor,
           size:
@@ -1931,8 +1913,7 @@ class _PGAMECREDITS5PAGEState
         AppLocalizations.of(context)!;
 
     showDialog<void>(
-      context:
-          context,
+      context: context,
       barrierDismissible:
           false,
       builder:
@@ -1940,31 +1921,26 @@ class _PGAMECREDITS5PAGEState
         dialogContext,
       ) {
         return AlertDialog(
-          title:
-              Text(
+          title: Text(
             loc.gameCreditsInformation,
           ),
-          content:
-              Text(
+          content: Text(
             message,
             style:
                 const TextStyle(
-              fontSize:
-                  24,
+              fontSize: 24,
               fontWeight:
                   FontWeight.w600,
             ),
           ),
           actions: [
             TextButton(
-              onPressed:
-                  () {
+              onPressed: () {
                 Navigator.pop(
                   dialogContext,
                 );
               },
-              child:
-                  Text(
+              child: Text(
                 loc.electricOk,
               ),
             ),

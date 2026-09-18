@@ -2071,8 +2071,7 @@ class _PBROADBANDBILL3PAGEState
 // MODERN BROADBAND HEADER
 // ============================================================================
 
-class _ModernBroadbandHeader
-    extends StatelessWidget {
+class _ModernBroadbandHeader extends StatelessWidget {
   final String title;
   final String subtitle;
 
@@ -2082,199 +2081,181 @@ class _ModernBroadbandHeader
   });
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    const Color accentColor =
-        Color(0xFF6255D9);
+  Widget build(BuildContext context) {
+    const Color accentColor = Color(0xFF6255D9);
 
-    final loc =
-        AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context)!;
 
-    return Column(
-      children: [
-        // ====================================================================
-        // CATEGORY BADGE
-        // ====================================================================
-
-        Container(
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 10,
-          ),
-          decoration:
-              BoxDecoration(
-            color:
-                accentColor.withOpacity(
-              0.10,
-            ),
-            borderRadius:
-                BorderRadius.circular(
-              100,
-            ),
-            border:
-                Border.all(
-              color:
-                  accentColor.withOpacity(
-                0.25,
-              ),
-              width: 1.5,
-            ),
-          ),
-          child: Row(
-            mainAxisSize:
-                MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.router_rounded,
-                color:
-                    accentColor,
-                size: 25,
-              ),
-
-              const SizedBox(
-                width: 9,
-              ),
-
-              Text(
-                loc.billbroadbandButton
-                    .toUpperCase(),
-                style:
-                    const TextStyle(
-                  color:
-                      accentColor,
-                  fontSize: 17,
-                  fontWeight:
-                      FontWeight.w900,
-                  letterSpacing:
-                      1.4,
-                ),
-              ),
-            ],
-          ),
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT BROADBAND ICON
+          // ==========================================================
 
-        const SizedBox(
-          height: 17,
-        ),
-
-        // ====================================================================
-        // TITLE
-        // ====================================================================
-
-        ShaderMask(
-          blendMode:
-              BlendMode.srcIn,
-          shaderCallback:
-              (
-            bounds,
-          ) {
-            return const LinearGradient(
-              colors: [
-                Color(
-                  0xFF493CB5,
-                ),
-                Color(
-                  0xFF9A3CCE,
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF493CB5),
+                  Color(0xFF8B4FD0),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
               ],
-            ).createShader(
-              bounds,
-            );
-          },
-          child: Text(
-            title.toUpperCase(),
-            textAlign:
-                TextAlign.center,
-            maxLines: 2,
-            overflow:
-                TextOverflow.ellipsis,
-            style:
-                const TextStyle(
-              color:
-                  Colors.white,
-              fontSize: 61,
-              fontWeight:
-                  FontWeight.w900,
-              height: 1.05,
-              letterSpacing:
-                  -0.7,
+            ),
+            child: const Icon(
+              Icons.router_rounded,
+              color: Colors.white,
+              size: 56,
             ),
           ),
-        ),
 
-        const SizedBox(
-          height: 14,
-        ),
+          const SizedBox(width: 28),
 
-        // ====================================================================
-        // SUBTITLE
-        // ====================================================================
+          // ==========================================================
+          // EXISTING TEXT
+          // ==========================================================
 
-        Container(
-          constraints:
-              const BoxConstraints(
-            maxWidth: 850,
-          ),
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 30,
-            vertical: 14,
-          ),
-          decoration:
-              BoxDecoration(
-            color:
-                Colors.white.withOpacity(
-              0.92,
-            ),
-            borderRadius:
-                BorderRadius.circular(
-              23,
-            ),
-            border:
-                Border.all(
-              color:
-                  Colors.black.withOpacity(
-                0.17,
-              ),
-              width: 1.5,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color:
-                    const Color(
-                  0xFF33256D,
-                ).withOpacity(
-                  0.10,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING BROADBAND BADGE
+                // ------------------------------------------------------
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF0EDFF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.router_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Flexible(
+                        child: Text(
+                          loc.billbroadbandButton.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                blurRadius: 22,
-                offset:
-                    const Offset(
-                  0,
-                  9,
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          child: Text(
-            subtitle.toUpperCase(),
-            textAlign:
-                TextAlign.center,
-            style:
-                const TextStyle(
-              color:
-                  Color(
-                0xFF435166,
-              ),
-              fontSize: 28,
-              fontWeight:
-                  FontWeight.w700,
-              height: 1.2,
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+
+                Text(
+                  subtitle.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-      ],
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT BROADBAND ACCENT
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF493CB5),
+                  Color(0xFF9A3CCE),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

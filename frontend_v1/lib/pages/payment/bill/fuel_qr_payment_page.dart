@@ -4,7 +4,7 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 
-import 'package:frontend_v1/pages/resit/bill/gamecredits_receipt_page.dart';
+import 'package:frontend_v1/pages/resit/bill/fuel_receipt_page.dart';
 
 import 'package:frontend_v1/services/iimmpact/iimmpact_payment_service.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_refid_service.dart';
@@ -17,104 +17,156 @@ import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:window_manager/window_manager.dart';
 
 // ============================================================================
-// GAME CREDITS QR PAYMENT
+// FUEL QR PAYMENT
 //
-// IMPORTANT DIFFERENCE FROM GAMING PLATFORM:
+// FLOW:
 //
-// GAMING PLATFORM:
-// GSMY example may use optionCode as IIMMPACT denomination.
+// PDIGITALVOUCHER4PAGE
+//      ↓
+// FuelQrPaymentPage
+//      ↓
+// PegePay DuitNow QR
+//      ↓
+// customer payment success
+//      ↓
+// POST /v2/topup
+//      ↓
+// wait for final IIMMPACT status
+//      ↓
+// PIN / SN / expiry / voucher link
+//      ↓
+// FuelReceiptPage
 //
-// GAME CREDITS:
-// catalog fulfillment says:
-// selected option -> price.amount -> IIMMPACT amount
+// IMPORTANT:
 //
-// Account is also dynamic:
-// - FCMOBILEFC: no account
-// - FF: player_id -> account
+// baseAmount
+// = actual voucher amount sent to IIMMPACT.
+//
+// totalAmount
+// = customer payment amount after catalog price_adjustment.
+//
+// Fuel does NOT currently collect account/phone.
+//
+// Therefore:
+//
+// account = ''
+// accountRequired = false
+//
+// extras = {}
 // ============================================================================
 
-class GameCreditsQrPaymentPage
+class FuelQrPaymentPage
     extends StatefulWidget {
-  final String gameName;
+  final String productName;
   final String productCode;
 
-  final String optionCode;
-  final String optionName;
-  final String optionDescription;
+  final String imageUrl;
 
-  // Amount sent to IIMMPACT.
-  final double iimmpactAmount;
+  final String fieldId;
+  final String fieldType;
 
-  // RM price shown/charged to customer before adjustment.
+  final String? optionCode;
+  final String? optionName;
+  final String? optionDescription;
+
   final double baseAmount;
+
+  final double topupAmount;
 
   final double serviceAdjustment;
   final double totalAmount;
 
-  final String account;
-  final bool accountRequired;
-  final String accountLabel;
-
-  final bool isGameAccount;
-
   final String processingTime;
 
-  const GameCreditsQrPaymentPage({
+  // Localized provider instruction/note from Page 4.
+  final String note;
+
+  const FuelQrPaymentPage({
     super.key,
-    required this.gameName,
+    required this.productName,
     required this.productCode,
+    required this.imageUrl,
+    required this.fieldId,
+    required this.fieldType,
     required this.optionCode,
     required this.optionName,
     required this.optionDescription,
-    required this.iimmpactAmount,
     required this.baseAmount,
+    required this.topupAmount,
     required this.serviceAdjustment,
     required this.totalAmount,
-    required this.account,
-    required this.accountRequired,
-    required this.accountLabel,
-
-    required this.isGameAccount,
-
     required this.processingTime,
+    required this.note,
   });
 
   @override
-  State<GameCreditsQrPaymentPage> createState() =>
-      _GameCreditsQrPaymentPageState();
+  State<FuelQrPaymentPage> createState() =>
+      _FuelQrPaymentPageState();
 }
 
-class _GameCreditsQrPaymentPageState
-    extends State<GameCreditsQrPaymentPage> {
+class _FuelQrPaymentPageState
+    extends State<FuelQrPaymentPage> {
+  // ==========================================================================
+  // COLORS
+  // ==========================================================================
+
+  static const Color _primary =
+      Color(0xFFD62828);
+
+  static const Color _dark =
+      Color(0xFF9F1D20);
+
+  static const Color _light =
+      Color(0xFFFFE5E5);
+
+  static const Color _green =
+      Color(0xFF087C5A);
+
+  static const Color _red =
+      Color(0xFFC62828);
+
   // ==========================================================================
   // STATE
   // ==========================================================================
 
-  bool _isCreatingOrder =
-      false;
+  bool _isCreatingOrder = false;
 
-  bool _isProcessingReceipt =
-      false;
+  bool _isProcessingReceipt = false;
 
-  bool _paymentCompleted =
-      false;
+  bool _paymentCompleted = false;
 
   String? _errorMessage;
 
   String? _transactionRefId;
 
   // ==========================================================================
-  // COLORS
+  // BASIC VALUES
   // ==========================================================================
 
-  static const Color _primaryColor =
-      Color(0xFF009688);
+  bool get _isBusy =>
+      _isCreatingOrder ||
+      _isProcessingReceipt;
 
-  static const Color _darkColor =
-      Color(0xFF087A70);
+  bool get _isSelect =>
+      widget.fieldType
+          .trim()
+          .toLowerCase() ==
+      'select';
 
-  static const Color _lightColor =
-      Color(0xFFE0F5F2);
+  bool get _hasOptionName =>
+      (widget.optionName ?? '')
+          .trim()
+          .isNotEmpty;
+
+  bool get _hasOptionDescription {
+    final String value =
+        (widget.optionDescription ?? '')
+            .trim();
+
+    return value.isNotEmpty &&
+        value.toLowerCase() != 'null' &&
+        value != '-';
+  }
 
   // ==========================================================================
   // REF ID
@@ -139,18 +191,71 @@ class _GameCreditsQrPaymentPageState
     return generated;
   }
 
-  bool get _isBusy =>
-      _isCreatingOrder ||
-      _isProcessingReceipt;
+  // ==========================================================================
+  // FORMAT
+  // ==========================================================================
 
   String _formatAmount(
     double amount,
   ) {
-    return 'RM ${amount.toStringAsFixed(2)}';
+    return 'RM '
+        '${amount.toStringAsFixed(2)}';
+  }
+
+  String _formatSignedAmount(
+    double amount,
+  ) {
+    final String sign =
+        amount >= 0
+            ? '+'
+            : '-';
+
+    return '$sign RM '
+        '${amount.abs().toStringAsFixed(2)}';
+  }
+
+  String _formatProcessingTime(
+    AppLocalizations loc,
+  ) {
+    final String value =
+        widget.processingTime
+            .trim()
+            .toLowerCase();
+
+    switch (value) {
+      case 'pin':
+        return loc
+            .fuelDeliveryPin;
+
+      case 'link':
+        return loc
+            .fuelDeliveryLink;
+
+      case 'instant':
+        return loc.processingInstant;
+
+      case '24_hours':
+        return loc.processing24Hours;
+
+      case '3_days':
+        return loc.processing3Days;
+
+      default:
+        if (value.isEmpty) {
+          return '-';
+        }
+
+        return value
+            .replaceAll(
+              '_',
+              ' ',
+            )
+            .toUpperCase();
+    }
   }
 
   // ==========================================================================
-  // START QR
+  // START QR PAYMENT
   // ==========================================================================
 
   Future<void> _startQrPayment() async {
@@ -159,16 +264,15 @@ class _GameCreditsQrPaymentPageState
       return;
     }
 
-    final AppLocalizations loc =
+    final loc =
         AppLocalizations.of(context)!;
 
     // ========================================================================
-    // VALIDATE PRICE
+    // VALIDATE AMOUNT
     // ========================================================================
 
     if (widget.baseAmount <= 0 ||
-        widget.totalAmount <= 0 ||
-        widget.iimmpactAmount <= 0) {
+        widget.totalAmount <= 0) {
       await _showMessage(
         title:
             loc.invalidAmount,
@@ -190,29 +294,9 @@ class _GameCreditsQrPaymentPageState
         .isEmpty) {
       await _showMessage(
         title:
-            loc.gameCreditsPaymentInvalidProductTitle,
+            loc.fuelPaymentInvalidProductTitle,
         message:
-            loc.gameCreditsPaymentInvalidProductMessage,
-        isError:
-            true,
-      );
-
-      return;
-    }
-
-    // ========================================================================
-    // VALIDATE ACCOUNT IF REQUIRED
-    // ========================================================================
-
-    if (widget.accountRequired &&
-        widget.account
-            .trim()
-            .isEmpty) {
-      await _showMessage(
-        title:
-            loc.gameCreditsAccountRequiredTitle,
-        message:
-            loc.gameCreditsAccountRequired,
+            loc.fuelPaymentInvalidProductMessage,
         isError:
             true,
       );
@@ -228,48 +312,47 @@ class _GameCreditsQrPaymentPageState
       '========================================',
     );
     debugPrint(
-      'NEW GAME CREDIT PAYMENT',
+      'NEW FUEL PAYMENT',
     );
     debugPrint(
       '========================================',
     );
     debugPrint(
-      'RefId          : $refId',
+      'RefId       : $refId',
     );
     debugPrint(
-      'Game           : ${widget.gameName}',
+      'Product     : ${widget.productCode}',
     );
     debugPrint(
-      'Product        : ${widget.productCode}',
+      'Name        : ${widget.productName}',
     );
     debugPrint(
-      'Option Code    : ${widget.optionCode}',
+      'Field ID    : ${widget.fieldId}',
     );
     debugPrint(
-      'Option Name    : ${widget.optionName}',
+      'Field Type  : ${widget.fieldType}',
     );
     debugPrint(
-      'Account        : ${widget.account}',
+      'Option Code : ${widget.optionCode}',
     );
     debugPrint(
-      'Account Req    : ${widget.accountRequired}',
+      'Option Name : ${widget.optionName}',
     );
     debugPrint(
-      'IIMMPACT Amount: ${widget.iimmpactAmount}',
+      'Base Amount : ${widget.baseAmount}',
     );
     debugPrint(
-      'Base RM        : ${widget.baseAmount}',
+      'Adjustment  : ${widget.serviceAdjustment}',
     );
     debugPrint(
-      'Adjustment     : ${widget.serviceAdjustment}',
+      'Total       : ${widget.totalAmount}',
     );
     debugPrint(
-      'Customer Total : ${widget.totalAmount}',
+      'Processing  : ${widget.processingTime}',
     );
     debugPrint(
       '========================================',
     );
-    debugPrint('');
 
     setState(() {
       _isCreatingOrder =
@@ -283,6 +366,10 @@ class _GameCreditsQrPaymentPageState
         false;
 
     try {
+      // ======================================================================
+      // PREPARING QR
+      // ======================================================================
+
       _showLoadingDialog();
 
       loadingDialogVisible =
@@ -291,7 +378,8 @@ class _GameCreditsQrPaymentPageState
       // ======================================================================
       // PEGE PAY AMOUNT
       //
-      // TESTING:
+      // TEST:
+      //
       // RM0.01
       //
       // PRODUCTION:
@@ -319,8 +407,7 @@ class _GameCreditsQrPaymentPageState
       if (loadingDialogVisible) {
         Navigator.of(
           context,
-          rootNavigator:
-              true,
+          rootNavigator: true,
         ).pop();
 
         loadingDialogVisible =
@@ -342,7 +429,8 @@ class _GameCreditsQrPaymentPageState
       if (iframeUrl.isEmpty ||
           orderNo.isEmpty) {
         throw Exception(
-          'PegePay did not return a valid iframe URL or order number.',
+          'PegePay did not return a valid '
+          'iframe URL or order number.',
         );
       }
 
@@ -353,11 +441,12 @@ class _GameCreditsQrPaymentPageState
       await PegePayWebViewHelper.open(
         iframeUrl:
             iframeUrl,
+
         orderNo:
             orderNo,
 
         // ====================================================================
-        // SUCCESS
+        // PAYMENT SUCCESS
         // ====================================================================
 
         onSuccess:
@@ -381,6 +470,12 @@ class _GameCreditsQrPaymentPageState
             return;
           }
 
+          // ==================================================================
+          // CUSTOMER ALREADY PAID.
+          //
+          // Do not allow another QR.
+          // ==================================================================
+
           setState(() {
             _paymentCompleted =
                 true;
@@ -398,6 +493,10 @@ class _GameCreditsQrPaymentPageState
             return;
           }
 
+          // ==================================================================
+          // PROCESSING VOUCHER
+          // ==================================================================
+
           _showReceiptProcessingDialog();
 
           bool processingDialogVisible =
@@ -407,8 +506,58 @@ class _GameCreditsQrPaymentPageState
               iimmpactResult;
 
           try {
+            debugPrint('');
+            debugPrint(
+              '========================================',
+            );
+            debugPrint(
+              'FUEL -> IIMMPACT',
+            );
+            debugPrint(
+              '========================================',
+            );
+            debugPrint(
+              'RefId   : $_currentRefId',
+            );
+            debugPrint(
+              'Product : ${widget.productCode}',
+            );
+            debugPrint(
+              'Account : [NOT REQUIRED]',
+            );
+            debugPrint(
+              'Amount  : ${widget.baseAmount}',
+            );
+            debugPrint(
+              'Order   : $successfulOrderNo',
+            );
+            debugPrint(
+              '========================================',
+            );
+
             // ================================================================
-            // IIMMPACT GAME CREDIT PURCHASE
+            // IIMMPACT FUEL
+            //
+            // IMPORTANT:
+            //
+            // account:
+            //   Fuel Page 4 does not collect account/phone.
+            //
+            // accountRequired:
+            //   false
+            //
+            // amount:
+            //   baseAmount
+            //
+            // DO NOT SEND totalAmount.
+            //
+            // totalAmount may include our catalog price adjustment.
+            //
+            // extras:
+            //   {}
+            //
+            // Current Fuel catalog pricing resolves the selected
+            // option to its amount, so the amount itself is sent to /v2/topup.
             // ================================================================
 
             iimmpactResult =
@@ -421,25 +570,13 @@ class _GameCreditsQrPaymentPageState
                   widget.productCode,
 
               account:
-                  widget.account,
+                  '',
 
               accountRequired:
-                  widget.accountRequired,
-
-              // ==============================================================
-              // IMPORTANT:
-              //
-              // GAME CREDIT CATALOG:
-              //
-              // fulfillment.amount
-              // from selected field
-              // path = price.amount
-              //
-              // Therefore amount is supplied by Page 5 as iimmpactAmount.
-              // ==============================================================
+                  false,
 
               amount:
-                  widget.iimmpactAmount,
+                  widget.topupAmount,
 
               remarks:
                   successfulOrderNo,
@@ -449,12 +586,52 @@ class _GameCreditsQrPaymentPageState
 
               interval:
                   const Duration(
-                seconds:
-                    6,
+                seconds: 6,
               ),
 
               maxAttempts:
                   10,
+            );
+
+            debugPrint('');
+            debugPrint(
+              '========================================',
+            );
+            debugPrint(
+              'FUEL FINAL RESULT',
+            );
+            debugPrint(
+              '========================================',
+            );
+            debugPrint(
+              'Status      : ${iimmpactResult.status}',
+            );
+            debugPrint(
+              'Product     : ${iimmpactResult.product}',
+            );
+            debugPrint(
+              'Amount      : ${iimmpactResult.amount}',
+            );
+            debugPrint(
+              'RefId       : ${iimmpactResult.refId}',
+            );
+            debugPrint(
+              'SN          : ${iimmpactResult.serialNumber}',
+            );
+            debugPrint(
+              'PIN         : ${iimmpactResult.pin}',
+            );
+            debugPrint(
+              'Expiry      : ${iimmpactResult.expiry}',
+            );
+            debugPrint(
+              'VoucherLink : ${iimmpactResult.voucherLink}',
+            );
+            debugPrint(
+              'Note        : ${iimmpactResult.note}',
+            );
+            debugPrint(
+              '========================================',
             );
 
             // ================================================================
@@ -469,7 +646,8 @@ class _GameCreditsQrPaymentPageState
                     ? iimmpactResult
                         .remarks
                     : loc
-                        .gameCreditsPaymentProviderRejected,
+                        .fuelPaymentProviderRejected,
+
                 result:
                     iimmpactResult,
               );
@@ -482,27 +660,36 @@ class _GameCreditsQrPaymentPageState
             if (iimmpactResult.isRefund) {
               throw IimmpactPaymentException(
                 loc
-                    .gameCreditsPaymentProviderRefunded,
+                    .fuelPaymentProviderRefunded,
+
                 result:
                     iimmpactResult,
               );
             }
 
             // ================================================================
-            // FINAL SUCCESS REQUIRED
+            // VOUCHER NEEDS FINAL SUCCESS
+            //
+            // PIN/LINK/SN may only be returned after final success.
             // ================================================================
 
-            if (!iimmpactResult.isSuccessful) {
+            if (!iimmpactResult
+                .isSuccessful) {
               throw IimmpactPaymentException(
-                '${loc.gameCreditsPaymentUnexpectedStatus}: '
-                '${iimmpactResult.status}',
+                '${loc.fuelPaymentStillProcessing}\n\n'
+                '${loc.fuelPaymentReference}:\n'
+                '$_currentRefId',
+
                 result:
                     iimmpactResult,
               );
             }
-          } catch (error, stackTrace) {
+          } catch (
+            error,
+            stackTrace
+          ) {
             debugPrint(
-              '[GameCreditsQrPaymentPage] '
+              '[FuelQrPaymentPage] '
               'IIMMPACT error: $error',
             );
 
@@ -515,8 +702,7 @@ class _GameCreditsQrPaymentPageState
                 mounted) {
               Navigator.of(
                 context,
-                rootNavigator:
-                    true,
+                rootNavigator: true,
               ).pop();
 
               processingDialogVisible =
@@ -538,16 +724,21 @@ class _GameCreditsQrPaymentPageState
                     ? error.message
                     : error.toString();
 
+            // ================================================================
+            // IMPORTANT:
+            //
+            // Customer payment was already successful.
+            // Do NOT create another QR.
+            // ================================================================
+
             await _showMessage(
               title:
                   loc
-                      .gameCreditsPaymentProviderErrorTitle,
+                      .fuelPaymentProviderErrorTitle,
 
               message:
                   '$message\n\n'
-                  '${loc.gameCreditsPaymentReference}:\n'
-                  '$_currentRefId\n\n'
-                  '${loc.gameCreditsPaymentAlreadyReceivedWarning}',
+                  '${loc.fuelPaymentAlreadyReceivedWarning}',
 
               isError:
                   true,
@@ -557,15 +748,14 @@ class _GameCreditsQrPaymentPageState
           }
 
           // ==================================================================
-          // CLOSE PROCESSING
+          // CLOSE PROCESSING DIALOG
           // ==================================================================
 
           if (processingDialogVisible &&
               mounted) {
             Navigator.of(
               context,
-              rootNavigator:
-                  true,
+              rootNavigator: true,
             ).pop();
 
             processingDialogVisible =
@@ -577,128 +767,102 @@ class _GameCreditsQrPaymentPageState
             return;
           }
 
+          final IimmpactPaymentResult finalResult =
+              iimmpactResult;
+
           // ==================================================================
           // RECEIPT
           // ==================================================================
 
-          (
-            context,Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                settings:
-                    const RouteSettings(
-                  name: '/receipt',
-                ),
-                builder:
-                    (_) =>
-                        GameCreditsReceiptPage(
-                  data:
-                      GameCreditsReceiptData(
-                    // ================================================================
-                    // GAME
-                    // ================================================================
+          Navigator.pushReplacement(
+            context,
 
-                    gameName:
-                        widget.gameName,
+            MaterialPageRoute(
+              settings:
+                  const RouteSettings(
+                name: '/receipt',
+              ),
 
-                    productCode:
-                        widget.productCode,
+              builder:
+                  (_) =>
+                      FuelReceiptPage(
+                data:
+                    FuelReceiptData(
+                  productName:
+                      widget.productName,
 
-                    // ================================================================
-                    // SELECTED CREDIT / PACKAGE
-                    // ================================================================
+                  productCode:
+                      widget.productCode,
+                  
+                  imageUrl:
+                      widget.imageUrl,
 
-                    optionCode:
-                        widget.optionCode,
+                  fieldId:
+                      widget.fieldId,
 
-                    optionName:
-                        widget.optionName,
+                  fieldType:
+                      widget.fieldType,
 
-                    optionDescription:
-                        widget.optionDescription,
+                  optionCode:
+                      widget.optionCode ?? '',
 
-                    // ================================================================
-                    // PLAYER ID / ACCOUNT
-                    //
-                    // Example:
-                    // Free Fire -> Player ID is stored in widget.account
-                    //
-                    // Games without account:
-                    // account = ''
-                    //
-                    // Receipt automatically hides empty account.
-                    // ================================================================
+                  optionName:
+                      widget.optionName ?? '',
 
-                    account:
-                        widget.account,
+                  optionDescription:
+                      widget.optionDescription ?? '',
 
-                    accountLabel:
-                        widget.accountLabel,
+                  baseAmount:
+                      widget.baseAmount,
 
-                      isGameAccount:
-                        widget.isGameAccount,
+                  serviceAdjustment:
+                      widget.serviceAdjustment,
 
+                  totalAmount:
+                      widget.totalAmount,
 
-                    // ================================================================
-                    // PAYMENT
-                    // ================================================================
+                  processingTime:
+                      widget.processingTime,
 
-                    baseAmount:
-                        widget.baseAmount,
+                  instructionNote:
+                      widget.note,
 
-                    serviceAdjustment:
-                        widget.serviceAdjustment,
+                  refId:
+                      finalResult
+                              .refId
+                              .isNotEmpty
+                          ? finalResult.refId
+                          : _currentRefId,
 
-                    totalAmount:
-                        widget.totalAmount,
+                  orderNo:
+                      successfulOrderNo,
 
-                    processingTime:
-                        widget.processingTime,
+                  bankTransactionNo:
+                      bankTransactionNo,
 
-                    // ================================================================
-                    // TRANSACTION
-                    // ================================================================
+                  paymentMethod:
+                      'DuitNow QR',
 
-                    refId:
-                        iimmpactResult!
-                                .refId
-                                .isNotEmpty
-                            ? iimmpactResult
-                                .refId
-                            : _currentRefId,
+                  paidAt:
+                      DateTime.now(),
 
-                    orderNo:
-                        successfulOrderNo,
+                  providerStatus:
+                      finalResult.status,
 
-                    bankTransactionNo:
-                        bankTransactionNo,
+                  serialNumber:
+                      finalResult.serialNumber,
 
-                    paymentMethod:
-                        'DuitNow QR',
+                  pin:
+                      finalResult.pin,
 
-                    paidAt:
-                        DateTime.now(),
+                  expiry:
+                      finalResult.expiry,
 
-                    // ================================================================
-                    // IIMMPACT RESPONSE
-                    //
-                    // These only appear on receipt when returned.
-                    // ================================================================
+                  voucherLink:
+                      finalResult.voucherLink,
 
-                    serialNumber:
-                        iimmpactResult
-                            .serialNumber,
-
-                    pin:
-                        iimmpactResult.pin,
-
-                    expiry:
-                        iimmpactResult.expiry,
-
-                    voucherLink:
-                        iimmpactResult
-                            .voucherLink,
-                  ),
+                  providerNote:
+                      finalResult.note,
                 ),
               ),
             ),
@@ -706,7 +870,7 @@ class _GameCreditsQrPaymentPageState
         },
 
         // ====================================================================
-        // CANCEL
+        // PAYMENT CANCEL
         // ====================================================================
 
         onCancel:
@@ -735,16 +899,18 @@ class _GameCreditsQrPaymentPageState
               ),
               duration:
                   const Duration(
-                seconds:
-                    3,
+                seconds: 3,
               ),
             ),
           );
         },
       );
-    } catch (error, stackTrace) {
+    } catch (
+      error,
+      stackTrace
+    ) {
       debugPrint(
-        '[GameCreditsQrPaymentPage] '
+        '[FuelQrPaymentPage] '
         'QR error: $error',
       );
 
@@ -757,9 +923,11 @@ class _GameCreditsQrPaymentPageState
           mounted) {
         Navigator.of(
           context,
-          rootNavigator:
-              true,
+          rootNavigator: true,
         ).pop();
+
+        loadingDialogVisible =
+            false;
       }
 
       if (!mounted) {
@@ -795,39 +963,44 @@ class _GameCreditsQrPaymentPageState
   Future<void> _restoreFlutterWindow() async {
     try {
       await windowManager.show();
+
       await windowManager.focus();
+
       await windowManager
           .setFullScreen(
         true,
       );
     } catch (error) {
       debugPrint(
-        'Game Credit window restore error: '
-        '$error',
+        '[FuelQrPaymentPage] '
+        'Window restore error: $error',
       );
     }
   }
 
   // ==========================================================================
-  // QR LOADING DIALOG
+  // PREPARING QR DIALOG
   // ==========================================================================
 
   void _showLoadingDialog() {
-    final AppLocalizations loc =
+    final loc =
         AppLocalizations.of(context)!;
 
     showDialog<void>(
       context:
           context,
+
       useRootNavigator:
           true,
+
       barrierDismissible:
           false,
-      builder:
-          (_) {
+
+      builder: (_) {
         return PopScope(
           canPop:
               false,
+
           child:
               Material(
             color:
@@ -836,12 +1009,14 @@ class _GameCreditsQrPaymentPageState
             ).withOpacity(
               0.82,
             ),
+
             child:
                 Center(
               child:
                   Container(
                 width:
                     650,
+
                 padding:
                     const EdgeInsets.symmetric(
                   horizontal:
@@ -849,54 +1024,66 @@ class _GameCreditsQrPaymentPageState
                   vertical:
                       44,
                 ),
+
                 decoration:
                     BoxDecoration(
                   color:
                       Colors.white,
+
                   borderRadius:
                       BorderRadius.circular(
                     32,
                   ),
+
                   border:
                       Border.all(
                     color:
-                        _lightColor,
+                        const Color(
+                      0xFFF1CBD6,
+                    ),
                     width:
-                        3,
+                        2,
                   ),
                 ),
+
                 child:
                     Column(
                   mainAxisSize:
                       MainAxisSize.min,
+
                   children: [
                     Container(
                       width:
                           138,
                       height:
                           138,
+
                       decoration:
                           BoxDecoration(
                         color:
-                            _lightColor,
+                            _light,
+
                         shape:
                             BoxShape.circle,
+
                         border:
                             Border.all(
                           color:
-                              _primaryColor,
+                              _primary,
                           width:
                               5,
                         ),
                       ),
+
                       child:
                           const Icon(
-                        Icons
-                            .qr_code_2_rounded,
+                        Icons.qr_code_2_rounded,
+
                         size:
                             88,
+
                         color:
-                            _primaryColor,
+                            _primary,
                       ),
                     ),
 
@@ -907,40 +1094,19 @@ class _GameCreditsQrPaymentPageState
 
                     Text(
                       loc
-                          .gameCreditsPreparingQrPayment,
+                          .fuelPreparingQrPayment,
+
                       textAlign:
                           TextAlign.center,
+
                       style:
                           const TextStyle(
                         color:
-                            _darkColor,
-                        fontSize:
-                            40,
-                        fontWeight:
-                            FontWeight.w900,
-                      ),
-                    ),
+                            _dark,
 
-                    const SizedBox(
-                      height:
-                          26,
-                    ),
-
-                    Text(
-                      '${widget.gameName}\n'
-                      '${_formatAmount(widget.totalAmount)}',
-                      textAlign:
-                          TextAlign.center,
-                      style:
-                          const TextStyle(
-                        color:
-                            Color(
-                          0xFF294A73,
-                        ),
                         fontSize:
-                            28,
-                        height:
-                            1.4,
+                            42,
+
                         fontWeight:
                             FontWeight.w900,
                       ),
@@ -951,17 +1117,54 @@ class _GameCreditsQrPaymentPageState
                           28,
                     ),
 
+                    Text(
+                      '${widget.productName}\n'
+                      '${_formatAmount(widget.totalAmount)}',
+
+                      textAlign:
+                          TextAlign.center,
+
+                      style:
+                          const TextStyle(
+                        color:
+                            Color(
+                          0xFF294A73,
+                        ),
+
+                        fontSize:
+                            27,
+
+                        height:
+                            1.4,
+
+                        fontWeight:
+                            FontWeight.w900,
+                      ),
+                    ),
+
+                    const SizedBox(
+                      height:
+                          30,
+                    ),
+
                     const SizedBox(
                       width:
                           72,
                       height:
                           72,
+
                       child:
                           CircularProgressIndicator(
                         strokeWidth:
                             7,
+
                         color:
-                            _primaryColor,
+                            _primary,
+
+                        backgroundColor:
+                            Color(
+                          0xFFFFDFE8,
+                        ),
                       ),
                     ),
 
@@ -972,16 +1175,20 @@ class _GameCreditsQrPaymentPageState
 
                     Text(
                       loc.pleaseDoNotClose,
+
                       textAlign:
                           TextAlign.center,
+
                       style:
                           const TextStyle(
                         color:
                             Color(
                           0xFF647187,
                         ),
+
                         fontSize:
                             22,
+
                         fontWeight:
                             FontWeight.w700,
                       ),
@@ -997,25 +1204,28 @@ class _GameCreditsQrPaymentPageState
   }
 
   // ==========================================================================
-  // PROCESSING DIALOG
+  // PROCESSING VOUCHER DIALOG
   // ==========================================================================
 
   void _showReceiptProcessingDialog() {
-    final AppLocalizations loc =
+    final loc =
         AppLocalizations.of(context)!;
 
     showDialog<void>(
       context:
           context,
+
       useRootNavigator:
           true,
+
       barrierDismissible:
           false,
-      builder:
-          (_) {
+
+      builder: (_) {
         return PopScope(
           canPop:
               false,
+
           child:
               Material(
             color:
@@ -1024,48 +1234,65 @@ class _GameCreditsQrPaymentPageState
             ).withOpacity(
               0.88,
             ),
+
             child:
                 Center(
               child:
                   Container(
                 width:
                     700,
+
                 padding:
-                    const EdgeInsets.all(
+                    const EdgeInsets.fromLTRB(
+                  48,
                   46,
+                  48,
+                  42,
                 ),
+
                 decoration:
                     BoxDecoration(
                   color:
                       Colors.white,
+
                   borderRadius:
                       BorderRadius.circular(
                     36,
                   ),
+
                   border:
                       Border.all(
                     color:
-                        _lightColor,
+                        const Color(
+                      0xFFF1CBD6,
+                    ),
                     width:
                         3,
                   ),
                 ),
+
                 child:
                     Column(
                   mainAxisSize:
                       MainAxisSize.min,
+
                   children: [
                     const SizedBox(
                       width:
-                          145,
+                          148,
                       height:
-                          145,
+                          148,
+
                       child:
                           CircularProgressIndicator(
                         strokeWidth:
                             8,
+
                         color:
-                            _primaryColor,
+                            _primary,
+
+                        backgroundColor:
+                            _light,
                       ),
                     ),
 
@@ -1076,15 +1303,19 @@ class _GameCreditsQrPaymentPageState
 
                     Text(
                       loc
-                          .gameCreditsProcessingPurchaseTitle,
+                          .fuelProcessingTitle,
+
                       textAlign:
                           TextAlign.center,
+
                       style:
                           const TextStyle(
                         color:
-                            _darkColor,
+                            _dark,
+
                         fontSize:
-                            40,
+                            42,
+
                         fontWeight:
                             FontWeight.w900,
                       ),
@@ -1097,19 +1328,24 @@ class _GameCreditsQrPaymentPageState
 
                     Text(
                       loc
-                          .gameCreditsProcessingPurchaseMessage,
+                          .fuelProcessingMessage,
+
                       textAlign:
                           TextAlign.center,
+
                       style:
                           const TextStyle(
                         color:
                             Color(
                           0xFF5B6B7B,
                         ),
+
                         fontSize:
                             25,
+
                         height:
                             1.4,
+
                         fontWeight:
                             FontWeight.w700,
                       ),
@@ -1117,41 +1353,79 @@ class _GameCreditsQrPaymentPageState
 
                     const SizedBox(
                       height:
-                          25,
+                          28,
                     ),
 
                     Text(
-                      widget.gameName,
+                      widget.productName,
+
                       textAlign:
                           TextAlign.center,
+
                       style:
                           const TextStyle(
                         color:
                             Color(
                           0xFF17324D,
                         ),
+
                         fontSize:
                             29,
+
                         fontWeight:
                             FontWeight.w900,
                       ),
                     ),
 
+                    if (_hasOptionName) ...[
+                      const SizedBox(
+                        height:
+                            9,
+                      ),
+
+                      Text(
+                        widget.optionName!,
+
+                        textAlign:
+                            TextAlign.center,
+
+                        style:
+                            const TextStyle(
+                          color:
+                              Color(
+                            0xFF607086,
+                          ),
+
+                          fontSize:
+                              24,
+
+                          fontWeight:
+                              FontWeight.w800,
+                        ),
+                      ),
+                    ],
+
                     const SizedBox(
                       height:
-                          10,
+                          12,
                     ),
 
                     Text(
                       _formatAmount(
                         widget.totalAmount,
                       ),
+
+                      textAlign:
+                          TextAlign.center,
+
                       style:
                           const TextStyle(
                         color:
-                            _primaryColor,
+                            _dark,
+
                         fontSize:
                             40,
+
                         fontWeight:
                             FontWeight.w900,
                       ),
@@ -1164,17 +1438,21 @@ class _GameCreditsQrPaymentPageState
 
                     Text(
                       loc
-                          .gameCreditsProcessingPurchaseLocked,
+                          .fuelProcessingLocked,
+
                       textAlign:
                           TextAlign.center,
+
                       style:
                           const TextStyle(
                         color:
                             Color(
-                          0xFF68778A,
+                          0xFF685D84,
                         ),
+
                         fontSize:
                             21,
+
                         fontWeight:
                             FontWeight.w800,
                       ),
@@ -1190,7 +1468,7 @@ class _GameCreditsQrPaymentPageState
   }
 
   // ==========================================================================
-  // MESSAGE
+  // MESSAGE DIALOG
   // ==========================================================================
 
   Future<void> _showMessage({
@@ -1198,74 +1476,84 @@ class _GameCreditsQrPaymentPageState
     required String message,
     required bool isError,
   }) async {
-    final Color accent =
-        isError
-            ? const Color(
-                0xFFC62828,
-              )
-            : _primaryColor;
-
     await showDialog<void>(
       context:
           context,
+
       barrierDismissible:
           false,
+
       builder:
           (
         dialogContext,
       ) {
+        final Color accent =
+            isError
+                ? _red
+                : _primary;
+
         return Dialog(
           backgroundColor:
               Colors.transparent,
+
           child:
               Container(
             width:
                 680,
+
             padding:
                 const EdgeInsets.all(
               40,
             ),
+
             decoration:
                 BoxDecoration(
               color:
                   Colors.white,
+
               borderRadius:
                   BorderRadius.circular(
                 30,
               ),
             ),
+
             child:
                 Column(
               mainAxisSize:
                   MainAxisSize.min,
+
               children: [
                 Icon(
                   isError
-                      ? Icons
-                          .error_outline_rounded
-                      : Icons
-                          .info_outline_rounded,
+                      ? Icons.error_outline_rounded
+                      : Icons.info_outline_rounded,
+
                   color:
                       accent,
+
                   size:
-                      95,
+                      100,
                 ),
 
                 const SizedBox(
                   height:
-                      20,
+                      22,
                 ),
 
                 Text(
                   title,
+
                   textAlign:
                       TextAlign.center,
+
                   style:
                       TextStyle(
                     color:
                         accent,
+
                     fontSize:
-                        38,
+                        42,
+
                     fontWeight:
                         FontWeight.w900,
                   ),
@@ -1278,18 +1566,23 @@ class _GameCreditsQrPaymentPageState
 
                 Text(
                   message,
+
                   textAlign:
                       TextAlign.center,
+
                   style:
                       const TextStyle(
                     color:
                         Color(
                       0xFF435166,
                     ),
+
                     fontSize:
-                        24,
+                        25,
+
                     height:
-                        1.4,
+                        1.45,
+
                     fontWeight:
                         FontWeight.w700,
                   ),
@@ -1297,14 +1590,16 @@ class _GameCreditsQrPaymentPageState
 
                 const SizedBox(
                   height:
-                      28,
+                      30,
                 ),
 
                 SizedBox(
                   width:
                       double.infinity,
+
                   height:
-                      78,
+                      80,
+
                   child:
                       ElevatedButton(
                     onPressed:
@@ -1313,23 +1608,36 @@ class _GameCreditsQrPaymentPageState
                         dialogContext,
                       );
                     },
+
                     style:
                         ElevatedButton.styleFrom(
                       backgroundColor:
                           accent,
+
                       foregroundColor:
                           Colors.white,
+
+                      shape:
+                          RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(
+                          20,
+                        ),
+                      ),
                     ),
+
                     child:
                         Text(
                       AppLocalizations.of(
                         context,
                       )!
                           .ok,
+
                       style:
                           const TextStyle(
                         fontSize:
-                            26,
+                            28,
+
                         fontWeight:
                             FontWeight.w900,
                       ),
@@ -1352,17 +1660,22 @@ class _GameCreditsQrPaymentPageState
   Widget build(
     BuildContext context,
   ) {
-    final AppLocalizations loc =
+    final loc =
         AppLocalizations.of(context)!;
 
     return PopScope(
       canPop:
           !_isBusy,
+
       child:
           Scaffold(
         body:
             Stack(
           children: [
+            // ================================================================
+            // BACKGROUND
+            // ================================================================
+
             const Positioned.fill(
               child:
                   DecoratedBox(
@@ -1381,6 +1694,10 @@ class _GameCreditsQrPaymentPageState
               ),
             ),
 
+            // ================================================================
+            // PAGE
+            // ================================================================
+
             SafeArea(
               child:
                   Column(
@@ -1391,52 +1708,83 @@ class _GameCreditsQrPaymentPageState
 
                   Expanded(
                     child:
-                        SingleChildScrollView(
+                        Padding(
                       padding:
-                          const EdgeInsets.fromLTRB(
-                        62,
-                        34,
-                        62,
-                        26,
+                          const EdgeInsets.only(
+                        right:
+                            18,
                       ),
+
                       child:
-                          Column(
-                        children: [
-                          _buildInformationCard(
-                            loc,
+                          Scrollbar(
+                        thumbVisibility:
+                            true,
+
+                        trackVisibility:
+                            true,
+
+                        thickness:
+                            10,
+
+                        radius:
+                            const Radius.circular(
+                          20,
+                        ),
+
+                        child:
+                            SingleChildScrollView(
+                          padding:
+                              const EdgeInsets.fromLTRB(
+                            62,
+                            34,
+                            62,
+                            26,
                           ),
 
-                          const SizedBox(
-                            height:
-                                26,
+                          child:
+                              Column(
+                            children: [
+                              _buildInformationCard(
+                                loc,
+                              ),
+
+                              const SizedBox(
+                                height:
+                                    26,
+                              ),
+
+                              _buildTotalPaymentCard(
+                                loc,
+                              ),
+
+                              const SizedBox(
+                                height:
+                                    26,
+                              ),
+
+                              _buildPaymentActionCard(
+                                loc,
+                              ),
+
+                              if (_errorMessage !=
+                                  null) ...[
+                                const SizedBox(
+                                  height:
+                                      22,
+                                ),
+
+                                _buildErrorCard(),
+                              ],
+                            ],
                           ),
-
-                          _buildTotalCard(
-                            loc,
-                          ),
-
-                          const SizedBox(
-                            height:
-                                26,
-                          ),
-
-                          _buildPaymentCard(
-                            loc,
-                          ),
-
-                          if (_errorMessage !=
-                              null) ...[
-                            const SizedBox(
-                              height:
-                                  20,
-                            ),
-
-                            _buildErrorCard(),
-                          ],
-                        ],
+                        ),
                       ),
                     ),
                   ),
+
+                  // ============================================================
+                  // BACK + FOOTER
+                  // ============================================================
 
                   Padding(
                     padding:
@@ -1446,29 +1794,35 @@ class _GameCreditsQrPaymentPageState
                       70,
                       34,
                     ),
+
                     child:
                         Column(
                       children: [
                         IgnorePointer(
                           ignoring:
                               _isBusy,
+
                           child:
                               AnimatedOpacity(
-                            opacity:
-                                _isBusy
-                                    ? 0.45
-                                    : 1,
                             duration:
                                 const Duration(
                               milliseconds:
                                   180,
                             ),
+
+                            opacity:
+                                _isBusy
+                                    ? 0.45
+                                    : 1,
+
                             child:
                                 SizedBox(
                               width:
                                   620,
+
                               height:
                                   98,
+
                               child:
                                   KioskBackButton(
                                 onPressed:
@@ -1488,21 +1842,25 @@ class _GameCreditsQrPaymentPageState
 
                         const SizedBox(
                           height:
-                              25,
+                              28,
                         ),
 
                         Text(
                           Data.copyrightText,
+
                           textAlign:
                               TextAlign.center,
+
                           style:
                               const TextStyle(
                             color:
                                 Color(
                               0xFF17375E,
                             ),
+
                             fontSize:
-                                20,
+                                21,
+
                             fontWeight:
                                 FontWeight.w800,
                           ),
@@ -1514,12 +1872,17 @@ class _GameCreditsQrPaymentPageState
               ),
             ),
 
+            // ================================================================
+            // LOCK PAGE
+            // ================================================================
+
             if (_isBusy)
               const Positioned.fill(
                 child:
                     AbsorbPointer(
                   absorbing:
                       true,
+
                   child:
                       ColoredBox(
                     color:
@@ -1548,6 +1911,7 @@ class _GameCreditsQrPaymentPageState
         62,
         0,
       ),
+
       padding:
           const EdgeInsets.symmetric(
         horizontal:
@@ -1555,34 +1919,39 @@ class _GameCreditsQrPaymentPageState
         vertical:
             22,
       ),
+
       decoration:
           BoxDecoration(
         borderRadius:
             BorderRadius.circular(
           30,
         ),
+
         gradient:
             const LinearGradient(
           colors: [
             Color(
-              0xFF087A70,
+              0xFFC83261,
             ),
             Color(
-              0xFF009688,
+              0xFFE65175,
             ),
             Color(
-              0xFF35B7A8,
+              0xFFF17C9C,
             ),
           ],
         ),
       ),
-      child: Row(
+
+      child:
+          Row(
         children: [
           const Icon(
-            Icons
-                .videogame_asset_rounded,
+            Icons.card_giftcard_rounded,
+
             color:
                 Colors.white,
+
             size:
                 54,
           ),
@@ -1595,16 +1964,21 @@ class _GameCreditsQrPaymentPageState
           Expanded(
             child:
                 Text(
-              loc.gameCreditsPaymentTitle
+              loc
+                  .fuelPaymentTitle
                   .toUpperCase(),
+
               textAlign:
                   TextAlign.center,
+
               style:
                   const TextStyle(
                 color:
                     Colors.white,
+
                 fontSize:
                     40,
+
                 fontWeight:
                     FontWeight.w900,
               ),
@@ -1617,10 +1991,11 @@ class _GameCreditsQrPaymentPageState
           ),
 
           const Icon(
-            Icons
-                .shield_outlined,
+            Icons.shield_outlined,
+
             color:
                 Colors.white,
+
             size:
                 50,
           ),
@@ -1630,7 +2005,7 @@ class _GameCreditsQrPaymentPageState
   }
 
   // ==========================================================================
-  // INFORMATION
+  // INFORMATION CARD
   // ==========================================================================
 
   Widget _buildInformationCard(
@@ -1639,95 +2014,230 @@ class _GameCreditsQrPaymentPageState
     return Container(
       width:
           double.infinity,
+
       padding:
           const EdgeInsets.all(
         28,
       ),
+
       decoration:
           BoxDecoration(
         color:
-            Colors.white,
+            Colors.white.withOpacity(
+          0.99,
+        ),
+
         borderRadius:
             BorderRadius.circular(
           34,
         ),
+
         border:
             Border.all(
           color:
               const Color(
-            0xFFCDE7E3,
+            0xFFF1CBD6,
           ),
+
           width:
               2,
         ),
       ),
-      child: Column(
+
+      child:
+          Column(
         children: [
-          _PaymentInfoRow(
-            label:
-                loc.gameCreditsGameLabel,
-            value:
-                widget.gameName,
+          _buildCardTitle(
+            icon:
+                Icons.card_giftcard_rounded,
+
+            title:
+                loc.fuelPaymentDetails,
+
+            accent:
+                _primary,
+
+            background:
+                _light,
           ),
 
-          const Divider(
+          const SizedBox(
             height:
-                34,
+                24,
           ),
 
-          _PaymentInfoRow(
-            label:
-                loc.gameCreditsSelectedOptionLabel,
-            value:
-                widget.optionName,
-          ),
+          // ==================================================================
+          // PRODUCT
+          // ==================================================================
 
-          if (widget.accountRequired) ...[
-            const Divider(
-              height:
-                  34,
+          Container(
+            width:
+                double.infinity,
+
+            padding:
+                const EdgeInsets.all(
+              24,
             ),
 
-            _PaymentInfoRow(
+            decoration:
+                BoxDecoration(
+              gradient:
+                  const LinearGradient(
+                colors: [
+                  Color(
+                    0xFFC83261,
+                  ),
+                  Color(
+                    0xFFE65175,
+                  ),
+                  Color(
+                    0xFFF17C9C,
+                  ),
+                ],
+              ),
+
+              borderRadius:
+                  BorderRadius.circular(
+                28,
+              ),
+            ),
+
+            child:
+                Column(
+              children: [
+                Text(
+                  widget.productName,
+
+                  textAlign:
+                      TextAlign.center,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Colors.white,
+
+                    fontSize:
+                        37,
+
+                    fontWeight:
+                        FontWeight.w900,
+                  ),
+                ),
+
+                const SizedBox(
+                  height:
+                      10,
+                ),
+
+                Text(
+                  _formatProcessingTime(
+                    loc,
+                  ),
+
+                  style:
+                      TextStyle(
+                    color:
+                        Colors.white.withOpacity(
+                      0.88,
+                    ),
+
+                    fontSize:
+                        25,
+
+                    fontWeight:
+                        FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // ==================================================================
+          // OPTION/PACKAGE
+          // ==================================================================
+
+          if (_isSelect &&
+              _hasOptionName) ...[
+            const SizedBox(
+              height:
+                  22,
+            ),
+
+            _buildInfoTile(
+              icon:
+                  Icons.sell_rounded,
+
               label:
-                  widget.accountLabel
-                          .trim()
-                          .isNotEmpty
-                      ? widget.accountLabel
-                      : loc.gameCreditsAccountLabel,
+                  loc.fuelSelectedPackage,
+
               value:
-                  widget.account,
+                  widget.optionName!,
             ),
           ],
 
-          const Divider(
+          if (_hasOptionDescription) ...[
+            const SizedBox(
+              height:
+                  16,
+            ),
+
+            _buildInfoTile(
+              icon:
+                  Icons.description_outlined,
+
+              label:
+                  loc.fuelOptionDetails,
+
+              value:
+                  widget.optionDescription!,
+            ),
+          ],
+
+          const SizedBox(
             height:
-                34,
+                16,
           ),
 
-          _PaymentInfoRow(
+          // ==================================================================
+          // VOUCHER VALUE
+          // ==================================================================
+
+          _buildInfoTile(
+            icon:
+                Icons.payments_rounded,
+
             label:
-                loc.gameCreditsSubtotalLabel,
+                loc.fuelVoucherValue,
+
             value:
                 _formatAmount(
               widget.baseAmount,
             ),
           ),
 
-          if (widget.serviceAdjustment
+          // ==================================================================
+          // ADJUSTMENT
+          // ==================================================================
+
+          if (widget
+                  .serviceAdjustment
                   .abs() >=
               0.005) ...[
-            const Divider(
+            const SizedBox(
               height:
-                  34,
+                  16,
             ),
 
-            _PaymentInfoRow(
+            _buildInfoTile(
+              icon:
+                  Icons.tune_rounded,
+
               label:
                   loc
-                      .gameCreditsServiceAdjustmentLabel,
+                      .fuelServiceAdjustment,
+
               value:
-                  _formatAmount(
+                  _formatSignedAmount(
                 widget.serviceAdjustment,
               ),
             ),
@@ -1741,68 +2251,91 @@ class _GameCreditsQrPaymentPageState
   // TOTAL
   // ==========================================================================
 
-  Widget _buildTotalCard(
+  Widget _buildTotalPaymentCard(
     AppLocalizations loc,
   ) {
     return Container(
       width:
           double.infinity,
+
       padding:
-          const EdgeInsets.all(
+          const EdgeInsets.fromLTRB(
+        30,
+        28,
+        30,
         30,
       ),
+
       decoration:
           BoxDecoration(
         color:
-            _lightColor,
+            const Color(
+          0xFFF5FCF8,
+        ),
+
         borderRadius:
             BorderRadius.circular(
           34,
         ),
+
         border:
             Border.all(
           color:
               const Color(
-            0xFF8FD3C8,
+            0xFF7BCC9D,
           ),
+
           width:
               2.5,
         ),
       ),
-      child: Column(
+
+      child:
+          Column(
         children: [
-          Text(
-            loc.gameCreditsPaymentTotal,
-            style:
-                const TextStyle(
-              color:
-                  _darkColor,
-              fontSize:
-                  31,
-              fontWeight:
-                  FontWeight.w900,
+          _buildCardTitle(
+            icon:
+                Icons.account_balance_wallet_rounded,
+
+            title:
+                loc.fuelTotalPayment,
+
+            accent:
+                const Color(
+              0xFF118762,
+            ),
+
+            background:
+                const Color(
+              0xFFE1F5EB,
             ),
           ),
 
           const SizedBox(
             height:
-                18,
+                22,
           ),
 
           FittedBox(
+            fit:
+                BoxFit.scaleDown,
+
             child:
                 Text(
               _formatAmount(
                 widget.totalAmount,
               ),
+
               style:
                   const TextStyle(
                 color:
                     Color(
-                  0xFF16813B,
+                  0xFF125B2D,
                 ),
+
                 fontSize:
                     82,
+
                 fontWeight:
                     FontWeight.w900,
               ),
@@ -1817,7 +2350,7 @@ class _GameCreditsQrPaymentPageState
   // PAYMENT ACTION
   // ==========================================================================
 
-  Widget _buildPaymentCard(
+  Widget _buildPaymentActionCard(
     AppLocalizations loc,
   ) {
     final bool disabled =
@@ -1827,35 +2360,64 @@ class _GameCreditsQrPaymentPageState
     return Container(
       width:
           double.infinity,
+
       padding:
           const EdgeInsets.all(
         28,
       ),
+
       decoration:
           BoxDecoration(
         color:
-            Colors.white,
+            Colors.white.withOpacity(
+          0.99,
+        ),
+
         borderRadius:
             BorderRadius.circular(
           34,
         ),
+
         border:
             Border.all(
           color:
               const Color(
-            0xFFCDE7E3,
+            0xFFF1CBD6,
           ),
+
           width:
               2,
         ),
       ),
-      child: Column(
+
+      child:
+          Column(
         children: [
+          _buildCardTitle(
+            icon:
+                Icons.qr_code_2_rounded,
+
+            title:
+                loc.paymentSectionTitle,
+
+            accent:
+                _primary,
+
+            background:
+                _light,
+          ),
+
+          const SizedBox(
+            height:
+                24,
+          ),
+
           const Icon(
-            Icons
-                .qr_code_scanner_rounded,
+            Icons.qr_code_scanner_rounded,
+
             color:
-                _primaryColor,
+                _green,
+
             size:
                 100,
           ),
@@ -1867,20 +2429,25 @@ class _GameCreditsQrPaymentPageState
 
           Text(
             loc.scanQrInstruction,
+
             textAlign:
                 TextAlign.center,
+
             style:
                 const TextStyle(
               color:
                   Color(
                 0xFF35536A,
               ),
+
               fontSize:
                   25,
-              height:
-                  1.4,
+
               fontWeight:
                   FontWeight.w700,
+
+              height:
+                  1.4,
             ),
           ),
 
@@ -1892,42 +2459,25 @@ class _GameCreditsQrPaymentPageState
           SizedBox(
             width:
                 double.infinity,
+
             height:
                 126,
+
             child:
-                ElevatedButton.icon(
+                ElevatedButton(
               onPressed:
                   disabled
                       ? null
                       : _startQrPayment,
-              icon:
-                  const Icon(
-                Icons
-                    .qr_code_2_rounded,
-                size:
-                    56,
-              ),
-              label:
-                  Text(
-                disabled
-                    ? loc.preparingQr
-                        .toUpperCase()
-                    : loc.payWithDuitNowQr
-                        .toUpperCase(),
-                style:
-                    const TextStyle(
-                  fontSize:
-                      30,
-                  fontWeight:
-                      FontWeight.w900,
-                ),
-              ),
+
               style:
                   ElevatedButton.styleFrom(
                 backgroundColor:
-                    _primaryColor,
+                    _green,
+
                 foregroundColor:
                     Colors.white,
+
                 shape:
                     RoundedRectangleBorder(
                   borderRadius:
@@ -1936,6 +2486,276 @@ class _GameCreditsQrPaymentPageState
                   ),
                 ),
               ),
+
+              child:
+                  Row(
+                children: [
+                  Container(
+                    width:
+                        84,
+
+                    height:
+                        84,
+
+                    decoration:
+                        BoxDecoration(
+                      color:
+                          Colors.white,
+
+                      borderRadius:
+                          BorderRadius.circular(
+                        22,
+                      ),
+                    ),
+
+                    child:
+                        _isBusy
+                            ? const Padding(
+                                padding:
+                                    EdgeInsets.all(
+                                  21,
+                                ),
+
+                                child:
+                                    CircularProgressIndicator(
+                                  strokeWidth:
+                                      4,
+
+                                  color:
+                                      _green,
+                                ),
+                              )
+                            : const Icon(
+                                Icons.qr_code_2_rounded,
+
+                                color:
+                                    _green,
+
+                                size:
+                                    58,
+                              ),
+                  ),
+
+                  const SizedBox(
+                    width:
+                        22,
+                  ),
+
+                  Expanded(
+                    child:
+                        Text(
+                      _isBusy
+                          ? loc
+                              .preparingQr
+                              .toUpperCase()
+                          : loc
+                              .payWithDuitNowQr
+                              .toUpperCase(),
+
+                      style:
+                          const TextStyle(
+                        fontSize:
+                            29,
+
+                        fontWeight:
+                            FontWeight.w900,
+                      ),
+                    ),
+                  ),
+
+                  Text(
+                    _formatAmount(
+                      widget.totalAmount,
+                    ),
+
+                    style:
+                        const TextStyle(
+                      fontSize:
+                          25,
+
+                      fontWeight:
+                          FontWeight.w900,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // COMMON UI
+  // ==========================================================================
+
+  Widget _buildCardTitle({
+    required IconData icon,
+    required String title,
+    required Color accent,
+    required Color background,
+  }) {
+    return Row(
+      mainAxisAlignment:
+          MainAxisAlignment.center,
+
+      children: [
+        Container(
+          width:
+              58,
+
+          height:
+              58,
+
+          decoration:
+              BoxDecoration(
+            color:
+                background,
+
+            borderRadius:
+                BorderRadius.circular(
+              18,
+            ),
+          ),
+
+          child:
+              Icon(
+            icon,
+
+            color:
+                accent,
+
+            size:
+                34,
+          ),
+        ),
+
+        const SizedBox(
+          width:
+              15,
+        ),
+
+        Flexible(
+          child:
+              Text(
+            title.toUpperCase(),
+
+            textAlign:
+                TextAlign.center,
+
+            style:
+                const TextStyle(
+              color:
+                  Color(
+                0xFF193A5A,
+              ),
+
+              fontSize:
+                  29,
+
+              fontWeight:
+                  FontWeight.w900,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildInfoTile({
+    required IconData icon,
+    required String label,
+    required String value,
+  }) {
+    return Container(
+      width:
+          double.infinity,
+
+      padding:
+          const EdgeInsets.all(
+        22,
+      ),
+
+      decoration:
+          BoxDecoration(
+        color:
+            const Color(
+          0xFFF5F8FC,
+        ),
+
+        borderRadius:
+            BorderRadius.circular(
+          26,
+        ),
+      ),
+
+      child:
+          Row(
+        children: [
+          Icon(
+            icon,
+
+            color:
+                _primary,
+
+            size:
+                40,
+          ),
+
+          const SizedBox(
+            width:
+                18,
+          ),
+
+          Expanded(
+            child:
+                Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
+              children: [
+                Text(
+                  label,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF6B7B8D,
+                    ),
+
+                    fontSize:
+                        22,
+
+                    fontWeight:
+                        FontWeight.w700,
+                  ),
+                ),
+
+                const SizedBox(
+                  height:
+                      7,
+                ),
+
+                Text(
+                  value,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF182D43,
+                    ),
+
+                    fontSize:
+                        30,
+
+                    fontWeight:
+                        FontWeight.w900,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -1947,107 +2767,74 @@ class _GameCreditsQrPaymentPageState
     return Container(
       width:
           double.infinity,
+
       padding:
           const EdgeInsets.all(
         24,
       ),
+
       decoration:
           BoxDecoration(
         color:
             const Color(
           0xFFFFF1F1,
         ),
+
         borderRadius:
             BorderRadius.circular(
           20,
         ),
-      ),
-      child:
-          Text(
-        _errorMessage ?? '',
-        textAlign:
-            TextAlign.center,
-        style:
-            const TextStyle(
+
+        border:
+            Border.all(
           color:
-              Color(
-            0xFFC62828,
+              const Color(
+            0xFFEF9A9A,
           ),
-          fontSize:
-              22,
-          fontWeight:
-              FontWeight.w700,
+
+          width:
+              2,
         ),
       ),
-    );
-  }
-}
 
-// ============================================================================
-// PAYMENT INFORMATION ROW
-// ============================================================================
+      child:
+          Row(
+        children: [
+          const Icon(
+            Icons.error_outline_rounded,
 
-class _PaymentInfoRow
-    extends StatelessWidget {
-  final String label;
-  final String value;
+            color:
+                _red,
 
-  const _PaymentInfoRow({
-    required this.label,
-    required this.value,
-  });
+            size:
+                42,
+          ),
 
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Row(
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child:
-              Text(
-            label,
-            style:
-                const TextStyle(
-              color:
-                  Color(
-                0xFF63758A,
+          const SizedBox(
+            width:
+                18,
+          ),
+
+          Expanded(
+            child:
+                Text(
+              _errorMessage ?? '',
+
+              style:
+                  const TextStyle(
+                color:
+                    _red,
+
+                fontSize:
+                    22,
+
+                fontWeight:
+                    FontWeight.w700,
               ),
-              fontSize:
-                  27,
-              fontWeight:
-                  FontWeight.w700,
             ),
           ),
-        ),
-
-        const SizedBox(
-          width:
-              20,
-        ),
-
-        Expanded(
-          child:
-              Text(
-            value,
-            textAlign:
-                TextAlign.right,
-            style:
-                const TextStyle(
-              color:
-                  Color(
-                0xFF17283E,
-              ),
-              fontSize:
-                  29,
-              fontWeight:
-                  FontWeight.w900,
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

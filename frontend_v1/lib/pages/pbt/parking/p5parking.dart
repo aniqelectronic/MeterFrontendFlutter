@@ -164,37 +164,156 @@ class _P5PARKINGPAGEState extends State<P5PARKINGPAGE> {
     );
   }
 
-  Widget _buildTopTitle() {
-    return Positioned(
-      top: 55,
-      left: 0,
-      right: 0,
-      child: Column(
-        children: [
-          const Text(
-            'PARK&PAY',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: _primaryBlue,
-              fontSize: 78,
-              fontWeight: FontWeight.w900,
-              letterSpacing: 1.5,
-              height: 1,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            width: 100,
-            height: 6,
-            decoration: BoxDecoration(
-              color: _primaryBlue,
-              borderRadius: BorderRadius.circular(999),
-            ),
+Widget _buildTopTitle() {
+  return Positioned(
+    top: 30,
+    left: 85,
+    right: 85,
+    child: Container(
+      height: 145,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 28,
+            offset: const Offset(0, 12),
           ),
         ],
       ),
-    );
-  }
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // ----------------------------------------------------------
+          // SUBTLE DECORATION
+          // ----------------------------------------------------------
+          Positioned(
+            left: -35,
+            top: -55,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _primaryBlue.withOpacity(0.045),
+              ),
+            ),
+          ),
+
+          Positioned(
+            right: -25,
+            bottom: -65,
+            child: Container(
+              width: 145,
+              height: 145,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFF1987EB).withOpacity(0.045),
+              ),
+            ),
+          ),
+
+          // ----------------------------------------------------------
+          // CENTERED ICON + TITLE
+          // ----------------------------------------------------------
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Icon
+              Container(
+                width: 88,
+                height: 88,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFF064AA3),
+                      Color(0xFF1787E5),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(26),
+                  boxShadow: [
+                    BoxShadow(
+                      color: _primaryBlue.withOpacity(0.24),
+                      blurRadius: 16,
+                      offset: const Offset(0, 7),
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.local_parking_rounded,
+                  color: Colors.white,
+                  size: 54,
+                ),
+              ),
+
+              const SizedBox(width: 25),
+
+              // Title + accent
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'PARK&PAY',
+                    style: TextStyle(
+                      color: _darkBlue,
+                      fontSize: 64,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 1.2,
+                      height: 0.95,
+                    ),
+                  ),
+
+                  const SizedBox(height: 11),
+
+                  // Small modern accent under title
+                  Row(
+                    children: [
+                      Container(
+                        width: 105,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xFF075FD8),
+                              Color(0xFF2196E8),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+
+                      const SizedBox(width: 7),
+
+                      Container(
+                        width: 15,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF2196E8)
+                              .withOpacity(0.25),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
   Widget _buildClock() {
     return const Positioned(

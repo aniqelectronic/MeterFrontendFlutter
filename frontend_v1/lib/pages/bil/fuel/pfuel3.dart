@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:frontend_v1/l10n/app_localizations.dart';
-import 'package:frontend_v1/pages/bil/p4bil.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbil3.dart';
 
@@ -9,6 +8,7 @@ import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
 
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
+import 'package:frontend_v1/pages/bil/fuel/pfuel4.dart';
 
 // ============================================================================
 // BILLER STATUS
@@ -22,7 +22,7 @@ enum BillerStatus {
 }
 
 // ============================================================================
-// ELECTRIC PRODUCT MODEL
+// FUEL PRODUCT MODEL
 //
 // All product information comes from:
 //
@@ -32,7 +32,7 @@ enum BillerStatus {
 //      ↓
 // categories
 //      ↓
-// category.id == ELEC
+// category.id == FUEL
 //      ↓
 // category.product_codes
 //      ↓
@@ -41,14 +41,14 @@ enum BillerStatus {
 // Nothing such as TNB / SESCO / SESB / NUR is manually listed here.
 // ============================================================================
 
-class _ElectricProduct {
+class _FuelProduct {
   final String code;
   final String name;
   final String imageUrl;
   final String processingTime;
   final bool isActive;
 
-  const _ElectricProduct({
+  const _FuelProduct({
     required this.code,
     required this.name,
     required this.imageUrl,
@@ -58,26 +58,26 @@ class _ElectricProduct {
 }
 
 // ============================================================================
-// ELECTRIC BILL PROVIDER PAGE
+// FUEL PROVIDER PAGE
 // ============================================================================
 
-class PELECTRICBILL3PAGE extends StatefulWidget {
-  const PELECTRICBILL3PAGE({
+class PFUEL3PAGE extends StatefulWidget {
+  const PFUEL3PAGE({
     super.key,
   });
 
   @override
-  State<PELECTRICBILL3PAGE> createState() =>
-      _PELECTRICBILL3PAGEState();
+  State<PFUEL3PAGE> createState() =>
+      _PFUEL3PAGEState();
 }
 
-class _PELECTRICBILL3PAGEState
-    extends State<PELECTRICBILL3PAGE> {
+class _PFUEL3PAGEState
+    extends State<PFUEL3PAGE> {
   // ==========================================================================
   // PRODUCTS FROM CATALOG
   // ==========================================================================
 
-  final List<_ElectricProduct> _electricProducts = [];
+  final List<_FuelProduct> _fuelProducts = [];
 
   bool _catalogLoading = true;
 
@@ -155,17 +155,17 @@ class _PELECTRICBILL3PAGEState
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        _loadElectricCatalog();
+        _loadFuelCatalog();
       },
     );
   }
 
   // ==========================================================================
-  // LOAD ELECTRICITY PROVIDERS FROM CATALOG
+  // LOAD FUEL PROVIDERS FROM CATALOG
   //
   // IMPORTANT:
   //
-  // We ONLY identify the ELEC category.
+  // We ONLY identify the FUEL category.
   //
   // Provider codes themselves come from:
   //
@@ -186,7 +186,7 @@ class _PELECTRICBILL3PAGEState
   // NEWCODE automatically appears without modifying this file.
   // ==========================================================================
 
-  Future<void> _loadElectricCatalog() async {
+  Future<void> _loadFuelCatalog() async {
     if (mounted) {
       setState(() {
         _catalogLoading = true;
@@ -237,10 +237,10 @@ class _PELECTRICBILL3PAGEState
       }
 
       // ======================================================================
-      // 4. FIND ELEC CATEGORY
+      // 4. FIND FUEL CATEGORY
       // ======================================================================
 
-      final List<String> electricCodes = [];
+      final List<String> fuelCodes = [];
 
       for (final dynamic groupRaw in groupsRaw) {
         if (groupRaw is! Map) {
@@ -278,10 +278,10 @@ class _PELECTRICBILL3PAGEState
                   '';
 
           // ==================================================================
-          // ELECTRICITY CATEGORY ONLY
+          // FUEL CATEGORY ONLY
           // ==================================================================
 
-          if (categoryId != 'ELEC') {
+          if (categoryId != 'FUEL') {
             continue;
           }
 
@@ -305,8 +305,8 @@ class _PELECTRICBILL3PAGEState
               continue;
             }
 
-            if (!electricCodes.contains(code)) {
-              electricCodes.add(
+            if (!fuelCodes.contains(code)) {
+              fuelCodes.add(
                 code,
               );
             }
@@ -333,18 +333,18 @@ class _PELECTRICBILL3PAGEState
       );
 
       // ======================================================================
-      // 6. BUILD ELECTRIC PRODUCTS
+      // 6. BUILD FUEL PRODUCTS
       // ======================================================================
 
-      final List<_ElectricProduct> loadedProducts = [];
+      final List<_FuelProduct> loadedProducts = [];
 
-      for (final String code in electricCodes) {
+      for (final String code in fuelCodes) {
         final dynamic rawProduct =
             products[code];
 
         if (rawProduct is! Map) {
           debugPrint(
-            'Electric catalog product not found: $code',
+            'Fuel catalog product not found: $code',
           );
 
           continue;
@@ -364,7 +364,7 @@ class _PELECTRICBILL3PAGEState
 
         if (!isActive) {
           debugPrint(
-            'Electric product inactive: $code',
+            'Fuel product inactive: $code',
           );
 
           continue;
@@ -412,7 +412,7 @@ class _PELECTRICBILL3PAGEState
                 '';
 
         loadedProducts.add(
-          _ElectricProduct(
+          _FuelProduct(
             code: productCode,
             name: productName,
             imageUrl: imageUrl,
@@ -431,7 +431,7 @@ class _PELECTRICBILL3PAGEState
       }
 
       setState(() {
-        _electricProducts
+        _fuelProducts
           ..clear()
           ..addAll(
             loadedProducts,
@@ -445,14 +445,14 @@ class _PELECTRICBILL3PAGEState
         '========================================',
       );
       debugPrint(
-        'ELECTRICITY CATALOG LOADED',
+        'FUEL CATALOG LOADED',
       );
       debugPrint(
         '========================================',
       );
       debugPrint(
         'Products: '
-        '${_electricProducts.map((e) => e.code).toList()}',
+        '${_fuelProducts.map((e) => e.code).toList()}',
       );
       debugPrint(
         '========================================',
@@ -482,7 +482,7 @@ class _PELECTRICBILL3PAGEState
 
     on IimmpactCatalogException catch (error) {
       debugPrint(
-        'Electric catalog error: '
+        'Fuel catalog error: '
         '${error.message}',
       );
 
@@ -491,7 +491,7 @@ class _PELECTRICBILL3PAGEState
       }
 
       setState(() {
-        _electricProducts.clear();
+        _fuelProducts.clear();
 
         _catalogLoading = false;
 
@@ -509,7 +509,7 @@ class _PELECTRICBILL3PAGEState
 
     catch (error, stackTrace) {
       debugPrint(
-        'Unexpected electric catalog error: '
+        'Unexpected fuel catalog error: '
         '$error',
       );
 
@@ -522,7 +522,7 @@ class _PELECTRICBILL3PAGEState
       }
 
       setState(() {
-        _electricProducts.clear();
+        _fuelProducts.clear();
 
         _catalogLoading = false;
 
@@ -540,14 +540,14 @@ class _PELECTRICBILL3PAGEState
   // ==========================================================================
 
   Future<void> _loadNetworkStatuses() async {
-    if (_electricProducts.isEmpty) {
+    if (_fuelProducts.isEmpty) {
       return;
     }
 
     await Future.wait(
-      _electricProducts.map(
+      _fuelProducts.map(
         (
-          _ElectricProduct product,
+          _FuelProduct product,
         ) {
           return _refreshNetworkStatus(
             product.code,
@@ -597,7 +597,7 @@ class _PELECTRICBILL3PAGEState
       return status;
     } catch (error) {
       debugPrint(
-        'Electric network status error for '
+        'Fuel network status error for '
         '$productCode: $error',
       );
 
@@ -617,7 +617,7 @@ class _PELECTRICBILL3PAGEState
   // ==========================================================================
 
   Future<void> _handleBillerTap(
-    _ElectricProduct product,
+    _FuelProduct product,
   ) async {
     final BillerStatus status =
         await _refreshNetworkStatus(
@@ -688,7 +688,7 @@ class _PELECTRICBILL3PAGEState
                   );
                 },
                 child: Text(
-                  loc.electricOk,
+                  loc.close,
                 ),
               ),
             ],
@@ -704,29 +704,17 @@ class _PELECTRICBILL3PAGEState
     }
 
     // ========================================================================
-    // PAGE 4
-    //
-    // product.code and product.name come directly from catalog.
+    // Fuel Page 3 stops after provider selection. Fuel Page 4 must load the
+    // provider's denominations from /v2/options; it must not use P4BILPAGE.
     // ========================================================================
-
-    final loc =
-        AppLocalizations.of(context)!;
 
     await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) =>
-            P4BILPAGE(
-          title:
-              loc.electricAccountTitle,
-          hint:
-              loc.electricAccountHint,
-          productCode:
-              product.code,
-          billerName:
-              product.name,
-          serviceType:
-              BillServiceType.electric,
+        builder: (_) => PFUEL4PAGE(
+          productCode: product.code,
+          productName: product.name,
+          imageUrl: product.imageUrl,
         ),
       ),
     );
@@ -1268,7 +1256,7 @@ class _PELECTRICBILL3PAGEState
             child:
                 _ModernPageHeader(
               title:
-                  loc.pbilelectric3Title,
+                  loc.fuelPageTitle,
               subtitle:
                   loc.pbil3Subtitle,
             ),
@@ -1294,7 +1282,7 @@ class _PELECTRICBILL3PAGEState
           // ==================================================================
 
           if (!_catalogLoading &&
-              _electricProducts.isNotEmpty &&
+              _fuelProducts.isNotEmpty &&
               showScrollUp)
             Positioned(
               right: 18,
@@ -1316,7 +1304,7 @@ class _PELECTRICBILL3PAGEState
           // ==================================================================
 
           if (!_catalogLoading &&
-              _electricProducts.isNotEmpty &&
+              _fuelProducts.isNotEmpty &&
               showScrollDown)
             Positioned(
               right: 18,
@@ -1510,7 +1498,7 @@ class _PELECTRICBILL3PAGEState
                 child:
                     ElevatedButton.icon(
                   onPressed:
-                      _loadElectricCatalog,
+                      _loadFuelCatalog,
                   icon:
                       const Icon(
                     Icons.refresh_rounded,
@@ -1557,7 +1545,7 @@ class _PELECTRICBILL3PAGEState
     // NO ACTIVE PROVIDERS
     // ========================================================================
 
-    if (_electricProducts.isEmpty) {
+    if (_fuelProducts.isEmpty) {
       return Center(
         child: Container(
           width:
@@ -1662,7 +1650,7 @@ class _PELECTRICBILL3PAGEState
 
             for (
               int index = 0;
-              index < _electricProducts.length;
+              index < _fuelProducts.length;
               index += 2
             )
               Padding(
@@ -1670,7 +1658,7 @@ class _PELECTRICBILL3PAGEState
                     EdgeInsets.only(
                   bottom:
                       index + 2 <
-                              _electricProducts
+                              _fuelProducts
                                   .length
                           ? 36
                           : 0,
@@ -1682,9 +1670,9 @@ class _PELECTRICBILL3PAGEState
                   children: [
                     Expanded(
                       child:
-                          _buildElectricCard(
+                          _buildFuelCard(
                         product:
-                            _electricProducts[
+                            _fuelProducts[
                                 index],
                         index:
                             index,
@@ -1700,11 +1688,11 @@ class _PELECTRICBILL3PAGEState
                     Expanded(
                       child:
                           index + 1 <
-                                  _electricProducts
+                                  _fuelProducts
                                       .length
-                              ? _buildElectricCard(
+                              ? _buildFuelCard(
                                   product:
-                                      _electricProducts[
+                                      _fuelProducts[
                                           index +
                                               1],
                                   index:
@@ -1836,7 +1824,7 @@ class _PELECTRICBILL3PAGEState
 
                     const Icon(
                       Icons
-                          .electric_bolt_rounded,
+                          .local_gas_station_rounded,
                       color:
                           Color(
                         0xFF1469E8,
@@ -2071,11 +2059,11 @@ class _PELECTRICBILL3PAGEState
   }
 
   // ==========================================================================
-  // BUILD DYNAMIC ELECTRIC CARD
+  // BUILD DYNAMIC FUEL CARD
   // ==========================================================================
 
-  Widget _buildElectricCard({
-    required _ElectricProduct product,
+  Widget _buildFuelCard({
+    required _FuelProduct product,
     required int index,
     required AppLocalizations loc,
   }) {
@@ -2091,7 +2079,7 @@ class _PELECTRICBILL3PAGEState
               _lightAccentColors.length
         ];
 
-    return _ElectricProviderCard(
+    return _FuelProviderCard(
       imageUrl:
           product.imageUrl,
 
@@ -2128,7 +2116,7 @@ class _PELECTRICBILL3PAGEState
 }
 
 // ============================================================================
-// MODERN + GOVERNMENT ELECTRICITY HEADER
+// MODERN + GOVERNMENT FUEL HEADER
 // KEEPS BADGE + TITLE + SUBTITLE
 // ============================================================================
 class _ModernPageHeader extends StatelessWidget {
@@ -2171,7 +2159,7 @@ class _ModernPageHeader extends StatelessWidget {
       child: Row(
         children: [
           // ==========================================================
-          // LEFT ELECTRICITY ICON
+          // LEFT FUEL ICON
           // ==========================================================
           Container(
             width: 105,
@@ -2195,7 +2183,7 @@ class _ModernPageHeader extends StatelessWidget {
               ],
             ),
             child: const Icon(
-              Icons.electric_bolt_rounded,
+              Icons.local_gas_station_rounded,
               color: Colors.white,
               size: 58,
             ),
@@ -2226,7 +2214,7 @@ class _ModernPageHeader extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(
-                        Icons.electric_bolt_rounded,
+                        Icons.local_gas_station_rounded,
                         size: 20,
                         color: accentColor,
                       ),
@@ -2234,7 +2222,7 @@ class _ModernPageHeader extends StatelessWidget {
                       const SizedBox(width: 8),
 
                       Text(
-                        loc.electricitybutton.toUpperCase(),
+                        loc.fuelButton.toUpperCase(),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -2313,10 +2301,10 @@ class _ModernPageHeader extends StatelessWidget {
 }
 
 // ============================================================================
-// ELECTRIC PROVIDER CARD
+// FUEL PROVIDER CARD
 // ============================================================================
 
-class _ElectricProviderCard
+class _FuelProviderCard
     extends StatefulWidget {
   final String imageUrl;
   final String label;
@@ -2332,7 +2320,7 @@ class _ElectricProviderCard
   final String processingTime;
   final String processingLabel;
 
-  const _ElectricProviderCard({
+  const _FuelProviderCard({
     super.key,
     required this.imageUrl,
     required this.label,
@@ -2346,16 +2334,16 @@ class _ElectricProviderCard
   });
 
   @override
-  State<_ElectricProviderCard> createState() =>
-      _ElectricProviderCardState();
+  State<_FuelProviderCard> createState() =>
+      _FuelProviderCardState();
 }
 
 // ============================================================================
-// ELECTRIC PROVIDER CARD STATE
+// FUEL PROVIDER CARD STATE
 // ============================================================================
 
-class _ElectricProviderCardState
-    extends State<_ElectricProviderCard> {
+class _FuelProviderCardState
+    extends State<_FuelProviderCard> {
   bool _isPressed = false;
 
   // ==========================================================================
@@ -2925,7 +2913,7 @@ class _ElectricProviderCardState
     if (widget.imageUrl.isEmpty) {
       return Icon(
         Icons
-            .electric_bolt_rounded,
+            .local_gas_station_rounded,
         size: 90,
         color:
             widget.accentColor,
@@ -2962,13 +2950,13 @@ class _ElectricProviderCardState
         stackTrace,
       ) {
         debugPrint(
-          'Failed to load electric logo: '
+          'Failed to load fuel logo: '
           '${widget.imageUrl}',
         );
 
         return Icon(
           Icons
-              .electric_bolt_rounded,
+              .local_gas_station_rounded,
           size: 90,
           color:
               widget.accentColor,

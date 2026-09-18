@@ -128,7 +128,7 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
           // PAGE HEADER
           // =========================
           Positioned(
-            top: 68,
+            top: 40,
             left: 58,
             right: 58,
             child: _ModernPageHeader(
@@ -580,6 +580,11 @@ class _RoundNavigationButtonState
   }
 }
 
+// ============================================================================
+// MODERN + GOVERNMENT TOURISM HEADER
+// KEEPS EXISTING BADGE + TITLE + SUBTITLE
+// ============================================================================
+
 class _ModernPageHeader extends StatelessWidget {
   final String badgeText;
   final String title;
@@ -593,100 +598,180 @@ class _ModernPageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 21,
-            vertical: 9,
+    const Color accentColor = Color(0xFFE56C16);
+    const Color darkAccent = Color(0xFFB94B00);
+    const Color lightAccent = Color(0xFFF08B3E);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
           ),
-          decoration: BoxDecoration(
-            color: const Color(0xFFE56C16).withOpacity(0.10),
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              color: const Color(0xFFE56C16).withOpacity(0.22),
-              width: 1.5,
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.explore_rounded,
-                size: 22,
-                color: Color(0xFFE56C16),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT TOURISM ICON
+          // ==========================================================
+
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  darkAccent,
+                  lightAccent,
+                ],
               ),
-              const SizedBox(width: 9),
-              Text(
-                badgeText.toUpperCase(),
-                style: const TextStyle(
-                  color: Color(0xFFE56C16),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.2,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 12),
-        ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) {
-            return const LinearGradient(
-              colors: [
-                Color(0xFF064CAC),
-                Color(0xFF1987EB),
               ],
-            ).createShader(bounds);
-          },
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            style: const TextStyle(
+            ),
+            child: const Icon(
+              Icons.travel_explore_rounded,
               color: Colors.white,
-              fontSize: 48,
-              fontWeight: FontWeight.w900,
-              letterSpacing: -0.8,
-              height: 1.02,
+              size: 56,
             ),
           ),
-        ),
-        const SizedBox(height: 11),
-        Container(
-          constraints: const BoxConstraints(maxWidth: 700),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 25,
-            vertical: 11,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.90),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: Colors.black.withOpacity(0.15),
-              width: 1.3,
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // EXISTING HEADER INFORMATION
+          // ==========================================================
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING BADGE
+                // ------------------------------------------------------
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFEBDC),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.explore_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Flexible(
+                        child: Text(
+                          badgeText.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
             ),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF113968).withOpacity(0.09),
-                blurRadius: 18,
-                offset: const Offset(0, 8),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ORANGE ACCENT BAR
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  darkAccent,
+                  lightAccent,
+                ],
               ),
-            ],
-          ),
-          child: Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xFF435166),
-              fontSize: 23,
-              fontWeight: FontWeight.w700,
-              height: 1.20,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -1073,99 +1073,27 @@ class _PMOBILERELOAD4PAGEState
   ) {
     return Stack(
       children: [
-        Positioned(
-          top: 50,
-          left: 65,
-          right: 65,
-          child: Column(
-            children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 10,
-                ),
-                decoration:
-                    BoxDecoration(
-                  color:
-                      _primaryColor.withOpacity(
-                    0.10,
-                  ),
-                  borderRadius:
-                      BorderRadius.circular(
-                    100,
-                  ),
-                  border:
-                      Border.all(
-                    color:
-                        _primaryColor.withOpacity(
-                      0.30,
-                    ),
-                  ),
-                ),
-                child: Text(
-                  loc.mobileReloadPhoneStepLabel
-                      .toUpperCase(),
-                  style:
-                      const TextStyle(
-                    color:
-                        _primaryColor,
-                    fontSize: 18,
-                    fontWeight:
-                        FontWeight.w900,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-              ),
+      // ====================================================================
+      // MODERN + GOVERNMENT HEADER
+      // ====================================================================
 
-              const SizedBox(
-                height: 16,
-              ),
-
-              Text(
-                loc.mobileReloadEnterPhoneTitle
-                    .toUpperCase(),
-                textAlign:
-                    TextAlign.center,
-                style:
-                    const TextStyle(
-                  color:
-                      _darkColor,
-                  fontSize: 45,
-                  fontWeight:
-                      FontWeight.w900,
-                ),
-              ),
-
-              const SizedBox(
-                height: 10,
-              ),
-
-              Text(
-                loc.mobileReloadEnterPhoneSubtitle,
-                textAlign:
-                    TextAlign.center,
-                style:
-                    const TextStyle(
-                  color:
-                      Color(
-                    0xFF53677E,
-                  ),
-                  fontSize: 27,
-                  fontWeight:
-                      FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
+      Positioned(
+        top: 45,
+        left: 65,
+        right: 65,
+        child: _MobileReloadInputHeader(
+          stepLabel: loc.mobileReloadPhoneStepLabel,
+          title: loc.mobileReloadEnterPhoneTitle,
+          subtitle: loc.mobileReloadEnterPhoneSubtitle,
         ),
+      ),
 
         // ====================================================================
         // PROVIDER + PHONE NUMBER
         // ====================================================================
 
         Positioned(
-          top: 260,
+          top: 350,
           left: 70,
           right: 70,
           child: Container(
@@ -1363,7 +1291,7 @@ class _PMOBILERELOAD4PAGEState
         // ====================================================================
 
         Positioned(
-          top: 650,
+          top: 750,
           left: 80,
           right: 80,
           child: GridView.count(
@@ -1641,6 +1569,201 @@ class _PMOBILERELOAD4PAGEState
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// ============================================================================
+// MODERN + GOVERNMENT MOBILE RELOAD INPUT HEADER
+// KEEPS EXISTING STEP LABEL + TITLE + SUBTITLE
+// ============================================================================
+
+class _MobileReloadInputHeader extends StatelessWidget {
+  final String stepLabel;
+  final String title;
+  final String subtitle;
+
+  const _MobileReloadInputHeader({
+    required this.stepLabel,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    const Color accentColor = Color(0xFF7B4DCC);
+    const Color darkColor = Color(0xFF56339B);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT MOBILE ICON
+          // ==========================================================
+
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  darkColor,
+                  Color(0xFF8C61D7),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.phone_android_rounded,
+              color: Colors.white,
+              size: 56,
+            ),
+          ),
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // EXISTING TEXT
+          // ==========================================================
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING STEP LABEL
+                // ------------------------------------------------------
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF1EAFF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.phone_android_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Flexible(
+                        child: Text(
+                          stepLabel.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 48,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.7,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT PURPLE ACCENT
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  darkColor,
+                  Color(0xFF8C61D7),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

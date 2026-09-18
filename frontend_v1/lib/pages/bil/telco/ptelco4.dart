@@ -764,69 +764,21 @@ class _PTELCO4PAGEState extends State<PTELCO4PAGE> {
           ),
 
           // ==================================================================
-          // HEADER
+          // MODERN + GOVERNMENT HEADER
           // ==================================================================
 
           Positioned(
-            top: 80,
+            top: 55,
             left: 65,
             right: 65,
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 10,
-                  ),
-                  decoration: BoxDecoration(
-                    color: _primaryColor.withValues(alpha: 0.10),
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(
-                      color: _primaryColor.withValues(alpha: 0.25),
-                      width: 1.5,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        _serviceIcon,
-                        color: _primaryColor,
-                        size: 30,
-                      ),
-
-                      const SizedBox(width: 9),
-
-                      Text(
-                        (_isBillPayment
-                                ? loc.telcoBillInputService
-                                : loc.mobilePinInputService)
-                            .toUpperCase(),
-                        style: TextStyle(
-                          color: _primaryColor,
-                          fontSize: 21,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 1.3,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 14),
-
-                Text(
-                  widget.providerName.toUpperCase(),
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: _darkColor,
-                    fontSize: 56,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ],
+            child: _TelcoInputHeader(
+              serviceLabel: _isBillPayment
+                  ? loc.telcoBillInputService
+                  : loc.mobilePinInputService,
+              providerName: widget.providerName,
+              icon: _serviceIcon,
+              accentColor: _primaryColor,
+              darkColor: _darkColor,
             ),
           ),
 
@@ -1274,6 +1226,204 @@ class _PTELCO4PAGEState extends State<PTELCO4PAGE> {
                 ),
               ),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+
+// ============================================================================
+// MODERN + GOVERNMENT TELCO INPUT HEADER
+// KEEPS ONLY EXISTING SERVICE LABEL + PROVIDER NAME
+// ============================================================================
+
+class _TelcoInputHeader extends StatelessWidget {
+  final String serviceLabel;
+  final String providerName;
+  final IconData icon;
+  final Color accentColor;
+  final Color darkColor;
+
+  const _TelcoInputHeader({
+    required this.serviceLabel,
+    required this.providerName,
+    required this.icon,
+    required this.accentColor,
+    required this.darkColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(
+          alpha: 0.96,
+        ),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withValues(
+              alpha: 0.14,
+            ),
+            blurRadius: 30,
+            offset: const Offset(
+              0,
+              12,
+            ),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT SERVICE ICON
+          // ==========================================================
+
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  darkColor,
+                  accentColor,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withValues(
+                    alpha: 0.28,
+                  ),
+                  blurRadius: 20,
+                  offset: const Offset(
+                    0,
+                    8,
+                  ),
+                ),
+              ],
+            ),
+            child: Icon(
+              icon,
+              color: Colors.white,
+              size: 56,
+            ),
+          ),
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // EXISTING TEXT
+          // ==========================================================
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING SERVICE LABEL
+                // ------------------------------------------------------
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: accentColor.withValues(
+                      alpha: 0.10,
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      100,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        icon,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Flexible(
+                        child: Text(
+                          serviceLabel.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 14),
+
+                // ------------------------------------------------------
+                // EXISTING PROVIDER NAME
+                // ------------------------------------------------------
+
+                Text(
+                  providerName.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ACCENT BAR
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                20,
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  darkColor,
+                  accentColor,
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

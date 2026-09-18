@@ -7091,4 +7091,364 @@ class AppLocalizationsTa extends AppLocalizations {
   String putrajayaFoodFull(Object place) {
     return 'புத்ராஜெயாவில் இருக்கும் போது பார்வையாளர்கள் பரிசீலிக்கக்கூடிய உணவு இடங்களில் $place ஒன்றாகும். அதன் இடத்தைப் பார்க்க கீழே உள்ள Google Maps QR குறியீட்டை ஸ்கேன் செய்யவும்.';
   }
+
+  @override
+  String get gameCreditsEnterPhoneReferenceTitle => 'தொலைபேசி எண்ணை உள்ளிடவும்';
+
+  @override
+  String get gameCreditsEnterPhoneReferenceSubtitle => 'இந்த பரிவர்த்தனைக்கான குறிப்பாக மலேசிய மொபைல் எண்ணை உள்ளிடவும்';
+
+  @override
+  String get gameCreditsPhoneReferenceLabel => 'தொலைபேசி எண் குறிப்பு';
+
+  @override
+  String get gameCreditsPhoneReferenceHint => 'தொலைபேசி எண்ணை உள்ளிடவும்';
+
+  @override
+  String get gameCreditsPhoneReferenceNotice => 'இந்த தொலைபேசி எண் பரிவர்த்தனை குறிப்பிற்காக மட்டுமே பயன்படுத்தப்படும். இது உங்கள் கேம் கணக்கு அல்ல.';
+
+  @override
+  String get gameCreditsPhoneRequired => 'தொலைபேசி எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get gameCreditsPhoneInvalid => '01-இல் தொடங்கும் செல்லுபடியாகும் மலேசிய மொபைல் எண்ணை உள்ளிடவும்.';
+
+  @override
+  String get digitalVoucherButton => 'டிஜிட்டல் வவுச்சர்';
+
+  @override
+  String get digitalVoucherSupportingText => 'டிஜிட்டல் வவுச்சர் மற்றும் பரிசுக் குறியீடுகளை வாங்குங்கள்';
+
+  @override
+  String get digitalVoucherTitle => 'டிஜிட்டல் வவுச்சர்';
+
+  @override
+  String get digitalVoucherSubtitle => 'தேவையான டிஜிட்டல் வவுச்சரைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get digitalVoucherSelectValueTitle => 'வவுச்சர் மதிப்பைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get digitalVoucherPurchaseSubtitle => 'உங்கள் வவுச்சர் மதிப்பு அல்லது தொகுப்பைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get digitalVoucherCategory => 'டிஜிட்டல் வவுச்சர்';
+
+  @override
+  String get digitalVoucherImportantNote => 'முக்கிய குறிப்பு';
+
+  @override
+  String get digitalVoucherDelivery => 'வழங்கும் முறை';
+
+  @override
+  String get digitalVoucherDeliveryPin => 'PIN';
+
+  @override
+  String get digitalVoucherDeliveryLink => 'இணைப்பு';
+
+  @override
+  String get digitalVoucherSelectPackage => 'தொகுப்பைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get digitalVoucherSelectPackageHint => 'தொடர ஒரு தொகுப்பைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get digitalVoucherSelectAmount => 'மதிப்பைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get digitalVoucherSelectAmountHint => 'தொடர ஒரு வவுச்சர் மதிப்பைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get digitalVoucherNoOptionsAvailable => 'தற்போது வவுச்சர் தேர்வுகள் இல்லை';
+
+  @override
+  String get digitalVoucherTapAmountHint => 'வவுச்சர் மதிப்பைத் தேர்ந்தெடுக்க தொகையைத் தொடவும் அல்லது பொத்தான்களைப் பயன்படுத்தவும்';
+
+  @override
+  String digitalVoucherAmountRange(String minimum, String maximum) {
+    return 'அனுமதிக்கப்பட்ட தொகை: $minimum - $maximum';
+  }
+
+  @override
+  String get digitalVoucherEnterAmount => 'வவுச்சர் தொகையை உள்ளிடவும்';
+
+  @override
+  String get digitalVoucherKeypadHint => 'வவுச்சர் மதிப்பை உள்ளிட எண் விசைப்பலகையைப் பயன்படுத்தவும்';
+
+  @override
+  String get digitalVoucherClear => 'அழி';
+
+  @override
+  String get digitalVoucherDone => 'முடிந்தது';
+
+  @override
+  String get digitalVoucherCancel => 'ரத்து';
+
+  @override
+  String digitalVoucherMinimumAmount(String amount) {
+    return 'குறைந்தபட்ச வவுச்சர் தொகை $amount.';
+  }
+
+  @override
+  String digitalVoucherMaximumAmount(String amount) {
+    return 'அதிகபட்ச வவுச்சர் தொகை $amount.';
+  }
+
+  @override
+  String get digitalVoucherOrderSummary => 'ஆர்டர் சுருக்கம்';
+
+  @override
+  String get digitalVoucherSelectedPackage => 'தேர்ந்தெடுத்த தொகுப்பு';
+
+  @override
+  String get digitalVoucherSelectedAmount => 'தேர்ந்தெடுத்த தொகை';
+
+  @override
+  String get digitalVoucherServiceAdjustment => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get digitalVoucherTotalPayment => 'மொத்த கட்டணம்';
+
+  @override
+  String get digitalVoucherReviewSelection => 'தேர்வை சரிபார்க்கவும்';
+
+  @override
+  String get digitalVoucherProductUnavailable => 'இந்த டிஜிட்டல் வவுச்சர் தற்போது கிடைக்கவில்லை.';
+
+  @override
+  String get digitalVoucherSelectOptionRequired => 'தொடருவதற்கு முன் ஒரு வவுச்சர் தேர்வைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get digitalVoucherInvalidAmount => 'சரியான வவுச்சர் தொகையை உள்ளிடவும்.';
+
+  @override
+  String get digitalVoucherUnableToLoad => 'டிஜிட்டல் வவுச்சர் தகவலை ஏற்ற முடியவில்லை.';
+
+  @override
+  String get digitalVoucherTryAgain => 'மீண்டும் முயற்சி';
+
+  @override
+  String get digitalVoucherNoteAdidas => 'https://www.adidas.com.my இல் பணம் செலுத்தும் போது \'Promo Code\' பகுதியில் வவுச்சர் குறியீட்டை உள்ளிடவும். இந்த வவுச்சர் பதிவு செய்யப்பட்ட கணக்குகளுக்கு மட்டுமே பொருந்தும்; Guest Checkout-க்கு பயன்படுத்த முடியாது.';
+
+  @override
+  String get digitalVoucherNoteDiscord => 'RM43 = 1 மாதம், RM432 = 12 மாதங்கள்.';
+
+  @override
+  String get digitalVoucherNoteEatCakeToday => 'https://www.eatcaketoday.com இணையதள வாங்குதல்களுக்கு செல்லுபடியாகும். பணம் செலுத்தும் பக்கத்தில் தள்ளுபடி குறியீட்டை உள்ளிடவும்.';
+
+  @override
+  String get digitalVoucherNoteGrabGiftCode => 'பணம் செலுத்தும் போது \'Use Offers\' பகுதியில் உள்ள \'Use Grab Gifts\' என்பதில் வவுச்சர் குறியீட்டை உள்ளிடவும்.';
+
+  @override
+  String get digitalVoucherNoteGrabFood => 'Voucher Link (Activation URL)-ஐ திறந்து Grab செயலியில் மீட்டெடுக்கவும். கணினியை பயன்படுத்தினால், மொபைல் தொலைபேசியில் QR குறியீட்டை ஸ்கேன் செய்யவும். வவுச்சரைப் பார்க்க My Rewards பகுதிக்குச் செல்லவும். இந்த e-Voucher GrabFood வாங்குதல்களுக்கு மட்டுமே பயன்படுத்த முடியும்.';
+
+  @override
+  String get digitalVoucherNoteGrabMart => 'வவுச்சர் இணைப்பைப் பயன்படுத்தி மீட்டெடுக்கவும். Voucher Link (Activation URL)-ஐ திறந்து Grab செயலியில் மீட்டெடுக்கவும். கணினியை பயன்படுத்தினால், மொபைல் தொலைபேசியில் QR குறியீட்டை ஸ்கேன் செய்யவும். வவுச்சரைப் பார்க்க My Rewards பகுதிக்குச் செல்லவும்.';
+
+  @override
+  String get digitalVoucherNoteShopee => 'வழங்கப்பட்ட தேதியிலிருந்து 3 மாதங்களுக்கு செல்லுபடியாகும். புதிய மற்றும் ஏற்கனவே உள்ள பயனர்களுக்கு செல்லுபடியாகும்; ஒரு முறை மட்டுமே பயன்படுத்தலாம். Shopee Mall மற்றும் Preferred Sellers-க்கு மட்டுமே இந்த வவுச்சர் பொருந்தும். Shopee மொபைல் செயலியில் பணம் செலுத்தும் போது promo code-ஐ உள்ளிடவும்.';
+
+  @override
+  String get digitalVoucherNoteZalora => '1. www.zalora.my இல் உள்நுழையவும். 2. My Account பகுதியில் My Store Credit-ஐ தேர்வு செய்யவும். 3. வவுச்சர் குறியீட்டை உள்ளிட்டு Add Credit-ஐ தேர்வு செய்யவும். 4. Gift Card மதிப்பு My Store Credit-ல் தோன்றும்; பின்னர் வாங்கத் தொடங்கலாம்.';
+
+  @override
+  String get digitalVoucherPaymentTitle => 'டிஜிட்டல் வவுச்சர் கட்டணம்';
+
+  @override
+  String get digitalVoucherPaymentDetails => 'வவுச்சர் விவரங்கள்';
+
+  @override
+  String get digitalVoucherVoucherValue => 'வவுச்சர் மதிப்பு';
+
+  @override
+  String get digitalVoucherOptionDetails => 'தொகுப்பு விவரங்கள்';
+
+  @override
+  String get digitalVoucherPreparingQrPayment => 'QR கட்டணம் தயாராகிறது';
+
+  @override
+  String get digitalVoucherProcessingTitle => 'வவுச்சர் செயலாக்கப்படுகிறது';
+
+  @override
+  String get digitalVoucherProcessingMessage => 'கட்டணம் பெறப்பட்டது. உங்கள் டிஜிட்டல் வவுச்சர் செயலாக்கப்படும் வரை காத்திருக்கவும்.';
+
+  @override
+  String get digitalVoucherProcessingLocked => 'வவுச்சர் செயலாக்கப்படும் போது இந்தப் பக்கத்தை மூட வேண்டாம்.';
+
+  @override
+  String get digitalVoucherPaymentInvalidProductTitle => 'தவறான வவுச்சர்';
+
+  @override
+  String get digitalVoucherPaymentInvalidProductMessage => 'தேர்ந்தெடுத்த டிஜிட்டல் வவுச்சர் செல்லுபடியாகாது. திரும்பிச் சென்று மீண்டும் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get digitalVoucherPaymentProviderRejected => 'வவுச்சர் வழங்குநர் பரிவர்த்தனையை நிராகரித்துள்ளார்.';
+
+  @override
+  String get digitalVoucherPaymentProviderRefunded => 'வவுச்சர் பரிவர்த்தனை வழங்குநரால் திருப்பி வழங்கப்பட்டது.';
+
+  @override
+  String get digitalVoucherPaymentStillProcessing => 'வவுச்சர் இன்னும் செயலாக்கப்படுகிறது.';
+
+  @override
+  String get digitalVoucherPaymentReference => 'பரிவர்த்தனை குறிப்பு';
+
+  @override
+  String get digitalVoucherPaymentProviderErrorTitle => 'வவுச்சர் செயலாக்க பிழை';
+
+  @override
+  String get digitalVoucherPaymentAlreadyReceivedWarning => 'உங்கள் கட்டணம் ஏற்கனவே பெறப்பட்டுள்ளது. மீண்டும் பணம் செலுத்த வேண்டாம். உதவிக்காக பரிவர்த்தனை குறிப்பை பாதுகாத்து வைத்திருக்கவும்.';
+
+  @override
+  String get digitalVoucherReceiptTitle => 'டிஜிட்டல் வவுச்சர் ரசீது';
+
+  @override
+  String get digitalVoucherReceiptProvider => 'வவுச்சர் வழங்குநர்';
+
+  @override
+  String get digitalVoucherReceiptTransactionDetails => 'பரிவர்த்தனை விவரங்கள்';
+
+  @override
+  String get digitalVoucherReceiptVoucherDetails => 'வவுச்சர் விவரங்கள்';
+
+  @override
+  String get digitalVoucherReceiptPaymentDate => 'கட்டண தேதி & நேரம்';
+
+  @override
+  String get digitalVoucherReceiptBankTransaction => 'வங்கி பரிவர்த்தனை எண்';
+
+  @override
+  String get digitalVoucherReceiptSerialNumber => 'தொடர் எண்';
+
+  @override
+  String get digitalVoucherReceiptPin => 'PIN';
+
+  @override
+  String get digitalVoucherReceiptExpiry => 'காலாவதி';
+
+  @override
+  String get digitalVoucherReceiptVoucherLink => 'வவுச்சர் இணைப்பு';
+
+  @override
+  String get digitalVoucherReceiptTotalPaid => 'மொத்தம் செலுத்தப்பட்டது';
+
+  @override
+  String get digitalVoucherHowToRedeem => 'மீட்டெடுக்கும் முறை';
+
+  @override
+  String get fuelButton => 'எரிபொருள்';
+
+  @override
+  String get fuelSupportingText => 'கிடைக்கும் வழங்குநர்களிடமிருந்து மின்னணு எரிபொருள் வவுச்சரை வாங்குங்கள்.';
+
+  @override
+  String get fuelPageTitle => 'எரிபொருள் வவுச்சர்கள்';
+
+  @override
+  String get fuelSelectAmountNext => 'எரிபொருள் வவுச்சர் தொகையைத் தேர்ந்தெடுக்க வழங்குநரைத் தேர்வு செய்யவும்.';
+
+  @override
+  String get fuelPurchaseSubtitle => 'உங்களுக்கு விருப்பமான எரிபொருள் வவுச்சர் தொகையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get fuelDelivery => 'வழங்கும் முறை';
+
+  @override
+  String get fuelDeliveryPin => 'வவுச்சர் பின்';
+
+  @override
+  String get fuelDeliveryLink => 'வவுச்சர் இணைப்பு';
+
+  @override
+  String get fuelHowToRedeem => 'எவ்வாறு மீட்டெடுப்பது';
+
+  @override
+  String get fuelOptionDetails => 'விருப்ப விவரங்கள்';
+
+  @override
+  String get fuelPaymentAlreadyReceivedWarning => 'உங்கள் QR கட்டணம் பெறப்பட்டது. மீண்டும் கட்டணம் செலுத்த வேண்டாம்.';
+
+  @override
+  String get fuelPaymentDetails => 'எரிபொருள் கட்டண விவரங்கள்';
+
+  @override
+  String get fuelPaymentInvalidProductMessage => 'தேர்ந்தெடுக்கப்பட்ட எரிபொருள் வழங்குநர் செல்லுபடியாகாது. திரும்பிச் சென்று வழங்குநரை மீண்டும் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get fuelPaymentInvalidProductTitle => 'செல்லாத எரிபொருள் வழங்குநர்';
+
+  @override
+  String get fuelPaymentProviderErrorTitle => 'எரிபொருள் வவுச்சர் செயலாக்கப் பிழை';
+
+  @override
+  String get fuelPaymentProviderRefunded => 'இந்தப் பரிவர்த்தனைக்கான தொகையை வழங்குநர் திருப்பி அளித்துள்ளார்.';
+
+  @override
+  String get fuelPaymentProviderRejected => 'இந்த எரிபொருள் வவுச்சர் பரிவர்த்தனையை வழங்குநர் நிராகரித்தார்.';
+
+  @override
+  String get fuelPaymentReference => 'பரிவர்த்தனை குறிப்பு';
+
+  @override
+  String get fuelPaymentStillProcessing => 'உங்கள் கட்டணம் பெறப்பட்டது, ஆனால் எரிபொருள் வவுச்சர் இன்னும் செயலாக்கப்படுகிறது.';
+
+  @override
+  String get fuelPaymentTitle => 'எரிபொருள் வவுச்சர் கட்டணம்';
+
+  @override
+  String get fuelPreparingQrPayment => 'DUITNOW QR தயாராகிறது';
+
+  @override
+  String get fuelProcessingLocked => 'எரிபொருள் வவுச்சர் செயலாக்கப்படும்போது இந்தப் பக்கத்தை மூட வேண்டாம்.';
+
+  @override
+  String get fuelProcessingMessage => 'கட்டணம் பெறப்பட்டது. உங்கள் எரிபொருள் வவுச்சரைச் செயலாக்குகிறோம்.';
+
+  @override
+  String get fuelProcessingTitle => 'எரிபொருள் வவுச்சர் செயலாக்கப்படுகிறது';
+
+  @override
+  String get fuelReceiptBankTransaction => 'வங்கி பரிவர்த்தனை எண்';
+
+  @override
+  String get fuelReceiptExpiry => 'காலாவதி';
+
+  @override
+  String get fuelReceiptPaymentDate => 'கட்டண தேதி';
+
+  @override
+  String get fuelReceiptPin => 'வவுச்சர் பின்';
+
+  @override
+  String get fuelReceiptProvider => 'எரிபொருள் வழங்குநர்';
+
+  @override
+  String get fuelReceiptSerialNumber => 'வரிசை எண்';
+
+  @override
+  String get fuelReceiptTitle => 'எரிபொருள் வவுச்சர் ரசீது';
+
+  @override
+  String get fuelReceiptTotalPaid => 'செலுத்திய மொத்தம்';
+
+  @override
+  String get fuelReceiptTransactionDetails => 'பரிவர்த்தனை விவரங்கள்';
+
+  @override
+  String get fuelReceiptVoucherDetails => 'எரிபொருள் வவுச்சர் விவரங்கள்';
+
+  @override
+  String get fuelReceiptVoucherLink => 'வவுச்சர் இணைப்பு';
+
+  @override
+  String get fuelSelectedPackage => 'தேர்ந்தெடுத்த தொகுப்பு';
+
+  @override
+  String get fuelServiceAdjustment => 'சேவை சரிசெய்தல்';
+
+  @override
+  String get fuelTotalPayment => 'மொத்த கட்டணம்';
+
+  @override
+  String get fuelVoucherValue => 'எரிபொருள் வவுச்சர் மதிப்பு';
 }

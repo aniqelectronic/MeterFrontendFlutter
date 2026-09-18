@@ -47,123 +47,19 @@ class PTELCO3PAGE extends StatelessWidget {
             ),
           ),
 
-          // ============================================================
-          // HEADER
-          // ============================================================
-          Positioned(
-            top: 70,
-            left: 65,
-            right: 65,
-            child: Column(
-              children: [
-                // SERVICE BADGE
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 25,
-                    vertical: 11,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF15946B).withOpacity(0.10),
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(
-                      color: const Color(0xFF15946B).withOpacity(0.28),
-                      width: 1.5,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.sim_card_rounded,
-                        size: 25,
-                        color: Color(0xFF15946B),
-                      ),
-                      const SizedBox(width: 10),
-                      Flexible(
-                        child: Text(
-                          loc.telcoServiceLabel.toUpperCase(),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Color(0xFF15946B),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 1.3,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 22),
-
-                // TITLE
-                ShaderMask(
-                  blendMode: BlendMode.srcIn,
-                  shaderCallback: (bounds) {
-                    return const LinearGradient(
-                      colors: [
-                        Color(0xFF087456),
-                        Color(0xFF18A578),
-                      ],
-                    ).createShader(bounds);
-                  },
-                  child: Text(
-                     loc.telcoPageTitle.toUpperCase(),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 62,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: -1,
-                      height: 1.05,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // SUBTITLE
-                Container(
-                  constraints: const BoxConstraints(
-                    maxWidth: 870,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 16,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.92),
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(
-                      color: Colors.black.withOpacity(0.18),
-                      width: 1.5,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color:
-                            const Color(0xFF113968).withOpacity(0.10),
-                        blurRadius: 24,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Text(
-                    loc.telcoPageSubtitle.toUpperCase(),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color(0xFF435166),
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700,
-                      height: 1.25,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+  // ============================================================
+  // HEADER
+  // ============================================================
+  Positioned(
+    top: 70,
+    left: 65,
+    right: 65,
+    child: _ModernTelcoHeader(
+      badgeText: loc.telcoServiceLabel,
+      title: loc.telcoPageTitle,
+      subtitle: loc.telcoPageSubtitle,
+    ),
+  ),
 
           // ============================================================
           // OPTION CARDS
@@ -555,6 +451,193 @@ class _TelcoOptionCardState extends State<_TelcoOptionCard> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+// ============================================================================
+// MODERN + GOVERNMENT TELCO HEADER
+// KEEPS EXISTING BADGE + TITLE + SUBTITLE
+// ============================================================================
+class _ModernTelcoHeader extends StatelessWidget {
+  final String badgeText;
+  final String title;
+  final String subtitle;
+
+  const _ModernTelcoHeader({
+    required this.badgeText,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    const Color accentColor = Color(0xFF15946B);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT TELCO ICON
+          // ==========================================================
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF087456),
+                  Color(0xFF18A578),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.sim_card_rounded,
+              color: Colors.white,
+              size: 56,
+            ),
+          ),
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // EXISTING TEXT
+          // ==========================================================
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING SERVICE BADGE
+                // ------------------------------------------------------
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE5F6F0),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.sim_card_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Flexible(
+                        child: Text(
+                          badgeText.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+                Text(
+                  subtitle.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ACCENT BAR
+          // ==========================================================
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF087456),
+                  Color(0xFF18A578),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

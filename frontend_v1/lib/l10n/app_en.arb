@@ -3833,7 +3833,182 @@
   "place": {
     "type": "String"
   }
-}
+},
+
+"gameCreditsEnterPhoneReferenceTitle": "Enter Phone Number",
+"gameCreditsEnterPhoneReferenceSubtitle": "Enter your Malaysian mobile number as a reference for this transaction",
+"gameCreditsPhoneReferenceLabel": "Phone Number Reference",
+"gameCreditsPhoneReferenceHint": "Enter phone number",
+"gameCreditsPhoneReferenceNotice": "This phone number is used as a transaction reference only. It is not your game account.",
+"gameCreditsPhoneRequired": "Please enter a phone number.",
+"gameCreditsPhoneInvalid": "Please enter a valid Malaysian mobile number beginning with 01.",
+
+"digitalVoucherButton": "Digital Voucher",
+"digitalVoucherSupportingText": "Purchase digital vouchers and gift codes",
+"digitalVoucherTitle": "Digital Voucher",
+"digitalVoucherSubtitle": "Select your preferred digital voucher",
+"digitalVoucherSelectValueTitle": "Select Voucher Value",
+
+"digitalVoucherPurchaseSubtitle": "Choose your voucher value or package",
+"digitalVoucherCategory": "Digital Voucher",
+"digitalVoucherImportantNote": "Important Note",
+"digitalVoucherDelivery": "Delivery",
+"digitalVoucherDeliveryPin": "PIN",
+"digitalVoucherDeliveryLink": "LINK",
+
+"digitalVoucherSelectPackage": "Select Package",
+"digitalVoucherSelectPackageHint": "Select one available package to continue",
+"digitalVoucherSelectAmount": "Select Amount",
+"digitalVoucherSelectAmountHint": "Select one available voucher value to continue",
+"digitalVoucherNoOptionsAvailable": "No voucher options are currently available",
+
+"digitalVoucherTapAmountHint": "Tap the amount box or use the buttons to choose your voucher value",
+"digitalVoucherAmountRange": "Allowed amount: {minimum} - {maximum}",
+"@digitalVoucherAmountRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"digitalVoucherEnterAmount": "Enter Voucher Amount",
+"digitalVoucherKeypadHint": "Use the keypad to enter the voucher value",
+"digitalVoucherClear": "Clear",
+"digitalVoucherDone": "Done",
+"digitalVoucherCancel": "Cancel",
+
+"digitalVoucherMinimumAmount": "The minimum voucher amount is {amount}.",
+"@digitalVoucherMinimumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"digitalVoucherMaximumAmount": "The maximum voucher amount is {amount}.",
+"@digitalVoucherMaximumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"digitalVoucherOrderSummary": "Order Summary",
+"digitalVoucherSelectedPackage": "Selected Package",
+"digitalVoucherSelectedAmount": "Selected Amount",
+"digitalVoucherServiceAdjustment": "Service Adjustment",
+"digitalVoucherTotalPayment": "Total Payment",
+
+"digitalVoucherReviewSelection": "Review Selection",
+
+"digitalVoucherProductUnavailable": "This digital voucher is currently unavailable.",
+"digitalVoucherSelectOptionRequired": "Please select a voucher option before continuing.",
+"digitalVoucherInvalidAmount": "Please enter a valid voucher amount.",
+"digitalVoucherUnableToLoad": "Unable to load digital voucher information.",
+"digitalVoucherTryAgain": "Try Again",
+
+
+
+"digitalVoucherNoteAdidas": "Enter the voucher code in the 'Promo Code' section during checkout at https://www.adidas.com.my. This voucher is only applicable to registered accounts and cannot be used for guest checkout.",
+
+"digitalVoucherNoteDiscord": "RM43 = 1 month, RM432 = 12 months.",
+
+"digitalVoucherNoteEatCakeToday": "Valid for online purchases at https://www.eatcaketoday.com. Enter the discount code on the checkout page.",
+
+"digitalVoucherNoteGrabGiftCode": "Enter the voucher code under 'Use Grab Gifts' in the 'Use Offers' section during checkout.",
+
+"digitalVoucherNoteGrabFood": "Open the Voucher Link (Activation URL) and redeem it in the Grab App. If using a computer, scan the QR code with your mobile phone. Go to My Rewards to find the voucher. This e-Voucher is only applicable to GrabFood purchases.",
+
+"digitalVoucherNoteGrabMart": "Redeem using the voucher link. Open the Voucher Link (Activation URL) and redeem it in the Grab App. If using a computer, scan the QR code with your mobile phone. Go to My Rewards to find the voucher.",
+
+"digitalVoucherNoteShopee": "Valid for 3 months from the date of issue. Valid for new and existing users and for one-time use only. The voucher is applicable to Shopee Mall and Preferred Sellers only. Enter the promo code at checkout in the Shopee Mobile App.",
+
+"digitalVoucherNoteZalora": "1. Log in to www.zalora.my. 2. Select My Store Credit under My Account. 3. Enter your voucher code and select Add Credit. 4. The Gift Card value will appear in My Store Credit and you may start shopping.",
+
+"digitalVoucherPaymentTitle": "Digital Voucher Payment",
+"digitalVoucherPaymentDetails": "Voucher Details",
+"digitalVoucherVoucherValue": "Voucher Value",
+"digitalVoucherOptionDetails": "Package Details",
+
+"digitalVoucherPreparingQrPayment": "Preparing QR Payment",
+"digitalVoucherProcessingTitle": "Processing Voucher",
+"digitalVoucherProcessingMessage": "Payment received. Please wait while we process your digital voucher.",
+"digitalVoucherProcessingLocked": "Please do not close this page while your voucher is being processed.",
+
+"digitalVoucherPaymentInvalidProductTitle": "Invalid Voucher",
+"digitalVoucherPaymentInvalidProductMessage": "The selected digital voucher is invalid. Please go back and select the voucher again.",
+
+"digitalVoucherPaymentProviderRejected": "The voucher provider rejected the transaction.",
+"digitalVoucherPaymentProviderRefunded": "The voucher transaction was refunded by the provider.",
+"digitalVoucherPaymentStillProcessing": "The voucher is still being processed.",
+"digitalVoucherPaymentReference": "Transaction Reference",
+
+"digitalVoucherPaymentProviderErrorTitle": "Voucher Processing Error",
+"digitalVoucherPaymentAlreadyReceivedWarning": "Your payment has already been received. Do not make another payment. Please keep the transaction reference for assistance.",
+
+
+"digitalVoucherReceiptTitle": "Digital Voucher Receipt",
+"digitalVoucherReceiptProvider": "Voucher Provider",
+"digitalVoucherReceiptTransactionDetails": "Transaction Details",
+"digitalVoucherReceiptVoucherDetails": "Voucher Details",
+"digitalVoucherReceiptPaymentDate": "Payment Date & Time",
+"digitalVoucherReceiptBankTransaction": "Bank Transaction No.",
+"digitalVoucherReceiptSerialNumber": "Serial Number",
+"digitalVoucherReceiptPin": "PIN",
+"digitalVoucherReceiptExpiry": "Expiry",
+"digitalVoucherReceiptVoucherLink": "Voucher Link",
+"digitalVoucherReceiptTotalPaid": "Total Paid",
+"digitalVoucherHowToRedeem": "How to Redeem",
+
+
+"fuelButton": "Fuel",
+"fuelSupportingText": "Purchase digital fuel vouchers from available providers.",
+"fuelPageTitle": "FUEL VOUCHERS",
+"fuelSelectAmountNext": "Select the provider to continue to fuel voucher amount selection.",
+
+"fuelPurchaseSubtitle": "Select your preferred fuel voucher amount",
+
+"fuelDelivery": "Delivery Method",
+"fuelDeliveryPin": "Voucher PIN",
+"fuelDeliveryLink": "Voucher Link",
+"fuelHowToRedeem": "HOW TO REDEEM",
+"fuelOptionDetails": "Option Details",
+"fuelPaymentAlreadyReceivedWarning": "Your QR payment has already been received. Do not make another payment.",
+"fuelPaymentDetails": "FUEL PAYMENT DETAILS",
+"fuelPaymentInvalidProductMessage": "The selected fuel provider is invalid. Please return and select the provider again.",
+"fuelPaymentInvalidProductTitle": "Invalid Fuel Provider",
+"fuelPaymentProviderErrorTitle": "Fuel Voucher Processing Error",
+"fuelPaymentProviderRefunded": "The provider refunded this transaction.",
+"fuelPaymentProviderRejected": "The provider rejected this fuel voucher transaction.",
+"fuelPaymentReference": "Transaction Reference",
+"fuelPaymentStillProcessing": "Your payment was received, but the fuel voucher is still being processed.",
+"fuelPaymentTitle": "FUEL VOUCHER PAYMENT",
+"fuelPreparingQrPayment": "PREPARING DUITNOW QR",
+"fuelProcessingLocked": "Please do not close this page while your fuel voucher is being processed.",
+"fuelProcessingMessage": "Payment received. We are processing your fuel voucher.",
+"fuelProcessingTitle": "PROCESSING FUEL VOUCHER",
+"fuelReceiptBankTransaction": "Bank Transaction Number",
+"fuelReceiptExpiry": "Expiry",
+"fuelReceiptPaymentDate": "Payment Date",
+"fuelReceiptPin": "Voucher PIN",
+"fuelReceiptProvider": "Fuel Provider",
+"fuelReceiptSerialNumber": "Serial Number",
+"fuelReceiptTitle": "FUEL VOUCHER RECEIPT",
+"fuelReceiptTotalPaid": "TOTAL PAID",
+"fuelReceiptTransactionDetails": "TRANSACTION DETAILS",
+"fuelReceiptVoucherDetails": "FUEL VOUCHER DETAILS",
+"fuelReceiptVoucherLink": "Voucher Link",
+"fuelSelectedPackage": "Selected Package",
+"fuelServiceAdjustment": "Service Adjustment",
+"fuelTotalPayment": "TOTAL PAYMENT",
+"fuelVoucherValue": "Fuel Voucher Value"
+
 
 
 

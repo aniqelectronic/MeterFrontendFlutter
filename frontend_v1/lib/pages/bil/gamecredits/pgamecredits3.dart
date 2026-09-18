@@ -1579,8 +1579,12 @@ Widget _buildLoading(
   }
 }
 
-class _GameCreditHeader
-    extends StatelessWidget {
+// ============================================================================
+// MODERN + GOVERNMENT GAME CREDITS HEADER
+// KEEPS EXISTING BADGE + TITLE + SUBTITLE
+// ============================================================================
+
+class _GameCreditHeader extends StatelessWidget {
   final String title;
   final String subtitle;
 
@@ -1591,114 +1595,176 @@ class _GameCreditHeader
 
   @override
   Widget build(BuildContext context) {
-    const Color accent =
-        Color(0xFF009688);
+    const Color accentColor = Color(0xFF009688);
+    const Color darkAccent = Color(0xFF00695C);
+    const Color lightAccent = Color(0xFF26A69A);
 
-    return Column(
-      children: [
-        Container(
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 10,
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
           ),
-          decoration: BoxDecoration(
-            color:
-                accent.withOpacity(0.10),
-            borderRadius:
-                BorderRadius.circular(100),
-            border: Border.all(
-              color:
-                  accent.withOpacity(0.24),
-              width: 1.5,
-            ),
-          ),
-          child: const Row(
-            mainAxisSize:
-                MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.videogame_asset_rounded,
-                color: accent,
-                size: 27,
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT GAME CREDITS ICON
+          // ==========================================================
+
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  darkAccent,
+                  lightAccent,
+                ],
               ),
-
-              SizedBox(width: 10),
-
-              Text(
-                'GAME CREDITS',
-                style: TextStyle(
-                  color: accent,
-                  fontSize: 18,
-                  fontWeight:
-                      FontWeight.w900,
-                  letterSpacing: 1.3,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
+              ],
+            ),
+            child: const Icon(
+              Icons.videogame_asset_rounded,
+              color: Colors.white,
+              size: 56,
+            ),
+          ),
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // EXISTING HEADER INFORMATION
+          // ==========================================================
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING GAME CREDITS BADGE
+                // ------------------------------------------------------
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE4F6F3),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.videogame_asset_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      SizedBox(width: 8),
+
+                      Text(
+                        'GAME CREDITS',
+                        style: TextStyle(
+                          color: accentColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT TEAL ACCENT BAR
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  darkAccent,
+                  lightAccent,
+                ],
               ),
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 17),
-
-        Text(
-          title.toUpperCase(),
-          textAlign:
-              TextAlign.center,
-          maxLines: 2,
-          style:
-              const TextStyle(
-            color:
-                Color(0xFF087A70),
-            fontSize: 60,
-            fontWeight:
-                FontWeight.w900,
-            height: 1.05,
-          ),
-        ),
-
-        const SizedBox(height: 14),
-
-        Container(
-          constraints:
-              const BoxConstraints(
-            maxWidth: 850,
-          ),
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 30,
-            vertical: 14,
-          ),
-          decoration: BoxDecoration(
-            color:
-                Colors.white.withOpacity(
-              0.91,
-            ),
-            borderRadius:
-                BorderRadius.circular(23),
-            border: Border.all(
-              color:
-                  Colors.black.withOpacity(
-                0.17,
-              ),
-              width: 1.5,
             ),
           ),
-          child: Text(
-            subtitle,
-            textAlign:
-                TextAlign.center,
-            style:
-                const TextStyle(
-              color:
-                  Color(0xFF435166),
-              fontSize: 28,
-              fontWeight:
-                  FontWeight.w700,
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

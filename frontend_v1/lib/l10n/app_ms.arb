@@ -3843,7 +3843,183 @@
   "place": {
     "type": "String"
   }
-}
+},
+
+
+"gameCreditsEnterPhoneReferenceTitle": "Masukkan Nombor Telefon",
+"gameCreditsEnterPhoneReferenceSubtitle": "Masukkan nombor telefon mudah alih Malaysia sebagai rujukan transaksi ini",
+"gameCreditsPhoneReferenceLabel": "Rujukan Nombor Telefon",
+"gameCreditsPhoneReferenceHint": "Masukkan nombor telefon",
+"gameCreditsPhoneReferenceNotice": "Nombor telefon ini hanya digunakan sebagai rujukan transaksi. Ia bukan akaun permainan anda.",
+"gameCreditsPhoneRequired": "Sila masukkan nombor telefon.",
+"gameCreditsPhoneInvalid": "Sila masukkan nombor telefon mudah alih Malaysia yang sah dan bermula dengan 01.",
+
+"digitalVoucherButton": "Baucar Digital",
+"digitalVoucherSupportingText": "Beli baucar digital dan kod hadiah",
+"digitalVoucherTitle": "Baucar Digital",
+"digitalVoucherSubtitle": "Pilih baucar digital pilihan anda",
+"digitalVoucherSelectValueTitle": "Pilih Nilai Baucar",
+
+
+"digitalVoucherPurchaseSubtitle": "Pilih nilai atau pakej baucar anda",
+"digitalVoucherCategory": "Baucar Digital",
+"digitalVoucherImportantNote": "Nota Penting",
+"digitalVoucherDelivery": "Penghantaran",
+"digitalVoucherDeliveryPin": "PIN",
+"digitalVoucherDeliveryLink": "PAUTAN",
+
+"digitalVoucherSelectPackage": "Pilih Pakej",
+"digitalVoucherSelectPackageHint": "Pilih satu pakej yang tersedia untuk meneruskan",
+"digitalVoucherSelectAmount": "Pilih Nilai",
+"digitalVoucherSelectAmountHint": "Pilih satu nilai baucar yang tersedia untuk meneruskan",
+"digitalVoucherNoOptionsAvailable": "Tiada pilihan baucar tersedia buat masa ini",
+
+"digitalVoucherTapAmountHint": "Sentuh ruangan amaun atau gunakan butang untuk memilih nilai baucar",
+"digitalVoucherAmountRange": "Amaun dibenarkan: {minimum} - {maximum}",
+"@digitalVoucherAmountRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"digitalVoucherEnterAmount": "Masukkan Nilai Baucar",
+"digitalVoucherKeypadHint": "Gunakan papan kekunci untuk memasukkan nilai baucar",
+"digitalVoucherClear": "Padam",
+"digitalVoucherDone": "Selesai",
+"digitalVoucherCancel": "Batal",
+
+"digitalVoucherMinimumAmount": "Nilai minimum baucar ialah {amount}.",
+"@digitalVoucherMinimumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"digitalVoucherMaximumAmount": "Nilai maksimum baucar ialah {amount}.",
+"@digitalVoucherMaximumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"digitalVoucherOrderSummary": "Ringkasan Pesanan",
+"digitalVoucherSelectedPackage": "Pakej Dipilih",
+"digitalVoucherSelectedAmount": "Nilai Dipilih",
+"digitalVoucherServiceAdjustment": "Pelarasan Perkhidmatan",
+"digitalVoucherTotalPayment": "Jumlah Bayaran",
+
+"digitalVoucherReviewSelection": "Semak Pilihan",
+
+"digitalVoucherProductUnavailable": "Baucar digital ini tidak tersedia buat masa ini.",
+"digitalVoucherSelectOptionRequired": "Sila pilih pilihan baucar sebelum meneruskan.",
+"digitalVoucherInvalidAmount": "Sila masukkan nilai baucar yang sah.",
+"digitalVoucherUnableToLoad": "Maklumat baucar digital tidak dapat dimuatkan.",
+"digitalVoucherTryAgain": "Cuba Lagi",
+
+
+"digitalVoucherNoteAdidas": "Masukkan kod baucar di bahagian 'Promo Code' semasa pembayaran di https://www.adidas.com.my. Baucar ini hanya boleh digunakan untuk akaun berdaftar dan tidak boleh digunakan untuk pembayaran sebagai tetamu.",
+
+"digitalVoucherNoteDiscord": "RM43 = 1 bulan, RM432 = 12 bulan.",
+
+"digitalVoucherNoteEatCakeToday": "Sah untuk pembelian dalam talian di https://www.eatcaketoday.com. Masukkan kod diskaun pada halaman pembayaran.",
+
+"digitalVoucherNoteGrabGiftCode": "Masukkan kod baucar di bahagian 'Use Grab Gifts' di bawah 'Use Offers' semasa pembayaran.",
+
+"digitalVoucherNoteGrabFood": "Buka Pautan Baucar (URL Pengaktifan) dan tebus dalam aplikasi Grab. Jika menggunakan komputer, imbas kod QR menggunakan telefon bimbit. Pergi ke My Rewards untuk mendapatkan baucar. e-Baucar ini hanya boleh digunakan untuk pembelian GrabFood.",
+
+"digitalVoucherNoteGrabMart": "Tebus menggunakan pautan baucar. Buka Pautan Baucar (URL Pengaktifan) dan tebus dalam aplikasi Grab. Jika menggunakan komputer, imbas kod QR menggunakan telefon bimbit. Pergi ke My Rewards untuk mendapatkan baucar.",
+
+"digitalVoucherNoteShopee": "Sah selama 3 bulan dari tarikh dikeluarkan. Sah untuk pengguna baharu dan sedia ada serta hanya boleh digunakan sekali. Baucar hanya boleh digunakan di Shopee Mall dan Preferred Sellers. Masukkan kod promo semasa pembayaran dalam aplikasi mudah alih Shopee.",
+
+"digitalVoucherNoteZalora": "1. Log masuk ke www.zalora.my. 2. Pilih My Store Credit di bawah My Account. 3. Masukkan kod baucar dan pilih Add Credit. 4. Nilai Kad Hadiah akan dipaparkan dalam My Store Credit dan anda boleh mula membeli-belah.",
+
+
+"digitalVoucherPaymentTitle": "Pembayaran Baucar Digital",
+"digitalVoucherPaymentDetails": "Butiran Baucar",
+"digitalVoucherVoucherValue": "Nilai Baucar",
+"digitalVoucherOptionDetails": "Butiran Pakej",
+
+"digitalVoucherPreparingQrPayment": "Menyediakan Pembayaran QR",
+"digitalVoucherProcessingTitle": "Memproses Baucar",
+"digitalVoucherProcessingMessage": "Bayaran telah diterima. Sila tunggu sementara baucar digital anda diproses.",
+"digitalVoucherProcessingLocked": "Sila jangan tutup halaman ini semasa baucar anda sedang diproses.",
+
+"digitalVoucherPaymentInvalidProductTitle": "Baucar Tidak Sah",
+"digitalVoucherPaymentInvalidProductMessage": "Baucar digital yang dipilih tidak sah. Sila kembali dan pilih semula baucar.",
+
+"digitalVoucherPaymentProviderRejected": "Penyedia baucar telah menolak transaksi ini.",
+"digitalVoucherPaymentProviderRefunded": "Transaksi baucar telah dikembalikan oleh penyedia.",
+"digitalVoucherPaymentStillProcessing": "Baucar masih sedang diproses.",
+"digitalVoucherPaymentReference": "Rujukan Transaksi",
+
+"digitalVoucherPaymentProviderErrorTitle": "Ralat Pemprosesan Baucar",
+"digitalVoucherPaymentAlreadyReceivedWarning": "Bayaran anda telah diterima. Jangan buat pembayaran lain. Sila simpan rujukan transaksi untuk bantuan.",
+
+"digitalVoucherReceiptTitle": "Resit Baucar Digital",
+"digitalVoucherReceiptProvider": "Penyedia Baucar",
+"digitalVoucherReceiptTransactionDetails": "Butiran Transaksi",
+"digitalVoucherReceiptVoucherDetails": "Butiran Baucar",
+"digitalVoucherReceiptPaymentDate": "Tarikh & Masa Pembayaran",
+"digitalVoucherReceiptBankTransaction": "No. Transaksi Bank",
+"digitalVoucherReceiptSerialNumber": "Nombor Siri",
+"digitalVoucherReceiptPin": "PIN",
+"digitalVoucherReceiptExpiry": "Tarikh Luput",
+"digitalVoucherReceiptVoucherLink": "Pautan Baucar",
+"digitalVoucherReceiptTotalPaid": "Jumlah Dibayar",
+"digitalVoucherHowToRedeem": "Cara Menebus",
+
+
+"fuelButton": "Bahan Api",
+"fuelSupportingText": "Beli baucar bahan api digital daripada penyedia yang tersedia.",
+"fuelPageTitle": "BAUCAR BAHAN API",
+"fuelSelectAmountNext": "Pilih penyedia untuk meneruskan ke pemilihan nilai baucar bahan api.",
+
+"fuelPurchaseSubtitle": "Pilih nilai baucar bahan api pilihan anda",
+
+
+"fuelDelivery": "Kaedah Penghantaran",
+"fuelDeliveryPin": "PIN Baucar",
+"fuelDeliveryLink": "Pautan Baucar",
+"fuelHowToRedeem": "CARA MENEBUS",
+"fuelOptionDetails": "Butiran Pilihan",
+"fuelPaymentAlreadyReceivedWarning": "Bayaran QR anda telah diterima. Jangan buat bayaran sekali lagi.",
+"fuelPaymentDetails": "BUTIRAN BAYARAN BAHAN API",
+"fuelPaymentInvalidProductMessage": "Penyedia bahan api yang dipilih tidak sah. Sila kembali dan pilih semula penyedia.",
+"fuelPaymentInvalidProductTitle": "Penyedia Bahan Api Tidak Sah",
+"fuelPaymentProviderErrorTitle": "Ralat Pemprosesan Baucar Bahan Api",
+"fuelPaymentProviderRefunded": "Penyedia telah memulangkan bayaran transaksi ini.",
+"fuelPaymentProviderRejected": "Penyedia telah menolak transaksi baucar bahan api ini.",
+"fuelPaymentReference": "Rujukan Transaksi",
+"fuelPaymentStillProcessing": "Bayaran anda telah diterima, tetapi baucar bahan api masih sedang diproses.",
+"fuelPaymentTitle": "BAYARAN BAUCAR BAHAN API",
+"fuelPreparingQrPayment": "SEDANG MENYEDIAKAN DUITNOW QR",
+"fuelProcessingLocked": "Jangan tutup halaman ini semasa baucar bahan api anda sedang diproses.",
+"fuelProcessingMessage": "Bayaran diterima. Kami sedang memproses baucar bahan api anda.",
+"fuelProcessingTitle": "MEMPROSES BAUCAR BAHAN API",
+"fuelReceiptBankTransaction": "Nombor Transaksi Bank",
+"fuelReceiptExpiry": "Tarikh Luput",
+"fuelReceiptPaymentDate": "Tarikh Bayaran",
+"fuelReceiptPin": "PIN Baucar",
+"fuelReceiptProvider": "Penyedia Bahan Api",
+"fuelReceiptSerialNumber": "Nombor Siri",
+"fuelReceiptTitle": "RESIT BAUCAR BAHAN API",
+"fuelReceiptTotalPaid": "JUMLAH DIBAYAR",
+"fuelReceiptTransactionDetails": "BUTIRAN TRANSAKSI",
+"fuelReceiptVoucherDetails": "BUTIRAN BAUCAR BAHAN API",
+"fuelReceiptVoucherLink": "Pautan Baucar",
+"fuelSelectedPackage": "Pakej Dipilih",
+"fuelServiceAdjustment": "Pelarasan Perkhidmatan",
+"fuelTotalPayment": "JUMLAH BAYARAN",
+"fuelVoucherValue": "Nilai Baucar Bahan Api"
 
 
 

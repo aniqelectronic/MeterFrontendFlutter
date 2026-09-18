@@ -353,112 +353,185 @@ class _PBAHASAPAGEState extends State<PBAHASAPAGE> {
 }
 
 // ============================================================================
-// HEADER
+// MODERN + GOVERNMENT LANGUAGE HEADER
+// KEEPS EXISTING BADGE + TITLE + SUBTITLE
 // ============================================================================
+
 class _LanguageHeader extends StatelessWidget {
   const _LanguageHeader();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Small premium badge.
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 26,
-            vertical: 11,
+    const Color accentColor = Color(0xFF1265BC);
+    const Color darkAccent = Color(0xFF064AA3);
+    const Color lightAccent = Color(0xFF1478D4);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
           ),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.88),
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              color: const Color(0xFFC79B3B)
-                  .withOpacity(0.45),
-              width: 1.5,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.08),
-                blurRadius: 16,
-                offset: const Offset(0, 7),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT LANGUAGE ICON
+          // ==========================================================
+
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  darkAccent,
+                  lightAccent,
+                ],
               ),
-            ],
-          ),
-          child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.language_rounded,
-                color: Color(0xFFB28229),
-                size: 27,
-              ),
-              SizedBox(width: 10),
-              Text(
-                'PILIHAN BAHASA',
-                style: TextStyle(
-                  color: Color(0xFF8A6829),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.7,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
-              ),
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 22),
-
-        // Main Malay title.
-        ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) {
-            return const LinearGradient(
-              colors: [
-                Color(0xFF293E54),
-                Color(0xFF6D7E8E),
               ],
-            ).createShader(bounds);
-          },
-          child: const Text(
-            'PILIH BAHASA',
-            textAlign: TextAlign.center,
-            style: TextStyle(
+            ),
+            child: const Icon(
+              Icons.language_rounded,
               color: Colors.white,
-              fontSize: 78,
-              height: 1,
-              fontWeight: FontWeight.w900,
-              letterSpacing: -1,
+              size: 56,
             ),
           ),
-        ),
 
-        const SizedBox(height: 15),
+          const SizedBox(width: 28),
 
-        // English subtitle.
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 34,
-            vertical: 15,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.90),
-            borderRadius: BorderRadius.circular(25),
-            border: Border.all(
-              color: const Color(0xFFD5DBE1),
-              width: 1.5,
+          // ==========================================================
+          // EXISTING HEADER INFORMATION
+          // ==========================================================
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING BADGE — PILIHAN BAHASA
+                // ------------------------------------------------------
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE9F3FF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.translate_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      SizedBox(width: 8),
+
+                      Text(
+                        'PILIHAN BAHASA',
+                        style: TextStyle(
+                          color: accentColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // EXISTING TITLE — PILIH BAHASA
+                // ------------------------------------------------------
+
+                const Text(
+                  'PILIH BAHASA',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+
+                const Text(
+                  'Choose Your Preferred Language',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
             ),
           ),
-          child: const Text(
-            'Choose Your Preferred Language',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF546273),
-              fontSize: 30,
-              fontWeight: FontWeight.w700,
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT GOVERNMENT-BLUE ACCENT
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  darkAccent,
+                  lightAccent,
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

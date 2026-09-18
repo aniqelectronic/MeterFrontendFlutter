@@ -1974,75 +1974,23 @@ class _PEWALLET4PAGEState
   ) {
     return Stack(
       children: [
-        Positioned(
-          top: 50,
-          left: 65,
-          right: 65,
-
-          child: Column(
-            children: [
-              _buildServiceBadge(
-                loc.eWalletPhoneStepLabel,
-              ),
-
-              const SizedBox(
-                height: 14,
-              ),
-
-              Text(
-                loc.eWalletEnterPhoneTitle
-                    .toUpperCase(),
-
-                textAlign:
-                    TextAlign.center,
-
-                style:
-                    const TextStyle(
-                  color:
-                      _darkColor,
-
-                  fontSize: 45,
-
-                  fontWeight:
-                      FontWeight
-                          .w900,
-                ),
-              ),
-
-              const SizedBox(
-                height: 10,
-              ),
-
-              Text(
-                loc.eWalletEnterPhoneSubtitle,
-
-                textAlign:
-                    TextAlign.center,
-
-                style:
-                    const TextStyle(
-                  color:
-                      Color(
-                    0xFF53677E,
-                  ),
-
-                  fontSize: 27,
-
-                  fontWeight:
-                      FontWeight
-                          .w700,
-                ),
-              ),
-            ],
-          ),
+      Positioned(
+        top: 50,
+        left: 65,
+        right: 65,
+        child: _EWalletPhoneHeader(
+          serviceLabel: loc.eWalletPhoneStepLabel,
+          title: loc.eWalletEnterPhoneTitle,
+          subtitle: loc.eWalletEnterPhoneSubtitle,
         ),
+      ),
 
         // ====================================================================
         // PROVIDER + PHONE
         // ====================================================================
 
         Positioned(
-          top: 300,
+          top: 350,
           left: 70,
           right: 70,
 
@@ -2325,7 +2273,7 @@ class _PEWALLET4PAGEState
         // ====================================================================
 
         Positioned(
-          top: 750,
+          top: 800,
           left: 80,
           right: 80,
 
@@ -2385,7 +2333,7 @@ class _PEWALLET4PAGEState
         // ====================================================================
 
         Positioned(
-          bottom: 190,
+          bottom: 150,
           left: 80,
           right: 80,
 
@@ -2398,126 +2346,170 @@ class _PEWALLET4PAGEState
     );
   }
 
-  // ==========================================================================
-  // HEADER
-  // ==========================================================================
+// ==========================================================================
+// MODERN + GOVERNMENT TNG PIN HEADER
+// EXISTING PURCHASE TITLE + PRODUCT NAME ONLY
+// ==========================================================================
 
-  Widget _buildHeader(
-    String title,
-  ) {
-    return Container(
-      width:
-          double.infinity,
-
-      padding:
-          const EdgeInsets.symmetric(
-        horizontal: 30,
-        vertical: 25,
+Widget _buildHeader(
+  String title,
+) {
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.fromLTRB(
+      30,
+      24,
+      30,
+      24,
+    ),
+    decoration: BoxDecoration(
+      color: Colors.white.withOpacity(0.96),
+      borderRadius: BorderRadius.circular(32),
+      border: Border.all(
+        color: const Color(0xFFD5E4F7),
+        width: 2,
       ),
+      boxShadow: [
+        BoxShadow(
+          color: const Color(0xFF173A66).withOpacity(0.14),
+          blurRadius: 30,
+          offset: const Offset(0, 12),
+        ),
+      ],
+    ),
+    child: Row(
+      children: [
+        // ============================================================
+        // LEFT E-WALLET ICON
+        // ============================================================
 
-      decoration:
-          BoxDecoration(
-        gradient:
-            const LinearGradient(
-          colors: [
-            _darkColor,
-            _primaryColor,
-            _lightColor,
-          ],
+        Container(
+          width: 105,
+          height: 105,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                _darkColor,
+                _lightColor,
+              ],
+            ),
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: [
+              BoxShadow(
+                color: _primaryColor.withOpacity(0.28),
+                blurRadius: 20,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: const Icon(
+            Icons.account_balance_wallet_rounded,
+            color: Colors.white,
+            size: 56,
+          ),
         ),
 
-        borderRadius:
-            BorderRadius.circular(
-          32,
+        const SizedBox(width: 28),
+
+        // ============================================================
+        // EXISTING TEXT
+        // ============================================================
+
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // --------------------------------------------------------
+              // EXISTING PURCHASE TITLE
+              // --------------------------------------------------------
+
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 7,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFEFE7),
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.account_balance_wallet_rounded,
+                      size: 20,
+                      color: _primaryColor,
+                    ),
+
+                    const SizedBox(width: 8),
+
+                    Flexible(
+                      child: Text(
+                        title.toUpperCase(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: _primaryColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.1,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 14),
+
+              // --------------------------------------------------------
+              // EXISTING PRODUCT NAME
+              // --------------------------------------------------------
+
+              Text(
+                _productName.toUpperCase(),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Color(0xFF122C4C),
+                  fontSize: 48,
+                  fontWeight: FontWeight.w900,
+                  height: 1.03,
+                  letterSpacing: -0.7,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
 
-      child: Row(
-        children: [
-          Container(
-            width: 80,
-            height: 80,
+        const SizedBox(width: 24),
 
-            decoration:
-                BoxDecoration(
-              color:
-                  Colors.white
-                      .withOpacity(
-                0.18,
-              ),
+        // ============================================================
+        // RIGHT ACCENT
+        // ============================================================
 
-              borderRadius:
-                  BorderRadius.circular(
-                22,
-              ),
-            ),
-
-            child:
-                const Icon(
-              Icons
-                  .account_balance_wallet_rounded,
-
-              color:
-                  Colors.white,
-
-              size: 48,
-            ),
-          ),
-
-          const SizedBox(
-            width: 22,
-          ),
-
-          Expanded(
-            child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment
-                      .start,
-
-              children: [
-                Text(
-                  title.toUpperCase(),
-
-                  style:
-                      const TextStyle(
-                    color:
-                        Colors.white70,
-
-                    fontSize: 22,
-
-                    fontWeight:
-                        FontWeight
-                            .w800,
-                  ),
-                ),
-
-                const SizedBox(
-                  height: 5,
-                ),
-
-                Text(
-                  _productName
-                      .toUpperCase(),
-
-                  style:
-                      const TextStyle(
-                    color:
-                        Colors.white,
-
-                    fontSize: 44,
-
-                    fontWeight:
-                        FontWeight
-                            .w900,
-                  ),
-                ),
+        Container(
+          width: 8,
+          height: 105,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                _darkColor,
+                _lightColor,
               ],
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
   // ==========================================================================
   // SERVICE BADGE
@@ -3321,6 +3313,203 @@ class _PEWALLET4PAGEState
           ),
         ),
       ],
+    );
+  }
+}
+
+
+// ============================================================================
+// MODERN + GOVERNMENT E-WALLET PHONE HEADER
+// KEEPS EXISTING STEP LABEL + TITLE + SUBTITLE
+// ============================================================================
+
+class _EWalletPhoneHeader extends StatelessWidget {
+  final String serviceLabel;
+  final String title;
+  final String subtitle;
+
+  const _EWalletPhoneHeader({
+    required this.serviceLabel,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    const Color accentColor = Color(0xFFEF6C35);
+    const Color darkColor = Color(0xFFD35400);
+    const Color lightColor = Color(0xFFFFA264);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT E-WALLET ICON
+          // ==========================================================
+
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  darkColor,
+                  lightColor,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.phone_android_rounded,
+              color: Colors.white,
+              size: 56,
+            ),
+          ),
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // EXISTING TEXT
+          // ==========================================================
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING STEP LABEL
+                // ------------------------------------------------------
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFEFE7),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.account_balance_wallet_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Flexible(
+                        child: Text(
+                          serviceLabel.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 48,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.7,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ACCENT
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  darkColor,
+                  lightColor,
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:frontend_v1/l10n/app_localizations.dart';
-import 'package:frontend_v1/pages/bil/p4bil.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbil3.dart';
 
@@ -9,12 +8,13 @@ import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
 
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
+import 'package:frontend_v1/pages/bil/digitalvoucher/pdigitalvoucher4.dart';
 
 // ============================================================================
-// BILLER STATUS
+// DIGITAL VOUCHER STATUS
 // ============================================================================
 
-enum BillerStatus {
+enum DigitalVoucherStatus {
   loading,
   healthy,
   interruption,
@@ -22,9 +22,9 @@ enum BillerStatus {
 }
 
 // ============================================================================
-// ELECTRIC PRODUCT MODEL
+// DIGITAL VOUCHER PRODUCT MODEL
 //
-// All product information comes from:
+// Product list comes fully from:
 //
 // /v2/catalog
 //
@@ -32,52 +32,62 @@ enum BillerStatus {
 //      ↓
 // categories
 //      ↓
-// category.id == ELEC
+// category.id == DIGITAL_VOUCHER
 //      ↓
 // category.product_codes
 //      ↓
 // products[productCode]
 //
-// Nothing such as TNB / SESCO / SESB / NUR is manually listed here.
+// We do NOT hardcode:
+// AD
+// DISCORD
+// ECT
+// GC
+// GF
+// GM
+// SE
+// ZAL
 // ============================================================================
 
-class _ElectricProduct {
+class _DigitalVoucherProduct {
   final String code;
   final String name;
   final String imageUrl;
   final String processingTime;
   final bool isActive;
+  final String note;
 
-  const _ElectricProduct({
+  const _DigitalVoucherProduct({
     required this.code,
     required this.name,
     required this.imageUrl,
     required this.processingTime,
     required this.isActive,
+    required this.note,
   });
 }
 
 // ============================================================================
-// ELECTRIC BILL PROVIDER PAGE
+// DIGITAL VOUCHER PAGE 3
 // ============================================================================
 
-class PELECTRICBILL3PAGE extends StatefulWidget {
-  const PELECTRICBILL3PAGE({
+class PDIGITALVOUCHER3PAGE extends StatefulWidget {
+  const PDIGITALVOUCHER3PAGE({
     super.key,
   });
 
   @override
-  State<PELECTRICBILL3PAGE> createState() =>
-      _PELECTRICBILL3PAGEState();
+  State<PDIGITALVOUCHER3PAGE> createState() =>
+      _PDIGITALVOUCHER3PAGEState();
 }
 
-class _PELECTRICBILL3PAGEState
-    extends State<PELECTRICBILL3PAGE> {
+class _PDIGITALVOUCHER3PAGEState
+    extends State<PDIGITALVOUCHER3PAGE> {
   // ==========================================================================
   // PRODUCTS FROM CATALOG
   // ==========================================================================
 
-  final List<_ElectricProduct> _electricProducts = [];
+  final List<_DigitalVoucherProduct> _voucherProducts = [];
 
   bool _catalogLoading = true;
 
@@ -85,21 +95,9 @@ class _PELECTRICBILL3PAGEState
 
   // ==========================================================================
   // NETWORK STATUS
-  //
-  // Also dynamic.
-  //
-  // Example after catalog loads:
-  //
-  // {
-  //   'TNB': healthy,
-  //   'SESCO': healthy,
-  //   ...
-  // }
-  //
-  // No provider codes are declared beforehand.
   // ==========================================================================
 
-  final Map<String, BillerStatus> _billerStatuses = {};
+  final Map<String, DigitalVoucherStatus> _voucherStatuses = {};
 
   final Map<String, String?> _lastUpdated = {};
 
@@ -116,29 +114,30 @@ class _PELECTRICBILL3PAGEState
   // ==========================================================================
   // UI COLORS
   //
-  // These are only decorative UI colors.
-  //
-  // They are NOT provider configuration.
-  //
-  // If API adds more providers, colors automatically repeat.
+  // Decorative only.
+  // Not provider configuration.
   // ==========================================================================
 
   static const List<Color> _accentColors = [
-    Color(0xFF1469E8),
-    Color(0xFF128B75),
-    Color(0xFF1779B9),
-    Color(0xFFE59522),
-    Color(0xFF7356D8),
-    Color(0xFFD64D8B),
+    Color(0xFFE65175),
+    Color(0xFF6C5CE7),
+    Color(0xFFE39B19),
+    Color(0xFF00A86B),
+    Color(0xFF22A65A),
+    Color(0xFF16A085),
+    Color(0xFFFF5722),
+    Color(0xFF546E7A),
   ];
 
   static const List<Color> _lightAccentColors = [
-    Color(0xFFE5F0FF),
-    Color(0xFFE2F7F1),
-    Color(0xFFE5F5FF),
-    Color(0xFFFFF3D9),
+    Color(0xFFFFE7EE),
     Color(0xFFEDE9FF),
-    Color(0xFFFFE6F2),
+    Color(0xFFFFF4D8),
+    Color(0xFFE4F7EF),
+    Color(0xFFE5F7EA),
+    Color(0xFFE1F6F2),
+    Color(0xFFFFE8E1),
+    Color(0xFFEDF1F3),
   ];
 
   // ==========================================================================
@@ -155,38 +154,29 @@ class _PELECTRICBILL3PAGEState
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        _loadElectricCatalog();
+        _loadDigitalVoucherCatalog();
       },
     );
   }
 
   // ==========================================================================
-  // LOAD ELECTRICITY PROVIDERS FROM CATALOG
+  // LOAD DIGITAL VOUCHERS FROM CATALOG
   //
   // IMPORTANT:
   //
-  // We ONLY identify the ELEC category.
+  // We only identify:
   //
-  // Provider codes themselves come from:
+  // DIGITAL_VOUCHER
+  //
+  // Provider/product codes themselves come from:
   //
   // category.product_codes
   //
-  // Example current API:
-  //
-  // ELEC
-  // ├── NUR
-  // ├── SESB
-  // ├── SESCO
-  // └── TNB
-  //
-  // If tomorrow API adds:
-  //
-  // └── NEWCODE
-  //
-  // NEWCODE automatically appears without modifying this file.
+  // If IIMMPACT adds/removes products later,
+  // this page follows the catalog automatically.
   // ==========================================================================
 
-  Future<void> _loadElectricCatalog() async {
+  Future<void> _loadDigitalVoucherCatalog() async {
     if (mounted) {
       setState(() {
         _catalogLoading = true;
@@ -209,8 +199,7 @@ class _PELECTRICBILL3PAGEState
       // 2. TREE
       // ======================================================================
 
-      final dynamic treeRaw =
-          catalog['tree'];
+      final dynamic treeRaw = catalog['tree'];
 
       if (treeRaw is! Map) {
         throw Exception(
@@ -227,8 +216,7 @@ class _PELECTRICBILL3PAGEState
       // 3. GROUPS
       // ======================================================================
 
-      final dynamic groupsRaw =
-          tree['groups'];
+      final dynamic groupsRaw = tree['groups'];
 
       if (groupsRaw is! List) {
         throw Exception(
@@ -237,10 +225,10 @@ class _PELECTRICBILL3PAGEState
       }
 
       // ======================================================================
-      // 4. FIND ELEC CATEGORY
+      // 4. FIND DIGITAL_VOUCHER CATEGORY
       // ======================================================================
 
-      final List<String> electricCodes = [];
+      final List<String> voucherCodes = [];
 
       for (final dynamic groupRaw in groupsRaw) {
         if (groupRaw is! Map) {
@@ -278,10 +266,10 @@ class _PELECTRICBILL3PAGEState
                   '';
 
           // ==================================================================
-          // ELECTRICITY CATEGORY ONLY
+          // DIGITAL VOUCHER CATEGORY ONLY
           // ==================================================================
 
-          if (categoryId != 'ELEC') {
+          if (categoryId != 'DIGITAL_VOUCHER') {
             continue;
           }
 
@@ -305,8 +293,8 @@ class _PELECTRICBILL3PAGEState
               continue;
             }
 
-            if (!electricCodes.contains(code)) {
-              electricCodes.add(
+            if (!voucherCodes.contains(code)) {
+              voucherCodes.add(
                 code,
               );
             }
@@ -315,7 +303,17 @@ class _PELECTRICBILL3PAGEState
       }
 
       // ======================================================================
-      // 5. PRODUCTS
+      // CATEGORY NOT FOUND
+      // ======================================================================
+
+      if (voucherCodes.isEmpty) {
+        debugPrint(
+          'DIGITAL_VOUCHER category found no product codes.',
+        );
+      }
+
+      // ======================================================================
+      // 5. PRODUCTS OBJECT
       // ======================================================================
 
       final dynamic productsRaw =
@@ -333,18 +331,18 @@ class _PELECTRICBILL3PAGEState
       );
 
       // ======================================================================
-      // 6. BUILD ELECTRIC PRODUCTS
+      // 6. BUILD DIGITAL VOUCHER PRODUCTS
       // ======================================================================
 
-      final List<_ElectricProduct> loadedProducts = [];
+      final List<_DigitalVoucherProduct> loadedProducts = [];
 
-      for (final String code in electricCodes) {
+      for (final String code in voucherCodes) {
         final dynamic rawProduct =
             products[code];
 
         if (rawProduct is! Map) {
           debugPrint(
-            'Electric catalog product not found: $code',
+            'Digital voucher catalog product not found: $code',
           );
 
           continue;
@@ -364,7 +362,7 @@ class _PELECTRICBILL3PAGEState
 
         if (!isActive) {
           debugPrint(
-            'Electric product inactive: $code',
+            'Digital voucher product inactive: $code',
           );
 
           continue;
@@ -392,7 +390,7 @@ class _PELECTRICBILL3PAGEState
                 productCode;
 
         // ====================================================================
-        // IMAGE
+        // IMAGE URL
         // ====================================================================
 
         final String imageUrl =
@@ -403,6 +401,13 @@ class _PELECTRICBILL3PAGEState
 
         // ====================================================================
         // PROCESSING TIME
+        //
+        // Digital vouchers can currently be:
+        //
+        // PIN
+        // LINK
+        //
+        // We still read this from catalog dynamically.
         // ====================================================================
 
         final String processingTime =
@@ -411,13 +416,24 @@ class _PELECTRICBILL3PAGEState
                     .trim() ??
                 '';
 
+        // ====================================================================
+        // NOTE
+        // ====================================================================
+
+        final String note =
+            product['note']
+                    ?.toString()
+                    .trim() ??
+                '';
+
         loadedProducts.add(
-          _ElectricProduct(
+          _DigitalVoucherProduct(
             code: productCode,
             name: productName,
             imageUrl: imageUrl,
             processingTime: processingTime,
             isActive: isActive,
+            note: note,
           ),
         );
       }
@@ -431,7 +447,7 @@ class _PELECTRICBILL3PAGEState
       }
 
       setState(() {
-        _electricProducts
+        _voucherProducts
           ..clear()
           ..addAll(
             loadedProducts,
@@ -445,14 +461,14 @@ class _PELECTRICBILL3PAGEState
         '========================================',
       );
       debugPrint(
-        'ELECTRICITY CATALOG LOADED',
+        'DIGITAL VOUCHER CATALOG LOADED',
       );
       debugPrint(
         '========================================',
       );
       debugPrint(
         'Products: '
-        '${_electricProducts.map((e) => e.code).toList()}',
+        '${_voucherProducts.map((e) => e.code).toList()}',
       );
       debugPrint(
         '========================================',
@@ -482,7 +498,7 @@ class _PELECTRICBILL3PAGEState
 
     on IimmpactCatalogException catch (error) {
       debugPrint(
-        'Electric catalog error: '
+        'Digital voucher catalog error: '
         '${error.message}',
       );
 
@@ -491,7 +507,7 @@ class _PELECTRICBILL3PAGEState
       }
 
       setState(() {
-        _electricProducts.clear();
+        _voucherProducts.clear();
 
         _catalogLoading = false;
 
@@ -509,7 +525,7 @@ class _PELECTRICBILL3PAGEState
 
     catch (error, stackTrace) {
       debugPrint(
-        'Unexpected electric catalog error: '
+        'Unexpected digital voucher catalog error: '
         '$error',
       );
 
@@ -522,7 +538,7 @@ class _PELECTRICBILL3PAGEState
       }
 
       setState(() {
-        _electricProducts.clear();
+        _voucherProducts.clear();
 
         _catalogLoading = false;
 
@@ -536,18 +552,18 @@ class _PELECTRICBILL3PAGEState
   }
 
   // ==========================================================================
-  // LOAD NETWORK STATUS FOR ALL ACTIVE PROVIDERS
+  // LOAD NETWORK STATUS FOR ALL ACTIVE PRODUCTS
   // ==========================================================================
 
   Future<void> _loadNetworkStatuses() async {
-    if (_electricProducts.isEmpty) {
+    if (_voucherProducts.isEmpty) {
       return;
     }
 
     await Future.wait(
-      _electricProducts.map(
+      _voucherProducts.map(
         (
-          _ElectricProduct product,
+          _DigitalVoucherProduct product,
         ) {
           return _refreshNetworkStatus(
             product.code,
@@ -559,17 +575,15 @@ class _PELECTRICBILL3PAGEState
 
   // ==========================================================================
   // REFRESH NETWORK STATUS
-  //
-  // Uses catalog product code directly.
   // ==========================================================================
 
-  Future<BillerStatus> _refreshNetworkStatus(
+  Future<DigitalVoucherStatus> _refreshNetworkStatus(
     String productCode,
   ) async {
     if (mounted) {
       setState(() {
-        _billerStatuses[productCode] =
-            BillerStatus.loading;
+        _voucherStatuses[productCode] =
+            DigitalVoucherStatus.loading;
       });
     }
 
@@ -579,14 +593,14 @@ class _PELECTRICBILL3PAGEState
         productCode: productCode,
       );
 
-      final BillerStatus status =
+      final DigitalVoucherStatus status =
           result.isHealthy
-              ? BillerStatus.healthy
-              : BillerStatus.interruption;
+              ? DigitalVoucherStatus.healthy
+              : DigitalVoucherStatus.interruption;
 
       if (mounted) {
         setState(() {
-          _billerStatuses[productCode] =
+          _voucherStatuses[productCode] =
               status;
 
           _lastUpdated[productCode] =
@@ -597,29 +611,29 @@ class _PELECTRICBILL3PAGEState
       return status;
     } catch (error) {
       debugPrint(
-        'Electric network status error for '
+        'Digital voucher network status error for '
         '$productCode: $error',
       );
 
       if (mounted) {
         setState(() {
-          _billerStatuses[productCode] =
-              BillerStatus.unavailable;
+          _voucherStatuses[productCode] =
+              DigitalVoucherStatus.unavailable;
         });
       }
 
-      return BillerStatus.unavailable;
+      return DigitalVoucherStatus.unavailable;
     }
   }
 
   // ==========================================================================
-  // PROVIDER TAP
+  // PRODUCT TAP
   // ==========================================================================
 
-  Future<void> _handleBillerTap(
-    _ElectricProduct product,
+  Future<void> _handleVoucherTap(
+    _DigitalVoucherProduct product,
   ) async {
-    final BillerStatus status =
+    final DigitalVoucherStatus status =
         await _refreshNetworkStatus(
       product.code,
     );
@@ -633,10 +647,10 @@ class _PELECTRICBILL3PAGEState
     // ========================================================================
 
     if (status ==
-        BillerStatus.interruption) {
+        DigitalVoucherStatus.interruption) {
       final bool shouldContinue =
           await _showInterruptionWarning(
-        billerName:
+        productName:
             product.name,
         productCode:
             product.code,
@@ -656,7 +670,7 @@ class _PELECTRICBILL3PAGEState
     // ========================================================================
 
     if (status ==
-        BillerStatus.unavailable) {
+        DigitalVoucherStatus.unavailable) {
       final loc =
           AppLocalizations.of(context)!;
 
@@ -706,30 +720,64 @@ class _PELECTRICBILL3PAGEState
     // ========================================================================
     // PAGE 4
     //
-    // product.code and product.name come directly from catalog.
+    // IMPORTANT:
+    //
+    // We stop here for now because Digital Voucher Page 4 should NOT use
+    // P4BILPAGE.
+    //
+    // Page 4 needs to inspect catalog fields:
+    //
+    // field.type == select
+    //     -> call /v2/options
+    //
+    // field.type == money
+    //     -> use validation.min / max
+    //
+    // We will connect this to PDIGITALVOUCHER4PAGE.
     // ========================================================================
 
-    final loc =
-        AppLocalizations.of(context)!;
-
-    await Navigator.push(
+    debugPrint('');
+    debugPrint(
+      '========================================',
+    );
+    debugPrint(
+      'DIGITAL VOUCHER SELECTED',
+    );
+    debugPrint(
+      '========================================',
+    );
+    debugPrint(
+      'Code: ${product.code}',
+    );
+    debugPrint(
+      'Name: ${product.name}',
+    );
+    debugPrint(
+      'Processing: ${product.processingTime}',
+    );
+    debugPrint(
+      'Note: ${product.note}',
+    );
+    debugPrint(
+      '========================================',
+    );
+    debugPrint('');
+    
+    await Navigator.push<DigitalVoucherSelectionResult>(
       context,
       MaterialPageRoute(
         builder: (_) =>
-            P4BILPAGE(
-          title:
-              loc.electricAccountTitle,
-          hint:
-              loc.electricAccountHint,
+            PDIGITALVOUCHER4PAGE(
           productCode:
               product.code,
-          billerName:
+          productName:
               product.name,
-          serviceType:
-              BillServiceType.electric,
+          imageUrl:
+              product.imageUrl,
         ),
       ),
     );
+  
   }
 
   // ==========================================================================
@@ -737,7 +785,7 @@ class _PELECTRICBILL3PAGEState
   // ==========================================================================
 
   Future<bool> _showInterruptionWarning({
-    required String billerName,
+    required String productName,
     required String productCode,
   }) async {
     final loc =
@@ -769,7 +817,8 @@ class _PELECTRICBILL3PAGEState
             ),
             decoration:
                 BoxDecoration(
-              color: Colors.white,
+              color:
+                  Colors.white,
               borderRadius:
                   BorderRadius.circular(
                 38,
@@ -901,7 +950,7 @@ class _PELECTRICBILL3PAGEState
                   ),
                   child: Text(
                     loc.networkInterruptionMessage(
-                      billerName,
+                      productName,
                     ),
                     textAlign:
                         TextAlign.center,
@@ -974,7 +1023,7 @@ class _PELECTRICBILL3PAGEState
                 ),
 
                 // ============================================================
-                // ACTIONS
+                // ACTION BUTTONS
                 // ============================================================
 
                 Row(
@@ -1268,9 +1317,9 @@ class _PELECTRICBILL3PAGEState
             child:
                 _ModernPageHeader(
               title:
-                  loc.pbilelectric3Title,
+                  loc.digitalVoucherTitle,
               subtitle:
-                  loc.pbil3Subtitle,
+                  loc.digitalVoucherSubtitle,
             ),
           ),
 
@@ -1294,7 +1343,7 @@ class _PELECTRICBILL3PAGEState
           // ==================================================================
 
           if (!_catalogLoading &&
-              _electricProducts.isNotEmpty &&
+              _voucherProducts.isNotEmpty &&
               showScrollUp)
             Positioned(
               right: 18,
@@ -1316,7 +1365,7 @@ class _PELECTRICBILL3PAGEState
           // ==================================================================
 
           if (!_catalogLoading &&
-              _electricProducts.isNotEmpty &&
+              _voucherProducts.isNotEmpty &&
               showScrollDown)
             Positioned(
               right: 18,
@@ -1397,7 +1446,7 @@ class _PELECTRICBILL3PAGEState
     AppLocalizations loc,
   ) {
     // ========================================================================
-    // MODERN LOADING
+    // LOADING
     // ========================================================================
 
     if (_catalogLoading) {
@@ -1465,18 +1514,19 @@ class _PELECTRICBILL3PAGEState
                     const BoxDecoration(
                   color:
                       Color(
-                    0xFFEAF2FC,
+                    0xFFFFE7EE,
                   ),
                   shape:
                       BoxShape.circle,
                 ),
                 child:
                     const Icon(
-                  Icons.cloud_off_rounded,
+                  Icons
+                      .cloud_off_rounded,
                   size: 55,
                   color:
                       Color(
-                    0xFF0A2E70,
+                    0xFFE65175,
                   ),
                 ),
               ),
@@ -1496,7 +1546,7 @@ class _PELECTRICBILL3PAGEState
                       FontWeight.bold,
                   color:
                       Color(
-                    0xFF0A2E70,
+                    0xFF17283E,
                   ),
                 ),
               ),
@@ -1510,7 +1560,7 @@ class _PELECTRICBILL3PAGEState
                 child:
                     ElevatedButton.icon(
                   onPressed:
-                      _loadElectricCatalog,
+                      _loadDigitalVoucherCatalog,
                   icon:
                       const Icon(
                     Icons.refresh_rounded,
@@ -1529,7 +1579,7 @@ class _PELECTRICBILL3PAGEState
                       ElevatedButton.styleFrom(
                     backgroundColor:
                         const Color(
-                      0xFF1469E8,
+                      0xFFE65175,
                     ),
                     foregroundColor:
                         Colors.white,
@@ -1554,10 +1604,10 @@ class _PELECTRICBILL3PAGEState
     }
 
     // ========================================================================
-    // NO ACTIVE PROVIDERS
+    // NO ACTIVE PRODUCTS
     // ========================================================================
 
-    if (_electricProducts.isEmpty) {
+    if (_voucherProducts.isEmpty) {
       return Center(
         child: Container(
           width:
@@ -1591,7 +1641,7 @@ class _PELECTRICBILL3PAGEState
             children: [
               const Icon(
                 Icons
-                    .power_off_rounded,
+                    .card_giftcard_rounded,
                 size: 65,
                 color:
                     Color(
@@ -1625,7 +1675,7 @@ class _PELECTRICBILL3PAGEState
     }
 
     // ========================================================================
-    // DYNAMIC PROVIDER GRID
+    // DYNAMIC TWO-COLUMN GRID
     // ========================================================================
 
     return Scrollbar(
@@ -1656,13 +1706,9 @@ class _PELECTRICBILL3PAGEState
         ),
         child: Column(
           children: [
-            // ================================================================
-            // TWO CARDS PER ROW
-            // ================================================================
-
             for (
               int index = 0;
-              index < _electricProducts.length;
+              index < _voucherProducts.length;
               index += 2
             )
               Padding(
@@ -1670,7 +1716,7 @@ class _PELECTRICBILL3PAGEState
                     EdgeInsets.only(
                   bottom:
                       index + 2 <
-                              _electricProducts
+                              _voucherProducts
                                   .length
                           ? 36
                           : 0,
@@ -1682,9 +1728,9 @@ class _PELECTRICBILL3PAGEState
                   children: [
                     Expanded(
                       child:
-                          _buildElectricCard(
+                          _buildVoucherCard(
                         product:
-                            _electricProducts[
+                            _voucherProducts[
                                 index],
                         index:
                             index,
@@ -1700,11 +1746,11 @@ class _PELECTRICBILL3PAGEState
                     Expanded(
                       child:
                           index + 1 <
-                                  _electricProducts
+                                  _voucherProducts
                                       .length
-                              ? _buildElectricCard(
+                              ? _buildVoucherCard(
                                   product:
-                                      _electricProducts[
+                                      _voucherProducts[
                                           index +
                                               1],
                                   index:
@@ -1726,13 +1772,6 @@ class _PELECTRICBILL3PAGEState
 
   // ==========================================================================
   // MODERN LOADING
-  //
-  // Generic loading ARB:
-  //
-  // providerLoading
-  // providerLoadingSubtitle
-  //
-  // Can be reused by Water, Broadband, IDD, Gaming, E-Wallet, etc.
   // ==========================================================================
 
   Widget _buildModernLoading(
@@ -1740,10 +1779,6 @@ class _PELECTRICBILL3PAGEState
   ) {
     return Column(
       children: [
-        // ====================================================================
-        // LOADING MESSAGE
-        // ====================================================================
-
         Container(
           width:
               double.infinity,
@@ -1766,7 +1801,7 @@ class _PELECTRICBILL3PAGEState
                 Border.all(
               color:
                   const Color(
-                0xFFCFE0F7,
+                0xFFF1CAD6,
               ),
               width: 2,
             ),
@@ -1774,9 +1809,9 @@ class _PELECTRICBILL3PAGEState
               BoxShadow(
                 color:
                     const Color(
-                  0xFF174F92,
+                  0xFFE65175,
                 ).withOpacity(
-                  0.12,
+                  0.10,
                 ),
                 blurRadius: 24,
                 offset:
@@ -1789,10 +1824,6 @@ class _PELECTRICBILL3PAGEState
           ),
           child: Row(
             children: [
-              // ==============================================================
-              // LOADING ICON
-              // ==============================================================
-
               Container(
                 width: 100,
                 height: 100,
@@ -1800,7 +1831,7 @@ class _PELECTRICBILL3PAGEState
                     BoxDecoration(
                   color:
                       const Color(
-                    0xFFE8F2FF,
+                    0xFFFFE7EE,
                   ),
                   shape:
                       BoxShape.circle,
@@ -1808,7 +1839,7 @@ class _PELECTRICBILL3PAGEState
                       Border.all(
                     color:
                         const Color(
-                      0xFFC7DCF7,
+                      0xFFF2C8D4,
                     ),
                     width: 2,
                   ),
@@ -1825,21 +1856,21 @@ class _PELECTRICBILL3PAGEState
                         strokeWidth: 5,
                         color:
                             Color(
-                          0xFF1469E8,
+                          0xFFE65175,
                         ),
                         backgroundColor:
                             Color(
-                          0xFFD7E6F8,
+                          0xFFF5D7DF,
                         ),
                       ),
                     ),
 
                     const Icon(
                       Icons
-                          .electric_bolt_rounded,
+                          .card_giftcard_rounded,
                       color:
                           Color(
-                        0xFF1469E8,
+                        0xFFE65175,
                       ),
                       size: 40,
                     ),
@@ -1850,10 +1881,6 @@ class _PELECTRICBILL3PAGEState
               const SizedBox(
                 width: 25,
               ),
-
-              // ==============================================================
-              // TEXT
-              // ==============================================================
 
               Expanded(
                 child: Column(
@@ -1904,10 +1931,6 @@ class _PELECTRICBILL3PAGEState
           height: 28,
         ),
 
-        // ====================================================================
-        // SKELETON PROVIDER CARDS
-        // ====================================================================
-
         Row(
           children: [
             Expanded(
@@ -1930,7 +1953,7 @@ class _PELECTRICBILL3PAGEState
   }
 
   // ==========================================================================
-  // LOADING SKELETON CARD
+  // LOADING CARD
   // ==========================================================================
 
   Widget _buildLoadingProviderCard() {
@@ -1979,10 +2002,6 @@ class _PELECTRICBILL3PAGEState
         crossAxisAlignment:
             CrossAxisAlignment.start,
         children: [
-          // ==================================================================
-          // FAKE LOGO AREA
-          // ==================================================================
-
           Container(
             width: 150,
             height: 115,
@@ -2000,10 +2019,6 @@ class _PELECTRICBILL3PAGEState
           ),
 
           const Spacer(),
-
-          // ==================================================================
-          // FAKE NAME
-          // ==================================================================
 
           Container(
             width:
@@ -2046,10 +2061,6 @@ class _PELECTRICBILL3PAGEState
             height: 22,
           ),
 
-          // ==================================================================
-          // FAKE NETWORK STATUS
-          // ==================================================================
-
           Container(
             width: 185,
             height: 48,
@@ -2071,11 +2082,11 @@ class _PELECTRICBILL3PAGEState
   }
 
   // ==========================================================================
-  // BUILD DYNAMIC ELECTRIC CARD
+  // BUILD VOUCHER CARD
   // ==========================================================================
 
-  Widget _buildElectricCard({
-    required _ElectricProduct product,
+  Widget _buildVoucherCard({
+    required _DigitalVoucherProduct product,
     required int index,
     required AppLocalizations loc,
   }) {
@@ -2091,7 +2102,7 @@ class _PELECTRICBILL3PAGEState
               _lightAccentColors.length
         ];
 
-    return _ElectricProviderCard(
+    return _DigitalVoucherProviderCard(
       imageUrl:
           product.imageUrl,
 
@@ -2105,9 +2116,9 @@ class _PELECTRICBILL3PAGEState
           lightAccentColor,
 
       networkStatus:
-          _billerStatuses[
+          _voucherStatuses[
                   product.code] ??
-              BillerStatus.loading,
+              DigitalVoucherStatus.loading,
 
       networkLabel:
           loc.networkLabel,
@@ -2119,7 +2130,7 @@ class _PELECTRICBILL3PAGEState
           loc.processingTimeLabel,
 
       onPressed: () {
-        _handleBillerTap(
+        _handleVoucherTap(
           product,
         );
       },
@@ -2128,9 +2139,10 @@ class _PELECTRICBILL3PAGEState
 }
 
 // ============================================================================
-// MODERN + GOVERNMENT ELECTRICITY HEADER
-// KEEPS BADGE + TITLE + SUBTITLE
+// MODERN + GOVERNMENT DIGITAL VOUCHER HEADER
+// KEEPS EXISTING BADGE + TITLE + SUBTITLE
 // ============================================================================
+
 class _ModernPageHeader extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -2142,9 +2154,11 @@ class _ModernPageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color accentColor = Color(0xFFE0A100);
-
     final loc = AppLocalizations.of(context)!;
+
+    const Color accentColor = Color(0xFFE65175);
+    const Color darkAccent = Color(0xFFC83261);
+    const Color lightAccent = Color(0xFFF06288);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(
@@ -2171,8 +2185,9 @@ class _ModernPageHeader extends StatelessWidget {
       child: Row(
         children: [
           // ==========================================================
-          // LEFT ELECTRICITY ICON
+          // LEFT DIGITAL VOUCHER ICON
           // ==========================================================
+
           Container(
             width: 105,
             height: 105,
@@ -2181,8 +2196,8 @@ class _ModernPageHeader extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFFD18C00),
-                  Color(0xFFF2B928),
+                  darkAccent,
+                  lightAccent,
                 ],
               ),
               borderRadius: BorderRadius.circular(30),
@@ -2195,17 +2210,18 @@ class _ModernPageHeader extends StatelessWidget {
               ],
             ),
             child: const Icon(
-              Icons.electric_bolt_rounded,
+              Icons.card_giftcard_rounded,
               color: Colors.white,
-              size: 58,
+              size: 56,
             ),
           ),
 
           const SizedBox(width: 28),
 
           // ==========================================================
-          // TEXT AREA
+          // EXISTING HEADER INFORMATION
           // ==========================================================
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -2213,35 +2229,38 @@ class _ModernPageHeader extends StatelessWidget {
                 // ------------------------------------------------------
                 // EXISTING BADGE
                 // ------------------------------------------------------
+
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 18,
                     vertical: 7,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFF4D0),
+                    color: const Color(0xFFFFE7EE),
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(
-                        Icons.electric_bolt_rounded,
+                        Icons.card_giftcard_rounded,
                         size: 20,
                         color: accentColor,
                       ),
 
                       const SizedBox(width: 8),
 
-                      Text(
-                        loc.electricitybutton.toUpperCase(),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: accentColor,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 1.1,
+                      Flexible(
+                        child: Text(
+                          loc.digitalVoucherButton.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
                         ),
                       ),
                     ],
@@ -2253,6 +2272,7 @@ class _ModernPageHeader extends StatelessWidget {
                 // ------------------------------------------------------
                 // EXISTING TITLE
                 // ------------------------------------------------------
+
                 Text(
                   title.toUpperCase(),
                   maxLines: 2,
@@ -2271,13 +2291,14 @@ class _ModernPageHeader extends StatelessWidget {
                 // ------------------------------------------------------
                 // EXISTING SUBTITLE
                 // ------------------------------------------------------
+
                 Text(
                   subtitle.toUpperCase(),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: Color(0xFF607188),
-                    fontSize: 22,
+                    fontSize: 30,
                     fontWeight: FontWeight.w600,
                     height: 1.25,
                   ),
@@ -2289,8 +2310,9 @@ class _ModernPageHeader extends StatelessWidget {
           const SizedBox(width: 24),
 
           // ==========================================================
-          // RIGHT ACCENT BAR
+          // RIGHT PINK ACCENT BAR
           // ==========================================================
+
           Container(
             width: 8,
             height: 105,
@@ -2300,8 +2322,8 @@ class _ModernPageHeader extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Color(0xFFD18C00),
-                  Color(0xFFF2B928),
+                  darkAccent,
+                  lightAccent,
                 ],
               ),
             ),
@@ -2313,10 +2335,10 @@ class _ModernPageHeader extends StatelessWidget {
 }
 
 // ============================================================================
-// ELECTRIC PROVIDER CARD
+// DIGITAL VOUCHER PROVIDER CARD
 // ============================================================================
 
-class _ElectricProviderCard
+class _DigitalVoucherProviderCard
     extends StatefulWidget {
   final String imageUrl;
   final String label;
@@ -2326,13 +2348,13 @@ class _ElectricProviderCard
   final Color accentColor;
   final Color lightAccentColor;
 
-  final BillerStatus networkStatus;
+  final DigitalVoucherStatus networkStatus;
   final String networkLabel;
 
   final String processingTime;
   final String processingLabel;
 
-  const _ElectricProviderCard({
+  const _DigitalVoucherProviderCard({
     super.key,
     required this.imageUrl,
     required this.label,
@@ -2346,16 +2368,16 @@ class _ElectricProviderCard
   });
 
   @override
-  State<_ElectricProviderCard> createState() =>
-      _ElectricProviderCardState();
+  State<_DigitalVoucherProviderCard> createState() =>
+      _DigitalVoucherProviderCardState();
 }
 
 // ============================================================================
-// ELECTRIC PROVIDER CARD STATE
+// CARD STATE
 // ============================================================================
 
-class _ElectricProviderCardState
-    extends State<_ElectricProviderCard> {
+class _DigitalVoucherProviderCardState
+    extends State<_DigitalVoucherProviderCard> {
   bool _isPressed = false;
 
   // ==========================================================================
@@ -2375,7 +2397,7 @@ class _ElectricProviderCardState
   }
 
   // ==========================================================================
-  // PROCESSING TIME LOCALIZATION
+  // PROCESSING TIME
   // ==========================================================================
 
   String _formatProcessingTime(
@@ -2399,6 +2421,9 @@ class _ElectricProviderCardState
       case 'pin':
         return 'PIN';
 
+      case 'link':
+        return 'LINK';
+
       default:
         return value.replaceAll(
           '_',
@@ -2417,7 +2442,7 @@ class _ElectricProviderCardState
   ) {
     final bool isEnabled =
         widget.networkStatus !=
-            BillerStatus.unavailable;
+            DigitalVoucherStatus.unavailable;
 
     return GestureDetector(
       behavior:
@@ -2741,7 +2766,7 @@ class _ElectricProviderCardState
                         const Spacer(),
 
                         // ====================================================
-                        // PROVIDER NAME
+                        // PRODUCT NAME
                         // ====================================================
 
                         Align(
@@ -2924,8 +2949,7 @@ class _ElectricProviderCardState
   Widget _buildLogo() {
     if (widget.imageUrl.isEmpty) {
       return Icon(
-        Icons
-            .electric_bolt_rounded,
+        Icons.card_giftcard_rounded,
         size: 90,
         color:
             widget.accentColor,
@@ -2962,13 +2986,13 @@ class _ElectricProviderCardState
         stackTrace,
       ) {
         debugPrint(
-          'Failed to load electric logo: '
+          'Failed to load digital voucher logo: '
           '${widget.imageUrl}',
         );
 
         return Icon(
           Icons
-              .electric_bolt_rounded,
+              .card_giftcard_rounded,
           size: 90,
           color:
               widget.accentColor,
@@ -2984,7 +3008,7 @@ class _ElectricProviderCardState
 
 class _NetworkStatusBadge
     extends StatelessWidget {
-  final BillerStatus status;
+  final DigitalVoucherStatus status;
   final String label;
 
   const _NetworkStatusBadge({
@@ -3012,7 +3036,7 @@ class _NetworkStatusBadge
       // LOADING
       // ======================================================================
 
-      case BillerStatus.loading:
+      case DigitalVoucherStatus.loading:
         statusText =
             loc.networkStatusChecking;
 
@@ -3040,7 +3064,7 @@ class _NetworkStatusBadge
       // HEALTHY
       // ======================================================================
 
-      case BillerStatus.healthy:
+      case DigitalVoucherStatus.healthy:
         statusText =
             loc.networkStatusGood;
 
@@ -3069,7 +3093,7 @@ class _NetworkStatusBadge
       // INTERRUPTION
       // ======================================================================
 
-      case BillerStatus.interruption:
+      case DigitalVoucherStatus.interruption:
         statusText =
             loc.networkStatusSlow;
 
@@ -3098,7 +3122,7 @@ class _NetworkStatusBadge
       // UNAVAILABLE
       // ======================================================================
 
-      case BillerStatus.unavailable:
+      case DigitalVoucherStatus.unavailable:
         statusText =
             loc.networkStatusUnknown;
 
@@ -3154,7 +3178,7 @@ class _NetworkStatusBadge
             MainAxisSize.min,
         children: [
           if (status ==
-              BillerStatus.loading)
+              DigitalVoucherStatus.loading)
             SizedBox(
               width: 24,
               height: 24,
@@ -3202,7 +3226,7 @@ class _NetworkStatusBadge
 }
 
 // ============================================================================
-// SCROLL INDICATOR BUTTON
+// SCROLL INDICATOR
 // ============================================================================
 
 class _ScrollIndicatorButton
@@ -3229,7 +3253,7 @@ class _ScrollIndicatorButton
       size: 52,
       color:
           const Color(
-        0xFF1469E8,
+        0xFFE65175,
       ),
     );
 

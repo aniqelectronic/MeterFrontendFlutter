@@ -956,76 +956,19 @@ void _closeCardSuccessDialog() {
             ),
           ),
 
-        // ============================================================
-        // MODERN HEADER TITLE
-        // ============================================================
-        Positioned(
-          top: 90,
-          left: 65,
-          right: 65,
-          child: Column(
-            children: [
-              ShaderMask(
-                blendMode: BlendMode.srcIn,
-                shaderCallback: (bounds) {
-                  return const LinearGradient(
-                    colors: [
-                      Color(0xFF064CAC),
-                      Color(0xFF1987EB),
-                    ],
-                  ).createShader(bounds);
-                },
-                child: Text(
-                  AppLocalizations.of(context)!.paymentTitle,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 64,
-                    fontWeight: FontWeight.w900,
-                    height: 1.05,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 60),
-
-              Container(
-                constraints: const BoxConstraints(
-                  maxWidth: 850,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 15,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.90),
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(
-                    color: Colors.black.withOpacity(0.18),
-                    width: 1.5,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF113968).withOpacity(0.10),
-                      blurRadius: 24,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: Text(
-                  AppLocalizations.of(context)!.paymentSubtitle,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Color(0xFF435166),
-                    fontSize: 29,
-                    fontWeight: FontWeight.w700,
-                    height: 1.25,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+    // ============================================================
+    // MODERN + GOVERNMENT PAYMENT HEADER
+    // ============================================================
+    Positioned(
+      top: 55,
+      left: 80,
+      right: 180,
+      child: _ModernPaymentHeader(
+        badgeText: AppLocalizations.of(context)!.paymentTitle,
+        title: AppLocalizations.of(context)!.paymentTitle,
+        subtitle: AppLocalizations.of(context)!.paymentSubtitle,
+      ),
+    ),
 
         // ============================================================
         // MODERN TOTAL AMOUNT CARD
@@ -2166,35 +2109,56 @@ void _closeCardSuccessDialog() {
           ),
         ),
 
-        Positioned(
-          top: 70,
-          right: 50,
-          child: InkWell(
-            onTap: () {
-              showPaymentGuideDialog(context);
-            },
-            child: Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                color: const Color(0xFF0359D2),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    blurRadius: 8,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: const Icon(
-                Icons.info_outline,
-                color: Colors.white,
-                size: 100,
-              ),
+// ============================================================
+// MODERN KIOSK INFO BUTTON
+// ============================================================
+Positioned(
+  top: 100,
+  right: 30,
+  child: GestureDetector(
+    onTap: () {
+      showPaymentGuideDialog(context);
+    },
+    child: Container(
+      width: 120,
+      height: 120,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.97),
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: const Color(0xFF075FD8),
+          width: 4,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF075FD8).withOpacity(0.18),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Center(
+        child: Container(
+          width: 90,
+          height: 90,
+          decoration: BoxDecoration(
+            color: const Color(0xFFEAF3FF),
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: const Color(0xFFB9D6F7),
+              width: 2,
             ),
           ),
+          child: const Icon(
+            Icons.info_rounded,
+            color: Color(0xFF075FD8),
+            size: 80,
+          ),
         ),
+      ),
+    ),
+  ),
+),
 
 
           // Bottom button (KEMBALI)
@@ -2441,6 +2405,181 @@ class _PaymentKioskButtonState
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+
+// ============================================================================
+// MODERN + GOVERNMENT PAYMENT HEADER
+// ============================================================================
+class _ModernPaymentHeader extends StatelessWidget {
+  final String badgeText;
+  final String title;
+  final String subtitle;
+
+  const _ModernPaymentHeader({
+    required this.badgeText,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT PAYMENT ICON
+          // ==========================================================
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF064AA3),
+                  Color(0xFF1478D4),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF095AB8).withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.payments_rounded,
+              color: Colors.white,
+              size: 56,
+            ),
+          ),
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // TEXT AREA
+          // ==========================================================
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Small payment badge
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE9F3FF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.account_balance_wallet_rounded,
+                        size: 20,
+                        color: Color(0xFF1265BC),
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Text(
+                        badgeText.toUpperCase(),
+                        style: const TextStyle(
+                          color: Color(0xFF1265BC),
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // Main title
+                Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // Subtitle
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ACCENT BAR
+          // ==========================================================
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF0751A8),
+                  Color(0xFF2196E8),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

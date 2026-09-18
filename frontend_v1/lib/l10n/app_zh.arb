@@ -3738,7 +3738,183 @@
   "place": {
     "type": "String"
   }
-}
+},
 
+
+"gameCreditsEnterPhoneReferenceTitle": "输入手机号码",
+"gameCreditsEnterPhoneReferenceSubtitle": "请输入马来西亚手机号码作为此交易的参考号码",
+"gameCreditsPhoneReferenceLabel": "手机号码参考",
+"gameCreditsPhoneReferenceHint": "输入手机号码",
+"gameCreditsPhoneReferenceNotice": "此手机号码仅作为交易参考，并不是您的游戏账户。",
+"gameCreditsPhoneRequired": "请输入手机号码。",
+"gameCreditsPhoneInvalid": "请输入以 01 开头的有效马来西亚手机号码。",
+
+"digitalVoucherButton": "电子礼券",
+"digitalVoucherSupportingText": "购买电子礼券和礼品代码",
+"digitalVoucherTitle": "电子礼券",
+"digitalVoucherSubtitle": "请选择您要购买的电子礼券",
+"digitalVoucherSelectValueTitle": "选择礼券金额",
+
+
+"digitalVoucherPurchaseSubtitle": "选择您的礼券金额或配套",
+"digitalVoucherCategory": "电子礼券",
+"digitalVoucherImportantNote": "重要提示",
+"digitalVoucherDelivery": "发放方式",
+"digitalVoucherDeliveryPin": "PIN",
+"digitalVoucherDeliveryLink": "链接",
+
+"digitalVoucherSelectPackage": "选择配套",
+"digitalVoucherSelectPackageHint": "请选择一个可用配套以继续",
+"digitalVoucherSelectAmount": "选择金额",
+"digitalVoucherSelectAmountHint": "请选择一个可用的礼券金额以继续",
+"digitalVoucherNoOptionsAvailable": "目前没有可用的礼券选项",
+
+"digitalVoucherTapAmountHint": "点击金额栏或使用按钮选择礼券金额",
+"digitalVoucherAmountRange": "允许金额：{minimum} - {maximum}",
+"@digitalVoucherAmountRange": {
+  "placeholders": {
+    "minimum": {
+      "type": "String"
+    },
+    "maximum": {
+      "type": "String"
+    }
+  }
+},
+
+"digitalVoucherEnterAmount": "输入礼券金额",
+"digitalVoucherKeypadHint": "使用数字键盘输入礼券金额",
+"digitalVoucherClear": "清除",
+"digitalVoucherDone": "完成",
+"digitalVoucherCancel": "取消",
+
+"digitalVoucherMinimumAmount": "最低礼券金额为 {amount}。",
+"@digitalVoucherMinimumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"digitalVoucherMaximumAmount": "最高礼券金额为 {amount}。",
+"@digitalVoucherMaximumAmount": {
+  "placeholders": {
+    "amount": {
+      "type": "String"
+    }
+  }
+},
+
+"digitalVoucherOrderSummary": "订单摘要",
+"digitalVoucherSelectedPackage": "已选配套",
+"digitalVoucherSelectedAmount": "已选金额",
+"digitalVoucherServiceAdjustment": "服务调整",
+"digitalVoucherTotalPayment": "付款总额",
+
+"digitalVoucherReviewSelection": "检查选择",
+
+"digitalVoucherProductUnavailable": "此电子礼券目前无法使用。",
+"digitalVoucherSelectOptionRequired": "请先选择礼券选项再继续。",
+"digitalVoucherInvalidAmount": "请输入有效的礼券金额。",
+"digitalVoucherUnableToLoad": "无法加载电子礼券资料。",
+"digitalVoucherTryAgain": "重试",
+
+
+
+"digitalVoucherNoteAdidas": "请在 https://www.adidas.com.my 结账时，在“Promo Code”栏输入礼券代码。此礼券仅适用于已注册账户，不适用于访客结账。",
+
+"digitalVoucherNoteDiscord": "RM43 = 1个月，RM432 = 12个月。",
+
+"digitalVoucherNoteEatCakeToday": "适用于 https://www.eatcaketoday.com 的线上购买。请在结账页面输入折扣代码。",
+
+"digitalVoucherNoteGrabGiftCode": "结账时，请在“Use Offers”中的“Use Grab Gifts”栏目输入礼券代码。",
+
+"digitalVoucherNoteGrabFood": "打开礼券链接（Activation URL），并在 Grab 应用程序中兑换。如果使用电脑，请用手机扫描二维码。前往 My Rewards 查找礼券。此电子礼券仅适用于 GrabFood 类别的购买。",
+
+"digitalVoucherNoteGrabMart": "使用礼券链接进行兑换。打开礼券链接（Activation URL），并在 Grab 应用程序中兑换。如果使用电脑，请用手机扫描二维码。前往 My Rewards 查找礼券。",
+
+"digitalVoucherNoteShopee": "自发出日起有效期为3个月。适用于新用户及现有用户，并且只能使用一次。礼券仅适用于 Shopee Mall 和 Preferred Sellers。请在 Shopee 手机应用程序结账时输入促销代码。",
+
+"digitalVoucherNoteZalora": "1. 登录 www.zalora.my。2. 在 My Account 中选择 My Store Credit。3. 输入礼券代码并选择 Add Credit。4. 礼品卡金额将显示在 My Store Credit 中，之后即可开始购物。",
+
+
+"digitalVoucherPaymentTitle": "电子礼券付款",
+"digitalVoucherPaymentDetails": "礼券详情",
+"digitalVoucherVoucherValue": "礼券金额",
+"digitalVoucherOptionDetails": "配套详情",
+
+"digitalVoucherPreparingQrPayment": "正在准备二维码付款",
+"digitalVoucherProcessingTitle": "正在处理礼券",
+"digitalVoucherProcessingMessage": "付款已收到。请稍候，我们正在处理您的电子礼券。",
+"digitalVoucherProcessingLocked": "礼券处理中，请勿关闭此页面。",
+
+"digitalVoucherPaymentInvalidProductTitle": "无效礼券",
+"digitalVoucherPaymentInvalidProductMessage": "所选电子礼券无效。请返回并重新选择礼券。",
+
+"digitalVoucherPaymentProviderRejected": "礼券供应商拒绝了此交易。",
+"digitalVoucherPaymentProviderRefunded": "礼券供应商已退款此交易。",
+"digitalVoucherPaymentStillProcessing": "礼券仍在处理中。",
+"digitalVoucherPaymentReference": "交易参考编号",
+
+"digitalVoucherPaymentProviderErrorTitle": "礼券处理错误",
+"digitalVoucherPaymentAlreadyReceivedWarning": "您的付款已经收到。请勿再次付款。请保留交易参考编号以便寻求协助。",
+
+"digitalVoucherReceiptTitle": "电子礼券收据",
+"digitalVoucherReceiptProvider": "礼券供应商",
+"digitalVoucherReceiptTransactionDetails": "交易详情",
+"digitalVoucherReceiptVoucherDetails": "礼券详情",
+"digitalVoucherReceiptPaymentDate": "付款日期与时间",
+"digitalVoucherReceiptBankTransaction": "银行交易编号",
+"digitalVoucherReceiptSerialNumber": "序列号",
+"digitalVoucherReceiptPin": "PIN",
+"digitalVoucherReceiptExpiry": "有效期",
+"digitalVoucherReceiptVoucherLink": "礼券链接",
+"digitalVoucherReceiptTotalPaid": "已付总额",
+"digitalVoucherHowToRedeem": "兑换方法",
+
+
+"fuelButton": "燃油",
+"fuelSupportingText": "向可用的供应商购买电子燃油礼券。",
+"fuelPageTitle": "燃油礼券",
+"fuelSelectAmountNext": "请选择供应商以继续选择燃油礼券面额。",
+
+"fuelPurchaseSubtitle": "选择您所需的燃油礼券面额",
+
+
+"fuelDelivery": "交付方式",
+"fuelDeliveryPin": "礼券密码",
+"fuelDeliveryLink": "礼券链接",
+"fuelHowToRedeem": "如何兑换",
+"fuelOptionDetails": "选项详情",
+"fuelPaymentAlreadyReceivedWarning": "您的二维码付款已收到。请勿再次付款。",
+"fuelPaymentDetails": "燃油礼券付款详情",
+"fuelPaymentInvalidProductMessage": "所选的燃油供应商无效。请返回并重新选择供应商。",
+"fuelPaymentInvalidProductTitle": "无效的燃油供应商",
+"fuelPaymentProviderErrorTitle": "燃油礼券处理错误",
+"fuelPaymentProviderRefunded": "供应商已退还此交易款项。",
+"fuelPaymentProviderRejected": "供应商已拒绝此燃油礼券交易。",
+"fuelPaymentReference": "交易参考编号",
+"fuelPaymentStillProcessing": "您的付款已收到，但燃油礼券仍在处理中。",
+"fuelPaymentTitle": "燃油礼券付款",
+"fuelPreparingQrPayment": "正在准备 DUITNOW 二维码",
+"fuelProcessingLocked": "处理燃油礼券时，请勿关闭此页面。",
+"fuelProcessingMessage": "付款已收到。我们正在处理您的燃油礼券。",
+"fuelProcessingTitle": "正在处理燃油礼券",
+"fuelReceiptBankTransaction": "银行交易编号",
+"fuelReceiptExpiry": "有效期",
+"fuelReceiptPaymentDate": "付款日期",
+"fuelReceiptPin": "礼券密码",
+"fuelReceiptProvider": "燃油供应商",
+"fuelReceiptSerialNumber": "序列号",
+"fuelReceiptTitle": "燃油礼券收据",
+"fuelReceiptTotalPaid": "已付总额",
+"fuelReceiptTransactionDetails": "交易详情",
+"fuelReceiptVoucherDetails": "燃油礼券详情",
+"fuelReceiptVoucherLink": "礼券链接",
+"fuelSelectedPackage": "已选配套",
+"fuelServiceAdjustment": "服务调整",
+"fuelTotalPayment": "付款总额",
+"fuelVoucherValue": "燃油礼券价值"
 
 }

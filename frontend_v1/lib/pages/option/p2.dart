@@ -65,29 +65,39 @@ class _P2PageState extends State<P2Page> {
 
     _scrollController.removeListener(_handleScroll);
     _scrollController.dispose();
+
     super.dispose();
   }
 
   void _startKnowledgeTimer() {
     _knowledgeTimer?.cancel();
-    _knowledgeTimer = Timer.periodic(_knowledgeSlideDuration, (_) {
-      if (!mounted || !_knowledgeController.hasClients) return;
-      _goToKnowledge(_currentKnowledgeIndex + 1);
-    });
+
+    _knowledgeTimer = Timer.periodic(
+      _knowledgeSlideDuration,
+      (_) {
+        if (!mounted || !_knowledgeController.hasClients) return;
+
+        _goToKnowledge(_currentKnowledgeIndex + 1);
+      },
+    );
   }
 
   void _goToKnowledge(int index) {
     final normalizedIndex = index % 20;
+
     _knowledgeController.animateToPage(
       normalizedIndex,
       duration: const Duration(milliseconds: 520),
       curve: Curves.easeInOutCubic,
     );
+
     _startKnowledgeTimer();
   }
 
   void _previousKnowledge() {
-    _goToKnowledge((_currentKnowledgeIndex - 1 + 20) % 20);
+    _goToKnowledge(
+      (_currentKnowledgeIndex - 1 + 20) % 20,
+    );
   }
 
   void _nextKnowledge() {
@@ -96,13 +106,26 @@ class _P2PageState extends State<P2Page> {
 
   List<String> _knowledgeItems(AppLocalizations loc) {
     return [
-      loc.knowledgeFact01, loc.knowledgeFact02, loc.knowledgeFact03,
-      loc.knowledgeFact04, loc.knowledgeFact05, loc.knowledgeFact06,
-      loc.knowledgeFact07, loc.knowledgeFact08, loc.knowledgeFact09,
-      loc.knowledgeFact10, loc.knowledgeFact11, loc.knowledgeFact12,
-      loc.knowledgeFact13, loc.knowledgeFact14, loc.knowledgeFact15,
-      loc.knowledgeFact16, loc.knowledgeFact17, loc.knowledgeFact18,
-      loc.knowledgeFact19, loc.knowledgeFact20,
+      loc.knowledgeFact01,
+      loc.knowledgeFact02,
+      loc.knowledgeFact03,
+      loc.knowledgeFact04,
+      loc.knowledgeFact05,
+      loc.knowledgeFact06,
+      loc.knowledgeFact07,
+      loc.knowledgeFact08,
+      loc.knowledgeFact09,
+      loc.knowledgeFact10,
+      loc.knowledgeFact11,
+      loc.knowledgeFact12,
+      loc.knowledgeFact13,
+      loc.knowledgeFact14,
+      loc.knowledgeFact15,
+      loc.knowledgeFact16,
+      loc.knowledgeFact17,
+      loc.knowledgeFact18,
+      loc.knowledgeFact19,
+      loc.knowledgeFact20,
     ];
   }
 
@@ -156,7 +179,6 @@ class _P2PageState extends State<P2Page> {
 
           // ============================================================
           // SOFT BACKGROUND OVERLAY
-          // Makes the content clearer without changing your image.
           // ============================================================
           Positioned.fill(
             child: Container(
@@ -175,7 +197,7 @@ class _P2PageState extends State<P2Page> {
           ),
 
           // ============================================================
-          // MODERN HEADER
+          // ONLY THIS HEADER DESIGN IS CHANGED
           // ============================================================
           Positioned(
             top: 58,
@@ -187,6 +209,9 @@ class _P2PageState extends State<P2Page> {
             ),
           ),
 
+          // ============================================================
+          // KNOWLEDGE SLIDER
+          // ============================================================
           Positioned(
             top: 330,
             left: 58,
@@ -198,7 +223,10 @@ class _P2PageState extends State<P2Page> {
               items: knowledgeItems,
               currentIndex: _currentKnowledgeIndex,
               onPageChanged: (index) {
-                setState(() => _currentKnowledgeIndex = index);
+                setState(() {
+                  _currentKnowledgeIndex = index;
+                });
+
                 _startKnowledgeTimer();
               },
               onPrevious: _previousKnowledge,
@@ -233,9 +261,6 @@ class _P2PageState extends State<P2Page> {
                 ),
                 child: Column(
                   children: [
-                    // ==================================================
-                    // FIRST ROW
-                    // ==================================================
                     Row(
                       children: [
                         Expanded(
@@ -243,35 +268,39 @@ class _P2PageState extends State<P2Page> {
                             height: 450,
                             icon: Icons.account_balance_rounded,
                             label: loc.pbtText,
-                            supportingText:
-                                loc.pbtSupportingText,
+                            supportingText: loc.pbtSupportingText,
                             accentColor: const Color(0xFF1469E8),
-                            accentLightColor: const Color(0xFFE6F0FF),
+                            accentLightColor:
+                                const Color(0xFFE6F0FF),
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => const PBT3PAGE(),
+                                  builder: (_) =>
+                                      const PBT3PAGE(),
                                 ),
                               );
                             },
                           ),
                         ),
+
                         const SizedBox(width: 28),
+
                         Expanded(
                           child: _ModernServiceButton(
                             height: 450,
                             icon: Icons.receipt_long_rounded,
                             label: loc.bilText,
-                            supportingText:
-                                loc.billSupportingText,
+                            supportingText: loc.billSupportingText,
                             accentColor: const Color(0xFF008F72),
-                            accentLightColor: const Color(0xFFE0F8F1),
+                            accentLightColor:
+                                const Color(0xFFE0F8F1),
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => const PBIL3PAGE(),
+                                  builder: (_) =>
+                                      const PBIL3PAGE(),
                                 ),
                               );
                             },
@@ -282,9 +311,6 @@ class _P2PageState extends State<P2Page> {
 
                     const SizedBox(height: 28),
 
-                    // ==================================================
-                    // SECOND ROW
-                    // ==================================================
                     Row(
                       children: [
                         Expanded(
@@ -295,17 +321,20 @@ class _P2PageState extends State<P2Page> {
                             supportingText:
                                 loc.touristSupportingText,
                             accentColor: const Color(0xFFE56C16),
-                            accentLightColor: const Color(0xFFFFEBDC),
+                            accentLightColor:
+                                const Color(0xFFFFEBDC),
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => const PTOURISTPAGE(),
+                                  builder: (_) =>
+                                      const PTOURISTPAGE(),
                                 ),
                               );
                             },
                           ),
                         ),
+
                         const SizedBox(width: 28),
 
                         Expanded(
@@ -313,9 +342,11 @@ class _P2PageState extends State<P2Page> {
                             height: 450,
                             icon: Icons.help_outline_rounded,
                             label: loc.faqButton,
-                            supportingText: loc.faqSupportingText,
+                            supportingText:
+                                loc.faqSupportingText,
                             accentColor: const Color(0xFF7A4DD8),
-                            accentLightColor: const Color(0xFFF0E9FF),
+                            accentLightColor:
+                                const Color(0xFFF0E9FF),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -339,9 +370,6 @@ class _P2PageState extends State<P2Page> {
             ),
           ),
 
-          // ============================================================
-          // TOP SCROLL INDICATOR
-          // ============================================================
           if (showScrollUp)
             Positioned(
               right: 20,
@@ -353,9 +381,6 @@ class _P2PageState extends State<P2Page> {
               ),
             ),
 
-          // ============================================================
-          // BOTTOM SCROLL INDICATOR
-          // ============================================================
           if (showScrollDown)
             Positioned(
               right: 20,
@@ -369,7 +394,7 @@ class _P2PageState extends State<P2Page> {
             ),
 
           // ============================================================
-          // BACK BUTTON
+          // BACK BUTTON - UNCHANGED
           // ============================================================
           Positioned(
             bottom: 100,
@@ -412,14 +437,16 @@ class _P2PageState extends State<P2Page> {
 }
 
 // ============================================================================
-// DID YOU KNOW / TAHUKAH ANDA SLIDER
+// KNOWLEDGE SLIDER
 // ============================================================================
+
 class _KnowledgeSlider extends StatelessWidget {
   final PageController controller;
   final String title;
   final String subtitle;
   final List<String> items;
   final int currentIndex;
+
   final ValueChanged<int> onPageChanged;
   final VoidCallback onPrevious;
   final VoidCallback onNext;
@@ -446,9 +473,16 @@ class _KnowledgeSlider extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF063D91), Color(0xFF126BD4), Color(0xFF1A8BE6)],
+          colors: [
+            Color(0xFF063D91),
+            Color(0xFF126BD4),
+            Color(0xFF1A8BE6),
+          ],
         ),
-        border: Border.all(color: Colors.white.withOpacity(0.80), width: 2),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.80),
+          width: 2,
+        ),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF073E87).withOpacity(0.26),
@@ -473,8 +507,14 @@ class _KnowledgeSlider extends StatelessWidget {
                 ),
               ),
             ),
+
             Padding(
-              padding: const EdgeInsets.fromLTRB(26, 20, 24, 16),
+              padding: const EdgeInsets.fromLTRB(
+                26,
+                20,
+                24,
+                16,
+              ),
               child: Column(
                 children: [
                   Row(
@@ -492,10 +532,13 @@ class _KnowledgeSlider extends StatelessWidget {
                           size: 33,
                         ),
                       ),
+
                       const SizedBox(width: 16),
+
                       Expanded(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
                           children: [
                             Text(
                               title.toUpperCase(),
@@ -510,7 +553,8 @@ class _KnowledgeSlider extends StatelessWidget {
                             Text(
                               subtitle,
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.82),
+                                color:
+                                    Colors.white.withOpacity(0.82),
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -518,18 +562,23 @@ class _KnowledgeSlider extends StatelessWidget {
                           ],
                         ),
                       ),
+
                       _KnowledgeNavigationButton(
                         icon: Icons.chevron_left_rounded,
                         onPressed: onPrevious,
                       ),
+
                       const SizedBox(width: 10),
+
                       _KnowledgeNavigationButton(
                         icon: Icons.chevron_right_rounded,
                         onPressed: onNext,
                       ),
                     ],
                   ),
+
                   const SizedBox(height: 12),
+
                   Expanded(
                     child: PageView.builder(
                       controller: controller,
@@ -553,40 +602,56 @@ class _KnowledgeSlider extends StatelessWidget {
                       },
                     ),
                   ),
+
                   Row(
                     children: [
                       Text(
                         '${currentIndex + 1}/${items.length}',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.84),
+                          color:
+                              Colors.white.withOpacity(0.84),
                           fontSize: 14,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
+
                       const SizedBox(width: 14),
+
                       Expanded(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(items.length, (index) {
-                            final isActive = index == currentIndex;
+                          mainAxisAlignment:
+                              MainAxisAlignment.center,
+                          children:
+                              List.generate(items.length, (index) {
+                            final isActive =
+                                index == currentIndex;
+
                             return GestureDetector(
-                              onTap: () => onIndicatorPressed(index),
+                              onTap: () =>
+                                  onIndicatorPressed(index),
                               child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 220),
-                                margin: const EdgeInsets.symmetric(horizontal: 3),
+                                duration:
+                                    const Duration(milliseconds: 220),
+                                margin:
+                                    const EdgeInsets.symmetric(
+                                  horizontal: 3,
+                                ),
                                 width: isActive ? 23 : 7,
                                 height: 7,
                                 decoration: BoxDecoration(
                                   color: isActive
                                       ? const Color(0xFFFFD166)
-                                      : Colors.white.withOpacity(0.38),
-                                  borderRadius: BorderRadius.circular(20),
+                                      : Colors.white
+                                          .withOpacity(0.38),
+                                  borderRadius:
+                                      BorderRadius.circular(20),
                                 ),
                               ),
                             );
                           }),
                         ),
                       ),
+
                       const SizedBox(width: 35),
                     ],
                   ),
@@ -604,7 +669,10 @@ class _KnowledgeNavigationButton extends StatefulWidget {
   final IconData icon;
   final VoidCallback onPressed;
 
-  const _KnowledgeNavigationButton({required this.icon, required this.onPressed});
+  const _KnowledgeNavigationButton({
+    required this.icon,
+    required this.onPressed,
+  });
 
   @override
   State<_KnowledgeNavigationButton> createState() =>
@@ -618,9 +686,21 @@ class _KnowledgeNavigationButtonState
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) => setState(() => _pressed = true),
-      onTapUp: (_) => setState(() => _pressed = false),
-      onTapCancel: () => setState(() => _pressed = false),
+      onTapDown: (_) {
+        setState(() {
+          _pressed = true;
+        });
+      },
+      onTapUp: (_) {
+        setState(() {
+          _pressed = false;
+        });
+      },
+      onTapCancel: () {
+        setState(() {
+          _pressed = false;
+        });
+      },
       onTap: widget.onPressed,
       child: AnimatedScale(
         scale: _pressed ? 0.90 : 1,
@@ -629,14 +709,20 @@ class _KnowledgeNavigationButtonState
           width: 48,
           height: 48,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(_pressed ? 0.28 : 0.16),
+            color: Colors.white.withOpacity(
+              _pressed ? 0.28 : 0.16,
+            ),
             shape: BoxShape.circle,
             border: Border.all(
               color: Colors.white.withOpacity(0.45),
               width: 1.5,
             ),
           ),
-          child: Icon(widget.icon, color: Colors.white, size: 34),
+          child: Icon(
+            widget.icon,
+            color: Colors.white,
+            size: 34,
+          ),
         ),
       ),
     );
@@ -644,8 +730,10 @@ class _KnowledgeNavigationButtonState
 }
 
 // ============================================================================
-// MODERN PAGE HEADER
+// NEW MODERN + GOVERNMENT TITLE
+// ONLY THIS WIDGET HAS BEEN REDESIGNED
 // ============================================================================
+
 class _ModernPageHeader extends StatelessWidget {
   final String title;
   final String subtitle;
@@ -657,118 +745,171 @@ class _ModernPageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Small category badge.
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 11,
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        25,
+        30,
+        25,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.94),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
           ),
-          decoration: BoxDecoration(
-            color: const Color(0xFF1769E0).withOpacity(0.10),
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              color: const Color(0xFF1769E0).withOpacity(0.18),
-              width: 1.5,
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.touch_app_rounded,
-                size: 25,
-                color: Color(0xFF1769E0),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT GOVERNMENT BLUE ICON
+          // ==========================================================
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF064AA3),
+                  Color(0xFF1478D4),
+                ],
               ),
-              const SizedBox(width: 10),
-              Text(
-                AppLocalizations.of(context)!
-                    .serviceSelectionLabel
-                    .toUpperCase(),
-                style: const TextStyle(
-                  color: Color(0xFF1769E0),
-                  fontSize: 25,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.4,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color:
+                      const Color(0xFF095AB8).withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
-              ),
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 20),
-
-        // Main title.
-        ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) {
-            return const LinearGradient(
-              colors: [
-                Color(0xFF064CAC),
-                Color(0xFF1987EB),
               ],
-            ).createShader(bounds);
-          },
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            style: const TextStyle(
+            ),
+            child: const Icon(
+              Icons.touch_app_rounded,
               color: Colors.white,
-              fontSize: 64,
-              fontWeight: FontWeight.w900,
-              letterSpacing: -1.2,
-              height: 1.05,
+              size: 56,
             ),
           ),
-        ),
 
-        const SizedBox(height: 16),
+          const SizedBox(width: 28),
 
-        // Subtitle capsule.
-        Container(
-          constraints: const BoxConstraints(
-            maxWidth: 860,
-          ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 32,
-            vertical: 16,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.82),
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: Colors.white,
-              width: 1.5,
+          // ==========================================================
+          // TITLE AREA
+          // ==========================================================
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Small category label
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE9F3FF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.apps_rounded,
+                        size: 20,
+                        color: Color(0xFF1265BC),
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Text(
+                        AppLocalizations.of(context)!
+                            .serviceSelectionLabel
+                            .toUpperCase(),
+                        style: const TextStyle(
+                          color: Color(0xFF1265BC),
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // MAIN TITLE
+                Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // SUBTITLE
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
             ),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF113968).withOpacity(0.10),
-                blurRadius: 24,
-                offset: const Offset(0, 10),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT DECORATION
+          // ==========================================================
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF0751A8),
+                  Color(0xFF2196E8),
+                ],
               ),
-            ],
-          ),
-          child: Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xFF435166),
-              fontSize: 25,
-              fontWeight: FontWeight.w700,
-              height: 1.25,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
 // ============================================================================
-// MODERN MAIN SERVICE BUTTON
+// ORIGINAL SERVICE BUTTON - UNCHANGED
 // ============================================================================
+
 class _ModernServiceButton extends StatefulWidget {
   final IconData? icon;
   final String? imagePath;
@@ -798,7 +939,8 @@ class _ModernServiceButton extends StatefulWidget {
       _ModernServiceButtonState();
 }
 
-class _ModernServiceButtonState extends State<_ModernServiceButton> {
+class _ModernServiceButtonState
+    extends State<_ModernServiceButton> {
   bool _isPressed = false;
 
   void _setPressed(bool value) {
@@ -815,10 +957,14 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTapDown: enabled ? (_) => _setPressed(true) : null,
-      onTapUp: enabled ? (_) => _setPressed(false) : null,
-      onTapCancel: enabled ? () => _setPressed(false) : null,
-      onTap: enabled ? widget.onPressed : null,
+      onTapDown:
+          enabled ? (_) => _setPressed(true) : null,
+      onTapUp:
+          enabled ? (_) => _setPressed(false) : null,
+      onTapCancel:
+          enabled ? () => _setPressed(false) : null,
+      onTap:
+          enabled ? widget.onPressed : null,
       child: AnimatedScale(
         scale: _isPressed ? 0.965 : 1,
         duration: const Duration(milliseconds: 130),
@@ -841,14 +987,16 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
             boxShadow: _isPressed
                 ? [
                     BoxShadow(
-                      color: widget.accentColor.withOpacity(0.16),
+                      color:
+                          widget.accentColor.withOpacity(0.16),
                       blurRadius: 18,
                       offset: const Offset(0, 8),
                     ),
                   ]
                 : [
                     BoxShadow(
-                      color: const Color(0xFF19375C).withOpacity(0.14),
+                      color:
+                          const Color(0xFF19375C).withOpacity(0.14),
                       blurRadius: 32,
                       spreadRadius: 1,
                       offset: const Offset(0, 16),
@@ -864,22 +1012,22 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
             borderRadius: BorderRadius.circular(38),
             child: Stack(
               children: [
-                // Decorative accent shape.
                 Positioned(
                   right: -45,
                   top: -45,
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 180),
+                    duration:
+                        const Duration(milliseconds: 180),
                     width: _isPressed ? 205 : 190,
                     height: _isPressed ? 205 : 190,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: widget.accentLightColor.withOpacity(0.88),
+                      color: widget.accentLightColor
+                          .withOpacity(0.88),
                     ),
                   ),
                 ),
 
-                // Small secondary decorative circle.
                 Positioned(
                   right: 105,
                   top: 78,
@@ -888,7 +1036,8 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                     height: 38,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: widget.accentColor.withOpacity(0.08),
+                      color:
+                          widget.accentColor.withOpacity(0.08),
                     ),
                   ),
                 ),
@@ -901,26 +1050,31 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                     30,
                   ),
                   child: Opacity(
-                    opacity: widget.comingSoon ? 0.5 : 1,
+                    opacity:
+                        widget.comingSoon ? 0.5 : 1,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
                       children: [
-                        // Icon and arrow row.
                         Row(
                           mainAxisAlignment:
                               MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
                           children: [
                             AnimatedContainer(
-                              duration: const Duration(milliseconds: 160),
+                              duration:
+                                  const Duration(milliseconds: 160),
                               width: 132,
                               height: 132,
                               decoration: BoxDecoration(
-                                color: widget.accentLightColor,
-                                borderRadius: BorderRadius.circular(34),
+                                color:
+                                    widget.accentLightColor,
+                                borderRadius:
+                                    BorderRadius.circular(34),
                                 border: Border.all(
-                                  color:
-                                      widget.accentColor.withOpacity(0.12),
+                                  color: widget.accentColor
+                                      .withOpacity(0.12),
                                   width: 1.5,
                                 ),
                               ),
@@ -928,8 +1082,11 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                                 child: widget.icon != null
                                     ? Icon(
                                         widget.icon,
-                                        size: _isPressed ? 77 : 72,
-                                        color: widget.accentColor,
+                                        size: _isPressed
+                                            ? 77
+                                            : 72,
+                                        color:
+                                            widget.accentColor,
                                       )
                                     : Image.asset(
                                         widget.imagePath!,
@@ -941,8 +1098,10 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                             ),
 
                             AnimatedContainer(
-                              duration: const Duration(milliseconds: 160),
-                              transform: Matrix4.translationValues(
+                              duration:
+                                  const Duration(milliseconds: 160),
+                              transform:
+                                  Matrix4.translationValues(
                                 _isPressed ? 6 : 0,
                                 0,
                                 0,
@@ -954,10 +1113,11 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color:
-                                        widget.accentColor.withOpacity(0.24),
+                                    color: widget.accentColor
+                                        .withOpacity(0.24),
                                     blurRadius: 14,
-                                    offset: const Offset(0, 7),
+                                    offset:
+                                        const Offset(0, 7),
                                   ),
                                 ],
                               ),
@@ -972,7 +1132,6 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
 
                         const Spacer(),
 
-                        // Label.
                         Text(
                           widget.label.toUpperCase(),
                           maxLines: 2,
@@ -988,7 +1147,6 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
 
                         const SizedBox(height: 14),
 
-                        // Supporting text.
                         Text(
                           widget.supportingText,
                           maxLines: 2,
@@ -1003,7 +1161,6 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
 
                         const SizedBox(height: 23),
 
-                        // Bottom accent.
                         Row(
                           children: [
                             Container(
@@ -1011,17 +1168,21 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                               height: 7,
                               decoration: BoxDecoration(
                                 color: widget.accentColor,
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius:
+                                    BorderRadius.circular(50),
                               ),
                             ),
+
                             const SizedBox(width: 8),
+
                             Container(
                               width: 12,
                               height: 7,
                               decoration: BoxDecoration(
-                                color:
-                                    widget.accentColor.withOpacity(0.28),
-                                borderRadius: BorderRadius.circular(50),
+                                color: widget.accentColor
+                                    .withOpacity(0.28),
+                                borderRadius:
+                                    BorderRadius.circular(50),
                               ),
                             ),
                           ],
@@ -1031,27 +1192,32 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                   ),
                 ),
 
-                // Coming soon overlay.
                 if (widget.comingSoon)
                   Positioned.fill(
                     child: Container(
-                      color: Colors.white.withOpacity(0.28),
+                      color:
+                          Colors.white.withOpacity(0.28),
                       alignment: Alignment.center,
                       child: Transform.rotate(
                         angle: -0.12,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
+                          padding:
+                              const EdgeInsets.symmetric(
                             horizontal: 34,
                             vertical: 15,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFE74343),
-                            borderRadius: BorderRadius.circular(18),
+                            color:
+                                const Color(0xFFE74343),
+                            borderRadius:
+                                BorderRadius.circular(18),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.20),
+                                color: Colors.black
+                                    .withOpacity(0.20),
                                 blurRadius: 18,
-                                offset: const Offset(0, 8),
+                                offset:
+                                    const Offset(0, 8),
                               ),
                             ],
                           ),
@@ -1080,8 +1246,9 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
 }
 
 // ============================================================================
-// SCROLL INDICATOR BUTTON
+// SCROLL INDICATOR - UNCHANGED
 // ============================================================================
+
 class _ScrollIndicatorButton extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -1117,7 +1284,8 @@ class _ScrollIndicatorButton extends StatelessWidget {
       color: Colors.white.withOpacity(0.94),
       borderRadius: BorderRadius.circular(22),
       elevation: 5,
-      shadowColor: const Color(0xFF14345A).withOpacity(0.25),
+      shadowColor:
+          const Color(0xFF14345A).withOpacity(0.25),
       child: InkWell(
         onTap: onPressed,
         borderRadius: BorderRadius.circular(22),

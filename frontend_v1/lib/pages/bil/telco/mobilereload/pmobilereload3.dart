@@ -824,161 +824,10 @@ for (final String productCode
             top: 45,
             left: 55,
             right: 55,
-            child: Column(
-              children: [
-                // ============================================================
-                // SERVICE BADGE
-                // ============================================================
-
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 10,
-                  ),
-                  decoration:
-                      BoxDecoration(
-                    color:
-                        _primaryColor.withOpacity(
-                      0.10,
-                    ),
-                    borderRadius:
-                        BorderRadius.circular(
-                      100,
-                    ),
-                    border:
-                        Border.all(
-                      color:
-                          _primaryColor.withOpacity(
-                        0.28,
-                      ),
-                      width: 1.5,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize:
-                        MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons
-                            .phone_android_rounded,
-                        color:
-                            _primaryColor,
-                        size: 27,
-                      ),
-
-                      const SizedBox(
-                        width: 10,
-                      ),
-
-                      Text(
-                        loc.mobileReloadServiceLabel
-                            .toUpperCase(),
-                        style:
-                            const TextStyle(
-                          color:
-                              _primaryColor,
-                          fontSize: 18,
-                          fontWeight:
-                              FontWeight.w900,
-                          letterSpacing: 1.3,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(
-                  height: 18,
-                ),
-
-                // ============================================================
-                // TITLE
-                // ============================================================
-
-                ShaderMask(
-                  blendMode:
-                      BlendMode.srcIn,
-                  shaderCallback:
-                      (bounds) {
-                    return const LinearGradient(
-                      colors: [
-                        _darkColor,
-                        _primaryColor,
-                      ],
-                    ).createShader(
-                      bounds,
-                    );
-                  },
-                  child: Text(
-                    loc.mobileReloadProviderTitle
-                        .toUpperCase(),
-                    textAlign:
-                        TextAlign.center,
-                    style:
-                        const TextStyle(
-                      color:
-                          Colors.white,
-                      fontSize: 48,
-                      fontWeight:
-                          FontWeight.w900,
-                      height: 1.05,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(
-                  height: 18,
-                ),
-
-                // ============================================================
-                // SUBTITLE
-                // ============================================================
-
-                Container(
-                  width:
-                      double.infinity,
-                  padding:
-                      const EdgeInsets.symmetric(
-                    horizontal: 30,
-                    vertical: 15,
-                  ),
-                  decoration:
-                      BoxDecoration(
-                    color:
-                        Colors.white.withOpacity(
-                      0.94,
-                    ),
-                    borderRadius:
-                        BorderRadius.circular(
-                      23,
-                    ),
-                    border:
-                        Border.all(
-                      color:
-                          Colors.black.withOpacity(
-                        0.16,
-                      ),
-                    ),
-                  ),
-                  child: Text(
-                    loc.mobileReloadProviderSubtitle,
-                    textAlign:
-                        TextAlign.center,
-                    style:
-                        const TextStyle(
-                      color:
-                          Color(
-                        0xFF435166,
-                      ),
-                      fontSize: 25,
-                      fontWeight:
-                          FontWeight.w700,
-                      height: 1.25,
-                    ),
-                  ),
-                ),
-              ],
+            child: _MobileReloadHeader(
+              serviceLabel: loc.mobileReloadServiceLabel,
+              title: loc.mobileReloadProviderTitle,
+              subtitle: loc.mobileReloadProviderSubtitle,
             ),
           ),
 
@@ -2343,6 +2192,194 @@ class _MobileReloadScrollButton
                       ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+// ============================================================================
+// MODERN + GOVERNMENT MOBILE RELOAD HEADER
+// KEEPS SERVICE LABEL + TITLE + SUBTITLE
+// ============================================================================
+
+class _MobileReloadHeader extends StatelessWidget {
+  final String serviceLabel;
+  final String title;
+  final String subtitle;
+
+  const _MobileReloadHeader({
+    required this.serviceLabel,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    const Color accentColor = Color(0xFF7B4DCC);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT MOBILE RELOAD ICON
+          // ==========================================================
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF56339B),
+                  Color(0xFF8C61D7),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.signal_cellular_alt_rounded,
+              color: Colors.white,
+              size: 56,
+            ),
+          ),
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // TEXT AREA
+          // ==========================================================
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING SERVICE BADGE
+                // ------------------------------------------------------
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF1EAFF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.phone_android_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Flexible(
+                        child: Text(
+                          serviceLabel.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ACCENT BAR
+          // ==========================================================
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF56339B),
+                  Color(0xFF8C61D7),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

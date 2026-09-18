@@ -1431,11 +1431,10 @@ class _PEWALLET3PAGEState
 }
 
 // ============================================================================
-// MODERN E-WALLET HEADER
+// E-WALLET HEADER
 // ============================================================================
 
-class _ModernEWalletHeader
-    extends StatelessWidget {
+class _ModernEWalletHeader extends StatelessWidget {
   final String title;
   final String subtitle;
 
@@ -1445,262 +1444,182 @@ class _ModernEWalletHeader
   });
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    const Color accentColor =
-        Color(
-      0xFFEF6C35,
-    );
+  Widget build(BuildContext context) {
+    const Color accentColor = Color(0xFFEF6C35);
+    const Color darkAccent = Color(0xFFD35400);
 
-    return Column(
-      children: [
-        // ====================================================================
-        // SERVICE BADGE
-        // ====================================================================
+    final loc = AppLocalizations.of(context)!;
 
-        Container(
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal:
-                24,
-
-            vertical:
-                10,
-          ),
-
-          decoration:
-              BoxDecoration(
-            color:
-                accentColor.withOpacity(
-              0.10,
-            ),
-
-            borderRadius:
-                BorderRadius.circular(
-              100,
-            ),
-
-            border:
-                Border.all(
-              color:
-                  accentColor.withOpacity(
-                0.24,
-              ),
-
-              width:
-                  1.5,
-            ),
-          ),
-
-          child:
-              Row(
-            mainAxisSize:
-                MainAxisSize.min,
-
-            children: [
-              const Icon(
-                Icons
-                    .account_balance_wallet_rounded,
-
-                color:
-                    accentColor,
-
-                size:
-                    25,
-              ),
-
-              const SizedBox(
-                width:
-                    9,
-              ),
-
-              Text(
-                AppLocalizations.of(
-                  context,
-                )!
-                    .eWalletServiceLabel
-                    .toUpperCase(),
-
-                style:
-                    const TextStyle(
-                  color:
-                      accentColor,
-
-                  fontSize:
-                      17,
-
-                  fontWeight:
-                      FontWeight.w900,
-
-                  letterSpacing:
-                      1.4,
-                ),
-              ),
-            ],
-          ),
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT E-WALLET ICON
+          // ==========================================================
 
-        const SizedBox(
-          height:
-              17,
-        ),
-
-        // ====================================================================
-        // TITLE
-        // ====================================================================
-
-        ShaderMask(
-          blendMode:
-              BlendMode.srcIn,
-
-          shaderCallback:
-              (
-            bounds,
-          ) {
-            return const LinearGradient(
-              colors: [
-                Color(
-                  0xFFD35400,
-                ),
-
-                Color(
-                  0xFFFF8A3D,
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  darkAccent,
+                  Color(0xFFFF8A3D),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
               ],
-            ).createShader(
-              bounds,
-            );
-          },
-
-          child:
-              Text(
-            title.toUpperCase(),
-
-            textAlign:
-                TextAlign.center,
-
-            maxLines:
-                2,
-
-            overflow:
-                TextOverflow.ellipsis,
-
-            style:
-                const TextStyle(
-              color:
-                  Colors.white,
-
-              fontSize:
-                  62,
-
-              fontWeight:
-                  FontWeight.w900,
-
-              height:
-                  1.05,
-
-              letterSpacing:
-                  -0.8,
+            ),
+            child: const Icon(
+              Icons.account_balance_wallet_rounded,
+              color: Colors.white,
+              size: 56,
             ),
           ),
-        ),
 
-        const SizedBox(
-          height:
-              14,
-        ),
+          const SizedBox(width: 28),
 
-        // ====================================================================
-        // SUBTITLE
-        // ====================================================================
+          // ==========================================================
+          // EXISTING TEXT
+          // ==========================================================
 
-        Container(
-          constraints:
-              const BoxConstraints(
-            maxWidth:
-                850,
-          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING SERVICE LABEL
+                // ------------------------------------------------------
 
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal:
-                30,
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFEFE7),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.account_balance_wallet_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
 
-            vertical:
-                14,
-          ),
+                      const SizedBox(width: 8),
 
-          decoration:
-              BoxDecoration(
-            color:
-                Colors.white.withOpacity(
-              0.91,
-            ),
-
-            borderRadius:
-                BorderRadius.circular(
-              23,
-            ),
-
-            border:
-                Border.all(
-              color:
-                  Colors.black.withOpacity(
-                0.17,
-              ),
-
-              width:
-                  1.5,
-            ),
-
-            boxShadow: [
-              BoxShadow(
-                color:
-                    const Color(
-                  0xFF113968,
-                ).withOpacity(
-                  0.10,
+                      Flexible(
+                        child: Text(
+                          loc.eWalletServiceLabel.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
 
-                blurRadius:
-                    22,
+                const SizedBox(height: 12),
 
-                offset:
-                    const Offset(
-                  0,
-                  9,
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
                 ),
-              ),
-            ],
-          ),
 
-          child:
-              Text(
-            subtitle.toUpperCase(),
+                const SizedBox(height: 9),
 
-            textAlign:
-                TextAlign.center,
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
 
-            style:
-                const TextStyle(
-              color:
-                  Color(
-                0xFF435166,
-              ),
-
-              fontSize:
-                  28,
-
-              fontWeight:
-                  FontWeight.w700,
-
-              height:
-                  1.2,
+                Text(
+                  subtitle.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-      ],
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ACCENT BAR
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  darkAccent,
+                  Color(0xFFFF8A3D),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

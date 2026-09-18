@@ -13934,6 +13934,714 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{place} is one of the dining places visitors can consider while in Putrajaya. Scan the Google Maps QR code below to view its location.'**
   String putrajayaFoodFull(Object place);
+
+  /// No description provided for @gameCreditsEnterPhoneReferenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Phone Number'**
+  String get gameCreditsEnterPhoneReferenceTitle;
+
+  /// No description provided for @gameCreditsEnterPhoneReferenceSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your Malaysian mobile number as a reference for this transaction'**
+  String get gameCreditsEnterPhoneReferenceSubtitle;
+
+  /// No description provided for @gameCreditsPhoneReferenceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number Reference'**
+  String get gameCreditsPhoneReferenceLabel;
+
+  /// No description provided for @gameCreditsPhoneReferenceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter phone number'**
+  String get gameCreditsPhoneReferenceHint;
+
+  /// No description provided for @gameCreditsPhoneReferenceNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone number is used as a transaction reference only. It is not your game account.'**
+  String get gameCreditsPhoneReferenceNotice;
+
+  /// No description provided for @gameCreditsPhoneRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a phone number.'**
+  String get gameCreditsPhoneRequired;
+
+  /// No description provided for @gameCreditsPhoneInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid Malaysian mobile number beginning with 01.'**
+  String get gameCreditsPhoneInvalid;
+
+  /// No description provided for @digitalVoucherButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Voucher'**
+  String get digitalVoucherButton;
+
+  /// No description provided for @digitalVoucherSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase digital vouchers and gift codes'**
+  String get digitalVoucherSupportingText;
+
+  /// No description provided for @digitalVoucherTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Voucher'**
+  String get digitalVoucherTitle;
+
+  /// No description provided for @digitalVoucherSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your preferred digital voucher'**
+  String get digitalVoucherSubtitle;
+
+  /// No description provided for @digitalVoucherSelectValueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Voucher Value'**
+  String get digitalVoucherSelectValueTitle;
+
+  /// No description provided for @digitalVoucherPurchaseSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your voucher value or package'**
+  String get digitalVoucherPurchaseSubtitle;
+
+  /// No description provided for @digitalVoucherCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Voucher'**
+  String get digitalVoucherCategory;
+
+  /// No description provided for @digitalVoucherImportantNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Important Note'**
+  String get digitalVoucherImportantNote;
+
+  /// No description provided for @digitalVoucherDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery'**
+  String get digitalVoucherDelivery;
+
+  /// No description provided for @digitalVoucherDeliveryPin.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN'**
+  String get digitalVoucherDeliveryPin;
+
+  /// No description provided for @digitalVoucherDeliveryLink.
+  ///
+  /// In en, this message translates to:
+  /// **'LINK'**
+  String get digitalVoucherDeliveryLink;
+
+  /// No description provided for @digitalVoucherSelectPackage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Package'**
+  String get digitalVoucherSelectPackage;
+
+  /// No description provided for @digitalVoucherSelectPackageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select one available package to continue'**
+  String get digitalVoucherSelectPackageHint;
+
+  /// No description provided for @digitalVoucherSelectAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Amount'**
+  String get digitalVoucherSelectAmount;
+
+  /// No description provided for @digitalVoucherSelectAmountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select one available voucher value to continue'**
+  String get digitalVoucherSelectAmountHint;
+
+  /// No description provided for @digitalVoucherNoOptionsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No voucher options are currently available'**
+  String get digitalVoucherNoOptionsAvailable;
+
+  /// No description provided for @digitalVoucherTapAmountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the amount box or use the buttons to choose your voucher value'**
+  String get digitalVoucherTapAmountHint;
+
+  /// No description provided for @digitalVoucherAmountRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed amount: {minimum} - {maximum}'**
+  String digitalVoucherAmountRange(String minimum, String maximum);
+
+  /// No description provided for @digitalVoucherEnterAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Voucher Amount'**
+  String get digitalVoucherEnterAmount;
+
+  /// No description provided for @digitalVoucherKeypadHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the keypad to enter the voucher value'**
+  String get digitalVoucherKeypadHint;
+
+  /// No description provided for @digitalVoucherClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get digitalVoucherClear;
+
+  /// No description provided for @digitalVoucherDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get digitalVoucherDone;
+
+  /// No description provided for @digitalVoucherCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get digitalVoucherCancel;
+
+  /// No description provided for @digitalVoucherMinimumAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'The minimum voucher amount is {amount}.'**
+  String digitalVoucherMinimumAmount(String amount);
+
+  /// No description provided for @digitalVoucherMaximumAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'The maximum voucher amount is {amount}.'**
+  String digitalVoucherMaximumAmount(String amount);
+
+  /// No description provided for @digitalVoucherOrderSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get digitalVoucherOrderSummary;
+
+  /// No description provided for @digitalVoucherSelectedPackage.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Package'**
+  String get digitalVoucherSelectedPackage;
+
+  /// No description provided for @digitalVoucherSelectedAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Amount'**
+  String get digitalVoucherSelectedAmount;
+
+  /// No description provided for @digitalVoucherServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get digitalVoucherServiceAdjustment;
+
+  /// No description provided for @digitalVoucherTotalPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Payment'**
+  String get digitalVoucherTotalPayment;
+
+  /// No description provided for @digitalVoucherReviewSelection.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Selection'**
+  String get digitalVoucherReviewSelection;
+
+  /// No description provided for @digitalVoucherProductUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This digital voucher is currently unavailable.'**
+  String get digitalVoucherProductUnavailable;
+
+  /// No description provided for @digitalVoucherSelectOptionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a voucher option before continuing.'**
+  String get digitalVoucherSelectOptionRequired;
+
+  /// No description provided for @digitalVoucherInvalidAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid voucher amount.'**
+  String get digitalVoucherInvalidAmount;
+
+  /// No description provided for @digitalVoucherUnableToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load digital voucher information.'**
+  String get digitalVoucherUnableToLoad;
+
+  /// No description provided for @digitalVoucherTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get digitalVoucherTryAgain;
+
+  /// No description provided for @digitalVoucherNoteAdidas.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the voucher code in the \'Promo Code\' section during checkout at https://www.adidas.com.my. This voucher is only applicable to registered accounts and cannot be used for guest checkout.'**
+  String get digitalVoucherNoteAdidas;
+
+  /// No description provided for @digitalVoucherNoteDiscord.
+  ///
+  /// In en, this message translates to:
+  /// **'RM43 = 1 month, RM432 = 12 months.'**
+  String get digitalVoucherNoteDiscord;
+
+  /// No description provided for @digitalVoucherNoteEatCakeToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Valid for online purchases at https://www.eatcaketoday.com. Enter the discount code on the checkout page.'**
+  String get digitalVoucherNoteEatCakeToday;
+
+  /// No description provided for @digitalVoucherNoteGrabGiftCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the voucher code under \'Use Grab Gifts\' in the \'Use Offers\' section during checkout.'**
+  String get digitalVoucherNoteGrabGiftCode;
+
+  /// No description provided for @digitalVoucherNoteGrabFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the Voucher Link (Activation URL) and redeem it in the Grab App. If using a computer, scan the QR code with your mobile phone. Go to My Rewards to find the voucher. This e-Voucher is only applicable to GrabFood purchases.'**
+  String get digitalVoucherNoteGrabFood;
+
+  /// No description provided for @digitalVoucherNoteGrabMart.
+  ///
+  /// In en, this message translates to:
+  /// **'Redeem using the voucher link. Open the Voucher Link (Activation URL) and redeem it in the Grab App. If using a computer, scan the QR code with your mobile phone. Go to My Rewards to find the voucher.'**
+  String get digitalVoucherNoteGrabMart;
+
+  /// No description provided for @digitalVoucherNoteShopee.
+  ///
+  /// In en, this message translates to:
+  /// **'Valid for 3 months from the date of issue. Valid for new and existing users and for one-time use only. The voucher is applicable to Shopee Mall and Preferred Sellers only. Enter the promo code at checkout in the Shopee Mobile App.'**
+  String get digitalVoucherNoteShopee;
+
+  /// No description provided for @digitalVoucherNoteZalora.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Log in to www.zalora.my. 2. Select My Store Credit under My Account. 3. Enter your voucher code and select Add Credit. 4. The Gift Card value will appear in My Store Credit and you may start shopping.'**
+  String get digitalVoucherNoteZalora;
+
+  /// No description provided for @digitalVoucherPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Voucher Payment'**
+  String get digitalVoucherPaymentTitle;
+
+  /// No description provided for @digitalVoucherPaymentDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Details'**
+  String get digitalVoucherPaymentDetails;
+
+  /// No description provided for @digitalVoucherVoucherValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Value'**
+  String get digitalVoucherVoucherValue;
+
+  /// No description provided for @digitalVoucherOptionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Package Details'**
+  String get digitalVoucherOptionDetails;
+
+  /// No description provided for @digitalVoucherPreparingQrPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing QR Payment'**
+  String get digitalVoucherPreparingQrPayment;
+
+  /// No description provided for @digitalVoucherProcessingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing Voucher'**
+  String get digitalVoucherProcessingTitle;
+
+  /// No description provided for @digitalVoucherProcessingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment received. Please wait while we process your digital voucher.'**
+  String get digitalVoucherProcessingMessage;
+
+  /// No description provided for @digitalVoucherProcessingLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Please do not close this page while your voucher is being processed.'**
+  String get digitalVoucherProcessingLocked;
+
+  /// No description provided for @digitalVoucherPaymentInvalidProductTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Voucher'**
+  String get digitalVoucherPaymentInvalidProductTitle;
+
+  /// No description provided for @digitalVoucherPaymentInvalidProductMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected digital voucher is invalid. Please go back and select the voucher again.'**
+  String get digitalVoucherPaymentInvalidProductMessage;
+
+  /// No description provided for @digitalVoucherPaymentProviderRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'The voucher provider rejected the transaction.'**
+  String get digitalVoucherPaymentProviderRejected;
+
+  /// No description provided for @digitalVoucherPaymentProviderRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'The voucher transaction was refunded by the provider.'**
+  String get digitalVoucherPaymentProviderRefunded;
+
+  /// No description provided for @digitalVoucherPaymentStillProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'The voucher is still being processed.'**
+  String get digitalVoucherPaymentStillProcessing;
+
+  /// No description provided for @digitalVoucherPaymentReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Reference'**
+  String get digitalVoucherPaymentReference;
+
+  /// No description provided for @digitalVoucherPaymentProviderErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Processing Error'**
+  String get digitalVoucherPaymentProviderErrorTitle;
+
+  /// No description provided for @digitalVoucherPaymentAlreadyReceivedWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment has already been received. Do not make another payment. Please keep the transaction reference for assistance.'**
+  String get digitalVoucherPaymentAlreadyReceivedWarning;
+
+  /// No description provided for @digitalVoucherReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Digital Voucher Receipt'**
+  String get digitalVoucherReceiptTitle;
+
+  /// No description provided for @digitalVoucherReceiptProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Provider'**
+  String get digitalVoucherReceiptProvider;
+
+  /// No description provided for @digitalVoucherReceiptTransactionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Details'**
+  String get digitalVoucherReceiptTransactionDetails;
+
+  /// No description provided for @digitalVoucherReceiptVoucherDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Details'**
+  String get digitalVoucherReceiptVoucherDetails;
+
+  /// No description provided for @digitalVoucherReceiptPaymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date & Time'**
+  String get digitalVoucherReceiptPaymentDate;
+
+  /// No description provided for @digitalVoucherReceiptBankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction No.'**
+  String get digitalVoucherReceiptBankTransaction;
+
+  /// No description provided for @digitalVoucherReceiptSerialNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number'**
+  String get digitalVoucherReceiptSerialNumber;
+
+  /// No description provided for @digitalVoucherReceiptPin.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN'**
+  String get digitalVoucherReceiptPin;
+
+  /// No description provided for @digitalVoucherReceiptExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get digitalVoucherReceiptExpiry;
+
+  /// No description provided for @digitalVoucherReceiptVoucherLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Link'**
+  String get digitalVoucherReceiptVoucherLink;
+
+  /// No description provided for @digitalVoucherReceiptTotalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Paid'**
+  String get digitalVoucherReceiptTotalPaid;
+
+  /// No description provided for @digitalVoucherHowToRedeem.
+  ///
+  /// In en, this message translates to:
+  /// **'How to Redeem'**
+  String get digitalVoucherHowToRedeem;
+
+  /// No description provided for @fuelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Fuel'**
+  String get fuelButton;
+
+  /// No description provided for @fuelSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase digital fuel vouchers from available providers.'**
+  String get fuelSupportingText;
+
+  /// No description provided for @fuelPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'FUEL VOUCHERS'**
+  String get fuelPageTitle;
+
+  /// No description provided for @fuelSelectAmountNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the provider to continue to fuel voucher amount selection.'**
+  String get fuelSelectAmountNext;
+
+  /// No description provided for @fuelPurchaseSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your preferred fuel voucher amount'**
+  String get fuelPurchaseSubtitle;
+
+  /// No description provided for @fuelDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery Method'**
+  String get fuelDelivery;
+
+  /// No description provided for @fuelDeliveryPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher PIN'**
+  String get fuelDeliveryPin;
+
+  /// No description provided for @fuelDeliveryLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Link'**
+  String get fuelDeliveryLink;
+
+  /// No description provided for @fuelHowToRedeem.
+  ///
+  /// In en, this message translates to:
+  /// **'HOW TO REDEEM'**
+  String get fuelHowToRedeem;
+
+  /// No description provided for @fuelOptionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Option Details'**
+  String get fuelOptionDetails;
+
+  /// No description provided for @fuelPaymentAlreadyReceivedWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Your QR payment has already been received. Do not make another payment.'**
+  String get fuelPaymentAlreadyReceivedWarning;
+
+  /// No description provided for @fuelPaymentDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'FUEL PAYMENT DETAILS'**
+  String get fuelPaymentDetails;
+
+  /// No description provided for @fuelPaymentInvalidProductMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected fuel provider is invalid. Please return and select the provider again.'**
+  String get fuelPaymentInvalidProductMessage;
+
+  /// No description provided for @fuelPaymentInvalidProductTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Fuel Provider'**
+  String get fuelPaymentInvalidProductTitle;
+
+  /// No description provided for @fuelPaymentProviderErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fuel Voucher Processing Error'**
+  String get fuelPaymentProviderErrorTitle;
+
+  /// No description provided for @fuelPaymentProviderRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'The provider refunded this transaction.'**
+  String get fuelPaymentProviderRefunded;
+
+  /// No description provided for @fuelPaymentProviderRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'The provider rejected this fuel voucher transaction.'**
+  String get fuelPaymentProviderRejected;
+
+  /// No description provided for @fuelPaymentReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Reference'**
+  String get fuelPaymentReference;
+
+  /// No description provided for @fuelPaymentStillProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment was received, but the fuel voucher is still being processed.'**
+  String get fuelPaymentStillProcessing;
+
+  /// No description provided for @fuelPaymentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'FUEL VOUCHER PAYMENT'**
+  String get fuelPaymentTitle;
+
+  /// No description provided for @fuelPreparingQrPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'PREPARING DUITNOW QR'**
+  String get fuelPreparingQrPayment;
+
+  /// No description provided for @fuelProcessingLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Please do not close this page while your fuel voucher is being processed.'**
+  String get fuelProcessingLocked;
+
+  /// No description provided for @fuelProcessingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment received. We are processing your fuel voucher.'**
+  String get fuelProcessingMessage;
+
+  /// No description provided for @fuelProcessingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PROCESSING FUEL VOUCHER'**
+  String get fuelProcessingTitle;
+
+  /// No description provided for @fuelReceiptBankTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transaction Number'**
+  String get fuelReceiptBankTransaction;
+
+  /// No description provided for @fuelReceiptExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get fuelReceiptExpiry;
+
+  /// No description provided for @fuelReceiptPaymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get fuelReceiptPaymentDate;
+
+  /// No description provided for @fuelReceiptPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher PIN'**
+  String get fuelReceiptPin;
+
+  /// No description provided for @fuelReceiptProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Fuel Provider'**
+  String get fuelReceiptProvider;
+
+  /// No description provided for @fuelReceiptSerialNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial Number'**
+  String get fuelReceiptSerialNumber;
+
+  /// No description provided for @fuelReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'FUEL VOUCHER RECEIPT'**
+  String get fuelReceiptTitle;
+
+  /// No description provided for @fuelReceiptTotalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'TOTAL PAID'**
+  String get fuelReceiptTotalPaid;
+
+  /// No description provided for @fuelReceiptTransactionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'TRANSACTION DETAILS'**
+  String get fuelReceiptTransactionDetails;
+
+  /// No description provided for @fuelReceiptVoucherDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'FUEL VOUCHER DETAILS'**
+  String get fuelReceiptVoucherDetails;
+
+  /// No description provided for @fuelReceiptVoucherLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Link'**
+  String get fuelReceiptVoucherLink;
+
+  /// No description provided for @fuelSelectedPackage.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Package'**
+  String get fuelSelectedPackage;
+
+  /// No description provided for @fuelServiceAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Adjustment'**
+  String get fuelServiceAdjustment;
+
+  /// No description provided for @fuelTotalPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'TOTAL PAYMENT'**
+  String get fuelTotalPayment;
+
+  /// No description provided for @fuelVoucherValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Fuel Voucher Value'**
+  String get fuelVoucherValue;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

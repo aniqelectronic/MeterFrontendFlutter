@@ -290,7 +290,7 @@ class _P5EXTENDPARKINGPAGEState
           // MODERN HEADER
           // ============================================================
           Positioned(
-            top: 105,
+            top: 90,
             left: 65,
             right: 65,
             child: _ModernPageHeader(
@@ -389,7 +389,7 @@ class _P5EXTENDPARKINGPAGEState
 }
 
 // ============================================================================
-// MODERN PAGE HEADER
+// MODERN + GOVERNMENT PAGE HEADER
 // ============================================================================
 class _ModernPageHeader extends StatelessWidget {
   final String badgeText;
@@ -406,154 +406,217 @@ class _ModernPageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const accentColor = Color(0xFF1469E8);
-
     return Column(
       children: [
-        // Page category badge.
+        // ================================================================
+        // TITLE CARD
+        // ================================================================
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 11,
+          padding: const EdgeInsets.fromLTRB(
+            30,
+            24,
+            30,
+            24,
           ),
           decoration: BoxDecoration(
-            color: accentColor.withOpacity(0.10),
-            borderRadius: BorderRadius.circular(100),
+            color: Colors.white.withOpacity(0.95),
+            borderRadius: BorderRadius.circular(32),
             border: Border.all(
-              color: accentColor.withOpacity(0.25),
-              width: 1.5,
+              color: const Color(0xFFD5E4F7),
+              width: 2,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF173A66).withOpacity(0.14),
+                blurRadius: 30,
+                offset: const Offset(0, 12),
+              ),
+            ],
           ),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
-                Icons.local_parking_rounded,
-                size: 25,
-                color: accentColor,
+              // ==========================================================
+              // LEFT PARKING ICON
+              // ==========================================================
+              Container(
+                width: 105,
+                height: 105,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFF064AA3),
+                      Color(0xFF1478D4),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF095AB8)
+                          .withOpacity(0.28),
+                      blurRadius: 20,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.local_parking_rounded,
+                  color: Colors.white,
+                  size: 58,
+                ),
               ),
-              const SizedBox(width: 10),
-              Text(
-                badgeText.toUpperCase(),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: accentColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.3,
+
+              const SizedBox(width: 28),
+
+              // ==========================================================
+              // TEXT AREA
+              // ==========================================================
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Parking service badge
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: 7,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE9F3FF),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.directions_car_filled_rounded,
+                            size: 20,
+                            color: Color(0xFF1265BC),
+                          ),
+
+                          const SizedBox(width: 8),
+
+                          Text(
+                            badgeText.toUpperCase(),
+                            style: const TextStyle(
+                              color: Color(0xFF1265BC),
+                              fontSize: 17,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 1.1,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 12),
+
+                    // Main title
+                    Text(
+                      title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Color(0xFF122C4C),
+                        fontSize: 52,
+                        fontWeight: FontWeight.w900,
+                        height: 1.02,
+                        letterSpacing: -0.8,
+                      ),
+                    ),
+
+                    const SizedBox(height: 9),
+
+                    // Subtitle
+                    Text(
+                      subtitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Color(0xFF607188),
+                        fontSize: 35,
+                        fontWeight: FontWeight.w600,
+                        height: 1.25,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(width: 24),
+
+              // ==========================================================
+              // RIGHT ACCENT BAR
+              // ==========================================================
+              Container(
+                width: 8,
+                height: 105,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xFF0751A8),
+                      Color(0xFF2196E8),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
         ),
 
-        const SizedBox(height: 18),
+        const SizedBox(height: 55),
 
-        // Main title.
-        ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) {
-            return const LinearGradient(
-              colors: [
-                Color(0xFF064CAC),
-                Color(0xFF1987EB),
-              ],
-            ).createShader(bounds);
-          },
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 60,
-              fontWeight: FontWeight.w900,
-              letterSpacing: -1.1,
-              height: 1.05,
-            ),
-          ),
-        ),
-
-        const SizedBox(height: 15),
-
-        // Subtitle capsule.
+        // ================================================================
+        // VEHICLE PLATE
+        // ================================================================
         Container(
-          constraints: const BoxConstraints(
-            maxWidth: 860,
-          ),
           padding: const EdgeInsets.symmetric(
             horizontal: 32,
             vertical: 15,
           ),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.90),
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: Colors.black.withOpacity(0.18),
-              width: 1.5,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color:
-                    const Color(0xFF113968).withOpacity(0.10),
-                blurRadius: 24,
-                offset: const Offset(0, 10),
-              ),
-            ],
-          ),
-          child: Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xFF435166),
-              fontSize: 29,
-              fontWeight: FontWeight.w700,
-              height: 1.25,
-            ),
-          ),
-        ),
-
-        const SizedBox(height: 100),
-
-        // Vehicle plate display.
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 28,
-            vertical: 12,
-          ),
-          decoration: BoxDecoration(
             color: const Color(0xFF15253A),
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(
-              color: Colors.black,
-              width: 2,
-            ),
+            borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.16),
-                blurRadius: 14,
-                offset: const Offset(0, 7),
+                color: const Color(0xFF15253A).withOpacity(0.22),
+                blurRadius: 18,
+                offset: const Offset(0, 9),
               ),
             ],
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
-                Icons.directions_car_filled_rounded,
-                color: Colors.white,
-                size: 40,
+              Container(
+                width: 54,
+                height: 54,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.10),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: const Icon(
+                  Icons.directions_car_filled_rounded,
+                  color: Colors.white,
+                  size: 34,
+                ),
               ),
-              const SizedBox(width: 12),
+
+              const SizedBox(width: 16),
+
               Text(
                 plateNumber.toUpperCase(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 50,
+                  fontSize: 46,
                   fontWeight: FontWeight.w900,
-                  letterSpacing: 2,
+                  letterSpacing: 2.5,
+                  height: 1,
                 ),
               ),
             ],

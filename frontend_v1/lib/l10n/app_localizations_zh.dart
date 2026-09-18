@@ -7091,4 +7091,364 @@ class AppLocalizationsZh extends AppLocalizations {
   String putrajayaFoodFull(Object place) {
     return '$place 是游客在布城期间可以考虑的用餐地点之一。请扫描下方的 Google 地图二维码查看地点。';
   }
+
+  @override
+  String get gameCreditsEnterPhoneReferenceTitle => '输入手机号码';
+
+  @override
+  String get gameCreditsEnterPhoneReferenceSubtitle => '请输入马来西亚手机号码作为此交易的参考号码';
+
+  @override
+  String get gameCreditsPhoneReferenceLabel => '手机号码参考';
+
+  @override
+  String get gameCreditsPhoneReferenceHint => '输入手机号码';
+
+  @override
+  String get gameCreditsPhoneReferenceNotice => '此手机号码仅作为交易参考，并不是您的游戏账户。';
+
+  @override
+  String get gameCreditsPhoneRequired => '请输入手机号码。';
+
+  @override
+  String get gameCreditsPhoneInvalid => '请输入以 01 开头的有效马来西亚手机号码。';
+
+  @override
+  String get digitalVoucherButton => '电子礼券';
+
+  @override
+  String get digitalVoucherSupportingText => '购买电子礼券和礼品代码';
+
+  @override
+  String get digitalVoucherTitle => '电子礼券';
+
+  @override
+  String get digitalVoucherSubtitle => '请选择您要购买的电子礼券';
+
+  @override
+  String get digitalVoucherSelectValueTitle => '选择礼券金额';
+
+  @override
+  String get digitalVoucherPurchaseSubtitle => '选择您的礼券金额或配套';
+
+  @override
+  String get digitalVoucherCategory => '电子礼券';
+
+  @override
+  String get digitalVoucherImportantNote => '重要提示';
+
+  @override
+  String get digitalVoucherDelivery => '发放方式';
+
+  @override
+  String get digitalVoucherDeliveryPin => 'PIN';
+
+  @override
+  String get digitalVoucherDeliveryLink => '链接';
+
+  @override
+  String get digitalVoucherSelectPackage => '选择配套';
+
+  @override
+  String get digitalVoucherSelectPackageHint => '请选择一个可用配套以继续';
+
+  @override
+  String get digitalVoucherSelectAmount => '选择金额';
+
+  @override
+  String get digitalVoucherSelectAmountHint => '请选择一个可用的礼券金额以继续';
+
+  @override
+  String get digitalVoucherNoOptionsAvailable => '目前没有可用的礼券选项';
+
+  @override
+  String get digitalVoucherTapAmountHint => '点击金额栏或使用按钮选择礼券金额';
+
+  @override
+  String digitalVoucherAmountRange(String minimum, String maximum) {
+    return '允许金额：$minimum - $maximum';
+  }
+
+  @override
+  String get digitalVoucherEnterAmount => '输入礼券金额';
+
+  @override
+  String get digitalVoucherKeypadHint => '使用数字键盘输入礼券金额';
+
+  @override
+  String get digitalVoucherClear => '清除';
+
+  @override
+  String get digitalVoucherDone => '完成';
+
+  @override
+  String get digitalVoucherCancel => '取消';
+
+  @override
+  String digitalVoucherMinimumAmount(String amount) {
+    return '最低礼券金额为 $amount。';
+  }
+
+  @override
+  String digitalVoucherMaximumAmount(String amount) {
+    return '最高礼券金额为 $amount。';
+  }
+
+  @override
+  String get digitalVoucherOrderSummary => '订单摘要';
+
+  @override
+  String get digitalVoucherSelectedPackage => '已选配套';
+
+  @override
+  String get digitalVoucherSelectedAmount => '已选金额';
+
+  @override
+  String get digitalVoucherServiceAdjustment => '服务调整';
+
+  @override
+  String get digitalVoucherTotalPayment => '付款总额';
+
+  @override
+  String get digitalVoucherReviewSelection => '检查选择';
+
+  @override
+  String get digitalVoucherProductUnavailable => '此电子礼券目前无法使用。';
+
+  @override
+  String get digitalVoucherSelectOptionRequired => '请先选择礼券选项再继续。';
+
+  @override
+  String get digitalVoucherInvalidAmount => '请输入有效的礼券金额。';
+
+  @override
+  String get digitalVoucherUnableToLoad => '无法加载电子礼券资料。';
+
+  @override
+  String get digitalVoucherTryAgain => '重试';
+
+  @override
+  String get digitalVoucherNoteAdidas => '请在 https://www.adidas.com.my 结账时，在“Promo Code”栏输入礼券代码。此礼券仅适用于已注册账户，不适用于访客结账。';
+
+  @override
+  String get digitalVoucherNoteDiscord => 'RM43 = 1个月，RM432 = 12个月。';
+
+  @override
+  String get digitalVoucherNoteEatCakeToday => '适用于 https://www.eatcaketoday.com 的线上购买。请在结账页面输入折扣代码。';
+
+  @override
+  String get digitalVoucherNoteGrabGiftCode => '结账时，请在“Use Offers”中的“Use Grab Gifts”栏目输入礼券代码。';
+
+  @override
+  String get digitalVoucherNoteGrabFood => '打开礼券链接（Activation URL），并在 Grab 应用程序中兑换。如果使用电脑，请用手机扫描二维码。前往 My Rewards 查找礼券。此电子礼券仅适用于 GrabFood 类别的购买。';
+
+  @override
+  String get digitalVoucherNoteGrabMart => '使用礼券链接进行兑换。打开礼券链接（Activation URL），并在 Grab 应用程序中兑换。如果使用电脑，请用手机扫描二维码。前往 My Rewards 查找礼券。';
+
+  @override
+  String get digitalVoucherNoteShopee => '自发出日起有效期为3个月。适用于新用户及现有用户，并且只能使用一次。礼券仅适用于 Shopee Mall 和 Preferred Sellers。请在 Shopee 手机应用程序结账时输入促销代码。';
+
+  @override
+  String get digitalVoucherNoteZalora => '1. 登录 www.zalora.my。2. 在 My Account 中选择 My Store Credit。3. 输入礼券代码并选择 Add Credit。4. 礼品卡金额将显示在 My Store Credit 中，之后即可开始购物。';
+
+  @override
+  String get digitalVoucherPaymentTitle => '电子礼券付款';
+
+  @override
+  String get digitalVoucherPaymentDetails => '礼券详情';
+
+  @override
+  String get digitalVoucherVoucherValue => '礼券金额';
+
+  @override
+  String get digitalVoucherOptionDetails => '配套详情';
+
+  @override
+  String get digitalVoucherPreparingQrPayment => '正在准备二维码付款';
+
+  @override
+  String get digitalVoucherProcessingTitle => '正在处理礼券';
+
+  @override
+  String get digitalVoucherProcessingMessage => '付款已收到。请稍候，我们正在处理您的电子礼券。';
+
+  @override
+  String get digitalVoucherProcessingLocked => '礼券处理中，请勿关闭此页面。';
+
+  @override
+  String get digitalVoucherPaymentInvalidProductTitle => '无效礼券';
+
+  @override
+  String get digitalVoucherPaymentInvalidProductMessage => '所选电子礼券无效。请返回并重新选择礼券。';
+
+  @override
+  String get digitalVoucherPaymentProviderRejected => '礼券供应商拒绝了此交易。';
+
+  @override
+  String get digitalVoucherPaymentProviderRefunded => '礼券供应商已退款此交易。';
+
+  @override
+  String get digitalVoucherPaymentStillProcessing => '礼券仍在处理中。';
+
+  @override
+  String get digitalVoucherPaymentReference => '交易参考编号';
+
+  @override
+  String get digitalVoucherPaymentProviderErrorTitle => '礼券处理错误';
+
+  @override
+  String get digitalVoucherPaymentAlreadyReceivedWarning => '您的付款已经收到。请勿再次付款。请保留交易参考编号以便寻求协助。';
+
+  @override
+  String get digitalVoucherReceiptTitle => '电子礼券收据';
+
+  @override
+  String get digitalVoucherReceiptProvider => '礼券供应商';
+
+  @override
+  String get digitalVoucherReceiptTransactionDetails => '交易详情';
+
+  @override
+  String get digitalVoucherReceiptVoucherDetails => '礼券详情';
+
+  @override
+  String get digitalVoucherReceiptPaymentDate => '付款日期与时间';
+
+  @override
+  String get digitalVoucherReceiptBankTransaction => '银行交易编号';
+
+  @override
+  String get digitalVoucherReceiptSerialNumber => '序列号';
+
+  @override
+  String get digitalVoucherReceiptPin => 'PIN';
+
+  @override
+  String get digitalVoucherReceiptExpiry => '有效期';
+
+  @override
+  String get digitalVoucherReceiptVoucherLink => '礼券链接';
+
+  @override
+  String get digitalVoucherReceiptTotalPaid => '已付总额';
+
+  @override
+  String get digitalVoucherHowToRedeem => '兑换方法';
+
+  @override
+  String get fuelButton => '燃油';
+
+  @override
+  String get fuelSupportingText => '向可用的供应商购买电子燃油礼券。';
+
+  @override
+  String get fuelPageTitle => '燃油礼券';
+
+  @override
+  String get fuelSelectAmountNext => '请选择供应商以继续选择燃油礼券面额。';
+
+  @override
+  String get fuelPurchaseSubtitle => '选择您所需的燃油礼券面额';
+
+  @override
+  String get fuelDelivery => '交付方式';
+
+  @override
+  String get fuelDeliveryPin => '礼券密码';
+
+  @override
+  String get fuelDeliveryLink => '礼券链接';
+
+  @override
+  String get fuelHowToRedeem => '如何兑换';
+
+  @override
+  String get fuelOptionDetails => '选项详情';
+
+  @override
+  String get fuelPaymentAlreadyReceivedWarning => '您的二维码付款已收到。请勿再次付款。';
+
+  @override
+  String get fuelPaymentDetails => '燃油礼券付款详情';
+
+  @override
+  String get fuelPaymentInvalidProductMessage => '所选的燃油供应商无效。请返回并重新选择供应商。';
+
+  @override
+  String get fuelPaymentInvalidProductTitle => '无效的燃油供应商';
+
+  @override
+  String get fuelPaymentProviderErrorTitle => '燃油礼券处理错误';
+
+  @override
+  String get fuelPaymentProviderRefunded => '供应商已退还此交易款项。';
+
+  @override
+  String get fuelPaymentProviderRejected => '供应商已拒绝此燃油礼券交易。';
+
+  @override
+  String get fuelPaymentReference => '交易参考编号';
+
+  @override
+  String get fuelPaymentStillProcessing => '您的付款已收到，但燃油礼券仍在处理中。';
+
+  @override
+  String get fuelPaymentTitle => '燃油礼券付款';
+
+  @override
+  String get fuelPreparingQrPayment => '正在准备 DUITNOW 二维码';
+
+  @override
+  String get fuelProcessingLocked => '处理燃油礼券时，请勿关闭此页面。';
+
+  @override
+  String get fuelProcessingMessage => '付款已收到。我们正在处理您的燃油礼券。';
+
+  @override
+  String get fuelProcessingTitle => '正在处理燃油礼券';
+
+  @override
+  String get fuelReceiptBankTransaction => '银行交易编号';
+
+  @override
+  String get fuelReceiptExpiry => '有效期';
+
+  @override
+  String get fuelReceiptPaymentDate => '付款日期';
+
+  @override
+  String get fuelReceiptPin => '礼券密码';
+
+  @override
+  String get fuelReceiptProvider => '燃油供应商';
+
+  @override
+  String get fuelReceiptSerialNumber => '序列号';
+
+  @override
+  String get fuelReceiptTitle => '燃油礼券收据';
+
+  @override
+  String get fuelReceiptTotalPaid => '已付总额';
+
+  @override
+  String get fuelReceiptTransactionDetails => '交易详情';
+
+  @override
+  String get fuelReceiptVoucherDetails => '燃油礼券详情';
+
+  @override
+  String get fuelReceiptVoucherLink => '礼券链接';
+
+  @override
+  String get fuelSelectedPackage => '已选配套';
+
+  @override
+  String get fuelServiceAdjustment => '服务调整';
+
+  @override
+  String get fuelTotalPayment => '付款总额';
+
+  @override
+  String get fuelVoucherValue => '燃油礼券价值';
 }

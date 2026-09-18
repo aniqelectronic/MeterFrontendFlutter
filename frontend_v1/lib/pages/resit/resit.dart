@@ -1200,7 +1200,7 @@ class _RESITSTATE extends State<RESITPAGE> {
           // PAYMENT SUCCESSFUL BADGE REMOVED TO SAVE SPACE.
           // ==================================================================
           Positioned(
-            top: 80,
+            top: 20,
             left: 55,
             right: 55,
             child: _ReceiptHeader(
@@ -1724,11 +1724,8 @@ class _RESITSTATE extends State<RESITPAGE> {
     );
   }
 }
-
 // ============================================================================
-// RECEIPT HEADER
-//
-// PAYMENT SUCCESSFUL BADGE HAS BEEN REMOVED.
+// MODERN + GOVERNMENT RECEIPT HEADER
 // ============================================================================
 class _ReceiptHeader extends StatelessWidget {
   final String title;
@@ -1740,92 +1737,112 @@ class _ReceiptHeader extends StatelessWidget {
   });
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Column(
-      mainAxisSize:
-          MainAxisSize.min,
-      children: [
-        ShaderMask(
-          blendMode:
-              BlendMode.srcIn,
-          shaderCallback:
-              (Rect bounds) {
-            return const LinearGradient(
-              colors: [
-                Color(0xFF183B63),
-                Color(0xFF5484AC),
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT RECEIPT ICON
+          // ==========================================================
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF064AA3),
+                  Color(0xFF1478D4),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF095AB8).withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
               ],
-            ).createShader(bounds);
-          },
-          child: Text(
-            title,
-            textAlign:
-                TextAlign.center,
-            maxLines: 2,
-            overflow:
-                TextOverflow.ellipsis,
-            style: const TextStyle(
+            ),
+            child: const Icon(
+              Icons.receipt_long_rounded,
               color: Colors.white,
-              fontSize: 55,
-              height: 1.02,
-              fontWeight:
-                  FontWeight.w900,
+              size: 56,
             ),
           ),
-        ),
 
-        // const SizedBox(
-        //   height: 30,
-        // ),
+          const SizedBox(width: 28),
 
-        // Container(
-        //   padding:
-        //       const EdgeInsets.symmetric(
-        //     horizontal: 28,
-        //     vertical: 10,
-        //   ),
-        //   decoration: BoxDecoration(
-        //     color:
-        //         Colors.white.withOpacity(
-        //       0.94,
-        //     ),
-        //     borderRadius:
-        //         BorderRadius.circular(22),
-        //     border: Border.all(
-        //       color:
-        //           const Color(
-        //         0xFFD3DCE5,
-        //       ),
-        //       width: 1.5,
-        //     ),
-        //     boxShadow: [
-        //       BoxShadow(
-        //         color: Colors.black
-        //             .withOpacity(0.06),
-        //         blurRadius: 10,
-        //         offset:
-        //             const Offset(0, 5),
-        //       ),
-        //     ],
-        //   ),
-        //   child: FittedBox(
-        //     fit: BoxFit.scaleDown,
-        //     child: Text(
-        //       subtitle,
-        //       textAlign: TextAlign.center,
-        //       maxLines: 1,
-        //       style: const TextStyle(
-        //         color: Color(0xFF526273),
-        //         fontSize: 30,
-        //         height: 1.2,
-        //         fontWeight: FontWeight.w700,
-        //       ),
-        //     ),
-        //   ),
-        // ),
-      ],
+          // ==========================================================
+          // TEXT AREA
+          // ==========================================================
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                // Main receipt title
+                Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ACCENT BAR
+          // ==========================================================
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF0751A8),
+                  Color(0xFF2196E8),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

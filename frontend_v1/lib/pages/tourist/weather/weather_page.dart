@@ -218,7 +218,7 @@ class _PWeatherPageState
           // HEADER
           // ============================================================
           Positioned(
-            top: 72,
+            top: 20,
             left: 48,
             right: 48,
             child:
@@ -722,12 +722,13 @@ class _PWeatherPageState
 }
 
 // ============================================================================
-// HEADER
+// MODERN + GOVERNMENT WEATHER HEADER
+// KEEPS EXISTING TITLE + EXISTING SUBTITLE
+// NO BADGE ADDED
 // ============================================================================
-class _ModernWeatherHeader
-    extends StatelessWidget {
-  final String title;
 
+class _ModernWeatherHeader extends StatelessWidget {
+  final String title;
   final String subtitle;
 
   const _ModernWeatherHeader({
@@ -736,72 +737,141 @@ class _ModernWeatherHeader
   });
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Column(
-      children: [
-        ShaderMask(
-          blendMode:
-              BlendMode.srcIn,
-          shaderCallback: (
-            bounds,
-          ) {
-            return const LinearGradient(
-              colors: [
-                Color(
-                  0xFF0369A1,
-                ),
-                Color(
-                  0xFF0EA5E9,
-                ),
-                Color(
-                  0xFF0F9F8F,
+  Widget build(BuildContext context) {
+    const Color accentColor = Color(0xFF0EA5E9);
+    const Color darkAccent = Color(0xFF0369A1);
+    const Color lightAccent = Color(0xFF14B8A6);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT WEATHER ICON
+          // ==========================================================
+
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  darkAccent,
+                  accentColor,
+                  lightAccent,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
               ],
-            ).createShader(
-              bounds,
-            );
-          },
-          child: Text(
-            title,
-            textAlign:
-                TextAlign.center,
-            maxLines: 2,
-            style:
-                const TextStyle(
+            ),
+            child: const Icon(
+              Icons.cloud_rounded,
               color: Colors.white,
-              fontSize: 59,
-              fontWeight:
-                  FontWeight.w900,
-              height: 1.04,
-              letterSpacing: -1,
+              size: 56,
             ),
           ),
-        ),
 
-        // If you want subtitle visible again,
-        // uncomment this section.
+          const SizedBox(width: 28),
 
-        /*
-        const SizedBox(
-          height: 12,
-        ),
+          // ==========================================================
+          // EXISTING HEADER INFORMATION
+          // ==========================================================
 
-        Text(
-          subtitle,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Color(
-              0xFF475569,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+
+                Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
             ),
-            fontSize: 27,
-            fontWeight:
-                FontWeight.w700,
           ),
-        ),
-        */
-      ],
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT WEATHER ACCENT
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  darkAccent,
+                  accentColor,
+                  lightAccent,
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

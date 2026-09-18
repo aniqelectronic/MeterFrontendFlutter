@@ -1446,42 +1446,10 @@ class _PLOAN4PAGEState extends State<PLOAN4PAGE> {
           top: 50,
           left: 65,
           right: 65,
-          child: Column(
-            children: [
-              _buildServiceBadge(
-                loc.loanNricStepLabel,
-              ),
-
-              const SizedBox(
-                height: 14,
-              ),
-
-              Text(
-                loc.loanEnterNricTitle.toUpperCase(),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: _darkColor,
-                  fontSize: 45,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-
-              const SizedBox(
-                height: 10,
-              ),
-
-              Text(
-                loc.loanEnterNricSubtitle,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Color(
-                    0xFF53677E,
-                  ),
-                  fontSize: 35,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
+          child: _LoanNricHeader(
+            stepLabel: loc.loanNricStepLabel,
+            title: loc.loanEnterNricTitle,
+            subtitle: loc.loanEnterNricSubtitle,
           ),
         ),
 
@@ -1490,7 +1458,7 @@ class _PLOAN4PAGEState extends State<PLOAN4PAGE> {
         // ====================================================================
 
         Positioned(
-          top: 300,
+          top: 350,
           left: 70,
           right: 70,
           child: Container(
@@ -1663,7 +1631,7 @@ class _PLOAN4PAGEState extends State<PLOAN4PAGE> {
         // ====================================================================
 
         Positioned(
-          top: 750,
+          top: 800,
           left: 80,
           right: 80,
           child: GridView.count(
@@ -1704,7 +1672,7 @@ class _PLOAN4PAGEState extends State<PLOAN4PAGE> {
         // ====================================================================
 
         Positioned(
-          bottom: 190,
+          bottom: 150,
           left: 80,
           right: 80,
           child: _buildActions(
@@ -1909,6 +1877,201 @@ class _PLOAN4PAGEState extends State<PLOAN4PAGE> {
           ),
         ),
       ],
+    );
+  }
+}
+
+// ============================================================================
+// MODERN + GOVERNMENT LOAN NRIC HEADER
+// ============================================================================
+
+class _LoanNricHeader extends StatelessWidget {
+  final String stepLabel;
+  final String title;
+  final String subtitle;
+
+  const _LoanNricHeader({
+    required this.stepLabel,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    const Color accentColor = Color(0xFF3F51B5);
+    const Color darkColor = Color(0xFF303F9F);
+    const Color lightColor = Color(0xFF7986CB);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT NRIC / ID ICON
+          // ==========================================================
+
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  darkColor,
+                  lightColor,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.badge_rounded,
+              color: Colors.white,
+              size: 56,
+            ),
+          ),
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // EXISTING TEXT
+          // ==========================================================
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // EXISTING STEP LABEL
+                // ------------------------------------------------------
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEDEFFF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.badge_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Flexible(
+                        child: Text(
+                          stepLabel.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: accentColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                // ------------------------------------------------------
+                // EXISTING TITLE
+                // ------------------------------------------------------
+
+                Text(
+                  title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 48,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.7,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // EXISTING SUBTITLE
+                // ------------------------------------------------------
+
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ==========================================================
+          // RIGHT ACCENT BAR
+          // ==========================================================
+
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  darkColor,
+                  lightColor,
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
