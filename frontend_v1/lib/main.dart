@@ -10,6 +10,7 @@ import 'dart:io';
 import 'package:frontend_v1/services/internet/internet_guard.dart';
 import 'package:frontend_v1/services/iothub/iot_hub_services.dart';
 import 'services/kiosk/linux_kiosk_service.dart';
+import 'package:desktop_webview_window/desktop_webview_window.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -75,8 +76,14 @@ class AppRouteObserver extends NavigatorObserver {
   }
 }
 
-Future<void> main() async {
+Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+
+    // Handle the secondary desktop WebView process first.
+  // It must not initialize the complete kiosk application.
+  if (Platform.isLinux && runWebViewTitleBarWidget(args)) {
+    return;
+  }
 
   if (Platform.isLinux) {
     await windowManager.ensureInitialized();
