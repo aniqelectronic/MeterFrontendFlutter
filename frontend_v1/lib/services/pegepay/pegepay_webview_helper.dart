@@ -515,11 +515,16 @@ class PegePayWebViewHelper {
     required int sessionId,
   }) async {
     if (sessionId != _activeSessionId) {
-      print('[PegePay] Refusing to close an old session');
+      print(
+        '[PegePay] Refusing to close an old session',
+      );
       return;
     }
 
     if (_isClosing) {
+      print(
+        '[PegePay] QR window is already closing',
+      );
       return;
     }
 
@@ -532,48 +537,85 @@ class PegePayWebViewHelper {
     final webview = _currentWebview;
     _currentWebview = null;
 
-    if (webview != null) {
-      try {
+    try {
+      if (webview != null) {
         print(
-          '[PegePay] Calling webview.close() '
+          '[PegePay] Closing native QR WebView '
           'for session $sessionId',
         );
 
-        final closeCompleted = webview.onClose;
+        try {
+          final closeCompleted = webview.onClose;
 
-        webview.close();
+          webview.close();
 
-        await closeCompleted.timeout(
-          const Duration(seconds: 5),
-        );
+          /*
+          * Windows normally closes immediately.
+          * Linux WebKit sometimes does not complete onClose,
+          * so wait only one second.
+          */
+          await closeCompleted.timeout(
+            const Duration(seconds: 1),
+          );
 
-        _lastWebViewClosedAt = DateTime.now();
+          print(
+            '[PegePay] Native QR WebView closed normally',
+          );
+        } on TimeoutException {
+          print(
+            '[PegePay] Native close timed out',
+          );
 
-        print(
-          '[PegePay] Native WebView closed '
-          'for session $sessionId',
-        );
-      } on TimeoutException {
-        print(
-          '[PegePay] Timed out waiting for WebView close '
-          'for session $sessionId',
-        );
+          /*
+          * Linux fallback:
+          * close the native window using xdotool/wmctrl.
+          */
+          if (Platform.isLinux) {
+            print(
+              '[PegePay] Force-closing Linux QR window',
+            );
 
-        await _forceClosePegePayWindows();
-        _lastWebViewClosedAt = DateTime.now();
-      } catch (e) {
-        print('[PegePay] webview.close() failed: $e');
-        _lastWebViewClosedAt = DateTime.now();
+            await _forceClosePegePayWindows();
+          }
+        } catch (error) {
+          print(
+            '[PegePay] Native close error: $error',
+          );
+
+          if (Platform.isLinux) {
+            await _forceClosePegePayWindows();
+          }
+        }
+      }
+
+      _lastWebViewClosedAt = DateTime.now();
+
+      /*
+      * Explicitly restore Flutter.
+      * This is safe because _restoreFlutterWindow prevents
+      * restoring the same session twice.
+      */
+      await _restoreFlutterWindow(
+        sessionId: sessionId,
+      );
+    } finally {
+      _isClosing = false;
+
+      if (
+          _programmaticClosingSessionId ==
+              sessionId
+      ) {
+        _programmaticClosingSessionId = null;
       }
     }
 
-    _isClosing = false;
-
-    await _waitForWebViewCooldown();
-
-    if (_programmaticClosingSessionId == sessionId) {
-      _programmaticClosingSessionId = null;
-    }
+    /*
+    * Do not call _waitForWebViewCooldown() here.
+    * It causes an unnecessary three-second delay before
+    * onSuccess and the receipt page.
+    *
+    * The cooldown is still used before opening another QR.
+    */
   }
 
   // ============================================================
