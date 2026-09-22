@@ -202,33 +202,62 @@ void WebviewWindow::SetApplicationNameForUserAgent(const std::string &app_name) 
 // }
 
 void WebviewWindow::Close() {
+  /*
+   * Prevent the same WebView from being closed more than once.
+   * This protects against payment success and Cancel happening
+   * very close together.
+   */
   if (close_scheduled_ || window_ == nullptr) {
     return;
   }
 
   close_scheduled_ = true;
 
-  // Keep the GTK widget alive until the deferred callback finishes.
-  g_object_ref(window_);
+  /*
+   * Store the secondary GTK window locally and clear the member.
+   * Future Close() calls will safely return without touching it.
+   */
+  GtkWidget *window_to_close = window_;
+  window_ = nullptr;
 
-  // Do not destroy WebKit while it is processing a navigation callback.
-  // Schedule closing for the next GTK event-loop cycle.
+  /*
+   * Keep the GTK object alive until the deferred callback finishes.
+   */
+  g_object_ref(window_to_close);
+
+  /*
+   * Never destroy WebKit from inside its navigation callback.
+   * Perform the destruction during the next GTK event-loop cycle.
+   */
   g_idle_add_full(
       G_PRIORITY_DEFAULT_IDLE,
       +[](gpointer data) -> gboolean {
-        auto *window = GTK_WIDGET(data);
+        GtkWidget *window =
+            GTK_WIDGET(data);
 
-        if (GTK_IS_WINDOW(window)) {
-          gtk_window_close(GTK_WINDOW(window));
+        /*
+         * This destroys only the secondary WebView GTK window.
+         * It does not call gtk_main_quit() and does not close
+         * the main Flutter application.
+         */
+        if (
+            GTK_IS_WIDGET(window) &&
+            !gtk_widget_in_destruction(window)
+        ) {
+          gtk_widget_destroy(window);
         }
 
+        /*
+         * Release the temporary reference created before
+         * scheduling this callback.
+         */
         g_object_unref(window);
+
         return G_SOURCE_REMOVE;
       },
-      window_,
+      window_to_close,
       nullptr);
 }
-
 void WebviewWindow::OnLoadChanged(WebKitLoadEvent load_event) {
   // notify history changed event.
   {
