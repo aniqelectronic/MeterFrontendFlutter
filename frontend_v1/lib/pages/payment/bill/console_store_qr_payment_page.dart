@@ -300,7 +300,7 @@ class _ConsoleStoreQrPaymentPageState
       //
       // TESTING:
       //
-      // RM0.01
+      // RM0.05
       //
       // PRODUCTION:
       //
@@ -309,7 +309,7 @@ class _ConsoleStoreQrPaymentPageState
       // ======================================================================
 
       final double paymentAmount =
-          0.01;
+          0.05;
 
       final Map<String, dynamic> result =
           await PegePayService.createOrder(

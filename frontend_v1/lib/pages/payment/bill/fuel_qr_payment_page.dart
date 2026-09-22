@@ -380,7 +380,7 @@ class _FuelQrPaymentPageState
       //
       // TEST:
       //
-      // RM0.01
+      // RM0.05
       //
       // PRODUCTION:
       //
@@ -389,7 +389,7 @@ class _FuelQrPaymentPageState
       // ======================================================================
 
       final double paymentAmount =
-          0.01;
+          0.05;
 
       final Map<String, dynamic> result =
           await PegePayService

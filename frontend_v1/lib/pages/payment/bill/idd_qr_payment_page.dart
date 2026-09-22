@@ -358,7 +358,7 @@ class _IddQrPaymentPageState
       //
       // TESTING:
       //
-      // Keep RM 0.01
+      // Keep RM 0.05
       //
       // PRODUCTION:
       //
@@ -367,7 +367,7 @@ class _IddQrPaymentPageState
       // ======================================================================
 
       final double paymentAmount =
-          0.01;
+          0.05;
 
       final Map<String, dynamic> result =
           await PegePayService.createOrder(

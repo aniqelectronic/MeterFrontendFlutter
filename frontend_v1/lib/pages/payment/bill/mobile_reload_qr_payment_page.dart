@@ -352,7 +352,7 @@ class _MobileReloadQrPaymentPageState
       //
       // TEST:
       //
-      // Keep RM0.01.
+      // Keep RM0.05.
       //
       // PRODUCTION:
       //
@@ -362,7 +362,7 @@ class _MobileReloadQrPaymentPageState
       // ======================================================================
 
       final double paymentAmount =
-          0.01;
+          0.05;
 
       final Map<String, dynamic> result =
           await PegePayService

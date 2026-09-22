@@ -516,7 +516,7 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
       //
       // TEST MODE:
       //
-      // Keep RM0.01 while testing.
+      // Keep RM0.05 while testing.
       //
       // PRODUCTION:
       //
@@ -526,7 +526,7 @@ class _BilQrPaymentPageState extends State<BilQrPaymentPage> {
       // ======================================================================
 
       final double paymentAmount =
-          0.01;
+          0.05;
 
       debugPrint(
         '[BilQrPaymentPage] '

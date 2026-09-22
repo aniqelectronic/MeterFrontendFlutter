@@ -1640,7 +1640,7 @@ void _closeCardSuccessDialog() {
                           //double amount = double.tryParse(data.amount ?? "0.00") ?? 0.00;
                           showLoadingDialog(context); 
 
-                          double testing = 0.01;
+                          double testing = 0.05;
                         
                           try {
                             final result = await PegePayService.createOrder(

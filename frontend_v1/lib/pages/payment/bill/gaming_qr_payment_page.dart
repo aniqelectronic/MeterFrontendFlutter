@@ -225,7 +225,7 @@ class _GamingQrPaymentPageState extends State<GamingQrPaymentPage> {
       // ======================================================================
       // TEST / PRODUCTION PAYMENT AMOUNT
       //
-      // Keep 0.01 while testing.
+      // Keep 0.05 while testing.
       //
       // Production:
       //
@@ -234,7 +234,7 @@ class _GamingQrPaymentPageState extends State<GamingQrPaymentPage> {
       // ======================================================================
 
       final double paymentAmount =
-          0.01;
+          0.05;
 
       final result =
           await PegePayService
