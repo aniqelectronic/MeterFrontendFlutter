@@ -1676,32 +1676,72 @@ void _closeCardSuccessDialog() {
                             //         );
 
                             currentRouteName = '/payment';
+
+                            /*
+                            * Null while the QR is active.
+                            * Created only after successful payment is detected.
+                            */
+                            OverlayEntry? qrSuccessOverlay;
+
                             await PegePayWebViewHelper.open(
-                            iframeUrl: iframeUrl,
-                            orderNo: orderNo,
+                              iframeUrl: iframeUrl,
+                              orderNo: orderNo,
 
-                            onSuccess: (Map<String, dynamic> paymentResult) async {
-                              final pegeOrderNo =
-                                  paymentResult["order_no"] ?? orderNo;
-                              final pegeBankTrxNo =
-                                  paymentResult["bank_trx_no"] ?? "";
+                              /*
+                              * Called only when the backend reports that payment
+                              * was successful. It is not called when Batal is pressed.
+                              */
+                              onPaymentDetected: () async {
+                                if (!mounted) {
+                                  return;
+                                }
 
-                              // IMPORTANT:
-                              // Use a root OverlayEntry instead of showDialog().
-                              // It covers the payment-option page immediately on the
-                              // first Flutter frame after the external QR window closes.
-                              final qrSuccessOverlay =
-                                  showQrPaymentSuccessOverlay(
-                                context,
-                                amount: widget.data.amount ?? '0.00',
-                              );
+                                print(
+                                  '[PegePay] Payment detected. '
+                                  'Preparing loading overlay.',
+                                );
 
-                              // Ensure the success overlay is painted before starting
-                              // receipt/API processing.
-                              await WidgetsBinding.instance.endOfFrame;
-                              await Future<void>.delayed(
-                                const Duration(milliseconds: 120),
-                              );
+                                qrSuccessOverlay ??=
+                                    showQrPaymentSuccessOverlay(
+                                  context,
+                                  amount: widget.data.amount ?? '0.00',
+                                );
+
+                                /*
+                                * Wait until Flutter paints the overlay.
+                                * The QR window is still covering Flutter during this step.
+                                */
+                                await WidgetsBinding.instance.endOfFrame;
+
+                                print(
+                                  '[PegePay] Loading overlay is ready',
+                                );
+                              },
+
+                                onSuccess: (
+                                  Map<String, dynamic> paymentResult,
+                                ) async {
+                                  if (!mounted) {
+                                    return;
+                                  }
+
+                                  final pegeOrderNo =
+                                      paymentResult["order_no"] ?? orderNo;
+
+                                  final pegeBankTrxNo =
+                                      paymentResult["bank_trx_no"] ?? "";
+
+                                  /*
+                                  * Normally the overlay was already created by
+                                  * onPaymentDetected. This is only a safety fallback.
+                                  */
+                                  qrSuccessOverlay ??=
+                                      showQrPaymentSuccessOverlay(
+                                    context,
+                                    amount: widget.data.amount ?? '0.00',
+                                  );
+
+                                  await WidgetsBinding.instance.endOfFrame;
 
 
                                   /* ======================= */
@@ -2045,19 +2085,39 @@ void _closeCardSuccessDialog() {
                                }
                                
                                   },
-                            onCancel: () async {
-                              print("User cancelled QR payment");
+                          onCancel: () async {
+                            print(
+                              '[PegePay] User cancelled QR payment',
+                            );
 
-                              currentRouteName = '/payment';
+                            /*
+                            * Usually this is null because payment was not successful.
+                            * This cleanup is safe even when the overlay does not exist.
+                            */
+                            removeQrPaymentSuccessOverlay(
+                              qrSuccessOverlay,
+                            );
 
-                              await windowManager.show();
-                              await windowManager.focus();
-                              await windowManager.setFullScreen(true);
+                            qrSuccessOverlay = null;
 
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Payment cancelled")),
-                              );
-                            },
+                            currentRouteName = '/payment';
+
+                            await windowManager.show();
+                            await windowManager.focus();
+                            await windowManager.setFullScreen(true);
+
+                            if (!mounted) {
+                              return;
+                            }
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Payment cancelled',
+                                ),
+                              ),
+                            );
+                          },
                             );
                                                               
                             //     ),
