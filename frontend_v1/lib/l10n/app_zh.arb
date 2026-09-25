@@ -3915,6 +3915,13 @@
 "fuelSelectedPackage": "已选配套",
 "fuelServiceAdjustment": "服务调整",
 "fuelTotalPayment": "付款总额",
-"fuelVoucherValue": "燃油礼券价值"
+"fuelVoucherValue": "燃油礼券价值",
+
+
+"paymentGuideTitle": "付款指南",
+"paymentGuideSubtitle": "请选择付款方式观看教学视频",
+"paymentGuideQr": "DUITNOW 二维码",
+"paymentGuideCard": "银行卡",
+"paymentGuideOk": "确定"
 
 }

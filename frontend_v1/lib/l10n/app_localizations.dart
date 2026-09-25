@@ -14642,6 +14642,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fuel Voucher Value'**
   String get fuelVoucherValue;
+
+  /// No description provided for @paymentGuideTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT GUIDE'**
+  String get paymentGuideTitle;
+
+  /// No description provided for @paymentGuideSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a payment method to watch the tutorial'**
+  String get paymentGuideSubtitle;
+
+  /// No description provided for @paymentGuideQr.
+  ///
+  /// In en, this message translates to:
+  /// **'DUITNOW QR'**
+  String get paymentGuideQr;
+
+  /// No description provided for @paymentGuideCard.
+  ///
+  /// In en, this message translates to:
+  /// **'CARD'**
+  String get paymentGuideCard;
+
+  /// No description provided for @paymentGuideOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get paymentGuideOk;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

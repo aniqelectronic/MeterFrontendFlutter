@@ -7451,4 +7451,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get fuelVoucherValue => '燃油礼券价值';
+
+  @override
+  String get paymentGuideTitle => '付款指南';
+
+  @override
+  String get paymentGuideSubtitle => '请选择付款方式观看教学视频';
+
+  @override
+  String get paymentGuideQr => 'DUITNOW 二维码';
+
+  @override
+  String get paymentGuideCard => '银行卡';
+
+  @override
+  String get paymentGuideOk => '确定';
 }

@@ -4007,7 +4007,14 @@
 "fuelSelectedPackage": "Selected Package",
 "fuelServiceAdjustment": "Service Adjustment",
 "fuelTotalPayment": "TOTAL PAYMENT",
-"fuelVoucherValue": "Fuel Voucher Value"
+"fuelVoucherValue": "Fuel Voucher Value",
+
+
+"paymentGuideTitle": "PAYMENT GUIDE",
+"paymentGuideSubtitle": "Choose a payment method to watch the tutorial",
+"paymentGuideQr": "DUITNOW QR",
+"paymentGuideCard": "CARD",
+"paymentGuideOk": "OK"
 
 
 

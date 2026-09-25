@@ -30,6 +30,7 @@ import 'package:frontend_v1/model/sewaan/sewaan_payment_item.dart';
 import 'package:frontend_v1/controllers/sewaan/sewaan_payment_service_bentong.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:frontend_v1/widgets/payment_status_overlay.dart';
+import 'package:frontend_v1/widgets/payment_video_guide.dart';
 
 class PaymentData {
   String? plate;
@@ -742,86 +743,13 @@ class _PAYMENTPAGEState extends State<PAYMENTPAGE> {
     });
   }
 
-  Future<void> showPaymentGuideDialog(BuildContext context) async {
-    await showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Container(
-          width: 900,
-          height: 1500,
-          padding: const EdgeInsets.all(25),
-          child: Column(
-            children: [
-              const Text(
-                "PANDUAN PEMBAYARAN",
-                style: TextStyle(
-                  fontSize: 42,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF0359D2),
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                "PAYMENT GUIDE",
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        "lib/images/card_guide.png",
-                        fit: BoxFit.contain,
-                      ),
-                      const SizedBox(height: 30),
-                      Image.asset(
-                        "lib/images/qr_guide.png",
-                        fit: BoxFit.contain,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              SizedBox(
-                width: 300,
-                height: 80,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0359D2),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                  child: const Text(
-                    "OK",
-                    style: TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+    Future<void> showPaymentGuideDialog(BuildContext context) async {
+      await showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const PaymentVideoGuide(),
+      );
+    }
 
         Future<bool> showCardConfirmationDialog(BuildContext context) async {
         final l10n = AppLocalizations.of(context)!;

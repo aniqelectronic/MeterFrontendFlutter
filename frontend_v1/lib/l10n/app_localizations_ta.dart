@@ -7451,4 +7451,19 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get fuelVoucherValue => 'எரிபொருள் வவுச்சர் மதிப்பு';
+
+  @override
+  String get paymentGuideTitle => 'கட்டண வழிகாட்டி';
+
+  @override
+  String get paymentGuideSubtitle => 'வழிகாட்டி காண கட்டண முறையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get paymentGuideQr => 'DUITNOW QR';
+
+  @override
+  String get paymentGuideCard => 'அட்டை';
+
+  @override
+  String get paymentGuideOk => 'சரி';
 }

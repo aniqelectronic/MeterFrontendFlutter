@@ -7451,4 +7451,19 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get fuelVoucherValue => 'Nilai Baucar Bahan Api';
+
+  @override
+  String get paymentGuideTitle => 'PANDUAN PEMBAYARAN';
+
+  @override
+  String get paymentGuideSubtitle => 'Pilih kaedah pembayaran untuk menonton panduan';
+
+  @override
+  String get paymentGuideQr => 'DUITNOW QR';
+
+  @override
+  String get paymentGuideCard => 'KAD';
+
+  @override
+  String get paymentGuideOk => 'OK';
 }

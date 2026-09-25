@@ -11,6 +11,7 @@ import 'package:frontend_v1/services/internet/internet_guard.dart';
 import 'package:frontend_v1/services/iothub/iot_hub_services.dart';
 import 'services/kiosk/linux_kiosk_service.dart';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
+import 'package:media_kit/media_kit.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -84,6 +85,8 @@ Future<void> main(List<String> args) async {
   if (Platform.isLinux && runWebViewTitleBarWidget(args)) {
     return;
   }
+
+  MediaKit.ensureInitialized();
 
   if (Platform.isLinux) {
     await windowManager.ensureInitialized();

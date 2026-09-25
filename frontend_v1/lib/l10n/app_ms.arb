@@ -4019,7 +4019,13 @@
 "fuelSelectedPackage": "Pakej Dipilih",
 "fuelServiceAdjustment": "Pelarasan Perkhidmatan",
 "fuelTotalPayment": "JUMLAH BAYARAN",
-"fuelVoucherValue": "Nilai Baucar Bahan Api"
+"fuelVoucherValue": "Nilai Baucar Bahan Api",
+
+"paymentGuideTitle": "PANDUAN PEMBAYARAN",
+"paymentGuideSubtitle": "Pilih kaedah pembayaran untuk menonton panduan",
+"paymentGuideQr": "DUITNOW QR",
+"paymentGuideCard": "KAD",
+"paymentGuideOk": "OK"
 
 
 

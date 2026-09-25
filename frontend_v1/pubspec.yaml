@@ -80,6 +80,10 @@ dependencies:
   path: ^1.9.0
   path_provider: ^2.1.5
 
+  media_kit: ^1.2.6
+  media_kit_video: ^2.0.1
+  media_kit_libs_video: ^1.0.7
+
 
 
 
@@ -113,6 +117,8 @@ flutter:
     - lib/images/electric/
     - lib/images/broadband/
     - lib/images/entertainment/
+    - lib/videos/card_payment_video.mp4
+    - lib/videos/duitnow_video.mp4
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

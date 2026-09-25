@@ -3855,7 +3855,14 @@
 "fuelSelectedPackage": "தேர்ந்தெடுத்த தொகுப்பு",
 "fuelServiceAdjustment": "சேவை சரிசெய்தல்",
 "fuelTotalPayment": "மொத்த கட்டணம்",
-"fuelVoucherValue": "எரிபொருள் வவுச்சர் மதிப்பு"
+"fuelVoucherValue": "எரிபொருள் வவுச்சர் மதிப்பு",
+
+
+"paymentGuideTitle": "கட்டண வழிகாட்டி",
+"paymentGuideSubtitle": "வழிகாட்டி காண கட்டண முறையைத் தேர்ந்தெடுக்கவும்",
+"paymentGuideQr": "DUITNOW QR",
+"paymentGuideCard": "அட்டை",
+"paymentGuideOk": "சரி"
 
 
 

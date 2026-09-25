@@ -37,7 +37,7 @@ class Data {
   static const double waterServiceFee = 1.00;
 
   //update the date the code was last updated
-  static String lastUpdatedDate = "2026-09-22 18:00:00";
+  static String lastUpdatedDate = "2026-09-25 10:15:00";
 
   //pbt which area
   static String pbtArea = "Bentong";
