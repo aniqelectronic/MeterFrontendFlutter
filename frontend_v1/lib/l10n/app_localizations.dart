@@ -126,7 +126,7 @@ abstract class AppLocalizations {
   /// No description provided for @pbtText.
   ///
   /// In en, this message translates to:
-  /// **'COUNCIL SERVICES'**
+  /// **'COUNCIL SERVICE BILLS'**
   String get pbtText;
 
   /// No description provided for @rentText.
@@ -954,7 +954,7 @@ abstract class AppLocalizations {
   /// No description provided for @qrButton.
   ///
   /// In en, this message translates to:
-  /// **'PAY WITH QR'**
+  /// **'PAY WITH DUITNOW QR'**
   String get qrButton;
 
   /// No description provided for @weAcceptText.
@@ -8274,13 +8274,13 @@ abstract class AppLocalizations {
   /// No description provided for @pbtSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Local authority services'**
+  /// **'View and pay council service bills'**
   String get pbtSupportingText;
 
   /// No description provided for @billSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check and pay utility bills'**
+  /// **'Bill payments, top-ups, gaming credits, vouchers and more.'**
   String get billSupportingText;
 
   /// No description provided for @touristSupportingText.
@@ -9018,121 +9018,121 @@ abstract class AppLocalizations {
   /// No description provided for @knowledgeFact01.
   ///
   /// In en, this message translates to:
-  /// **'Octopuses have three hearts, and their blood appears blue because it contains a copper-based protein called hemocyanin.'**
+  /// **'Malaysia has 13 states and three federal territories.'**
   String get knowledgeFact01;
 
   /// No description provided for @knowledgeFact02.
   ///
   /// In en, this message translates to:
-  /// **'A day on Venus is longer than a year on Venus because the planet rotates extremely slowly.'**
+  /// **'Malaysia\'s national flower is the hibiscus, known locally as bunga raya.'**
   String get knowledgeFact02;
 
   /// No description provided for @knowledgeFact03.
   ///
   /// In en, this message translates to:
-  /// **'Honey can remain edible for a very long time when it is sealed properly and protected from moisture.'**
+  /// **'The five principles of the Rukun Negara encourage unity, respect and harmony among Malaysians.'**
   String get knowledgeFact03;
 
   /// No description provided for @knowledgeFact04.
   ///
   /// In en, this message translates to:
-  /// **'The human brain contains around 86 billion neurons that work together to process information.'**
+  /// **'Bahasa Melayu is Malaysia\'s national language, connecting people from diverse communities.'**
   String get knowledgeFact04;
 
   /// No description provided for @knowledgeFact05.
   ///
   /// In en, this message translates to:
-  /// **'Lightning can heat the surrounding air to temperatures hotter than the surface of the Sun.'**
+  /// **'Local councils help manage community facilities and public spaces within their administrative areas.'**
   String get knowledgeFact05;
 
   /// No description provided for @knowledgeFact06.
   ///
   /// In en, this message translates to:
-  /// **'Malaysia is one of the world\'s most biodiverse countries and is home to thousands of plant and animal species.'**
+  /// **'Assessment tax helps fund local services and the upkeep of public facilities.'**
   String get knowledgeFact06;
 
   /// No description provided for @knowledgeFact07.
   ///
   /// In en, this message translates to:
-  /// **'Mangrove forests help protect coastlines by reducing wave energy and limiting coastal erosion.'**
+  /// **'Keeping your payment receipts makes it easier to check past transactions and follow up on enquiries.'**
   String get knowledgeFact07;
 
   /// No description provided for @knowledgeFact08.
   ///
   /// In en, this message translates to:
-  /// **'Trees can help cool urban areas by providing shade and releasing water vapour through transpiration.'**
+  /// **'When reporting a damaged public facility, include its location and a clear description to help the responsible agency respond.'**
   String get knowledgeFact08;
 
   /// No description provided for @knowledgeFact09.
   ///
   /// In en, this message translates to:
-  /// **'The largest known animal on Earth is the blue whale, which can grow longer than a city bus.'**
+  /// **'Keeping drains free of rubbish helps water flow and reduces the risk of blockages.'**
   String get knowledgeFact09;
 
   /// No description provided for @knowledgeFact10.
   ///
   /// In en, this message translates to:
-  /// **'The Moon moves approximately 3.8 centimetres farther away from Earth every year.'**
+  /// **'Public parks provide spaces for recreation, exercise and community activities.'**
   String get knowledgeFact10;
 
   /// No description provided for @knowledgeFact11.
   ///
   /// In en, this message translates to:
-  /// **'A group of flamingos is called a flamboyance.'**
+  /// **'Using designated parking spaces helps keep roads, entrances and pedestrian routes accessible.'**
   String get knowledgeFact11;
 
   /// No description provided for @knowledgeFact12.
   ///
   /// In en, this message translates to:
-  /// **'Bananas are botanically classified as berries, while strawberries are not true berries.'**
+  /// **'Parking spaces reserved for persons with disabilities help those who need easier access to buildings and services.'**
   String get knowledgeFact12;
 
   /// No description provided for @knowledgeFact13.
   ///
   /// In en, this message translates to:
-  /// **'The fingerprints of koalas are remarkably similar to human fingerprints.'**
+  /// **'Keeping pavements clear makes it easier for pedestrians, wheelchair users and families with strollers to get around.'**
   String get knowledgeFact13;
 
   /// No description provided for @knowledgeFact14.
   ///
   /// In en, this message translates to:
-  /// **'Sound travels faster through water than through air because particles are packed more closely together.'**
+  /// **'Separating recyclable materials from other waste makes them easier to collect and process.'**
   String get knowledgeFact14;
 
   /// No description provided for @knowledgeFact15.
   ///
   /// In en, this message translates to:
-  /// **'The Amazon rainforest helps influence rainfall patterns across large parts of South America.'**
+  /// **'Reusable shopping bags and water bottles can help reduce single-use waste.'**
   String get knowledgeFact15;
 
   /// No description provided for @knowledgeFact16.
   ///
   /// In en, this message translates to:
-  /// **'Recycling aluminium uses far less energy than producing new aluminium from raw materials.'**
+  /// **'Malaysia\'s mangrove forests provide wildlife habitats and help protect coastlines.'**
   String get knowledgeFact16;
 
   /// No description provided for @knowledgeFact17.
   ///
   /// In en, this message translates to:
-  /// **'The International Space Station travels around Earth at approximately 28,000 kilometres per hour.'**
+  /// **'Trees provide shade and help make streets, parks and neighbourhoods more comfortable.'**
   String get knowledgeFact17;
 
   /// No description provided for @knowledgeFact18.
   ///
   /// In en, this message translates to:
-  /// **'Coral reefs support a large variety of marine life even though they cover only a small part of the ocean floor.'**
+  /// **'Supporting local traders helps strengthen the community\'s economy.'**
   String get knowledgeFact18;
 
   /// No description provided for @knowledgeFact19.
   ///
   /// In en, this message translates to:
-  /// **'Regular walking can help improve cardiovascular fitness, balance and overall well-being.'**
+  /// **'Caring for heritage buildings helps preserve local history for future generations.'**
   String get knowledgeFact19;
 
   /// No description provided for @knowledgeFact20.
   ///
   /// In en, this message translates to:
-  /// **'Digital receipts can reduce paper usage and make transaction records easier to keep and retrieve.'**
+  /// **'Before confirming a kiosk payment, check the service, account details and amount carefully.'**
   String get knowledgeFact20;
 
   /// No description provided for @billPayment.

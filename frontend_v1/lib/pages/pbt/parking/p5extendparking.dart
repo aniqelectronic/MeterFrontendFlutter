@@ -655,245 +655,216 @@ class _ModernServiceButton extends StatefulWidget {
       _ModernServiceButtonState();
 }
 
-class _ModernServiceButtonState
-    extends State<_ModernServiceButton> {
+class _ModernServiceButtonState extends State<_ModernServiceButton> {
   bool _isPressed = false;
+  bool _isFocused = false;
 
   void _setPressed(bool value) {
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      _isPressed = value;
-    });
+    if (!mounted || _isPressed == value) return;
+    setState(() => _isPressed = value);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTapDown: (_) => _setPressed(true),
-      onTapUp: (_) => _setPressed(false),
-      onTapCancel: () => _setPressed(false),
-      onTap: widget.onPressed,
-      child: AnimatedScale(
-        scale: _isPressed ? 0.965 : 1,
-        duration: const Duration(milliseconds: 130),
-        curve: Curves.easeOut,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
-          curve: Curves.easeOut,
-          height: widget.height,
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.95),
-            borderRadius: BorderRadius.circular(40),
-            border: Border.all(
-              color: _isPressed
-                  ? widget.accentColor
-                  : Colors.black,
-              width: _isPressed ? 4 : 3,
+    final accent = widget.accentColor;
+    final light = widget.accentLightColor;
+    final emphasized = _isPressed || _isFocused;
+    final radius = BorderRadius.circular(26);
+    final borderColor = emphasized
+        ? accent
+        : Color.lerp(const Color(0xFFB9C8DA), accent, 0.28)!;
+
+    return AnimatedScale(
+      scale: _isPressed ? 0.985 : 1,
+      duration: const Duration(milliseconds: 120),
+      curve: Curves.easeOut,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 160),
+        height: widget.height,
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF18324F)
+                  .withOpacity(_isPressed ? 0.05 : 0.11),
+              blurRadius: _isPressed ? 8 : 18,
+              offset: Offset(0, _isPressed ? 2 : 7),
             ),
-            boxShadow: _isPressed
-                ? [
-                    BoxShadow(
-                      color:
-                          widget.accentColor.withOpacity(0.18),
-                      blurRadius: 18,
-                      offset: const Offset(0, 8),
-                    ),
-                  ]
-                : [
-                    BoxShadow(
-                      color: const Color(0xFF19375C)
-                          .withOpacity(0.16),
-                      blurRadius: 32,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 16),
-                    ),
-                    BoxShadow(
-                      color: Colors.white.withOpacity(0.85),
-                      blurRadius: 4,
-                      offset: const Offset(0, -2),
-                    ),
-                  ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(37),
+          ],
+        ),
+        child: Material(
+          color: Colors.white,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(borderRadius: radius),
+          child: InkWell(
+            onTap: widget.onPressed,
+            onHighlightChanged: _setPressed,
+            onFocusChange: (value) {
+              if (!mounted || _isFocused == value) return;
+              setState(() => _isFocused = value);
+            },
+            splashColor: accent.withOpacity(0.10),
+            highlightColor: accent.withOpacity(0.04),
             child: Stack(
+              fit: StackFit.expand,
               children: [
-                // Large decorative background circle.
-                Positioned(
-                  right: -45,
-                  top: -45,
-                  child: AnimatedContainer(
-                    duration:
-                        const Duration(milliseconds: 180),
-                    width: _isPressed ? 220 : 205,
-                    height: _isPressed ? 220 : 205,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: widget.accentLightColor
-                          .withOpacity(0.90),
-                    ),
-                  ),
-                ),
-
-                // Small decorative circle.
-                Positioned(
-                  right: 120,
-                  top: 100,
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color:
-                          widget.accentColor.withOpacity(0.08),
-                    ),
-                  ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    34,
-                    34,
-                    30,
-                    30,
-                  ),
-                  child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                    children: [
-                      // ==================================================
-                      // ICON AND ARROW
-                      // ==================================================
-                      Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: widget.height * 0.51,
+                      child: Stack(
                         children: [
-                          Container(
-                            width: 135,
-                            height: 125,
-                            decoration: BoxDecoration(
-                              color: widget.accentLightColor,
-                              borderRadius:
-                                  BorderRadius.circular(34),
-                              border: Border.all(
-                                color: widget.accentColor
-                                    .withOpacity(0.20),
-                                width: 1.5,
+                          Positioned(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            height: widget.height * 0.36,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    light,
+                                    Color.lerp(Colors.white, light, 0.40)!,
+                                  ],
+                                ),
                               ),
                             ),
-                            alignment: Alignment.center,
-                            child: Icon(
-                              widget.icon,
-                              color: widget.accentColor,
-                              size: 70,
-                            ),
                           ),
-
-                          AnimatedContainer(
-                            duration: const Duration(
-                              milliseconds: 160,
-                            ),
-                            transform:
-                                Matrix4.translationValues(
-                              _isPressed ? 6 : 0,
-                              0,
-                              0,
-                            ),
-                            width: 58,
-                            height: 58,
-                            decoration: BoxDecoration(
-                              color: widget.accentColor,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: widget.accentColor
-                                      .withOpacity(0.24),
-                                  blurRadius: 14,
-                                  offset:
-                                      const Offset(0, 7),
+                          Positioned(
+                            top: 24,
+                            left: 22,
+                            right: 22,
+                            bottom: 10,
+                            child: IgnorePointer(
+                              child: ExcludeSemantics(
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 160),
+                                  padding: const EdgeInsets.all(18),
+                                  decoration: BoxDecoration(
+                                    color: Color.lerp(Colors.white, light, 0.18),
+                                    borderRadius: BorderRadius.circular(22),
+                                    border: Border.all(
+                                      color: accent.withOpacity(0.22),
+                                      width: 1.5,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: accent.withOpacity(
+                                          _isPressed ? 0.08 : 0.15,
+                                        ),
+                                        blurRadius: _isPressed ? 10 : 18,
+                                        offset: Offset(0, _isPressed ? 3 : 7),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 24,
+                                          ),
+                                          child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Icon(
+                                              widget.icon,
+                                              size: 120,
+                                              color: accent,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 0,
+                                        right: 0,
+                                        child: Container(
+                                          width: 38,
+                                          height: 38,
+                                          decoration: BoxDecoration(
+                                            color: accent,
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          child: const Icon(
+                                            Icons.arrow_forward_rounded,
+                                            color: Colors.white,
+                                            size: 25,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                            child: const Icon(
-                              Icons.arrow_forward_rounded,
-                              color: Colors.white,
-                              size: 32,
+                              ),
                             ),
                           ),
                         ],
                       ),
-
-                      const Spacer(),
-
-                      // ==================================================
-                      // MAIN LABEL
-                      // ==================================================
-                      Text(
-                        widget.label.toUpperCase(),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Color(0xFF15253A),
-                          fontSize: 38,
-                          fontWeight: FontWeight.w900,
-                          height: 1.08,
-                          letterSpacing: 0.4,
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 18, 24, 26),
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            return Center(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.center,
+                                child: SizedBox(
+                                  width: constraints.maxWidth,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        widget.label.toUpperCase(),
+                                        textAlign: TextAlign.center,
+                                        softWrap: true,
+                                        style: const TextStyle(
+                                          color: Color(0xFF142D4E),
+                                          fontSize: 38,
+                                          fontWeight: FontWeight.w800,
+                                          height: 1.16,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 14),
+                                      Text(
+                                        widget.supportingText,
+                                        textAlign: TextAlign.center,
+                                        softWrap: true,
+                                        style: const TextStyle(
+                                          color: Color(0xFF56657A),
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w600,
+                                          height: 1.35,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
-
-                      const SizedBox(height: 14),
-
-                      // ==================================================
-                      // SUPPORTING TEXT
-                      // ==================================================
-                      Text(
-                        widget.supportingText,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Color(0xFF647187),
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          height: 1.28,
+                    ),
+                  ],
+                ),
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 160),
+                      decoration: BoxDecoration(
+                        borderRadius: radius,
+                        border: Border.all(
+                          color: borderColor,
+                          width: emphasized ? 3 : 2,
                         ),
                       ),
-
-                      const SizedBox(height: 23),
-
-                      // ==================================================
-                      // BOTTOM ACCENT
-                      // ==================================================
-                      Row(
-                        children: [
-                          Container(
-                            width: 58,
-                            height: 7,
-                            decoration: BoxDecoration(
-                              color: widget.accentColor,
-                              borderRadius:
-                                  BorderRadius.circular(50),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Container(
-                            width: 12,
-                            height: 7,
-                            decoration: BoxDecoration(
-                              color: widget.accentColor
-                                  .withOpacity(0.28),
-                              borderRadius:
-                                  BorderRadius.circular(50),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ],

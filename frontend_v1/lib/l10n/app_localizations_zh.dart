@@ -21,7 +21,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get p2Title => '多元服务';
 
   @override
-  String get pbtText => '市议会服务';
+  String get pbtText => '市政服务账单';
 
   @override
   String get rentText => '其他租赁';
@@ -448,10 +448,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get totalAmountText => '总金额';
 
   @override
-  String get cardButton => '刷卡付款';
+  String get cardButton => '银行卡付款';
 
   @override
-  String get qrButton => '扫码付款';
+  String get qrButton => '使用 DUITNOW QR 付款';
 
   @override
   String get weAcceptText => '我们接受：';
@@ -4173,10 +4173,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get serviceSelectionLabel => '服务选项';
 
   @override
-  String get pbtSupportingText => '地方政府机构服务';
+  String get pbtSupportingText => '查询与缴付市政服务账单';
 
   @override
-  String get billSupportingText => '查询及缴付服务账单';
+  String get billSupportingText => '账单缴付、充值、游戏点数、礼券及更多服务。';
 
   @override
   String get touristSupportingText => '探索周边有趣地点及设施';
@@ -4553,64 +4553,64 @@ class AppLocalizationsZh extends AppLocalizations {
   String get didYouKnowSubtitle => '在探索我们的服务同时学习新知识。';
 
   @override
-  String get knowledgeFact01 => '章鱼拥有三颗心脏，由于血液中含有一种名为血蓝蛋白的含铜蛋白质，其血液呈蓝色。';
+  String get knowledgeFact01 => '马来西亚由13个州和3个联邦直辖区组成。';
 
   @override
-  String get knowledgeFact02 => '金星上的一天比它的一年还要长，因为该行星自转速度非常缓慢。';
+  String get knowledgeFact02 => '马来西亚的国花是大红花，马来文称为 Bunga Raya。';
 
   @override
-  String get knowledgeFact03 => '蜂蜜若妥善保存并避免受潮，可以长时间保持可食用状态。';
+  String get knowledgeFact03 => '国家原则的五项原则提倡全民团结、互相尊重与和谐共处。';
 
   @override
-  String get knowledgeFact04 => '人类大脑约含有860亿个神经元，它们协同工作以处理信息。';
+  String get knowledgeFact04 => '马来语是马来西亚的国语，也是联系各族群的共同语言。';
 
   @override
-  String get knowledgeFact05 => '闪电可将周围空气加热至比太阳表面还要炙热的温度。';
+  String get knowledgeFact05 => '地方政府协助管理辖区内的社区设施与公共空间。';
 
   @override
-  String get knowledgeFact06 => '马来西亚是全球生物多样性最丰富的国家之一，拥有数千种动植物物种。';
+  String get knowledgeFact06 => '门牌税有助于支付地方公共服务及公共设施维护的费用。';
 
   @override
-  String get knowledgeFact07 => '红树林通过减弱海浪能量及减少海岸侵蚀来保护沿海地区。';
+  String get knowledgeFact07 => '保留付款收据，方便日后查询交易记录及跟进相关事项。';
 
   @override
-  String get knowledgeFact08 => '树木通过遮荫及蒸腾作用释放水汽，帮助降低城市地区的温度。';
+  String get knowledgeFact08 => '举报公共设施损坏时，请提供地点和清楚的说明，以便相关单位采取行动。';
 
   @override
-  String get knowledgeFact09 => '地球上已知最大的动物是蓝鲸，其体长可超过一辆城市巴士。';
+  String get knowledgeFact09 => '保持沟渠清洁、不乱丢垃圾，有助于排水顺畅并减少堵塞。';
 
   @override
-  String get knowledgeFact10 => '月球每年以约3.8厘米的速度逐渐远离地球。';
+  String get knowledgeFact10 => '公共公园为居民提供休闲、运动及举办社区活动的空间。';
 
   @override
-  String get knowledgeFact11 => '一群火烈鸟在英语中被称为“flamboyance”。';
+  String get knowledgeFact11 => '将车辆停放在指定车位，有助于保持道路、出入口和行人通道畅通。';
 
   @override
-  String get knowledgeFact12 => '从植物学角度而言，香蕉被归类为浆果，而草莓其实并非真正的浆果。';
+  String get knowledgeFact12 => '残障人士专用停车位，方便有需要的人士进出建筑物及使用相关服务。';
 
   @override
-  String get knowledgeFact13 => '考拉的指纹与人类指纹极为相似。';
+  String get knowledgeFact13 => '保持人行道畅通，方便行人、轮椅使用者及推婴儿车的家庭通行。';
 
   @override
-  String get knowledgeFact14 => '由于水中粒子排列更紧密，声音在水中的传播速度比在空气中更快。';
+  String get knowledgeFact14 => '将可回收物品与其他垃圾分开，有助于后续收集与处理。';
 
   @override
-  String get knowledgeFact15 => '亚马逊雨林有助于影响南美洲广大地区的降雨模式。';
+  String get knowledgeFact15 => '使用可重复使用的购物袋和水瓶，有助于减少一次性用品垃圾。';
 
   @override
-  String get knowledgeFact16 => '回收铝所消耗的能量远低于用原材料生产新铝所需的能量。';
+  String get knowledgeFact16 => '马来西亚的红树林为野生动物提供栖息地，也有助于保护海岸。';
 
   @override
-  String get knowledgeFact17 => '国际空间站以每小时约28,000公里的速度绕地球运行。';
+  String get knowledgeFact17 => '树木提供遮荫，让街道、公园和住宅区更加舒适。';
 
   @override
-  String get knowledgeFact18 => '尽管珊瑚礁仅覆盖海底的一小部分，却支撑着多样化的海洋生物。';
+  String get knowledgeFact18 => '支持本地商家，有助于促进社区经济发展。';
 
   @override
-  String get knowledgeFact19 => '定期步行有助于提升心脏健康、平衡能力及整体身心健康。';
+  String get knowledgeFact19 => '爱护历史建筑，有助于为下一代保存本地历史。';
 
   @override
-  String get knowledgeFact20 => '电子收据有助于减少纸张使用，并使交易记录更容易保存与检索。';
+  String get knowledgeFact20 => '在自助服务机确认付款前，请仔细核对服务项目、账号资料和付款金额。';
 
   @override
   String get billPayment => '账单付款';

@@ -215,7 +215,7 @@ class P4OPTIONSEWAANBENTONG extends StatelessWidget {
           // HEADER
           // ============================================================
           Positioned(
-            top: 105,
+            top: 80,
             left: 65,
             right: 65,
             child: _ModernPageHeader(
@@ -345,120 +345,172 @@ class _ModernPageHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     const accentColor = Color(0xFF15946B);
 
-    return Column(
-      children: [
-        // Page category badge.
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 25,
-            vertical: 11,
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.96),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
           ),
-          decoration: BoxDecoration(
-            color: accentColor.withOpacity(0.10),
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              color: accentColor.withOpacity(0.25),
-              width: 1.5,
+        ],
+      ),
+      child: Row(
+        children: [
+          // ==========================================================
+          // LEFT ICON
+          // ==========================================================
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF15946B),
+                  Color(0xFF28AD83),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: accentColor.withOpacity(0.26),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.home_work_rounded,
+              color: Colors.white,
+              size: 56,
             ),
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.home_work_rounded,
-                size: 25,
-                color: accentColor,
-              ),
-              const SizedBox(width: 10),
-              Flexible(
-                child: Text(
-                  badgeText.toUpperCase(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: accentColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 1.3,
+
+          const SizedBox(width: 28),
+
+          // ==========================================================
+          // TEXT AREA
+          // ==========================================================
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ------------------------------------------------------
+                // BADGE - KEPT
+                // ------------------------------------------------------
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE2F7EF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.home_work_rounded,
+                        size: 20,
+                        color: accentColor,
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Text(
+                        badgeText.toUpperCase(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: accentColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.1,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
 
-        const SizedBox(height: 20),
+                const SizedBox(height: 12),
 
-        // Main title.
-        ShaderMask(
-          blendMode: BlendMode.srcIn,
-          shaderCallback: (bounds) {
-            return const LinearGradient(
-              colors: [
-                Color(0xFF064CAC),
-                Color(0xFF1987EB),
+                // ------------------------------------------------------
+                // TITLE 
+                // ------------------------------------------------------
+                Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                // ------------------------------------------------------
+                // SUBTITLE - KEPT
+                // ------------------------------------------------------
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
               ],
-            ).createShader(bounds);
-          },
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 64,
-              fontWeight: FontWeight.w900,
-              letterSpacing: -1.2,
-              height: 1.05,
             ),
           ),
-        ),
 
-        const SizedBox(height: 16),
+          const SizedBox(width: 24),
 
-        // Subtitle capsule.
-        Container(
-          constraints: const BoxConstraints(
-            maxWidth: 860,
-          ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 32,
-            vertical: 16,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.90),
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: Colors.black.withOpacity(0.18),
-              width: 1.5,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF113968).withOpacity(0.10),
-                blurRadius: 24,
-                offset: const Offset(0, 10),
+          // ==========================================================
+          // RIGHT ACCENT BAR
+          // ==========================================================
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF15946B),
+                  Color(0xFF65C5A4),
+                ],
               ),
-            ],
-          ),
-          child: Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xFF435166),
-              fontSize: 31,
-              fontWeight: FontWeight.w700,
-              height: 1.25,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
-// ============================================================================
-// MODERN TEXT SERVICE BUTTON
-// ============================================================================
 class _ModernTextServiceButton extends StatefulWidget {
   final String visualText;
   final String label;
@@ -486,258 +538,215 @@ class _ModernTextServiceButton extends StatefulWidget {
       _ModernTextServiceButtonState();
 }
 
-class _ModernTextServiceButtonState
-    extends State<_ModernTextServiceButton> {
+class _ModernTextServiceButtonState extends State<_ModernTextServiceButton> {
   bool _isPressed = false;
+  bool _isFocused = false;
 
   void _setPressed(bool value) {
-    if (!mounted || widget.comingSoon) {
-      return;
-    }
-
-    setState(() {
-      _isPressed = value;
-    });
+    if (!mounted || _isPressed == value) return;
+    setState(() => _isPressed = value);
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool isEnabled = !widget.comingSoon;
+    final enabled = !widget.comingSoon;
+    final accent = widget.accentColor;
+    final light = widget.accentLightColor;
+    final emphasized = enabled && (_isPressed || _isFocused);
+    final radius = BorderRadius.circular(26);
+    final borderColor = emphasized
+        ? accent
+        : Color.lerp(const Color(0xFFB9C8DA), accent, 0.28)!;
 
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTapDown: isEnabled ? (_) => _setPressed(true) : null,
-      onTapUp: isEnabled ? (_) => _setPressed(false) : null,
-      onTapCancel: isEnabled ? () => _setPressed(false) : null,
-      onTap: isEnabled ? widget.onPressed : null,
-      child: AnimatedScale(
-        scale: _isPressed ? 0.965 : 1,
-        duration: const Duration(milliseconds: 130),
-        curve: Curves.easeOut,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
-          curve: Curves.easeOut,
-          height: widget.height,
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(
-              widget.comingSoon ? 0.65 : 0.95,
+    return AnimatedScale(
+      scale: _isPressed ? 0.985 : 1,
+      duration: const Duration(milliseconds: 120),
+      curve: Curves.easeOut,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 160),
+        height: widget.height,
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF18324F)
+                  .withOpacity(_isPressed ? 0.05 : 0.11),
+              blurRadius: _isPressed ? 8 : 18,
+              offset: Offset(0, _isPressed ? 2 : 7),
             ),
-            borderRadius: BorderRadius.circular(40),
-            border: Border.all(
-              color: _isPressed
-                  ? widget.accentColor
-                  : widget.comingSoon
-                      ? Colors.grey
-                      : Colors.black,
-              width: _isPressed ? 4 : 3,
-            ),
-            boxShadow: _isPressed || widget.comingSoon
-                ? [
-                    BoxShadow(
-                      color: widget.accentColor.withOpacity(0.17),
-                      blurRadius: 18,
-                      offset: const Offset(0, 8),
+          ],
+        ),
+        child: Material(
+          color: Colors.white,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(borderRadius: radius),
+          child: InkWell(
+            onTap: enabled ? widget.onPressed : null,
+            canRequestFocus: enabled,
+            onHighlightChanged: enabled ? _setPressed : null,
+            onFocusChange: (value) {
+              if (!mounted || _isFocused == value) return;
+              setState(() => _isFocused = value);
+            },
+            splashColor: accent.withOpacity(0.10),
+            highlightColor: accent.withOpacity(0.04),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: widget.height * 0.51,
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            height: widget.height * 0.36,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    light,
+                                    Color.lerp(Colors.white, light, 0.40)!,
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 24,
+                            left: 22,
+                            right: 22,
+                            bottom: 10,
+                            child: IgnorePointer(
+                              child: ExcludeSemantics(
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 160),
+                                  padding: const EdgeInsets.all(18),
+                                  decoration: BoxDecoration(
+                                    color: Color.lerp(Colors.white, light, 0.18),
+                                    borderRadius: BorderRadius.circular(22),
+                                    border: Border.all(
+                                      color: accent.withOpacity(0.22),
+                                      width: 1.5,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: accent.withOpacity(
+                                          _isPressed ? 0.08 : 0.15,
+                                        ),
+                                        blurRadius: _isPressed ? 10 : 18,
+                                        offset: Offset(0, _isPressed ? 3 : 7),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 24,
+                                          ),
+                                          child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(
+                                              widget.visualText,
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                color: accent,
+                                                fontSize: widget.visualText.length > 3
+                                                    ? 38 : 100,
+                                                fontWeight: FontWeight.w900,
+                                                height: 1.1,
+                                                letterSpacing: widget.visualText.length > 3
+                                                    ? 1 : 0,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 0,
+                                        right: 0,
+                                        child: Container(
+                                          width: 38,
+                                          height: 38,
+                                          decoration: BoxDecoration(
+                                            color: accent,
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          child: const Icon(
+                                            Icons.arrow_forward_rounded,
+                                            color: Colors.white,
+                                            size: 25,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ]
-                : [
-                    BoxShadow(
-                      color: const Color(0xFF19375C).withOpacity(0.16),
-                      blurRadius: 32,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 16),
-                    ),
-                    BoxShadow(
-                      color: Colors.white.withOpacity(0.85),
-                      blurRadius: 4,
-                      offset: const Offset(0, -2),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 18, 24, 26),
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            return Center(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.center,
+                                child: SizedBox(
+                                  width: constraints.maxWidth,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        widget.label.toUpperCase(),
+                                        textAlign: TextAlign.center,
+                                        softWrap: true,
+                                        style: const TextStyle(
+                                          color: Color(0xFF142D4E),
+                                          fontSize: 38,
+                                          fontWeight: FontWeight.w800,
+                                          height: 1.16,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 14),
+                                      Text(
+                                        widget.supportingText,
+                                        textAlign: TextAlign.center,
+                                        softWrap: true,
+                                        style: const TextStyle(
+                                          color: Color(0xFF56657A),
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w600,
+                                          height: 1.35,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(37),
-            child: Stack(
-              children: [
-                // Large decorative circle.
-                Positioned(
-                  right: -45,
-                  top: -45,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 180),
-                    width: _isPressed ? 220 : 205,
-                    height: _isPressed ? 220 : 205,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: widget.accentLightColor.withOpacity(0.90),
-                    ),
-                  ),
                 ),
-
-                // Small decorative circle.
-                Positioned(
-                  right: 120,
-                  top: 100,
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: widget.accentColor.withOpacity(0.08),
-                    ),
-                  ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    34,
-                    34,
-                    30,
-                    30,
-                  ),
-                  child: Opacity(
-                    opacity: widget.comingSoon ? 0.5 : 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // ==================================================
-                        // VISUAL TEXT AND ARROW
-                        // ==================================================
-                        Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              constraints: const BoxConstraints(
-                                minWidth: 140,
-                                minHeight: 125,
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 15,
-                              ),
-                              decoration: BoxDecoration(
-                                color: widget.accentLightColor,
-                                borderRadius: BorderRadius.circular(34),
-                                border: Border.all(
-                                  color:
-                                      widget.accentColor.withOpacity(0.20),
-                                  width: 1.5,
-                                ),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                widget.visualText,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: widget.accentColor,
-                                  fontSize:
-                                      widget.visualText.length > 2 ? 55 : 76,
-                                  fontWeight: FontWeight.w900,
-                                  height: 1,
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                            ),
-
-                            AnimatedContainer(
-                              duration: const Duration(milliseconds: 160),
-                              transform: Matrix4.translationValues(
-                                _isPressed ? 6 : 0,
-                                0,
-                                0,
-                              ),
-                              width: 58,
-                              height: 58,
-                              decoration: BoxDecoration(
-                                color: widget.accentColor,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: widget.accentColor.withOpacity(0.24),
-                                    blurRadius: 14,
-                                    offset: const Offset(0, 7),
-                                  ),
-                                ],
-                              ),
-                              child: const Icon(
-                                Icons.arrow_forward_rounded,
-                                color: Colors.white,
-                                size: 32,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const Spacer(),
-
-                        // ==================================================
-                        // MAIN LABEL
-                        // ==================================================
-                        Text(
-                          widget.label.toUpperCase(),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Color(0xFF15253A),
-                            fontSize: 38,
-                            fontWeight: FontWeight.w900,
-                            height: 1.08,
-                            letterSpacing: 0.4,
-                          ),
-                        ),
-
-                        const SizedBox(height: 14),
-
-                        // ==================================================
-                        // SUPPORTING TEXT
-                        // ==================================================
-                        Text(
-                          widget.supportingText,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Color(0xFF647187),
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                            height: 1.28,
-                          ),
-                        ),
-
-                        const SizedBox(height: 23),
-
-                        // ==================================================
-                        // BOTTOM ACCENT
-                        // ==================================================
-                        Row(
-                          children: [
-                            Container(
-                              width: 58,
-                              height: 7,
-                              decoration: BoxDecoration(
-                                color: widget.accentColor,
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Container(
-                              width: 12,
-                              height: 7,
-                              decoration: BoxDecoration(
-                                color:
-                                    widget.accentColor.withOpacity(0.28),
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // ======================================================
-                // COMING SOON OVERLAY
-                // ======================================================
                 if (widget.comingSoon)
                   Positioned.fill(
                     child: Container(
@@ -746,18 +755,22 @@ class _ModernTextServiceButtonState
                       child: Transform.rotate(
                         angle: -0.12,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
+                          padding:
+                              const EdgeInsets.symmetric(
                             horizontal: 34,
                             vertical: 15,
                           ),
                           decoration: BoxDecoration(
                             color: const Color(0xFFE74343),
-                            borderRadius: BorderRadius.circular(18),
+                            borderRadius:
+                                BorderRadius.circular(18),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.20),
+                                color: Colors.black
+                                    .withOpacity(0.20),
                                 blurRadius: 18,
-                                offset: const Offset(0, 8),
+                                offset:
+                                    const Offset(0, 8),
                               ),
                             ],
                           ),
@@ -768,7 +781,8 @@ class _ModernTextServiceButtonState
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 29,
-                              fontWeight: FontWeight.w900,
+                              fontWeight:
+                                  FontWeight.w900,
                               letterSpacing: 2,
                             ),
                           ),
@@ -776,6 +790,20 @@ class _ModernTextServiceButtonState
                       ),
                     ),
                   ),
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 160),
+                      decoration: BoxDecoration(
+                        borderRadius: radius,
+                        border: Border.all(
+                          color: borderColor,
+                          width: emphasized ? 3 : 2,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

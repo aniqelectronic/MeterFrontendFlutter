@@ -238,213 +238,215 @@ class _TelcoOptionCard extends StatefulWidget {
 }
 
 class _TelcoOptionCardState extends State<_TelcoOptionCard> {
-  bool _pressed = false;
+  bool _isPressed = false;
+  bool _isFocused = false;
+
+  void _setPressed(bool value) {
+    if (!mounted || _isPressed == value) return;
+    setState(() => _isPressed = value);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
+    final accent = widget.accentColor;
+    final light = widget.accentLightColor;
+    final emphasized = _isPressed || _isFocused;
+    final radius = BorderRadius.circular(26);
+    final borderColor = emphasized
+        ? accent
+        : Color.lerp(const Color(0xFFB9C8DA), accent, 0.28)!;
 
-      onTapDown: (_) {
-        setState(() => _pressed = true);
-      },
-
-      onTapUp: (_) {
-        setState(() => _pressed = false);
-      },
-
-      onTapCancel: () {
-        setState(() => _pressed = false);
-      },
-
-      onTap: widget.onPressed,
-
-      child: AnimatedScale(
-        scale: _pressed ? 0.965 : 1,
-        duration: const Duration(milliseconds: 130),
-        curve: Curves.easeOut,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 170),
-          height: 450,
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.96),
-            borderRadius: BorderRadius.circular(40),
-            border: Border.all(
-              color:
-                  _pressed ? widget.accentColor : Colors.black,
-              width: _pressed ? 4 : 3,
+    return AnimatedScale(
+      scale: _isPressed ? 0.985 : 1,
+      duration: const Duration(milliseconds: 120),
+      curve: Curves.easeOut,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 160),
+        height: 450.0,
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF18324F)
+                  .withOpacity(_isPressed ? 0.05 : 0.11),
+              blurRadius: _isPressed ? 8 : 18,
+              offset: Offset(0, _isPressed ? 2 : 7),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: widget.accentColor.withOpacity(
-                  _pressed ? 0.25 : 0.14,
-                ),
-                blurRadius: _pressed ? 18 : 30,
-                offset: const Offset(0, 14),
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(37),
+          ],
+        ),
+        child: Material(
+          color: Colors.white,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(borderRadius: radius),
+          child: InkWell(
+            onTap: widget.onPressed,
+            onHighlightChanged: _setPressed,
+            onFocusChange: (value) {
+              if (!mounted || _isFocused == value) return;
+              setState(() => _isFocused = value);
+            },
+            splashColor: accent.withOpacity(0.10),
+            highlightColor: accent.withOpacity(0.04),
             child: Stack(
+              fit: StackFit.expand,
               children: [
-                // Background circle
-                Positioned(
-                  right: -55,
-                  top: -60,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 180),
-                    width: _pressed ? 260 : 235,
-                    height: _pressed ? 260 : 235,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color:
-                          widget.accentLightColor.withOpacity(0.95),
-                    ),
-                  ),
-                ),
-
-                // Small decoration
-                Positioned(
-                  right: 115,
-                  top: 125,
-                  child: Container(
-                    width: 45,
-                    height: 45,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color:
-                          widget.accentColor.withOpacity(0.08),
-                    ),
-                  ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    35,
-                    35,
-                    30,
-                    30,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // ICON + ARROW
-                      Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 450.0 * 0.51,
+                      child: Stack(
                         children: [
-                          Container(
-                            width: 135,
-                            height: 125,
-                            decoration: BoxDecoration(
-                              color: widget.accentLightColor,
-                              borderRadius:
-                                  BorderRadius.circular(34),
-                              border: Border.all(
-                                color: widget.accentColor
-                                    .withOpacity(0.22),
-                                width: 1.5,
+                          Positioned(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            height: 450.0 * 0.36,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    light,
+                                    Color.lerp(Colors.white, light, 0.40)!,
+                                  ],
+                                ),
                               ),
                             ),
-                            child: Icon(
-                              widget.icon,
-                              size: 70,
-                              color: widget.accentColor,
-                            ),
                           ),
-
-                          AnimatedContainer(
-                            duration:
-                                const Duration(milliseconds: 150),
-                            transform: Matrix4.translationValues(
-                              _pressed ? 7 : 0,
-                              0,
-                              0,
-                            ),
-                            width: 62,
-                            height: 62,
-                            decoration: BoxDecoration(
-                              color: widget.accentColor,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: widget.accentColor
-                                      .withOpacity(0.28),
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 7),
+                          Positioned(
+                            top: 24,
+                            left: 22,
+                            right: 22,
+                            bottom: 10,
+                            child: IgnorePointer(
+                              child: ExcludeSemantics(
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 160),
+                                  padding: const EdgeInsets.all(18),
+                                  decoration: BoxDecoration(
+                                    color: Color.lerp(Colors.white, light, 0.18),
+                                    borderRadius: BorderRadius.circular(22),
+                                    border: Border.all(
+                                      color: accent.withOpacity(0.22),
+                                      width: 1.5,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: accent.withOpacity(
+                                          _isPressed ? 0.08 : 0.15,
+                                        ),
+                                        blurRadius: _isPressed ? 10 : 18,
+                                        offset: Offset(0, _isPressed ? 3 : 7),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 24,
+                                          ),
+                                          child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Icon(
+                                              widget.icon,
+                                              size: 120,
+                                              color: accent,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 0,
+                                        right: 0,
+                                        child: Container(
+                                          width: 38,
+                                          height: 38,
+                                          decoration: BoxDecoration(
+                                            color: accent,
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          child: const Icon(
+                                            Icons.arrow_forward_rounded,
+                                            color: Colors.white,
+                                            size: 25,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                            child: const Icon(
-                              Icons.arrow_forward_rounded,
-                              color: Colors.white,
-                              size: 34,
+                              ),
                             ),
                           ),
                         ],
                       ),
-
-                      const Spacer(),
-
-                      // TITLE
-                      Text(
-                        widget.title.toUpperCase(),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Color(0xFF15253A),
-                          fontSize: 38,
-                          fontWeight: FontWeight.w900,
-                          height: 1.08,
-                          letterSpacing: 0.2,
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 18, 24, 26),
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            return Center(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.center,
+                                child: SizedBox(
+                                  width: constraints.maxWidth,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        widget.title.toUpperCase(),
+                                        textAlign: TextAlign.center,
+                                        softWrap: true,
+                                        style: const TextStyle(
+                                          color: Color(0xFF142D4E),
+                                          fontSize: 38,
+                                          fontWeight: FontWeight.w800,
+                                          height: 1.16,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 14),
+                                      Text(
+                                        widget.description,
+                                        textAlign: TextAlign.center,
+                                        softWrap: true,
+                                        style: const TextStyle(
+                                          color: Color(0xFF56657A),
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w600,
+                                          height: 1.35,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
-
-                      const SizedBox(height: 16),
-
-                      // DESCRIPTION
-                      Text(
-                        widget.description,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Color(0xFF647187),
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          height: 1.30,
+                    ),
+                  ],
+                ),
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 160),
+                      decoration: BoxDecoration(
+                        borderRadius: radius,
+                        border: Border.all(
+                          color: borderColor,
+                          width: emphasized ? 3 : 2,
                         ),
                       ),
-
-                      const SizedBox(height: 24),
-
-                      Row(
-                        children: [
-                          Container(
-                            width: 62,
-                            height: 7,
-                            decoration: BoxDecoration(
-                              color: widget.accentColor,
-                              borderRadius:
-                                  BorderRadius.circular(50),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Container(
-                            width: 14,
-                            height: 7,
-                            decoration: BoxDecoration(
-                              color: widget.accentColor
-                                  .withOpacity(0.28),
-                              borderRadius:
-                                  BorderRadius.circular(50),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ],
@@ -456,10 +458,7 @@ class _TelcoOptionCardState extends State<_TelcoOptionCard> {
   }
 }
 
-// ============================================================================
-// MODERN + GOVERNMENT TELCO HEADER
-// KEEPS EXISTING BADGE + TITLE + SUBTITLE
-// ============================================================================
+
 class _ModernTelcoHeader extends StatelessWidget {
   final String badgeText;
   final String title;
@@ -608,7 +607,7 @@ class _ModernTelcoHeader extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: Color(0xFF607188),
-                    fontSize: 22,
+                    fontSize: 28,
                     fontWeight: FontWeight.w600,
                     height: 1.25,
                   ),

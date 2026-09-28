@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
@@ -11,34 +10,27 @@ import 'package:frontend_v1/pages/tourist/map/pmapgoogle.dart';
 import 'package:frontend_v1/pages/tourist/waktusolat/pwaktusolat.dart';
 import 'package:frontend_v1/pages/tourist/weather/weather_page.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
-
 class PTOURISTPAGE extends StatefulWidget {
   const PTOURISTPAGE({super.key});
-
   @override
   State<PTOURISTPAGE> createState() => _PTOURISTPAGEState();
 }
-
 class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
   static const Duration _slideDuration = Duration(seconds: 8);
-
   final PageController _knowledgeController = PageController();
   Timer? _knowledgeTimer;
   int _currentKnowledgeIndex = 0;
-
   @override
   void initState() {
     super.initState();
     _startKnowledgeTimer();
   }
-
   @override
   void dispose() {
     _knowledgeTimer?.cancel();
     _knowledgeController.dispose();
     super.dispose();
   }
-
   void _startKnowledgeTimer() {
     _knowledgeTimer?.cancel();
     _knowledgeTimer = Timer.periodic(_slideDuration, (_) {
@@ -46,29 +38,23 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
       _goToKnowledge(_currentKnowledgeIndex + 1);
     });
   }
-
   void _goToKnowledge(int index) {
     final int normalizedIndex = index % 20;
-
     _knowledgeController.animateToPage(
       normalizedIndex,
       duration: const Duration(milliseconds: 520),
       curve: Curves.easeInOutCubic,
     );
-
     _startKnowledgeTimer();
   }
-
   void _previousKnowledge() {
     final int previousIndex =
         (_currentKnowledgeIndex - 1 + 20) % 20;
     _goToKnowledge(previousIndex);
   }
-
   void _nextKnowledge() {
     _goToKnowledge(_currentKnowledgeIndex + 1);
   }
-
   List<String> _knowledgeItems(AppLocalizations loc) {
     return [
       loc.knowledgeFact01,
@@ -93,12 +79,10 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
       loc.knowledgeFact20,
     ];
   }
-
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final knowledgeItems = _knowledgeItems(loc);
-
     return Scaffold(
       body: Stack(
         children: [
@@ -123,7 +107,6 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
               ),
             ),
           ),
-
           // =========================
           // PAGE HEADER
           // =========================
@@ -137,7 +120,6 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
               subtitle: loc.p3othersSubtitle,
             ),
           ),
-
           // =========================
           // DID YOU KNOW SLIDER
           // =========================
@@ -160,7 +142,6 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
               onIndicatorPressed: _goToKnowledge,
             ),
           ),
-
           // =========================
           // SERVICE BUTTONS
           // =========================
@@ -268,7 +249,6 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
               ),
             ),
           ),
-
           Positioned(
             bottom: 93,
             left: 210,
@@ -304,7 +284,6 @@ class _PTOURISTPAGEState extends State<PTOURISTPAGE> {
     );
   }
 }
-
 class _KnowledgeSlider extends StatelessWidget {
   final PageController controller;
   final String title;
@@ -315,7 +294,6 @@ class _KnowledgeSlider extends StatelessWidget {
   final VoidCallback onPrevious;
   final VoidCallback onNext;
   final ValueChanged<int> onIndicatorPressed;
-
   const _KnowledgeSlider({
     required this.controller,
     required this.title,
@@ -327,7 +305,6 @@ class _KnowledgeSlider extends StatelessWidget {
     required this.onNext,
     required this.onIndicatorPressed,
   });
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -493,7 +470,6 @@ class _KnowledgeSlider extends StatelessWidget {
                             (index) {
                               final bool isActive =
                                   index == currentIndex;
-
                               return GestureDetector(
                                 onTap: () =>
                                     onIndicatorPressed(index),
@@ -529,25 +505,20 @@ class _KnowledgeSlider extends StatelessWidget {
     );
   }
 }
-
 class _RoundNavigationButton extends StatefulWidget {
   final IconData icon;
   final VoidCallback onPressed;
-
   const _RoundNavigationButton({
     required this.icon,
     required this.onPressed,
   });
-
   @override
   State<_RoundNavigationButton> createState() =>
       _RoundNavigationButtonState();
 }
-
 class _RoundNavigationButtonState
     extends State<_RoundNavigationButton> {
   bool _pressed = false;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -579,29 +550,24 @@ class _RoundNavigationButtonState
     );
   }
 }
-
 // ============================================================================
 // MODERN + GOVERNMENT TOURISM HEADER
 // KEEPS EXISTING BADGE + TITLE + SUBTITLE
 // ============================================================================
-
 class _ModernPageHeader extends StatelessWidget {
   final String badgeText;
   final String title;
   final String subtitle;
-
   const _ModernPageHeader({
     required this.badgeText,
     required this.title,
     required this.subtitle,
   });
-
   @override
   Widget build(BuildContext context) {
     const Color accentColor = Color(0xFFE56C16);
     const Color darkAccent = Color(0xFFB94B00);
     const Color lightAccent = Color(0xFFF08B3E);
-
     return Container(
       padding: const EdgeInsets.fromLTRB(
         30,
@@ -629,7 +595,6 @@ class _ModernPageHeader extends StatelessWidget {
           // ==========================================================
           // LEFT TOURISM ICON
           // ==========================================================
-
           Container(
             width: 105,
             height: 105,
@@ -657,13 +622,10 @@ class _ModernPageHeader extends StatelessWidget {
               size: 56,
             ),
           ),
-
           const SizedBox(width: 28),
-
           // ==========================================================
           // EXISTING HEADER INFORMATION
           // ==========================================================
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -671,7 +633,6 @@ class _ModernPageHeader extends StatelessWidget {
                 // ------------------------------------------------------
                 // EXISTING BADGE
                 // ------------------------------------------------------
-
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 18,
@@ -689,9 +650,7 @@ class _ModernPageHeader extends StatelessWidget {
                         size: 20,
                         color: accentColor,
                       ),
-
                       const SizedBox(width: 8),
-
                       Flexible(
                         child: Text(
                           badgeText.toUpperCase(),
@@ -708,13 +667,10 @@ class _ModernPageHeader extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 12),
-
                 // ------------------------------------------------------
                 // EXISTING TITLE
                 // ------------------------------------------------------
-
                 Text(
                   title.toUpperCase(),
                   maxLines: 2,
@@ -727,13 +683,10 @@ class _ModernPageHeader extends StatelessWidget {
                     letterSpacing: -0.8,
                   ),
                 ),
-
                 const SizedBox(height: 9),
-
                 // ------------------------------------------------------
                 // EXISTING SUBTITLE
                 // ------------------------------------------------------
-
                 Text(
                   subtitle,
                   maxLines: 2,
@@ -748,13 +701,10 @@ class _ModernPageHeader extends StatelessWidget {
               ],
             ),
           ),
-
           const SizedBox(width: 24),
-
           // ==========================================================
           // RIGHT ORANGE ACCENT BAR
           // ==========================================================
-
           Container(
             width: 8,
             height: 105,
@@ -775,7 +725,6 @@ class _ModernPageHeader extends StatelessWidget {
     );
   }
 }
-
 class _ModernServiceButton extends StatefulWidget {
   final IconData? icon;
   final String? imagePath;
@@ -786,7 +735,6 @@ class _ModernServiceButton extends StatefulWidget {
   final bool comingSoon;
   final Color accentColor;
   final Color accentLightColor;
-
   const _ModernServiceButton({
     super.key,
     this.icon,
@@ -799,206 +747,265 @@ class _ModernServiceButton extends StatefulWidget {
     this.height = 330,
     this.comingSoon = false,
   });
-
   @override
   State<_ModernServiceButton> createState() =>
       _ModernServiceButtonState();
 }
-
 class _ModernServiceButtonState extends State<_ModernServiceButton> {
   bool _isPressed = false;
+  bool _isFocused = false;
+
 
   void _setPressed(bool value) {
     if (!mounted || widget.comingSoon) return;
     setState(() => _isPressed = value);
   }
 
+  Widget _buildServiceIcons() {
+    if (widget.icon != null) {
+      return FittedBox(
+        fit: BoxFit.contain,
+        child: Icon(widget.icon, size: 300, color: widget.accentColor),
+      );
+    }
+    if (widget.imagePath != null) {
+      return Image.asset(widget.imagePath!, fit: BoxFit.contain);
+    }
+    return const SizedBox.shrink();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bool isEnabled = !widget.comingSoon;
+    final enabled = !widget.comingSoon;
+    final radius = BorderRadius.circular(26);
+    final emphasized = _isPressed || _isFocused;
+    final borderColor = emphasized
+        ? widget.accentColor
+        : Color.lerp(const Color(0xFFB9C8DA), widget.accentColor, 0.28)!;
 
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTapDown: isEnabled ? (_) => _setPressed(true) : null,
-      onTapUp: isEnabled ? (_) => _setPressed(false) : null,
-      onTapCancel: isEnabled ? () => _setPressed(false) : null,
-      onTap: isEnabled ? widget.onPressed : null,
-      child: AnimatedScale(
-        scale: _isPressed ? 0.965 : 1,
-        duration: const Duration(milliseconds: 130),
-        curve: Curves.easeOut,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
-          curve: Curves.easeOut,
-          height: widget.height,
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(
-              widget.comingSoon ? 0.65 : 0.95,
+    return AnimatedScale(
+      scale: _isPressed ? 0.985 : 1,
+      duration: const Duration(milliseconds: 120),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 160),
+        height: widget.height,
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF18324F).withOpacity(
+                _isPressed ? 0.05 : 0.11,
+              ),
+              blurRadius: _isPressed ? 8 : 18,
+              offset: Offset(0, _isPressed ? 2 : 7),
             ),
-            borderRadius: BorderRadius.circular(32),
-            border: Border.all(
-              color: _isPressed ? widget.accentColor : Colors.black,
-              width: _isPressed ? 4 : 2.5,
+          ],
+        ),
+        child: Material(
+          color: Colors.white,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: radius,
+            side: BorderSide(
+              color: borderColor,
+              width: 2,
             ),
-            boxShadow: _isPressed
-                ? [
-                    BoxShadow(
-                      color: widget.accentColor.withOpacity(0.18),
-                      blurRadius: 18,
-                      offset: const Offset(0, 8),
-                    ),
-                  ]
-                : [
-                    BoxShadow(
-                      color: const Color(0xFF19375C).withOpacity(0.15),
-                      blurRadius: 25,
-                      offset: const Offset(0, 12),
-                    ),
-                  ],
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(29),
+          child: InkWell(
+            onTap: enabled ? widget.onPressed : null,
+            onHighlightChanged: _setPressed,
+            onFocusChange: (focused) {
+              if (mounted) setState(() => _isFocused = focused);
+            },
+            splashColor: widget.accentColor.withOpacity(0.10),
+            highlightColor: widget.accentColor.withOpacity(0.04),
             child: Stack(
+              fit: StackFit.expand,
               children: [
-                Positioned(
-                  right: -38,
-                  top: -38,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 180),
-                    width: _isPressed ? 170 : 158,
-                    height: _isPressed ? 170 : 158,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: widget.accentLightColor.withOpacity(0.88),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(26, 25, 24, 23),
-                  child: Opacity(
-                    opacity: widget.comingSoon ? 0.5 : 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                          children: [
-                            AnimatedContainer(
-                              duration:
-                                  const Duration(milliseconds: 160),
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: widget.accentLightColor,
-                                borderRadius: BorderRadius.circular(27),
-                                border: Border.all(
-                                  color: widget.accentColor
-                                      .withOpacity(0.18),
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Center(
-                                child: widget.icon != null
-                                    ? Icon(
-                                        widget.icon,
-                                        size: _isPressed ? 61 : 57,
-                                        color: widget.accentColor,
-                                      )
-                                    : Image.asset(
-                                        widget.imagePath!,
-                                        height: 60,
-                                        width: 60,
-                                        fit: BoxFit.contain,
+                Opacity(
+                  opacity: enabled ? 1 : 0.45,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Raised icon panel overlaps the soft colour header.
+                      SizedBox(
+                        height: widget.height * 0.42,
+                        child: LayoutBuilder(
+                          builder: (context, headerBounds) {
+                            return Stack(
+                              children: [
+                                Positioned(
+                                  top: 0,
+                                  left: 0,
+                                  right: 0,
+                                  height: headerBounds.maxHeight * 0.72,
+                                  child: Ink(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          widget.accentLightColor,
+                                          Color.lerp(Colors.white,
+                                              widget.accentLightColor, 0.40)!,
+                                        ],
                                       ),
-                              ),
-                            ),
-                            AnimatedContainer(
-                              duration:
-                                  const Duration(milliseconds: 160),
-                              transform: Matrix4.translationValues(
-                                _isPressed ? 5 : 0,
-                                0,
-                                0,
-                              ),
-                              width: 49,
-                              height: 49,
-                              decoration: BoxDecoration(
-                                color: widget.accentColor,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: widget.accentColor
-                                        .withOpacity(0.24),
-                                    blurRadius: 12,
-                                    offset: const Offset(0, 6),
+                                    ),
                                   ),
-                                ],
-                              ),
-                              child: const Icon(
-                                Icons.arrow_forward_rounded,
-                                color: Colors.white,
-                                size: 27,
-                              ),
-                            ),
-                          ],
+                                ),
+                                Positioned(
+                                  left: 20,
+                                  right: 20,
+                                  top: 22,
+                                  bottom: 8,
+                                  child: IgnorePointer(
+                                    child: ExcludeSemantics(
+                                      child: AnimatedContainer(
+                                        duration: const Duration(milliseconds: 160),
+                                        padding: const EdgeInsets.fromLTRB(18, 20, 18, 16),
+                                        decoration: BoxDecoration(
+                                          color: Color.lerp(Colors.white,
+                                              widget.accentLightColor, 0.18),
+                                          borderRadius: BorderRadius.circular(22),
+                                          border: Border.all(
+                                            color: widget.accentColor.withOpacity(0.22),
+                                            width: 1.5,
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: widget.accentColor.withOpacity(
+                                                _isPressed ? 0.08 : 0.15,
+                                              ),
+                                              blurRadius: _isPressed ? 10 : 18,
+                                              offset: Offset(0, _isPressed ? 3 : 7),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Center(
+                                                child: SizedBox(
+                                                  width: 126,
+                                                  height: 126,
+                                                  child: _buildServiceIcons(),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Container(
+                                              width: 38,
+                                              height: 38,
+                                              decoration: BoxDecoration(
+                                                color: widget.accentColor,
+                                                borderRadius: BorderRadius.circular(12),
+                                              ),
+                                              child: Icon(
+                                                Icons.arrow_forward_rounded,
+                                                color: Colors.white,
+                                                size: 25,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                         ),
-                        const Spacer(),
-                        Text(
-                          widget.label.toUpperCase(),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Color(0xFF15253A),
-                            fontSize: 40,
-                            fontWeight: FontWeight.w900,
-                            height: 1.05,
-                            letterSpacing: 0.3,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(26, 24, 26, 26),
+                          child: LayoutBuilder(
+                            builder: (context, bounds) {
+                              return SizedBox(
+                                width: bounds.maxWidth,
+                                height: bounds.maxHeight,
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  alignment: Alignment.topLeft,
+                                  child: SizedBox(
+                                    width: bounds.maxWidth,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          widget.label.toUpperCase(),
+                                          softWrap: true,
+                                          style: const TextStyle(
+                                            color: Color(0xFF142D4E),
+                                            fontSize: 32,
+                                            fontWeight: FontWeight.w800,
+                                            height: 1.16,
+                                            letterSpacing: 0,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Text(
+                                          widget.supportingText,
+                                          softWrap: true,
+                                          style: const TextStyle(
+                                            color: Color(0xFF526175),
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.w500,
+                                            height: 1.35,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
-                        const SizedBox(height: 9),
-                        Text(
-                          widget.supportingText,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Color(0xFF647187),
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                            height: 1.22,
-                          ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 160),
+                      decoration: BoxDecoration(
+                        borderRadius: radius,
+                        border: Border.all(
+                          color: borderColor,
+                          width: emphasized ? 3 : 2,
                         ),
-                        const SizedBox(height: 15),
-                        Row(
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 6,
-                              decoration: BoxDecoration(
-                                color: widget.accentColor,
-                                borderRadius:
-                                    BorderRadius.circular(50),
-                              ),
-                            ),
-                            const SizedBox(width: 7),
-                            Container(
-                              width: 11,
-                              height: 6,
-                              decoration: BoxDecoration(
-                                color: widget.accentColor
-                                    .withOpacity(0.28),
-                                borderRadius:
-                                    BorderRadius.circular(50),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
+                if (widget.comingSoon)
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.all(18),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 14,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF334155),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context)!
+                            .comingsoonText.toUpperCase(),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -1007,3 +1014,4 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
     );
   }
 }
+

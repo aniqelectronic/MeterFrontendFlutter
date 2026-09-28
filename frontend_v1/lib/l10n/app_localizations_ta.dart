@@ -21,7 +21,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get p2Title => 'பல்வேறு சேவைகள்';
 
   @override
-  String get pbtText => 'நகராட்சி சேவைகள்';
+  String get pbtText => 'நகராட்சி சேவைக் கட்டணங்கள்';
 
   @override
   String get rentText => 'இதர வாடகை';
@@ -448,10 +448,10 @@ class AppLocalizationsTa extends AppLocalizations {
   String get totalAmountText => 'மொத்தத் தொகை';
 
   @override
-  String get cardButton => 'அட்டை மூலம்';
+  String get cardButton => 'அட்டை மூலம் செலுத்துங்கள்';
 
   @override
-  String get qrButton => 'QR மூலம்';
+  String get qrButton => 'DUITNOW QR மூலம் செலுத்துங்கள்';
 
   @override
   String get weAcceptText => 'நாங்கள் ஏற்றுக்கொள்வது:';
@@ -4173,10 +4173,10 @@ class AppLocalizationsTa extends AppLocalizations {
   String get serviceSelectionLabel => 'சேவைத் தேர்வு';
 
   @override
-  String get pbtSupportingText => 'உள்ளாட்சிச் சேவைகள்';
+  String get pbtSupportingText => 'நகராட்சி சேவைக் கட்டணங்களைச் சரிபார்த்து செலுத்துங்கள்';
 
   @override
-  String get billSupportingText => 'கட்டணச் சரிபார்ப்பு & செலுத்தல்';
+  String get billSupportingText => 'பில் கட்டணங்கள், ரீலோடுகள், விளையாட்டு கிரெடிட்கள், வவுச்சர்கள் மற்றும் பல.';
 
   @override
   String get touristSupportingText => 'சுற்றுலா இடங்களை ஆராயுங்கள்';
@@ -4553,64 +4553,64 @@ class AppLocalizationsTa extends AppLocalizations {
   String get didYouKnowSubtitle => 'புதிய தகவல்களைக் கற்றுக் கொள்ளுங்கள்.';
 
   @override
-  String get knowledgeFact01 => 'எண்கலப்பிற்கு (Octopus) 3 இதயங்கள் உள்ளன; அதன் ரத்தம் நீல நிறத்தில் இருக்கும்.';
+  String get knowledgeFact01 => 'மலேசியாவில் 13 மாநிலங்களும் மூன்று கூட்டரசுப் பிரதேசங்களும் உள்ளன.';
 
   @override
-  String get knowledgeFact02 => 'சுக்கிரனில் (Venus) ஒரு நாள் என்பது அதன் ஒரு ஆண்டை விட நீண்டது.';
+  String get knowledgeFact02 => 'மலேசியாவின் தேசிய மலர் செம்பருத்தி. இது மலாய் மொழியில் பூங்கா ராயா என்று அழைக்கப்படுகிறது.';
 
   @override
-  String get knowledgeFact03 => 'தேன் சரியாகச் சேமிக்கப்பட்டால் பல நூறு ஆண்டுகள் கெட்டுப்போகாது.';
+  String get knowledgeFact03 => 'ருக்குன் நெகாராவின் ஐந்து கோட்பாடுகள் மலேசியர்களிடையே ஒற்றுமை, பரஸ்பர மரியாதை மற்றும் நல்லிணக்கத்தை ஊக்குவிக்கின்றன.';
 
   @override
-  String get knowledgeFact04 => 'மனித மூளையில் சுமார் 86 பில்லியன் நரம்பணுக்கள் செயல்படுகின்றன.';
+  String get knowledgeFact04 => 'மலாய் மொழி மலேசியாவின் தேசிய மொழியாகும். இது பல்வேறு சமூகங்களை இணைக்கிறது.';
 
   @override
-  String get knowledgeFact05 => 'மின்னல் சூரியனின் மேற்பரப்பை விட வெப்பமானது.';
+  String get knowledgeFact05 => 'உள்ளாட்சி மன்றங்கள் தங்கள் நிர்வாகப் பகுதிகளில் சமூக வசதிகளையும் பொது இடங்களையும் நிர்வகிக்க உதவுகின்றன.';
 
   @override
-  String get knowledgeFact06 => 'மலேசியா மிக உயர்ந்த பல்லுயிர் வளம் கொண்ட நாடுகளில் ஒன்று.';
+  String get knowledgeFact06 => 'மதிப்பீட்டு வரி, உள்ளூர் சேவைகளுக்கும் பொது வசதிகளின் பராமரிப்புக்கும் நிதியளிக்க உதவுகிறது.';
 
   @override
-  String get knowledgeFact07 => 'அலையாத்தி காடுகள் கடற்கரை அரிப்பைக் குறைக்கின்றன.';
+  String get knowledgeFact07 => 'பணம் செலுத்திய ரசீதுகளைச் சேமித்து வைத்தால், முந்தைய பரிவர்த்தனைகளைச் சரிபார்க்கவும் தொடர் விசாரணைகளை மேற்கொள்ளவும் எளிதாக இருக்கும்.';
 
   @override
-  String get knowledgeFact08 => 'மரங்கள் நகரங்களின் வெப்பத்தைக் குறைக்க உதவுகின்றன.';
+  String get knowledgeFact08 => 'பொது வசதிகளில் சேதம் ஏற்பட்டால், அதன் இருப்பிடத்தையும் தெளிவான விளக்கத்தையும் தெரிவிப்பது சம்பந்தப்பட்ட அமைப்பு நடவடிக்கை எடுக்க உதவும்.';
 
   @override
-  String get knowledgeFact09 => 'நீலத் திமிங்கலம் பூமியின் மிகப்பெரிய விலங்காகும்.';
+  String get knowledgeFact09 => 'வடிகால்களில் குப்பைகள் சேராமல் இருப்பது நீர் சீராக ஓடவும் அடைப்புகளைக் குறைக்கவும் உதவுகிறது.';
 
   @override
-  String get knowledgeFact10 => 'நிலவு ஆண்டிற்கு 3.8 செ.மீ பூமியை விட்டுத் தள்ளிச் செல்கிறது.';
+  String get knowledgeFact10 => 'பொதுப் பூங்காக்கள் பொழுதுபோக்கு, உடற்பயிற்சி மற்றும் சமூக நடவடிக்கைகளுக்கு இடமளிக்கின்றன.';
 
   @override
-  String get knowledgeFact11 => 'பூநாரைகளின் கூட்டம் \'flamboyance\' எனப்படும்.';
+  String get knowledgeFact11 => 'ஒதுக்கப்பட்ட இடங்களில் வாகனங்களை நிறுத்துவது சாலைகள், நுழைவாயில்கள் மற்றும் நடைபாதைகளில் தடைகள் ஏற்படாமல் இருக்க உதவுகிறது.';
 
   @override
-  String get knowledgeFact12 => 'வாழைப்பழம் தாவரவியல் ரீதியாக பெர்ரி வகையைச் சேர்ந்தது.';
+  String get knowledgeFact12 => 'மாற்றுத்திறனாளிகளுக்காக ஒதுக்கப்பட்ட வாகன நிறுத்துமிடங்கள், கட்டடங்களையும் சேவைகளையும் எளிதாக அணுக உதவுகின்றன.';
 
   @override
-  String get knowledgeFact13 => 'கோவாலாக்களின் விரல் ரேகைகள் மனித விரல் ரேகைகளை ஒத்திருக்கும்.';
+  String get knowledgeFact13 => 'நடைபாதைகளைத் தடைகளின்றி வைத்திருப்பது பாதசாரிகள், சக்கர நாற்காலி பயனர்கள் மற்றும் குழந்தைத் தள்ளுவண்டியுடன் வரும் குடும்பங்களின் நடமாட்டத்தை எளிதாக்குகிறது.';
 
   @override
-  String get knowledgeFact14 => 'ஒலி காற்றை விட நீரில் வேகமாகப் பயணிக்கும்.';
+  String get knowledgeFact14 => 'மறுசுழற்சி செய்யக்கூடிய பொருட்களை மற்ற கழிவுகளிலிருந்து பிரித்து வைப்பது அவற்றைச் சேகரிக்கவும் பதப்படுத்தவும் உதவுகிறது.';
 
   @override
-  String get knowledgeFact15 => 'அமேசான் மழைக்காடுகள் மழைப்பொழிவைத் தீர்மானிக்கின்றன.';
+  String get knowledgeFact15 => 'மீண்டும் பயன்படுத்தக்கூடிய பைகளும் தண்ணீர் பாட்டில்களும் ஒருமுறை பயன்படுத்தப்படும் பொருட்களின் கழிவுகளைக் குறைக்க உதவுகின்றன.';
 
   @override
-  String get knowledgeFact16 => 'அலுமினிய மறுசுழற்சி குறைந்த ஆற்றலையே எடுத்துக்கொள்கிறது.';
+  String get knowledgeFact16 => 'மலேசியாவின் அலையாத்திக் காடுகள் வனவிலங்குகளுக்கு வாழிடமாக இருப்பதுடன் கடற்கரைகளைப் பாதுகாக்கவும் உதவுகின்றன.';
 
   @override
-  String get knowledgeFact17 => 'விண்வெளி மையம் மணிக்கு 28,000 கி.மீ வேகத்தில் சுற்றுகிறது.';
+  String get knowledgeFact17 => 'மரங்கள் நிழல் அளித்து, சாலைகள், பூங்காக்கள் மற்றும் குடியிருப்புப் பகுதிகளை மேலும் இதமாக்குகின்றன.';
 
   @override
-  String get knowledgeFact18 => 'பவளப்பாறைகள் ஏராளமான கடல் உயிரினங்களுக்கு வாழ்விடமளிக்கிறது.';
+  String get knowledgeFact18 => 'உள்ளூர் வணிகர்களை ஆதரிப்பது சமூகத்தின் பொருளாதாரத்தை வலுப்படுத்த உதவுகிறது.';
 
   @override
-  String get knowledgeFact19 => 'வழக்கமான நடைபயிற்சி இதய ஆரோக்கியத்தை மேம்படுத்தும்.';
+  String get knowledgeFact19 => 'பாரம்பரியக் கட்டடங்களைப் பராமரிப்பது உள்ளூர் வரலாற்றை எதிர்காலத் தலைமுறைகளுக்காகப் பாதுகாக்க உதவுகிறது.';
 
   @override
-  String get knowledgeFact20 => 'டிஜிட்டல் ரசீதுகள் காகிதப் பயன்பாட்டைக் குறைக்க உதவுகின்றன.';
+  String get knowledgeFact20 => 'கியோஸ்கில் கட்டணத்தை உறுதிப்படுத்தும் முன், சேவை, கணக்கு விவரங்கள் மற்றும் செலுத்த வேண்டிய தொகையை கவனமாகச் சரிபார்க்கவும்.';
 
   @override
   String get billPayment => 'பில் கட்டணம்';

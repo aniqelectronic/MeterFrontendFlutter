@@ -21,7 +21,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get p2Title => 'MULTIPLE SERVICES';
 
   @override
-  String get pbtText => 'COUNCIL SERVICES';
+  String get pbtText => 'COUNCIL SERVICE BILLS';
 
   @override
   String get rentText => 'OTHER RENTALS';
@@ -457,7 +457,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cardButton => 'PAY BY CARD';
 
   @override
-  String get qrButton => 'PAY WITH QR';
+  String get qrButton => 'PAY WITH DUITNOW QR';
 
   @override
   String get weAcceptText => 'WE ACCEPT :';
@@ -4179,10 +4179,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get serviceSelectionLabel => 'SERVICE SELECTION';
 
   @override
-  String get pbtSupportingText => 'Local authority services';
+  String get pbtSupportingText => 'View and pay council service bills';
 
   @override
-  String get billSupportingText => 'Check and pay utility bills';
+  String get billSupportingText => 'Bill payments, top-ups, gaming credits, vouchers and more.';
 
   @override
   String get touristSupportingText => 'Explore nearby attractions and facilities';
@@ -4559,64 +4559,64 @@ class AppLocalizationsEn extends AppLocalizations {
   String get didYouKnowSubtitle => 'Discover something new while exploring our services.';
 
   @override
-  String get knowledgeFact01 => 'Octopuses have three hearts, and their blood appears blue because it contains a copper-based protein called hemocyanin.';
+  String get knowledgeFact01 => 'Malaysia has 13 states and three federal territories.';
 
   @override
-  String get knowledgeFact02 => 'A day on Venus is longer than a year on Venus because the planet rotates extremely slowly.';
+  String get knowledgeFact02 => 'Malaysia\'s national flower is the hibiscus, known locally as bunga raya.';
 
   @override
-  String get knowledgeFact03 => 'Honey can remain edible for a very long time when it is sealed properly and protected from moisture.';
+  String get knowledgeFact03 => 'The five principles of the Rukun Negara encourage unity, respect and harmony among Malaysians.';
 
   @override
-  String get knowledgeFact04 => 'The human brain contains around 86 billion neurons that work together to process information.';
+  String get knowledgeFact04 => 'Bahasa Melayu is Malaysia\'s national language, connecting people from diverse communities.';
 
   @override
-  String get knowledgeFact05 => 'Lightning can heat the surrounding air to temperatures hotter than the surface of the Sun.';
+  String get knowledgeFact05 => 'Local councils help manage community facilities and public spaces within their administrative areas.';
 
   @override
-  String get knowledgeFact06 => 'Malaysia is one of the world\'s most biodiverse countries and is home to thousands of plant and animal species.';
+  String get knowledgeFact06 => 'Assessment tax helps fund local services and the upkeep of public facilities.';
 
   @override
-  String get knowledgeFact07 => 'Mangrove forests help protect coastlines by reducing wave energy and limiting coastal erosion.';
+  String get knowledgeFact07 => 'Keeping your payment receipts makes it easier to check past transactions and follow up on enquiries.';
 
   @override
-  String get knowledgeFact08 => 'Trees can help cool urban areas by providing shade and releasing water vapour through transpiration.';
+  String get knowledgeFact08 => 'When reporting a damaged public facility, include its location and a clear description to help the responsible agency respond.';
 
   @override
-  String get knowledgeFact09 => 'The largest known animal on Earth is the blue whale, which can grow longer than a city bus.';
+  String get knowledgeFact09 => 'Keeping drains free of rubbish helps water flow and reduces the risk of blockages.';
 
   @override
-  String get knowledgeFact10 => 'The Moon moves approximately 3.8 centimetres farther away from Earth every year.';
+  String get knowledgeFact10 => 'Public parks provide spaces for recreation, exercise and community activities.';
 
   @override
-  String get knowledgeFact11 => 'A group of flamingos is called a flamboyance.';
+  String get knowledgeFact11 => 'Using designated parking spaces helps keep roads, entrances and pedestrian routes accessible.';
 
   @override
-  String get knowledgeFact12 => 'Bananas are botanically classified as berries, while strawberries are not true berries.';
+  String get knowledgeFact12 => 'Parking spaces reserved for persons with disabilities help those who need easier access to buildings and services.';
 
   @override
-  String get knowledgeFact13 => 'The fingerprints of koalas are remarkably similar to human fingerprints.';
+  String get knowledgeFact13 => 'Keeping pavements clear makes it easier for pedestrians, wheelchair users and families with strollers to get around.';
 
   @override
-  String get knowledgeFact14 => 'Sound travels faster through water than through air because particles are packed more closely together.';
+  String get knowledgeFact14 => 'Separating recyclable materials from other waste makes them easier to collect and process.';
 
   @override
-  String get knowledgeFact15 => 'The Amazon rainforest helps influence rainfall patterns across large parts of South America.';
+  String get knowledgeFact15 => 'Reusable shopping bags and water bottles can help reduce single-use waste.';
 
   @override
-  String get knowledgeFact16 => 'Recycling aluminium uses far less energy than producing new aluminium from raw materials.';
+  String get knowledgeFact16 => 'Malaysia\'s mangrove forests provide wildlife habitats and help protect coastlines.';
 
   @override
-  String get knowledgeFact17 => 'The International Space Station travels around Earth at approximately 28,000 kilometres per hour.';
+  String get knowledgeFact17 => 'Trees provide shade and help make streets, parks and neighbourhoods more comfortable.';
 
   @override
-  String get knowledgeFact18 => 'Coral reefs support a large variety of marine life even though they cover only a small part of the ocean floor.';
+  String get knowledgeFact18 => 'Supporting local traders helps strengthen the community\'s economy.';
 
   @override
-  String get knowledgeFact19 => 'Regular walking can help improve cardiovascular fitness, balance and overall well-being.';
+  String get knowledgeFact19 => 'Caring for heritage buildings helps preserve local history for future generations.';
 
   @override
-  String get knowledgeFact20 => 'Digital receipts can reduce paper usage and make transaction records easier to keep and retrieve.';
+  String get knowledgeFact20 => 'Before confirming a kiosk payment, check the service, account details and amount carefully.';
 
   @override
   String get billPayment => 'Bill Payment';

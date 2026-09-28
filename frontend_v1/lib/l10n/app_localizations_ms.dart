@@ -21,7 +21,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get p2Title => 'PELBAGAI PERKHIDMATAN';
 
   @override
-  String get pbtText => 'PERKHIDMATAN MAJLIS';
+  String get pbtText => 'BIL PERKHIDMATAN MAJLIS';
 
   @override
   String get rentText => 'SEWAAN LAIN';
@@ -448,10 +448,10 @@ class AppLocalizationsMs extends AppLocalizations {
   String get totalAmountText => 'JUMLAH AMAUN';
 
   @override
-  String get cardButton => 'BAYAR KAD';
+  String get cardButton => 'BAYAR DENGAN KAD';
 
   @override
-  String get qrButton => 'BAYAR QR';
+  String get qrButton => 'BAYAR DENGAN DUITNOW QR';
 
   @override
   String get weAcceptText => 'KAMI MENERIMA :';
@@ -4173,10 +4173,10 @@ class AppLocalizationsMs extends AppLocalizations {
   String get serviceSelectionLabel => 'PILIHAN PERKHIDMATAN';
 
   @override
-  String get pbtSupportingText => 'Perkhidmatan pihak berkuasa tempatan';
+  String get pbtSupportingText => 'Semakan dan pembayaran bil perkhidmatan majlis';
 
   @override
-  String get billSupportingText => 'Semakan dan pembayaran bil perkhidmatan';
+  String get billSupportingText => 'Bayaran bil, tambah nilai, kredit permainan, baucar dan banyak lagi.';
 
   @override
   String get touristSupportingText => 'Terokai lokasi menarik dan kemudahan sekitar';
@@ -4553,64 +4553,64 @@ class AppLocalizationsMs extends AppLocalizations {
   String get didYouKnowSubtitle => 'Temui ilmu baharu sambil meneroka perkhidmatan kami.';
 
   @override
-  String get knowledgeFact01 => 'Sotong kurita mempunyai tiga jantung dan darahnya kelihatan biru kerana mengandungi protein berasaskan kuprum yang dipanggil hemosianin.';
+  String get knowledgeFact01 => 'Malaysia terdiri daripada 13 negeri dan tiga Wilayah Persekutuan.';
 
   @override
-  String get knowledgeFact02 => 'Satu hari di planet Zuhrah lebih panjang daripada satu tahunnya kerana planet itu berputar dengan sangat perlahan.';
+  String get knowledgeFact02 => 'Bunga raya ialah bunga kebangsaan Malaysia.';
 
   @override
-  String get knowledgeFact03 => 'Madu boleh kekal selamat dimakan untuk tempoh yang sangat lama apabila disimpan dengan baik dan terlindung daripada kelembapan.';
+  String get knowledgeFact03 => 'Lima prinsip Rukun Negara menggalakkan perpaduan, sikap saling menghormati dan keharmonian rakyat Malaysia.';
 
   @override
-  String get knowledgeFact04 => 'Otak manusia mengandungi kira-kira 86 bilion neuron yang bekerjasama untuk memproses maklumat.';
+  String get knowledgeFact04 => 'Bahasa Melayu ialah bahasa kebangsaan Malaysia yang menghubungkan masyarakat pelbagai kaum.';
 
   @override
-  String get knowledgeFact05 => 'Kilat boleh memanaskan udara di sekelilingnya sehingga mencapai suhu yang lebih panas daripada permukaan Matahari.';
+  String get knowledgeFact05 => 'Pihak berkuasa tempatan membantu mengurus kemudahan masyarakat dan ruang awam dalam kawasan pentadbiran masing-masing.';
 
   @override
-  String get knowledgeFact06 => 'Malaysia merupakan antara negara yang mempunyai biodiversiti tertinggi di dunia dengan ribuan spesies tumbuhan dan haiwan.';
+  String get knowledgeFact06 => 'Cukai taksiran membantu membiayai perkhidmatan tempatan dan penyelenggaraan kemudahan awam.';
 
   @override
-  String get knowledgeFact07 => 'Hutan bakau membantu melindungi kawasan pantai dengan mengurangkan tenaga ombak dan hakisan pantai.';
+  String get knowledgeFact07 => 'Menyimpan resit pembayaran memudahkan anda menyemak transaksi terdahulu dan membuat pertanyaan susulan.';
 
   @override
-  String get knowledgeFact08 => 'Pokok membantu menyejukkan kawasan bandar melalui teduhan dan pembebasan wap air menerusi proses transpirasi.';
+  String get knowledgeFact08 => 'Semasa melaporkan kerosakan kemudahan awam, sertakan lokasi dan penerangan yang jelas bagi memudahkan tindakan agensi berkaitan.';
 
   @override
-  String get knowledgeFact09 => 'Haiwan terbesar yang diketahui di Bumi ialah paus biru, yang boleh membesar lebih panjang daripada sebuah bas bandar.';
+  String get knowledgeFact09 => 'Longkang yang bebas daripada sampah membantu melancarkan aliran air dan mengurangkan risiko tersumbat.';
 
   @override
-  String get knowledgeFact10 => 'Bulan bergerak kira-kira 3.8 sentimeter semakin jauh daripada Bumi pada setiap tahun.';
+  String get knowledgeFact10 => 'Taman awam menyediakan ruang untuk beriadah, bersenam dan menjalankan aktiviti masyarakat.';
 
   @override
-  String get knowledgeFact11 => 'Sekumpulan burung flamingo dikenali dalam bahasa Inggeris sebagai \'flamboyance\'.';
+  String get knowledgeFact11 => 'Meletakkan kenderaan di petak yang ditetapkan membantu memastikan jalan, pintu masuk dan laluan pejalan kaki tidak terhalang.';
 
   @override
-  String get knowledgeFact12 => 'Pisang secara botani diklasifikasikan sebagai beri, manakala strawberi bukanlah beri sebenar.';
+  String get knowledgeFact12 => 'Petak parkir khas Orang Kurang Upaya (OKU) memudahkan akses ke bangunan dan perkhidmatan.';
 
   @override
-  String get knowledgeFact13 => 'Cap jari koala mempunyai corak yang sangat menyerupai cap jari manusia.';
+  String get knowledgeFact13 => 'Laluan pejalan kaki yang bebas halangan memudahkan pergerakan pejalan kaki, pengguna kerusi roda dan keluarga dengan kereta sorong bayi.';
 
   @override
-  String get knowledgeFact14 => 'Bunyi bergerak lebih pantas di dalam air berbanding udara kerana zarah air tersusun lebih rapat.';
+  String get knowledgeFact14 => 'Mengasingkan bahan kitar semula daripada sampah lain memudahkan proses pengumpulan dan pemprosesan.';
 
   @override
-  String get knowledgeFact15 => 'Hutan hujan Amazon membantu mempengaruhi corak hujan di kawasan yang luas di Amerika Selatan.';
+  String get knowledgeFact15 => 'Beg beli-belah dan botol air guna semula membantu mengurangkan sisa barangan sekali guna.';
 
   @override
-  String get knowledgeFact16 => 'Kitar semula aluminium menggunakan tenaga yang jauh lebih rendah berbanding menghasilkan aluminium baharu daripada bahan mentah.';
+  String get knowledgeFact16 => 'Hutan paya bakau di Malaysia menjadi habitat hidupan liar dan membantu melindungi kawasan pantai.';
 
   @override
-  String get knowledgeFact17 => 'Stesen Angkasa Antarabangsa bergerak mengelilingi Bumi pada kelajuan kira-kira 28,000 kilometer sejam.';
+  String get knowledgeFact17 => 'Pokok memberikan teduhan dan membantu menjadikan jalan, taman serta kawasan kejiranan lebih selesa.';
 
   @override
-  String get knowledgeFact18 => 'Terumbu karang menyokong pelbagai hidupan laut walaupun hanya meliputi sebahagian kecil dasar lautan.';
+  String get knowledgeFact18 => 'Menyokong peniaga tempatan membantu mengukuhkan ekonomi masyarakat setempat.';
 
   @override
-  String get knowledgeFact19 => 'Berjalan kaki secara berkala boleh membantu meningkatkan kecergasan jantung, keseimbangan dan kesejahteraan keseluruhan.';
+  String get knowledgeFact19 => 'Menjaga bangunan warisan membantu memelihara sejarah tempatan untuk generasi akan datang.';
 
   @override
-  String get knowledgeFact20 => 'Resit digital membantu mengurangkan penggunaan kertas serta memudahkan rekod transaksi disimpan dan dicapai semula.';
+  String get knowledgeFact20 => 'Sebelum mengesahkan pembayaran di kiosk, semak jenis perkhidmatan, butiran akaun dan jumlah bayaran dengan teliti.';
 
   @override
   String get billPayment => 'Pembayaran Bil';

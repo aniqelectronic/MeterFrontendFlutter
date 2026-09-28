@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
-class FaqPage extends StatelessWidget {
+class FaqPage extends StatefulWidget {
   final String councilHotlineNumber;
   final String operationsHotlineNumber;
 
@@ -12,9 +13,84 @@ class FaqPage extends StatelessWidget {
     this.operationsHotlineNumber = 'SILA MASUKKAN NOMBOR OPERASI',
   });
 
+  @override
+  State<FaqPage> createState() => _FaqPageState();
+}
+
+class _FaqPageState extends State<FaqPage> {
   static const Color primaryBlue = Color(0xFF0B63D8);
   static const Color darkBlue = Color(0xFF173459);
-  static const Color softBlue = Color(0xFFF2F7FF);
+
+  final ScrollController _scrollController = ScrollController();
+
+  bool _showScrollUp = false;
+  bool _showScrollDown = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController.addListener(_handleScroll);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _handleScroll();
+    });
+  }
+
+  void _handleScroll() {
+    if (!_scrollController.hasClients || !mounted) return;
+
+    final position = _scrollController.position;
+    final maxScroll = position.maxScrollExtent;
+    final current = position.pixels;
+
+    final showUp = current > 10;
+    final showDown = maxScroll > 10 && current < maxScroll - 10;
+
+    if (_showScrollUp != showUp || _showScrollDown != showDown) {
+      setState(() {
+        _showScrollUp = showUp;
+        _showScrollDown = showDown;
+      });
+    }
+  }
+
+  void _scrollUp() {
+    if (!_scrollController.hasClients) return;
+
+    final destination = (_scrollController.offset - 500).clamp(
+      0.0,
+      _scrollController.position.maxScrollExtent,
+    );
+
+    _scrollController.animateTo(
+      destination,
+      duration: const Duration(milliseconds: 450),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  void _scrollDown() {
+    if (!_scrollController.hasClients) return;
+
+    final destination = (_scrollController.offset + 500).clamp(
+      0.0,
+      _scrollController.position.maxScrollExtent,
+    );
+
+    _scrollController.animateTo(
+      destination,
+      duration: const Duration(milliseconds: 450),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_handleScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   List<_FaqItem> _items(AppLocalizations loc) {
     return [
@@ -22,8 +98,8 @@ class FaqPage extends StatelessWidget {
         icon: Icons.info_outline_rounded,
         title: loc.faqWhatIsKioskTitle,
         content: loc.faqWhatIsKioskContent,
-        accentColor: const Color(0xFF1565C0),
-        softColor: const Color(0xFFEAF3FF),
+        accentColor: const Color(0xFF1469E8),
+        softColor: const Color(0xFFE6F0FF),
       ),
       _FaqItem(
         icon: Icons.account_balance_rounded,
@@ -37,14 +113,14 @@ class FaqPage extends StatelessWidget {
         title: loc.faqBillServicesTitle,
         content: loc.faqBillServicesContent,
         accentColor: const Color(0xFF008F72),
-        softColor: const Color(0xFFE5F8F2),
+        softColor: const Color(0xFFE0F8F1),
       ),
       _FaqItem(
         icon: Icons.qr_code_2_rounded,
         title: loc.faqReceiptTitle,
         content: loc.faqReceiptContent,
-        accentColor: const Color(0xFF7A4DD8),
-        softColor: const Color(0xFFF1EBFF),
+        accentColor: const Color(0xFF7B4DE3),
+        softColor: const Color(0xFFF0E9FF),
       ),
       _FaqItem(
         icon: Icons.credit_card_rounded,
@@ -57,8 +133,8 @@ class FaqPage extends StatelessWidget {
         icon: Icons.error_outline_rounded,
         title: loc.faqPaymentFailedTitle,
         content: loc.faqPaymentFailedContent,
-        accentColor: const Color(0xFFD65A31),
-        softColor: const Color(0xFFFFEEE8),
+        accentColor: const Color(0xFFE34E45),
+        softColor: const Color(0xFFFFE7E5),
       ),
       _FaqItem(
         icon: Icons.security_rounded,
@@ -92,17 +168,17 @@ class FaqPage extends StatelessWidget {
     ];
   }
 
-
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final faqItems = _items(loc);
-    final ScrollController pageScrollController = ScrollController();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F7FB),
       body: Stack(
         children: [
+          // ============================================================
+          // BACKGROUND
+          // ============================================================
           Positioned.fill(
             child: Image.asset(
               'lib/images/pnew.png',
@@ -110,6 +186,9 @@ class FaqPage extends StatelessWidget {
             ),
           ),
 
+          // ============================================================
+          // SOFT OVERLAY - SAME FAMILY AS PBT3
+          // ============================================================
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -117,210 +196,140 @@ class FaqPage extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.white.withOpacity(0.90),
-                    const Color(0xFFF2F6FB).withOpacity(0.97),
-                    Colors.white.withOpacity(0.94),
+                    Colors.white.withOpacity(0.05),
+                    Colors.white.withOpacity(0.16),
+                    Colors.white.withOpacity(0.08),
                   ],
                 ),
               ),
             ),
           ),
 
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(28, 28, 28, 26),
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.fromLTRB(30, 24, 30, 24),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF083B8C),
-                          Color(0xFF0B63D8),
-                          Color(0xFF2196F3),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF083B8C).withOpacity(0.34),
-                          blurRadius: 34,
-                          offset: const Offset(0, 14),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 92,
-                          height: 92,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.20),
-                            borderRadius: BorderRadius.circular(24),
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.48),
-                              width: 2,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.white.withOpacity(0.12),
-                                blurRadius: 18,
-                                spreadRadius: 2,
-                              ),
-                            ],
-                          ),
-                          child: const Icon(
-                            Icons.help_center_rounded,
-                            color: Colors.white,
-                            size: 50,
-                          ),
-                        ),
-                        const SizedBox(width: 24),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                loc.faqTitle,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 46,
-                                  fontWeight: FontWeight.w900,
-                                  letterSpacing: 0.3,
-                                  height: 1.05,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                loc.faqSubtitle,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.white.withOpacity(0.90),
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.25,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+          // ============================================================
+          // HEADER
+          // ============================================================
+          Positioned(
+            top: 45,
+            left: 65,
+            right: 65,
+            child: _ModernFaqHeader(
+              badgeText: loc.faqTitle,
+              title: loc.faqTitle,
+              subtitle: loc.faqSubtitle,
+            ),
+          ),
 
-                  const SizedBox(height: 60),
+          // ============================================================
+          // FAQ SERVICE AREA
+          // ============================================================
+          Positioned(
+            top: 330,
+            left: 60,
+            right: 60,
+            bottom: 300,
+            child: Scrollbar(
+              controller: _scrollController,
+              thumbVisibility: true,
+              trackVisibility: false,
+              thickness: 8,
+              radius: const Radius.circular(20),
+              child: GridView.builder(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
+                padding: const EdgeInsets.only(
+                  top: 28,
+                  right: 22,
+                  bottom: 90,
+                ),
+                itemCount: faqItems.length,
+                gridDelegate:
+                    const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 36,
+                  mainAxisSpacing: 36,
 
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.fromLTRB(18, 18, 10, 18),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.99),
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                          color: const Color(0xFFB9C9DA),
-                          width: 2,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF173459).withOpacity(0.18),
-                            blurRadius: 28,
-                            offset: const Offset(0, 12),
-                          ),
-                        ],
-                      ),
-                      child: Scrollbar(
-                        controller: pageScrollController,
-                        thumbVisibility: true,
-                        trackVisibility: true,
-                        interactive: true,
-                        scrollbarOrientation: ScrollbarOrientation.right,
-                        thickness: 14,
-                        radius: const Radius.circular(20),
-                        child: GridView.builder(
-                          controller: pageScrollController,
-                          physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.only(right: 14),
-                          itemCount: faqItems.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 14,
-                            crossAxisSpacing: 14,
-                            childAspectRatio: 1.78,
-                          ),
-                          itemBuilder: (context, index) {
-                            final item = faqItems[index];
+                  // Taller cards like PBT3.
+                  childAspectRatio: 0.78,
+                ),
+                itemBuilder: (context, index) {
+                  final item = faqItems[index];
 
-                            return _FaqQuestionCard(
-                              item: item,
-                              onTap: () {
-                                _showFaqDialog(
-                                  context,
-                                  loc,
-                                  item,
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
+                  return _ModernFaqButton(
+                    item: item,
+                    onPressed: () {
+                      _showFaqDialog(
+                        context,
+                        loc,
+                        item,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
 
-                  const SizedBox(height: 60),
+          // ============================================================
+          // SCROLL UP
+          // ============================================================
+          if (_showScrollUp)
+            Positioned(
+              right: 20,
+              top: 360,
+              child: _ScrollIndicatorButton(
+                icon: Icons.keyboard_arrow_up_rounded,
+                label: loc.scrollup,
+                onPressed: _scrollUp,
+              ),
+            ),
 
-                  SizedBox(
-                    width: double.infinity,
-                    height: 88,
-                    child: ElevatedButton.icon(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(
-                        Icons.arrow_back_rounded,
-                        size: 36,
-                      ),
-                      label: Text(
-                        loc.backButton,
-                        style: const TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: const Color(0xFF102A43),
-                        elevation: 4,
-                        shadowColor: const Color(0xFF173459).withOpacity(0.20),
-                        side: const BorderSide(
-                          color: Color(0xFF8FA6BE),
-                          width: 2.2,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    ),
-                  ),
+          // ============================================================
+          // SCROLL DOWN
+          // ============================================================
+          if (_showScrollDown)
+            Positioned(
+              right: 20,
+              bottom: 300,
+              child: _ScrollIndicatorButton(
+                icon: Icons.keyboard_arrow_down_rounded,
+                label: loc.scrolldown,
+                onPressed: _scrollDown,
+                iconBelowText: true,
+              ),
+            ),
 
-                  const SizedBox(height: 30),
+          // ============================================================
+          // BACK BUTTON
+          // ============================================================
+          Positioned(
+            bottom: 100,
+            left: 300,
+            right: 300,
+            child: KioskBackButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
 
-                  Text(
-                    Data.copyrightText,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color(0xFF34465D),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
+          // ============================================================
+          // COPYRIGHT
+          // ============================================================
+          Positioned(
+            bottom: 20,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                Data.copyrightText,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Color(0xFF26364A),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ),
@@ -328,6 +337,10 @@ class FaqPage extends StatelessWidget {
       ),
     );
   }
+
+  // ==========================================================================
+  // FAQ DIALOG
+  // ==========================================================================
 
   Future<void> _showFaqDialog(
     BuildContext context,
@@ -342,25 +355,29 @@ class FaqPage extends StatelessWidget {
       barrierLabel: 'FAQ',
       barrierColor: Colors.black.withOpacity(0.58),
       transitionDuration: const Duration(milliseconds: 260),
-      pageBuilder: (dialogContext, animation, secondaryAnimation) {
+      pageBuilder: (
+        dialogContext,
+        animation,
+        secondaryAnimation,
+      ) {
         return SafeArea(
           child: Center(
             child: Material(
               color: Colors.transparent,
               child: Container(
-                width: 770,
+                width: 720,
                 constraints: const BoxConstraints(
                   maxHeight: 980,
                 ),
                 margin: const EdgeInsets.symmetric(
-                  horizontal: 42,
+                  horizontal: 38,
                   vertical: 36,
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(32),
                   border: Border.all(
-                    color: const Color(0xFFB9C9DA),
+                    color: const Color(0xFFD5E4F7),
                     width: 2,
                   ),
                   boxShadow: [
@@ -372,20 +389,25 @@ class FaqPage extends StatelessWidget {
                   ],
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(28),
+                  borderRadius: BorderRadius.circular(30),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      // ======================================================
+                      // DIALOG HEADER
+                      // ======================================================
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.fromLTRB(
-                          32,
                           30,
-                          24,
+                          28,
+                          22,
                           28,
                         ),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                             colors: [
                               item.softColor,
                               Colors.white,
@@ -395,15 +417,27 @@ class FaqPage extends StatelessWidget {
                         child: Row(
                           children: [
                             Container(
-                              width: 96,
-                              height: 96,
+                              width: 94,
+                              height: 94,
                               decoration: BoxDecoration(
-                                color: item.accentColor,
-                                borderRadius: BorderRadius.circular(22),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    item.accentColor,
+                                    Color.lerp(
+                                      item.accentColor,
+                                      Colors.white,
+                                      0.18,
+                                    )!,
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(26),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: item.accentColor.withOpacity(0.22),
-                                    blurRadius: 15,
+                                    color:
+                                        item.accentColor.withOpacity(0.24),
+                                    blurRadius: 18,
                                     offset: const Offset(0, 8),
                                   ),
                                 ],
@@ -411,10 +445,10 @@ class FaqPage extends StatelessWidget {
                               child: Icon(
                                 item.icon,
                                 color: Colors.white,
-                                size: 46,
+                                size: 48,
                               ),
                             ),
-                            const SizedBox(width: 20),
+                            const SizedBox(width: 22),
                             Expanded(
                               child: Text(
                                 item.title,
@@ -427,15 +461,18 @@ class FaqPage extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 12),
+
                             Material(
-                              color: const Color(0xFFF1F3F6),
+                              color: const Color(0xFFF1F4F8),
                               shape: const CircleBorder(),
                               child: InkWell(
-                                onTap: () => Navigator.pop(dialogContext),
+                                onTap: () {
+                                  Navigator.pop(dialogContext);
+                                },
                                 customBorder: const CircleBorder(),
                                 child: const SizedBox(
-                                  width: 56,
-                                  height: 56,
+                                  width: 58,
+                                  height: 58,
                                   child: Icon(
                                     Icons.close_rounded,
                                     color: Color(0xFF2C3747),
@@ -447,74 +484,55 @@ class FaqPage extends StatelessWidget {
                           ],
                         ),
                       ),
+
                       const Divider(
                         height: 1,
                         color: Color(0xFFDCE5EF),
                       ),
-                      Flexible(
-                        child: Stack(
-                          children: [
-                            Scrollbar(
-                              controller: dialogScrollController,
-                              thumbVisibility: true,
-                              trackVisibility: true,
-                              thickness: 12,
-                              radius: const Radius.circular(20),
-                              child: SingleChildScrollView(
-                                controller: dialogScrollController,
-                                padding: const EdgeInsets.fromLTRB(
-                                  34,
-                                  32,
-                                  60,
-                                  34,
-                                ),
-                                child: item.isHelp
-                                    ? _buildHelpDialogContent(loc, item)
-                                    : Text(
-                                        item.content,
-                                        style: const TextStyle(
-                                          color: Color(0xFF1E2F43),
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.w700,
-                                          height: 1.50,
-                                        ),
-                                      ),
-                              ),
-                            ),
 
-                            Positioned(
-                              right: 12,
-                              bottom: 12,
-                              child: IgnorePointer(
-                                // child: Container(
-                                //   width: 46,
-                                //   height: 46,
-                                //   decoration: BoxDecoration(
-                                //     color: item.accentColor,
-                                //     shape: BoxShape.circle,
-                                //     boxShadow: [
-                                //       BoxShadow(
-                                //         color: item.accentColor.withOpacity(0.35),
-                                //         blurRadius: 12,
-                                //         offset: const Offset(0, 5),
-                                //       ),
-                                //     ],
-                                //   ),
-                                //   child: const Icon(
-                                //     Icons.keyboard_double_arrow_down_rounded,
-                                //     color: Colors.white,
-                                //     size: 30,
-                                //   ),
-                                // ),
-                              ),
+                      // ======================================================
+                      // DIALOG CONTENT
+                      // ======================================================
+                      Flexible(
+                        child: Scrollbar(
+                          controller: dialogScrollController,
+                          thumbVisibility: true,
+                          trackVisibility: true,
+                          thickness: 11,
+                          radius: const Radius.circular(20),
+                          child: SingleChildScrollView(
+                            controller: dialogScrollController,
+                            padding: const EdgeInsets.fromLTRB(
+                              34,
+                              34,
+                              55,
+                              32,
                             ),
-                          ],
+                            child: item.isHelp
+                                ? _buildHelpDialogContent(
+                                    loc,
+                                    item,
+                                  )
+                                : Text(
+                                    item.content,
+                                    style: const TextStyle(
+                                      color: Color(0xFF1E2F43),
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w700,
+                                      height: 1.5,
+                                    ),
+                                  ),
+                          ),
                         ),
                       ),
+
+                      // ======================================================
+                      // DIALOG OK BUTTON
+                      // ======================================================
                       Padding(
                         padding: const EdgeInsets.fromLTRB(
                           30,
-                          0,
+                          10,
                           30,
                           28,
                         ),
@@ -522,11 +540,13 @@ class FaqPage extends StatelessWidget {
                           width: double.infinity,
                           height: 86,
                           child: ElevatedButton(
-                            onPressed: () => Navigator.pop(dialogContext),
+                            onPressed: () {
+                              Navigator.pop(dialogContext);
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: item.accentColor,
                               foregroundColor: Colors.white,
-                              elevation: 6,
+                              elevation: 5,
                               shadowColor:
                                   item.accentColor.withOpacity(0.30),
                               shape: RoundedRectangleBorder(
@@ -579,6 +599,10 @@ class FaqPage extends StatelessWidget {
     dialogScrollController.dispose();
   }
 
+  // ==========================================================================
+  // HELP CONTENT
+  // ==========================================================================
+
   Widget _buildHelpDialogContent(
     AppLocalizations loc,
     _FaqItem item,
@@ -590,26 +614,33 @@ class FaqPage extends StatelessWidget {
           item.content,
           style: const TextStyle(
             color: Color(0xFF34465D),
-            fontSize: 31,
+            fontSize: 30,
             fontWeight: FontWeight.w600,
             height: 1.5,
           ),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 28),
+
         _contactCard(
           icon: Icons.account_balance_rounded,
           title: loc.parkingCouncilHotline,
-          number: councilHotlineNumber,
+          number: widget.councilHotlineNumber,
         ),
-        const SizedBox(height: 16),
+
+        const SizedBox(height: 18),
+
         _contactCard(
           icon: Icons.engineering_rounded,
           title: loc.parkingCityCarParkHotline,
-          number: operationsHotlineNumber,
+          number: widget.operationsHotlineNumber,
         ),
       ],
     );
   }
+
+  // ==========================================================================
+  // CONTACT CARD
+  // ==========================================================================
 
   Widget _contactCard({
     required IconData icon,
@@ -620,11 +651,11 @@ class FaqPage extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
-        vertical: 18,
+        vertical: 20,
       ),
       decoration: BoxDecoration(
         color: const Color(0xFFFFF8ED),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(22),
         border: Border.all(
           color: const Color(0xFFE5B66F),
           width: 1.7,
@@ -633,19 +664,19 @@ class FaqPage extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 58,
-            height: 58,
+            width: 62,
+            height: 62,
             decoration: BoxDecoration(
               color: const Color(0xFFFFE7C5),
-              borderRadius: BorderRadius.circular(17),
+              borderRadius: BorderRadius.circular(18),
             ),
             child: Icon(
               icon,
               color: const Color(0xFFC96813),
-              size: 32,
+              size: 34,
             ),
           ),
-          const SizedBox(width: 17),
+          const SizedBox(width: 18),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -663,17 +694,18 @@ class FaqPage extends StatelessWidget {
                   number,
                   style: const TextStyle(
                     color: Color(0xFF293544),
-                    fontSize: 34,
+                    fontSize: 33,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
               ],
             ),
           ),
+          const SizedBox(width: 10),
           const Icon(
             Icons.phone_in_talk_rounded,
             color: Color(0xFF168A45),
-            size: 34,
+            size: 35,
           ),
         ],
       ),
@@ -681,163 +713,502 @@ class FaqPage extends StatelessWidget {
   }
 }
 
-class _FaqQuestionCard extends StatefulWidget {
-  final _FaqItem item;
-  final VoidCallback onTap;
+// =============================================================================
+// MODERN HEADER - SAME DESIGN LANGUAGE AS PBT3
+// =============================================================================
 
-  const _FaqQuestionCard({
-    required this.item,
-    required this.onTap,
+class _ModernFaqHeader extends StatelessWidget {
+  final String badgeText;
+  final String title;
+  final String subtitle;
+
+  const _ModernFaqHeader({
+    required this.badgeText,
+    required this.title,
+    required this.subtitle,
   });
 
   @override
-  State<_FaqQuestionCard> createState() => _FaqQuestionCardState();
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(32),
+        border: Border.all(
+          color: const Color(0xFFD5E4F7),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF173A66).withOpacity(0.14),
+            blurRadius: 30,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // ===============================================================
+          // LEFT ICON
+          // ===============================================================
+          Container(
+            width: 105,
+            height: 105,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF064AA3),
+                  Color(0xFF1478D4),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF095AB8).withOpacity(0.28),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.help_center_rounded,
+              color: Colors.white,
+              size: 56,
+            ),
+          ),
+
+          const SizedBox(width: 28),
+
+          // ===============================================================
+          // TEXT AREA
+          // ===============================================================
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE9F3FF),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.question_answer_rounded,
+                        size: 20,
+                        color: Color(0xFF1265BC),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        badgeText.toUpperCase(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Color(0xFF1265BC),
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 1.1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF122C4C),
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    height: 1.02,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+
+                const SizedBox(height: 9),
+
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF607188),
+                    fontSize: 28,
+                    fontWeight: FontWeight.w600,
+                    height: 1.25,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 24),
+
+          // ===============================================================
+          // RIGHT ACCENT
+          // ===============================================================
+          Container(
+            width: 8,
+            height: 105,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF0751A8),
+                  Color(0xFF2196E8),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class _FaqQuestionCardState extends State<_FaqQuestionCard> {
-  bool isPressed = false;
+// =============================================================================
+// FAQ BUTTON - PBT3 SERVICE CARD STYLE
+// =============================================================================
 
-  void setPressed(bool value) {
+class _ModernFaqButton extends StatefulWidget {
+  final _FaqItem item;
+  final VoidCallback onPressed;
+
+  const _ModernFaqButton({
+    required this.item,
+    required this.onPressed,
+  });
+
+  @override
+  State<_ModernFaqButton> createState() => _ModernFaqButtonState();
+}
+
+class _ModernFaqButtonState extends State<_ModernFaqButton> {
+  bool _isPressed = false;
+  bool _isFocused = false;
+
+  void _setPressed(bool value) {
     if (!mounted) return;
-    setState(() => isPressed = value);
+
+    setState(() {
+      _isPressed = value;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (_) => setPressed(true),
-      onTapUp: (_) => setPressed(false),
-      onTapCancel: () => setPressed(false),
-      onTap: widget.onTap,
-      child: AnimatedScale(
-        scale: isPressed ? 0.975 : 1,
-        duration: const Duration(milliseconds: 120),
-        curve: Curves.easeOutCubic,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
-          curve: Curves.easeOutCubic,
-          decoration: BoxDecoration(
-            color: isPressed
-                ? widget.item.softColor.withOpacity(0.92)
-                : Colors.white,
-            borderRadius: BorderRadius.circular(22),
-            border: Border.all(
-              color: isPressed
-                  ? widget.item.accentColor
-                  : widget.item.accentColor.withOpacity(0.34),
-              width: isPressed ? 2.8 : 1.8,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: isPressed
-                    ? widget.item.accentColor.withOpacity(0.28)
-                    : const Color(0xFF173459).withOpacity(0.12),
-                blurRadius: isPressed ? 20 : 13,
-                offset: const Offset(0, 7),
+    final radius = BorderRadius.circular(26);
+    final emphasized = _isPressed || _isFocused;
+
+    final borderColor = emphasized
+        ? widget.item.accentColor
+        : Color.lerp(
+            const Color(0xFFB9C8DA),
+            widget.item.accentColor,
+            0.28,
+          )!;
+
+    return AnimatedScale(
+      scale: _isPressed ? 0.985 : 1.0,
+      duration: const Duration(milliseconds: 120),
+      curve: Curves.easeOutCubic,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 160),
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF18324F).withOpacity(
+                _isPressed ? 0.05 : 0.11,
               ),
-            ],
+              blurRadius: _isPressed ? 8 : 18,
+              offset: Offset(
+                0,
+                _isPressed ? 2 : 7,
+              ),
+            ),
+          ],
+        ),
+        child: Material(
+          color: Colors.white,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: radius,
+            side: BorderSide(
+              color: borderColor,
+              width: 2,
+            ),
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+          child: InkWell(
+            onTap: widget.onPressed,
+            onHighlightChanged: _setPressed,
+            onFocusChange: (focused) {
+              if (!mounted) return;
+
+              setState(() {
+                _isFocused = focused;
+              });
+            },
+            splashColor:
+                widget.item.accentColor.withOpacity(0.10),
+            highlightColor:
+                widget.item.accentColor.withOpacity(0.04),
             child: Stack(
+              fit: StackFit.expand,
               children: [
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  bottom: 0,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 160),
-                    width: isPressed ? 10 : 7,
-                    color: widget.item.accentColor,
-                  ),
-                ),
-                Positioned(
-                  top: -28,
-                  right: -22,
-                  child: Container(
-                    width: 96,
-                    height: 96,
-                    decoration: BoxDecoration(
-                      color: widget.item.softColor.withOpacity(0.80),
-                      shape: BoxShape.circle,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // =====================================================
+                    // TOP COLOURED AREA
+                    // =====================================================
+                    Expanded(
+                      flex: 46,
+                      child: LayoutBuilder(
+                        builder: (context, bounds) {
+                          return Stack(
+                            children: [
+                              Positioned.fill(
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        widget.item.softColor,
+                                        Color.lerp(
+                                          Colors.white,
+                                          widget.item.softColor,
+                                          0.42,
+                                        )!,
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              // Decorative circle
+                              Positioned(
+                                right: -35,
+                                top: -35,
+                                child: Container(
+                                  width: 130,
+                                  height: 130,
+                                  decoration: BoxDecoration(
+                                    color: widget.item.accentColor
+                                        .withOpacity(0.06),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+
+                              Positioned(
+                                left: 20,
+                                right: 20,
+                                top: 22,
+                                bottom: 14,
+                                child: IgnorePointer(
+                                  child: AnimatedContainer(
+                                    duration:
+                                        const Duration(milliseconds: 160),
+                                    padding: const EdgeInsets.fromLTRB(
+                                      18,
+                                      16,
+                                      18,
+                                      16,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color.lerp(
+                                        Colors.white,
+                                        widget.item.softColor,
+                                        0.18,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.circular(22),
+                                      border: Border.all(
+                                        color: widget.item.accentColor
+                                            .withOpacity(0.22),
+                                        width: 1.5,
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: widget.item.accentColor
+                                              .withOpacity(
+                                            _isPressed ? 0.08 : 0.15,
+                                          ),
+                                          blurRadius:
+                                              _isPressed ? 10 : 18,
+                                          offset: Offset(
+                                            0,
+                                            _isPressed ? 3 : 7,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Stack(
+                                      children: [
+                                        Center(
+                                          child: Icon(
+                                            widget.item.icon,
+                                            size: 112,
+                                            color:
+                                                widget.item.accentColor,
+                                          ),
+                                        ),
+
+                                        Positioned(
+                                          top: 0,
+                                          right: 0,
+                                          child: Container(
+                                            width: 42,
+                                            height: 42,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  widget.item.accentColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(13),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: widget
+                                                      .item.accentColor
+                                                      .withOpacity(0.25),
+                                                  blurRadius: 10,
+                                                  offset:
+                                                      const Offset(0, 4),
+                                                ),
+                                              ],
+                                            ),
+                                            child: const Icon(
+                                              Icons.arrow_forward_rounded,
+                                              color: Colors.white,
+                                              size: 27,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                  ),
+
+                    // =====================================================
+                    // LOWER TEXT AREA
+                    // =====================================================
+                    Expanded(
+                      flex: 54,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          24,
+                          24,
+                          24,
+                          22,
+                        ),
+                        child: LayoutBuilder(
+                          builder: (context, bounds) {
+                            return SizedBox(
+                              width: bounds.maxWidth,
+                              height: bounds.maxHeight,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.topLeft,
+                                child: SizedBox(
+                                  width: bounds.maxWidth,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        widget.item.title.toUpperCase(),
+                                        softWrap: true,
+                                        style: const TextStyle(
+                                          color: Color(0xFF142D4E),
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w800,
+                                          height: 1.17,
+                                        ),
+                                      ),
+
+                                      const SizedBox(height: 18),
+
+                                      // Row(
+                                      //   children: [
+                                      //     Container(
+                                      //       width: 8,
+                                      //       height: 8,
+                                      //       decoration: BoxDecoration(
+                                      //         color:
+                                      //             widget.item.accentColor,
+                                      //         shape: BoxShape.circle,
+                                      //       ),
+                                      //     ),
+                                      //     const SizedBox(width: 10),
+                                      //     Expanded(
+                                      //       child: Text(
+                                      //         'FAQ',
+                                      //         style: TextStyle(
+                                      //           color: widget
+                                      //               .item.accentColor,
+                                      //           fontSize: 22,
+                                      //           fontWeight:
+                                      //               FontWeight.w800,
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 16, 14, 16),
-                  child: Row(
-                    children: [
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 160),
-                        width: 64,
-                        height: 64,
-                        decoration: BoxDecoration(
-                          color: isPressed
-                              ? widget.item.accentColor
-                              : widget.item.softColor,
-                          borderRadius: BorderRadius.circular(19),
-                          border: Border.all(
-                            color: widget.item.accentColor.withOpacity(0.28),
-                            width: 1.5,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: widget.item.accentColor.withOpacity(0.18),
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Icon(
-                          widget.item.icon,
-                          color: isPressed
-                              ? Colors.white
-                              : widget.item.accentColor,
-                          size: 33,
+
+                // =========================================================
+                // STRONGER BORDER WHEN PRESSED
+                // =========================================================
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: AnimatedContainer(
+                      duration:
+                          const Duration(milliseconds: 160),
+                      decoration: BoxDecoration(
+                        borderRadius: radius,
+                        border: Border.all(
+                          color: borderColor,
+                          width: emphasized ? 3 : 2,
                         ),
                       ),
-                      const SizedBox(width: 15),
-                      Expanded(
-                        child: Text(
-                          widget.item.title,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Color(0xFF102A43),
-                            fontSize: 26,
-                            fontWeight: FontWeight.w900,
-                            height: 1.14,
-                            letterSpacing: 0.1,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 160),
-                        width: isPressed ? 48 : 44,
-                        height: isPressed ? 48 : 44,
-                        decoration: BoxDecoration(
-                          color: widget.item.accentColor,
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 2,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: widget.item.accentColor.withOpacity(0.34),
-                              blurRadius: 12,
-                              offset: const Offset(0, 5),
-                            ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.arrow_forward_rounded,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ],
@@ -848,6 +1219,77 @@ class _FaqQuestionCardState extends State<_FaqQuestionCard> {
     );
   }
 }
+
+// =============================================================================
+// SCROLL INDICATOR
+// =============================================================================
+
+class _ScrollIndicatorButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onPressed;
+  final bool iconBelowText;
+
+  const _ScrollIndicatorButton({
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+    this.iconBelowText = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final iconWidget = Icon(
+      icon,
+      size: 54,
+      color: const Color(0xFF175EB9),
+    );
+
+    final textWidget = Text(
+      label,
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.w900,
+        color: Color(0xFF24405F),
+      ),
+    );
+
+    return Material(
+      color: Colors.white.withOpacity(0.94),
+      borderRadius: BorderRadius.circular(22),
+      elevation: 5,
+      shadowColor:
+          const Color(0xFF14345A).withOpacity(0.25),
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(22),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 13,
+            vertical: 10,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: iconBelowText
+                ? [
+                    textWidget,
+                    iconWidget,
+                  ]
+                : [
+                    iconWidget,
+                    textWidget,
+                  ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// =============================================================================
+// FAQ DATA MODEL
+// =============================================================================
 
 class _FaqItem {
   final IconData icon;
