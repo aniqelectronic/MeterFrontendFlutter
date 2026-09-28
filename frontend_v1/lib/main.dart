@@ -188,6 +188,8 @@ class _AppState extends State<App> {
 // ================= IOT HUB =================
   final IoTHubService iotHubService = IoTHubService();
 
+  DateTime _lastActivityReset = DateTime.fromMillisecondsSinceEpoch(0);
+
   @override
   void initState() {
     super.initState();
@@ -281,9 +283,7 @@ class _AppState extends State<App> {
   }
 
   Future<void> _restoreBrightness() async {
-    if (_restoringBrightness) return;
- //   if (!_dimmed) return;   
-
+    if (_restoringBrightness || !_dimmed) return;
     _restoringBrightness = true;
 
     try {
@@ -306,13 +306,13 @@ class _AppState extends State<App> {
 
     _remainingSeconds = countdownSeconds;
 
-    print("RESET TIMER ON ROUTE: ${_getCurrentRoute()}");
+    // print("RESET TIMER ON ROUTE: ${_getCurrentRoute()}");
 
     if (_warningShown) return;
 
     // ================= HOME PAGE =================
     if (_isHomePage()) {
-      print("HOME PAGE: warning disabled, home dim enabled");
+      // print("HOME PAGE: warning disabled, home dim enabled");
 
       _homeDimTimer = Timer(homeDimDuration, () {
         if (_isHomePage() && !_warningShown) {
@@ -330,7 +330,7 @@ class _AppState extends State<App> {
     }
 
     // ================= NORMAL PAGE =================
-    print("NORMAL PAGE: dim + warning enabled");
+    // print("NORMAL PAGE: dim + warning enabled");
 
     _dimTimer = Timer(dimDuration, () {
       if (_isBlockedWarningPage()) return;
@@ -733,13 +733,20 @@ void _showIdleWarning() {
 }
 
   // ================= TOUCH =================
-  void _handleUserTouch() {
-    _restoreBrightness();
+    void _handleUserTouch() {
+      _restoreBrightness();
 
-    if (!_warningShown) {
+      if (_warningShown) return;
+
+      final now = DateTime.now();
+      if (now.difference(_lastActivityReset) <
+          const Duration(seconds: 1)) {
+        return;
+      }
+
+      _lastActivityReset = now;
       _resetIdleTimers();
     }
-  }
 
   // ================= LOCALE =================
   void setLocale(Locale locale) {
