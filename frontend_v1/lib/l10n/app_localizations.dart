@@ -14672,6 +14672,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get paymentGuideOk;
+
+  /// No description provided for @pegePayUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'QR Payment Unavailable'**
+  String get pegePayUnavailableTitle;
+
+  /// No description provided for @pegePayUnavailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The QR payment service is currently unavailable. Please try again later or use another payment method.'**
+  String get pegePayUnavailableMessage;
+
+  /// No description provided for @pegePayUnavailableOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get pegePayUnavailableOk;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

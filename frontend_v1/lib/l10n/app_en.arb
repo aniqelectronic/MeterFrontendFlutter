@@ -4014,7 +4014,11 @@
 "paymentGuideSubtitle": "Choose a payment method to watch the tutorial",
 "paymentGuideQr": "DUITNOW QR",
 "paymentGuideCard": "CARD",
-"paymentGuideOk": "OK"
+"paymentGuideOk": "OK",
+
+"pegePayUnavailableTitle": "QR Payment Unavailable",
+"pegePayUnavailableMessage": "The QR payment service is currently unavailable. Please try again later or use another payment method.",
+"pegePayUnavailableOk": "OK"
 
 
 

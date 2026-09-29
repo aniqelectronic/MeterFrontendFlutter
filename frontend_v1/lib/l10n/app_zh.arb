@@ -3921,6 +3921,10 @@
 "paymentGuideSubtitle": "请选择付款方式观看教学视频",
 "paymentGuideQr": "DUITNOW 二维码",
 "paymentGuideCard": "银行卡",
-"paymentGuideOk": "确定"
+"paymentGuideOk": "确定",
+
+"pegePayUnavailableTitle": "QR 付款暂时无法使用",
+"pegePayUnavailableMessage": "QR 付款服务目前暂时无法使用。请稍后再试或选择其他付款方式。",
+"pegePayUnavailableOk": "确定"
 
 }

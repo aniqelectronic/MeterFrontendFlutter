@@ -7466,4 +7466,13 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get paymentGuideOk => 'சரி';
+
+  @override
+  String get pegePayUnavailableTitle => 'QR கட்டண சேவை கிடைக்கவில்லை';
+
+  @override
+  String get pegePayUnavailableMessage => 'QR கட்டண சேவையை தற்போது பயன்படுத்த முடியவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும் அல்லது வேறு கட்டண முறையைப் பயன்படுத்தவும்.';
+
+  @override
+  String get pegePayUnavailableOk => 'சரி';
 }

@@ -7466,4 +7466,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get paymentGuideOk => '确定';
+
+  @override
+  String get pegePayUnavailableTitle => 'QR 付款暂时无法使用';
+
+  @override
+  String get pegePayUnavailableMessage => 'QR 付款服务目前暂时无法使用。请稍后再试或选择其他付款方式。';
+
+  @override
+  String get pegePayUnavailableOk => '确定';
 }

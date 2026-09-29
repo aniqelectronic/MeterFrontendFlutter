@@ -2051,14 +2051,152 @@ void _closeCardSuccessDialog() {
                             //     ),
                             //   ),
                             // );
-                          } catch (e) {
-                            Navigator.pop(context);
-                            currentRouteName = '/payment';
-                            print("PegePay createOrder error: $e");
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Error creating PegePay order.")),
-                            );
-                          }
+                              } catch (e) {
+                                // ============================================================
+                                // PEGE PAY / QR SERVICE ERROR
+                                // ============================================================
+
+                                // Close loading dialog.
+                                if (Navigator.of(context, rootNavigator: true).canPop()) {
+                                  Navigator.of(context, rootNavigator: true).pop();
+                                }
+
+                                currentRouteName = '/payment';
+
+                                // Keep the real technical error in the log for troubleshooting.
+                                debugPrint('[PegePay] createOrder error: $e');
+
+                                if (!mounted) return;
+
+                                final loc = AppLocalizations.of(context)!;
+
+                                await showDialog<void>(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  useRootNavigator: true,
+                                  builder: (dialogContext) {
+                                    return PopScope(
+                                      canPop: false,
+                                      child: Dialog(
+                                        backgroundColor: Colors.transparent,
+                                        elevation: 0,
+                                        child: Container(
+                                          width: 650,
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 45,
+                                            vertical: 42,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(30),
+                                            border: Border.all(
+                                              color: const Color(0xFFF2B8B5),
+                                              width: 2,
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.30),
+                                                blurRadius: 30,
+                                                spreadRadius: 3,
+                                                offset: const Offset(0, 14),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              // ============================================================
+                                              // ERROR ICON
+                                              // ============================================================
+                                              Container(
+                                                width: 130,
+                                                height: 130,
+                                                decoration: BoxDecoration(
+                                                  color: const Color(0xFFFFEBEE),
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                    color: const Color(0xFFD32F2F),
+                                                    width: 5,
+                                                  ),
+                                                ),
+                                                child: const Icon(
+                                                  Icons.qr_code_2_rounded,
+                                                  color: Color(0xFFD32F2F),
+                                                  size: 78,
+                                                ),
+                                              ),
+
+                                              const SizedBox(height: 28),
+
+                                              // ============================================================
+                                              // TITLE
+                                              // ============================================================
+                                              Text(
+                                                loc.pegePayUnavailableTitle,
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  color: Color(0xFFB71C1C),
+                                                  fontSize: 40,
+                                                  fontWeight: FontWeight.w900,
+                                                  height: 1.15,
+                                                ),
+                                              ),
+
+                                              const SizedBox(height: 20),
+
+                                              // ============================================================
+                                              // MESSAGE
+                                              // ============================================================
+                                              Text(
+                                                loc.pegePayUnavailableMessage,
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  color: Color(0xFF334155),
+                                                  fontSize: 26,
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 1.45,
+                                                ),
+                                              ),
+
+                                              const SizedBox(height: 35),
+
+                                              // ============================================================
+                                              // OK BUTTON
+                                              // ============================================================
+                                              SizedBox(
+                                                width: 280,
+                                                height: 72,
+                                                child: FilledButton(
+                                                  onPressed: () {
+                                                    Navigator.of(
+                                                      dialogContext,
+                                                      rootNavigator: true,
+                                                    ).pop();
+                                                  },
+                                                  style: FilledButton.styleFrom(
+                                                    backgroundColor: const Color(0xFFD32F2F),
+                                                    foregroundColor: Colors.white,
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(18),
+                                                    ),
+                                                  ),
+                                                  child: Text(
+                                                    loc.pegePayUnavailableOk,
+                                                    style: const TextStyle(
+                                                      fontSize: 27,
+                                                      fontWeight: FontWeight.w900,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
                         },
               ),
             ),

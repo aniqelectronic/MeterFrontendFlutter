@@ -7466,4 +7466,13 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get paymentGuideOk => 'OK';
+
+  @override
+  String get pegePayUnavailableTitle => 'Pembayaran QR Tidak Tersedia';
+
+  @override
+  String get pegePayUnavailableMessage => 'Perkhidmatan pembayaran QR tidak dapat digunakan buat masa ini. Sila cuba lagi kemudian atau gunakan kaedah pembayaran lain.';
+
+  @override
+  String get pegePayUnavailableOk => 'OK';
 }

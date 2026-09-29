@@ -4025,7 +4025,12 @@
 "paymentGuideSubtitle": "Pilih kaedah pembayaran untuk menonton panduan",
 "paymentGuideQr": "DUITNOW QR",
 "paymentGuideCard": "KAD",
-"paymentGuideOk": "OK"
+"paymentGuideOk": "OK",
+
+
+"pegePayUnavailableTitle": "Pembayaran QR Tidak Tersedia",
+"pegePayUnavailableMessage": "Perkhidmatan pembayaran QR tidak dapat digunakan buat masa ini. Sila cuba lagi kemudian atau gunakan kaedah pembayaran lain.",
+"pegePayUnavailableOk": "OK"
 
 
 

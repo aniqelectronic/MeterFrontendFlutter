@@ -3861,7 +3861,12 @@
 "paymentGuideSubtitle": "வழிகாட்டி காண கட்டண முறையைத் தேர்ந்தெடுக்கவும்",
 "paymentGuideQr": "DUITNOW QR",
 "paymentGuideCard": "அட்டை",
-"paymentGuideOk": "சரி"
+"paymentGuideOk": "சரி",
+
+
+"pegePayUnavailableTitle": "QR கட்டண சேவை கிடைக்கவில்லை",
+"pegePayUnavailableMessage": "QR கட்டண சேவையை தற்போது பயன்படுத்த முடியவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும் அல்லது வேறு கட்டண முறையைப் பயன்படுத்தவும்.",
+"pegePayUnavailableOk": "சரி"
 
 
 
