@@ -80,35 +80,6 @@ class AppRouteObserver extends NavigatorObserver {
   }
 }
 
-class KioskPageTransitionsBuilder extends PageTransitionsBuilder {
-  const KioskPageTransitionsBuilder();
-
-  @override
-  Widget buildTransitions<T>(
-    PageRoute<T> route,
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-    Widget child,
-  ) {
-    // No animation for first page.
-    if (route.isFirst) {
-      return child;
-    }
-
-    final curvedAnimation = CurvedAnimation(
-      parent: animation,
-      curve: Curves.easeOutCubic,
-      reverseCurve: Curves.easeInCubic,
-    );
-
-    return FadeTransition(
-      opacity: curvedAnimation,
-      child: child,
-    );
-  }
-}
-
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -972,16 +943,6 @@ builder: (context, child) {
         scaffoldBackgroundColor: Colors.black,
         visualDensity: VisualDensity.standard,
 
-        // ============================================================
-        // KIOSK PAGE TRANSITION
-        // ============================================================
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.linux: KioskPageTransitionsBuilder(),
-            TargetPlatform.windows: KioskPageTransitionsBuilder(),
-          },
-        ),
-        
         // Existing layout and sizes are unchanged.
         // These font settings only add Tamil and Chinese fallback.
         fontFamily: 'Noto Sans',
