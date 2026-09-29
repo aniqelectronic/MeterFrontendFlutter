@@ -12,6 +12,7 @@ import 'package:frontend_v1/services/iothub/iot_hub_services.dart';
 import 'services/kiosk/linux_kiosk_service.dart';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:media_kit/media_kit.dart';
+import 'package:flutter/foundation.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -39,7 +40,9 @@ class AppRouteObserver extends NavigatorObserver {
       currentRouteName = 'NORMAL_PAGE';
     }
 
-    print("CURRENT ROUTE: $currentRouteName");
+        if (kDebugMode) {
+      debugPrint('CURRENT ROUTE: $currentRouteName');
+    }
     onRouteChanged();
   }
 
@@ -153,6 +156,9 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  // ================= BACKGROUND CACHE =================
+   bool _backgroundPrecached = false;
+
   // ================= IDLE CONFIG =================
   static const Duration dimDuration = Duration(minutes: 1);
   static const Duration warningDuration = Duration(minutes: 3);
@@ -189,6 +195,21 @@ class _AppState extends State<App> {
   final IoTHubService iotHubService = IoTHubService();
 
   DateTime _lastActivityReset = DateTime.fromMillisecondsSinceEpoch(0);
+  String? _displayOutput;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_backgroundPrecached) {
+      _backgroundPrecached = true;
+
+      precacheImage(
+        const AssetImage('lib/images/pnew.png'),
+        context,
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -202,6 +223,7 @@ class _AppState extends State<App> {
       // Apply Linux kiosk restrictions after Flutter's first frame.
       if (Platform.isLinux) {
         await LinuxKioskService.initialize();
+        await _initializeDisplayOutput();
       }
 
       InternetGuard().start(navigatorKey);
@@ -254,33 +276,69 @@ class _AppState extends State<App> {
   }
 
   // ================= BRIGHTNESS =================
+  // Future<void> _setBrightness(double value) async {
+  //   try {
+  //     final safeValue = value.clamp(0.0, 1.0);
+
+  //     final command = '''
+  //     export DISPLAY=:0
+  //     export XAUTHORITY=/home/orin_nano/.Xauthority
+  //     OUTPUT=\$(xrandr | grep " connected" | awk '{print \$1}' | head -n 1)
+  //     xrandr --output "\$OUTPUT" --brightness $safeValue
+  //     ''';
+
+  //     final result = await Process.run(
+  //       'bash',
+  //       ['-c', command],
+  //     );
+
+  //     if (result.stderr.toString().isNotEmpty) {
+  //       print("Brightness stderr: ${result.stderr}");
+  //     }
+
+  //     _dimmed = safeValue < normalBrightness;
+
+  //     print("Brightness set to $safeValue");
+  //   } catch (e) {
+  //     print("Failed to set brightness: $e");
+  //   }
+  // }
+
+
   Future<void> _setBrightness(double value) async {
-    try {
-      final safeValue = value.clamp(0.0, 1.0);
+  if (!Platform.isLinux) return;
 
-      final command = '''
-      export DISPLAY=:0
-      export XAUTHORITY=/home/orin_nano/.Xauthority
-      OUTPUT=\$(xrandr | grep " connected" | awk '{print \$1}' | head -n 1)
-      xrandr --output "\$OUTPUT" --brightness $safeValue
-      ''';
+  final output = _displayOutput;
+  if (output == null || output.isEmpty) return;
 
-      final result = await Process.run(
-        'bash',
-        ['-c', command],
-      );
+  final safeValue = value.clamp(0.0, 1.0);
 
-      if (result.stderr.toString().isNotEmpty) {
-        print("Brightness stderr: ${result.stderr}");
-      }
+  try {
+    final result = await Process.run(
+      'xrandr',
+      [
+        '--output',
+        output,
+        '--brightness',
+        safeValue.toString(),
+      ],
+      environment: {
+        'DISPLAY': ':0',
+        'XAUTHORITY': '/home/orin_nano/.Xauthority',
+      },
+    );
 
-      _dimmed = safeValue < normalBrightness;
+    if (kDebugMode && result.stderr.toString().isNotEmpty) {
+      debugPrint('Brightness stderr: ${result.stderr}');
+    }
 
-      print("Brightness set to $safeValue");
-    } catch (e) {
-      print("Failed to set brightness: $e");
+    _dimmed = safeValue < normalBrightness;
+  } catch (e) {
+    if (kDebugMode) {
+      debugPrint('Failed to set brightness: $e');
     }
   }
+}
 
   Future<void> _restoreBrightness() async {
     if (_restoringBrightness || !_dimmed) return;
@@ -306,13 +364,17 @@ class _AppState extends State<App> {
 
     _remainingSeconds = countdownSeconds;
 
-    // print("RESET TIMER ON ROUTE: ${_getCurrentRoute()}");
+    // if (kDebugMode) {
+    //   debugPrint("RESET TIMER ON ROUTE: ${_getCurrentRoute()}");
+    // }
 
     if (_warningShown) return;
 
     // ================= HOME PAGE =================
     if (_isHomePage()) {
-      // print("HOME PAGE: warning disabled, home dim enabled");
+      // if (kDebugMode) {
+      //   debugPrint("HOME PAGE: warning disabled, home dim enabled");
+      // }
 
       _homeDimTimer = Timer(homeDimDuration, () {
         if (_isHomePage() && !_warningShown) {
@@ -325,12 +387,16 @@ class _AppState extends State<App> {
 
     // ================= PAYMENT / RECEIPT =================
     if (_isBlockedWarningPage()) {
-      print("WARNING BLOCKED ON PAYMENT / RECEIPT");
+      if (kDebugMode) {
+        debugPrint("WARNING BLOCKED ON PAYMENT / RECEIPT");
+      }
       return;
     }
 
     // ================= NORMAL PAGE =================
-    // print("NORMAL PAGE: dim + warning enabled");
+    // if (kDebugMode) {
+    //   debugPrint("NORMAL PAGE: dim + warning enabled");
+    // }
 
     _dimTimer = Timer(dimDuration, () {
       if (_isBlockedWarningPage()) return;
@@ -733,20 +799,25 @@ void _showIdleWarning() {
 }
 
   // ================= TOUCH =================
-    void _handleUserTouch() {
-      _restoreBrightness();
+  void _handleUserTouch() {
+    final now = DateTime.now();
 
-      if (_warningShown) return;
-
-      final now = DateTime.now();
-      if (now.difference(_lastActivityReset) <
-          const Duration(seconds: 1)) {
-        return;
-      }
-
-      _lastActivityReset = now;
-      _resetIdleTimers();
+    // Ignore repeated move events.
+    if (now.difference(_lastActivityReset) <
+        const Duration(milliseconds: 500)) {
+      return;
     }
+
+    _lastActivityReset = now;
+
+    if (_dimmed) {
+      _restoreBrightness();
+    }
+
+    if (_warningShown) return;
+
+    _resetIdleTimers();
+  }
 
   // ================= LOCALE =================
   void setLocale(Locale locale) {
@@ -754,6 +825,36 @@ void _showIdleWarning() {
       _locale = locale;
     });
   }
+
+  Future<void> _initializeDisplayOutput() async {
+  if (!Platform.isLinux) return;
+
+  try {
+    final result = await Process.run(
+      'bash',
+      [
+        '-c',
+        'DISPLAY=:0 '
+            'XAUTHORITY=/home/orin_nano/.Xauthority '
+            'xrandr | grep " connected" | head -n 1 | cut -d" " -f1',
+      ],
+    );
+
+    final output = result.stdout.toString().trim();
+
+    if (output.isNotEmpty) {
+      _displayOutput = output;
+
+      if (kDebugMode) {
+        debugPrint('Detected display output: $output');
+      }
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      debugPrint('Failed to detect display output: $e');
+    }
+  }
+}
 
   // ================= BUILD =================
   @override

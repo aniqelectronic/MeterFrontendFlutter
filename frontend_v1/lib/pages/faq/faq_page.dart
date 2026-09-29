@@ -251,7 +251,7 @@ class _FaqPageState extends State<FaqPage> {
                   mainAxisSpacing: 36,
 
                   // Taller cards like PBT3.
-                  childAspectRatio: 0.78,
+                  childAspectRatio: 0.90,
                 ),
                 itemBuilder: (context, index) {
                   final item = faqItems[index];

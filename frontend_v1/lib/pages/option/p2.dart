@@ -8,6 +8,8 @@ import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'pbt3.dart';
 import 'pbil3.dart';
+import 'dart:ui';
+
 class P2Page extends StatefulWidget {
   const P2Page({super.key});
   @override
@@ -200,7 +202,7 @@ class _P2PageState extends State<P2Page> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 45),
                     Row(
                       children: [
                         Expanded(
@@ -739,13 +741,13 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                                           softWrap: true,
                                           style: const TextStyle(
                                             color: Color(0xFF142D4E),
-                                            fontSize: 32,
+                                            fontSize: 35,
                                             fontWeight: FontWeight.w800,
                                             height: 1.16,
                                             letterSpacing: 0,
                                           ),
                                         ),
-                                        const SizedBox(height: 16),
+                                        const SizedBox(height: 20),
                                         Text(
                                           widget.supportingText,
                                           softWrap: true,

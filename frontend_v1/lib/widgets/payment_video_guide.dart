@@ -18,29 +18,54 @@ class _PaymentVideoGuideState extends State<PaymentVideoGuide> {
   // 0 = DuitNow QR, 1 = Card
   int _selected = 0;
 
+  bool _isChangingVideo = false;
+
   @override
   void initState() {
     super.initState();
-    _play(0);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _play(0);
+      }
+    });
   }
 
   Future<void> _play(int index) async {
-    if (_selected == index && _player.state.playing) return;
+    if (_selected == index && _player.state.playing) {
+      return;
+    }
 
-    setState(() => _selected = index);
+    if (_isChangingVideo) return;
 
     final name = index == 0
         ? 'duitnow_video.mp4'
         : 'card_payment_video.mp4';
 
+    if (mounted) {
+      setState(() {
+        _selected = index;
+        _isChangingVideo = true;
+      });
+    }
+
     try {
       await _player.setPlaylistMode(PlaylistMode.single);
+
       await _player.open(
         Media('asset:///lib/videos/$name'),
         play: true,
       );
     } catch (error) {
-      debugPrint('Payment tutorial video could not be opened: $error');
+      debugPrint(
+        'Payment tutorial video could not be opened: $error',
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isChangingVideo = false;
+        });
+      }
     }
   }
 
@@ -141,19 +166,31 @@ class _PaymentVideoGuideState extends State<PaymentVideoGuide> {
                 ),
                 const SizedBox(height: 18),
 
-                // Fixed video proportion prevents the large black area.
                 ClipRRect(
                   borderRadius: BorderRadius.circular(18),
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
                     child: ColoredBox(
                       color: Colors.black,
-                      child: IgnorePointer(
-                        child: Video(
-                          controller: _controller,
-                          fit: BoxFit.contain,
-                          controls: NoVideoControls,
-                        ),
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          IgnorePointer(
+                            child: Video(
+                              controller: _controller,
+                              fit: BoxFit.contain,
+                              controls: NoVideoControls,
+                            ),
+                          ),
+
+                          if (_isChangingVideo)
+                            const Center(
+                              child: CircularProgressIndicator(
+                                strokeWidth: 5,
+                                color: Colors.white,
+                              ),
+                            ),
+                        ],
                       ),
                     ),
                   ),
