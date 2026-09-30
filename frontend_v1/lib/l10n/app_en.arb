@@ -4018,10 +4018,17 @@
 
 "pegePayUnavailableTitle": "QR Payment Unavailable",
 "pegePayUnavailableMessage": "The QR payment service is currently unavailable. Please try again later or use another payment method.",
-"pegePayUnavailableOk": "OK"
+"pegePayUnavailableOk": "OK",
 
 
+"scrollViewMore": "View More",
+"scrollBackTop": "Back to Top",
+"scrollUpShort": "Up",
 
+"providerSearchTitle": "Search Provider",
+"providerSearchHint": "Enter provider name or code",
+"providerSearchButton": "Search",
+"providerSearchNoResults": "No matching providers found."
 
 
 

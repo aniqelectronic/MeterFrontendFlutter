@@ -3925,6 +3925,16 @@
 
 "pegePayUnavailableTitle": "QR 付款暂时无法使用",
 "pegePayUnavailableMessage": "QR 付款服务目前暂时无法使用。请稍后再试或选择其他付款方式。",
-"pegePayUnavailableOk": "确定"
+"pegePayUnavailableOk": "确定",
+
+
+"scrollViewMore": "查看更多",
+"scrollBackTop": "返回顶部",
+"scrollUpShort": "向上",
+
+"providerSearchTitle": "搜索供应商",
+"providerSearchHint": "输入供应商名称或代码",
+"providerSearchButton": "搜索",
+"providerSearchNoResults": "未找到匹配的供应商。"
 
 }

@@ -4173,10 +4173,10 @@ class AppLocalizationsTa extends AppLocalizations {
   String get serviceSelectionLabel => 'சேவைத் தேர்வு';
 
   @override
-  String get pbtSupportingText => 'நகராட்சி சேவைக் கட்டணங்களைச் சரிபார்த்து செலுத்துங்கள்';
+  String get pbtSupportingText => 'நகராட்சி கட்டணங்களைச் சரிபார்த்து செலுத்துங்கள்';
 
   @override
-  String get billSupportingText => 'பில் கட்டணங்கள், ரீலோடுகள், விளையாட்டு கிரெடிட்கள், வவுச்சர்கள் மற்றும் பல.';
+  String get billSupportingText => 'பில்கள், ரீலோடுகள், கேம் கிரெடிட்கள், வவுச்சர்கள் மற்றும் பல.';
 
   @override
   String get touristSupportingText => 'சுற்றுலா இடங்களை ஆராயுங்கள்';
@@ -7475,4 +7475,25 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get pegePayUnavailableOk => 'சரி';
+
+  @override
+  String get scrollViewMore => 'மேலும் காண்க';
+
+  @override
+  String get scrollBackTop => 'மேலே திரும்புக';
+
+  @override
+  String get scrollUpShort => 'மேலே';
+
+  @override
+  String get providerSearchTitle => 'வழங்குநரைத் தேடுக';
+
+  @override
+  String get providerSearchHint => 'வழங்குநர் பெயர் அல்லது குறியீட்டை உள்ளிடவும்';
+
+  @override
+  String get providerSearchButton => 'தேடுக';
+
+  @override
+  String get providerSearchNoResults => 'பொருந்தும் வழங்குநர் எதுவும் கிடைக்கவில்லை.';
 }

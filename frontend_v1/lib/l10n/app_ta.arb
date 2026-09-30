@@ -2007,8 +2007,8 @@
   "fetchingPrayerTimeDesc": "தொழுகை நேரங்கள் பெறப்படும் வரை காத்திருக்கவும்.",
 
   "serviceSelectionLabel": "சேவைத் தேர்வு",
-  "pbtSupportingText": "நகராட்சி சேவைக் கட்டணங்களைச் சரிபார்த்து செலுத்துங்கள்",
-  "billSupportingText": "பில் கட்டணங்கள், ரீலோடுகள், விளையாட்டு கிரெடிட்கள், வவுச்சர்கள் மற்றும் பல.",
+"pbtSupportingText": "நகராட்சி கட்டணங்களைச் சரிபார்த்து செலுத்துங்கள்",
+"billSupportingText": "பில்கள், ரீலோடுகள், கேம் கிரெடிட்கள், வவுச்சர்கள் மற்றும் பல.",
   "touristSupportingText": "சுற்றுலா இடங்களை ஆராயுங்கள்",
 
   "tourismServiceLabel": "சுற்றுலா சேவைகள்",
@@ -3866,7 +3866,16 @@
 
 "pegePayUnavailableTitle": "QR கட்டண சேவை கிடைக்கவில்லை",
 "pegePayUnavailableMessage": "QR கட்டண சேவையை தற்போது பயன்படுத்த முடியவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும் அல்லது வேறு கட்டண முறையைப் பயன்படுத்தவும்.",
-"pegePayUnavailableOk": "சரி"
+"pegePayUnavailableOk": "சரி",
+
+"scrollViewMore": "மேலும் காண்க",
+"scrollBackTop": "மேலே திரும்புக",
+"scrollUpShort": "மேலே",
+
+"providerSearchTitle": "வழங்குநரைத் தேடுக",
+"providerSearchHint": "வழங்குநர் பெயர் அல்லது குறியீட்டை உள்ளிடவும்",
+"providerSearchButton": "தேடுக",
+"providerSearchNoResults": "பொருந்தும் வழங்குநர் எதுவும் கிடைக்கவில்லை."
 
 
 

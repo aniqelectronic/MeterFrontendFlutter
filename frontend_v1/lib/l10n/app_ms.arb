@@ -4030,9 +4030,16 @@
 
 "pegePayUnavailableTitle": "Pembayaran QR Tidak Tersedia",
 "pegePayUnavailableMessage": "Perkhidmatan pembayaran QR tidak dapat digunakan buat masa ini. Sila cuba lagi kemudian atau gunakan kaedah pembayaran lain.",
-"pegePayUnavailableOk": "OK"
+"pegePayUnavailableOk": "OK",
 
 
+"scrollViewMore": "Lihat Lagi",
+"scrollBackTop": "Kembali Ke Atas",
+"scrollUpShort": "Ke Atas",
 
+"providerSearchTitle": "Cari Penyedia",
+"providerSearchHint": "Masukkan nama atau kod penyedia",
+"providerSearchButton": "Cari",
+"providerSearchNoResults": "Tiada penyedia yang sepadan dijumpai."
 
 }

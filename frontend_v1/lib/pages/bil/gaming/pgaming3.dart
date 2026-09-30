@@ -1107,6 +1107,80 @@ class _PGAMING3PAGEState
   }
 
   // ==========================================================================
+  // SCROLL TO TOP
+  // ==========================================================================
+
+  void _scrollToTop() {
+    if (!_scrollController.hasClients) {
+      return;
+    }
+
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(
+        milliseconds: 550,
+      ),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  // ==========================================================================
+  // BUILD MODERN SCROLL ACTION
+  // ==========================================================================
+
+  Widget _buildScrollAction(
+    AppLocalizations loc,
+  ) {
+    if (!showScrollUp && showScrollDown) {
+      return _ScrollDiscoveryControl(
+        key: const ValueKey(
+          'top-more',
+        ),
+        mode: _ScrollControlMode.more,
+        label: loc.scrollViewMore,
+        onPressed: _scrollDown,
+      );
+    }
+
+    if (showScrollUp && showScrollDown) {
+      return Row(
+        key: const ValueKey(
+          'middle-controls',
+        ),
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _ScrollDiscoveryControl(
+            mode: _ScrollControlMode.up,
+            label: loc.scrollUpShort,
+            onPressed: _scrollUp,
+          ),
+          const SizedBox(
+            width: 22,
+          ),
+          _ScrollDiscoveryControl(
+            mode: _ScrollControlMode.more,
+            label: loc.scrollViewMore,
+            onPressed: _scrollDown,
+          ),
+        ],
+      );
+    }
+
+    if (showScrollUp && !showScrollDown) {
+      return _ScrollDiscoveryControl(
+        key: const ValueKey(
+          'bottom-top',
+        ),
+        mode: _ScrollControlMode.top,
+        label: loc.scrollBackTop,
+        onPressed: _scrollToTop,
+      );
+    }
+
+    return const SizedBox.shrink();
+  }
+
+  // ==========================================================================
   // DISPOSE
   // ==========================================================================
 
@@ -1213,46 +1287,114 @@ class _PGAMING3PAGEState
           ),
 
           // ==================================================================
-          // SCROLL UP
+          // CONTENT FADE
           // ==================================================================
 
           if (!_isLoadingCatalog &&
               _catalogError == null &&
-              showScrollUp)
+              _platforms.isNotEmpty &&
+              showScrollDown)
             Positioned(
-              right: 18,
-              top: 365,
-              child:
-                  _ScrollIndicatorButton(
-                icon: Icons
-                    .keyboard_arrow_up_rounded,
-                label:
-                    loc.scrollup,
-                onPressed:
-                    _scrollUp,
+              left: 35,
+              right: 35,
+              bottom: 270,
+              height: 175,
+              child: IgnorePointer(
+                child: Container(
+                  decoration:
+                      BoxDecoration(
+                    gradient:
+                        LinearGradient(
+                      begin:
+                          Alignment.topCenter,
+                      end:
+                          Alignment.bottomCenter,
+                      stops:
+                          const [
+                        0.0,
+                        0.30,
+                        0.68,
+                        1.0,
+                      ],
+                      colors: [
+                        Colors.white.withOpacity(
+                          0.00,
+                        ),
+                        Colors.white.withOpacity(
+                          0.14,
+                        ),
+                        Colors.white.withOpacity(
+                          0.62,
+                        ),
+                        Colors.white.withOpacity(
+                          0.95,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
 
           // ==================================================================
-          // SCROLL DOWN
+          // MODERN SCROLL CONTROLS
+          // TOP    : LIHAT LAGI ↓
+          // MIDDLE : ↑ KE ATAS + LIHAT LAGI ↓
+          // BOTTOM : ↑ KEMBALI KE ATAS
           // ==================================================================
 
           if (!_isLoadingCatalog &&
               _catalogError == null &&
-              showScrollDown)
+              _platforms.isNotEmpty)
             Positioned(
-              right: 18,
-              bottom: 290,
-              child:
-                  _ScrollIndicatorButton(
-                icon: Icons
-                    .keyboard_arrow_down_rounded,
-                label:
-                    loc.scrolldown,
-                onPressed:
-                    _scrollDown,
-                iconBelowText:
-                    true,
+              left: 0,
+              right: 0,
+              bottom: 270,
+              child: Center(
+                child:
+                    AnimatedSwitcher(
+                  duration:
+                      const Duration(
+                    milliseconds: 250,
+                  ),
+                  switchInCurve:
+                      Curves.easeOutCubic,
+                  switchOutCurve:
+                      Curves.easeInCubic,
+                  transitionBuilder:
+                      (
+                    child,
+                    animation,
+                  ) {
+                    return FadeTransition(
+                      opacity:
+                          animation,
+                      child:
+                          ScaleTransition(
+                        scale:
+                            Tween<double>(
+                          begin:
+                              0.94,
+                          end:
+                              1.0,
+                        ).animate(
+                          CurvedAnimation(
+                            parent:
+                                animation,
+                            curve:
+                                Curves.easeOutCubic,
+                          ),
+                        ),
+                        child:
+                            child,
+                      ),
+                    );
+                  },
+                  child:
+                      _buildScrollAction(
+                    loc,
+                  ),
+                ),
               ),
             ),
 
@@ -1371,7 +1513,7 @@ class _PGAMING3PAGEState
         padding:
             const EdgeInsets.only(
           right: 24,
-          bottom: 55,
+          bottom: 145,
         ),
         child: Column(
           children:
@@ -3147,102 +3289,302 @@ class _NetworkStatusBadge
 // SCROLL INDICATOR BUTTON
 // ============================================================================
 
-class _ScrollIndicatorButton
-    extends StatelessWidget {
-  final IconData icon;
+enum _ScrollControlMode {
+  up,
+  more,
+  top,
+}
+
+class _ScrollDiscoveryControl
+    extends StatefulWidget {
+  final _ScrollControlMode mode;
   final String label;
   final VoidCallback onPressed;
-  final bool iconBelowText;
 
-  const _ScrollIndicatorButton({
-    required this.icon,
+  const _ScrollDiscoveryControl({
+    super.key,
+    required this.mode,
     required this.label,
     required this.onPressed,
-    this.iconBelowText = false,
   });
+
+  @override
+  State<_ScrollDiscoveryControl>
+      createState() =>
+          _ScrollDiscoveryControlState();
+}
+
+class _ScrollDiscoveryControlState
+    extends State<_ScrollDiscoveryControl> {
+  bool _pressed = false;
+
+  void _setPressed(
+    bool value,
+  ) {
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _pressed = value;
+    });
+  }
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    final Widget iconWidget =
-        Icon(
-      icon,
-      size: 52,
-      color:
-          const Color(
-        0xFF7048E8,
-      ),
-    );
+    final bool isUp =
+        widget.mode ==
+                _ScrollControlMode.up ||
+            widget.mode ==
+                _ScrollControlMode.top;
 
-    final Widget textWidget =
-        Text(
-      label,
-      textAlign:
-          TextAlign.center,
-      style:
-          const TextStyle(
+    final IconData arrow =
+        isUp
+            ? Icons
+                .keyboard_arrow_up_rounded
+            : Icons
+                .keyboard_arrow_down_rounded;
+
+    return AnimatedScale(
+      scale:
+          _pressed
+              ? 0.96
+              : 1.0,
+      duration:
+          const Duration(
+        milliseconds: 120,
+      ),
+      curve:
+          Curves.easeOutCubic,
+      child: Material(
         color:
-            Color(
-          0xFF15253A,
-        ),
-        fontSize: 17,
-        fontWeight:
-            FontWeight.w900,
-      ),
-    );
-
-    return Material(
-      color:
-          Colors.white.withOpacity(
-        0.96,
-      ),
-      borderRadius:
-          BorderRadius.circular(
-        22,
-      ),
-      elevation: 5,
-      child: InkWell(
-        onTap:
-            onPressed,
-        borderRadius:
-            BorderRadius.circular(
-          22,
-        ),
-        child: Container(
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 13,
-            vertical: 10,
+            Colors.transparent,
+        child: InkWell(
+          onTap:
+              widget.onPressed,
+          onHighlightChanged:
+              _setPressed,
+          borderRadius:
+              BorderRadius.circular(
+            100,
           ),
-          decoration:
-              BoxDecoration(
-            borderRadius:
-                BorderRadius.circular(
+          splashColor:
+              const Color(
+            0xFF7048E8,
+          ).withOpacity(
+            0.10,
+          ),
+          highlightColor:
+              Colors.transparent,
+          child:
+              AnimatedContainer(
+            duration:
+                const Duration(
+              milliseconds: 140,
+            ),
+            constraints:
+                const BoxConstraints(
+              minHeight: 88,
+            ),
+            padding:
+                const EdgeInsets.fromLTRB(
+              30,
+              13,
               22,
+              13,
             ),
-            border: Border.all(
+            decoration:
+                BoxDecoration(
               color:
-                  Colors.black,
-              width: 2,
+                  Colors.white.withOpacity(
+                0.98,
+              ),
+              borderRadius:
+                  BorderRadius.circular(
+                100,
+              ),
+              border:
+                  Border.all(
+                color:
+                    _pressed
+                        ? const Color(
+                            0xFF7048E8,
+                          )
+                        : const Color(
+                            0xFFD5CCF2,
+                          ),
+                width:
+                    _pressed
+                        ? 2.5
+                        : 1.7,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color:
+                      const Color(
+                    0xFF4F3A86,
+                  ).withOpacity(
+                    _pressed
+                        ? 0.09
+                        : 0.17,
+                  ),
+                  blurRadius:
+                      _pressed
+                          ? 8
+                          : 20,
+                  offset:
+                      Offset(
+                    0,
+                    _pressed
+                        ? 2
+                        : 7,
+                  ),
+                ),
+              ],
             ),
-          ),
-          child: Column(
-            mainAxisSize:
-                MainAxisSize.min,
-            children:
-                iconBelowText
-                    ? [
-                        textWidget,
-                        iconWidget,
-                      ]
-                    : [
-                        iconWidget,
-                        textWidget,
-                      ],
+            child: Row(
+              mainAxisSize:
+                  MainAxisSize.min,
+              children: [
+                if (isUp) ...[
+                  _ScrollArrowCircle(
+                    icon: arrow,
+                    pressed:
+                        _pressed,
+                  ),
+                  const SizedBox(
+                    width: 14,
+                  ),
+                ],
+
+                ConstrainedBox(
+                  constraints:
+                      const BoxConstraints(
+                    minWidth: 88,
+                    maxWidth: 190,
+                  ),
+                  child:
+                      FittedBox(
+                    fit:
+                        BoxFit.scaleDown,
+                    child: Text(
+                      widget.label
+                          .toUpperCase(),
+                      maxLines: 1,
+                      textAlign:
+                          TextAlign.center,
+                      style:
+                          const TextStyle(
+                        color:
+                            Color(
+                          0xFF2F2454,
+                        ),
+                        fontSize: 24,
+                        fontWeight:
+                            FontWeight.w900,
+                        letterSpacing:
+                            0.5,
+                      ),
+                    ),
+                  ),
+                ),
+
+                if (!isUp) ...[
+                  const SizedBox(
+                    width: 14,
+                  ),
+                  _ScrollArrowCircle(
+                    icon: arrow,
+                    pressed:
+                        _pressed,
+                  ),
+                ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
+
+class _ScrollArrowCircle
+    extends StatelessWidget {
+  final IconData icon;
+  final bool pressed;
+
+  const _ScrollArrowCircle({
+    required this.icon,
+    required this.pressed,
+  });
+
+  @override
+  Widget build(
+    BuildContext context,
+  ) {
+    return AnimatedContainer(
+      duration:
+          const Duration(
+        milliseconds: 140,
+      ),
+      width: 66,
+      height: 66,
+      decoration:
+          BoxDecoration(
+        gradient:
+            LinearGradient(
+          begin:
+              Alignment.topLeft,
+          end:
+              Alignment.bottomRight,
+          colors:
+              pressed
+                  ? const [
+                      Color(
+                        0xFF4F2FC2,
+                      ),
+                      Color(
+                        0xFF6B46E5,
+                      ),
+                    ]
+                  : const [
+                      Color(
+                        0xFF7048E8,
+                      ),
+                      Color(
+                        0xFF8B5CF6,
+                      ),
+                    ],
+        ),
+        shape:
+            BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color:
+                const Color(
+              0xFF7048E8,
+            ).withOpacity(
+              0.30,
+            ),
+            blurRadius:
+                12,
+            offset:
+                const Offset(
+              0,
+              4,
+            ),
+          ),
+        ],
+      ),
+      child: Icon(
+        icon,
+        color:
+            Colors.white,
+        size: 48,
+      ),
+    );
+  }
+}
+

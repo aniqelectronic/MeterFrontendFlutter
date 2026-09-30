@@ -14690,6 +14690,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get pegePayUnavailableOk;
+
+  /// No description provided for @scrollViewMore.
+  ///
+  /// In en, this message translates to:
+  /// **'View More'**
+  String get scrollViewMore;
+
+  /// No description provided for @scrollBackTop.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Top'**
+  String get scrollBackTop;
+
+  /// No description provided for @scrollUpShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Up'**
+  String get scrollUpShort;
+
+  /// No description provided for @providerSearchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Provider'**
+  String get providerSearchTitle;
+
+  /// No description provided for @providerSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter provider name or code'**
+  String get providerSearchHint;
+
+  /// No description provided for @providerSearchButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get providerSearchButton;
+
+  /// No description provided for @providerSearchNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching providers found.'**
+  String get providerSearchNoResults;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

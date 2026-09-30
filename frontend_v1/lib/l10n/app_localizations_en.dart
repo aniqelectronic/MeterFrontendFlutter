@@ -7481,4 +7481,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pegePayUnavailableOk => 'OK';
+
+  @override
+  String get scrollViewMore => 'View More';
+
+  @override
+  String get scrollBackTop => 'Back to Top';
+
+  @override
+  String get scrollUpShort => 'Up';
+
+  @override
+  String get providerSearchTitle => 'Search Provider';
+
+  @override
+  String get providerSearchHint => 'Enter provider name or code';
+
+  @override
+  String get providerSearchButton => 'Search';
+
+  @override
+  String get providerSearchNoResults => 'No matching providers found.';
 }

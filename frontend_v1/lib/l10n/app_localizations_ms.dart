@@ -7475,4 +7475,25 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get pegePayUnavailableOk => 'OK';
+
+  @override
+  String get scrollViewMore => 'Lihat Lagi';
+
+  @override
+  String get scrollBackTop => 'Kembali Ke Atas';
+
+  @override
+  String get scrollUpShort => 'Ke Atas';
+
+  @override
+  String get providerSearchTitle => 'Cari Penyedia';
+
+  @override
+  String get providerSearchHint => 'Masukkan nama atau kod penyedia';
+
+  @override
+  String get providerSearchButton => 'Cari';
+
+  @override
+  String get providerSearchNoResults => 'Tiada penyedia yang sepadan dijumpai.';
 }

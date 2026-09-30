@@ -1565,15 +1565,15 @@ void _closeCardSuccessDialog() {
                         icon: IconData(0xe4f5, fontFamily: 'MaterialIcons'),
                         label: AppLocalizations.of(context)!.qrButton,
                         onPressed: () async {
-                          //double amount = double.tryParse(data.amount ?? "0.00") ?? 0.00;
+                         // double amount = double.tryParse(widget.data.amount ?? "0.00") ?? 0.00;
                           showLoadingDialog(context); 
 
                           double testing = 0.05;
                         
                           try {
                             final result = await PegePayService.createOrder(
-                              testing,
-                              //amount,
+                               testing,
+                             // amount,
                               Config.storeId,
                               Config.terminalId,
                               Config.shiftId,

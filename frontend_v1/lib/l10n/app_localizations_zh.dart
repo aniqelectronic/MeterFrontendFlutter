@@ -7475,4 +7475,25 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pegePayUnavailableOk => '确定';
+
+  @override
+  String get scrollViewMore => '查看更多';
+
+  @override
+  String get scrollBackTop => '返回顶部';
+
+  @override
+  String get scrollUpShort => '向上';
+
+  @override
+  String get providerSearchTitle => '搜索供应商';
+
+  @override
+  String get providerSearchHint => '输入供应商名称或代码';
+
+  @override
+  String get providerSearchButton => '搜索';
+
+  @override
+  String get providerSearchNoResults => '未找到匹配的供应商。';
 }
