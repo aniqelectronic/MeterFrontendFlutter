@@ -7496,4 +7496,43 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get providerSearchNoResults => 'Tiada penyedia yang sepadan dijumpai.';
+
+  @override
+  String get foodBeverageButton => 'Food & Beverage';
+
+  @override
+  String get foodBeverageSupportingText => 'Purchase food and beverage vouchers from participating brands.';
+
+  @override
+  String get foodBeverageTitle => 'Food & Beverage';
+
+  @override
+  String get foodBeverageSubtitle => 'Select a participating food or beverage provider';
+
+  @override
+  String get taksiranKioskIntro => 'Pilih akaun dan tempoh bayaran.';
+
+  @override
+  String get taksiranKioskChooseAccounts => 'Pilih akaun untuk dibayar';
+
+  @override
+  String get taksiranKioskAccountHint => 'Sentuh akaun untuk memilih. Anda boleh memilih lebih daripada satu akaun.';
+
+  @override
+  String get taksiranKioskViewDetails => 'Lihat butiran';
+
+  @override
+  String get taksiranKioskChoosePeriod => 'Pilih bayaran sepenggal atau setahun';
+
+  @override
+  String get taksiranKioskPeriodRequired => 'Pilih jumlah sepenggal atau setahun untuk meneruskan.';
+
+  @override
+  String get taksiranKioskAmountUnavailable => 'Jumlah tidak tersedia';
+
+  @override
+  String get taksiranKioskInvalidSelection => 'Akaun yang dipilih tiada jumlah yang boleh dibayar bagi tempoh ini. Semak pilihan akaun atau pilih tempoh lain.';
+
+  @override
+  String get taksiranKioskAccountUnavailable => 'Akaun ini tidak boleh dipilih kerana nombor akaun tiada.';
 }

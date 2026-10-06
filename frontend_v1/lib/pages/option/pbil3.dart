@@ -36,6 +36,8 @@ import 'package:frontend_v1/pages/bil/consolestores/pconsolestores3.dart';
 
 import 'package:frontend_v1/pages/bil/fuel/pfuel3.dart';
 
+import 'package:frontend_v1/pages/bil/foodbeverage/pfoodbeverage3.dart';
+
 class PBIL3PAGE extends StatefulWidget {
 
   const PBIL3PAGE({super.key});
@@ -1005,67 +1007,62 @@ class _PBIL3PAGEState extends State<PBIL3PAGE> {
                   const SizedBox(height: 34),
 
                   // ============================================================
-
-                  // FUEL
-
+                  // FUEL + FOOD & BEVERAGE
                   // ============================================================
 
                   Row(
-
                     crossAxisAlignment: CrossAxisAlignment.start,
-
                     children: [
+                      // ========================================================
+                      // FUEL
+                      // ========================================================
 
                       Expanded(
-
                         child: _ModernServiceCard(
-
                           height: 455,
-
                           icon: Icons.local_gas_station_rounded,
-
                           label: loc.fuelButton,
-
                           supportingText: loc.fuelSupportingText,
-
                           accentColor: const Color(0xFFD62828),
-
                           accentLightColor: const Color(0xFFFFE5E5),
-
                           onPressed: () {
-
                             Navigator.push(
-
                               context,
-
                               MaterialPageRoute(
-
                                 builder: (_) => const PFUEL3PAGE(),
-
                               ),
-
                             );
-
                           },
-
                           comingSoon: false,
-
                         ),
-
                       ),
 
                       const SizedBox(width: 34),
 
-                      // Empty right side keeps Fuel aligned to the left.
+                      // ========================================================
+                      // FOOD & BEVERAGE
+                      // ========================================================
 
-                      const Expanded(
-
-                        child: SizedBox(),
-
+                      Expanded(
+                        child: _ModernServiceCard(
+                          height: 455,
+                          icon: Icons.restaurant_rounded,
+                          label: loc.foodBeverageButton,
+                          supportingText: loc.foodBeverageSupportingText,
+                          accentColor: const Color(0xFFE87522),
+                          accentLightColor: const Color(0xFFFFEBD9),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PFOODBEVERAGE3PAGE(),
+                              ),
+                            );
+                          },
+                          comingSoon: true,
+                        ),
                       ),
-
                     ],
-
                   ),
 
                   const SizedBox(height: 34),

@@ -4028,7 +4028,22 @@
 "providerSearchTitle": "Search Provider",
 "providerSearchHint": "Enter provider name or code",
 "providerSearchButton": "Search",
-"providerSearchNoResults": "No matching providers found."
+"providerSearchNoResults": "No matching providers found.",
+
+"foodBeverageButton": "Food & Beverage",
+"foodBeverageSupportingText": "Purchase food and beverage vouchers from participating brands.",
+"foodBeverageTitle": "Food & Beverage",
+"foodBeverageSubtitle": "Select a participating food or beverage provider",
+
+  "taksiranKioskIntro": "Choose your accounts and payment period.",
+  "taksiranKioskChooseAccounts": "Choose accounts to pay",
+  "taksiranKioskAccountHint": "Tap an account to select it. You may select more than one.",
+  "taksiranKioskViewDetails": "View details",
+  "taksiranKioskChoosePeriod": "Choose half-year or full-year payment",
+  "taksiranKioskPeriodRequired": "Choose half-year or full-year to continue.",
+  "taksiranKioskAmountUnavailable": "Amount unavailable",
+  "taksiranKioskInvalidSelection": "A selected account has no payable amount for this period. Review your selection or choose another period.",
+  "taksiranKioskAccountUnavailable": "This account cannot be selected because its account number is missing."
 
 
 

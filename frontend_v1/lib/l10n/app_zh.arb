@@ -3935,6 +3935,22 @@
 "providerSearchTitle": "搜索供应商",
 "providerSearchHint": "输入供应商名称或代码",
 "providerSearchButton": "搜索",
-"providerSearchNoResults": "未找到匹配的供应商。"
+"providerSearchNoResults": "未找到匹配的供应商。",
+
+
+"foodBeverageButton": "餐饮",
+"foodBeverageSupportingText": "购买参与品牌的餐饮礼券。",
+"foodBeverageTitle": "餐饮",
+"foodBeverageSubtitle": "请选择参与的餐饮品牌",
+
+  "taksiranKioskIntro": "请选择户口及缴费周期。",
+  "taksiranKioskChooseAccounts": "选择要缴费的户口",
+  "taksiranKioskAccountHint": "轻触户口即可选择。您可选择多个户口。",
+  "taksiranKioskViewDetails": "查看详情",
+  "taksiranKioskChoosePeriod": "选择缴付半年或全年税款",
+  "taksiranKioskPeriodRequired": "请选择半年或全年应缴金额以继续。",
+  "taksiranKioskAmountUnavailable": "暂无金额",
+  "taksiranKioskInvalidSelection": "所选户口在此缴费周期内没有可缴付的金额。请检查所选户口，或选择其他缴费周期。",
+  "taksiranKioskAccountUnavailable": "此户口缺少户口号码，无法选择。"
 
 }

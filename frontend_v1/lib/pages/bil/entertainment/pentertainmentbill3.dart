@@ -4,27 +4,22 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/bil/p4bil.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbil3.dart';
-import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
-import 'package:frontend_v1/widgets/kiosk_back_button.dart';
-import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 
-// ============================================================================
-// BILLER STATUS
-// ============================================================================
-enum BillerStatus {
-  loading,
-  healthy,
-  interruption,
-  unavailable,
-}
+import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
+import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
+
+import 'package:frontend_v1/widgets/kiosk_back_button.dart';
+import 'package:frontend_v1/widgets/modern_provider_card.dart';
 
 // ============================================================================
 // ENTERTAINMENT BILLER MODEL
 // ============================================================================
+
 class EntertainmentBiller {
   final String productCode;
   final String billerName;
   final String imageUrl;
+
   final Color accentColor;
   final Color lightAccentColor;
 
@@ -40,6 +35,7 @@ class EntertainmentBiller {
 // ============================================================================
 // ENTERTAINMENT BILL PROVIDER PAGE
 // ============================================================================
+
 class PENTERTAINMENTBILL3PAGE extends StatefulWidget {
   const PENTERTAINMENTBILL3PAGE({
     super.key,
@@ -54,27 +50,51 @@ class _PENTERTAINMENTBILL3PAGEState
     extends State<PENTERTAINMENTBILL3PAGE> {
   // ==========================================================================
   // ASTRO PROVIDER
+  //
+  // Keeping your current Entertainment logic:
+  //
+  // ASB = ASTRO
   // ==========================================================================
+
   static const EntertainmentBiller _astroBiller =
       EntertainmentBiller(
     productCode: 'ASB',
     billerName: 'ASTRO',
     imageUrl:
         'https://dashboard.iimmpact.com/img/ASB.png',
-    accentColor: Color(0xFFE32675),
-    lightAccentColor: Color(0xFFFFE6F1),
+    accentColor: Color(
+      0xFFE32675,
+    ),
+    lightAccentColor: Color(
+      0xFFFFE6F1,
+    ),
   );
 
-  final Map<String, BillerStatus> _billerStatuses = {
-    _astroBiller.productCode: BillerStatus.loading,
+  // ==========================================================================
+  // NETWORK STATUS
+  //
+  // Now uses the shared ProviderNetworkStatus from:
+  //
+  // modern_provider_card.dart
+  // ==========================================================================
+
+  final Map<String, ProviderNetworkStatus>
+      _billerStatuses = {
+    _astroBiller.productCode:
+        ProviderNetworkStatus.loading,
   };
 
   final Map<String, String?> _lastUpdated = {};
 
   // ==========================================================================
-  // PROCESSING TIME FROM IIMMPACT CATALOG
+  // PROCESSING TIME FROM CATALOG
   // ==========================================================================
+
   final Map<String, String> _processingTimes = {};
+
+  // ==========================================================================
+  // LIFE CYCLE
+  // ==========================================================================
 
   @override
   void initState() {
@@ -85,14 +105,16 @@ class _PENTERTAINMENTBILL3PAGEState
         _refreshNetworkStatus(
           _astroBiller.productCode,
         );
+
         _loadCatalogProcessingTime();
       },
     );
   }
 
   // ==========================================================================
-  // LOAD ASTRO PROCESSING TIME FROM IIMMPACT CATALOG
+  // LOAD ASTRO PROCESSING TIME FROM CATALOG
   // ==========================================================================
+
   Future<void> _loadCatalogProcessingTime() async {
     try {
       final Map<String, dynamic> catalog =
@@ -103,8 +125,10 @@ class _PENTERTAINMENTBILL3PAGEState
 
       if (productsRaw is! Map) {
         debugPrint(
-          'Entertainment catalog error: products not found.',
+          'Entertainment catalog error: '
+          'products not found.',
         );
+
         return;
       }
 
@@ -121,6 +145,7 @@ class _PENTERTAINMENTBILL3PAGEState
           'Entertainment catalog product not found: '
           '${_astroBiller.productCode}',
         );
+
         return;
       }
 
@@ -142,7 +167,7 @@ class _PENTERTAINMENTBILL3PAGEState
       setState(() {
         if (processingTime.isNotEmpty) {
           _processingTimes[
-              _astroBiller.productCode] =
+                  _astroBiller.productCode] =
               processingTime;
         }
       });
@@ -151,19 +176,24 @@ class _PENTERTAINMENTBILL3PAGEState
         'Entertainment processing time loaded: '
         '$processingTime',
       );
-    } on IimmpactCatalogException catch (error) {
+    }
+
+    on IimmpactCatalogException catch (error) {
       debugPrint(
         'Entertainment catalog error: '
         '${error.message}',
       );
-    } catch (error, stackTrace) {
+    }
+
+    catch (error, stackTrace) {
       debugPrint(
         'Unexpected entertainment catalog error: '
         '$error',
       );
 
       debugPrintStack(
-        stackTrace: stackTrace,
+        stackTrace:
+            stackTrace,
       );
     }
   }
@@ -171,30 +201,33 @@ class _PENTERTAINMENTBILL3PAGEState
   // ==========================================================================
   // REFRESH ASTRO NETWORK STATUS
   // ==========================================================================
-  Future<BillerStatus> _refreshNetworkStatus(
+
+  Future<ProviderNetworkStatus> _refreshNetworkStatus(
     String productCode,
   ) async {
     if (mounted) {
       setState(() {
         _billerStatuses[productCode] =
-            BillerStatus.loading;
+            ProviderNetworkStatus.loading;
       });
     }
 
     try {
       final result =
           await IimmpactNetworkStatusService.getStatus(
-        productCode: productCode,
+        productCode:
+            productCode,
       );
 
-      final BillerStatus status =
+      final ProviderNetworkStatus status =
           result.isHealthy
-              ? BillerStatus.healthy
-              : BillerStatus.interruption;
+              ? ProviderNetworkStatus.healthy
+              : ProviderNetworkStatus.interruption;
 
       if (mounted) {
         setState(() {
-          _billerStatuses[productCode] = status;
+          _billerStatuses[productCode] =
+              status;
 
           _lastUpdated[productCode] =
               result.lastUpdated;
@@ -211,17 +244,111 @@ class _PENTERTAINMENTBILL3PAGEState
       if (mounted) {
         setState(() {
           _billerStatuses[productCode] =
-              BillerStatus.unavailable;
+              ProviderNetworkStatus.unavailable;
         });
       }
 
-      return BillerStatus.unavailable;
+      return ProviderNetworkStatus.unavailable;
     }
+  }
+
+  // ==========================================================================
+  // ENTERTAINMENT PROCESSING TIME
+  //
+  // Keeps your original special translation behavior:
+  //
+  // instant
+  // 24_hours
+  // 48_hours
+  // 72_hours
+  // 2_days
+  // 3_days
+  // 5_days
+  // etc.
+  // ==========================================================================
+
+  String _formatEntertainmentProcessingTime(
+    BuildContext context,
+    String value,
+  ) {
+    final loc =
+        AppLocalizations.of(context)!;
+
+    final String normalized =
+        value
+            .toLowerCase()
+            .trim();
+
+    // ========================================================================
+    // INSTANT
+    // ========================================================================
+
+    if (normalized == 'instant') {
+      return loc.processingInstant;
+    }
+
+    // ========================================================================
+    // 24 HOURS
+    // ========================================================================
+
+    if (normalized == '24_hours') {
+      return loc.processing24Hours;
+    }
+
+    // ========================================================================
+    // 3 DAYS
+    // ========================================================================
+
+    if (normalized == '3_days') {
+      return loc.processing3Days;
+    }
+
+    // ========================================================================
+    // GENERIC HOURS
+    // ========================================================================
+
+    if (normalized.endsWith(
+      '_hours',
+    )) {
+      final String hours =
+          normalized.replaceAll(
+        '_hours',
+        '',
+      );
+
+      return loc.entertainmentUpdateWithinHours(
+        hours,
+      );
+    }
+
+    // ========================================================================
+    // GENERIC DAYS
+    // ========================================================================
+
+    if (normalized.endsWith(
+      '_days',
+    )) {
+      final String days =
+          normalized.replaceAll(
+        '_days',
+        '',
+      );
+
+      return loc.entertainmentUpdateWithinDays(
+        days,
+      );
+    }
+
+    return value.replaceAll(
+      '_',
+      ' ',
+    );
   }
 
   // ==========================================================================
   // NETWORK INTERRUPTION WARNING
   // ==========================================================================
+
   Future<bool> _showInterruptionWarning({
     required String billerName,
     required String productCode,
@@ -231,149 +358,290 @@ class _PENTERTAINMENTBILL3PAGEState
 
     final bool? result =
         await showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (dialogContext) {
+      context:
+          context,
+
+      barrierDismissible:
+          false,
+
+      builder:
+          (
+        BuildContext dialogContext,
+      ) {
         return Dialog(
-          backgroundColor: Colors.transparent,
+          backgroundColor:
+              Colors.transparent,
+
           insetPadding:
               const EdgeInsets.symmetric(
-            horizontal: 80,
+            horizontal:
+                80,
           ),
+
           child: Container(
-            width: 800,
-            padding: const EdgeInsets.fromLTRB(
+            width:
+                800,
+
+            padding:
+                const EdgeInsets.fromLTRB(
               45,
               42,
               45,
               38,
             ),
-            decoration: BoxDecoration(
-              color: Colors.white,
+
+            decoration:
+                BoxDecoration(
+              color:
+                  Colors.white,
+
               borderRadius:
-                  BorderRadius.circular(38),
-              border: Border.all(
-                color:
-                    const Color(0xFFF2A520),
-                width: 3,
+                  BorderRadius.circular(
+                38,
               ),
+
+              border:
+                  Border.all(
+                color:
+                    const Color(
+                  0xFFF2A520,
+                ),
+
+                width:
+                    3,
+              ),
+
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black
-                      .withOpacity(0.25),
-                  blurRadius: 35,
+                  color:
+                      Colors.black.withOpacity(
+                    0.25,
+                  ),
+
+                  blurRadius:
+                      35,
+
                   offset:
-                      const Offset(0, 18),
+                      const Offset(
+                    0,
+                    18,
+                  ),
                 ),
               ],
             ),
+
             child: Column(
               mainAxisSize:
                   MainAxisSize.min,
+
               children: [
+                // ============================================================
+                // WARNING ICON
+                // ============================================================
+
                 Container(
-                  width: 125,
-                  height: 125,
-                  decoration: BoxDecoration(
-                    color: const Color(
+                  width:
+                      125,
+
+                  height:
+                      125,
+
+                  decoration:
+                      BoxDecoration(
+                    color:
+                        const Color(
                       0xFFFFF2D9,
                     ),
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: const Color(
+
+                    shape:
+                        BoxShape.circle,
+
+                    border:
+                        Border.all(
+                      color:
+                          const Color(
                         0xFFF2A520,
-                      ).withOpacity(0.30),
-                      width: 2,
+                      ).withOpacity(
+                        0.30,
+                      ),
+
+                      width:
+                          2,
                     ),
                   ),
-                  child: const Icon(
+
+                  child:
+                      const Icon(
                     Icons.warning_amber_rounded,
-                    color: Color(0xFFD87900),
-                    size: 78,
+
+                    color:
+                        Color(
+                      0xFFD87900,
+                    ),
+
+                    size:
+                        78,
                   ),
                 ),
 
-                const SizedBox(height: 28),
+                const SizedBox(
+                  height:
+                      28,
+                ),
+
+                // ============================================================
+                // TITLE
+                // ============================================================
 
                 Text(
                   loc.networkInterruptionTitle,
+
                   textAlign:
                       TextAlign.center,
-                  style: const TextStyle(
-                    color: Color(0xFF17283E),
-                    fontSize: 40,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF17283E,
+                    ),
+
+                    fontSize:
+                        40,
+
                     fontWeight:
                         FontWeight.w900,
-                    height: 1.1,
+
+                    height:
+                        1.1,
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(
+                  height:
+                      24,
+                ),
+
+                // ============================================================
+                // MESSAGE
+                // ============================================================
 
                 Container(
-                  width: double.infinity,
+                  width:
+                      double.infinity,
+
                   padding:
                       const EdgeInsets.symmetric(
-                    horizontal: 28,
-                    vertical: 25,
+                    horizontal:
+                        28,
+
+                    vertical:
+                        25,
                   ),
-                  decoration: BoxDecoration(
+
+                  decoration:
+                      BoxDecoration(
                     color:
-                        const Color(0xFFFFF9ED),
+                        const Color(
+                      0xFFFFF9ED,
+                    ),
+
                     borderRadius:
-                        BorderRadius.circular(24),
-                    border: Border.all(
-                      color: const Color(
+                        BorderRadius.circular(
+                      24,
+                    ),
+
+                    border:
+                        Border.all(
+                      color:
+                          const Color(
                         0xFFF4D69D,
                       ),
-                      width: 1.5,
+
+                      width:
+                          1.5,
                     ),
                   ),
+
                   child: Text(
                     loc.networkInterruptionMessage(
                       billerName,
                     ),
+
                     textAlign:
                         TextAlign.center,
-                    style: const TextStyle(
-                      color: Color(0xFF4B4234),
-                      fontSize: 29,
-                      height: 1.4,
+
+                    style:
+                        const TextStyle(
+                      color:
+                          Color(
+                        0xFF4B4234,
+                      ),
+
+                      fontSize:
+                          29,
+
+                      height:
+                          1.4,
+
                       fontWeight:
                           FontWeight.w600,
                     ),
                   ),
                 ),
 
+                // ============================================================
+                // LAST UPDATED
+                // ============================================================
+
                 if (_lastUpdated[
                         productCode] !=
                     null) ...[
-                  const SizedBox(height: 20),
+                  const SizedBox(
+                    height:
+                        20,
+                  ),
 
                   Row(
                     mainAxisAlignment:
                         MainAxisAlignment.center,
+
                     children: [
                       const Icon(
                         Icons.schedule_rounded,
-                        size: 24,
+
+                        size:
+                            24,
+
                         color:
-                            Color(0xFF758399),
+                            Color(
+                          0xFF758399,
+                        ),
                       ),
 
-                      const SizedBox(width: 8),
+                      const SizedBox(
+                        width:
+                            8,
+                      ),
 
                       Flexible(
                         child: Text(
                           '${loc.networkLastUpdated}: '
                           '${_lastUpdated[productCode]}',
+
                           textAlign:
                               TextAlign.center,
+
                           style:
                               const TextStyle(
-                            fontSize: 21,
+                            fontSize:
+                                21,
+
                             color:
-                                Color(0xFF758399),
+                                Color(
+                              0xFF758399,
+                            ),
+
                             fontWeight:
                                 FontWeight.w600,
                           ),
@@ -383,13 +651,27 @@ class _PENTERTAINMENTBILL3PAGEState
                   ),
                 ],
 
-                const SizedBox(height: 36),
+                const SizedBox(
+                  height:
+                      36,
+                ),
+
+                // ============================================================
+                // BUTTONS
+                // ============================================================
 
                 Row(
                   children: [
+                    // ========================================================
+                    // BACK
+                    // ========================================================
+
                     Expanded(
-                      child: SizedBox(
-                        height: 78,
+                      child:
+                          SizedBox(
+                        height:
+                            78,
+
                         child:
                             OutlinedButton.icon(
                           onPressed: () {
@@ -398,53 +680,79 @@ class _PENTERTAINMENTBILL3PAGEState
                               false,
                             );
                           },
-                          icon: const Icon(
-                            Icons
-                                .arrow_back_rounded,
-                            size: 29,
+
+                          icon:
+                              const Icon(
+                            Icons.arrow_back_rounded,
+
+                            size:
+                                29,
                           ),
-                          label: Text(
+
+                          label:
+                              Text(
                             loc.backButton,
+
                             style:
                                 const TextStyle(
-                              fontSize: 24,
+                              fontSize:
+                                  24,
+
                               fontWeight:
                                   FontWeight.w900,
                             ),
                           ),
-                          style: OutlinedButton
-                              .styleFrom(
+
+                          style:
+                              OutlinedButton.styleFrom(
                             backgroundColor:
                                 const Color(
                               0xFFFFE8E8,
                             ),
+
                             foregroundColor:
                                 const Color(
                               0xFFC62828,
                             ),
+
                             side:
                                 const BorderSide(
-                              color: Color(
+                              color:
+                                  Color(
                                 0xFFE57373,
                               ),
-                              width: 2,
+
+                              width:
+                                  2,
                             ),
+
                             shape:
                                 RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius
-                                      .circular(22),
+                                  BorderRadius.circular(
+                                22,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
 
-                    const SizedBox(width: 22),
+                    const SizedBox(
+                      width:
+                          22,
+                    ),
+
+                    // ========================================================
+                    // CONTINUE
+                    // ========================================================
 
                     Expanded(
-                      child: SizedBox(
-                        height: 78,
+                      child:
+                          SizedBox(
+                        height:
+                            78,
+
                         child:
                             ElevatedButton.icon(
                           onPressed: () {
@@ -453,34 +761,48 @@ class _PENTERTAINMENTBILL3PAGEState
                               true,
                             );
                           },
-                          icon: const Icon(
-                            Icons
-                                .arrow_forward_rounded,
-                            size: 29,
+
+                          icon:
+                              const Icon(
+                            Icons.arrow_forward_rounded,
+
+                            size:
+                                29,
                           ),
-                          label: Text(
+
+                          label:
+                              Text(
                             loc.continueButton,
+
                             style:
                                 const TextStyle(
-                              fontSize: 24,
+                              fontSize:
+                                  24,
+
                               fontWeight:
                                   FontWeight.w900,
                             ),
                           ),
-                          style: ElevatedButton
-                              .styleFrom(
+
+                          style:
+                              ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color(
                               0xFF168A50,
                             ),
+
                             foregroundColor:
                                 Colors.white,
-                            elevation: 0,
+
+                            elevation:
+                                0,
+
                             shape:
                                 RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius
-                                      .circular(22),
+                                  BorderRadius.circular(
+                                22,
+                              ),
                             ),
                           ),
                         ),
@@ -499,10 +821,11 @@ class _PENTERTAINMENTBILL3PAGEState
   }
 
   // ==========================================================================
-  // ASTRO TAP HANDLER
+  // ASTRO TAP
   // ==========================================================================
+
   Future<void> _handleAstroTap() async {
-    final BillerStatus status =
+    final ProviderNetworkStatus status =
         await _refreshNetworkStatus(
       _astroBiller.productCode,
     );
@@ -511,12 +834,17 @@ class _PENTERTAINMENTBILL3PAGEState
       return;
     }
 
+    // ========================================================================
+    // INTERRUPTION
+    // ========================================================================
+
     if (status ==
-        BillerStatus.interruption) {
+        ProviderNetworkStatus.interruption) {
       final bool shouldContinue =
           await _showInterruptionWarning(
         billerName:
             _astroBiller.billerName,
+
         productCode:
             _astroBiller.productCode,
       );
@@ -530,21 +858,94 @@ class _PENTERTAINMENTBILL3PAGEState
       return;
     }
 
+    // ========================================================================
+    // UNAVAILABLE
+    // ========================================================================
+
+    if (status ==
+        ProviderNetworkStatus.unavailable) {
+      final loc =
+          AppLocalizations.of(context)!;
+
+      await showDialog<void>(
+        context:
+            context,
+
+        builder:
+            (
+          BuildContext dialogContext,
+        ) {
+          return AlertDialog(
+            title:
+                Text(
+              loc.alertTitle,
+
+              style:
+                  const TextStyle(
+                fontWeight:
+                    FontWeight.bold,
+              ),
+            ),
+
+            content:
+                Text(
+              loc.networkUnavailableMessage(
+                _astroBiller.billerName,
+              ),
+            ),
+
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(
+                    dialogContext,
+                  );
+                },
+
+                child:
+                    Text(
+                  loc.electricOk,
+                ),
+              ),
+            ],
+          );
+        },
+      );
+
+      return;
+    }
+
+    if (!mounted) {
+      return;
+    }
+
+    // ========================================================================
+    // PAGE 4
+    //
+    // ORIGINAL ENTERTAINMENT FLOW KEPT.
+    // ========================================================================
+
     final loc =
         AppLocalizations.of(context)!;
 
-    Navigator.push(
+    await Navigator.push(
       context,
+
       MaterialPageRoute(
-        builder: (_) => P4BILPAGE(
+        builder: (_) =>
+            P4BILPAGE(
           title:
               loc.entertainmentAccountTitle,
+
           hint:
               loc.entertainmentAccountHint,
+
           productCode:
               _astroBiller.productCode,
+
           billerName:
               _astroBiller.billerName,
+
           serviceType:
               BillServiceType.entertainment,
         ),
@@ -552,39 +953,64 @@ class _PENTERTAINMENTBILL3PAGEState
     );
   }
 
+  // ==========================================================================
+  // BUILD
+  // ==========================================================================
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final loc =
         AppLocalizations.of(context)!;
 
     return Scaffold(
-      body: Stack(
+      body:
+          Stack(
         children: [
           // ==================================================================
           // BACKGROUND
           // ==================================================================
+
           Positioned.fill(
-            child: Image.asset(
+            child:
+                Image.asset(
               'lib/images/pnew.png',
-              fit: BoxFit.cover,
+
+              fit:
+                  BoxFit.cover,
             ),
           ),
 
+          // ==================================================================
+          // OVERLAY
+          // ==================================================================
+
           Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
+            child:
+                Container(
+              decoration:
+                  BoxDecoration(
+                gradient:
+                    LinearGradient(
                   begin:
                       Alignment.topCenter,
+
                   end:
                       Alignment.bottomCenter,
+
                   colors: [
-                    Colors.white
-                        .withOpacity(0.02),
-                    Colors.white
-                        .withOpacity(0.13),
-                    Colors.white
-                        .withOpacity(0.04),
+                    Colors.white.withOpacity(
+                      0.02,
+                    ),
+
+                    Colors.white.withOpacity(
+                      0.13,
+                    ),
+
+                    Colors.white.withOpacity(
+                      0.04,
+                    ),
                   ],
                 ),
               ),
@@ -592,16 +1018,24 @@ class _PENTERTAINMENTBILL3PAGEState
           ),
 
           // ==================================================================
-          // MODERN HEADER
+          // HEADER
           // ==================================================================
+
           Positioned(
-            top: 75,
-            left: 65,
-            right: 65,
+            top:
+                75,
+
+            left:
+                65,
+
+            right:
+                65,
+
             child:
                 _ModernEntertainmentHeader(
               title:
                   loc.entertainmentBillTitle,
+
               subtitle:
                   loc.pbil3Subtitle,
             ),
@@ -610,12 +1044,22 @@ class _PENTERTAINMENTBILL3PAGEState
           // ==================================================================
           // PROVIDER AREA
           // ==================================================================
+
           Positioned(
-            top: 390,
-            left: 45,
-            right: 45,
-            bottom: 305,
-            child: Container(
+            top:
+                390,
+
+            left:
+                45,
+
+            right:
+                45,
+
+            bottom:
+                305,
+
+            child:
+                Container(
               padding:
                   const EdgeInsets.fromLTRB(
                 20,
@@ -623,42 +1067,88 @@ class _PENTERTAINMENTBILL3PAGEState
                 20,
                 22,
               ),
-              decoration: BoxDecoration(
-                color: Colors.white
-                    .withOpacity(0.20),
+
+              decoration:
+                  BoxDecoration(
+                color:
+                    Colors.white.withOpacity(
+                  0.20,
+                ),
+
                 borderRadius:
-                    BorderRadius.circular(36),
-                border: Border.all(
-                  color: Colors.white
-                      .withOpacity(0.60),
-                  width: 1.5,
+                    BorderRadius.circular(
+                  36,
+                ),
+
+                border:
+                    Border.all(
+                  color:
+                      Colors.white.withOpacity(
+                    0.60,
+                  ),
+
+                  width:
+                      1.5,
                 ),
               ),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: SizedBox(
-                  width: 450,
-                  height: 450,
+
+              // ==============================================================
+              // ONLY ASTRO CURRENTLY
+              // ==============================================================
+
+              child:
+                  Align(
+                alignment:
+                    Alignment.topLeft,
+
+                child:
+                    SizedBox(
+                  width:
+                      450,
+
+                  // ModernProviderCard default height is 510
+                  height:
+                      510,
+
                   child:
-                      _EntertainmentProviderCard(
-                    biller: _astroBiller,
+                      ModernProviderCard(
+                    imageUrl:
+                        _astroBiller.imageUrl,
+
+                    label:
+                        _astroBiller.billerName,
+
+                    accentColor:
+                        _astroBiller.accentColor,
+
+                    lightAccentColor:
+                        _astroBiller.lightAccentColor,
+
                     networkStatus:
                         _billerStatuses[
-                          _astroBiller
-                              .productCode
-                        ] ??
-                        BillerStatus.loading,
+                                _astroBiller
+                                    .productCode] ??
+                            ProviderNetworkStatus
+                                .loading,
+
                     networkLabel:
                         loc.networkLabel,
+
                     processingTime:
                         _processingTimes[
-                          _astroBiller.productCode
-                        ] ??
-                        '',
+                                _astroBiller
+                                    .productCode] ??
+                            '',
 
                     processingLabel:
                         loc.processingTimeLabel,
-                        
+
+                    processingTimeFormatter:
+                        _formatEntertainmentProcessingTime,
+
+                    fallbackIcon:
+                        Icons.live_tv_rounded,
+
                     onPressed:
                         _handleAstroTap,
                   ),
@@ -668,16 +1158,25 @@ class _PENTERTAINMENTBILL3PAGEState
           ),
 
           // ==================================================================
-          // BACK BUTTON
+          // BACK
           // ==================================================================
+
           Positioned(
-            bottom: 105,
-            left: 300,
-            right: 300,
-            child: KioskBackButton(
+            bottom:
+                105,
+
+            left:
+                300,
+
+            right:
+                300,
+
+            child:
+                KioskBackButton(
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
+
                   MaterialPageRoute(
                     builder: (_) =>
                         const PBIL3PAGE(),
@@ -690,16 +1189,34 @@ class _PENTERTAINMENTBILL3PAGEState
           // ==================================================================
           // FOOTER
           // ==================================================================
+
           Positioned(
-            bottom: 25,
-            left: 0,
-            right: 0,
-            child: Text(
+            bottom:
+                25,
+
+            left:
+                0,
+
+            right:
+                0,
+
+            child:
+                Text(
               Data.copyrightText,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color(0xFF26364A),
-                fontSize: 20,
+
+              textAlign:
+                  TextAlign.center,
+
+              style:
+                  const TextStyle(
+                color:
+                    Color(
+                  0xFF26364A,
+                ),
+
+                fontSize:
+                    20,
+
                 fontWeight:
                     FontWeight.w800,
               ),
@@ -715,7 +1232,8 @@ class _PENTERTAINMENTBILL3PAGEState
 // MODERN ENTERTAINMENT HEADER
 // ============================================================================
 
-class _ModernEntertainmentHeader extends StatelessWidget {
+class _ModernEntertainmentHeader
+    extends StatelessWidget {
   final String title;
   final String subtitle;
 
@@ -725,923 +1243,348 @@ class _ModernEntertainmentHeader extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    const Color accentColor = Color(0xFFE32675);
+  Widget build(
+    BuildContext context,
+  ) {
+    const Color accentColor =
+        Color(
+      0xFFE32675,
+    );
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(
+      padding:
+          const EdgeInsets.fromLTRB(
         30,
         24,
         30,
         24,
       ),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.96),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(
-          color: const Color(0xFFD5E4F7),
-          width: 2,
+
+      decoration:
+          BoxDecoration(
+        color:
+            Colors.white.withOpacity(
+          0.96,
         ),
+
+        borderRadius:
+            BorderRadius.circular(
+          32,
+        ),
+
+        border:
+            Border.all(
+          color:
+              const Color(
+            0xFFD5E4F7,
+          ),
+
+          width:
+              2,
+        ),
+
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF173A66).withOpacity(0.14),
-            blurRadius: 30,
-            offset: const Offset(0, 12),
+            color:
+                const Color(
+              0xFF173A66,
+            ).withOpacity(
+              0.14,
+            ),
+
+            blurRadius:
+                30,
+
+            offset:
+                const Offset(
+              0,
+              12,
+            ),
           ),
         ],
       ),
-      child: Row(
+
+      child:
+          Row(
         children: [
-          // ==========================================================
-          // LEFT ENTERTAINMENT ICON
-          // ==========================================================
+          // ==================================================================
+          // LEFT ICON
+          // ==================================================================
+
           Container(
-            width: 105,
-            height: 105,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+            width:
+                105,
+
+            height:
+                105,
+
+            decoration:
+                BoxDecoration(
+              gradient:
+                  const LinearGradient(
+                begin:
+                    Alignment.topLeft,
+
+                end:
+                    Alignment.bottomRight,
+
                 colors: [
-                  Color(0xFFB21558),
-                  Color(0xFFF04F9A),
+                  Color(
+                    0xFFB21558,
+                  ),
+
+                  Color(
+                    0xFFF04F9A,
+                  ),
                 ],
               ),
-              borderRadius: BorderRadius.circular(30),
+
+              borderRadius:
+                  BorderRadius.circular(
+                30,
+              ),
+
               boxShadow: [
                 BoxShadow(
-                  color: accentColor.withOpacity(0.28),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
+                  color:
+                      accentColor.withOpacity(
+                    0.28,
+                  ),
+
+                  blurRadius:
+                      20,
+
+                  offset:
+                      const Offset(
+                    0,
+                    8,
+                  ),
                 ),
               ],
             ),
-            child: const Icon(
+
+            child:
+                const Icon(
               Icons.live_tv_rounded,
-              color: Colors.white,
-              size: 56,
+
+              color:
+                  Colors.white,
+
+              size:
+                  56,
             ),
           ),
 
-          const SizedBox(width: 28),
+          const SizedBox(
+            width:
+                28,
+          ),
 
-          // ==========================================================
-          // TEXT AREA
-          // ==========================================================
+          // ==================================================================
+          // TEXT
+          // ==================================================================
+
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child:
+                Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
               children: [
-                // ------------------------------------------------------
-                // EXISTING BADGE
-                // ------------------------------------------------------
+                // ============================================================
+                // BADGE
+                // ============================================================
+
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 7,
+                  padding:
+                      const EdgeInsets.symmetric(
+                    horizontal:
+                        18,
+
+                    vertical:
+                        7,
                   ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFE9F2),
-                    borderRadius: BorderRadius.circular(100),
+
+                  decoration:
+                      BoxDecoration(
+                    color:
+                        const Color(
+                      0xFFFFE9F2,
+                    ),
+
+                    borderRadius:
+                        BorderRadius.circular(
+                      100,
+                    ),
                   ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
+
+                  child:
+                      const Row(
+                    mainAxisSize:
+                        MainAxisSize.min,
+
                     children: [
                       Icon(
                         Icons.live_tv_rounded,
-                        size: 20,
-                        color: accentColor,
+
+                        size:
+                            20,
+
+                        color:
+                            accentColor,
                       ),
 
-                      SizedBox(width: 8),
+                      SizedBox(
+                        width:
+                            8,
+                      ),
 
                       Text(
                         'ENTERTAINMENT SERVICES',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: accentColor,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 1.1,
+
+                        maxLines:
+                            1,
+
+                        overflow:
+                            TextOverflow.ellipsis,
+
+                        style:
+                            TextStyle(
+                          color:
+                              accentColor,
+
+                          fontSize:
+                              17,
+
+                          fontWeight:
+                              FontWeight.w900,
+
+                          letterSpacing:
+                              1.1,
                         ),
                       ),
                     ],
                   ),
                 ),
 
-                const SizedBox(height: 12),
+                const SizedBox(
+                  height:
+                      12,
+                ),
 
-                // ------------------------------------------------------
-                // EXISTING TITLE
-                // ------------------------------------------------------
+                // ============================================================
+                // TITLE
+                // ============================================================
+
                 Text(
                   title.toUpperCase(),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF122C4C),
-                    fontSize: 52,
-                    fontWeight: FontWeight.w900,
-                    height: 1.02,
-                    letterSpacing: -0.8,
-                  ),
-                ),
 
-                const SizedBox(height: 9),
+                  maxLines:
+                      2,
 
-                // ------------------------------------------------------
-                // EXISTING SUBTITLE
-                // ------------------------------------------------------
-                Text(
-                  subtitle.toUpperCase(),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF607188),
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    height: 1.25,
-                  ),
-                ),
-              ],
-            ),
-          ),
+                  overflow:
+                      TextOverflow.ellipsis,
 
-          const SizedBox(width: 24),
-
-          // ==========================================================
-          // RIGHT ENTERTAINMENT ACCENT
-          // ==========================================================
-          Container(
-            width: 8,
-            height: 105,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFFB21558),
-                  Color(0xFFF04F9A),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ============================================================================
-// MODERN ENTERTAINMENT PROVIDER CARD
-// ============================================================================
-class _EntertainmentProviderCard
-    extends StatefulWidget {
-  final EntertainmentBiller biller;
-  final BillerStatus networkStatus;
-  final String networkLabel;
-
-  final String processingTime;
-  final String processingLabel;
-
-  final VoidCallback onPressed;
-
-  const _EntertainmentProviderCard({
-    required this.biller,
-    required this.networkStatus,
-    required this.networkLabel,
-    required this.processingTime,
-    required this.processingLabel,
-    required this.onPressed,
-  });
-
-  @override
-  State<_EntertainmentProviderCard>
-      createState() =>
-          _EntertainmentProviderCardState();
-}
-
-class _EntertainmentProviderCardState
-    extends State<
-        _EntertainmentProviderCard> {
-  bool _isPressed = false;
-
-  void _setPressed(bool value) {
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      _isPressed = value;
-    });
-  }
-
-  String _formatProcessingTime(
-    BuildContext context,
-    String value,
-  ) {
-    final loc =
-        AppLocalizations.of(context)!;
-
-    final String normalized =
-        value.toLowerCase().trim();
-
-    if (normalized == 'instant') {
-      return loc.processingInstant;
-    }
-
-    if (normalized == '24_hours') {
-      return loc.processing24Hours;
-    }
-
-    if (normalized == '3_days') {
-      return loc.processing3Days;
-    }
-
-    if (normalized.endsWith('_hours')) {
-      final String hours =
-          normalized.replaceAll(
-        '_hours',
-        '',
-      );
-
-      return loc.entertainmentUpdateWithinHours(
-        hours,
-      );
-    }
-
-    if (normalized.endsWith('_days')) {
-      final String days =
-          normalized.replaceAll(
-        '_days',
-        '',
-      );
-
-      return loc.entertainmentUpdateWithinDays(
-        days,
-      );
-    }
-
-    return value.replaceAll('_', ' ');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior:
-          HitTestBehavior.opaque,
-
-      onTapDown: (_) {
-        _setPressed(true);
-      },
-
-      onTapUp: (_) {
-        _setPressed(false);
-      },
-
-      onTapCancel: () {
-        _setPressed(false);
-      },
-
-      onTap: widget.onPressed,
-
-      child: AnimatedScale(
-        scale:
-            _isPressed ? 0.965 : 1,
-
-        duration: const Duration(
-          milliseconds: 130,
-        ),
-
-        curve: Curves.easeOut,
-
-        child: AnimatedContainer(
-          duration: const Duration(
-            milliseconds: 170,
-          ),
-
-          curve: Curves.easeOut,
-
-          decoration: BoxDecoration(
-            color:
-                Colors.white.withOpacity(0.96),
-
-            borderRadius:
-                BorderRadius.circular(38),
-
-            border: Border.all(
-              color: _isPressed
-                  ? widget.biller.accentColor
-                  : Colors.black,
-
-              width: _isPressed ? 4 : 3,
-            ),
-
-            boxShadow: _isPressed
-                ? [
-                    BoxShadow(
-                      color: widget
-                          .biller.accentColor
-                          .withOpacity(0.18),
-                      blurRadius: 17,
-                      offset:
-                          const Offset(0, 8),
-                    ),
-                  ]
-                : [
-                    BoxShadow(
-                      color: const Color(
-                        0xFF19375C,
-                      ).withOpacity(0.16),
-                      blurRadius: 28,
-                      spreadRadius: 1,
-                      offset:
-                          const Offset(0, 14),
-                    ),
-                  ],
-          ),
-
-          child: ClipRRect(
-            borderRadius:
-                BorderRadius.circular(35),
-
-            child: Stack(
-              children: [
-                // ==========================================================
-                // DECORATIVE LARGE CIRCLE
-                // ==========================================================
-                Positioned(
-                  right: -50,
-                  top: -50,
-                  child: AnimatedContainer(
-                    duration:
-                        const Duration(
-                      milliseconds: 180,
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF122C4C,
                     ),
 
-                    width:
-                        _isPressed ? 215 : 200,
+                    fontSize:
+                        52,
+
+                    fontWeight:
+                        FontWeight.w900,
 
                     height:
-                        _isPressed ? 215 : 200,
+                        1.02,
 
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-
-                      color: widget
-                          .biller.lightAccentColor
-                          .withOpacity(0.92),
-                    ),
+                    letterSpacing:
+                        -0.8,
                   ),
                 ),
 
-                // ==========================================================
-                // DECORATIVE SMALL CIRCLE
-                // ==========================================================
-                Positioned(
-                  right: 92,
-                  top: 105,
-                  child: Container(
-                    width: 34,
-                    height: 34,
-
-                    decoration:
-                        BoxDecoration(
-                      shape: BoxShape.circle,
-
-                      color: widget
-                          .biller.accentColor
-                          .withOpacity(0.08),
-                    ),
-                  ),
+                const SizedBox(
+                  height:
+                      9,
                 ),
 
-                Padding(
-                  padding:
-                      const EdgeInsets.fromLTRB(
-                    27,
-                    27,
-                    27,
-                    25,
-                  ),
+                // ============================================================
+                // SUBTITLE
+                // ============================================================
 
-                  child: Column(
-                    children: [
-                      // ====================================================
-                      // IIMMPACT LOGO + ARROW
-                      // ====================================================
-                      Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment
-                                .spaceBetween,
+                Text(
+                  subtitle.toUpperCase(),
 
-                        crossAxisAlignment:
-                            CrossAxisAlignment
-                                .start,
+                  maxLines:
+                      2,
 
-                        children: [
-                          Container(
-                            width: 210,
-                            height: 170,
+                  overflow:
+                      TextOverflow.ellipsis,
 
-                            padding:
-                                const EdgeInsets
-                                    .all(22),
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF607188,
+                    ),
 
-                            decoration:
-                                BoxDecoration(
-                              color: Colors.white,
+                    fontSize:
+                        22,
 
-                              borderRadius:
-                                  BorderRadius
-                                      .circular(32),
+                    fontWeight:
+                        FontWeight.w600,
 
-                              border: Border.all(
-                                color: widget
-                                    .biller
-                                    .accentColor
-                                    .withOpacity(
-                                  0.20,
-                                ),
-
-                                width: 1.5,
-                              ),
-
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black
-                                      .withOpacity(
-                                    0.07,
-                                  ),
-
-                                  blurRadius: 15,
-
-                                  offset:
-                                      const Offset(
-                                    0,
-                                    7,
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            // =============================================
-                            // ASTRO LOGO FROM IIMMPACT
-                            // =============================================
-                            child: Image.network(
-                              widget.biller.imageUrl,
-
-                              fit:
-                                  BoxFit.contain,
-
-                              loadingBuilder: (
-                                context,
-                                child,
-                                loadingProgress,
-                              ) {
-                                if (loadingProgress ==
-                                    null) {
-                                  return child;
-                                }
-
-                                return Center(
-                                  child:
-                                      CircularProgressIndicator(
-                                    strokeWidth: 3,
-
-                                    color: widget
-                                        .biller
-                                        .accentColor,
-                                  ),
-                                );
-                              },
-
-                              errorBuilder: (
-                                context,
-                                error,
-                                stackTrace,
-                              ) {
-                                debugPrint(
-                                  'Failed to load entertainment logo: '
-                                  '${widget.biller.imageUrl}',
-                                );
-
-                                return Icon(
-                                  Icons
-                                      .live_tv_rounded,
-
-                                  color: widget
-                                      .biller
-                                      .accentColor,
-
-                                  size: 100,
-                                );
-                              },
-                            ),
-                          ),
-
-                          AnimatedContainer(
-                            duration:
-                                const Duration(
-                              milliseconds: 160,
-                            ),
-
-                            transform: Matrix4
-                                .translationValues(
-                              _isPressed ? 6 : 0,
-                              0,
-                              0,
-                            ),
-
-                            width: 54,
-                            height: 54,
-
-                            decoration:
-                                BoxDecoration(
-                              color: widget
-                                  .biller
-                                  .accentColor,
-
-                              shape:
-                                  BoxShape.circle,
-
-                              boxShadow: [
-                                BoxShadow(
-                                  color: widget
-                                      .biller
-                                      .accentColor
-                                      .withOpacity(
-                                    0.24,
-                                  ),
-
-                                  blurRadius: 13,
-
-                                  offset:
-                                      const Offset(
-                                    0,
-                                    6,
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            child: const Icon(
-                              Icons
-                                  .arrow_forward_rounded,
-
-                              color: Colors.white,
-
-                              size: 30,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const Spacer(),
-
-                      // ====================================================
-                      // PROVIDER NAME
-                      // ====================================================
-                      Align(
-                        alignment:
-                            Alignment.centerLeft,
-
-                        child: Text(
-                          widget.biller.billerName
-                              .toUpperCase(),
-
-                          textAlign:
-                              TextAlign.left,
-
-                          maxLines: 3,
-
-                          overflow:
-                              TextOverflow.ellipsis,
-
-                          style:
-                              const TextStyle(
-                            color:
-                                Color(0xFF15253A),
-
-                            fontSize: 30,
-
-                            fontWeight:
-                                FontWeight.w900,
-
-                            height: 1.10,
-
-                            letterSpacing:
-                                0.3,
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(
-                        height: 18,
-                      ),
-
-                      // ====================================================
-                      // NETWORK STATUS
-                      // ====================================================
-                      SizedBox(
-                        width: double.infinity,
-                        child: _NetworkStatusBadge(
-                          status: widget.networkStatus,
-                          label: widget.networkLabel,
-                        ),
-                      ),
-
-                      // ====================================================
-                      // PROCESSING TIME
-                      // ====================================================
-                      if (widget.processingTime.isNotEmpty) ...[
-                        const SizedBox(
-                          height: 14,
-                        ),
-
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.schedule_rounded,
-                                size: 22,
-                                color: Color(0xFF647187),
-                              ),
-
-                              const SizedBox(
-                                width: 8,
-                              ),
-
-                              Expanded(
-                                child: Text(
-                                  '${widget.processingLabel}: '
-                                  '${_formatProcessingTime(
-                                    context,
-                                    widget.processingTime,
-                                  )}',
-                                  maxLines: 2,
-                                  overflow:
-                                      TextOverflow.ellipsis,
-                                  style:
-                                      const TextStyle(
-                                    color:
-                                        Color(0xFF647187),
-                                    fontSize: 17,
-                                    fontWeight:
-                                        FontWeight.w700,
-                                    height: 1.15,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      // ====================================================
-                      // ACCENT BARS
-                      // ====================================================
-                      Row(
-                        children: [
-                          Container(
-                            width: 58,
-                            height: 7,
-
-                            decoration:
-                                BoxDecoration(
-                              color: widget
-                                  .biller
-                                  .accentColor,
-
-                              borderRadius:
-                                  BorderRadius
-                                      .circular(50),
-                            ),
-                          ),
-
-                          const SizedBox(
-                            width: 8,
-                          ),
-
-                          Container(
-                            width: 13,
-                            height: 7,
-
-                            decoration:
-                                BoxDecoration(
-                              color: widget
-                                  .biller
-                                  .accentColor
-                                  .withOpacity(
-                                0.28,
-                              ),
-
-                              borderRadius:
-                                  BorderRadius
-                                      .circular(50),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    height:
+                        1.25,
                   ),
                 ),
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-// ============================================================================
-// NETWORK STATUS BADGE
-// ============================================================================
-class _NetworkStatusBadge
-    extends StatelessWidget {
-  final BillerStatus status;
-  final String label;
-
-  const _NetworkStatusBadge({
-    required this.status,
-    required this.label,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final loc =
-        AppLocalizations.of(context)!;
-
-    late final String statusText;
-    late final Color backgroundColor;
-    late final Color borderColor;
-    late final Color foregroundColor;
-    late final IconData icon;
-
-    switch (status) {
-      case BillerStatus.loading:
-        statusText =
-            loc.networkStatusChecking;
-
-        backgroundColor =
-            const Color(0xFFF0F4F8);
-
-        borderColor =
-            const Color(0xFFC7D2DE);
-
-        foregroundColor =
-            const Color(0xFF536272);
-
-        icon =
-            Icons.sync_rounded;
-
-        break;
-
-      case BillerStatus.healthy:
-        statusText =
-            loc.networkStatusGood;
-
-        backgroundColor =
-            const Color(0xFFE2F8EC);
-
-        borderColor =
-            const Color(0xFF78C99B);
-
-        foregroundColor =
-            const Color(0xFF08783E);
-
-        icon =
-            Icons.check_circle_rounded;
-
-        break;
-
-      case BillerStatus.interruption:
-        statusText =
-            loc.networkStatusSlow;
-
-        backgroundColor =
-            const Color(0xFFFFF0D7);
-
-        borderColor =
-            const Color(0xFFF1B95D);
-
-        foregroundColor =
-            const Color(0xFFB75B00);
-
-        icon =
-            Icons.warning_amber_rounded;
-
-        break;
-
-      case BillerStatus.unavailable:
-        statusText =
-            loc.networkStatusUnknown;
-
-        backgroundColor =
-            const Color(0xFFF1F1F1);
-
-        borderColor =
-            const Color(0xFFC8C8C8);
-
-        foregroundColor =
-            const Color(0xFF555555);
-
-        icon =
-            Icons.help_outline_rounded;
-
-        break;
-    }
-
-    return Container(
-      constraints:
-          const BoxConstraints(
-        minHeight: 58,
-      ),
-
-      padding:
-          const EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 14,
-      ),
-
-      decoration: BoxDecoration(
-        color: backgroundColor,
-
-        borderRadius:
-            BorderRadius.circular(22),
-
-        border: Border.all(
-          color: borderColor,
-          width: 1.7,
-        ),
-      ),
-
-      child: Row(
-        mainAxisAlignment:
-            MainAxisAlignment.center,
-
-        children: [
-          if (status ==
-              BillerStatus.loading)
-            SizedBox(
-              width: 26,
-              height: 26,
-
-              child:
-                  CircularProgressIndicator(
-                strokeWidth: 3,
-
-                color:
-                    foregroundColor,
-              ),
-            )
-          else
-            Icon(
-              icon,
-
-              size: 28,
-
-              color:
-                  foregroundColor,
-            ),
 
           const SizedBox(
-            width: 8,
+            width:
+                24,
           ),
 
-          Flexible(
-            child: Text(
-              '$label: $statusText',
+          // ==================================================================
+          // RIGHT ACCENT
+          // ==================================================================
 
-              textAlign:
-                  TextAlign.center,
+          Container(
+            width:
+                8,
 
-              maxLines: 2,
+            height:
+                105,
 
-              overflow:
-                  TextOverflow.ellipsis,
+            decoration:
+                BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
 
-              style: TextStyle(
-                color:
-                    foregroundColor,
+              gradient:
+                  const LinearGradient(
+                begin:
+                    Alignment.topCenter,
 
-                fontSize: 18,
+                end:
+                    Alignment.bottomCenter,
 
-                fontWeight:
-                    FontWeight.w900,
+                colors: [
+                  Color(
+                    0xFFB21558,
+                  ),
 
-                height: 1.1,
-
-                letterSpacing:
-                    0.3,
+                  Color(
+                    0xFFF04F9A,
+                  ),
+                ],
               ),
             ),
           ),

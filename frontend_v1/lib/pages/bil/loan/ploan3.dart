@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
 
 import 'package:frontend_v1/l10n/app_localizations.dart';
+
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbil3.dart';
+
+import 'package:frontend_v1/pages/bil/loan/ploan4.dart';
 
 import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
 
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
-
-import 'package:frontend_v1/pages/bil/loan/ploan4.dart';
-
-// ============================================================================
-// LOAN PROVIDER STATUS
-// ============================================================================
-
-enum LoanProviderStatus {
-  loading,
-  healthy,
-  interruption,
-  unavailable,
-}
+import 'package:frontend_v1/widgets/modern_provider_card.dart';
 
 // ============================================================================
 // LOAN PROVIDER PAGE
+//
+// CURRENT PRODUCT:
+//
+// PTPTN
+//
+// Product information comes from:
+//
+// GET /v2/catalog
+//
+// The card design comes from:
+//
+// lib/widgets/modern_provider_card.dart
 // ============================================================================
 
 class PLOAN3PAGE extends StatefulWidget {
@@ -35,6 +38,10 @@ class PLOAN3PAGE extends StatefulWidget {
   State<PLOAN3PAGE> createState() =>
       _PLOAN3PAGEState();
 }
+
+// ============================================================================
+// STATE
+// ============================================================================
 
 class _PLOAN3PAGEState
     extends State<PLOAN3PAGE> {
@@ -57,15 +64,19 @@ class _PLOAN3PAGEState
 
   // ==========================================================================
   // NETWORK STATUS
+  //
+  // Uses shared status from:
+  //
+  // modern_provider_card.dart
   // ==========================================================================
 
-  LoanProviderStatus _networkStatus =
-      LoanProviderStatus.loading;
+  ProviderNetworkStatus _networkStatus =
+      ProviderNetworkStatus.loading;
 
   String? _lastUpdated;
 
   // ==========================================================================
-  // PRODUCT VALUES
+  // PRODUCT DATA
   // ==========================================================================
 
   String get _productName {
@@ -107,6 +118,20 @@ class _PLOAN3PAGEState
   }
 
   // ==========================================================================
+  // COLORS
+  // ==========================================================================
+
+  static const Color _accentColor =
+      Color(
+    0xFF3F51B5,
+  );
+
+  static const Color _lightAccentColor =
+      Color(
+    0xFFE8EAF6,
+  );
+
+  // ==========================================================================
   // LIFE CYCLE
   // ==========================================================================
 
@@ -114,8 +139,7 @@ class _PLOAN3PAGEState
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance
-        .addPostFrameCallback(
+    WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         _loadPage();
       },
@@ -134,7 +158,7 @@ class _PLOAN3PAGEState
   }
 
   // ==========================================================================
-  // LOAD PTPTN FROM IIMMPACT CATALOG
+  // LOAD PTPTN FROM /v2/catalog
   // ==========================================================================
 
   Future<void> _loadCatalog() async {
@@ -147,32 +171,39 @@ class _PLOAN3PAGEState
 
     try {
       // ======================================================================
-      // GET /v2/catalog
+      // CATALOG
       // ======================================================================
 
-      final Map<String, dynamic>
-          catalog =
-          await IimmpactCatalogService
-              .getCatalog();
+      final Map<String, dynamic> catalog =
+          await IimmpactCatalogService.getCatalog();
+
+      // ======================================================================
+      // PRODUCTS
+      // ======================================================================
 
       final dynamic productsRaw =
           catalog['products'];
 
       if (productsRaw is! Map) {
         throw Exception(
-          'Invalid catalog response: products not found.',
+          'Invalid catalog response: '
+          'products not found.',
         );
       }
 
-      final Map<String, dynamic>
-          products =
+      final Map<String, dynamic> products =
           Map<String, dynamic>.from(
         productsRaw,
       );
 
+      // ======================================================================
+      // PTPTN
+      // ======================================================================
+
       final dynamic ptptnRaw =
           products[
-              _ptptnProductCode];
+            _ptptnProductCode
+          ];
 
       if (ptptnRaw is! Map) {
         throw Exception(
@@ -180,8 +211,7 @@ class _PLOAN3PAGEState
         );
       }
 
-      final Map<String, dynamic>
-          product =
+      final Map<String, dynamic> product =
           Map<String, dynamic>.from(
         ptptnRaw,
       );
@@ -197,6 +227,10 @@ class _PLOAN3PAGEState
         _isCatalogLoading =
             false;
       });
+
+      // ======================================================================
+      // DEBUG
+      // ======================================================================
 
       debugPrint('');
       debugPrint(
@@ -221,11 +255,19 @@ class _PLOAN3PAGEState
         'image=${product['image_url']}',
       );
       debugPrint(
+        'note=${product['note']}',
+      );
+      debugPrint(
         '========================================',
       );
       debugPrint('');
-    } on IimmpactCatalogException catch (
-        error) {
+    }
+
+    // =========================================================================
+    // CATALOG SERVICE ERROR
+    // =========================================================================
+
+    on IimmpactCatalogException catch (error) {
       debugPrint(
         'PTPTN catalog error: '
         '${error.message}',
@@ -242,7 +284,13 @@ class _PLOAN3PAGEState
         _isCatalogLoading =
             false;
       });
-    } catch (error, stackTrace) {
+    }
+
+    // =========================================================================
+    // OTHER ERROR
+    // =========================================================================
+
+    catch (error, stackTrace) {
       debugPrint(
         'Unexpected PTPTN catalog error: '
         '$error',
@@ -271,30 +319,26 @@ class _PLOAN3PAGEState
   // NETWORK STATUS
   // ==========================================================================
 
-  Future<LoanProviderStatus>
+  Future<ProviderNetworkStatus>
       _refreshNetworkStatus() async {
     if (mounted) {
       setState(() {
         _networkStatus =
-            LoanProviderStatus
-                .loading;
+            ProviderNetworkStatus.loading;
       });
     }
 
     try {
       final result =
-          await IimmpactNetworkStatusService
-              .getStatus(
+          await IimmpactNetworkStatusService.getStatus(
         productCode:
             _ptptnProductCode,
       );
 
-      final LoanProviderStatus status =
+      final ProviderNetworkStatus status =
           result.isHealthy
-              ? LoanProviderStatus
-                  .healthy
-              : LoanProviderStatus
-                  .interruption;
+              ? ProviderNetworkStatus.healthy
+              : ProviderNetworkStatus.interruption;
 
       if (mounted) {
         setState(() {
@@ -316,13 +360,11 @@ class _PLOAN3PAGEState
       if (mounted) {
         setState(() {
           _networkStatus =
-              LoanProviderStatus
-                  .unavailable;
+              ProviderNetworkStatus.unavailable;
         });
       }
 
-      return LoanProviderStatus
-          .unavailable;
+      return ProviderNetworkStatus.unavailable;
     }
   }
 
@@ -331,16 +373,10 @@ class _PLOAN3PAGEState
   // ==========================================================================
 
   Future<void> _handlePtptnTap() async {
-    final loc =
-        AppLocalizations.of(
-      context,
-    )!;
-
     // ========================================================================
-    // WAIT UNTIL CATALOG HAS FINISHED
+    // CATALOG STILL LOADING
     //
-    // Card is visible immediately,
-    // but user cannot continue while catalog is still loading.
+    // Card can already be displayed, but do not continue yet.
     // ========================================================================
 
     if (_isCatalogLoading) {
@@ -359,10 +395,10 @@ class _PLOAN3PAGEState
     }
 
     // ========================================================================
-    // RECHECK LATEST NETWORK STATUS
+    // RECHECK NETWORK
     // ========================================================================
 
-    final status =
+    final ProviderNetworkStatus status =
         await _refreshNetworkStatus();
 
     if (!mounted) {
@@ -370,7 +406,7 @@ class _PLOAN3PAGEState
     }
 
     // ========================================================================
-    // PRODUCT DISABLED
+    // INACTIVE PRODUCT
     // ========================================================================
 
     if (!_isActive) {
@@ -384,8 +420,7 @@ class _PLOAN3PAGEState
     // ========================================================================
 
     if (status ==
-        LoanProviderStatus
-            .interruption) {
+        ProviderNetworkStatus.interruption) {
       final bool continueAnyway =
           await _showInterruptionWarning();
 
@@ -399,14 +434,33 @@ class _PLOAN3PAGEState
     }
 
     // ========================================================================
-    // NEXT PAGE
+    // NETWORK UNAVAILABLE
     // ========================================================================
 
-    Navigator.push(
+    if (status ==
+        ProviderNetworkStatus.unavailable) {
+      await _showUnavailableDialog();
+
+      return;
+    }
+
+    if (!mounted) {
+      return;
+    }
+
+    // ========================================================================
+    // NEXT PAGE
+    //
+    // ORIGINAL PTPTN FLOW KEPT.
+    // ========================================================================
+
+    await Navigator.push(
       context,
+
       MaterialPageRoute(
-        builder: (_) =>
-            PLOAN4PAGE(
+        builder:
+            (_) =>
+                PLOAN4PAGE(
           productCode:
               _ptptnProductCode,
 
@@ -421,23 +475,24 @@ class _PLOAN3PAGEState
   }
 
   // ==========================================================================
-  // NETWORK INTERRUPTION DIALOG
+  // INTERRUPTION WARNING
   // ==========================================================================
 
-  Future<bool>
-      _showInterruptionWarning() async {
+  Future<bool> _showInterruptionWarning() async {
     final loc =
-        AppLocalizations.of(
-      context,
-    )!;
+        AppLocalizations.of(context)!;
 
     final bool? result =
         await showDialog<bool>(
-      context: context,
+      context:
+          context,
+
       barrierDismissible:
           false,
-      builder: (
-        dialogContext,
+
+      builder:
+          (
+        BuildContext dialogContext,
       ) {
         return Dialog(
           backgroundColor:
@@ -445,11 +500,14 @@ class _PLOAN3PAGEState
 
           insetPadding:
               const EdgeInsets.symmetric(
-            horizontal: 80,
+            horizontal:
+                80,
           ),
 
-          child: Container(
-            width: 800,
+          child:
+              Container(
+            width:
+                800,
 
             padding:
                 const EdgeInsets.fromLTRB(
@@ -475,14 +533,15 @@ class _PLOAN3PAGEState
                     const Color(
                   0xFFF2A520,
                 ),
-                width: 3,
+
+                width:
+                    3,
               ),
 
               boxShadow: [
                 BoxShadow(
                   color:
-                      Colors.black
-                          .withOpacity(
+                      Colors.black.withOpacity(
                     0.25,
                   ),
 
@@ -498,43 +557,69 @@ class _PLOAN3PAGEState
               ],
             ),
 
-            child: Column(
+            child:
+                Column(
               mainAxisSize:
                   MainAxisSize.min,
 
               children: [
+                // ============================================================
+                // WARNING
+                // ============================================================
+
                 Container(
-                  width: 125,
-                  height: 125,
+                  width:
+                      125,
+
+                  height:
+                      125,
 
                   decoration:
-                      const BoxDecoration(
+                      BoxDecoration(
                     color:
-                        Color(
+                        const Color(
                       0xFFFFF2D9,
                     ),
 
                     shape:
                         BoxShape.circle,
+
+                    border:
+                        Border.all(
+                      color:
+                          const Color(
+                        0xFFF2A520,
+                      ).withOpacity(
+                        0.30,
+                      ),
+
+                      width:
+                          2,
+                    ),
                   ),
 
                   child:
                       const Icon(
-                    Icons
-                        .warning_amber_rounded,
+                    Icons.warning_amber_rounded,
 
                     color:
                         Color(
                       0xFFD87900,
                     ),
 
-                    size: 78,
+                    size:
+                        78,
                   ),
                 ),
 
                 const SizedBox(
-                  height: 28,
+                  height:
+                      28,
                 ),
+
+                // ============================================================
+                // TITLE
+                // ============================================================
 
                 Text(
                   loc.networkInterruptionTitle,
@@ -549,86 +634,174 @@ class _PLOAN3PAGEState
                       0xFF17283E,
                     ),
 
-                    fontSize: 40,
+                    fontSize:
+                        40,
 
                     fontWeight:
-                        FontWeight
-                            .w900,
+                        FontWeight.w900,
+
+                    height:
+                        1.1,
                   ),
                 ),
 
                 const SizedBox(
-                  height: 24,
+                  height:
+                      24,
                 ),
 
-                Text(
-                  loc.networkInterruptionMessage(
-                    _productName,
+                // ============================================================
+                // MESSAGE
+                // ============================================================
+
+                Container(
+                  width:
+                      double.infinity,
+
+                  padding:
+                      const EdgeInsets.symmetric(
+                    horizontal:
+                        28,
+
+                    vertical:
+                        25,
                   ),
 
-                  textAlign:
-                      TextAlign.center,
-
-                  style:
-                      const TextStyle(
+                  decoration:
+                      BoxDecoration(
                     color:
-                        Color(
-                      0xFF4B4234,
+                        const Color(
+                      0xFFFFF9ED,
                     ),
 
-                    fontSize: 29,
+                    borderRadius:
+                        BorderRadius.circular(
+                      24,
+                    ),
 
-                    fontWeight:
-                        FontWeight
-                            .w600,
+                    border:
+                        Border.all(
+                      color:
+                          const Color(
+                        0xFFF4D69D,
+                      ),
 
-                    height: 1.4,
+                      width:
+                          1.5,
+                    ),
                   ),
-                ),
 
-                if (_lastUpdated !=
-                    null) ...[
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  Text(
-                    '${loc.networkLastUpdated}: '
-                    '$_lastUpdated',
+                  child:
+                      Text(
+                    loc.networkInterruptionMessage(
+                      _productName,
+                    ),
 
                     textAlign:
                         TextAlign.center,
 
                     style:
                         const TextStyle(
-                      fontSize:
-                          20,
-
                       color:
                           Color(
-                        0xFF758399,
+                        0xFF4B4234,
                       ),
 
+                      fontSize:
+                          29,
+
+                      height:
+                          1.4,
+
                       fontWeight:
-                          FontWeight
-                              .w600,
+                          FontWeight.w600,
                     ),
+                  ),
+                ),
+
+                // ============================================================
+                // LAST UPDATED
+                // ============================================================
+
+                if (_lastUpdated != null) ...[
+                  const SizedBox(
+                    height:
+                        20,
+                  ),
+
+                  Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.center,
+
+                    children: [
+                      const Icon(
+                        Icons.schedule_rounded,
+
+                        size:
+                            24,
+
+                        color:
+                            Color(
+                          0xFF758399,
+                        ),
+                      ),
+
+                      const SizedBox(
+                        width:
+                            8,
+                      ),
+
+                      Flexible(
+                        child:
+                            Text(
+                          '${loc.networkLastUpdated}: '
+                          '$_lastUpdated',
+
+                          textAlign:
+                              TextAlign.center,
+
+                          style:
+                              const TextStyle(
+                            fontSize:
+                                20,
+
+                            color:
+                                Color(
+                              0xFF758399,
+                            ),
+
+                            fontWeight:
+                                FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
 
                 const SizedBox(
-                  height: 35,
+                  height:
+                      35,
                 ),
+
+                // ============================================================
+                // ACTIONS
+                // ============================================================
 
                 Row(
                   children: [
+                    // ========================================================
+                    // BACK
+                    // ========================================================
+
                     Expanded(
                       child:
                           SizedBox(
-                        height: 78,
+                        height:
+                            78,
 
                         child:
-                            OutlinedButton(
+                            OutlinedButton.icon(
                           onPressed:
                               () {
                             Navigator.pop(
@@ -637,7 +810,15 @@ class _PLOAN3PAGEState
                             );
                           },
 
-                          child:
+                          icon:
+                              const Icon(
+                            Icons.arrow_back_rounded,
+
+                            size:
+                                29,
+                          ),
+
+                          label:
                               Text(
                             loc.backButton,
 
@@ -647,8 +828,39 @@ class _PLOAN3PAGEState
                                   24,
 
                               fontWeight:
-                                  FontWeight
-                                      .w900,
+                                  FontWeight.w900,
+                            ),
+                          ),
+
+                          style:
+                              OutlinedButton.styleFrom(
+                            backgroundColor:
+                                const Color(
+                              0xFFFFE8E8,
+                            ),
+
+                            foregroundColor:
+                                const Color(
+                              0xFFC62828,
+                            ),
+
+                            side:
+                                const BorderSide(
+                              color:
+                                  Color(
+                                0xFFE57373,
+                              ),
+
+                              width:
+                                  2,
+                            ),
+
+                            shape:
+                                RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(
+                                22,
+                              ),
                             ),
                           ),
                         ),
@@ -656,16 +868,22 @@ class _PLOAN3PAGEState
                     ),
 
                     const SizedBox(
-                      width: 22,
+                      width:
+                          22,
                     ),
+
+                    // ========================================================
+                    // CONTINUE
+                    // ========================================================
 
                     Expanded(
                       child:
                           SizedBox(
-                        height: 78,
+                        height:
+                            78,
 
                         child:
-                            ElevatedButton(
+                            ElevatedButton.icon(
                           onPressed:
                               () {
                             Navigator.pop(
@@ -674,19 +892,15 @@ class _PLOAN3PAGEState
                             );
                           },
 
-                          style:
-                              ElevatedButton
-                                  .styleFrom(
-                            backgroundColor:
-                                const Color(
-                              0xFF168A50,
-                            ),
+                          icon:
+                              const Icon(
+                            Icons.arrow_forward_rounded,
 
-                            foregroundColor:
-                                Colors.white,
+                            size:
+                                29,
                           ),
 
-                          child:
+                          label:
                               Text(
                             loc.continueButton,
 
@@ -696,8 +910,29 @@ class _PLOAN3PAGEState
                                   24,
 
                               fontWeight:
-                                  FontWeight
-                                      .w900,
+                                  FontWeight.w900,
+                            ),
+                          ),
+
+                          style:
+                              ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color(
+                              0xFF168A50,
+                            ),
+
+                            foregroundColor:
+                                Colors.white,
+
+                            elevation:
+                                0,
+
+                            shape:
+                                RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(
+                                22,
+                              ),
                             ),
                           ),
                         ),
@@ -712,45 +947,47 @@ class _PLOAN3PAGEState
       },
     );
 
-    return result ??
-        false;
+    return result ?? false;
   }
 
   // ==========================================================================
-  // UNAVAILABLE
+  // UNAVAILABLE DIALOG
   // ==========================================================================
 
-  Future<void>
-      _showUnavailableDialog() async {
+  Future<void> _showUnavailableDialog() async {
     final loc =
-        AppLocalizations.of(
-      context,
-    )!;
+        AppLocalizations.of(context)!;
 
     await showDialog<void>(
-      context: context,
+      context:
+          context,
 
-      builder: (
-        dialogContext,
+      builder:
+          (
+        BuildContext dialogContext,
       ) {
         return AlertDialog(
-          title: Text(
+          title:
+              Text(
             loc.serviceUnavailableTitle,
           ),
 
-          content: Text(
+          content:
+              Text(
             loc.ptptnUnavailableMessage,
           ),
 
           actions: [
             TextButton(
-              onPressed: () {
+              onPressed:
+                  () {
                 Navigator.pop(
                   dialogContext,
                 );
               },
 
-              child: Text(
+              child:
+                  Text(
                 loc.close,
               ),
             ),
@@ -769,19 +1006,19 @@ class _PLOAN3PAGEState
     BuildContext context,
   ) {
     final loc =
-        AppLocalizations.of(
-      context,
-    )!;
+        AppLocalizations.of(context)!;
 
     return Scaffold(
-      body: Stack(
+      body:
+          Stack(
         children: [
           // ==================================================================
           // BACKGROUND
           // ==================================================================
 
           Positioned.fill(
-            child: Image.asset(
+            child:
+                Image.asset(
               'lib/images/pnew.png',
 
               fit:
@@ -790,32 +1027,28 @@ class _PLOAN3PAGEState
           ),
 
           Positioned.fill(
-            child: Container(
+            child:
+                Container(
               decoration:
                   BoxDecoration(
                 gradient:
                     LinearGradient(
                   begin:
-                      Alignment
-                          .topCenter,
+                      Alignment.topCenter,
 
                   end:
-                      Alignment
-                          .bottomCenter,
+                      Alignment.bottomCenter,
 
                   colors: [
-                    Colors.white
-                        .withOpacity(
+                    Colors.white.withOpacity(
                       0.02,
                     ),
 
-                    Colors.white
-                        .withOpacity(
+                    Colors.white.withOpacity(
                       0.12,
                     ),
 
-                    Colors.white
-                        .withOpacity(
+                    Colors.white.withOpacity(
                       0.04,
                     ),
                   ],
@@ -829,9 +1062,14 @@ class _PLOAN3PAGEState
           // ==================================================================
 
           Positioned(
-            top: 82,
-            left: 65,
-            right: 65,
+            top:
+                82,
+
+            left:
+                65,
+
+            right:
+                65,
 
             child:
                 _LoanPageHeader(
@@ -848,10 +1086,17 @@ class _PLOAN3PAGEState
           // ==================================================================
 
           Positioned(
-            top: 410,
-            left: 65,
-            right: 100,
-            bottom: 310,
+            top:
+                410,
+
+            left:
+                65,
+
+            right:
+                65,
+
+            bottom:
+                310,
 
             child:
                 _buildContent(
@@ -864,15 +1109,20 @@ class _PLOAN3PAGEState
           // ==================================================================
 
           Positioned(
-            bottom: 105,
-            left: 300,
-            right: 300,
+            bottom:
+                105,
+
+            left:
+                300,
+
+            right:
+                300,
 
             child:
                 KioskBackButton(
-              onPressed: () {
-                Navigator
-                    .pushReplacement(
+              onPressed:
+                  () {
+                Navigator.pushReplacement(
                   context,
 
                   MaterialPageRoute(
@@ -890,12 +1140,19 @@ class _PLOAN3PAGEState
           // ==================================================================
 
           Positioned(
-            bottom: 25,
-            left: 0,
-            right: 0,
+            bottom:
+                25,
 
-            child: Center(
-              child: Text(
+            left:
+                0,
+
+            right:
+                0,
+
+            child:
+                Center(
+              child:
+                  Text(
                 Data.copyrightText,
 
                 textAlign:
@@ -908,11 +1165,11 @@ class _PLOAN3PAGEState
                     0xFF26364A,
                   ),
 
-                  fontSize: 20,
+                  fontSize:
+                      20,
 
                   fontWeight:
-                      FontWeight
-                          .w800,
+                      FontWeight.w800,
                 ),
               ),
             ),
@@ -929,17 +1186,17 @@ class _PLOAN3PAGEState
   Widget _buildContent(
     AppLocalizations loc,
   ) {
-    // =========================================================================
+    // ========================================================================
     // CATALOG ERROR
-    //
-    // IMPORTANT:
-    // Do not treat _ptptnProduct == null as error while catalog is loading.
-    // =========================================================================
+    // ========================================================================
 
-    if (_catalogError !=
-        null) {
+    if (_catalogError != null) {
       return Center(
-        child: Container(
+        child:
+            Container(
+          width:
+              680,
+
           padding:
               const EdgeInsets.all(
             40,
@@ -962,29 +1219,70 @@ class _PLOAN3PAGEState
                 0xFFE57373,
               ),
 
-              width: 2,
+              width:
+                  2,
             ),
+
+            boxShadow: [
+              BoxShadow(
+                color:
+                    Colors.black.withOpacity(
+                  0.10,
+                ),
+
+                blurRadius:
+                    25,
+
+                offset:
+                    const Offset(
+                  0,
+                  12,
+                ),
+              ),
+            ],
           ),
 
-          child: Column(
+          child:
+              Column(
             mainAxisSize:
                 MainAxisSize.min,
 
             children: [
-              const Icon(
-                Icons
-                    .cloud_off_rounded,
+              Container(
+                width:
+                    110,
 
-                size: 85,
+                height:
+                    110,
 
-                color:
-                    Color(
-                  0xFFD32F2F,
+                decoration:
+                    const BoxDecoration(
+                  color:
+                      Color(
+                    0xFFFFEBEE,
+                  ),
+
+                  shape:
+                      BoxShape.circle,
+                ),
+
+                child:
+                    const Icon(
+                  Icons.cloud_off_rounded,
+
+                  size:
+                      65,
+
+                  color:
+                      Color(
+                    0xFFD32F2F,
+                  ),
                 ),
               ),
 
               const SizedBox(
-                height: 20,
+                height:
+                    22,
               ),
 
               Text(
@@ -995,16 +1293,22 @@ class _PLOAN3PAGEState
 
                 style:
                     const TextStyle(
-                  fontSize: 32,
+                  fontSize:
+                      32,
+
+                  color:
+                      Color(
+                    0xFF17283E,
+                  ),
 
                   fontWeight:
-                      FontWeight
-                          .w900,
+                      FontWeight.w900,
                 ),
               ),
 
               const SizedBox(
-                height: 15,
+                height:
+                    15,
               ),
 
               Text(
@@ -1015,32 +1319,80 @@ class _PLOAN3PAGEState
 
                 style:
                     const TextStyle(
-                  fontSize: 23,
+                  fontSize:
+                      23,
 
                   color:
                       Color(
                     0xFF647187,
                   ),
+
+                  fontWeight:
+                      FontWeight.w600,
+
+                  height:
+                      1.35,
                 ),
               ),
 
               const SizedBox(
-                height: 25,
+                height:
+                    25,
               ),
 
-              ElevatedButton.icon(
-                onPressed:
-                    _loadPage,
+              SizedBox(
+                height:
+                    72,
 
-                icon:
-                    const Icon(
-                  Icons
-                      .refresh_rounded,
-                ),
+                child:
+                    ElevatedButton.icon(
+                  onPressed:
+                      _loadPage,
 
-                label:
-                    Text(
-                  loc.retryButton,
+                  icon:
+                      const Icon(
+                    Icons.refresh_rounded,
+
+                    size:
+                        28,
+                  ),
+
+                  label:
+                      Text(
+                    loc.retryButton,
+
+                    style:
+                        const TextStyle(
+                      fontSize:
+                          23,
+
+                      fontWeight:
+                          FontWeight.w900,
+                    ),
+                  ),
+
+                  style:
+                      ElevatedButton.styleFrom(
+                    backgroundColor:
+                        _accentColor,
+
+                    foregroundColor:
+                        Colors.white,
+
+                    padding:
+                        const EdgeInsets.symmetric(
+                      horizontal:
+                          35,
+                    ),
+
+                    shape:
+                        RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(
+                        18,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -1049,309 +1401,114 @@ class _PLOAN3PAGEState
       );
     }
 
-    // =========================================================================
+    // ========================================================================
     // PTPTN CARD
     //
-    // SHOW IMMEDIATELY
-    // =========================================================================
+    // Uses shared ModernProviderCard.
+    // ========================================================================
 
-    return Column(
-      mainAxisAlignment:
-          MainAxisAlignment.start,
+    return Align(
+      alignment:
+          Alignment.topLeft,
 
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
+      child:
+          SizedBox(
+        width:
+            450,
 
-      children: [
-        SizedBox(
-          width: 500,
+        height:
+            510,
 
-          child:
-              _LoanProviderCard(
-            imageUrl:
-                _imageUrl,
+        child:
+            ModernProviderCard(
+          // ==================================================================
+          // CATALOG IMAGE
+          // ==================================================================
 
-            label:
-                _productName,
+          imageUrl:
+              _imageUrl,
 
-            note:
-                _note,
+          // ==================================================================
+          // PRODUCT NAME
+          // ==================================================================
 
-            processingTime:
-                _processingTime,
+          label:
+              _productName,
 
-            // While catalog is loading, keep card visually enabled.
-            // Tap is blocked in _handlePtptnTap().
-            isActive:
-                _isCatalogLoading
-                    ? true
-                    : _isActive,
+          // ==================================================================
+          // CARD COLORS
+          // ==================================================================
 
-            networkStatus:
-                _networkStatus,
+          accentColor:
+              _accentColor,
 
-            networkLabel:
-                loc.networkLabel,
+          lightAccentColor:
+              _lightAccentColor,
 
-            processingLabel:
-                loc.processingTimeLabel,
+          // ==================================================================
+          // STATUS
+          //
+          // If PTPTN is inactive after catalog finishes, visually display it
+          // as unavailable too.
+          //
+          // While catalog is loading, continue showing network state.
+          // ==================================================================
 
-            onPressed:
-                _handlePtptnTap,
-          ),
+          networkStatus:
+              !_isCatalogLoading &&
+                      _ptptnProduct != null &&
+                      !_isActive
+                  ? ProviderNetworkStatus.unavailable
+                  : _networkStatus,
+
+          networkLabel:
+              loc.networkLabel,
+
+          // ==================================================================
+          // PROCESSING TIME
+          //
+          // Uses the common formatter in ModernProviderCard.
+          // ==================================================================
+
+          processingTime:
+              _processingTime,
+
+          processingLabel:
+              loc.processingTimeLabel,
+
+          // ==================================================================
+          // FALLBACK
+          // ==================================================================
+
+          fallbackIcon:
+              Icons.school_rounded,
+
+          // ==================================================================
+          // TAP
+          // ==================================================================
+
+          onPressed:
+              _handlePtptnTap,
         ),
-      ],
+      ),
     );
   }
 }
 
 // ============================================================================
-// MODERN + GOVERNMENT LOAN HEADER
-// KEEPS EXISTING SERVICE LABEL + TITLE + SUBTITLE
+// LOAN HEADER
 // ============================================================================
 
-class _LoanPageHeader extends StatelessWidget {
+class _LoanPageHeader
+    extends StatelessWidget {
   final String title;
+
   final String subtitle;
 
   const _LoanPageHeader({
     required this.title,
     required this.subtitle,
   });
-
-  @override
-  Widget build(BuildContext context) {
-    const Color accentColor = Color(0xFF3F51B5);
-    const Color darkAccent = Color(0xFF303F9F);
-
-    final loc = AppLocalizations.of(context)!;
-
-    return Container(
-      padding: const EdgeInsets.fromLTRB(
-        30,
-        24,
-        30,
-        24,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.96),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(
-          color: const Color(0xFFD5E4F7),
-          width: 2,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF173A66).withOpacity(0.14),
-            blurRadius: 30,
-            offset: const Offset(0, 12),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // ==========================================================
-          // LEFT LOAN / EDUCATION ICON
-          // ==========================================================
-
-          Container(
-            width: 105,
-            height: 105,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  darkAccent,
-                  Color(0xFF5C6BC0),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                  color: accentColor.withOpacity(0.28),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
-                ),
-              ],
-            ),
-            child: const Icon(
-              Icons.school_rounded,
-              color: Colors.white,
-              size: 56,
-            ),
-          ),
-
-          const SizedBox(width: 28),
-
-          // ==========================================================
-          // EXISTING HEADER TEXT
-          // ==========================================================
-
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // ------------------------------------------------------
-                // EXISTING SERVICE LABEL
-                // ------------------------------------------------------
-
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 7,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFEDEFFF),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.school_rounded,
-                        size: 20,
-                        color: accentColor,
-                      ),
-
-                      const SizedBox(width: 8),
-
-                      Flexible(
-                        child: Text(
-                          loc.loanServiceLabel.toUpperCase(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: accentColor,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 1.1,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 12),
-
-                // ------------------------------------------------------
-                // EXISTING TITLE
-                // ------------------------------------------------------
-
-                Text(
-                  title.toUpperCase(),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF122C4C),
-                    fontSize: 52,
-                    fontWeight: FontWeight.w900,
-                    height: 1.02,
-                    letterSpacing: -0.8,
-                  ),
-                ),
-
-                const SizedBox(height: 9),
-
-                // ------------------------------------------------------
-                // EXISTING SUBTITLE
-                // ------------------------------------------------------
-
-                Text(
-                  subtitle,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF607188),
-                    fontSize: 30,
-                    fontWeight: FontWeight.w600,
-                    height: 1.25,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(width: 24),
-
-          // ==========================================================
-          // RIGHT ACCENT BAR
-          // ==========================================================
-
-          Container(
-            width: 8,
-            height: 105,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  darkAccent,
-                  Color(0xFF5C6BC0),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ============================================================================
-// PTPTN PROVIDER CARD
-// ============================================================================
-
-class _LoanProviderCard
-    extends StatefulWidget {
-  final String imageUrl;
-
-  final String label;
-
-  final String note;
-
-  final String processingTime;
-
-  final bool isActive;
-
-  final LoanProviderStatus
-      networkStatus;
-
-  final String networkLabel;
-
-  final String processingLabel;
-
-  final VoidCallback onPressed;
-
-  const _LoanProviderCard({
-    required this.imageUrl,
-    required this.label,
-    required this.note,
-    required this.processingTime,
-    required this.isActive,
-    required this.networkStatus,
-    required this.networkLabel,
-    required this.processingLabel,
-    required this.onPressed,
-  });
-
-  @override
-  State<_LoanProviderCard>
-      createState() =>
-          _LoanProviderCardState();
-}
-
-// ============================================================================
-// PROVIDER CARD STATE
-// ============================================================================
-
-class _LoanProviderCardState
-    extends State<
-        _LoanProviderCard> {
-  bool _isPressed =
-      false;
 
   @override
   Widget build(
@@ -1362,651 +1519,349 @@ class _LoanProviderCardState
       0xFF3F51B5,
     );
 
-    const Color lightAccentColor =
+    const Color darkAccent =
         Color(
-      0xFFE8EAF6,
+      0xFF303F9F,
     );
 
-    return GestureDetector(
-      behavior:
-          HitTestBehavior.opaque,
-
-      onTapDown: (_) {
-        setState(() {
-          _isPressed =
-              true;
-        });
-      },
-
-      onTapUp: (_) {
-        setState(() {
-          _isPressed =
-              false;
-        });
-      },
-
-      onTapCancel: () {
-        setState(() {
-          _isPressed =
-              false;
-        });
-      },
-
-      onTap:
-          widget.onPressed,
-
-      child:
-          AnimatedScale(
-        scale:
-            _isPressed
-                ? 0.965
-                : 1,
-
-        duration:
-            const Duration(
-          milliseconds:
-              130,
-        ),
-
-        child:
-            AnimatedContainer(
-          duration:
-              const Duration(
-            milliseconds:
-                170,
-          ),
-
-          height: 520,
-
-          padding:
-              const EdgeInsets.all(
-            32,
-          ),
-
-          decoration:
-              BoxDecoration(
-            color:
-                Colors.white
-                    .withOpacity(
-              0.96,
-            ),
-
-            borderRadius:
-                BorderRadius.circular(
-              40,
-            ),
-
-            border:
-                Border.all(
-              color:
-                  _isPressed
-                      ? accentColor
-                      : Colors.black,
-
-              width:
-                  _isPressed
-                      ? 4
-                      : 3,
-            ),
-
-            boxShadow: [
-              BoxShadow(
-                color:
-                    const Color(
-                  0xFF19375C,
-                ).withOpacity(
-                  0.16,
-                ),
-
-                blurRadius:
-                    30,
-
-                offset:
-                    const Offset(
-                  0,
-                  15,
-                ),
-              ),
-            ],
-          ),
-
-          child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
-
-            children: [
-              // ==============================================================
-              // LOGO + ARROW
-              // ==============================================================
-
-              Row(
-                mainAxisAlignment:
-                    MainAxisAlignment
-                        .spaceBetween,
-
-                crossAxisAlignment:
-                    CrossAxisAlignment
-                        .start,
-
-                children: [
-                  Container(
-                    width: 280,
-                    height: 190,
-
-                    padding:
-                        const EdgeInsets.all(
-                      25,
-                    ),
-
-                    decoration:
-                        BoxDecoration(
-                      color:
-                          Colors.white,
-
-                      borderRadius:
-                          BorderRadius.circular(
-                        32,
-                      ),
-
-                      border:
-                          Border.all(
-                        color:
-                            accentColor
-                                .withOpacity(
-                          0.18,
-                        ),
-                      ),
-                    ),
-
-                    // ========================================================
-                    // IMAGE
-                    //
-                    // If catalog has not returned yet:
-                    // show small loading spinner.
-                    //
-                    // After image URL arrives:
-                    // load the PTPTN image.
-                    // ========================================================
-
-                    child:
-                        widget.imageUrl
-                                .isEmpty
-                            ? const Center(
-                                child:
-                                    SizedBox(
-                                  width:
-                                      50,
-                                  height:
-                                      50,
-
-                                  child:
-                                      CircularProgressIndicator(
-                                    strokeWidth:
-                                        4,
-
-                                    color:
-                                        accentColor,
-                                  ),
-                                ),
-                              )
-                            : Image.network(
-                                widget.imageUrl,
-
-                                fit:
-                                    BoxFit
-                                        .contain,
-
-                                loadingBuilder:
-                                    (
-                                  context,
-                                  child,
-                                  loadingProgress,
-                                ) {
-                                  if (loadingProgress ==
-                                      null) {
-                                    return child;
-                                  }
-
-                                  return const Center(
-                                    child:
-                                        SizedBox(
-                                      width:
-                                          50,
-                                      height:
-                                          50,
-
-                                      child:
-                                          CircularProgressIndicator(
-                                        strokeWidth:
-                                            4,
-
-                                        color:
-                                            accentColor,
-                                      ),
-                                    ),
-                                  );
-                                },
-
-                                errorBuilder:
-                                    (
-                                  context,
-                                  error,
-                                  stackTrace,
-                                ) {
-                                  return const Icon(
-                                    Icons
-                                        .school_rounded,
-
-                                    size:
-                                        95,
-
-                                    color:
-                                        accentColor,
-                                  );
-                                },
-                              ),
-                  ),
-
-                  Container(
-                    width: 62,
-                    height: 62,
-
-                    decoration:
-                        const BoxDecoration(
-                      color:
-                          accentColor,
-
-                      shape:
-                          BoxShape.circle,
-                    ),
-
-                    child:
-                        const Icon(
-                      Icons
-                          .arrow_forward_rounded,
-
-                      color:
-                          Colors.white,
-
-                      size: 34,
-                    ),
-                  ),
-                ],
-              ),
-
-              const Spacer(),
-
-              // ==============================================================
-              // PRODUCT NAME
-              // ==============================================================
-
-              Text(
-                widget.label
-                    .toUpperCase(),
-
-                style:
-                    const TextStyle(
-                  color:
-                      Color(
-                    0xFF15253A,
-                  ),
-
-                  fontSize: 42,
-
-                  fontWeight:
-                      FontWeight
-                          .w900,
-                ),
-              ),
-
-              const SizedBox(
-                height: 18,
-              ),
-
-              // ==============================================================
-              // NETWORK STATUS
-              // ==============================================================
-
-              _LoanStatusBadge(
-                status:
-                    widget
-                        .networkStatus,
-
-                networkLabel:
-                    widget
-                        .networkLabel,
-              ),
-
-              // ==============================================================
-              // PROCESSING TIME
-              // ==============================================================
-
-              if (widget
-                  .processingTime
-                  .isNotEmpty) ...[
-                const SizedBox(
-                  height: 16,
-                ),
-
-                Row(
-                  children: [
-                    const Icon(
-                      Icons
-                          .schedule_rounded,
-
-                      color:
-                          Color(
-                        0xFF647187,
-                      ),
-
-                      size: 25,
-                    ),
-
-                    const SizedBox(
-                      width: 9,
-                    ),
-
-                    Text(
-                      '${widget.processingLabel}: '
-                      '${_formatProcessingTime(
-                        widget.processingTime,
-                      )}',
-
-                      style:
-                          const TextStyle(
-                        color:
-                            Color(
-                          0xFF647187,
-                        ),
-
-                        fontSize: 20,
-
-                        fontWeight:
-                            FontWeight
-                                .w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-
-              const SizedBox(
-                height: 22,
-              ),
-
-              // ==============================================================
-              // DECORATIVE LINE
-              // ==============================================================
-
-              Row(
-                children: [
-                  Container(
-                    width: 60,
-                    height: 7,
-
-                    decoration:
-                        BoxDecoration(
-                      color:
-                          accentColor,
-
-                      borderRadius:
-                          BorderRadius
-                              .circular(
-                        50,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(
-                    width: 8,
-                  ),
-
-                  Container(
-                    width: 13,
-                    height: 7,
-
-                    decoration:
-                        BoxDecoration(
-                      color:
-                          lightAccentColor,
-
-                      borderRadius:
-                          BorderRadius
-                              .circular(
-                        50,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // ==========================================================================
-  // FORMAT PROCESSING TIME
-  // ==========================================================================
-
-  static String _formatProcessingTime(
-    String value,
-  ) {
-    switch (value) {
-      case 'instant':
-        return 'Instant';
-
-      case '24_hours':
-        return '24 Hours';
-
-      case '3_days':
-        return '3 Days';
-
-      default:
-        return value.replaceAll(
-          '_',
-          ' ',
-        );
-    }
-  }
-}
-
-// ============================================================================
-// NETWORK STATUS
-// ============================================================================
-
-class _LoanStatusBadge
-    extends StatelessWidget {
-  final LoanProviderStatus status;
-
-  final String networkLabel;
-
-  const _LoanStatusBadge({
-    required this.status,
-    required this.networkLabel,
-  });
-
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
     final loc =
-        AppLocalizations.of(
-      context,
-    )!;
-
-    late String text;
-
-    late Color background;
-
-    late Color foreground;
-
-    late IconData icon;
-
-    switch (status) {
-      // ======================================================================
-      // CHECKING
-      // ======================================================================
-
-      case LoanProviderStatus.loading:
-        text =
-            loc.networkStatusChecking;
-
-        background =
-            const Color(
-          0xFFF0F4F8,
-        );
-
-        foreground =
-            const Color(
-          0xFF536272,
-        );
-
-        icon =
-            Icons.sync_rounded;
-
-        break;
-
-      // ======================================================================
-      // GOOD
-      // ======================================================================
-
-      case LoanProviderStatus.healthy:
-        text =
-            loc.networkStatusGood;
-
-        background =
-            const Color(
-          0xFFE2F8EC,
-        );
-
-        foreground =
-            const Color(
-          0xFF08783E,
-        );
-
-        icon =
-            Icons.check_circle_rounded;
-
-        break;
-
-      // ======================================================================
-      // INTERRUPTION
-      // ======================================================================
-
-      case LoanProviderStatus.interruption:
-        text =
-            loc.networkStatusSlow;
-
-        background =
-            const Color(
-          0xFFFFF0D7,
-        );
-
-        foreground =
-            const Color(
-          0xFFB75B00,
-        );
-
-        icon =
-            Icons.warning_amber_rounded;
-
-        break;
-
-      // ======================================================================
-      // UNKNOWN
-      // ======================================================================
-
-      case LoanProviderStatus.unavailable:
-        text =
-            loc.networkStatusUnknown;
-
-        background =
-            const Color(
-          0xFFF1F1F1,
-        );
-
-        foreground =
-            const Color(
-          0xFF555555,
-        );
-
-        icon =
-            Icons.help_outline_rounded;
-
-        break;
-    }
+        AppLocalizations.of(context)!;
 
     return Container(
       padding:
-          const EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 13,
+          const EdgeInsets.fromLTRB(
+        30,
+        24,
+        30,
+        24,
       ),
 
       decoration:
           BoxDecoration(
         color:
-            background,
+            Colors.white.withOpacity(
+          0.96,
+        ),
 
         borderRadius:
             BorderRadius.circular(
-          30,
+          32,
         ),
-      ),
 
-      child: Row(
-        mainAxisSize:
-            MainAxisSize.min,
-
-        children: [
-          // ==================================================================
-          // ONLY NETWORK CHECKING HAS SPINNER
-          // ==================================================================
-
-          if (status ==
-              LoanProviderStatus
-                  .loading)
-            SizedBox(
-              width: 24,
-              height: 24,
-
-              child:
-                  CircularProgressIndicator(
-                strokeWidth: 3,
-
-                color:
-                    foreground,
-              ),
-            )
-          else
-            Icon(
-              icon,
-
-              color:
-                  foreground,
-
-              size: 27,
-            ),
-
-          const SizedBox(
-            width: 9,
+        border:
+            Border.all(
+          color:
+              const Color(
+            0xFFD5E4F7,
           ),
 
-          Text(
-            '$networkLabel: $text',
+          width:
+              2,
+        ),
 
-            style:
-                TextStyle(
+        boxShadow: [
+          BoxShadow(
+            color:
+                const Color(
+              0xFF173A66,
+            ).withOpacity(
+              0.14,
+            ),
+
+            blurRadius:
+                30,
+
+            offset:
+                const Offset(
+              0,
+              12,
+            ),
+          ),
+        ],
+      ),
+
+      child:
+          Row(
+        children: [
+          // ==================================================================
+          // ICON
+          // ==================================================================
+
+          Container(
+            width:
+                105,
+
+            height:
+                105,
+
+            decoration:
+                BoxDecoration(
+              gradient:
+                  const LinearGradient(
+                begin:
+                    Alignment.topLeft,
+
+                end:
+                    Alignment.bottomRight,
+
+                colors: [
+                  darkAccent,
+
+                  Color(
+                    0xFF5C6BC0,
+                  ),
+                ],
+              ),
+
+              borderRadius:
+                  BorderRadius.circular(
+                30,
+              ),
+
+              boxShadow: [
+                BoxShadow(
+                  color:
+                      accentColor.withOpacity(
+                    0.28,
+                  ),
+
+                  blurRadius:
+                      20,
+
+                  offset:
+                      const Offset(
+                    0,
+                    8,
+                  ),
+                ),
+              ],
+            ),
+
+            child:
+                const Icon(
+              Icons.school_rounded,
+
               color:
-                  foreground,
+                  Colors.white,
 
-              fontSize: 19,
+              size:
+                  56,
+            ),
+          ),
 
-              fontWeight:
-                  FontWeight
-                      .w900,
+          const SizedBox(
+            width:
+                28,
+          ),
+
+          // ==================================================================
+          // TEXT
+          // ==================================================================
+
+          Expanded(
+            child:
+                Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
+              children: [
+                // ============================================================
+                // SERVICE LABEL
+                // ============================================================
+
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(
+                    horizontal:
+                        18,
+
+                    vertical:
+                        7,
+                  ),
+
+                  decoration:
+                      BoxDecoration(
+                    color:
+                        const Color(
+                      0xFFEDEFFF,
+                    ),
+
+                    borderRadius:
+                        BorderRadius.circular(
+                      100,
+                    ),
+                  ),
+
+                  child:
+                      Row(
+                    mainAxisSize:
+                        MainAxisSize.min,
+
+                    children: [
+                      const Icon(
+                        Icons.school_rounded,
+
+                        size:
+                            20,
+
+                        color:
+                            accentColor,
+                      ),
+
+                      const SizedBox(
+                        width:
+                            8,
+                      ),
+
+                      Flexible(
+                        child:
+                            Text(
+                          loc.loanServiceLabel
+                              .toUpperCase(),
+
+                          maxLines:
+                              1,
+
+                          overflow:
+                              TextOverflow.ellipsis,
+
+                          style:
+                              const TextStyle(
+                            color:
+                                accentColor,
+
+                            fontSize:
+                                17,
+
+                            fontWeight:
+                                FontWeight.w900,
+
+                            letterSpacing:
+                                1.1,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(
+                  height:
+                      12,
+                ),
+
+                // ============================================================
+                // TITLE
+                // ============================================================
+
+                Text(
+                  title.toUpperCase(),
+
+                  maxLines:
+                      2,
+
+                  overflow:
+                      TextOverflow.ellipsis,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF122C4C,
+                    ),
+
+                    fontSize:
+                        52,
+
+                    fontWeight:
+                        FontWeight.w900,
+
+                    height:
+                        1.02,
+
+                    letterSpacing:
+                        -0.8,
+                  ),
+                ),
+
+                const SizedBox(
+                  height:
+                      9,
+                ),
+
+                // ============================================================
+                // SUBTITLE
+                // ============================================================
+
+                Text(
+                  subtitle,
+
+                  maxLines:
+                      2,
+
+                  overflow:
+                      TextOverflow.ellipsis,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF607188,
+                    ),
+
+                    fontSize:
+                        30,
+
+                    fontWeight:
+                        FontWeight.w600,
+
+                    height:
+                        1.25,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(
+            width:
+                24,
+          ),
+
+          // ==================================================================
+          // RIGHT ACCENT
+          // ==================================================================
+
+          Container(
+            width:
+                8,
+
+            height:
+                105,
+
+            decoration:
+                BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
+
+              gradient:
+                  const LinearGradient(
+                begin:
+                    Alignment.topCenter,
+
+                end:
+                    Alignment.bottomCenter,
+
+                colors: [
+                  darkAccent,
+
+                  Color(
+                    0xFF5C6BC0,
+                  ),
+                ],
+              ),
             ),
           ),
         ],

@@ -7496,4 +7496,43 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get providerSearchNoResults => '未找到匹配的供应商。';
+
+  @override
+  String get foodBeverageButton => '餐饮';
+
+  @override
+  String get foodBeverageSupportingText => '购买参与品牌的餐饮礼券。';
+
+  @override
+  String get foodBeverageTitle => '餐饮';
+
+  @override
+  String get foodBeverageSubtitle => '请选择参与的餐饮品牌';
+
+  @override
+  String get taksiranKioskIntro => '请选择户口及缴费周期。';
+
+  @override
+  String get taksiranKioskChooseAccounts => '选择要缴费的户口';
+
+  @override
+  String get taksiranKioskAccountHint => '轻触户口即可选择。您可选择多个户口。';
+
+  @override
+  String get taksiranKioskViewDetails => '查看详情';
+
+  @override
+  String get taksiranKioskChoosePeriod => '选择缴付半年或全年税款';
+
+  @override
+  String get taksiranKioskPeriodRequired => '请选择半年或全年应缴金额以继续。';
+
+  @override
+  String get taksiranKioskAmountUnavailable => '暂无金额';
+
+  @override
+  String get taksiranKioskInvalidSelection => '所选户口在此缴费周期内没有可缴付的金额。请检查所选户口，或选择其他缴费周期。';
+
+  @override
+  String get taksiranKioskAccountUnavailable => '此户口缺少户口号码，无法选择。';
 }

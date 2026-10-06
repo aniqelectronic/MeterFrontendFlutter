@@ -4,44 +4,54 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/bil/ewallet/pewallet4.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbil3.dart';
-import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
-import 'package:frontend_v1/widgets/kiosk_back_button.dart';
+
 import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
+import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
+
+import 'package:frontend_v1/widgets/kiosk_back_button.dart';
+import 'package:frontend_v1/widgets/modern_provider_card.dart';
 
 // ============================================================================
-// E-WALLET PAGE 3 - PROVIDER SELECTION
+// E-WALLET PROVIDER MODEL
 // ============================================================================
 //
-// FLOW:
+// Keep current E-Wallet provider structure:
 //
-// PBIL3PAGE
-//      ↓
-// PEWALLET3PAGE
-// Select provider:
-// - TNG
-// - TNGD
-// - TRUE
-//      ↓
-// Check IIMMPACT network status
-//      ↓
-// PEWALLET4PAGE
+// TNG
+//   -> Touch 'n Go PIN
 //
-// TNG:
-// Page 4 -> Select PIN amount
-// Page 5 -> Enter phone/reference
+// TNGD
+//   -> Touch 'n Go PINLESS
 //
-// TNGD / TRUE:
-// Page 4 -> Enter phone number
-// Page 5 -> Enter reload amount
+// TRUE
+//   -> TrueMoney E-Wallet
+//
+// Processing time still comes from:
+//
+// /v2/catalog
 //
 // ============================================================================
 
-enum EWalletStatus {
-  loading,
-  healthy,
-  interruption,
-  unavailable,
+class _EWalletProvider {
+  final String productCode;
+  final String providerName;
+  final String imageUrl;
+
+  final Color accentColor;
+  final Color lightAccentColor;
+
+  const _EWalletProvider({
+    required this.productCode,
+    required this.providerName,
+    required this.imageUrl,
+    required this.accentColor,
+    required this.lightAccentColor,
+  });
 }
+
+// ============================================================================
+// PAGE
+// ============================================================================
 
 class PEWALLET3PAGE extends StatefulWidget {
   const PEWALLET3PAGE({
@@ -53,19 +63,107 @@ class PEWALLET3PAGE extends StatefulWidget {
       _PEWALLET3PAGEState();
 }
 
+// ============================================================================
+// STATE
+// ============================================================================
+
 class _PEWALLET3PAGEState
     extends State<PEWALLET3PAGE> {
   // ==========================================================================
-  // NETWORK STATUS
+  // PROVIDERS
   // ==========================================================================
 
-  final Map<String, EWalletStatus> _statuses = {
-    'TNG': EWalletStatus.loading,
-    'TNGD': EWalletStatus.loading,
-    'TRUE': EWalletStatus.loading,
+  static const _EWalletProvider _tngProvider =
+      _EWalletProvider(
+    productCode: 'TNG',
+
+    providerName: "TOUCH 'N GO PIN",
+
+    imageUrl:
+        'https://dashboard.iimmpact.com/img/TNG.png',
+
+    accentColor:
+        Color(
+      0xFF1469E8,
+    ),
+
+    lightAccentColor:
+        Color(
+      0xFFE5F0FF,
+    ),
+  );
+
+  static const _EWalletProvider _tngdProvider =
+      _EWalletProvider(
+    productCode: 'TNGD',
+
+    providerName: "TOUCH 'N GO PINLESS",
+
+    imageUrl:
+        'https://dashboard.iimmpact.com/img/TNGD.png',
+
+    accentColor:
+        Color(
+      0xFF00AEEF,
+    ),
+
+    lightAccentColor:
+        Color(
+      0xFFE5F8FF,
+    ),
+  );
+
+  static const _EWalletProvider _trueProvider =
+      _EWalletProvider(
+    productCode: 'TRUE',
+
+    providerName: 'TRUEMONEY E-WALLET',
+
+    imageUrl:
+        'https://dashboard.iimmpact.com/img/TRUE.png',
+
+    accentColor:
+        Color(
+      0xFFFF6D00,
+    ),
+
+    lightAccentColor:
+        Color(
+      0xFFFFE9D9,
+    ),
+  );
+
+  static const List<_EWalletProvider> _providers = [
+    _tngProvider,
+    _tngdProvider,
+    _trueProvider,
+  ];
+
+  // ==========================================================================
+  // NETWORK
+  //
+  // Uses shared ProviderNetworkStatus from:
+  //
+  // modern_provider_card.dart
+  // ==========================================================================
+
+  final Map<String, ProviderNetworkStatus> _statuses = {
+    'TNG':
+        ProviderNetworkStatus.loading,
+
+    'TNGD':
+        ProviderNetworkStatus.loading,
+
+    'TRUE':
+        ProviderNetworkStatus.loading,
   };
 
   final Map<String, String?> _lastUpdated = {};
+
+  // ==========================================================================
+  // PROCESSING TIMES
+  // ==========================================================================
+
   final Map<String, String> _processingTimes = {};
 
   // ==========================================================================
@@ -76,10 +174,24 @@ class _PEWALLET3PAGEState
       ScrollController();
 
   bool showScrollUp = false;
-  bool showScrollDown = true;
+  bool showScrollDown = false;
 
   // ==========================================================================
-  // LIFECYCLE
+  // PAGE COLORS
+  // ==========================================================================
+
+  static const Color _primaryColor =
+      Color(
+    0xFFEF6C35,
+  );
+
+  static const Color _darkColor =
+      Color(
+    0xFFD35400,
+  );
+
+  // ==========================================================================
+  // LIFE CYCLE
   // ==========================================================================
 
   @override
@@ -96,14 +208,30 @@ class _PEWALLET3PAGEState
 
         _loadCatalogProcessingTimes();
 
-        _handleScroll();
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) {
+            _handleScroll();
+          },
+        );
       },
     );
   }
 
+  @override
+  void dispose() {
+    _scrollController.removeListener(
+      _handleScroll,
+    );
+
+    _scrollController.dispose();
+
+    super.dispose();
+  }
+
   // ==========================================================================
-  // LOAD E-WALLET PROCESSING TIME FROM IIMMPACT CATALOG
+  // LOAD E-WALLET PROCESSING TIMES
   // ==========================================================================
+
   Future<void> _loadCatalogProcessingTimes() async {
     try {
       final Map<String, dynamic> catalog =
@@ -116,6 +244,7 @@ class _PEWALLET3PAGEState
         debugPrint(
           'E-Wallet catalog error: products not found.',
         );
+
         return;
       }
 
@@ -124,22 +253,22 @@ class _PEWALLET3PAGEState
         productsRaw,
       );
 
-      const List<String> productCodes = [
-        'TNG',
-        'TNGD',
-        'TRUE',
-      ];
-
       final Map<String, String> loadedTimes = {};
 
-      for (final String code in productCodes) {
+      for (final _EWalletProvider provider
+          in _providers) {
+        final String code =
+            provider.productCode;
+
         final dynamic rawProduct =
             products[code];
 
         if (rawProduct is! Map) {
           debugPrint(
-            'E-Wallet catalog product not found: $code',
+            'E-Wallet catalog product not found: '
+            '$code',
           );
+
           continue;
         }
 
@@ -167,72 +296,40 @@ class _PEWALLET3PAGEState
       setState(() {
         _processingTimes
           ..clear()
-          ..addAll(loadedTimes);
+          ..addAll(
+            loadedTimes,
+          );
       });
 
       debugPrint(
         'E-Wallet processing times loaded: '
         '$_processingTimes',
       );
-    } on IimmpactCatalogException catch (error) {
-      debugPrint(
-        'E-Wallet catalog error: ${error.message}',
+
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) {
+          _handleScroll();
+        },
       );
-    } catch (error, stackTrace) {
+    }
+
+    on IimmpactCatalogException catch (error) {
       debugPrint(
-        'Unexpected E-Wallet catalog error: $error',
+        'E-Wallet catalog error: '
+        '${error.message}',
+      );
+    }
+
+    catch (error, stackTrace) {
+      debugPrint(
+        'Unexpected E-Wallet catalog error: '
+        '$error',
       );
 
       debugPrintStack(
-        stackTrace: stackTrace,
+        stackTrace:
+            stackTrace,
       );
-    }
-  }
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(
-      _handleScroll,
-    );
-
-    _scrollController.dispose();
-
-    super.dispose();
-  }
-
-  // ==========================================================================
-  // SCROLL POSITION
-  // ==========================================================================
-
-  void _handleScroll() {
-    if (!_scrollController.hasClients ||
-        !mounted) {
-      return;
-    }
-
-    final double maxScroll =
-        _scrollController
-            .position
-            .maxScrollExtent;
-
-    final double currentScroll =
-        _scrollController.offset;
-
-    final bool shouldShowScrollUp =
-        currentScroll > 10;
-
-    final bool shouldShowScrollDown =
-        currentScroll < maxScroll - 10;
-
-    if (showScrollUp != shouldShowScrollUp ||
-        showScrollDown != shouldShowScrollDown) {
-      setState(() {
-        showScrollUp =
-            shouldShowScrollUp;
-
-        showScrollDown =
-            shouldShowScrollDown;
-      });
     }
   }
 
@@ -241,38 +338,44 @@ class _PEWALLET3PAGEState
   // ==========================================================================
 
   Future<void> _loadInitialStatuses() async {
-    await Future.wait([
-      _refreshStatus('TNG'),
-      _refreshStatus('TNGD'),
-      _refreshStatus('TRUE'),
-    ]);
+    await Future.wait(
+      _providers.map(
+        (
+          _EWalletProvider provider,
+        ) {
+          return _refreshStatus(
+            provider.productCode,
+          );
+        },
+      ),
+    );
   }
 
   // ==========================================================================
   // REFRESH NETWORK STATUS
   // ==========================================================================
 
-  Future<EWalletStatus> _refreshStatus(
+  Future<ProviderNetworkStatus> _refreshStatus(
     String productCode,
   ) async {
     if (mounted) {
       setState(() {
         _statuses[productCode] =
-            EWalletStatus.loading;
+            ProviderNetworkStatus.loading;
       });
     }
 
     try {
       final result =
-          await IimmpactNetworkStatusService
-              .getStatus(
-        productCode: productCode,
+          await IimmpactNetworkStatusService.getStatus(
+        productCode:
+            productCode,
       );
 
-      final EWalletStatus status =
+      final ProviderNetworkStatus status =
           result.isHealthy
-              ? EWalletStatus.healthy
-              : EWalletStatus.interruption;
+              ? ProviderNetworkStatus.healthy
+              : ProviderNetworkStatus.interruption;
 
       if (mounted) {
         setState(() {
@@ -292,18 +395,119 @@ class _PEWALLET3PAGEState
       );
 
       debugPrintStack(
-        stackTrace: stackTrace,
+        stackTrace:
+            stackTrace,
       );
 
       if (mounted) {
         setState(() {
           _statuses[productCode] =
-              EWalletStatus.unavailable;
+              ProviderNetworkStatus.unavailable;
         });
       }
 
-      return EWalletStatus.unavailable;
+      return ProviderNetworkStatus.unavailable;
     }
+  }
+
+  // ==========================================================================
+  // E-WALLET PROCESSING TIME FORMATTER
+  //
+  // Keeps the existing E-Wallet-specific ARB translations.
+  // ==========================================================================
+
+  String _formatEWalletProcessingTime(
+    BuildContext context,
+    String value,
+  ) {
+    final loc =
+        AppLocalizations.of(context)!;
+
+    final String normalized =
+        value
+            .toLowerCase()
+            .trim();
+
+    // ========================================================================
+    // INSTANT
+    // ========================================================================
+
+    if (normalized == 'instant') {
+      return loc.processingInstant;
+    }
+
+    // ========================================================================
+    // 24 HOURS
+    // ========================================================================
+
+    if (normalized == '24_hours') {
+      return loc.processing24Hours;
+    }
+
+    // ========================================================================
+    // 3 DAYS
+    // ========================================================================
+
+    if (normalized == '3_days') {
+      return loc.processing3Days;
+    }
+
+    // ========================================================================
+    // PIN
+    // ========================================================================
+
+    if (normalized == 'pin') {
+      return 'PIN';
+    }
+
+    // ========================================================================
+    // LINK
+    // ========================================================================
+
+    if (normalized == 'link') {
+      return 'LINK';
+    }
+
+    // ========================================================================
+    // GENERIC HOURS
+    // ========================================================================
+
+    if (normalized.endsWith(
+      '_hours',
+    )) {
+      final String hours =
+          normalized.replaceAll(
+        '_hours',
+        '',
+      );
+
+      return loc.eWalletUpdateWithinHours(
+        hours,
+      );
+    }
+
+    // ========================================================================
+    // GENERIC DAYS
+    // ========================================================================
+
+    if (normalized.endsWith(
+      '_days',
+    )) {
+      final String days =
+          normalized.replaceAll(
+        '_days',
+        '',
+      );
+
+      return loc.eWalletUpdateWithinDays(
+        days,
+      );
+    }
+
+    return value.replaceAll(
+      '_',
+      ' ',
+    );
   }
 
   // ==========================================================================
@@ -319,12 +523,15 @@ class _PEWALLET3PAGEState
 
     final bool? result =
         await showDialog<bool>(
-      context: context,
+      context:
+          context,
 
-      barrierDismissible: false,
+      barrierDismissible:
+          false,
 
-      builder: (
-        dialogContext,
+      builder:
+          (
+        BuildContext dialogContext,
       ) {
         return Dialog(
           backgroundColor:
@@ -332,11 +539,14 @@ class _PEWALLET3PAGEState
 
           insetPadding:
               const EdgeInsets.symmetric(
-            horizontal: 80,
+            horizontal:
+                80,
           ),
 
-          child: Container(
-            width: 800,
+          child:
+              Container(
+            width:
+                800,
 
             padding:
                 const EdgeInsets.fromLTRB(
@@ -362,6 +572,7 @@ class _PEWALLET3PAGEState
                     const Color(
                   0xFFF2A520,
                 ),
+
                 width:
                     3,
               ),
@@ -369,12 +580,13 @@ class _PEWALLET3PAGEState
               boxShadow: [
                 BoxShadow(
                   color:
-                      Colors.black
-                          .withOpacity(
+                      Colors.black.withOpacity(
                     0.25,
                   ),
+
                   blurRadius:
                       35,
+
                   offset:
                       const Offset(
                     0,
@@ -384,7 +596,8 @@ class _PEWALLET3PAGEState
               ],
             ),
 
-            child: Column(
+            child:
+                Column(
               mainAxisSize:
                   MainAxisSize.min,
 
@@ -426,8 +639,7 @@ class _PEWALLET3PAGEState
 
                   child:
                       const Icon(
-                    Icons
-                        .warning_amber_rounded,
+                    Icons.warning_amber_rounded,
 
                     color:
                         Color(
@@ -489,6 +701,7 @@ class _PEWALLET3PAGEState
                       const EdgeInsets.symmetric(
                     horizontal:
                         28,
+
                     vertical:
                         25,
                   ),
@@ -640,8 +853,7 @@ class _PEWALLET3PAGEState
 
                           icon:
                               const Icon(
-                            Icons
-                                .arrow_back_rounded,
+                            Icons.arrow_back_rounded,
 
                             size:
                                 29,
@@ -723,8 +935,7 @@ class _PEWALLET3PAGEState
 
                           icon:
                               const Icon(
-                            Icons
-                                .arrow_forward_rounded,
+                            Icons.arrow_forward_rounded,
 
                             size:
                                 29,
@@ -781,45 +992,23 @@ class _PEWALLET3PAGEState
   }
 
   // ==========================================================================
-  // PROVIDER IMAGE
+  // PROVIDER TAP
+  //
+  // IMPORTANT:
+  //
+  // Existing E-Wallet flow is preserved.
   // ==========================================================================
 
-  String _getProviderImageUrl(
-    String productCode,
-  ) {
-    switch (
-        productCode
-            .trim()
-            .toUpperCase()) {
-      case 'TNG':
-        return 'https://dashboard.iimmpact.com/img/TNG.png';
-
-      case 'TNGD':
-        return 'https://dashboard.iimmpact.com/img/TNGD.png';
-
-      case 'TRUE':
-        return 'https://dashboard.iimmpact.com/img/TRUE.png';
-
-      default:
-        return '';
-    }
-  }
-
-  // ==========================================================================
-  // PROVIDER SELECTION
-  // ==========================================================================
-
-  Future<void> _handleProviderTap({
-    required String productCode,
-    required String providerName,
-  }) async {
+  Future<void> _handleProviderTap(
+    _EWalletProvider provider,
+  ) async {
     // ========================================================================
-    // 1. REFRESH STATUS BEFORE OPENING
+    // REFRESH STATUS
     // ========================================================================
 
-    final EWalletStatus status =
+    final ProviderNetworkStatus status =
         await _refreshStatus(
-      productCode,
+      provider.productCode,
     );
 
     if (!mounted) {
@@ -827,18 +1016,18 @@ class _PEWALLET3PAGEState
     }
 
     // ========================================================================
-    // 2. NETWORK INTERRUPTION
+    // INTERRUPTION
     // ========================================================================
 
     if (status ==
-        EWalletStatus.interruption) {
+        ProviderNetworkStatus.interruption) {
       final bool shouldContinue =
           await _showInterruptionWarning(
         providerName:
-            providerName,
+            provider.providerName,
 
         productCode:
-            productCode,
+            provider.productCode,
       );
 
       if (!shouldContinue) {
@@ -851,19 +1040,10 @@ class _PEWALLET3PAGEState
     }
 
     // ========================================================================
-    // 3. PROVIDER IMAGE
+    // KEEP ORIGINAL PAGE 4 FLOW
     // ========================================================================
 
-    final String providerImageUrl =
-        _getProviderImageUrl(
-      productCode,
-    );
-
-    // ========================================================================
-    // 4. OPEN PAGE 4
-    // ========================================================================
-
-    Navigator.push(
+    await Navigator.push(
       context,
 
       MaterialPageRoute(
@@ -871,20 +1051,64 @@ class _PEWALLET3PAGEState
             (_) =>
                 PEWALLET4PAGE(
           productCode:
-              productCode,
+              provider.productCode,
 
           providerName:
-              providerName,
+              provider.providerName,
 
           providerImageUrl:
-              providerImageUrl,
+              provider.imageUrl,
         ),
       ),
     );
   }
 
   // ==========================================================================
-  // MANUAL SCROLL CONTROLS
+  // SCROLL POSITION
+  // ==========================================================================
+
+  void _handleScroll() {
+    if (!_scrollController.hasClients ||
+        !mounted) {
+      return;
+    }
+
+    final double maxScroll =
+        _scrollController
+            .position
+            .maxScrollExtent;
+
+    final double currentScroll =
+        _scrollController.offset;
+
+    final bool hasScrollableContent =
+        maxScroll > 10;
+
+    final bool shouldShowScrollUp =
+        hasScrollableContent &&
+            currentScroll > 10;
+
+    final bool shouldShowScrollDown =
+        hasScrollableContent &&
+            currentScroll <
+                maxScroll - 10;
+
+    if (showScrollUp !=
+            shouldShowScrollUp ||
+        showScrollDown !=
+            shouldShowScrollDown) {
+      setState(() {
+        showScrollUp =
+            shouldShowScrollUp;
+
+        showScrollDown =
+            shouldShowScrollDown;
+      });
+    }
+  }
+
+  // ==========================================================================
+  // SCROLL UP
   // ==========================================================================
 
   void _scrollUp() {
@@ -915,6 +1139,10 @@ class _PEWALLET3PAGEState
     );
   }
 
+  // ==========================================================================
+  // SCROLL DOWN
+  // ==========================================================================
+
   void _scrollDown() {
     if (!_scrollController.hasClients) {
       return;
@@ -944,6 +1172,218 @@ class _PEWALLET3PAGEState
   }
 
   // ==========================================================================
+  // SCROLL TO TOP
+  // ==========================================================================
+
+  void _scrollToTop() {
+    if (!_scrollController.hasClients) {
+      return;
+    }
+
+    _scrollController.animateTo(
+      0,
+
+      duration:
+          const Duration(
+        milliseconds:
+            550,
+      ),
+
+      curve:
+          Curves.easeOutCubic,
+    );
+  }
+
+  // ==========================================================================
+  // SCROLL ACTION
+  // ==========================================================================
+
+  Widget _buildScrollAction(
+    AppLocalizations loc,
+  ) {
+    // ========================================================================
+    // TOP
+    //
+    // LIHAT LAGI
+    // ========================================================================
+
+    if (!showScrollUp &&
+        showScrollDown) {
+      return _ScrollDiscoveryControl(
+        key:
+            const ValueKey(
+          'ewallet-top-more',
+        ),
+
+        mode:
+            _ScrollControlMode.more,
+
+        label:
+            loc.scrollViewMore,
+
+        onPressed:
+            _scrollDown,
+
+        accentColor:
+            _primaryColor,
+
+        darkColor:
+            _darkColor,
+      );
+    }
+
+    // ========================================================================
+    // MIDDLE
+    //
+    // KE ATAS + LIHAT LAGI
+    // ========================================================================
+
+    if (showScrollUp &&
+        showScrollDown) {
+      return Row(
+        key:
+            const ValueKey(
+          'ewallet-middle-controls',
+        ),
+
+        mainAxisSize:
+            MainAxisSize.min,
+
+        children: [
+          _ScrollDiscoveryControl(
+            mode:
+                _ScrollControlMode.up,
+
+            label:
+                loc.scrollUpShort,
+
+            onPressed:
+                _scrollUp,
+
+            accentColor:
+                _primaryColor,
+
+            darkColor:
+                _darkColor,
+          ),
+
+          const SizedBox(
+            width:
+                22,
+          ),
+
+          _ScrollDiscoveryControl(
+            mode:
+                _ScrollControlMode.more,
+
+            label:
+                loc.scrollViewMore,
+
+            onPressed:
+                _scrollDown,
+
+            accentColor:
+                _primaryColor,
+
+            darkColor:
+                _darkColor,
+          ),
+        ],
+      );
+    }
+
+    // ========================================================================
+    // BOTTOM
+    //
+    // KEMBALI KE ATAS
+    // ========================================================================
+
+    if (showScrollUp &&
+        !showScrollDown) {
+      return _ScrollDiscoveryControl(
+        key:
+            const ValueKey(
+          'ewallet-bottom-top',
+        ),
+
+        mode:
+            _ScrollControlMode.top,
+
+        label:
+            loc.scrollBackTop,
+
+        onPressed:
+            _scrollToTop,
+
+        accentColor:
+            _primaryColor,
+
+        darkColor:
+            _darkColor,
+      );
+    }
+
+    return const SizedBox.shrink();
+  }
+
+  // ==========================================================================
+  // BUILD PROVIDER CARD
+  // ==========================================================================
+
+  Widget _buildProviderCard({
+    required _EWalletProvider provider,
+    required String displayLabel,
+    required AppLocalizations loc,
+  }) {
+    return ModernProviderCard(
+      imageUrl:
+          provider.imageUrl,
+
+      label:
+          displayLabel,
+
+      accentColor:
+          provider.accentColor,
+
+      lightAccentColor:
+          provider.lightAccentColor,
+
+      networkStatus:
+          _statuses[
+                  provider.productCode] ??
+              ProviderNetworkStatus.loading,
+
+      networkLabel:
+          loc.networkLabel,
+
+      processingTime:
+          _processingTimes[
+                  provider.productCode] ??
+              '',
+
+      processingLabel:
+          loc.processingTimeLabel,
+
+      // ======================================================================
+      // E-WALLET PROCESSING TRANSLATION
+      // ======================================================================
+
+      processingTimeFormatter:
+          _formatEWalletProcessingTime,
+
+      fallbackIcon:
+          Icons.account_balance_wallet_rounded,
+
+      onPressed:
+          () {
+        _handleProviderTap(
+          provider,
+        );
+      },
+    );
+  }
+
+  // ==========================================================================
   // BUILD
   // ==========================================================================
 
@@ -955,7 +1395,8 @@ class _PEWALLET3PAGEState
         AppLocalizations.of(context)!;
 
     return Scaffold(
-      body: Stack(
+      body:
+          Stack(
         children: [
           // ==================================================================
           // BACKGROUND
@@ -1078,8 +1519,12 @@ class _PEWALLET3PAGEState
                   right:
                       24,
 
+                  // ==========================================================
+                  // Extra bottom space for modern scroll control.
+                  // ==========================================================
+
                   bottom:
-                      55,
+                      145,
                 ),
 
                 child:
@@ -1087,6 +1532,7 @@ class _PEWALLET3PAGEState
                   children: [
                     // ========================================================
                     // ROW 1
+                    //
                     // TNG PIN + TNG PINLESS
                     // ========================================================
 
@@ -1096,57 +1542,20 @@ class _PEWALLET3PAGEState
 
                       children: [
                         // ====================================================
-                        // TOUCH 'N GO PIN
-                        //
-                        // PAGE 4:
-                        // Choose denomination.
-                        //
-                        // PAGE 5:
-                        // Enter phone/reference.
+                        // TNG PIN
                         // ====================================================
 
                         Expanded(
                           child:
-                              _EWalletProviderCard(
-                            imageUrl:
-                                'https://dashboard.iimmpact.com/img/TNG.png',
+                              _buildProviderCard(
+                            provider:
+                                _tngProvider,
 
-                            label:
+                            displayLabel:
                                 loc.touchNGoPin,
 
-                            accentColor:
-                                const Color(
-                              0xFF1469E8,
-                            ),
-
-                            lightAccentColor:
-                                const Color(
-                              0xFFE5F0FF,
-                            ),
-
-                            status:
-                                _statuses['TNG'] ??
-                                    EWalletStatus.loading,
-
-                            networkLabel:
-                                loc.networkLabel,
-                            
-                            processingTime:
-                                _processingTimes['TNG'] ?? '',
-
-                            processingLabel:
-                                loc.processingTimeLabel,
-
-                            onPressed:
-                                () {
-                              _handleProviderTap(
-                                productCode:
-                                    'TNG',
-
-                                providerName:
-                                    "TOUCH 'N GO PIN",
-                              );
-                            },
+                            loc:
+                                loc,
                           ),
                         ),
 
@@ -1156,57 +1565,20 @@ class _PEWALLET3PAGEState
                         ),
 
                         // ====================================================
-                        // TOUCH 'N GO PINLESS
-                        //
-                        // PAGE 4:
-                        // Enter phone.
-                        //
-                        // PAGE 5:
-                        // Enter amount.
+                        // TNG PINLESS
                         // ====================================================
 
                         Expanded(
                           child:
-                              _EWalletProviderCard(
-                            imageUrl:
-                                'https://dashboard.iimmpact.com/img/TNGD.png',
+                              _buildProviderCard(
+                            provider:
+                                _tngdProvider,
 
-                            label:
+                            displayLabel:
                                 loc.touchNGoPinless,
 
-                            accentColor:
-                                const Color(
-                              0xFF00AEEF,
-                            ),
-
-                            lightAccentColor:
-                                const Color(
-                              0xFFE5F8FF,
-                            ),
-
-                            status:
-                                _statuses['TNGD'] ??
-                                    EWalletStatus.loading,
-
-                            networkLabel:
-                                loc.networkLabel,
-
-                            processingTime:
-                                _processingTimes['TNGD'] ?? '',
-
-                            processingLabel:
-                                loc.processingTimeLabel,
-
-                            onPressed:
-                                () {
-                              _handleProviderTap(
-                                productCode:
-                                    'TNGD',
-
-                                providerName:
-                                    "TOUCH 'N GO PINLESS",
-                              );
-                            },
+                            loc:
+                                loc,
                           ),
                         ),
                       ],
@@ -1219,6 +1591,7 @@ class _PEWALLET3PAGEState
 
                     // ========================================================
                     // ROW 2
+                    //
                     // TRUE MONEY
                     // ========================================================
 
@@ -1227,58 +1600,17 @@ class _PEWALLET3PAGEState
                           CrossAxisAlignment.start,
 
                       children: [
-                        // ====================================================
-                        // TRUE MONEY
-                        //
-                        // PAGE 4:
-                        // Enter phone.
-                        //
-                        // PAGE 5:
-                        // Enter amount.
-                        // ====================================================
-
                         Expanded(
                           child:
-                              _EWalletProviderCard(
-                            imageUrl:
-                                'https://dashboard.iimmpact.com/img/TRUE.png',
+                              _buildProviderCard(
+                            provider:
+                                _trueProvider,
 
-                            label:
+                            displayLabel:
                                 loc.trueMoneyEWallet,
 
-                            accentColor:
-                                const Color(
-                              0xFFFF6D00,
-                            ),
-
-                            lightAccentColor:
-                                const Color(
-                              0xFFFFE9D9,
-                            ),
-
-                            status:
-                                _statuses['TRUE'] ??
-                                    EWalletStatus.loading,
-
-                            networkLabel:
-                                loc.networkLabel,
-                            
-                            processingTime:
-                                _processingTimes['TRUE'] ?? '',
-
-                            processingLabel:
-                                loc.processingTimeLabel,
-
-                            onPressed:
-                                () {
-                              _handleProviderTap(
-                                productCode:
-                                    'TRUE',
-
-                                providerName:
-                                    'TRUEMONEY E-WALLET',
-                              );
-                            },
+                            loc:
+                                loc,
                           ),
                         ),
 
@@ -1300,59 +1632,139 @@ class _PEWALLET3PAGEState
           ),
 
           // ==================================================================
-          // SCROLL UP
-          // ==================================================================
-
-          if (showScrollUp)
-            Positioned(
-              right:
-                  18,
-
-              top:
-                  365,
-
-              child:
-                  _ScrollIndicatorButton(
-                icon:
-                    Icons
-                        .keyboard_arrow_up_rounded,
-
-                label:
-                    loc.scrollup,
-
-                onPressed:
-                    _scrollUp,
-              ),
-            ),
-
-          // ==================================================================
-          // SCROLL DOWN
+          // CONTENT FADE
           // ==================================================================
 
           if (showScrollDown)
             Positioned(
+              left:
+                  35,
+
               right:
-                  18,
+                  35,
 
               bottom:
-                  290,
+                  270,
+
+              height:
+                  175,
 
               child:
-                  _ScrollIndicatorButton(
-                icon:
-                    Icons
-                        .keyboard_arrow_down_rounded,
+                  IgnorePointer(
+                child:
+                    Container(
+                  decoration:
+                      BoxDecoration(
+                    gradient:
+                        LinearGradient(
+                      begin:
+                          Alignment.topCenter,
 
-                label:
-                    loc.scrolldown,
+                      end:
+                          Alignment.bottomCenter,
 
-                onPressed:
-                    _scrollDown,
+                      stops:
+                          const [
+                        0.0,
+                        0.30,
+                        0.68,
+                        1.0,
+                      ],
 
-                iconBelowText:
-                    true,
+                      colors: [
+                        Colors.white.withOpacity(
+                          0.00,
+                        ),
+
+                        Colors.white.withOpacity(
+                          0.14,
+                        ),
+
+                        Colors.white.withOpacity(
+                          0.62,
+                        ),
+
+                        Colors.white.withOpacity(
+                          0.95,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
+
+          // ==================================================================
+          // MODERN SCROLL CONTROL
+          // ==================================================================
+
+          Positioned(
+            left:
+                0,
+
+            right:
+                0,
+
+            bottom:
+                270,
+
+            child:
+                Center(
+              child:
+                  AnimatedSwitcher(
+                duration:
+                    const Duration(
+                  milliseconds:
+                      250,
+                ),
+
+                switchInCurve:
+                    Curves.easeOutCubic,
+
+                switchOutCurve:
+                    Curves.easeInCubic,
+
+                transitionBuilder:
+                    (
+                  Widget child,
+                  Animation<double> animation,
+                ) {
+                  return FadeTransition(
+                    opacity:
+                        animation,
+
+                    child:
+                        ScaleTransition(
+                      scale:
+                          Tween<double>(
+                        begin:
+                            0.94,
+
+                        end:
+                            1.0,
+                      ).animate(
+                        CurvedAnimation(
+                          parent:
+                              animation,
+
+                          curve:
+                              Curves.easeOutCubic,
+                        ),
+                      ),
+
+                      child:
+                          child,
+                    ),
+                  );
+                },
+
+                child:
+                    _buildScrollAction(
+                  loc,
+                ),
+              ),
+            ),
+          ),
 
           // ==================================================================
           // BACK
@@ -1434,7 +1846,8 @@ class _PEWALLET3PAGEState
 // E-WALLET HEADER
 // ============================================================================
 
-class _ModernEWalletHeader extends StatelessWidget {
+class _ModernEWalletHeader
+    extends StatelessWidget {
   final String title;
   final String subtitle;
 
@@ -1444,112 +1857,233 @@ class _ModernEWalletHeader extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    const Color accentColor = Color(0xFFEF6C35);
-    const Color darkAccent = Color(0xFFD35400);
+  Widget build(
+    BuildContext context,
+  ) {
+    const Color accentColor =
+        Color(
+      0xFFEF6C35,
+    );
 
-    final loc = AppLocalizations.of(context)!;
+    const Color darkAccent =
+        Color(
+      0xFFD35400,
+    );
+
+    final loc =
+        AppLocalizations.of(context)!;
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(
+      padding:
+          const EdgeInsets.fromLTRB(
         30,
         24,
         30,
         24,
       ),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.96),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(
-          color: const Color(0xFFD5E4F7),
-          width: 2,
+
+      decoration:
+          BoxDecoration(
+        color:
+            Colors.white.withOpacity(
+          0.96,
         ),
+
+        borderRadius:
+            BorderRadius.circular(
+          32,
+        ),
+
+        border:
+            Border.all(
+          color:
+              const Color(
+            0xFFD5E4F7,
+          ),
+
+          width:
+              2,
+        ),
+
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF173A66).withOpacity(0.14),
-            blurRadius: 30,
-            offset: const Offset(0, 12),
+            color:
+                const Color(
+              0xFF173A66,
+            ).withOpacity(
+              0.14,
+            ),
+
+            blurRadius:
+                30,
+
+            offset:
+                const Offset(
+              0,
+              12,
+            ),
           ),
         ],
       ),
-      child: Row(
+
+      child:
+          Row(
         children: [
-          // ==========================================================
-          // LEFT E-WALLET ICON
-          // ==========================================================
+          // ==================================================================
+          // ICON
+          // ==================================================================
 
           Container(
-            width: 105,
-            height: 105,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+            width:
+                105,
+
+            height:
+                105,
+
+            decoration:
+                BoxDecoration(
+              gradient:
+                  const LinearGradient(
+                begin:
+                    Alignment.topLeft,
+
+                end:
+                    Alignment.bottomRight,
+
                 colors: [
                   darkAccent,
-                  Color(0xFFFF8A3D),
+
+                  Color(
+                    0xFFFF8A3D,
+                  ),
                 ],
               ),
-              borderRadius: BorderRadius.circular(30),
+
+              borderRadius:
+                  BorderRadius.circular(
+                30,
+              ),
+
               boxShadow: [
                 BoxShadow(
-                  color: accentColor.withOpacity(0.28),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
+                  color:
+                      accentColor.withOpacity(
+                    0.28,
+                  ),
+
+                  blurRadius:
+                      20,
+
+                  offset:
+                      const Offset(
+                    0,
+                    8,
+                  ),
                 ),
               ],
             ),
-            child: const Icon(
+
+            child:
+                const Icon(
               Icons.account_balance_wallet_rounded,
-              color: Colors.white,
-              size: 56,
+
+              color:
+                  Colors.white,
+
+              size:
+                  56,
             ),
           ),
 
-          const SizedBox(width: 28),
+          const SizedBox(
+            width:
+                28,
+          ),
 
-          // ==========================================================
-          // EXISTING TEXT
-          // ==========================================================
+          // ==================================================================
+          // TEXT
+          // ==================================================================
 
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child:
+                Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
               children: [
-                // ------------------------------------------------------
-                // EXISTING SERVICE LABEL
-                // ------------------------------------------------------
+                // ============================================================
+                // SERVICE LABEL
+                // ============================================================
 
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 7,
+                  padding:
+                      const EdgeInsets.symmetric(
+                    horizontal:
+                        18,
+
+                    vertical:
+                        7,
                   ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFEFE7),
-                    borderRadius: BorderRadius.circular(100),
+
+                  decoration:
+                      BoxDecoration(
+                    color:
+                        const Color(
+                      0xFFFFEFE7,
+                    ),
+
+                    borderRadius:
+                        BorderRadius.circular(
+                      100,
+                    ),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
+
+                  child:
+                      Row(
+                    mainAxisSize:
+                        MainAxisSize.min,
+
                     children: [
                       const Icon(
                         Icons.account_balance_wallet_rounded,
-                        size: 20,
-                        color: accentColor,
+
+                        size:
+                            20,
+
+                        color:
+                            accentColor,
                       ),
 
-                      const SizedBox(width: 8),
+                      const SizedBox(
+                        width:
+                            8,
+                      ),
 
                       Flexible(
-                        child: Text(
-                          loc.eWalletServiceLabel.toUpperCase(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: accentColor,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 1.1,
+                        child:
+                            Text(
+                          loc.eWalletServiceLabel
+                              .toUpperCase(),
+
+                          maxLines:
+                              1,
+
+                          overflow:
+                              TextOverflow.ellipsis,
+
+                          style:
+                              const TextStyle(
+                            color:
+                                accentColor,
+
+                            fontSize:
+                                17,
+
+                            fontWeight:
+                                FontWeight.w900,
+
+                            letterSpacing:
+                                1.1,
                           ),
                         ),
                       ),
@@ -1557,63 +2091,121 @@ class _ModernEWalletHeader extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 12),
+                const SizedBox(
+                  height:
+                      12,
+                ),
 
-                // ------------------------------------------------------
-                // EXISTING TITLE
-                // ------------------------------------------------------
+                // ============================================================
+                // TITLE
+                // ============================================================
 
                 Text(
                   title.toUpperCase(),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF122C4C),
-                    fontSize: 52,
-                    fontWeight: FontWeight.w900,
-                    height: 1.02,
-                    letterSpacing: -0.8,
+
+                  maxLines:
+                      2,
+
+                  overflow:
+                      TextOverflow.ellipsis,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF122C4C,
+                    ),
+
+                    fontSize:
+                        52,
+
+                    fontWeight:
+                        FontWeight.w900,
+
+                    height:
+                        1.02,
+
+                    letterSpacing:
+                        -0.8,
                   ),
                 ),
 
-                const SizedBox(height: 9),
+                const SizedBox(
+                  height:
+                      9,
+                ),
 
-                // ------------------------------------------------------
-                // EXISTING SUBTITLE
-                // ------------------------------------------------------
+                // ============================================================
+                // SUBTITLE
+                // ============================================================
 
                 Text(
                   subtitle.toUpperCase(),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF607188),
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    height: 1.25,
+
+                  maxLines:
+                      2,
+
+                  overflow:
+                      TextOverflow.ellipsis,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF607188,
+                    ),
+
+                    fontSize:
+                        22,
+
+                    fontWeight:
+                        FontWeight.w600,
+
+                    height:
+                        1.25,
                   ),
                 ),
               ],
             ),
           ),
 
-          const SizedBox(width: 24),
+          const SizedBox(
+            width:
+                24,
+          ),
 
-          // ==========================================================
-          // RIGHT ACCENT BAR
-          // ==========================================================
+          // ==================================================================
+          // RIGHT ACCENT
+          // ==================================================================
 
           Container(
-            width: 8,
-            height: 105,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+            width:
+                8,
+
+            height:
+                105,
+
+            decoration:
+                BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
+
+              gradient:
+                  const LinearGradient(
+                begin:
+                    Alignment.topCenter,
+
+                end:
+                    Alignment.bottomCenter,
+
                 colors: [
                   darkAccent,
-                  Color(0xFFFF8A3D),
+
+                  Color(
+                    0xFFFF8A3D,
+                  ),
                 ],
               ),
             ),
@@ -1625,12 +2217,22 @@ class _ModernEWalletHeader extends StatelessWidget {
 }
 
 // ============================================================================
-// E-WALLET PROVIDER CARD
+// SCROLL CONTROL MODE
 // ============================================================================
 
-class _EWalletProviderCard
+enum _ScrollControlMode {
+  up,
+  more,
+  top,
+}
+
+// ============================================================================
+// MODERN SCROLL CONTROL
+// ============================================================================
+
+class _ScrollDiscoveryControl
     extends StatefulWidget {
-  final String imageUrl;
+  final _ScrollControlMode mode;
 
   final String label;
 
@@ -1638,826 +2240,268 @@ class _EWalletProviderCard
 
   final Color accentColor;
 
-  final Color lightAccentColor;
+  final Color darkColor;
 
-  final EWalletStatus status;
-
-  final String networkLabel;
-
-  final bool comingSoon;
-
-  final String processingTime;
-
-  final String processingLabel;
-
-  const _EWalletProviderCard({
+  const _ScrollDiscoveryControl({
     super.key,
-
-    required this.imageUrl,
-
+    required this.mode,
     required this.label,
-
     required this.onPressed,
-
     required this.accentColor,
-
-    required this.lightAccentColor,
-
-    required this.status,
-
-    required this.networkLabel,
-
-    required this.processingTime,
-
-    required this.processingLabel,
-
-    this.comingSoon = false,
+    required this.darkColor,
   });
 
   @override
-  State<_EWalletProviderCard>
-      createState() =>
-          _EWalletProviderCardState();
+  State<_ScrollDiscoveryControl> createState() =>
+      _ScrollDiscoveryControlState();
 }
 
-class _EWalletProviderCardState
-    extends State<_EWalletProviderCard> {
-  bool _isPressed = false;
+// ============================================================================
+// SCROLL CONTROL STATE
+// ============================================================================
 
-  // ==========================================================================
-  // PRESSED STATE
-  // ==========================================================================
+class _ScrollDiscoveryControlState
+    extends State<_ScrollDiscoveryControl> {
+  bool _pressed = false;
 
-  void _changePressedState(
+  void _setPressed(
     bool value,
   ) {
-    if (!mounted ||
-        widget.comingSoon) {
+    if (!mounted) {
       return;
     }
 
     setState(() {
-      _isPressed =
+      _pressed =
           value;
     });
   }
-
-  String _formatProcessingTime(
-    BuildContext context,
-    String value,
-  ) {
-    final loc =
-        AppLocalizations.of(context)!;
-
-    final String normalized =
-        value.toLowerCase().trim();
-
-    if (normalized == 'instant') {
-      return loc.processingInstant;
-    }
-
-    if (normalized == '24_hours') {
-      return loc.processing24Hours;
-    }
-
-    if (normalized == '3_days') {
-      return loc.processing3Days;
-    }
-
-    if (normalized.endsWith('_hours')) {
-      final String hours =
-          normalized.replaceAll(
-        '_hours',
-        '',
-      );
-
-      return loc.eWalletUpdateWithinHours(
-        hours,
-      );
-    }
-
-    if (normalized.endsWith('_days')) {
-      final String days =
-          normalized.replaceAll(
-        '_days',
-        '',
-      );
-
-      return loc.eWalletUpdateWithinDays(
-        days,
-      );
-    }
-
-    return value.replaceAll('_', ' ');
-  }
-
-  // ==========================================================================
-  // BUILD
-  // ==========================================================================
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    final bool isEnabled =
-        !widget.comingSoon;
+    final bool isUp =
+        widget.mode ==
+                _ScrollControlMode.up ||
+            widget.mode ==
+                _ScrollControlMode.top;
 
-    return GestureDetector(
-      behavior:
-          HitTestBehavior.opaque,
+    final IconData arrow =
+        isUp
+            ? Icons.keyboard_arrow_up_rounded
+            : Icons.keyboard_arrow_down_rounded;
 
-      onTapDown:
-          isEnabled
-              ? (_) =>
-                  _changePressedState(
-                    true,
-                  )
-              : null,
+    return AnimatedScale(
+      scale:
+          _pressed
+              ? 0.96
+              : 1.0,
 
-      onTapUp:
-          isEnabled
-              ? (_) =>
-                  _changePressedState(
-                    false,
-                  )
-              : null,
+      duration:
+          const Duration(
+        milliseconds:
+            120,
+      ),
 
-      onTapCancel:
-          isEnabled
-              ? () =>
-                  _changePressedState(
-                    false,
-                  )
-              : null,
-
-      onTap:
-          isEnabled
-              ? widget.onPressed
-              : null,
+      curve:
+          Curves.easeOutCubic,
 
       child:
-          AnimatedScale(
-        scale:
-            _isPressed
-                ? 0.965
-                : 1,
-
-        duration:
-            const Duration(
-          milliseconds:
-              130,
-        ),
-
-        curve:
-            Curves.easeOut,
+          Material(
+        color:
+            Colors.transparent,
 
         child:
-            AnimatedContainer(
-          duration:
-              const Duration(
-            milliseconds:
-                170,
+            InkWell(
+          onTap:
+              widget.onPressed,
+
+          onHighlightChanged:
+              _setPressed,
+
+          borderRadius:
+              BorderRadius.circular(
+            100,
           ),
 
-          curve:
-              Curves.easeOut,
-
-          height:
-              480,
-
-          decoration:
-              BoxDecoration(
-            color:
-                Colors.white.withOpacity(
-              widget.comingSoon
-                  ? 0.72
-                  : 0.96,
-            ),
-
-            borderRadius:
-                BorderRadius.circular(
-              40,
-            ),
-
-            border:
-                Border.all(
-              color:
-                  _isPressed
-                      ? widget.accentColor
-                      : widget.comingSoon
-                          ? Colors.grey
-                          : Colors.black,
-
-              width:
-                  _isPressed
-                      ? 4
-                      : 3,
-            ),
-
-            boxShadow:
-                _isPressed
-                    ? [
-                        BoxShadow(
-                          color:
-                              widget.accentColor.withOpacity(
-                            0.18,
-                          ),
-
-                          blurRadius:
-                              18,
-
-                          offset:
-                              const Offset(
-                            0,
-                            8,
-                          ),
-                        ),
-                      ]
-                    : [
-                        BoxShadow(
-                          color:
-                              const Color(
-                            0xFF19375C,
-                          ).withOpacity(
-                            0.16,
-                          ),
-
-                          blurRadius:
-                              30,
-
-                          spreadRadius:
-                              1,
-
-                          offset:
-                              const Offset(
-                            0,
-                            15,
-                          ),
-                        ),
-                      ],
+          splashColor:
+              widget.accentColor.withOpacity(
+            0.10,
           ),
+
+          highlightColor:
+              Colors.transparent,
 
           child:
-              ClipRRect(
-            borderRadius:
-                BorderRadius.circular(
-              37,
+              AnimatedContainer(
+            duration:
+                const Duration(
+              milliseconds:
+                  140,
+            ),
+
+            constraints:
+                const BoxConstraints(
+              minHeight:
+                  88,
+            ),
+
+            padding:
+                const EdgeInsets.fromLTRB(
+              30,
+              13,
+              22,
+              13,
+            ),
+
+            decoration:
+                BoxDecoration(
+              color:
+                  Colors.white.withOpacity(
+                0.98,
+              ),
+
+              borderRadius:
+                  BorderRadius.circular(
+                100,
+              ),
+
+              border:
+                  Border.all(
+                color:
+                    _pressed
+                        ? widget.accentColor
+                        : widget.accentColor
+                            .withOpacity(
+                            0.30,
+                          ),
+
+                width:
+                    _pressed
+                        ? 2.5
+                        : 1.7,
+              ),
+
+              boxShadow: [
+                BoxShadow(
+                  color:
+                      widget.darkColor.withOpacity(
+                    _pressed
+                        ? 0.09
+                        : 0.17,
+                  ),
+
+                  blurRadius:
+                      _pressed
+                          ? 8
+                          : 20,
+
+                  offset:
+                      Offset(
+                    0,
+
+                    _pressed
+                        ? 2
+                        : 7,
+                  ),
+                ),
+              ],
             ),
 
             child:
-                Stack(
+                Row(
+              mainAxisSize:
+                  MainAxisSize.min,
+
               children: [
-                // ============================================================
-                // LARGE DECORATIVE CIRCLE
-                // ============================================================
+                if (isUp) ...[
+                  _ScrollArrowCircle(
+                    icon:
+                        arrow,
 
-                Positioned(
-                  right:
-                      -50,
+                    pressed:
+                        _pressed,
 
-                  top:
-                      -50,
+                    accentColor:
+                        widget.accentColor,
 
-                  child:
-                      AnimatedContainer(
-                    duration:
-                        const Duration(
-                      milliseconds:
-                          180,
-                    ),
+                    darkColor:
+                        widget.darkColor,
+                  ),
 
+                  const SizedBox(
                     width:
-                        _isPressed
-                            ? 225
-                            : 210,
-
-                    height:
-                        _isPressed
-                            ? 225
-                            : 210,
-
-                    decoration:
-                        BoxDecoration(
-                      shape:
-                          BoxShape.circle,
-
-                      color:
-                          widget.lightAccentColor.withOpacity(
-                        0.90,
-                      ),
-                    ),
+                        14,
                   ),
-                ),
+                ],
 
-                // ============================================================
-                // SMALL DECORATIVE CIRCLE
-                // ============================================================
+                ConstrainedBox(
+                  constraints:
+                      const BoxConstraints(
+                    minWidth:
+                        88,
 
-                Positioned(
-                  right:
-                      95,
-
-                  top:
-                      110,
-
-                  child:
-                      Container(
-                    width:
-                        36,
-
-                    height:
-                        36,
-
-                    decoration:
-                        BoxDecoration(
-                      shape:
-                          BoxShape.circle,
-
-                      color:
-                          widget.accentColor.withOpacity(
-                        0.08,
-                      ),
-                    ),
-                  ),
-                ),
-
-                // ============================================================
-                // CONTENT
-                // ============================================================
-
-                Padding(
-                  padding:
-                      const EdgeInsets.fromLTRB(
-                    30,
-                    28,
-                    30,
-                    28,
+                    maxWidth:
+                        190,
                   ),
 
                   child:
-                      Opacity(
-                    opacity:
-                        widget.comingSoon
-                            ? 0.50
-                            : 1,
+                      FittedBox(
+                    fit:
+                        BoxFit.scaleDown,
 
                     child:
-                        Column(
-                      children: [
-                        // ====================================================
-                        // LOGO + ARROW
-                        // ====================================================
+                        Text(
+                      widget.label
+                          .toUpperCase(),
 
-                        Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                      maxLines:
+                          1,
 
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                      textAlign:
+                          TextAlign.center,
 
-                          children: [
-                            Container(
-                              width:
-                                  220,
-
-                              height:
-                                  180,
-
-                              padding:
-                                  const EdgeInsets.all(
-                                24,
-                              ),
-
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    Colors.white,
-
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  34,
-                                ),
-
-                                border:
-                                    Border.all(
-                                  color:
-                                      widget.accentColor.withOpacity(
-                                    0.20,
-                                  ),
-
-                                  width:
-                                      1.5,
-                                ),
-
-                                boxShadow: [
-                                  BoxShadow(
-                                    color:
-                                        Colors.black.withOpacity(
-                                      0.08,
-                                    ),
-
-                                    blurRadius:
-                                        16,
-
-                                    offset:
-                                        const Offset(
-                                      0,
-                                      8,
-                                    ),
-                                  ),
-                                ],
-                              ),
-
-                              child:
-                                  Image.network(
-                                widget.imageUrl,
-
-                                fit:
-                                    BoxFit.contain,
-
-                                loadingBuilder:
-                                    (
-                                  context,
-                                  child,
-                                  loadingProgress,
-                                ) {
-                                  if (loadingProgress ==
-                                      null) {
-                                    return child;
-                                  }
-
-                                  return Center(
-                                    child:
-                                        CircularProgressIndicator(
-                                      strokeWidth:
-                                          3,
-
-                                      color:
-                                          widget.accentColor,
-                                    ),
-                                  );
-                                },
-
-                                errorBuilder:
-                                    (
-                                  context,
-                                  error,
-                                  stackTrace,
-                                ) {
-                                  debugPrint(
-                                    'Failed to load E-Wallet logo: '
-                                    '${widget.imageUrl}',
-                                  );
-
-                                  return Icon(
-                                    Icons
-                                        .account_balance_wallet_rounded,
-
-                                    size:
-                                        90,
-
-                                    color:
-                                        widget.accentColor,
-                                  );
-                                },
-                              ),
-                            ),
-
-                            AnimatedContainer(
-                              duration:
-                                  const Duration(
-                                milliseconds:
-                                    160,
-                              ),
-
-                              transform:
-                                  Matrix4.translationValues(
-                                _isPressed
-                                    ? 6
-                                    : 0,
-
-                                0,
-
-                                0,
-                              ),
-
-                              width:
-                                  58,
-
-                              height:
-                                  58,
-
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    widget.accentColor,
-
-                                shape:
-                                    BoxShape.circle,
-
-                                boxShadow: [
-                                  BoxShadow(
-                                    color:
-                                        widget.accentColor.withOpacity(
-                                      0.25,
-                                    ),
-
-                                    blurRadius:
-                                        14,
-
-                                    offset:
-                                        const Offset(
-                                      0,
-                                      7,
-                                    ),
-                                  ),
-                                ],
-                              ),
-
-                              child:
-                                  const Icon(
-                                Icons
-                                    .arrow_forward_rounded,
-
-                                color:
-                                    Colors.white,
-
-                                size:
-                                    32,
-                              ),
-                            ),
-                          ],
+                      style:
+                          const TextStyle(
+                        color:
+                            Color(
+                          0xFF6F3015,
                         ),
 
-                        const Spacer(),
+                        fontSize:
+                            24,
 
-                        // ====================================================
-                        // PROVIDER NAME
-                        // ====================================================
+                        fontWeight:
+                            FontWeight.w900,
 
-                        Align(
-                          alignment:
-                              Alignment.centerLeft,
-
-                          child:
-                              Text(
-                            widget.label.toUpperCase(),
-
-                            maxLines:
-                                3,
-
-                            overflow:
-                                TextOverflow.ellipsis,
-
-                            textAlign:
-                                TextAlign.left,
-
-                            style:
-                                const TextStyle(
-                              color:
-                                  Color(
-                                0xFF15253A,
-                              ),
-
-                              fontSize:
-                                  35,
-
-                              fontWeight:
-                                  FontWeight.w900,
-
-                              height:
-                                  1.10,
-
-                              letterSpacing:
-                                  0.4,
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(
-                          height:
-                              21,
-                        ),
-
-                        // ====================================================
-                        // NETWORK STATUS
-                        // ====================================================
-
-                        Align(
-                          alignment:
-                              Alignment.centerLeft,
-
-                          child:
-                              _NetworkStatusBadge(
-                            status:
-                                widget.status,
-
-                            label:
-                                widget.networkLabel,
-                          ),
-                        ),
-
-                        // ====================================================
-                        // PROCESSING TIME
-                        // ====================================================
-                        if (widget.processingTime.isNotEmpty) ...[
-                          const SizedBox(
-                            height: 14,
-                          ),
-
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.schedule_rounded,
-                                  size: 22,
-                                  color: Color(0xFF647187),
-                                ),
-
-                                const SizedBox(
-                                  width: 8,
-                                ),
-
-                                Expanded(
-                                  child: Text(
-                                    '${widget.processingLabel}: '
-                                    '${_formatProcessingTime(
-                                      context,
-                                      widget.processingTime,
-                                    )}',
-                                    maxLines: 2,
-                                    overflow:
-                                        TextOverflow.ellipsis,
-                                    style:
-                                        const TextStyle(
-                                      color:
-                                          Color(0xFF647187),
-                                      fontSize: 17,
-                                      fontWeight:
-                                          FontWeight.w700,
-                                      height: 1.15,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-
-                        const SizedBox(
-                          height: 22,
-                        ),
-
-                        // ====================================================
-                        // DECORATIVE BARS
-                        // ====================================================
-                        Row(
-                          children: [
-                            Container(
-                              width:
-                                  60,
-
-                              height:
-                                  7,
-
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    widget.accentColor,
-
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  50,
-                                ),
-                              ),
-                            ),
-
-                            const SizedBox(
-                              width:
-                                  8,
-                            ),
-
-                            Container(
-                              width:
-                                  13,
-
-                              height:
-                                  7,
-
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    widget.accentColor.withOpacity(
-                                  0.28,
-                                ),
-
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  50,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                        letterSpacing:
+                            0.5,
+                      ),
                     ),
                   ),
                 ),
 
-                // ============================================================
-                // COMING SOON
-                // ============================================================
-
-                if (widget.comingSoon)
-                  Positioned.fill(
-                    child:
-                        Container(
-                      color:
-                          Colors.white.withOpacity(
-                        0.24,
-                      ),
-
-                      alignment:
-                          Alignment.center,
-
-                      child:
-                          Transform.rotate(
-                        angle:
-                            -0.12,
-
-                        child:
-                            Container(
-                          width:
-                              double.infinity,
-
-                          margin:
-                              const EdgeInsets.symmetric(
-                            horizontal:
-                                14,
-                          ),
-
-                          padding:
-                              const EdgeInsets.symmetric(
-                            horizontal:
-                                20,
-
-                            vertical:
-                                15,
-                          ),
-
-                          decoration:
-                              BoxDecoration(
-                            color:
-                                const Color(
-                              0xFFE74343,
-                            ),
-
-                            borderRadius:
-                                BorderRadius.circular(
-                              18,
-                            ),
-
-                            border:
-                                Border.all(
-                              color:
-                                  Colors.white,
-
-                              width:
-                                  3,
-                            ),
-                          ),
-
-                          child:
-                              Text(
-                            AppLocalizations.of(
-                              context,
-                            )!
-                                .comingsoonText
-                                .toUpperCase(),
-
-                            textAlign:
-                                TextAlign.center,
-
-                            style:
-                                const TextStyle(
-                              color:
-                                  Colors.white,
-
-                              fontSize:
-                                  27,
-
-                              fontWeight:
-                                  FontWeight.w900,
-
-                              letterSpacing:
-                                  2,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                if (!isUp) ...[
+                  const SizedBox(
+                    width:
+                        14,
                   ),
+
+                  _ScrollArrowCircle(
+                    icon:
+                        arrow,
+
+                    pressed:
+                        _pressed,
+
+                    accentColor:
+                        widget.accentColor,
+
+                    darkColor:
+                        widget.darkColor,
+                  ),
+                ],
               ],
             ),
           ),
@@ -2468,385 +2512,104 @@ class _EWalletProviderCardState
 }
 
 // ============================================================================
-// NETWORK STATUS BADGE
+// SCROLL ARROW
 // ============================================================================
 
-class _NetworkStatusBadge
+class _ScrollArrowCircle
     extends StatelessWidget {
-  final EWalletStatus status;
+  final IconData icon;
 
-  final String label;
+  final bool pressed;
 
-  const _NetworkStatusBadge({
-    required this.status,
-    required this.label,
+  final Color accentColor;
+
+  final Color darkColor;
+
+  const _ScrollArrowCircle({
+    required this.icon,
+    required this.pressed,
+    required this.accentColor,
+    required this.darkColor,
   });
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    final loc =
-        AppLocalizations.of(context)!;
+    final Color lightColor =
+        Color.lerp(
+              accentColor,
+              Colors.white,
+              0.18,
+            ) ??
+            accentColor;
 
-    late final String statusText;
-
-    late final Color backgroundColor;
-
-    late final Color borderColor;
-
-    late final Color foregroundColor;
-
-    late final IconData icon;
-
-    // =========================================================================
-    // STATUS DESIGN
-    // =========================================================================
-
-    switch (status) {
-      case EWalletStatus.loading:
-        statusText =
-            loc.networkStatusChecking;
-
-        backgroundColor =
-            const Color(
-          0xFFF0F4F8,
-        );
-
-        borderColor =
-            const Color(
-          0xFFC7D2DE,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF536272,
-        );
-
-        icon =
-            Icons.sync_rounded;
-
-        break;
-
-      case EWalletStatus.healthy:
-        statusText =
-            loc.networkStatusGood;
-
-        backgroundColor =
-            const Color(
-          0xFFE2F8EC,
-        );
-
-        borderColor =
-            const Color(
-          0xFF78C99B,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF08783E,
-        );
-
-        icon =
-            Icons.check_circle_rounded;
-
-        break;
-
-      case EWalletStatus.interruption:
-        statusText =
-            loc.networkStatusSlow;
-
-        backgroundColor =
-            const Color(
-          0xFFFFF0D7,
-        );
-
-        borderColor =
-            const Color(
-          0xFFF1B95D,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFFB75B00,
-        );
-
-        icon =
-            Icons.warning_amber_rounded;
-
-        break;
-
-      case EWalletStatus.unavailable:
-        statusText =
-            loc.networkStatusUnknown;
-
-        backgroundColor =
-            const Color(
-          0xFFF1F1F1,
-        );
-
-        borderColor =
-            const Color(
-          0xFFC8C8C8,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF555555,
-        );
-
-        icon =
-            Icons.help_outline_rounded;
-
-        break;
-    }
-
-    return Container(
-      constraints:
-          const BoxConstraints(
-        minHeight:
-            58,
+    return AnimatedContainer(
+      duration:
+          const Duration(
+        milliseconds:
+            140,
       ),
 
-      padding:
-          const EdgeInsets.symmetric(
-        horizontal:
-            18,
+      width:
+          66,
 
-        vertical:
-            14,
-      ),
+      height:
+          66,
 
       decoration:
           BoxDecoration(
-        color:
-            backgroundColor,
+        gradient:
+            LinearGradient(
+          begin:
+              Alignment.topLeft,
 
-        borderRadius:
-            BorderRadius.circular(
-          30,
+          end:
+              Alignment.bottomRight,
+
+          colors:
+              pressed
+                  ? [
+                      darkColor,
+                      accentColor,
+                    ]
+                  : [
+                      accentColor,
+                      lightColor,
+                    ],
         ),
 
-        border:
-            Border.all(
-          color:
-              borderColor,
+        shape:
+            BoxShape.circle,
 
-          width:
-              1.7,
-        ),
-      ),
-
-      child:
-          Row(
-        mainAxisSize:
-            MainAxisSize.min,
-
-        children: [
-          // ==================================================================
-          // ICON / LOADING
-          // ==================================================================
-
-          if (status ==
-              EWalletStatus.loading)
-            SizedBox(
-              width:
-                  26,
-
-              height:
-                  26,
-
-              child:
-                  CircularProgressIndicator(
-                strokeWidth:
-                    3,
-
-                color:
-                    foregroundColor,
-              ),
-            )
-          else
-            Icon(
-              icon,
-
-              size:
-                  28,
-
-              color:
-                  foregroundColor,
+        boxShadow: [
+          BoxShadow(
+            color:
+                accentColor.withOpacity(
+              0.30,
             ),
 
-          const SizedBox(
-            width:
-                9,
-          ),
+            blurRadius:
+                12,
 
-          // ==================================================================
-          // TEXT
-          // ==================================================================
-
-          Flexible(
-            child:
-                Text(
-              '$label: $statusText',
-
-              maxLines:
-                  1,
-
-              overflow:
-                  TextOverflow.ellipsis,
-
-              style:
-                  TextStyle(
-                color:
-                    foregroundColor,
-
-                fontSize:
-                    18,
-
-                fontWeight:
-                    FontWeight.w900,
-
-                letterSpacing:
-                    0.7,
-              ),
+            offset:
+                const Offset(
+              0,
+              4,
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-// ============================================================================
-// SCROLL INDICATOR BUTTON
-// ============================================================================
-
-class _ScrollIndicatorButton
-    extends StatelessWidget {
-  final IconData icon;
-
-  final String label;
-
-  final VoidCallback onPressed;
-
-  final bool iconBelowText;
-
-  const _ScrollIndicatorButton({
-    required this.icon,
-    required this.label,
-    required this.onPressed,
-    this.iconBelowText = false,
-  });
-
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    final Widget iconWidget =
-        Icon(
-      icon,
-
-      size:
-          52,
-
-      color:
-          const Color(
-        0xFFEF6C35,
-      ),
-    );
-
-    final Widget textWidget =
-        Text(
-      label,
-
-      textAlign:
-          TextAlign.center,
-
-      style:
-          const TextStyle(
-        color:
-            Color(
-          0xFF15253A,
-        ),
-
-        fontSize:
-            17,
-
-        fontWeight:
-            FontWeight.w900,
-      ),
-    );
-
-    return Material(
-      color:
-          Colors.white.withOpacity(
-        0.96,
-      ),
-
-      borderRadius:
-          BorderRadius.circular(
-        22,
-      ),
-
-      elevation:
-          5,
 
       child:
-          InkWell(
-        onTap:
-            onPressed,
+          Icon(
+        icon,
 
-        borderRadius:
-            BorderRadius.circular(
-          22,
-        ),
+        color:
+            Colors.white,
 
-        child:
-            Container(
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal:
-                13,
-
-            vertical:
-                10,
-          ),
-
-          decoration:
-              BoxDecoration(
-            borderRadius:
-                BorderRadius.circular(
-              22,
-            ),
-
-            border:
-                Border.all(
-              color:
-                  Colors.black,
-
-              width:
-                  2,
-            ),
-          ),
-
-          child:
-              Column(
-            mainAxisSize:
-                MainAxisSize.min,
-
-            children:
-                iconBelowText
-                    ? [
-                        textWidget,
-                        iconWidget,
-                      ]
-                    : [
-                        iconWidget,
-                        textWidget,
-                      ],
-          ),
-        ),
+        size:
+            48,
       ),
     );
   }

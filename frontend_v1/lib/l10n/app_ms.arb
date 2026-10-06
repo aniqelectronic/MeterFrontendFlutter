@@ -4040,6 +4040,21 @@
 "providerSearchTitle": "Cari Penyedia",
 "providerSearchHint": "Masukkan nama atau kod penyedia",
 "providerSearchButton": "Cari",
-"providerSearchNoResults": "Tiada penyedia yang sepadan dijumpai."
+"providerSearchNoResults": "Tiada penyedia yang sepadan dijumpai.",
+
+"foodBeverageButton": "Food & Beverage",
+"foodBeverageSupportingText": "Purchase food and beverage vouchers from participating brands.",
+"foodBeverageTitle": "Food & Beverage",
+"foodBeverageSubtitle": "Select a participating food or beverage provider",
+
+  "taksiranKioskIntro": "Pilih akaun dan tempoh bayaran.",
+  "taksiranKioskChooseAccounts": "Pilih akaun untuk dibayar",
+  "taksiranKioskAccountHint": "Sentuh akaun untuk memilih. Anda boleh memilih lebih daripada satu akaun.",
+  "taksiranKioskViewDetails": "Lihat butiran",
+  "taksiranKioskChoosePeriod": "Pilih bayaran sepenggal atau setahun",
+  "taksiranKioskPeriodRequired": "Pilih jumlah sepenggal atau setahun untuk meneruskan.",
+  "taksiranKioskAmountUnavailable": "Jumlah tidak tersedia",
+  "taksiranKioskInvalidSelection": "Akaun yang dipilih tiada jumlah yang boleh dibayar bagi tempoh ini. Semak pilihan akaun atau pilih tempoh lain.",
+  "taksiranKioskAccountUnavailable": "Akaun ini tidak boleh dipilih kerana nombor akaun tiada."
 
 }

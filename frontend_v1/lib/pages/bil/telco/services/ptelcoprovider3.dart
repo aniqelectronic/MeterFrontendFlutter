@@ -7,39 +7,17 @@
 // - Telco Bill Payment
 // - Mobile PIN
 //
-// IMPORTANT:
+// Provider list comes dynamically from:
 //
-// Provider lists are NOT hardcoded.
+// /v2/catalog
 //
-// The parent only sends:
-//
-// categoryId
+// categoryId determines which provider list is shown.
 //
 // Examples:
 //
 // MOBILE_PIN
 // MOBILE_POSTPAID
 //
-// This page then:
-//
-// /v2/catalog
-//      ↓
-// tree.groups
-//      ↓
-// categories
-//      ↓
-// category.id == widget.categoryId
-//      ↓
-// product_codes
-//      ↓
-// products[code]
-//      ↓
-// is_active == true
-//      ↓
-// UI
-//
-// If IIMMPACT adds a new provider to the category,
-// it automatically appears here.
 // ============================================================================
 
 import 'package:flutter/material.dart';
@@ -58,21 +36,10 @@ import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.da
 
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
-// ============================================================================
-// STATUS
-// ============================================================================
-
-enum TelcoBillerStatus {
-  loading,
-  healthy,
-  interruption,
-  unavailable,
-}
+import 'package:frontend_v1/widgets/modern_provider_card.dart';
 
 // ============================================================================
 // TELCO PRODUCT
-//
-// Everything comes from catalog.
 // ============================================================================
 
 class TelcoProviderItem {
@@ -105,8 +72,7 @@ class TelcoProviderItem {
 // PAGE
 // ============================================================================
 
-class PTELCOPROVIDER3PAGE
-    extends StatefulWidget {
+class PTELCOPROVIDER3PAGE extends StatefulWidget {
   final String serviceLabel;
 
   final String title;
@@ -142,9 +108,8 @@ class PTELCOPROVIDER3PAGE
   });
 
   @override
-  State<PTELCOPROVIDER3PAGE>
-      createState() =>
-          _PTELCOPROVIDER3PAGEState();
+  State<PTELCOPROVIDER3PAGE> createState() =>
+      _PTELCOPROVIDER3PAGEState();
 }
 
 // ============================================================================
@@ -157,8 +122,7 @@ class _PTELCOPROVIDER3PAGEState
   // PROVIDERS
   // ==========================================================================
 
-  final List<TelcoProviderItem>
-      _providers = [];
+  final List<TelcoProviderItem> _providers = [];
 
   bool _catalogLoading = true;
 
@@ -166,20 +130,22 @@ class _PTELCOPROVIDER3PAGEState
 
   // ==========================================================================
   // NETWORK
+  //
+  // Uses the shared status from:
+  //
+  // modern_provider_card.dart
   // ==========================================================================
 
-  final Map<String, TelcoBillerStatus>
+  final Map<String, ProviderNetworkStatus>
       _billerStatuses = {};
 
-  final Map<String, String?>
-      _lastUpdated = {};
+  final Map<String, String?> _lastUpdated = {};
 
   // ==========================================================================
   // SCROLL
   // ==========================================================================
 
-  final ScrollController
-      _scrollController =
+  final ScrollController _scrollController =
       ScrollController();
 
   bool showScrollUp = false;
@@ -189,15 +155,12 @@ class _PTELCOPROVIDER3PAGEState
   // ==========================================================================
   // UI COLORS
   //
-  // Only decorative.
+  // Decorative only.
   //
-  // These do NOT determine provider identity.
-  //
-  // If new providers are added, colors repeat.
+  // Provider identity still comes from the catalog.
   // ==========================================================================
 
-  static const List<Color>
-      _accentColors = [
+  static const List<Color> _accentColors = [
     Color(0xFF1469E8),
     Color(0xFFFFB800),
     Color(0xFF8A55D8),
@@ -210,8 +173,7 @@ class _PTELCOPROVIDER3PAGEState
     Color(0xFF1687D9),
   ];
 
-  static const List<Color>
-      _lightAccentColors = [
+  static const List<Color> _lightAccentColors = [
     Color(0xFFE5F0FF),
     Color(0xFFFFF4D5),
     Color(0xFFF0E8FF),
@@ -244,6 +206,21 @@ class _PTELCOPROVIDER3PAGEState
   }
 
   // ==========================================================================
+  // DISPOSE
+  // ==========================================================================
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(
+      _handleScroll,
+    );
+
+    _scrollController.dispose();
+
+    super.dispose();
+  }
+
+  // ==========================================================================
   // LOAD TELCO PROVIDERS
   // ==========================================================================
 
@@ -266,8 +243,7 @@ class _PTELCOPROVIDER3PAGEState
       // ======================================================================
 
       final Map<String, dynamic> catalog =
-          await IimmpactCatalogService
-              .getCatalog();
+          await IimmpactCatalogService.getCatalog();
 
       // ======================================================================
       // TREE
@@ -311,8 +287,7 @@ class _PTELCOPROVIDER3PAGEState
 
       final List<String> productCodes = [];
 
-      for (final dynamic groupRaw
-          in groupsRaw) {
+      for (final dynamic groupRaw in groupsRaw) {
         if (groupRaw is! Map) {
           continue;
         }
@@ -329,8 +304,7 @@ class _PTELCOPROVIDER3PAGEState
           continue;
         }
 
-        for (final dynamic categoryRaw
-            in categoriesRaw) {
+        for (final dynamic categoryRaw in categoriesRaw) {
           if (categoryRaw is! Map) {
             continue;
           }
@@ -347,8 +321,7 @@ class _PTELCOPROVIDER3PAGEState
                       .toUpperCase() ??
                   '';
 
-          if (categoryId !=
-              wantedCategory) {
+          if (categoryId != wantedCategory) {
             continue;
           }
 
@@ -359,8 +332,7 @@ class _PTELCOPROVIDER3PAGEState
             continue;
           }
 
-          for (final dynamic rawCode
-              in productCodesRaw) {
+          for (final dynamic rawCode in productCodesRaw) {
             final String code =
                 rawCode
                         ?.toString()
@@ -372,9 +344,7 @@ class _PTELCOPROVIDER3PAGEState
               continue;
             }
 
-            if (!productCodes.contains(
-              code,
-            )) {
+            if (!productCodes.contains(code)) {
               productCodes.add(
                 code,
               );
@@ -402,7 +372,7 @@ class _PTELCOPROVIDER3PAGEState
       );
 
       // ======================================================================
-      // BUILD PRODUCTS
+      // BUILD PROVIDERS
       // ======================================================================
 
       final List<TelcoProviderItem>
@@ -489,7 +459,7 @@ class _PTELCOPROVIDER3PAGEState
                 '';
 
         // ====================================================================
-        // DECORATIVE COLOR
+        // DECORATIVE COLORS
         // ====================================================================
 
         final Color accentColor =
@@ -545,7 +515,8 @@ class _PTELCOPROVIDER3PAGEState
             loadedProviders,
           );
 
-        _catalogLoading = false;
+        _catalogLoading =
+            false;
 
         _billerStatuses.clear();
 
@@ -553,7 +524,7 @@ class _PTELCOPROVIDER3PAGEState
             in loadedProviders) {
           _billerStatuses[
                   provider.productCode] =
-              TelcoBillerStatus.loading;
+              ProviderNetworkStatus.loading;
         }
       });
 
@@ -568,8 +539,7 @@ class _PTELCOPROVIDER3PAGEState
         '========================================',
       );
       debugPrint(
-        'Category: '
-        '${widget.categoryId}',
+        'Category: ${widget.categoryId}',
       );
       debugPrint(
         'Products: '
@@ -597,9 +567,11 @@ class _PTELCOPROVIDER3PAGEState
       );
     }
 
-    on IimmpactCatalogException catch (
-      error
-    ) {
+    // =========================================================================
+    // IIMMPACT ERROR
+    // =========================================================================
+
+    on IimmpactCatalogException catch (error) {
       if (!mounted) {
         return;
       }
@@ -607,17 +579,25 @@ class _PTELCOPROVIDER3PAGEState
       setState(() {
         _providers.clear();
 
-        _catalogLoading = false;
+        _catalogLoading =
+            false;
 
         _catalogError =
             error.message;
+
+        showScrollUp =
+            false;
+
+        showScrollDown =
+            false;
       });
     }
 
-    catch (
-      error,
-      stackTrace
-    ) {
+    // =========================================================================
+    // OTHER ERROR
+    // =========================================================================
+
+    catch (error, stackTrace) {
       debugPrint(
         'Telco catalog error: $error',
       );
@@ -634,10 +614,17 @@ class _PTELCOPROVIDER3PAGEState
       setState(() {
         _providers.clear();
 
-        _catalogLoading = false;
+        _catalogLoading =
+            false;
 
         _catalogError =
             error.toString();
+
+        showScrollUp =
+            false;
+
+        showScrollDown =
+            false;
       });
     }
   }
@@ -646,8 +633,7 @@ class _PTELCOPROVIDER3PAGEState
   // LOAD NETWORK STATUSES
   // ==========================================================================
 
-  Future<void>
-      _loadNetworkStatuses() async {
+  Future<void> _loadNetworkStatuses() async {
     if (_providers.isEmpty) {
       return;
     }
@@ -669,39 +655,34 @@ class _PTELCOPROVIDER3PAGEState
   // NETWORK STATUS
   // ==========================================================================
 
-  Future<TelcoBillerStatus>
-      _refreshNetworkStatus(
+  Future<ProviderNetworkStatus> _refreshNetworkStatus(
     String productCode,
   ) async {
     if (mounted) {
       setState(() {
-        _billerStatuses[
-                productCode] =
-            TelcoBillerStatus.loading;
+        _billerStatuses[productCode] =
+            ProviderNetworkStatus.loading;
       });
     }
 
     try {
       final result =
-          await IimmpactNetworkStatusService
-              .getStatus(
+          await IimmpactNetworkStatusService.getStatus(
         productCode:
             productCode,
       );
 
-      final TelcoBillerStatus status =
+      final ProviderNetworkStatus status =
           result.isHealthy
-              ? TelcoBillerStatus.healthy
-              : TelcoBillerStatus.interruption;
+              ? ProviderNetworkStatus.healthy
+              : ProviderNetworkStatus.interruption;
 
       if (mounted) {
         setState(() {
-          _billerStatuses[
-                  productCode] =
+          _billerStatuses[productCode] =
               status;
 
-          _lastUpdated[
-                  productCode] =
+          _lastUpdated[productCode] =
               result.lastUpdated;
         });
       }
@@ -715,14 +696,115 @@ class _PTELCOPROVIDER3PAGEState
 
       if (mounted) {
         setState(() {
-          _billerStatuses[
-                  productCode] =
-              TelcoBillerStatus.unavailable;
+          _billerStatuses[productCode] =
+              ProviderNetworkStatus.unavailable;
         });
       }
 
-      return TelcoBillerStatus.unavailable;
+      return ProviderNetworkStatus.unavailable;
     }
+  }
+
+  // ==========================================================================
+  // TELCO PROCESSING TIME
+  //
+  // Preserves existing Telco translations:
+  //
+  // instant
+  // 24_hours
+  // 3_days
+  // pin
+  // 48_hours
+  // 72_hours
+  // 2_days
+  // 5_days
+  // etc.
+  // ==========================================================================
+
+  String _formatTelcoProcessingTime(
+    BuildContext context,
+    String value,
+  ) {
+    final loc =
+        AppLocalizations.of(context)!;
+
+    final String normalized =
+        value
+            .toLowerCase()
+            .trim();
+
+    // ========================================================================
+    // INSTANT
+    // ========================================================================
+
+    if (normalized == 'instant') {
+      return loc.processingInstant;
+    }
+
+    // ========================================================================
+    // 24 HOURS
+    // ========================================================================
+
+    if (normalized == '24_hours') {
+      return loc.processing24Hours;
+    }
+
+    // ========================================================================
+    // 3 DAYS
+    // ========================================================================
+
+    if (normalized == '3_days') {
+      return loc.processing3Days;
+    }
+
+    // ========================================================================
+    // PIN
+    // ========================================================================
+
+    if (normalized == 'pin') {
+      return 'PIN';
+    }
+
+    // ========================================================================
+    // GENERIC HOURS
+    // ========================================================================
+
+    if (normalized.endsWith(
+      '_hours',
+    )) {
+      final String hours =
+          normalized.replaceAll(
+        '_hours',
+        '',
+      );
+
+      return loc.telcoUpdateWithinHours(
+        hours,
+      );
+    }
+
+    // ========================================================================
+    // GENERIC DAYS
+    // ========================================================================
+
+    if (normalized.endsWith(
+      '_days',
+    )) {
+      final String days =
+          normalized.replaceAll(
+        '_days',
+        '',
+      );
+
+      return loc.telcoUpdateWithinDays(
+        days,
+      );
+    }
+
+    return value.replaceAll(
+      '_',
+      ' ',
+    );
   }
 
   // ==========================================================================
@@ -732,7 +814,7 @@ class _PTELCOPROVIDER3PAGEState
   Future<void> _handleProviderTap(
     TelcoProviderItem provider,
   ) async {
-    final TelcoBillerStatus status =
+    final ProviderNetworkStatus status =
         await _refreshNetworkStatus(
       provider.productCode,
     );
@@ -741,12 +823,17 @@ class _PTELCOPROVIDER3PAGEState
       return;
     }
 
+    // ========================================================================
+    // INTERRUPTION
+    // ========================================================================
+
     if (status ==
-        TelcoBillerStatus.interruption) {
+        ProviderNetworkStatus.interruption) {
       final bool shouldContinue =
           await _showInterruptionWarning(
         billerName:
             provider.name,
+
         productCode:
             provider.productCode,
       );
@@ -765,13 +852,14 @@ class _PTELCOPROVIDER3PAGEState
     // ========================================================================
 
     if (status ==
-        TelcoBillerStatus.unavailable) {
+        ProviderNetworkStatus.unavailable) {
       final loc =
           AppLocalizations.of(context)!;
 
       await showDialog<void>(
         context:
             context,
+
         builder:
             (
           BuildContext dialogContext,
@@ -780,13 +868,21 @@ class _PTELCOPROVIDER3PAGEState
             title:
                 Text(
               loc.alertTitle,
+
+              style:
+                  const TextStyle(
+                fontWeight:
+                    FontWeight.bold,
+              ),
             ),
+
             content:
                 Text(
               loc.networkUnavailableMessage(
                 provider.name,
               ),
             ),
+
             actions: [
               TextButton(
                 onPressed:
@@ -795,6 +891,7 @@ class _PTELCOPROVIDER3PAGEState
                     dialogContext,
                   );
                 },
+
                 child:
                     Text(
                   loc.electricOk,
@@ -810,12 +907,15 @@ class _PTELCOPROVIDER3PAGEState
 
     // ========================================================================
     // MOBILE PIN
+    //
+    // ORIGINAL FLOW KEPT
     // ========================================================================
 
     if (widget.inputType ==
         TelcoInputType.mobilePin) {
       await Navigator.push(
         context,
+
         MaterialPageRoute(
           builder:
               (_) =>
@@ -840,11 +940,14 @@ class _PTELCOPROVIDER3PAGEState
     }
 
     // ========================================================================
-    // POSTPAID BILL
+    // POSTPAID / OTHER TELCO FLOW
+    //
+    // ORIGINAL FLOW KEPT
     // ========================================================================
 
     await Navigator.push(
       context,
+
       MaterialPageRoute(
         builder:
             (_) =>
@@ -927,6 +1030,7 @@ class _PTELCOPROVIDER3PAGEState
                     const Color(
                   0xFFF2A520,
                 ),
+
                 width:
                     3,
               ),
@@ -934,12 +1038,13 @@ class _PTELCOPROVIDER3PAGEState
               boxShadow: [
                 BoxShadow(
                   color:
-                      Colors.black
-                          .withOpacity(
+                      Colors.black.withOpacity(
                     0.25,
                   ),
+
                   blurRadius:
                       35,
+
                   offset:
                       const Offset(
                     0,
@@ -955,9 +1060,14 @@ class _PTELCOPROVIDER3PAGEState
                   MainAxisSize.min,
 
               children: [
+                // ============================================================
+                // WARNING ICON
+                // ============================================================
+
                 Container(
                   width:
                       125,
+
                   height:
                       125,
 
@@ -987,12 +1097,13 @@ class _PTELCOPROVIDER3PAGEState
 
                   child:
                       const Icon(
-                    Icons
-                        .warning_amber_rounded,
+                    Icons.warning_amber_rounded,
+
                     color:
                         Color(
                       0xFFD87900,
                     ),
+
                     size:
                         78,
                   ),
@@ -1003,18 +1114,26 @@ class _PTELCOPROVIDER3PAGEState
                       28,
                 ),
 
+                // ============================================================
+                // TITLE
+                // ============================================================
+
                 Text(
                   loc.networkInterruptionTitle,
+
                   textAlign:
                       TextAlign.center,
+
                   style:
                       const TextStyle(
                     color:
                         Color(
                       0xFF17283E,
                     ),
+
                     fontSize:
                         40,
+
                     fontWeight:
                         FontWeight.w900,
                   ),
@@ -1025,6 +1144,10 @@ class _PTELCOPROVIDER3PAGEState
                       24,
                 ),
 
+                // ============================================================
+                // MESSAGE
+                // ============================================================
+
                 Container(
                   width:
                       double.infinity,
@@ -1033,6 +1156,7 @@ class _PTELCOPROVIDER3PAGEState
                       const EdgeInsets.symmetric(
                     horizontal:
                         28,
+
                     vertical:
                         25,
                   ),
@@ -1055,6 +1179,7 @@ class _PTELCOPROVIDER3PAGEState
                           const Color(
                         0xFFF4D69D,
                       ),
+
                       width:
                           1.5,
                     ),
@@ -1075,15 +1200,22 @@ class _PTELCOPROVIDER3PAGEState
                           Color(
                         0xFF4B4234,
                       ),
+
                       fontSize:
                           29,
+
                       height:
                           1.4,
+
                       fontWeight:
                           FontWeight.w600,
                     ),
                   ),
                 ),
+
+                // ============================================================
+                // LAST UPDATED
+                // ============================================================
 
                 if (_lastUpdated[
                         productCode] !=
@@ -1100,8 +1232,10 @@ class _PTELCOPROVIDER3PAGEState
                     children: [
                       const Icon(
                         Icons.schedule_rounded,
+
                         size:
                             24,
+
                         color:
                             Color(
                           0xFF758399,
@@ -1126,10 +1260,12 @@ class _PTELCOPROVIDER3PAGEState
                               const TextStyle(
                             fontSize:
                                 21,
+
                             color:
                                 Color(
                               0xFF758399,
                             ),
+
                             fontWeight:
                                 FontWeight.w600,
                           ),
@@ -1144,8 +1280,16 @@ class _PTELCOPROVIDER3PAGEState
                       36,
                 ),
 
+                // ============================================================
+                // ACTION BUTTONS
+                // ============================================================
+
                 Row(
                   children: [
+                    // ========================================================
+                    // BACK
+                    // ========================================================
+
                     Expanded(
                       child:
                           SizedBox(
@@ -1164,8 +1308,8 @@ class _PTELCOPROVIDER3PAGEState
 
                           icon:
                               const Icon(
-                            Icons
-                                .arrow_back_rounded,
+                            Icons.arrow_back_rounded,
+
                             size:
                                 29,
                           ),
@@ -1178,8 +1322,41 @@ class _PTELCOPROVIDER3PAGEState
                                 const TextStyle(
                               fontSize:
                                   24,
+
                               fontWeight:
                                   FontWeight.w900,
+                            ),
+                          ),
+
+                          style:
+                              OutlinedButton.styleFrom(
+                            backgroundColor:
+                                const Color(
+                              0xFFFFE8E8,
+                            ),
+
+                            foregroundColor:
+                                const Color(
+                              0xFFC62828,
+                            ),
+
+                            side:
+                                const BorderSide(
+                              color:
+                                  Color(
+                                0xFFE57373,
+                              ),
+
+                              width:
+                                  2,
+                            ),
+
+                            shape:
+                                RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(
+                                22,
+                              ),
                             ),
                           ),
                         ),
@@ -1190,6 +1367,10 @@ class _PTELCOPROVIDER3PAGEState
                       width:
                           22,
                     ),
+
+                    // ========================================================
+                    // CONTINUE
+                    // ========================================================
 
                     Expanded(
                       child:
@@ -1209,8 +1390,8 @@ class _PTELCOPROVIDER3PAGEState
 
                           icon:
                               const Icon(
-                            Icons
-                                .arrow_forward_rounded,
+                            Icons.arrow_forward_rounded,
+
                             size:
                                 29,
                           ),
@@ -1223,6 +1404,7 @@ class _PTELCOPROVIDER3PAGEState
                                 const TextStyle(
                               fontSize:
                                   24,
+
                               fontWeight:
                                   FontWeight.w900,
                             ),
@@ -1237,6 +1419,17 @@ class _PTELCOPROVIDER3PAGEState
 
                             foregroundColor:
                                 Colors.white,
+
+                            elevation:
+                                0,
+
+                            shape:
+                                RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(
+                                22,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -1250,8 +1443,7 @@ class _PTELCOPROVIDER3PAGEState
       },
     );
 
-    return result ??
-        false;
+    return result ?? false;
   }
 
   // ==========================================================================
@@ -1273,13 +1465,17 @@ class _PTELCOPROVIDER3PAGEState
     final double current =
         _scrollController.offset;
 
+    final bool hasScrollableContent =
+        maxScroll > 10;
+
     final bool up =
-        current > 10;
+        hasScrollableContent &&
+            current > 10;
 
     final bool down =
-        maxScroll > 10 &&
-        current <
-            maxScroll - 10;
+        hasScrollableContent &&
+            current <
+                maxScroll - 10;
 
     if (showScrollUp != up ||
         showScrollDown != down) {
@@ -1292,6 +1488,10 @@ class _PTELCOPROVIDER3PAGEState
       });
     }
   }
+
+  // ==========================================================================
+  // SCROLL UP
+  // ==========================================================================
 
   void _scrollUp() {
     if (!_scrollController.hasClients) {
@@ -1306,15 +1506,21 @@ class _PTELCOPROVIDER3PAGEState
             .position
             .maxScrollExtent,
       ),
+
       duration:
           const Duration(
         milliseconds:
             400,
       ),
+
       curve:
           Curves.easeOut,
     );
   }
+
+  // ==========================================================================
+  // SCROLL DOWN
+  // ==========================================================================
 
   void _scrollDown() {
     if (!_scrollController.hasClients) {
@@ -1329,62 +1535,149 @@ class _PTELCOPROVIDER3PAGEState
             .position
             .maxScrollExtent,
       ),
+
       duration:
           const Duration(
         milliseconds:
             400,
       ),
+
       curve:
           Curves.easeOut,
     );
   }
 
+  // ==========================================================================
+  // SCROLL TO TOP
+  // ==========================================================================
+
   void _scrollToTop() {
-    if (!_scrollController.hasClients) return;
+    if (!_scrollController.hasClients) {
+      return;
+    }
 
     _scrollController.animateTo(
       0,
-      duration: const Duration(milliseconds: 550),
-      curve: Curves.easeOutCubic,
+
+      duration:
+          const Duration(
+        milliseconds:
+            550,
+      ),
+
+      curve:
+          Curves.easeOutCubic,
     );
   }
 
-  Widget _buildScrollAction(AppLocalizations loc) {
-    if (!showScrollUp && showScrollDown) {
+  // ==========================================================================
+  // SCROLL CONTROL
+  // ==========================================================================
+
+  Widget _buildScrollAction(
+    AppLocalizations loc,
+  ) {
+    // ========================================================================
+    // TOP
+    // ========================================================================
+
+    if (!showScrollUp &&
+        showScrollDown) {
       return _ScrollDiscoveryControl(
-        key: const ValueKey('top-more'),
-        mode: _ScrollControlMode.more,
-        label: loc.scrollViewMore,
-        onPressed: _scrollDown,
+        key:
+            const ValueKey(
+          'telco-top-more',
+        ),
+
+        mode:
+            _ScrollControlMode.more,
+
+        label:
+            loc.scrollViewMore,
+
+        onPressed:
+            _scrollDown,
+
+        accentColor:
+            widget.headerColor,
       );
     }
 
-    if (showScrollUp && showScrollDown) {
+    // ========================================================================
+    // MIDDLE
+    // ========================================================================
+
+    if (showScrollUp &&
+        showScrollDown) {
       return Row(
-        key: const ValueKey('middle-controls'),
-        mainAxisSize: MainAxisSize.min,
+        key:
+            const ValueKey(
+          'telco-middle-controls',
+        ),
+
+        mainAxisSize:
+            MainAxisSize.min,
+
         children: [
           _ScrollDiscoveryControl(
-            mode: _ScrollControlMode.up,
-            label: loc.scrollUpShort,
-            onPressed: _scrollUp,
+            mode:
+                _ScrollControlMode.up,
+
+            label:
+                loc.scrollUpShort,
+
+            onPressed:
+                _scrollUp,
+
+            accentColor:
+                widget.headerColor,
           ),
-          const SizedBox(width: 22),
+
+          const SizedBox(
+            width:
+                22,
+          ),
+
           _ScrollDiscoveryControl(
-            mode: _ScrollControlMode.more,
-            label: loc.scrollViewMore,
-            onPressed: _scrollDown,
+            mode:
+                _ScrollControlMode.more,
+
+            label:
+                loc.scrollViewMore,
+
+            onPressed:
+                _scrollDown,
+
+            accentColor:
+                widget.headerColor,
           ),
         ],
       );
     }
 
-    if (showScrollUp && !showScrollDown) {
+    // ========================================================================
+    // BOTTOM
+    // ========================================================================
+
+    if (showScrollUp &&
+        !showScrollDown) {
       return _ScrollDiscoveryControl(
-        key: const ValueKey('bottom-top'),
-        mode: _ScrollControlMode.top,
-        label: loc.scrollBackTop,
-        onPressed: _scrollToTop,
+        key:
+            const ValueKey(
+          'telco-bottom-top',
+        ),
+
+        mode:
+            _ScrollControlMode.top,
+
+        label:
+            loc.scrollBackTop,
+
+        onPressed:
+            _scrollToTop,
+
+        accentColor:
+            widget.headerColor,
       );
     }
 
@@ -1398,8 +1691,7 @@ class _PTELCOPROVIDER3PAGEState
   List<Widget> _buildProviderRows(
     AppLocalizations loc,
   ) {
-    final List<Widget> rows =
-        [];
+    final List<Widget> rows = [];
 
     for (
       int i = 0;
@@ -1410,11 +1702,8 @@ class _PTELCOPROVIDER3PAGEState
           _providers[i];
 
       final TelcoProviderItem? right =
-          i + 1 <
-                  _providers.length
-              ? _providers[
-                  i + 1
-                ]
+          i + 1 < _providers.length
+              ? _providers[i + 1]
               : null;
 
       rows.add(
@@ -1423,26 +1712,18 @@ class _PTELCOPROVIDER3PAGEState
               CrossAxisAlignment.start,
 
           children: [
+            // ================================================================
+            // LEFT
+            // ================================================================
+
             Expanded(
               child:
-                  _TelcoProviderCard(
+                  _buildProviderCard(
                 provider:
                     left,
 
-                networkStatus:
-                    _billerStatuses[
-                            left.productCode] ??
-                        TelcoBillerStatus.loading,
-
-                networkLabel:
-                    loc.networkLabel,
-
-                onPressed:
-                    () {
-                  _handleProviderTap(
-                    left,
-                  );
-                },
+                loc:
+                    loc,
               ),
             ),
 
@@ -1451,28 +1732,20 @@ class _PTELCOPROVIDER3PAGEState
                   34,
             ),
 
+            // ================================================================
+            // RIGHT
+            // ================================================================
+
             Expanded(
               child:
                   right == null
                       ? const SizedBox()
-                      : _TelcoProviderCard(
+                      : _buildProviderCard(
                           provider:
                               right,
 
-                          networkStatus:
-                              _billerStatuses[
-                                      right.productCode] ??
-                                  TelcoBillerStatus.loading,
-
-                          networkLabel:
-                              loc.networkLabel,
-
-                          onPressed:
-                              () {
-                            _handleProviderTap(
-                              right,
-                            );
-                          },
+                          loc:
+                              loc,
                         ),
             ),
           ],
@@ -1494,6 +1767,64 @@ class _PTELCOPROVIDER3PAGEState
   }
 
   // ==========================================================================
+  // SHARED PROVIDER CARD
+  //
+  // The UI now comes entirely from:
+  //
+  // lib/widgets/modern_provider_card.dart
+  // ==========================================================================
+
+  Widget _buildProviderCard({
+    required TelcoProviderItem provider,
+    required AppLocalizations loc,
+  }) {
+    return ModernProviderCard(
+      imageUrl:
+          provider.imageUrl,
+
+      label:
+          provider.name,
+
+      accentColor:
+          provider.accentColor,
+
+      lightAccentColor:
+          provider.lightAccentColor,
+
+      networkStatus:
+          _billerStatuses[
+                  provider.productCode] ??
+              ProviderNetworkStatus.loading,
+
+      networkLabel:
+          loc.networkLabel,
+
+      processingTime:
+          provider.processingTime,
+
+      processingLabel:
+          loc.processingTimeLabel,
+
+      // ======================================================================
+      // TELCO-SPECIFIC PROCESSING FORMATTER
+      // ======================================================================
+
+      processingTimeFormatter:
+          _formatTelcoProcessingTime,
+
+      fallbackIcon:
+          Icons.sim_card_rounded,
+
+      onPressed:
+          () {
+        _handleProviderTap(
+          provider,
+        );
+      },
+    );
+  }
+
+  // ==========================================================================
   // BUILD
   // ==========================================================================
 
@@ -1508,10 +1839,15 @@ class _PTELCOPROVIDER3PAGEState
       body:
           Stack(
         children: [
+          // ==================================================================
+          // BACKGROUND
+          // ==================================================================
+
           Positioned.fill(
             child:
                 Image.asset(
               'lib/images/pnew.png',
+
               fit:
                   BoxFit.cover,
             ),
@@ -1526,19 +1862,20 @@ class _PTELCOPROVIDER3PAGEState
                     LinearGradient(
                   begin:
                       Alignment.topCenter,
+
                   end:
                       Alignment.bottomCenter,
+
                   colors: [
-                    Colors.white
-                        .withOpacity(
+                    Colors.white.withOpacity(
                       0.02,
                     ),
-                    Colors.white
-                        .withOpacity(
+
+                    Colors.white.withOpacity(
                       0.12,
                     ),
-                    Colors.white
-                        .withOpacity(
+
+                    Colors.white.withOpacity(
                       0.04,
                     ),
                   ],
@@ -1554,8 +1891,10 @@ class _PTELCOPROVIDER3PAGEState
           Positioned(
             top:
                 40,
+
             left:
                 40,
+
             right:
                 40,
 
@@ -1585,10 +1924,13 @@ class _PTELCOPROVIDER3PAGEState
           Positioned(
             top:
                 450,
+
             left:
                 45,
+
             right:
                 45,
+
             bottom:
                 305,
 
@@ -1598,26 +1940,64 @@ class _PTELCOPROVIDER3PAGEState
             ),
           ),
 
+          // ==================================================================
+          // BOTTOM FADE
+          // ==================================================================
+
           if (!_catalogLoading &&
               _providers.isNotEmpty &&
               showScrollDown)
             Positioned(
-              left: 35,
-              right: 35,
-              bottom: 270,
-              height: 175,
-              child: IgnorePointer(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: const [0.0, 0.30, 0.68, 1.0],
+              left:
+                  35,
+
+              right:
+                  35,
+
+              bottom:
+                  270,
+
+              height:
+                  175,
+
+              child:
+                  IgnorePointer(
+                child:
+                    Container(
+                  decoration:
+                      BoxDecoration(
+                    gradient:
+                        LinearGradient(
+                      begin:
+                          Alignment.topCenter,
+
+                      end:
+                          Alignment.bottomCenter,
+
+                      stops:
+                          const [
+                        0.0,
+                        0.30,
+                        0.68,
+                        1.0,
+                      ],
+
                       colors: [
-                        Colors.white.withOpacity(0.00),
-                        Colors.white.withOpacity(0.14),
-                        Colors.white.withOpacity(0.62),
-                        Colors.white.withOpacity(0.95),
+                        Colors.white.withOpacity(
+                          0.00,
+                        ),
+
+                        Colors.white.withOpacity(
+                          0.14,
+                        ),
+
+                        Colors.white.withOpacity(
+                          0.62,
+                        ),
+
+                        Colors.white.withOpacity(
+                          0.95,
+                        ),
                       ],
                     ),
                   ),
@@ -1625,40 +2005,95 @@ class _PTELCOPROVIDER3PAGEState
               ),
             ),
 
-          if (!_catalogLoading && _providers.isNotEmpty)
+          // ==================================================================
+          // NEW SCROLL CONTROL
+          // ==================================================================
+
+          if (!_catalogLoading &&
+              _providers.isNotEmpty)
             Positioned(
-              left: 0,
-              right: 0,
-              bottom: 270,
-              child: Center(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 250),
-                  switchInCurve: Curves.easeOutCubic,
-                  switchOutCurve: Curves.easeInCubic,
-                  transitionBuilder: (child, animation) {
+              left:
+                  0,
+
+              right:
+                  0,
+
+              bottom:
+                  270,
+
+              child:
+                  Center(
+                child:
+                    AnimatedSwitcher(
+                  duration:
+                      const Duration(
+                    milliseconds:
+                        250,
+                  ),
+
+                  switchInCurve:
+                      Curves.easeOutCubic,
+
+                  switchOutCurve:
+                      Curves.easeInCubic,
+
+                  transitionBuilder:
+                      (
+                    child,
+                    animation,
+                  ) {
                     return FadeTransition(
-                      opacity: animation,
-                      child: ScaleTransition(
-                        scale: Tween<double>(begin: 0.94, end: 1.0).animate(
+                      opacity:
+                          animation,
+
+                      child:
+                          ScaleTransition(
+                        scale:
+                            Tween<double>(
+                          begin:
+                              0.94,
+
+                          end:
+                              1.0,
+                        ).animate(
                           CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeOutCubic,
+                            parent:
+                                animation,
+
+                            curve:
+                                Curves.easeOutCubic,
                           ),
                         ),
-                        child: child,
+
+                        child:
+                            child,
                       ),
                     );
                   },
-                  child: _buildScrollAction(loc),
+
+                  child:
+                      _buildScrollAction(
+                    loc,
+                  ),
                 ),
               ),
             ),
 
+          // ==================================================================
+          // BACK
+          //
+          // IMPORTANT:
+          // Keep Navigator.pop because this page can be opened from multiple
+          // Telco parent flows.
+          // ==================================================================
+
           Positioned(
             bottom:
                 105,
+
             left:
                 300,
+
             right:
                 300,
 
@@ -1673,11 +2108,17 @@ class _PTELCOPROVIDER3PAGEState
             ),
           ),
 
+          // ==================================================================
+          // FOOTER
+          // ==================================================================
+
           Positioned(
             bottom:
                 25,
+
             left:
                 0,
+
             right:
                 0,
 
@@ -1686,16 +2127,20 @@ class _PTELCOPROVIDER3PAGEState
               child:
                   Text(
                 Data.copyrightText,
+
                 textAlign:
                     TextAlign.center,
+
                 style:
                     const TextStyle(
                   color:
                       Color(
                     0xFF26364A,
                   ),
+
                   fontSize:
                       20,
+
                   fontWeight:
                       FontWeight.w800,
                 ),
@@ -1714,11 +2159,19 @@ class _PTELCOPROVIDER3PAGEState
   Widget _buildProviderArea(
     AppLocalizations loc,
   ) {
+    // ========================================================================
+    // LOADING
+    // ========================================================================
+
     if (_catalogLoading) {
       return _buildModernLoading(
         loc,
       );
     }
+
+    // ========================================================================
+    // ERROR
+    // ========================================================================
 
     if (_catalogError != null) {
       return Center(
@@ -1743,6 +2196,37 @@ class _PTELCOPROVIDER3PAGEState
                 BorderRadius.circular(
               28,
             ),
+
+            border:
+                Border.all(
+              color:
+                  const Color(
+                0xFFD7E2F0,
+              ),
+
+              width:
+                  2,
+            ),
+
+            boxShadow: [
+              BoxShadow(
+                color:
+                    const Color(
+                  0xFF17375E,
+                ).withOpacity(
+                  0.10,
+                ),
+
+                blurRadius:
+                    22,
+
+                offset:
+                    const Offset(
+                  0,
+                  10,
+                ),
+              ),
+            ],
           ),
 
           child:
@@ -1751,31 +2235,59 @@ class _PTELCOPROVIDER3PAGEState
                 MainAxisSize.min,
 
             children: [
-              const Icon(
-                Icons.cloud_off_rounded,
-                size:
-                    65,
-                color:
-                    Color(
-                  0xFF60758D,
+              Container(
+                width:
+                    100,
+
+                height:
+                    100,
+
+                decoration:
+                    BoxDecoration(
+                  color:
+                      widget.headerColor.withOpacity(
+                    0.10,
+                  ),
+
+                  shape:
+                      BoxShape.circle,
+                ),
+
+                child:
+                    Icon(
+                  Icons.cloud_off_rounded,
+
+                  size:
+                      55,
+
+                  color:
+                      widget.headerColor,
                 ),
               ),
 
               const SizedBox(
                 height:
-                    20,
+                    22,
               ),
 
               Text(
                 loc.billUnknownError,
+
                 textAlign:
                     TextAlign.center,
+
                 style:
                     const TextStyle(
                   fontSize:
                       27,
+
                   fontWeight:
                       FontWeight.w800,
+
+                  color:
+                      Color(
+                    0xFF17283E,
+                  ),
                 ),
               ),
 
@@ -1784,18 +2296,59 @@ class _PTELCOPROVIDER3PAGEState
                     25,
               ),
 
-              ElevatedButton.icon(
-                onPressed:
-                    _loadTelcoCatalog,
+              SizedBox(
+                height:
+                    70,
 
-                icon:
-                    const Icon(
-                  Icons.refresh_rounded,
-                ),
+                child:
+                    ElevatedButton.icon(
+                  onPressed:
+                      _loadTelcoCatalog,
 
-                label:
-                    Text(
-                  loc.retryButton,
+                  icon:
+                      const Icon(
+                    Icons.refresh_rounded,
+
+                    size:
+                        28,
+                  ),
+
+                  label:
+                      Text(
+                    loc.retryButton,
+
+                    style:
+                        const TextStyle(
+                      fontSize:
+                          23,
+
+                      fontWeight:
+                          FontWeight.w900,
+                    ),
+                  ),
+
+                  style:
+                      ElevatedButton.styleFrom(
+                    backgroundColor:
+                        widget.headerColor,
+
+                    foregroundColor:
+                        Colors.white,
+
+                    padding:
+                        const EdgeInsets.symmetric(
+                      horizontal:
+                          35,
+                    ),
+
+                    shape:
+                        RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(
+                        18,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -1804,22 +2357,82 @@ class _PTELCOPROVIDER3PAGEState
       );
     }
 
+    // ========================================================================
+    // EMPTY
+    // ========================================================================
+
     if (_providers.isEmpty) {
       return Center(
         child:
-            Text(
-          loc.networkStatusUnknown,
+            Container(
+          padding:
+              const EdgeInsets.all(
+            35,
+          ),
 
-          style:
-              const TextStyle(
-            fontSize:
-                27,
-            fontWeight:
-                FontWeight.w800,
+          decoration:
+              BoxDecoration(
+            color:
+                Colors.white.withOpacity(
+              0.95,
+            ),
+
+            borderRadius:
+                BorderRadius.circular(
+              28,
+            ),
+          ),
+
+          child:
+              Column(
+            mainAxisSize:
+                MainAxisSize.min,
+
+            children: [
+              Icon(
+                widget.headerIcon,
+
+                size:
+                    65,
+
+                color:
+                    widget.headerColor,
+              ),
+
+              const SizedBox(
+                height:
+                    20,
+              ),
+
+              Text(
+                loc.networkStatusUnknown,
+
+                textAlign:
+                    TextAlign.center,
+
+                style:
+                    const TextStyle(
+                  fontSize:
+                      27,
+
+                  fontWeight:
+                      FontWeight.w800,
+
+                  color:
+                      Color(
+                    0xFF17283E,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       );
     }
+
+    // ========================================================================
+    // PROVIDER LIST
+    // ========================================================================
 
     return Scrollbar(
       controller:
@@ -1854,6 +2467,7 @@ class _PTELCOPROVIDER3PAGEState
             const EdgeInsets.only(
           right:
               24,
+
           bottom:
               145,
         ),
@@ -1886,6 +2500,7 @@ class _PTELCOPROVIDER3PAGEState
               const EdgeInsets.symmetric(
             horizontal:
                 35,
+
             vertical:
                 30,
           ),
@@ -1905,10 +2520,10 @@ class _PTELCOPROVIDER3PAGEState
             border:
                 Border.all(
               color:
-                  widget.headerColor
-                      .withOpacity(
+                  widget.headerColor.withOpacity(
                 0.20,
               ),
+
               width:
                   2,
             ),
@@ -1916,12 +2531,13 @@ class _PTELCOPROVIDER3PAGEState
             boxShadow: [
               BoxShadow(
                 color:
-                    widget.headerColor
-                        .withOpacity(
+                    widget.headerColor.withOpacity(
                   0.12,
                 ),
+
                 blurRadius:
                     24,
+
                 offset:
                     const Offset(
                   0,
@@ -1937,16 +2553,17 @@ class _PTELCOPROVIDER3PAGEState
               Container(
                 width:
                     100,
+
                 height:
                     100,
 
                 decoration:
                     BoxDecoration(
                   color:
-                      widget.headerColor
-                          .withOpacity(
+                      widget.headerColor.withOpacity(
                     0.10,
                   ),
+
                   shape:
                       BoxShape.circle,
                 ),
@@ -1960,6 +2577,7 @@ class _PTELCOPROVIDER3PAGEState
                     SizedBox(
                       width:
                           70,
+
                       height:
                           70,
 
@@ -1967,11 +2585,12 @@ class _PTELCOPROVIDER3PAGEState
                           CircularProgressIndicator(
                         strokeWidth:
                             5,
+
                         color:
                             widget.headerColor,
+
                         backgroundColor:
-                            widget.headerColor
-                                .withOpacity(
+                            widget.headerColor.withOpacity(
                           0.12,
                         ),
                       ),
@@ -1979,8 +2598,10 @@ class _PTELCOPROVIDER3PAGEState
 
                     Icon(
                       widget.headerIcon,
+
                       color:
                           widget.headerColor,
+
                       size:
                           40,
                     ),
@@ -2009,8 +2630,10 @@ class _PTELCOPROVIDER3PAGEState
                             Color(
                           0xFF16324F,
                         ),
+
                         fontSize:
                             30,
+
                         fontWeight:
                             FontWeight.w900,
                       ),
@@ -2030,10 +2653,13 @@ class _PTELCOPROVIDER3PAGEState
                             Color(
                           0xFF6A7B90,
                         ),
+
                         fontSize:
                             20,
+
                         fontWeight:
                             FontWeight.w600,
+
                         height:
                             1.35,
                       ),
@@ -2074,12 +2700,14 @@ class _PTELCOPROVIDER3PAGEState
 
   // ==========================================================================
   // LOADING SKELETON
+  //
+  // Height now follows the shared ModernProviderCard.
   // ==========================================================================
 
   Widget _buildLoadingProviderCard() {
     return Container(
       height:
-          330,
+          510,
 
       padding:
           const EdgeInsets.all(
@@ -2104,9 +2732,30 @@ class _PTELCOPROVIDER3PAGEState
               const Color(
             0xFFDCE5EF,
           ),
+
           width:
               2,
         ),
+
+        boxShadow: [
+          BoxShadow(
+            color:
+                const Color(
+              0xFF1A3A5C,
+            ).withOpacity(
+              0.07,
+            ),
+
+            blurRadius:
+                18,
+
+            offset:
+                const Offset(
+              0,
+              8,
+            ),
+          ),
+        ],
       ),
 
       child:
@@ -2117,9 +2766,10 @@ class _PTELCOPROVIDER3PAGEState
         children: [
           Container(
             width:
-                150,
+                double.infinity,
+
             height:
-                115,
+                205,
 
             decoration:
                 BoxDecoration(
@@ -2135,13 +2785,17 @@ class _PTELCOPROVIDER3PAGEState
             ),
           ),
 
-          const Spacer(),
+          const SizedBox(
+            height:
+                28,
+          ),
 
           Container(
             width:
                 double.infinity,
+
             height:
-                25,
+                28,
 
             decoration:
                 BoxDecoration(
@@ -2159,14 +2813,15 @@ class _PTELCOPROVIDER3PAGEState
 
           const SizedBox(
             height:
-                13,
+                15,
           ),
 
           Container(
             width:
                 170,
+
             height:
-                20,
+                22,
 
             decoration:
                 BoxDecoration(
@@ -2182,16 +2837,14 @@ class _PTELCOPROVIDER3PAGEState
             ),
           ),
 
-          const SizedBox(
-            height:
-                22,
-          ),
+          const Spacer(),
 
           Container(
             width:
-                185,
+                210,
+
             height:
-                48,
+                54,
 
             decoration:
                 BoxDecoration(
@@ -2210,29 +2863,21 @@ class _PTELCOPROVIDER3PAGEState
       ),
     );
   }
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(
-      _handleScroll,
-    );
-
-    _scrollController.dispose();
-
-    super.dispose();
-  }
 }
 
 // ============================================================================
-// MODERN + GOVERNMENT TELCO HEADER
-// KEEPS SERVICE LABEL + TITLE + SUBTITLE
-// USES DYNAMIC ICON + COLOR FROM PARENT
+// MODERN TELCO HEADER
 // ============================================================================
+
 class _TelcoModernHeader extends StatelessWidget {
   final String serviceLabel;
+
   final String title;
+
   final String subtitle;
+
   final IconData icon;
+
   final Color accentColor;
 
   const _TelcoModernHeader({
@@ -2244,43 +2889,89 @@ class _TelcoModernHeader extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(
+      padding:
+          const EdgeInsets.fromLTRB(
         30,
         24,
         30,
         24,
       ),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.96),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(
-          color: const Color(0xFFD5E4F7),
-          width: 2,
+
+      decoration:
+          BoxDecoration(
+        color:
+            Colors.white.withOpacity(
+          0.96,
         ),
+
+        borderRadius:
+            BorderRadius.circular(
+          32,
+        ),
+
+        border:
+            Border.all(
+          color:
+              const Color(
+            0xFFD5E4F7,
+          ),
+
+          width:
+              2,
+        ),
+
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF173A66).withOpacity(0.14),
-            blurRadius: 30,
-            offset: const Offset(0, 12),
+            color:
+                const Color(
+              0xFF173A66,
+            ).withOpacity(
+              0.14,
+            ),
+
+            blurRadius:
+                30,
+
+            offset:
+                const Offset(
+              0,
+              12,
+            ),
           ),
         ],
       ),
-      child: Row(
+
+      child:
+          Row(
         children: [
-          // ==========================================================
+          // ==================================================================
           // LEFT ICON
-          // ==========================================================
+          // ==================================================================
+
           Container(
-            width: 105,
-            height: 105,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+            width:
+                105,
+
+            height:
+                105,
+
+            decoration:
+                BoxDecoration(
+              gradient:
+                  LinearGradient(
+                begin:
+                    Alignment.topLeft,
+
+                end:
+                    Alignment.bottomRight,
+
                 colors: [
                   accentColor,
+
                   Color.lerp(
                         accentColor,
                         Colors.white,
@@ -2289,64 +2980,131 @@ class _TelcoModernHeader extends StatelessWidget {
                       accentColor,
                 ],
               ),
-              borderRadius: BorderRadius.circular(30),
+
+              borderRadius:
+                  BorderRadius.circular(
+                30,
+              ),
+
               boxShadow: [
                 BoxShadow(
-                  color: accentColor.withOpacity(0.28),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
+                  color:
+                      accentColor.withOpacity(
+                    0.28,
+                  ),
+
+                  blurRadius:
+                      20,
+
+                  offset:
+                      const Offset(
+                    0,
+                    8,
+                  ),
                 ),
               ],
             ),
-            child: Icon(
+
+            child:
+                Icon(
               icon,
-              color: Colors.white,
-              size: 56,
+
+              color:
+                  Colors.white,
+
+              size:
+                  56,
             ),
           ),
 
-          const SizedBox(width: 28),
+          const SizedBox(
+            width:
+                28,
+          ),
 
-          // ==========================================================
-          // EXISTING HEADER INFORMATION
-          // ==========================================================
+          // ==================================================================
+          // TEXT
+          // ==================================================================
+
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child:
+                Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
               children: [
-                // ------------------------------------------------------
+                // ============================================================
                 // SERVICE LABEL
-                // ------------------------------------------------------
+                // ============================================================
+
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 7,
+                  padding:
+                      const EdgeInsets.symmetric(
+                    horizontal:
+                        18,
+
+                    vertical:
+                        7,
                   ),
-                  decoration: BoxDecoration(
-                    color: accentColor.withOpacity(0.10),
-                    borderRadius: BorderRadius.circular(100),
+
+                  decoration:
+                      BoxDecoration(
+                    color:
+                        accentColor.withOpacity(
+                      0.10,
+                    ),
+
+                    borderRadius:
+                        BorderRadius.circular(
+                      100,
+                    ),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
+
+                  child:
+                      Row(
+                    mainAxisSize:
+                        MainAxisSize.min,
+
                     children: [
                       Icon(
                         icon,
-                        size: 20,
-                        color: accentColor,
+
+                        size:
+                            20,
+
+                        color:
+                            accentColor,
                       ),
 
-                      const SizedBox(width: 8),
+                      const SizedBox(
+                        width:
+                            8,
+                      ),
 
                       Flexible(
-                        child: Text(
+                        child:
+                            Text(
                           serviceLabel.toUpperCase(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: accentColor,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 1.1,
+
+                          maxLines:
+                              1,
+
+                          overflow:
+                              TextOverflow.ellipsis,
+
+                          style:
+                              TextStyle(
+                            color:
+                                accentColor,
+
+                            fontSize:
+                                17,
+
+                            fontWeight:
+                                FontWeight.w900,
+
+                            letterSpacing:
+                                1.1,
                           ),
                         ),
                       ),
@@ -2354,59 +3112,118 @@ class _TelcoModernHeader extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 12),
+                const SizedBox(
+                  height:
+                      12,
+                ),
 
-                // ------------------------------------------------------
+                // ============================================================
                 // TITLE
-                // ------------------------------------------------------
+                // ============================================================
+
                 Text(
                   title.toUpperCase(),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF122C4C),
-                    fontSize: 52,
-                    fontWeight: FontWeight.w900,
-                    height: 1.02,
-                    letterSpacing: -0.8,
+
+                  maxLines:
+                      2,
+
+                  overflow:
+                      TextOverflow.ellipsis,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF122C4C,
+                    ),
+
+                    fontSize:
+                        52,
+
+                    fontWeight:
+                        FontWeight.w900,
+
+                    height:
+                        1.02,
+
+                    letterSpacing:
+                        -0.8,
                   ),
                 ),
 
-                const SizedBox(height: 9),
+                const SizedBox(
+                  height:
+                      9,
+                ),
 
-                // ------------------------------------------------------
+                // ============================================================
                 // SUBTITLE
-                // ------------------------------------------------------
+                // ============================================================
+
                 Text(
                   subtitle.toUpperCase(),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF607188),
-                    fontSize: 30,
-                    fontWeight: FontWeight.w600,
-                    height: 1.25,
+
+                  maxLines:
+                      2,
+
+                  overflow:
+                      TextOverflow.ellipsis,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF607188,
+                    ),
+
+                    fontSize:
+                        30,
+
+                    fontWeight:
+                        FontWeight.w600,
+
+                    height:
+                        1.25,
                   ),
                 ),
               ],
             ),
           ),
 
-          const SizedBox(width: 24),
+          const SizedBox(
+            width:
+                24,
+          ),
 
-          // ==========================================================
-          // RIGHT ACCENT BAR
-          // ==========================================================
+          // ==================================================================
+          // RIGHT ACCENT
+          // ==================================================================
+
           Container(
-            width: 8,
-            height: 105,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+            width:
+                8,
+
+            height:
+                105,
+
+            decoration:
+                BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
+
+              gradient:
+                  LinearGradient(
+                begin:
+                    Alignment.topCenter,
+
+                end:
+                    Alignment.bottomCenter,
+
                 colors: [
                   accentColor,
+
                   Color.lerp(
                         accentColor,
                         Colors.white,
@@ -2424,896 +3241,35 @@ class _TelcoModernHeader extends StatelessWidget {
 }
 
 // ============================================================================
-// PROVIDER CARD
+// SCROLL CONTROL
 // ============================================================================
 
-class _TelcoProviderCard
+enum _ScrollControlMode {
+  up,
+  more,
+  top,
+}
+
+// ============================================================================
+// SCROLL DISCOVERY CONTROL
+// ============================================================================
+
+class _ScrollDiscoveryControl
     extends StatefulWidget {
-  final TelcoProviderItem provider;
-
-  final VoidCallback onPressed;
-
-  final TelcoBillerStatus networkStatus;
-
-  final String networkLabel;
-
-  const _TelcoProviderCard({
-    required this.provider,
-    required this.onPressed,
-    required this.networkStatus,
-    required this.networkLabel,
-  });
-
-  @override
-  State<_TelcoProviderCard>
-      createState() =>
-          _TelcoProviderCardState();
-}
-
-// ============================================================================
-// CARD STATE
-// ============================================================================
-
-class _TelcoProviderCardState
-    extends State<_TelcoProviderCard> {
-  bool _isPressed = false;
-
-  // ==========================================================================
-  // PROCESSING TIME
-  // ==========================================================================
-
-  String _formatProcessingTime(
-    BuildContext context,
-    String value,
-  ) {
-    final loc =
-        AppLocalizations.of(context)!;
-
-    final String normalized =
-        value
-            .toLowerCase()
-            .trim();
-
-    if (normalized ==
-        'instant') {
-      return loc.processingInstant;
-    }
-
-    if (normalized ==
-        '24_hours') {
-      return loc.processing24Hours;
-    }
-
-    if (normalized ==
-        '3_days') {
-      return loc.processing3Days;
-    }
-
-    if (normalized ==
-        'pin') {
-      return 'PIN';
-    }
-
-    if (normalized.endsWith(
-      '_hours',
-    )) {
-      final String hours =
-          normalized.replaceAll(
-        '_hours',
-        '',
-      );
-
-      return loc.telcoUpdateWithinHours(
-        hours,
-      );
-    }
-
-    if (normalized.endsWith(
-      '_days',
-    )) {
-      final String days =
-          normalized.replaceAll(
-        '_days',
-        '',
-      );
-
-      return loc.telcoUpdateWithinDays(
-        days,
-      );
-    }
-
-    return value.replaceAll(
-      '_',
-      ' ',
-    );
-  }
-
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    final TelcoProviderItem provider =
-        widget.provider;
-
-    final bool isEnabled =
-        widget.networkStatus !=
-            TelcoBillerStatus.unavailable;
-
-    return GestureDetector(
-      behavior:
-          HitTestBehavior.opaque,
-
-      onTapDown:
-          isEnabled
-              ? (_) {
-                  setState(
-                    () {
-                      _isPressed =
-                          true;
-                    },
-                  );
-                }
-              : null,
-
-      onTapUp:
-          isEnabled
-              ? (_) {
-                  setState(
-                    () {
-                      _isPressed =
-                          false;
-                    },
-                  );
-                }
-              : null,
-
-      onTapCancel:
-          isEnabled
-              ? () {
-                  setState(
-                    () {
-                      _isPressed =
-                          false;
-                    },
-                  );
-                }
-              : null,
-
-      onTap:
-          isEnabled
-              ? widget.onPressed
-              : null,
-
-      child:
-          AnimatedScale(
-        scale:
-            _isPressed
-                ? 0.965
-                : 1,
-
-        duration:
-            const Duration(
-          milliseconds:
-              130,
-        ),
-
-        curve:
-            Curves.easeOut,
-
-        child:
-            AnimatedContainer(
-          duration:
-              const Duration(
-            milliseconds:
-                170,
-          ),
-
-          height:
-              480,
-
-          decoration:
-              BoxDecoration(
-            color:
-                Colors.white.withOpacity(
-              isEnabled
-                  ? 0.96
-                  : 0.72,
-            ),
-
-            borderRadius:
-                BorderRadius.circular(
-              40,
-            ),
-
-            border:
-                Border.all(
-              color:
-                  _isPressed
-                      ? provider.accentColor
-                      : Colors.black,
-
-              width:
-                  _isPressed
-                      ? 4
-                      : 3,
-            ),
-
-            boxShadow: [
-              BoxShadow(
-                color:
-                    const Color(
-                  0xFF19375C,
-                ).withOpacity(
-                  0.16,
-                ),
-
-                blurRadius:
-                    30,
-
-                spreadRadius:
-                    1,
-
-                offset:
-                    const Offset(
-                  0,
-                  15,
-                ),
-              ),
-            ],
-          ),
-
-          child:
-              ClipRRect(
-            borderRadius:
-                BorderRadius.circular(
-              37,
-            ),
-
-            child:
-                Stack(
-              children: [
-                Positioned(
-                  right:
-                      -50,
-                  top:
-                      -50,
-
-                  child:
-                      AnimatedContainer(
-                    duration:
-                        const Duration(
-                      milliseconds:
-                          180,
-                    ),
-
-                    width:
-                        _isPressed
-                            ? 225
-                            : 210,
-
-                    height:
-                        _isPressed
-                            ? 225
-                            : 210,
-
-                    decoration:
-                        BoxDecoration(
-                      shape:
-                          BoxShape.circle,
-
-                      color:
-                          provider
-                              .lightAccentColor
-                              .withOpacity(
-                        0.90,
-                      ),
-                    ),
-                  ),
-                ),
-
-                Padding(
-                  padding:
-                      const EdgeInsets.fromLTRB(
-                    30,
-                    28,
-                    30,
-                    28,
-                  ),
-
-                  child:
-                      Opacity(
-                    opacity:
-                        isEnabled
-                            ? 1
-                            : 0.50,
-
-                    child:
-                        Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
-
-                          children: [
-                            Container(
-                              width:
-                                  220,
-
-                              height:
-                                  180,
-
-                              padding:
-                                  const EdgeInsets.all(
-                                24,
-                              ),
-
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    Colors.white,
-
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  34,
-                                ),
-
-                                border:
-                                    Border.all(
-                                  color:
-                                      provider
-                                          .accentColor
-                                          .withOpacity(
-                                    0.20,
-                                  ),
-
-                                  width:
-                                      1.5,
-                                ),
-                              ),
-
-                              child:
-                                  _buildLogo(
-                                provider,
-                              ),
-                            ),
-
-                            Container(
-                              width:
-                                  58,
-
-                              height:
-                                  58,
-
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    provider.accentColor,
-
-                                shape:
-                                    BoxShape.circle,
-                              ),
-
-                              child:
-                                  const Icon(
-                                Icons.arrow_forward_rounded,
-
-                                color:
-                                    Colors.white,
-
-                                size:
-                                    32,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const Spacer(),
-
-                        Align(
-                          alignment:
-                              Alignment.centerLeft,
-
-                          child:
-                              Text(
-                            provider.name
-                                .toUpperCase(),
-
-                            maxLines:
-                                3,
-
-                            overflow:
-                                TextOverflow.ellipsis,
-
-                            style:
-                                const TextStyle(
-                              color:
-                                  Color(
-                                0xFF15253A,
-                              ),
-
-                              fontSize:
-                                  35,
-
-                              fontWeight:
-                                  FontWeight.w900,
-
-                              height:
-                                  1.10,
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(
-                          height:
-                              21,
-                        ),
-
-                        Align(
-                          alignment:
-                              Alignment.centerLeft,
-
-                          child:
-                              _NetworkStatusBadge(
-                            status:
-                                widget.networkStatus,
-
-                            label:
-                                widget.networkLabel,
-                          ),
-                        ),
-
-                        if (provider
-                            .processingTime
-                            .isNotEmpty) ...[
-                          const SizedBox(
-                            height:
-                                14,
-                          ),
-
-                          Align(
-                            alignment:
-                                Alignment.centerLeft,
-
-                            child:
-                                Row(
-                              children: [
-                                const Icon(
-                                  Icons.schedule_rounded,
-                                  size:
-                                      22,
-                                  color:
-                                      Color(
-                                    0xFF647187,
-                                  ),
-                                ),
-
-                                const SizedBox(
-                                  width:
-                                      8,
-                                ),
-
-                                Expanded(
-                                  child:
-                                      Text(
-                                    '${AppLocalizations.of(context)!.processingTimeLabel}: '
-                                    '${_formatProcessingTime(
-                                      context,
-                                      provider.processingTime,
-                                    )}',
-
-                                    maxLines:
-                                        2,
-
-                                    overflow:
-                                        TextOverflow.ellipsis,
-
-                                    style:
-                                        const TextStyle(
-                                      color:
-                                          Color(
-                                        0xFF647187,
-                                      ),
-
-                                      fontSize:
-                                          17,
-
-                                      fontWeight:
-                                          FontWeight.w700,
-
-                                      height:
-                                          1.15,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-
-                        const SizedBox(
-                          height:
-                              22,
-                        ),
-
-                        Row(
-                          children: [
-                            Container(
-                              width:
-                                  60,
-
-                              height:
-                                  7,
-
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    provider.accentColor,
-
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  50,
-                                ),
-                              ),
-                            ),
-
-                            const SizedBox(
-                              width:
-                                  8,
-                            ),
-
-                            Container(
-                              width:
-                                  13,
-
-                              height:
-                                  7,
-
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    provider
-                                        .accentColor
-                                        .withOpacity(
-                                  0.28,
-                                ),
-
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  50,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  // ==========================================================================
-  // LOGO
-  // ==========================================================================
-
-  Widget _buildLogo(
-    TelcoProviderItem provider,
-  ) {
-    if (provider.imageUrl.isEmpty) {
-      return Icon(
-        Icons.sim_card_rounded,
-        size:
-            90,
-        color:
-            provider.accentColor,
-      );
-    }
-
-    return Image.network(
-      provider.imageUrl,
-
-      fit:
-          BoxFit.contain,
-
-      loadingBuilder:
-          (
-        context,
-        child,
-        progress,
-      ) {
-        if (progress ==
-            null) {
-          return child;
-        }
-
-        return Center(
-          child:
-              CircularProgressIndicator(
-            strokeWidth:
-                3,
-            color:
-                provider.accentColor,
-          ),
-        );
-      },
-
-      errorBuilder:
-          (
-        context,
-        error,
-        stackTrace,
-      ) {
-        return Icon(
-          Icons.sim_card_rounded,
-          size:
-              90,
-          color:
-              provider.accentColor,
-        );
-      },
-    );
-  }
-}
-
-// ============================================================================
-// NETWORK BADGE
-// ============================================================================
-
-class _NetworkStatusBadge
-    extends StatelessWidget {
-  final TelcoBillerStatus status;
-
-  final String label;
-
-  const _NetworkStatusBadge({
-    required this.status,
-    required this.label,
-  });
-
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    final loc =
-        AppLocalizations.of(context)!;
-
-    late final String statusText;
-
-    late final Color backgroundColor;
-
-    late final Color borderColor;
-
-    late final Color foregroundColor;
-
-    late final IconData icon;
-
-    switch (status) {
-      case TelcoBillerStatus.loading:
-        statusText =
-            loc.networkStatusChecking;
-
-        backgroundColor =
-            const Color(
-          0xFFF0F4F8,
-        );
-
-        borderColor =
-            const Color(
-          0xFFC7D2DE,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF536272,
-        );
-
-        icon =
-            Icons.sync_rounded;
-
-        break;
-
-      case TelcoBillerStatus.healthy:
-        statusText =
-            loc.networkStatusGood;
-
-        backgroundColor =
-            const Color(
-          0xFFE2F8EC,
-        );
-
-        borderColor =
-            const Color(
-          0xFF78C99B,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF08783E,
-        );
-
-        icon =
-            Icons.check_circle_rounded;
-
-        break;
-
-      case TelcoBillerStatus.interruption:
-        statusText =
-            loc.networkStatusSlow;
-
-        backgroundColor =
-            const Color(
-          0xFFFFF0D7,
-        );
-
-        borderColor =
-            const Color(
-          0xFFF1B95D,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFFB75B00,
-        );
-
-        icon =
-            Icons.warning_amber_rounded;
-
-        break;
-
-      case TelcoBillerStatus.unavailable:
-        statusText =
-            loc.networkStatusUnknown;
-
-        backgroundColor =
-            const Color(
-          0xFFF1F1F1,
-        );
-
-        borderColor =
-            const Color(
-          0xFFC8C8C8,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF555555,
-        );
-
-        icon =
-            Icons.help_outline_rounded;
-
-        break;
-    }
-
-    return Container(
-      constraints:
-          const BoxConstraints(
-        minHeight:
-            58,
-      ),
-
-      padding:
-          const EdgeInsets.symmetric(
-        horizontal:
-            18,
-        vertical:
-            14,
-      ),
-
-      decoration:
-          BoxDecoration(
-        color:
-            backgroundColor,
-
-        borderRadius:
-            BorderRadius.circular(
-          30,
-        ),
-
-        border:
-            Border.all(
-          color:
-              borderColor,
-
-          width:
-              1.7,
-        ),
-      ),
-
-      child:
-          Row(
-        mainAxisSize:
-            MainAxisSize.min,
-
-        children: [
-          if (status ==
-              TelcoBillerStatus.loading)
-            SizedBox(
-              width:
-                  26,
-
-              height:
-                  26,
-
-              child:
-                  CircularProgressIndicator(
-                strokeWidth:
-                    3,
-
-                color:
-                    foregroundColor,
-              ),
-            )
-          else
-            Icon(
-              icon,
-
-              size:
-                  28,
-
-              color:
-                  foregroundColor,
-            ),
-
-          const SizedBox(
-            width:
-                9,
-          ),
-
-          Flexible(
-            child:
-                Text(
-              '$label: $statusText',
-
-              maxLines:
-                  1,
-
-              overflow:
-                  TextOverflow.ellipsis,
-
-              style:
-                  TextStyle(
-                color:
-                    foregroundColor,
-
-                fontSize:
-                    18,
-
-                fontWeight:
-                    FontWeight.w900,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ============================================================================
-// SCROLL BUTTON
-// ============================================================================
-
-enum _ScrollControlMode { up, more, top }
-
-class _ScrollDiscoveryControl extends StatefulWidget {
   final _ScrollControlMode mode;
+
   final String label;
+
   final VoidCallback onPressed;
+
+  final Color accentColor;
 
   const _ScrollDiscoveryControl({
     super.key,
     required this.mode,
     required this.label,
     required this.onPressed,
+    required this.accentColor,
   });
 
   @override
@@ -3321,88 +3277,241 @@ class _ScrollDiscoveryControl extends StatefulWidget {
       _ScrollDiscoveryControlState();
 }
 
-class _ScrollDiscoveryControlState extends State<_ScrollDiscoveryControl> {
+class _ScrollDiscoveryControlState
+    extends State<_ScrollDiscoveryControl> {
   bool _pressed = false;
 
-  void _setPressed(bool value) {
-    if (!mounted) return;
-    setState(() => _pressed = value);
+  void _setPressed(
+    bool value,
+  ) {
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _pressed =
+          value;
+    });
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final bool isUp =
-        widget.mode == _ScrollControlMode.up ||
-        widget.mode == _ScrollControlMode.top;
+        widget.mode ==
+                _ScrollControlMode.up ||
+            widget.mode ==
+                _ScrollControlMode.top;
 
-    final IconData arrow = isUp
-        ? Icons.keyboard_arrow_up_rounded
-        : Icons.keyboard_arrow_down_rounded;
+    final IconData arrow =
+        isUp
+            ? Icons.keyboard_arrow_up_rounded
+            : Icons.keyboard_arrow_down_rounded;
 
     return AnimatedScale(
-      scale: _pressed ? 0.96 : 1.0,
-      duration: const Duration(milliseconds: 120),
-      curve: Curves.easeOutCubic,
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: widget.onPressed,
-          onHighlightChanged: _setPressed,
-          borderRadius: BorderRadius.circular(100),
-          splashColor: const Color(0xFF1469E8).withOpacity(0.10),
-          highlightColor: Colors.transparent,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 140),
-            constraints: const BoxConstraints(minHeight: 88),
-            padding: const EdgeInsets.fromLTRB(30, 13, 22, 13),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.98),
-              borderRadius: BorderRadius.circular(100),
-              border: Border.all(
-                color: _pressed
-                    ? const Color(0xFF1469E8)
-                    : const Color(0xFFC4D8EE),
-                width: _pressed ? 2.5 : 1.7,
+      scale:
+          _pressed
+              ? 0.96
+              : 1.0,
+
+      duration:
+          const Duration(
+        milliseconds:
+            120,
+      ),
+
+      curve:
+          Curves.easeOutCubic,
+
+      child:
+          Material(
+        color:
+            Colors.transparent,
+
+        child:
+            InkWell(
+          onTap:
+              widget.onPressed,
+
+          onHighlightChanged:
+              _setPressed,
+
+          borderRadius:
+              BorderRadius.circular(
+            100,
+          ),
+
+          splashColor:
+              widget.accentColor.withOpacity(
+            0.10,
+          ),
+
+          highlightColor:
+              Colors.transparent,
+
+          child:
+              AnimatedContainer(
+            duration:
+                const Duration(
+              milliseconds:
+                  140,
+            ),
+
+            constraints:
+                const BoxConstraints(
+              minHeight:
+                  88,
+            ),
+
+            padding:
+                const EdgeInsets.fromLTRB(
+              30,
+              13,
+              22,
+              13,
+            ),
+
+            decoration:
+                BoxDecoration(
+              color:
+                  Colors.white.withOpacity(
+                0.98,
               ),
+
+              borderRadius:
+                  BorderRadius.circular(
+                100,
+              ),
+
+              border:
+                  Border.all(
+                color:
+                    _pressed
+                        ? widget.accentColor
+                        : widget.accentColor.withOpacity(
+                            0.30,
+                          ),
+
+                width:
+                    _pressed
+                        ? 2.5
+                        : 1.7,
+              ),
+
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF173B66)
-                      .withOpacity(_pressed ? 0.09 : 0.17),
-                  blurRadius: _pressed ? 8 : 20,
-                  offset: Offset(0, _pressed ? 2 : 7),
+                  color:
+                      const Color(
+                    0xFF173B66,
+                  ).withOpacity(
+                    _pressed
+                        ? 0.09
+                        : 0.17,
+                  ),
+
+                  blurRadius:
+                      _pressed
+                          ? 8
+                          : 20,
+
+                  offset:
+                      Offset(
+                    0,
+
+                    _pressed
+                        ? 2
+                        : 7,
+                  ),
                 ),
               ],
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
+
+            child:
+                Row(
+              mainAxisSize:
+                  MainAxisSize.min,
+
               children: [
                 if (isUp) ...[
-                  _ScrollArrowCircle(icon: arrow, pressed: _pressed),
-                  const SizedBox(width: 14),
-                ],
-                ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 88,
-                    maxWidth: 190,
+                  _ScrollArrowCircle(
+                    icon:
+                        arrow,
+
+                    pressed:
+                        _pressed,
+
+                    accentColor:
+                        widget.accentColor,
                   ),
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
+
+                  const SizedBox(
+                    width:
+                        14,
+                  ),
+                ],
+
+                ConstrainedBox(
+                  constraints:
+                      const BoxConstraints(
+                    minWidth:
+                        88,
+
+                    maxWidth:
+                        190,
+                  ),
+
+                  child:
+                      FittedBox(
+                    fit:
+                        BoxFit.scaleDown,
+
+                    child:
+                        Text(
                       widget.label.toUpperCase(),
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Color(0xFF163B67),
-                        fontSize: 24,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 0.5,
+
+                      maxLines:
+                          1,
+
+                      textAlign:
+                          TextAlign.center,
+
+                      style:
+                          const TextStyle(
+                        color:
+                            Color(
+                          0xFF163B67,
+                        ),
+
+                        fontSize:
+                            24,
+
+                        fontWeight:
+                            FontWeight.w900,
+
+                        letterSpacing:
+                            0.5,
                       ),
                     ),
                   ),
                 ),
+
                 if (!isUp) ...[
-                  const SizedBox(width: 14),
-                  _ScrollArrowCircle(icon: arrow, pressed: _pressed),
+                  const SizedBox(
+                    width:
+                        14,
+                  ),
+
+                  _ScrollArrowCircle(
+                    icon:
+                        arrow,
+
+                    pressed:
+                        _pressed,
+
+                    accentColor:
+                        widget.accentColor,
+                  ),
                 ],
               ],
             ),
@@ -3413,39 +3522,111 @@ class _ScrollDiscoveryControlState extends State<_ScrollDiscoveryControl> {
   }
 }
 
-class _ScrollArrowCircle extends StatelessWidget {
+// ============================================================================
+// SCROLL ARROW
+// ============================================================================
+
+class _ScrollArrowCircle
+    extends StatelessWidget {
   final IconData icon;
+
   final bool pressed;
+
+  final Color accentColor;
 
   const _ScrollArrowCircle({
     required this.icon,
     required this.pressed,
+    required this.accentColor,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
+    final Color darkColor =
+        Color.lerp(
+              accentColor,
+              Colors.black,
+              0.18,
+            ) ??
+            accentColor;
+
+    final Color lightColor =
+        Color.lerp(
+              accentColor,
+              Colors.white,
+              0.18,
+            ) ??
+            accentColor;
+
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 140),
-      width: 66,
-      height: 66,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: pressed
-              ? const [Color(0xFF0B4FAE), Color(0xFF0A73E8)]
-              : const [Color(0xFF1469E8), Color(0xFF0A82F5)],
+      duration:
+          const Duration(
+        milliseconds:
+            140,
+      ),
+
+      width:
+          66,
+
+      height:
+          66,
+
+      decoration:
+          BoxDecoration(
+        gradient:
+            LinearGradient(
+          begin:
+              Alignment.topLeft,
+
+          end:
+              Alignment.bottomRight,
+
+          colors:
+              pressed
+                  ? [
+                      darkColor,
+                      accentColor,
+                    ]
+                  : [
+                      accentColor,
+                      lightColor,
+                    ],
         ),
-        shape: BoxShape.circle,
+
+        shape:
+            BoxShape.circle,
+
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1469E8).withOpacity(0.30),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            color:
+                accentColor.withOpacity(
+              0.30,
+            ),
+
+            blurRadius:
+                12,
+
+            offset:
+                const Offset(
+              0,
+              4,
+            ),
           ),
         ],
       ),
-      child: Icon(icon, color: Colors.white, size: 48),
+
+      child:
+          Icon(
+        icon,
+
+        color:
+            Colors.white,
+
+        size:
+            48,
+      ),
     );
   }
 }

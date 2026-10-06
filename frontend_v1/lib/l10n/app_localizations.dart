@@ -14732,6 +14732,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No matching providers found.'**
   String get providerSearchNoResults;
+
+  /// No description provided for @foodBeverageButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Food & Beverage'**
+  String get foodBeverageButton;
+
+  /// No description provided for @foodBeverageSupportingText.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase food and beverage vouchers from participating brands.'**
+  String get foodBeverageSupportingText;
+
+  /// No description provided for @foodBeverageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Food & Beverage'**
+  String get foodBeverageTitle;
+
+  /// No description provided for @foodBeverageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a participating food or beverage provider'**
+  String get foodBeverageSubtitle;
+
+  /// No description provided for @taksiranKioskIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your accounts and payment period.'**
+  String get taksiranKioskIntro;
+
+  /// No description provided for @taksiranKioskChooseAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose accounts to pay'**
+  String get taksiranKioskChooseAccounts;
+
+  /// No description provided for @taksiranKioskAccountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap an account to select it. You may select more than one.'**
+  String get taksiranKioskAccountHint;
+
+  /// No description provided for @taksiranKioskViewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View details'**
+  String get taksiranKioskViewDetails;
+
+  /// No description provided for @taksiranKioskChoosePeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose half-year or full-year payment'**
+  String get taksiranKioskChoosePeriod;
+
+  /// No description provided for @taksiranKioskPeriodRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose half-year or full-year to continue.'**
+  String get taksiranKioskPeriodRequired;
+
+  /// No description provided for @taksiranKioskAmountUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount unavailable'**
+  String get taksiranKioskAmountUnavailable;
+
+  /// No description provided for @taksiranKioskInvalidSelection.
+  ///
+  /// In en, this message translates to:
+  /// **'A selected account has no payable amount for this period. Review your selection or choose another period.'**
+  String get taksiranKioskInvalidSelection;
+
+  /// No description provided for @taksiranKioskAccountUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This account cannot be selected because its account number is missing.'**
+  String get taksiranKioskAccountUnavailable;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -15,12 +15,12 @@ class Data {
   static String aduanMajlisBentong = "1300-88-1148";
 
     //to change waktu solat for demo url justchange zone part. ps: to know the zone code is from https://www.e-solat.gov.my/
-  static String waktusolatplacedemo = "Kuala Lumpur, Putrajaya";
-  static String waktusolaturldemo = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=WLY01&period=today";
+  static String waktusolatplacedemo = "Kuala Lumpur, Melaka";
+  static String waktusolaturldemo = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=MLK01&period=today";
 
     //page map demo
-  static double latitudedemo = 4.59865; 
-  static double longitudedemo = 101.089914; 
+  static double latitudedemo = 2.250 ; 
+  static double longitudedemo = 102.250; 
 
   //iimmpact api key and secret
   static const String iimmpactApiKey =
@@ -40,15 +40,15 @@ class Data {
   static String lastUpdatedDate = "2026-09-30 16:40:00";
 
   //pbt which area
-  static String pbtArea = "Bentong";
+  static String pbtArea = "Melaka";
 
   // ============================================================
   // WEATHER
   // ============================================================
 
-  static String weatherPlaceName = "Putrajaya";
+  static String weatherPlaceName = "Melaka";
 
-  static String weatherLocationId = "Tn088";
+  static String weatherLocationId = "St012";
 
   
 }

@@ -9,36 +9,10 @@ import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
 
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
-
-// ============================================================================
-// BILLER STATUS
-// ============================================================================
-
-enum BillerStatus {
-  loading,
-  healthy,
-  interruption,
-  unavailable,
-}
+import 'package:frontend_v1/widgets/modern_provider_card.dart';
 
 // ============================================================================
 // ELECTRIC PRODUCT MODEL
-//
-// All product information comes from:
-//
-// /v2/catalog
-//
-// tree.groups
-//      ↓
-// categories
-//      ↓
-// category.id == ELEC
-//      ↓
-// category.product_codes
-//      ↓
-// products[productCode]
-//
-// Nothing such as TNB / SESCO / SESB / NUR is manually listed here.
 // ============================================================================
 
 class _ElectricProduct {
@@ -58,7 +32,7 @@ class _ElectricProduct {
 }
 
 // ============================================================================
-// ELECTRIC BILL PROVIDER PAGE
+// ELECTRIC PAGE 3
 // ============================================================================
 
 class PELECTRICBILL3PAGE extends StatefulWidget {
@@ -74,53 +48,32 @@ class PELECTRICBILL3PAGE extends StatefulWidget {
 class _PELECTRICBILL3PAGEState
     extends State<PELECTRICBILL3PAGE> {
   // ==========================================================================
-  // PRODUCTS FROM CATALOG
+  // CATALOG
   // ==========================================================================
 
   final List<_ElectricProduct> _electricProducts = [];
 
   bool _catalogLoading = true;
-
   String? _catalogError;
 
   // ==========================================================================
   // NETWORK STATUS
-  //
-  // Also dynamic.
-  //
-  // Example after catalog loads:
-  //
-  // {
-  //   'TNB': healthy,
-  //   'SESCO': healthy,
-  //   ...
-  // }
-  //
-  // No provider codes are declared beforehand.
   // ==========================================================================
 
-  final Map<String, BillerStatus> _billerStatuses = {};
-
+  final Map<String, ProviderNetworkStatus> _billerStatuses = {};
   final Map<String, String?> _lastUpdated = {};
 
   // ==========================================================================
   // SCROLL
   // ==========================================================================
 
-  final ScrollController _scrollController =
-      ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   bool showScrollUp = false;
   bool showScrollDown = false;
 
   // ==========================================================================
   // UI COLORS
-  //
-  // These are only decorative UI colors.
-  //
-  // They are NOT provider configuration.
-  //
-  // If API adds more providers, colors automatically repeat.
   // ==========================================================================
 
   static const List<Color> _accentColors = [
@@ -149,41 +102,23 @@ class _PELECTRICBILL3PAGEState
   void initState() {
     super.initState();
 
-    _scrollController.addListener(
-      _handleScroll,
-    );
+    _scrollController.addListener(_handleScroll);
 
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        _loadElectricCatalog();
-      },
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadElectricCatalog();
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_handleScroll);
+    _scrollController.dispose();
+
+    super.dispose();
   }
 
   // ==========================================================================
-  // LOAD ELECTRICITY PROVIDERS FROM CATALOG
-  //
-  // IMPORTANT:
-  //
-  // We ONLY identify the ELEC category.
-  //
-  // Provider codes themselves come from:
-  //
-  // category.product_codes
-  //
-  // Example current API:
-  //
-  // ELEC
-  // ├── NUR
-  // ├── SESB
-  // ├── SESCO
-  // └── TNB
-  //
-  // If tomorrow API adds:
-  //
-  // └── NEWCODE
-  //
-  // NEWCODE automatically appears without modifying this file.
+  // LOAD ELECTRIC CATALOG
   // ==========================================================================
 
   Future<void> _loadElectricCatalog() async {
@@ -199,45 +134,37 @@ class _PELECTRICBILL3PAGEState
 
     try {
       // ======================================================================
-      // 1. GET CATALOG
+      // GET CATALOG
       // ======================================================================
 
       final Map<String, dynamic> catalog =
           await IimmpactCatalogService.getCatalog();
 
       // ======================================================================
-      // 2. TREE
+      // TREE
       // ======================================================================
 
-      final dynamic treeRaw =
-          catalog['tree'];
+      final dynamic treeRaw = catalog['tree'];
 
       if (treeRaw is! Map) {
-        throw Exception(
-          'Catalog tree not found.',
-        );
+        throw Exception('Catalog tree not found.');
       }
 
       final Map<String, dynamic> tree =
-          Map<String, dynamic>.from(
-        treeRaw,
-      );
+          Map<String, dynamic>.from(treeRaw);
 
       // ======================================================================
-      // 3. GROUPS
+      // GROUPS
       // ======================================================================
 
-      final dynamic groupsRaw =
-          tree['groups'];
+      final dynamic groupsRaw = tree['groups'];
 
       if (groupsRaw is! List) {
-        throw Exception(
-          'Catalog groups not found.',
-        );
+        throw Exception('Catalog groups not found.');
       }
 
       // ======================================================================
-      // 4. FIND ELEC CATEGORY
+      // FIND ELEC CATEGORY
       // ======================================================================
 
       final List<String> electricCodes = [];
@@ -248,38 +175,24 @@ class _PELECTRICBILL3PAGEState
         }
 
         final Map<String, dynamic> group =
-            Map<String, dynamic>.from(
-          groupRaw,
-        );
+            Map<String, dynamic>.from(groupRaw);
 
-        final dynamic categoriesRaw =
-            group['categories'];
+        final dynamic categoriesRaw = group['categories'];
 
         if (categoriesRaw is! List) {
           continue;
         }
 
-        for (final dynamic categoryRaw
-            in categoriesRaw) {
+        for (final dynamic categoryRaw in categoriesRaw) {
           if (categoryRaw is! Map) {
             continue;
           }
 
           final Map<String, dynamic> category =
-              Map<String, dynamic>.from(
-            categoryRaw,
-          );
+              Map<String, dynamic>.from(categoryRaw);
 
           final String categoryId =
-              category['id']
-                      ?.toString()
-                      .trim()
-                      .toUpperCase() ??
-                  '';
-
-          // ==================================================================
-          // ELECTRICITY CATEGORY ONLY
-          // ==================================================================
+              category['id']?.toString().trim().toUpperCase() ?? '';
 
           if (categoryId != 'ELEC') {
             continue;
@@ -292,55 +205,48 @@ class _PELECTRICBILL3PAGEState
             continue;
           }
 
-          for (final dynamic rawCode
-              in productCodesRaw) {
+          for (final dynamic rawCode in productCodesRaw) {
             final String code =
-                rawCode
-                        ?.toString()
-                        .trim()
-                        .toUpperCase() ??
-                    '';
+                rawCode?.toString().trim().toUpperCase() ?? '';
 
             if (code.isEmpty) {
               continue;
             }
 
             if (!electricCodes.contains(code)) {
-              electricCodes.add(
-                code,
-              );
+              electricCodes.add(code);
             }
           }
         }
       }
 
-      // ======================================================================
-      // 5. PRODUCTS
-      // ======================================================================
-
-      final dynamic productsRaw =
-          catalog['products'];
-
-      if (productsRaw is! Map) {
-        throw Exception(
-          'Catalog products not found.',
+      if (electricCodes.isEmpty) {
+        debugPrint(
+          'ELEC category found no product codes.',
         );
       }
 
+      // ======================================================================
+      // PRODUCTS
+      // ======================================================================
+
+      final dynamic productsRaw = catalog['products'];
+
+      if (productsRaw is! Map) {
+        throw Exception('Catalog products not found.');
+      }
+
       final Map<String, dynamic> products =
-          Map<String, dynamic>.from(
-        productsRaw,
-      );
+          Map<String, dynamic>.from(productsRaw);
 
       // ======================================================================
-      // 6. BUILD ELECTRIC PRODUCTS
+      // BUILD ACTIVE PRODUCTS
       // ======================================================================
 
       final List<_ElectricProduct> loadedProducts = [];
 
       for (final String code in electricCodes) {
-        final dynamic rawProduct =
-            products[code];
+        final dynamic rawProduct = products[code];
 
         if (rawProduct is! Map) {
           debugPrint(
@@ -351,13 +257,7 @@ class _PELECTRICBILL3PAGEState
         }
 
         final Map<String, dynamic> product =
-            Map<String, dynamic>.from(
-          rawProduct,
-        );
-
-        // ====================================================================
-        // ACTIVE
-        // ====================================================================
+            Map<String, dynamic>.from(rawProduct);
 
         final bool isActive =
             product['is_active'] == true;
@@ -370,10 +270,6 @@ class _PELECTRICBILL3PAGEState
           continue;
         }
 
-        // ====================================================================
-        // PRODUCT CODE
-        // ====================================================================
-
         final String productCode =
             product['code']
                     ?.toString()
@@ -381,29 +277,17 @@ class _PELECTRICBILL3PAGEState
                     .toUpperCase() ??
                 code;
 
-        // ====================================================================
-        // NAME
-        // ====================================================================
-
         final String productName =
             product['name']
                     ?.toString()
                     .trim() ??
                 productCode;
 
-        // ====================================================================
-        // IMAGE
-        // ====================================================================
-
         final String imageUrl =
             product['image_url']
                     ?.toString()
                     .trim() ??
                 '';
-
-        // ====================================================================
-        // PROCESSING TIME
-        // ====================================================================
 
         final String processingTime =
             product['processing_time']
@@ -433,9 +317,7 @@ class _PELECTRICBILL3PAGEState
       setState(() {
         _electricProducts
           ..clear()
-          ..addAll(
-            loadedProducts,
-          );
+          ..addAll(loadedProducts);
 
         _catalogLoading = false;
       });
@@ -448,9 +330,6 @@ class _PELECTRICBILL3PAGEState
         'ELECTRICITY CATALOG LOADED',
       );
       debugPrint(
-        '========================================',
-      );
-      debugPrint(
         'Products: '
         '${_electricProducts.map((e) => e.code).toList()}',
       );
@@ -460,7 +339,7 @@ class _PELECTRICBILL3PAGEState
       debugPrint('');
 
       // ======================================================================
-      // 7. LOAD NETWORK STATUS
+      // NETWORK
       // ======================================================================
 
       await _loadNetworkStatuses();
@@ -469,21 +348,14 @@ class _PELECTRICBILL3PAGEState
         return;
       }
 
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) {
-          _handleScroll();
-        },
-      );
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _handleScroll();
+      });
     }
-
-    // =========================================================================
-    // CATALOG ERROR
-    // =========================================================================
 
     on IimmpactCatalogException catch (error) {
       debugPrint(
-        'Electric catalog error: '
-        '${error.message}',
+        'Electric catalog error: ${error.message}',
       );
 
       if (!mounted) {
@@ -494,23 +366,16 @@ class _PELECTRICBILL3PAGEState
         _electricProducts.clear();
 
         _catalogLoading = false;
-
-        _catalogError =
-            error.message;
+        _catalogError = error.message;
 
         showScrollUp = false;
         showScrollDown = false;
       });
     }
 
-    // =========================================================================
-    // UNKNOWN ERROR
-    // =========================================================================
-
     catch (error, stackTrace) {
       debugPrint(
-        'Unexpected electric catalog error: '
-        '$error',
+        'Unexpected electric catalog error: $error',
       );
 
       debugPrintStack(
@@ -525,9 +390,7 @@ class _PELECTRICBILL3PAGEState
         _electricProducts.clear();
 
         _catalogLoading = false;
-
-        _catalogError =
-            error.toString();
+        _catalogError = error.toString();
 
         showScrollUp = false;
         showScrollDown = false;
@@ -536,7 +399,7 @@ class _PELECTRICBILL3PAGEState
   }
 
   // ==========================================================================
-  // LOAD NETWORK STATUS FOR ALL ACTIVE PROVIDERS
+  // LOAD NETWORK STATUS
   // ==========================================================================
 
   Future<void> _loadNetworkStatuses() async {
@@ -546,9 +409,7 @@ class _PELECTRICBILL3PAGEState
 
     await Future.wait(
       _electricProducts.map(
-        (
-          _ElectricProduct product,
-        ) {
+        (_ElectricProduct product) {
           return _refreshNetworkStatus(
             product.code,
           );
@@ -559,17 +420,15 @@ class _PELECTRICBILL3PAGEState
 
   // ==========================================================================
   // REFRESH NETWORK STATUS
-  //
-  // Uses catalog product code directly.
   // ==========================================================================
 
-  Future<BillerStatus> _refreshNetworkStatus(
+  Future<ProviderNetworkStatus> _refreshNetworkStatus(
     String productCode,
   ) async {
     if (mounted) {
       setState(() {
         _billerStatuses[productCode] =
-            BillerStatus.loading;
+            ProviderNetworkStatus.loading;
       });
     }
 
@@ -579,16 +438,14 @@ class _PELECTRICBILL3PAGEState
         productCode: productCode,
       );
 
-      final BillerStatus status =
+      final ProviderNetworkStatus status =
           result.isHealthy
-              ? BillerStatus.healthy
-              : BillerStatus.interruption;
+              ? ProviderNetworkStatus.healthy
+              : ProviderNetworkStatus.interruption;
 
       if (mounted) {
         setState(() {
-          _billerStatuses[productCode] =
-              status;
-
+          _billerStatuses[productCode] = status;
           _lastUpdated[productCode] =
               result.lastUpdated;
         });
@@ -604,11 +461,11 @@ class _PELECTRICBILL3PAGEState
       if (mounted) {
         setState(() {
           _billerStatuses[productCode] =
-              BillerStatus.unavailable;
+              ProviderNetworkStatus.unavailable;
         });
       }
 
-      return BillerStatus.unavailable;
+      return ProviderNetworkStatus.unavailable;
     }
   }
 
@@ -619,7 +476,7 @@ class _PELECTRICBILL3PAGEState
   Future<void> _handleBillerTap(
     _ElectricProduct product,
   ) async {
-    final BillerStatus status =
+    final ProviderNetworkStatus status =
         await _refreshNetworkStatus(
       product.code,
     );
@@ -633,13 +490,11 @@ class _PELECTRICBILL3PAGEState
     // ========================================================================
 
     if (status ==
-        BillerStatus.interruption) {
+        ProviderNetworkStatus.interruption) {
       final bool shouldContinue =
           await _showInterruptionWarning(
-        billerName:
-            product.name,
-        productCode:
-            product.code,
+        billerName: product.name,
+        productCode: product.code,
       );
 
       if (!shouldContinue) {
@@ -656,7 +511,7 @@ class _PELECTRICBILL3PAGEState
     // ========================================================================
 
     if (status ==
-        BillerStatus.unavailable) {
+        ProviderNetworkStatus.unavailable) {
       final loc =
           AppLocalizations.of(context)!;
 
@@ -706,7 +561,7 @@ class _PELECTRICBILL3PAGEState
     // ========================================================================
     // PAGE 4
     //
-    // product.code and product.name come directly from catalog.
+    // ORIGINAL ELECTRIC FLOW KEPT
     // ========================================================================
 
     final loc =
@@ -719,12 +574,16 @@ class _PELECTRICBILL3PAGEState
             P4BILPAGE(
           title:
               loc.electricAccountTitle,
+
           hint:
               loc.electricAccountHint,
+
           productCode:
               product.code,
+
           billerName:
               product.name,
+
           serviceType:
               BillServiceType.electric,
         ),
@@ -754,12 +613,15 @@ class _PELECTRICBILL3PAGEState
         return Dialog(
           backgroundColor:
               Colors.transparent,
+
           insetPadding:
               const EdgeInsets.symmetric(
             horizontal: 80,
           ),
+
           child: Container(
             width: 800,
+
             padding:
                 const EdgeInsets.fromLTRB(
               45,
@@ -767,13 +629,17 @@ class _PELECTRICBILL3PAGEState
               45,
               38,
             ),
+
             decoration:
                 BoxDecoration(
-              color: Colors.white,
+              color:
+                  Colors.white,
+
               borderRadius:
                   BorderRadius.circular(
                 38,
               ),
+
               border:
                   Border.all(
                 color:
@@ -782,13 +648,16 @@ class _PELECTRICBILL3PAGEState
                 ),
                 width: 3,
               ),
+
               boxShadow: [
                 BoxShadow(
                   color:
                       Colors.black.withOpacity(
                     0.25,
                   ),
+
                   blurRadius: 35,
+
                   offset:
                       const Offset(
                     0,
@@ -797,25 +666,26 @@ class _PELECTRICBILL3PAGEState
                 ),
               ],
             ),
+
             child: Column(
               mainAxisSize:
                   MainAxisSize.min,
-              children: [
-                // ============================================================
-                // WARNING ICON
-                // ============================================================
 
+              children: [
                 Container(
                   width: 125,
                   height: 125,
+
                   decoration:
                       BoxDecoration(
                     color:
                         const Color(
                       0xFFFFF2D9,
                     ),
+
                     shape:
                         BoxShape.circle,
+
                     border:
                         Border.all(
                       color:
@@ -824,17 +694,20 @@ class _PELECTRICBILL3PAGEState
                       ).withOpacity(
                         0.30,
                       ),
+
                       width: 2,
                     ),
                   ),
+
                   child:
                       const Icon(
-                    Icons
-                        .warning_amber_rounded,
+                    Icons.warning_amber_rounded,
+
                     color:
                         Color(
                       0xFFD87900,
                     ),
+
                     size: 78,
                   ),
                 ),
@@ -843,23 +716,24 @@ class _PELECTRICBILL3PAGEState
                   height: 28,
                 ),
 
-                // ============================================================
-                // TITLE
-                // ============================================================
-
                 Text(
                   loc.networkInterruptionTitle,
+
                   textAlign:
                       TextAlign.center,
+
                   style:
                       const TextStyle(
                     color:
                         Color(
                       0xFF17283E,
                     ),
+
                     fontSize: 40,
+
                     fontWeight:
                         FontWeight.w900,
+
                     height: 1.1,
                   ),
                 ),
@@ -868,60 +742,63 @@ class _PELECTRICBILL3PAGEState
                   height: 24,
                 ),
 
-                // ============================================================
-                // MESSAGE
-                // ============================================================
-
                 Container(
                   width:
                       double.infinity,
+
                   padding:
                       const EdgeInsets.symmetric(
                     horizontal: 28,
                     vertical: 25,
                   ),
+
                   decoration:
                       BoxDecoration(
                     color:
                         const Color(
                       0xFFFFF9ED,
                     ),
+
                     borderRadius:
                         BorderRadius.circular(
                       24,
                     ),
+
                     border:
                         Border.all(
                       color:
                           const Color(
                         0xFFF4D69D,
                       ),
+
                       width: 1.5,
                     ),
                   ),
+
                   child: Text(
                     loc.networkInterruptionMessage(
                       billerName,
                     ),
+
                     textAlign:
                         TextAlign.center,
+
                     style:
                         const TextStyle(
                       color:
                           Color(
                         0xFF4B4234,
                       ),
+
                       fontSize: 29,
+
                       height: 1.4,
+
                       fontWeight:
                           FontWeight.w600,
                     ),
                   ),
                 ),
-
-                // ============================================================
-                // LAST UPDATED
-                // ============================================================
 
                 if (_lastUpdated[
                         productCode] !=
@@ -933,10 +810,13 @@ class _PELECTRICBILL3PAGEState
                   Row(
                     mainAxisAlignment:
                         MainAxisAlignment.center,
+
                     children: [
                       const Icon(
                         Icons.schedule_rounded,
+
                         size: 24,
+
                         color:
                             Color(
                           0xFF758399,
@@ -951,15 +831,19 @@ class _PELECTRICBILL3PAGEState
                         child: Text(
                           '${loc.networkLastUpdated}: '
                           '${_lastUpdated[productCode]}',
+
                           textAlign:
                               TextAlign.center,
+
                           style:
                               const TextStyle(
                             fontSize: 21,
+
                             color:
                                 Color(
                               0xFF758399,
                             ),
+
                             fontWeight:
                                 FontWeight.w600,
                           ),
@@ -973,15 +857,12 @@ class _PELECTRICBILL3PAGEState
                   height: 36,
                 ),
 
-                // ============================================================
-                // ACTIONS
-                // ============================================================
-
                 Row(
                   children: [
                     Expanded(
                       child: SizedBox(
                         height: 78,
+
                         child:
                             OutlinedButton.icon(
                           onPressed: () {
@@ -990,39 +871,48 @@ class _PELECTRICBILL3PAGEState
                               false,
                             );
                           },
+
                           icon:
                               const Icon(
-                            Icons
-                                .arrow_back_rounded,
+                            Icons.arrow_back_rounded,
+
                             size: 29,
                           ),
+
                           label: Text(
                             loc.backButton,
+
                             style:
                                 const TextStyle(
                               fontSize: 24,
+
                               fontWeight:
                                   FontWeight.w900,
                             ),
                           ),
+
                           style:
                               OutlinedButton.styleFrom(
                             backgroundColor:
                                 const Color(
                               0xFFFFE8E8,
                             ),
+
                             foregroundColor:
                                 const Color(
                               0xFFC62828,
                             ),
+
                             side:
                                 const BorderSide(
                               color:
                                   Color(
                                 0xFFE57373,
                               ),
+
                               width: 2,
                             ),
+
                             shape:
                                 RoundedRectangleBorder(
                               borderRadius:
@@ -1042,6 +932,7 @@ class _PELECTRICBILL3PAGEState
                     Expanded(
                       child: SizedBox(
                         height: 78,
+
                         child:
                             ElevatedButton.icon(
                           onPressed: () {
@@ -1050,30 +941,38 @@ class _PELECTRICBILL3PAGEState
                               true,
                             );
                           },
+
                           icon:
                               const Icon(
-                            Icons
-                                .arrow_forward_rounded,
+                            Icons.arrow_forward_rounded,
+
                             size: 29,
                           ),
+
                           label: Text(
                             loc.continueButton,
+
                             style:
                                 const TextStyle(
                               fontSize: 24,
+
                               fontWeight:
                                   FontWeight.w900,
                             ),
                           ),
+
                           style:
                               ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color(
                               0xFF168A50,
                             ),
+
                             foregroundColor:
                                 Colors.white,
+
                             elevation: 0,
+
                             shape:
                                 RoundedRectangleBorder(
                               borderRadius:
@@ -1109,20 +1008,27 @@ class _PELECTRICBILL3PAGEState
     }
 
     final double maxScroll =
-        _scrollController.position.maxScrollExtent;
+        _scrollController
+            .position
+            .maxScrollExtent;
 
     final double currentScroll =
         _scrollController.offset;
 
+    final bool hasScrollableContent =
+        maxScroll > 10;
+
     final bool shouldShowScrollUp =
-        currentScroll > 10;
+        hasScrollableContent &&
+            currentScroll > 10;
 
     final bool shouldShowScrollDown =
-        maxScroll > 10 &&
-        currentScroll <
-            maxScroll - 10;
+        hasScrollableContent &&
+            currentScroll <
+                maxScroll - 10;
 
-    if (showScrollUp != shouldShowScrollUp ||
+    if (showScrollUp !=
+            shouldShowScrollUp ||
         showScrollDown !=
             shouldShowScrollDown) {
       setState(() {
@@ -1149,15 +1055,18 @@ class _PELECTRICBILL3PAGEState
             .clamp(
       0.0,
       _scrollController
-          .position.maxScrollExtent,
+          .position
+          .maxScrollExtent,
     );
 
     _scrollController.animateTo(
       destination,
+
       duration:
           const Duration(
         milliseconds: 400,
       ),
+
       curve:
           Curves.easeOut,
     );
@@ -1177,33 +1086,132 @@ class _PELECTRICBILL3PAGEState
             .clamp(
       0.0,
       _scrollController
-          .position.maxScrollExtent,
+          .position
+          .maxScrollExtent,
     );
 
     _scrollController.animateTo(
       destination,
+
       duration:
           const Duration(
         milliseconds: 400,
       ),
+
       curve:
           Curves.easeOut,
     );
   }
 
   // ==========================================================================
-  // DISPOSE
+  // SCROLL TO TOP
   // ==========================================================================
 
-  @override
-  void dispose() {
-    _scrollController.removeListener(
-      _handleScroll,
+  void _scrollToTop() {
+    if (!_scrollController.hasClients) {
+      return;
+    }
+
+    _scrollController.animateTo(
+      0,
+
+      duration:
+          const Duration(
+        milliseconds: 550,
+      ),
+
+      curve:
+          Curves.easeOutCubic,
     );
+  }
 
-    _scrollController.dispose();
+  // ==========================================================================
+  // BUILD SCROLL ACTION
+  // ==========================================================================
 
-    super.dispose();
+  Widget _buildScrollAction(
+    AppLocalizations loc,
+  ) {
+    if (!showScrollUp &&
+        showScrollDown) {
+      return _ScrollDiscoveryControl(
+        key:
+            const ValueKey(
+          'electric-top-more',
+        ),
+
+        mode:
+            _ScrollControlMode.more,
+
+        label:
+            loc.scrollViewMore,
+
+        onPressed:
+            _scrollDown,
+      );
+    }
+
+    if (showScrollUp &&
+        showScrollDown) {
+      return Row(
+        key:
+            const ValueKey(
+          'electric-middle-controls',
+        ),
+
+        mainAxisSize:
+            MainAxisSize.min,
+
+        children: [
+          _ScrollDiscoveryControl(
+            mode:
+                _ScrollControlMode.up,
+
+            label:
+                loc.scrollUpShort,
+
+            onPressed:
+                _scrollUp,
+          ),
+
+          const SizedBox(
+            width: 22,
+          ),
+
+          _ScrollDiscoveryControl(
+            mode:
+                _ScrollControlMode.more,
+
+            label:
+                loc.scrollViewMore,
+
+            onPressed:
+                _scrollDown,
+          ),
+        ],
+      );
+    }
+
+    if (showScrollUp &&
+        !showScrollDown) {
+      return _ScrollDiscoveryControl(
+        key:
+            const ValueKey(
+          'electric-bottom-top',
+        ),
+
+        mode:
+            _ScrollControlMode.top,
+
+        label:
+            loc.scrollBackTop,
+
+        onPressed:
+            _scrollToTop,
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 
   // ==========================================================================
@@ -1225,29 +1233,37 @@ class _PELECTRICBILL3PAGEState
           // ==================================================================
 
           Positioned.fill(
-            child: Image.asset(
+            child:
+                Image.asset(
               'lib/images/pnew.png',
-              fit: BoxFit.cover,
+
+              fit:
+                  BoxFit.cover,
             ),
           ),
 
           Positioned.fill(
-            child: Container(
+            child:
+                Container(
               decoration:
                   BoxDecoration(
                 gradient:
                     LinearGradient(
                   begin:
                       Alignment.topCenter,
+
                   end:
                       Alignment.bottomCenter,
+
                   colors: [
                     Colors.white.withOpacity(
                       0.02,
                     ),
+
                     Colors.white.withOpacity(
                       0.12,
                     ),
+
                     Colors.white.withOpacity(
                       0.04,
                     ),
@@ -1265,24 +1281,27 @@ class _PELECTRICBILL3PAGEState
             top: 82,
             left: 65,
             right: 65,
+
             child:
                 _ModernPageHeader(
               title:
                   loc.pbilelectric3Title,
+
               subtitle:
                   loc.pbil3Subtitle,
             ),
           ),
 
           // ==================================================================
-          // PROVIDER AREA
+          // PROVIDERS
           // ==================================================================
 
           Positioned(
             top: 400,
             left: 45,
             right: 45,
-            bottom: 305,
+            bottom: 300,
+
             child:
                 _buildProviderArea(
               loc,
@@ -1290,48 +1309,123 @@ class _PELECTRICBILL3PAGEState
           ),
 
           // ==================================================================
-          // SCROLL UP
-          // ==================================================================
-
-          if (!_catalogLoading &&
-              _electricProducts.isNotEmpty &&
-              showScrollUp)
-            Positioned(
-              right: 18,
-              top: 365,
-              child:
-                  _ScrollIndicatorButton(
-                icon:
-                    Icons
-                        .keyboard_arrow_up_rounded,
-                label:
-                    loc.scrollup,
-                onPressed:
-                    _scrollUp,
-              ),
-            ),
-
-          // ==================================================================
-          // SCROLL DOWN
+          // FADE
           // ==================================================================
 
           if (!_catalogLoading &&
               _electricProducts.isNotEmpty &&
               showScrollDown)
             Positioned(
-              right: 18,
-              bottom: 290,
+              left: 35,
+              right: 35,
+              bottom: 255,
+              height: 175,
+
               child:
-                  _ScrollIndicatorButton(
-                icon:
-                    Icons
-                        .keyboard_arrow_down_rounded,
-                label:
-                    loc.scrolldown,
-                onPressed:
-                    _scrollDown,
-                iconBelowText:
-                    true,
+                  IgnorePointer(
+                child:
+                    Container(
+                  decoration:
+                      BoxDecoration(
+                    gradient:
+                        LinearGradient(
+                      begin:
+                          Alignment.topCenter,
+
+                      end:
+                          Alignment.bottomCenter,
+
+                      stops:
+                          const [
+                        0.0,
+                        0.30,
+                        0.68,
+                        1.0,
+                      ],
+
+                      colors: [
+                        Colors.white.withOpacity(
+                          0.00,
+                        ),
+
+                        Colors.white.withOpacity(
+                          0.14,
+                        ),
+
+                        Colors.white.withOpacity(
+                          0.62,
+                        ),
+
+                        Colors.white.withOpacity(
+                          0.95,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+          // ==================================================================
+          // SCROLL CONTROL
+          // ==================================================================
+
+          if (!_catalogLoading &&
+              _electricProducts.isNotEmpty)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 255,
+
+              child:
+                  Center(
+                child:
+                    AnimatedSwitcher(
+                  duration:
+                      const Duration(
+                    milliseconds: 250,
+                  ),
+
+                  switchInCurve:
+                      Curves.easeOutCubic,
+
+                  switchOutCurve:
+                      Curves.easeInCubic,
+
+                  transitionBuilder:
+                      (
+                    Widget child,
+                    Animation<double> animation,
+                  ) {
+                    return FadeTransition(
+                      opacity: animation,
+
+                      child:
+                          ScaleTransition(
+                        scale:
+                            Tween<double>(
+                          begin: 0.94,
+                          end: 1.0,
+                        ).animate(
+                          CurvedAnimation(
+                            parent:
+                                animation,
+
+                            curve:
+                                Curves.easeOutCubic,
+                          ),
+                        ),
+
+                        child: child,
+                      ),
+                    );
+                  },
+
+                  child:
+                      _buildScrollAction(
+                    loc,
+                  ),
+                ),
               ),
             ),
 
@@ -1343,12 +1437,13 @@ class _PELECTRICBILL3PAGEState
             bottom: 105,
             left: 300,
             right: 300,
+
             child:
                 KioskBackButton(
               onPressed: () {
-                Navigator
-                    .pushReplacement(
+                Navigator.pushReplacement(
                   context,
+
                   MaterialPageRoute(
                     builder: (_) =>
                         const PBIL3PAGE(),
@@ -1366,18 +1461,25 @@ class _PELECTRICBILL3PAGEState
             bottom: 25,
             left: 0,
             right: 0,
-            child: Center(
-              child: Text(
+
+            child:
+                Center(
+              child:
+                  Text(
                 Data.copyrightText,
+
                 textAlign:
                     TextAlign.center,
+
                 style:
                     const TextStyle(
                   color:
                       Color(
                     0xFF26364A,
                   ),
+
                   fontSize: 20,
+
                   fontWeight:
                       FontWeight.w800,
                 ),
@@ -1396,47 +1498,46 @@ class _PELECTRICBILL3PAGEState
   Widget _buildProviderArea(
     AppLocalizations loc,
   ) {
-    // ========================================================================
-    // MODERN LOADING
-    // ========================================================================
-
     if (_catalogLoading) {
       return _buildModernLoading(
         loc,
       );
     }
 
-    // ========================================================================
-    // ERROR
-    // ========================================================================
-
     if (_catalogError != null) {
       return Center(
-        child: Container(
+        child:
+            Container(
           width:
               double.infinity,
+
           padding:
               const EdgeInsets.all(
             35,
           ),
+
           decoration:
               BoxDecoration(
             color:
                 Colors.white.withOpacity(
               0.96,
             ),
+
             borderRadius:
                 BorderRadius.circular(
               28,
             ),
+
             border:
                 Border.all(
               color:
                   const Color(
                 0xFFD7E2F0,
               ),
+
               width: 2,
             ),
+
             boxShadow: [
               BoxShadow(
                 color:
@@ -1445,7 +1546,9 @@ class _PELECTRICBILL3PAGEState
                 ).withOpacity(
                   0.10,
                 ),
+
                 blurRadius: 22,
+
                 offset:
                     const Offset(
                   0,
@@ -1454,26 +1557,34 @@ class _PELECTRICBILL3PAGEState
               ),
             ],
           ),
-          child: Column(
+
+          child:
+              Column(
             mainAxisSize:
                 MainAxisSize.min,
+
             children: [
               Container(
                 width: 100,
                 height: 100,
+
                 decoration:
                     const BoxDecoration(
                   color:
                       Color(
                     0xFFEAF2FC,
                   ),
+
                   shape:
                       BoxShape.circle,
                 ),
+
                 child:
                     const Icon(
                   Icons.cloud_off_rounded,
+
                   size: 55,
+
                   color:
                       Color(
                     0xFF0A2E70,
@@ -1487,13 +1598,17 @@ class _PELECTRICBILL3PAGEState
 
               Text(
                 loc.billUnknownError,
+
                 textAlign:
                     TextAlign.center,
+
                 style:
                     const TextStyle(
                   fontSize: 27,
+
                   fontWeight:
                       FontWeight.bold,
+
                   color:
                       Color(
                     0xFF0A2E70,
@@ -1507,36 +1622,47 @@ class _PELECTRICBILL3PAGEState
 
               SizedBox(
                 height: 70,
+
                 child:
                     ElevatedButton.icon(
                   onPressed:
                       _loadElectricCatalog,
+
                   icon:
                       const Icon(
                     Icons.refresh_rounded,
+
                     size: 28,
                   ),
-                  label: Text(
+
+                  label:
+                      Text(
                     loc.retryButton,
+
                     style:
                         const TextStyle(
                       fontSize: 23,
+
                       fontWeight:
                           FontWeight.w900,
                     ),
                   ),
+
                   style:
                       ElevatedButton.styleFrom(
                     backgroundColor:
                         const Color(
                       0xFF1469E8,
                     ),
+
                     foregroundColor:
                         Colors.white,
+
                     padding:
                         const EdgeInsets.symmetric(
                       horizontal: 35,
                     ),
+
                     shape:
                         RoundedRectangleBorder(
                       borderRadius:
@@ -1553,46 +1679,52 @@ class _PELECTRICBILL3PAGEState
       );
     }
 
-    // ========================================================================
-    // NO ACTIVE PROVIDERS
-    // ========================================================================
-
     if (_electricProducts.isEmpty) {
       return Center(
-        child: Container(
+        child:
+            Container(
           width:
               double.infinity,
+
           padding:
               const EdgeInsets.all(
             35,
           ),
+
           decoration:
               BoxDecoration(
             color:
                 Colors.white.withOpacity(
               0.96,
             ),
+
             borderRadius:
                 BorderRadius.circular(
               28,
             ),
+
             border:
                 Border.all(
               color:
                   const Color(
                 0xFFD7E2F0,
               ),
+
               width: 2,
             ),
           ),
-          child: Column(
+
+          child:
+              Column(
             mainAxisSize:
                 MainAxisSize.min,
+
             children: [
               const Icon(
-                Icons
-                    .power_off_rounded,
+                Icons.power_off_rounded,
+
                 size: 65,
+
                 color:
                     Color(
                   0xFF60758D,
@@ -1605,15 +1737,19 @@ class _PELECTRICBILL3PAGEState
 
               Text(
                 loc.networkStatusUnknown,
+
                 textAlign:
                     TextAlign.center,
+
                 style:
                     const TextStyle(
                   color:
                       Color(
                     0xFF17283E,
                   ),
+
                   fontSize: 27,
+
                   fontWeight:
                       FontWeight.w800,
                 ),
@@ -1624,42 +1760,44 @@ class _PELECTRICBILL3PAGEState
       );
     }
 
-    // ========================================================================
-    // DYNAMIC PROVIDER GRID
-    // ========================================================================
-
     return Scrollbar(
       controller:
           _scrollController,
+
       thumbVisibility:
           true,
+
       trackVisibility:
           true,
+
       interactive:
           true,
+
       thickness:
           11,
+
       radius:
           const Radius.circular(
         20,
       ),
+
       child:
           SingleChildScrollView(
         controller:
             _scrollController,
+
         physics:
             const BouncingScrollPhysics(),
+
         padding:
             const EdgeInsets.only(
           right: 24,
-          bottom: 55,
+          bottom: 145,
         ),
-        child: Column(
-          children: [
-            // ================================================================
-            // TWO CARDS PER ROW
-            // ================================================================
 
+        child:
+            Column(
+          children: [
             for (
               int index = 0;
               index < _electricProducts.length;
@@ -1670,24 +1808,26 @@ class _PELECTRICBILL3PAGEState
                     EdgeInsets.only(
                   bottom:
                       index + 2 <
-                              _electricProducts
-                                  .length
+                              _electricProducts.length
                           ? 36
                           : 0,
                 ),
-                child: Row(
+
+                child:
+                    Row(
                   crossAxisAlignment:
-                      CrossAxisAlignment
-                          .start,
+                      CrossAxisAlignment.start,
+
                   children: [
                     Expanded(
                       child:
                           _buildElectricCard(
                         product:
-                            _electricProducts[
-                                index],
+                            _electricProducts[index],
+
                         index:
                             index,
+
                         loc:
                             loc,
                       ),
@@ -1700,16 +1840,16 @@ class _PELECTRICBILL3PAGEState
                     Expanded(
                       child:
                           index + 1 <
-                                  _electricProducts
-                                      .length
+                                  _electricProducts.length
                               ? _buildElectricCard(
                                   product:
                                       _electricProducts[
-                                          index +
-                                              1],
+                                    index + 1
+                                  ],
+
                                   index:
-                                      index +
-                                          1,
+                                      index + 1,
+
                                   loc:
                                       loc,
                                 )
@@ -1725,14 +1865,7 @@ class _PELECTRICBILL3PAGEState
   }
 
   // ==========================================================================
-  // MODERN LOADING
-  //
-  // Generic loading ARB:
-  //
-  // providerLoading
-  // providerLoadingSubtitle
-  //
-  // Can be reused by Water, Broadband, IDD, Gaming, E-Wallet, etc.
+  // LOADING
   // ==========================================================================
 
   Widget _buildModernLoading(
@@ -1740,36 +1873,38 @@ class _PELECTRICBILL3PAGEState
   ) {
     return Column(
       children: [
-        // ====================================================================
-        // LOADING MESSAGE
-        // ====================================================================
-
         Container(
           width:
               double.infinity,
+
           padding:
               const EdgeInsets.symmetric(
             horizontal: 35,
             vertical: 30,
           ),
+
           decoration:
               BoxDecoration(
             color:
                 Colors.white.withOpacity(
               0.97,
             ),
+
             borderRadius:
                 BorderRadius.circular(
               30,
             ),
+
             border:
                 Border.all(
               color:
                   const Color(
                 0xFFCFE0F7,
               ),
+
               width: 2,
             ),
+
             boxShadow: [
               BoxShadow(
                 color:
@@ -1778,7 +1913,9 @@ class _PELECTRICBILL3PAGEState
                 ).withOpacity(
                   0.12,
                 ),
+
                 blurRadius: 24,
+
                 offset:
                     const Offset(
                   0,
@@ -1787,46 +1924,54 @@ class _PELECTRICBILL3PAGEState
               ),
             ],
           ),
-          child: Row(
-            children: [
-              // ==============================================================
-              // LOADING ICON
-              // ==============================================================
 
+          child:
+              Row(
+            children: [
               Container(
                 width: 100,
                 height: 100,
+
                 decoration:
                     BoxDecoration(
                   color:
                       const Color(
                     0xFFE8F2FF,
                   ),
+
                   shape:
                       BoxShape.circle,
+
                   border:
                       Border.all(
                     color:
                         const Color(
                       0xFFC7DCF7,
                     ),
+
                     width: 2,
                   ),
                 ),
-                child: Stack(
+
+                child:
+                    Stack(
                   alignment:
                       Alignment.center,
+
                   children: [
                     const SizedBox(
                       width: 70,
                       height: 70,
+
                       child:
                           CircularProgressIndicator(
                         strokeWidth: 5,
+
                         color:
                             Color(
                           0xFF1469E8,
                         ),
+
                         backgroundColor:
                             Color(
                           0xFFD7E6F8,
@@ -1835,12 +1980,13 @@ class _PELECTRICBILL3PAGEState
                     ),
 
                     const Icon(
-                      Icons
-                          .electric_bolt_rounded,
+                      Icons.electric_bolt_rounded,
+
                       color:
                           Color(
                         0xFF1469E8,
                       ),
+
                       size: 40,
                     ),
                   ],
@@ -1851,26 +1997,28 @@ class _PELECTRICBILL3PAGEState
                 width: 25,
               ),
 
-              // ==============================================================
-              // TEXT
-              // ==============================================================
-
               Expanded(
-                child: Column(
+                child:
+                    Column(
                   crossAxisAlignment:
                       CrossAxisAlignment.start,
+
                   children: [
                     Text(
                       loc.providerLoading,
+
                       style:
                           const TextStyle(
                         color:
                             Color(
                           0xFF16324F,
                         ),
+
                         fontSize: 30,
+
                         fontWeight:
                             FontWeight.w900,
+
                         height: 1.15,
                       ),
                     ),
@@ -1881,15 +2029,19 @@ class _PELECTRICBILL3PAGEState
 
                     Text(
                       loc.providerLoadingSubtitle,
+
                       style:
                           const TextStyle(
                         color:
                             Color(
                           0xFF6A7B90,
                         ),
+
                         fontSize: 20,
+
                         fontWeight:
                             FontWeight.w600,
+
                         height: 1.35,
                       ),
                     ),
@@ -1903,10 +2055,6 @@ class _PELECTRICBILL3PAGEState
         const SizedBox(
           height: 28,
         ),
-
-        // ====================================================================
-        // SKELETON PROVIDER CARDS
-        // ====================================================================
 
         Row(
           children: [
@@ -1930,34 +2078,40 @@ class _PELECTRICBILL3PAGEState
   }
 
   // ==========================================================================
-  // LOADING SKELETON CARD
+  // LOADING CARD
   // ==========================================================================
 
   Widget _buildLoadingProviderCard() {
     return Container(
-      height: 330,
+      height: 510,
+
       padding:
           const EdgeInsets.all(
         27,
       ),
+
       decoration:
           BoxDecoration(
         color:
             Colors.white.withOpacity(
           0.94,
         ),
+
         borderRadius:
             BorderRadius.circular(
           34,
         ),
+
         border:
             Border.all(
           color:
               const Color(
             0xFFDCE5EF,
           ),
+
           width: 2,
         ),
+
         boxShadow: [
           BoxShadow(
             color:
@@ -1966,7 +2120,9 @@ class _PELECTRICBILL3PAGEState
             ).withOpacity(
               0.07,
             ),
+
             blurRadius: 18,
+
             offset:
                 const Offset(
               0,
@@ -1975,23 +2131,27 @@ class _PELECTRICBILL3PAGEState
           ),
         ],
       ),
-      child: Column(
+
+      child:
+          Column(
         crossAxisAlignment:
             CrossAxisAlignment.start,
-        children: [
-          // ==================================================================
-          // FAKE LOGO AREA
-          // ==================================================================
 
+        children: [
           Container(
-            width: 150,
-            height: 115,
+            width:
+                double.infinity,
+
+            height:
+                210,
+
             decoration:
                 BoxDecoration(
               color:
                   const Color(
                 0xFFE9EFF6,
               ),
+
               borderRadius:
                   BorderRadius.circular(
                 24,
@@ -1999,22 +2159,24 @@ class _PELECTRICBILL3PAGEState
             ),
           ),
 
-          const Spacer(),
-
-          // ==================================================================
-          // FAKE NAME
-          // ==================================================================
+          const SizedBox(
+            height: 28,
+          ),
 
           Container(
             width:
                 double.infinity,
-            height: 25,
+
+            height:
+                28,
+
             decoration:
                 BoxDecoration(
               color:
                   const Color(
                 0xFFE1E8F0,
               ),
+
               borderRadius:
                   BorderRadius.circular(
                 20,
@@ -2023,18 +2185,21 @@ class _PELECTRICBILL3PAGEState
           ),
 
           const SizedBox(
-            height: 13,
+            height: 15,
           ),
 
           Container(
             width: 170,
-            height: 20,
+
+            height: 22,
+
             decoration:
                 BoxDecoration(
               color:
                   const Color(
                 0xFFEDF2F7,
               ),
+
               borderRadius:
                   BorderRadius.circular(
                 20,
@@ -2042,23 +2207,19 @@ class _PELECTRICBILL3PAGEState
             ),
           ),
 
-          const SizedBox(
-            height: 22,
-          ),
-
-          // ==================================================================
-          // FAKE NETWORK STATUS
-          // ==================================================================
+          const Spacer(),
 
           Container(
-            width: 185,
-            height: 48,
+            width: 210,
+            height: 54,
+
             decoration:
                 BoxDecoration(
               color:
                   const Color(
                 0xFFE8EEF5,
               ),
+
               borderRadius:
                   BorderRadius.circular(
                 30,
@@ -2071,7 +2232,7 @@ class _PELECTRICBILL3PAGEState
   }
 
   // ==========================================================================
-  // BUILD DYNAMIC ELECTRIC CARD
+  // BUILD ELECTRIC CARD
   // ==========================================================================
 
   Widget _buildElectricCard({
@@ -2091,7 +2252,7 @@ class _PELECTRICBILL3PAGEState
               _lightAccentColors.length
         ];
 
-    return _ElectricProviderCard(
+    return ModernProviderCard(
       imageUrl:
           product.imageUrl,
 
@@ -2107,7 +2268,7 @@ class _PELECTRICBILL3PAGEState
       networkStatus:
           _billerStatuses[
                   product.code] ??
-              BillerStatus.loading,
+              ProviderNetworkStatus.loading,
 
       networkLabel:
           loc.networkLabel,
@@ -2117,6 +2278,9 @@ class _PELECTRICBILL3PAGEState
 
       processingLabel:
           loc.processingTimeLabel,
+
+      fallbackIcon:
+          Icons.electric_bolt_rounded,
 
       onPressed: () {
         _handleBillerTap(
@@ -2128,10 +2292,11 @@ class _PELECTRICBILL3PAGEState
 }
 
 // ============================================================================
-// MODERN + GOVERNMENT ELECTRICITY HEADER
-// KEEPS BADGE + TITLE + SUBTITLE
+// ELECTRIC HEADER
 // ============================================================================
-class _ModernPageHeader extends StatelessWidget {
+
+class _ModernPageHeader
+    extends StatelessWidget {
   final String title;
   final String subtitle;
 
@@ -2141,144 +2306,264 @@ class _ModernPageHeader extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    const Color accentColor = Color(0xFFE0A100);
+  Widget build(
+    BuildContext context,
+  ) {
+    const Color accentColor =
+        Color(
+      0xFFE0A100,
+    );
 
-    final loc = AppLocalizations.of(context)!;
+    final loc =
+        AppLocalizations.of(context)!;
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(
+      padding:
+          const EdgeInsets.fromLTRB(
         30,
         24,
         30,
         24,
       ),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.96),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(
-          color: const Color(0xFFD5E4F7),
+
+      decoration:
+          BoxDecoration(
+        color:
+            Colors.white.withOpacity(
+          0.96,
+        ),
+
+        borderRadius:
+            BorderRadius.circular(
+          32,
+        ),
+
+        border:
+            Border.all(
+          color:
+              const Color(
+            0xFFD5E4F7,
+          ),
+
           width: 2,
         ),
+
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF173A66).withOpacity(0.14),
+            color:
+                const Color(
+              0xFF173A66,
+            ).withOpacity(
+              0.14,
+            ),
+
             blurRadius: 30,
-            offset: const Offset(0, 12),
+
+            offset:
+                const Offset(
+              0,
+              12,
+            ),
           ),
         ],
       ),
-      child: Row(
+
+      child:
+          Row(
         children: [
-          // ==========================================================
-          // LEFT ELECTRICITY ICON
-          // ==========================================================
           Container(
             width: 105,
             height: 105,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+
+            decoration:
+                BoxDecoration(
+              gradient:
+                  const LinearGradient(
+                begin:
+                    Alignment.topLeft,
+
+                end:
+                    Alignment.bottomRight,
+
                 colors: [
-                  Color(0xFFD18C00),
-                  Color(0xFFF2B928),
+                  Color(
+                    0xFFD18C00,
+                  ),
+                  Color(
+                    0xFFF2B928,
+                  ),
                 ],
               ),
-              borderRadius: BorderRadius.circular(30),
+
+              borderRadius:
+                  BorderRadius.circular(
+                30,
+              ),
+
               boxShadow: [
                 BoxShadow(
-                  color: accentColor.withOpacity(0.28),
+                  color:
+                      accentColor.withOpacity(
+                    0.28,
+                  ),
+
                   blurRadius: 20,
-                  offset: const Offset(0, 8),
+
+                  offset:
+                      const Offset(
+                    0,
+                    8,
+                  ),
                 ),
               ],
             ),
-            child: const Icon(
+
+            child:
+                const Icon(
               Icons.electric_bolt_rounded,
-              color: Colors.white,
+
+              color:
+                  Colors.white,
+
               size: 58,
             ),
           ),
 
-          const SizedBox(width: 28),
+          const SizedBox(
+            width: 28,
+          ),
 
-          // ==========================================================
-          // TEXT AREA
-          // ==========================================================
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child:
+                Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
               children: [
-                // ------------------------------------------------------
-                // EXISTING BADGE
-                // ------------------------------------------------------
                 Container(
-                  padding: const EdgeInsets.symmetric(
+                  padding:
+                      const EdgeInsets.symmetric(
                     horizontal: 18,
                     vertical: 7,
                   ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFF4D0),
-                    borderRadius: BorderRadius.circular(100),
+
+                  decoration:
+                      BoxDecoration(
+                    color:
+                        const Color(
+                      0xFFFFF4D0,
+                    ),
+
+                    borderRadius:
+                        BorderRadius.circular(
+                      100,
+                    ),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
+
+                  child:
+                      Row(
+                    mainAxisSize:
+                        MainAxisSize.min,
+
                     children: [
                       const Icon(
                         Icons.electric_bolt_rounded,
+
                         size: 20,
-                        color: accentColor,
+
+                        color:
+                            accentColor,
                       ),
 
-                      const SizedBox(width: 8),
+                      const SizedBox(
+                        width: 8,
+                      ),
 
-                      Text(
-                        loc.electricitybutton.toUpperCase(),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: accentColor,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 1.1,
+                      Flexible(
+                        child:
+                            Text(
+                          loc.electricitybutton
+                              .toUpperCase(),
+
+                          maxLines: 1,
+
+                          overflow:
+                              TextOverflow.ellipsis,
+
+                          style:
+                              const TextStyle(
+                            color:
+                                accentColor,
+
+                            fontSize: 17,
+
+                            fontWeight:
+                                FontWeight.w900,
+
+                            letterSpacing:
+                                1.1,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
 
-                const SizedBox(height: 12),
+                const SizedBox(
+                  height: 12,
+                ),
 
-                // ------------------------------------------------------
-                // EXISTING TITLE
-                // ------------------------------------------------------
                 Text(
                   title.toUpperCase(),
+
                   maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF122C4C),
+
+                  overflow:
+                      TextOverflow.ellipsis,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF122C4C,
+                    ),
+
                     fontSize: 52,
-                    fontWeight: FontWeight.w900,
+
+                    fontWeight:
+                        FontWeight.w900,
+
                     height: 1.02,
-                    letterSpacing: -0.8,
+
+                    letterSpacing:
+                        -0.8,
                   ),
                 ),
 
-                const SizedBox(height: 9),
+                const SizedBox(
+                  height: 9,
+                ),
 
-                // ------------------------------------------------------
-                // EXISTING SUBTITLE
-                // ------------------------------------------------------
                 Text(
                   subtitle.toUpperCase(),
+
                   maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF607188),
+
+                  overflow:
+                      TextOverflow.ellipsis,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF607188,
+                    ),
+
                     fontSize: 22,
-                    fontWeight: FontWeight.w600,
+
+                    fontWeight:
+                        FontWeight.w600,
+
                     height: 1.25,
                   ),
                 ),
@@ -2286,22 +2571,36 @@ class _ModernPageHeader extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(width: 24),
+          const SizedBox(
+            width: 24,
+          ),
 
-          // ==========================================================
-          // RIGHT ACCENT BAR
-          // ==========================================================
           Container(
             width: 8,
             height: 105,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+
+            decoration:
+                BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
+
+              gradient:
+                  const LinearGradient(
+                begin:
+                    Alignment.topCenter,
+
+                end:
+                    Alignment.bottomCenter,
+
                 colors: [
-                  Color(0xFFD18C00),
-                  Color(0xFFF2B928),
+                  Color(
+                    0xFFD18C00,
+                  ),
+                  Color(
+                    0xFFF2B928,
+                  ),
                 ],
               ),
             ),
@@ -2313,56 +2612,42 @@ class _ModernPageHeader extends StatelessWidget {
 }
 
 // ============================================================================
-// ELECTRIC PROVIDER CARD
+// SCROLL CONTROL MODE
 // ============================================================================
 
-class _ElectricProviderCard
-    extends StatefulWidget {
-  final String imageUrl;
-  final String label;
-
-  final VoidCallback onPressed;
-
-  final Color accentColor;
-  final Color lightAccentColor;
-
-  final BillerStatus networkStatus;
-  final String networkLabel;
-
-  final String processingTime;
-  final String processingLabel;
-
-  const _ElectricProviderCard({
-    super.key,
-    required this.imageUrl,
-    required this.label,
-    required this.onPressed,
-    required this.accentColor,
-    required this.lightAccentColor,
-    required this.networkStatus,
-    required this.networkLabel,
-    required this.processingTime,
-    required this.processingLabel,
-  });
-
-  @override
-  State<_ElectricProviderCard> createState() =>
-      _ElectricProviderCardState();
+enum _ScrollControlMode {
+  up,
+  more,
+  top,
 }
 
 // ============================================================================
-// ELECTRIC PROVIDER CARD STATE
+// SCROLL DISCOVERY CONTROL
 // ============================================================================
 
-class _ElectricProviderCardState
-    extends State<_ElectricProviderCard> {
-  bool _isPressed = false;
+class _ScrollDiscoveryControl
+    extends StatefulWidget {
+  final _ScrollControlMode mode;
+  final String label;
+  final VoidCallback onPressed;
 
-  // ==========================================================================
-  // PRESS STATE
-  // ==========================================================================
+  const _ScrollDiscoveryControl({
+    super.key,
+    required this.mode,
+    required this.label,
+    required this.onPressed,
+  });
 
-  void _changePressedState(
+  @override
+  State<_ScrollDiscoveryControl> createState() =>
+      _ScrollDiscoveryControlState();
+}
+
+class _ScrollDiscoveryControlState
+    extends State<_ScrollDiscoveryControl> {
+  bool _pressed = false;
+
+  void _setPressed(
     bool value,
   ) {
     if (!mounted) {
@@ -2370,545 +2655,217 @@ class _ElectricProviderCardState
     }
 
     setState(() {
-      _isPressed = value;
+      _pressed = value;
     });
   }
-
-  // ==========================================================================
-  // PROCESSING TIME LOCALIZATION
-  // ==========================================================================
-
-  String _formatProcessingTime(
-    BuildContext context,
-    String value,
-  ) {
-    final loc =
-        AppLocalizations.of(context)!;
-
-    switch (
-        value.toLowerCase().trim()) {
-      case 'instant':
-        return loc.processingInstant;
-
-      case '24_hours':
-        return loc.processing24Hours;
-
-      case '3_days':
-        return loc.processing3Days;
-
-      case 'pin':
-        return 'PIN';
-
-      default:
-        return value.replaceAll(
-          '_',
-          ' ',
-        );
-    }
-  }
-
-  // ==========================================================================
-  // BUILD
-  // ==========================================================================
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    final bool isEnabled =
-        widget.networkStatus !=
-            BillerStatus.unavailable;
+    final bool isUp =
+        widget.mode ==
+                _ScrollControlMode.up ||
+            widget.mode ==
+                _ScrollControlMode.top;
 
-    return GestureDetector(
-      behavior:
-          HitTestBehavior.opaque,
+    final IconData arrow =
+        isUp
+            ? Icons.keyboard_arrow_up_rounded
+            : Icons.keyboard_arrow_down_rounded;
 
-      onTapDown:
-          isEnabled
-              ? (_) {
-                  _changePressedState(
-                    true,
-                  );
-                }
-              : null,
+    return AnimatedScale(
+      scale:
+          _pressed
+              ? 0.96
+              : 1.0,
 
-      onTapUp:
-          isEnabled
-              ? (_) {
-                  _changePressedState(
-                    false,
-                  );
-                }
-              : null,
+      duration:
+          const Duration(
+        milliseconds: 120,
+      ),
 
-      onTapCancel:
-          isEnabled
-              ? () {
-                  _changePressedState(
-                    false,
-                  );
-                }
-              : null,
-
-      onTap:
-          isEnabled
-              ? widget.onPressed
-              : null,
+      curve:
+          Curves.easeOutCubic,
 
       child:
-          AnimatedScale(
-        scale:
-            _isPressed
-                ? 0.965
-                : 1,
-
-        duration:
-            const Duration(
-          milliseconds: 130,
-        ),
-
-        curve:
-            Curves.easeOut,
+          Material(
+        color:
+            Colors.transparent,
 
         child:
-            AnimatedContainer(
-          duration:
-              const Duration(
-            milliseconds: 170,
+            InkWell(
+          onTap:
+              widget.onPressed,
+
+          onHighlightChanged:
+              _setPressed,
+
+          borderRadius:
+              BorderRadius.circular(
+            100,
           ),
 
-          curve:
-              Curves.easeOut,
-
-          height: 510,
-
-          decoration:
-              BoxDecoration(
-            color:
-                Colors.white.withOpacity(
-              isEnabled
-                  ? 0.96
-                  : 0.72,
-            ),
-
-            borderRadius:
-                BorderRadius.circular(
-              40,
-            ),
-
-            border:
-                Border.all(
-              color:
-                  _isPressed
-                      ? widget.accentColor
-                      : Colors.black,
-              width:
-                  _isPressed
-                      ? 4
-                      : 3,
-            ),
-
-            boxShadow:
-                _isPressed
-                    ? [
-                        BoxShadow(
-                          color:
-                              widget
-                                  .accentColor
-                                  .withOpacity(
-                            0.18,
-                          ),
-                          blurRadius:
-                              18,
-                          offset:
-                              const Offset(
-                            0,
-                            8,
-                          ),
-                        ),
-                      ]
-                    : [
-                        BoxShadow(
-                          color:
-                              const Color(
-                            0xFF19375C,
-                          ).withOpacity(
-                            0.16,
-                          ),
-                          blurRadius:
-                              30,
-                          spreadRadius:
-                              1,
-                          offset:
-                              const Offset(
-                            0,
-                            15,
-                          ),
-                        ),
-                      ],
+          splashColor:
+              const Color(
+            0xFF1469E8,
+          ).withOpacity(
+            0.10,
           ),
+
+          highlightColor:
+              Colors.transparent,
 
           child:
-              ClipRRect(
-            borderRadius:
-                BorderRadius.circular(
-              37,
+              AnimatedContainer(
+            duration:
+                const Duration(
+              milliseconds: 140,
             ),
-            child: Stack(
+
+            constraints:
+                const BoxConstraints(
+              minHeight: 88,
+            ),
+
+            padding:
+                const EdgeInsets.fromLTRB(
+              30,
+              13,
+              22,
+              13,
+            ),
+
+            decoration:
+                BoxDecoration(
+              color:
+                  Colors.white.withOpacity(
+                0.98,
+              ),
+
+              borderRadius:
+                  BorderRadius.circular(
+                100,
+              ),
+
+              border:
+                  Border.all(
+                color:
+                    _pressed
+                        ? const Color(
+                            0xFF1469E8,
+                          )
+                        : const Color(
+                            0xFFC4D8EE,
+                          ),
+
+                width:
+                    _pressed
+                        ? 2.5
+                        : 1.7,
+              ),
+
+              boxShadow: [
+                BoxShadow(
+                  color:
+                      const Color(
+                    0xFF173B66,
+                  ).withOpacity(
+                    _pressed
+                        ? 0.09
+                        : 0.17,
+                  ),
+
+                  blurRadius:
+                      _pressed
+                          ? 8
+                          : 20,
+
+                  offset:
+                      Offset(
+                    0,
+                    _pressed
+                        ? 2
+                        : 7,
+                  ),
+                ),
+              ],
+            ),
+
+            child:
+                Row(
+              mainAxisSize:
+                  MainAxisSize.min,
+
               children: [
-                // ============================================================
-                // DECORATIVE CIRCLE
-                // ============================================================
+                if (isUp) ...[
+                  _ScrollArrowCircle(
+                    icon:
+                        arrow,
 
-                Positioned(
-                  right: -50,
-                  top: -50,
+                    pressed:
+                        _pressed,
+                  ),
+
+                  const SizedBox(
+                    width: 14,
+                  ),
+                ],
+
+                ConstrainedBox(
+                  constraints:
+                      const BoxConstraints(
+                    minWidth: 88,
+                    maxWidth: 190,
+                  ),
+
                   child:
-                      AnimatedContainer(
-                    duration:
-                        const Duration(
-                      milliseconds: 180,
-                    ),
-                    width:
-                        _isPressed
-                            ? 225
-                            : 210,
-                    height:
-                        _isPressed
-                            ? 225
-                            : 210,
-                    decoration:
-                        BoxDecoration(
-                      shape:
-                          BoxShape.circle,
-                      color:
-                          widget
-                              .lightAccentColor
-                              .withOpacity(
-                        0.90,
+                      FittedBox(
+                    fit:
+                        BoxFit.scaleDown,
+
+                    child:
+                        Text(
+                      widget.label
+                          .toUpperCase(),
+
+                      maxLines: 1,
+
+                      textAlign:
+                          TextAlign.center,
+
+                      style:
+                          const TextStyle(
+                        color:
+                            Color(
+                          0xFF163B67,
+                        ),
+
+                        fontSize: 24,
+
+                        fontWeight:
+                            FontWeight.w900,
+
+                        letterSpacing:
+                            0.5,
                       ),
                     ),
                   ),
                 ),
 
-                Positioned(
-                  right: 95,
-                  top: 110,
-                  child: Container(
-                    width: 36,
-                    height: 36,
-                    decoration:
-                        BoxDecoration(
-                      shape:
-                          BoxShape.circle,
-                      color:
-                          widget
-                              .accentColor
-                              .withOpacity(
-                        0.08,
-                      ),
-                    ),
+                if (!isUp) ...[
+                  const SizedBox(
+                    width: 14,
                   ),
-                ),
 
-                // ============================================================
-                // CONTENT
-                // ============================================================
+                  _ScrollArrowCircle(
+                    icon:
+                        arrow,
 
-                Padding(
-                  padding:
-                      const EdgeInsets.fromLTRB(
-                    30,
-                    28,
-                    30,
-                    28,
+                    pressed:
+                        _pressed,
                   ),
-                  child:
-                      Opacity(
-                    opacity:
-                        isEnabled
-                            ? 1
-                            : 0.50,
-                    child: Column(
-                      children: [
-                        // ====================================================
-                        // LOGO + ARROW
-                        // ====================================================
-
-                        Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment
-                                  .spaceBetween,
-                          crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .start,
-                          children: [
-                            Container(
-                              width: 220,
-                              height: 180,
-                              padding:
-                                  const EdgeInsets.all(
-                                24,
-                              ),
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    Colors.white,
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  34,
-                                ),
-                                border:
-                                    Border.all(
-                                  color:
-                                      widget
-                                          .accentColor
-                                          .withOpacity(
-                                    0.20,
-                                  ),
-                                  width: 1.5,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color:
-                                        Colors.black
-                                            .withOpacity(
-                                      0.08,
-                                    ),
-                                    blurRadius: 16,
-                                    offset:
-                                        const Offset(
-                                      0,
-                                      8,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              child:
-                                  _buildLogo(),
-                            ),
-
-                            AnimatedContainer(
-                              duration:
-                                  const Duration(
-                                milliseconds: 160,
-                              ),
-                              transform:
-                                  Matrix4.translationValues(
-                                _isPressed
-                                    ? 6
-                                    : 0,
-                                0,
-                                0,
-                              ),
-                              width: 58,
-                              height: 58,
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    widget.accentColor,
-                                shape:
-                                    BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color:
-                                        widget
-                                            .accentColor
-                                            .withOpacity(
-                                      0.25,
-                                    ),
-                                    blurRadius: 14,
-                                    offset:
-                                        const Offset(
-                                      0,
-                                      7,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              child:
-                                  const Icon(
-                                Icons
-                                    .arrow_forward_rounded,
-                                color:
-                                    Colors.white,
-                                size: 32,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const Spacer(),
-
-                        // ====================================================
-                        // PROVIDER NAME
-                        // ====================================================
-
-                        Align(
-                          alignment:
-                              Alignment
-                                  .centerLeft,
-                          child: Text(
-                            widget.label
-                                .toUpperCase(),
-                            maxLines: 2,
-                            overflow:
-                                TextOverflow
-                                    .ellipsis,
-                            textAlign:
-                                TextAlign.left,
-                            style:
-                                const TextStyle(
-                              color:
-                                  Color(
-                                0xFF15253A,
-                              ),
-                              fontSize: 34,
-                              fontWeight:
-                                  FontWeight.w900,
-                              height: 1.08,
-                              letterSpacing:
-                                  0.3,
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(
-                          height: 18,
-                        ),
-
-                        // ====================================================
-                        // NETWORK STATUS
-                        // ====================================================
-
-                        Align(
-                          alignment:
-                              Alignment
-                                  .centerLeft,
-                          child:
-                              _NetworkStatusBadge(
-                            status:
-                                widget
-                                    .networkStatus,
-                            label:
-                                widget
-                                    .networkLabel,
-                          ),
-                        ),
-
-                        // ====================================================
-                        // PROCESSING TIME
-                        // ====================================================
-
-                        if (widget
-                            .processingTime
-                            .isNotEmpty) ...[
-                          const SizedBox(
-                            height: 14,
-                          ),
-
-                          Align(
-                            alignment:
-                                Alignment
-                                    .centerLeft,
-                            child: Row(
-                              mainAxisSize:
-                                  MainAxisSize.min,
-                              children: [
-                                const Icon(
-                                  Icons
-                                      .schedule_rounded,
-                                  size: 23,
-                                  color:
-                                      Color(
-                                    0xFF647187,
-                                  ),
-                                ),
-
-                                const SizedBox(
-                                  width: 8,
-                                ),
-
-                                Flexible(
-                                  child: Text(
-                                    '${widget.processingLabel}: '
-                                    '${_formatProcessingTime(
-                                      context,
-                                      widget.processingTime,
-                                    )}',
-                                    maxLines: 1,
-                                    overflow:
-                                        TextOverflow
-                                            .ellipsis,
-                                    style:
-                                        const TextStyle(
-                                      color:
-                                          Color(
-                                        0xFF647187,
-                                      ),
-                                      fontSize: 18,
-                                      fontWeight:
-                                          FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-
-                        const SizedBox(
-                          height: 18,
-                        ),
-
-                        // ====================================================
-                        // DECORATIVE LINE
-                        // ====================================================
-
-                        Row(
-                          children: [
-                            Container(
-                              width: 60,
-                              height: 7,
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    widget
-                                        .accentColor,
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  50,
-                                ),
-                              ),
-                            ),
-
-                            const SizedBox(
-                              width: 8,
-                            ),
-
-                            Container(
-                              width: 13,
-                              height: 7,
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    widget
-                                        .accentColor
-                                        .withOpacity(
-                                  0.28,
-                                ),
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  50,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                ],
               ],
             ),
           ),
@@ -2916,391 +2873,96 @@ class _ElectricProviderCardState
       ),
     );
   }
-
-  // ==========================================================================
-  // LOGO FROM API
-  // ==========================================================================
-
-  Widget _buildLogo() {
-    if (widget.imageUrl.isEmpty) {
-      return Icon(
-        Icons
-            .electric_bolt_rounded,
-        size: 90,
-        color:
-            widget.accentColor,
-      );
-    }
-
-    return Image.network(
-      widget.imageUrl,
-      fit:
-          BoxFit.contain,
-      loadingBuilder:
-          (
-        context,
-        child,
-        loadingProgress,
-      ) {
-        if (loadingProgress == null) {
-          return child;
-        }
-
-        return Center(
-          child:
-              CircularProgressIndicator(
-            strokeWidth: 3,
-            color:
-                widget.accentColor,
-          ),
-        );
-      },
-      errorBuilder:
-          (
-        context,
-        error,
-        stackTrace,
-      ) {
-        debugPrint(
-          'Failed to load electric logo: '
-          '${widget.imageUrl}',
-        );
-
-        return Icon(
-          Icons
-              .electric_bolt_rounded,
-          size: 90,
-          color:
-              widget.accentColor,
-        );
-      },
-    );
-  }
 }
 
 // ============================================================================
-// NETWORK STATUS BADGE
+// SCROLL ARROW CIRCLE
 // ============================================================================
 
-class _NetworkStatusBadge
+class _ScrollArrowCircle
     extends StatelessWidget {
-  final BillerStatus status;
-  final String label;
+  final IconData icon;
+  final bool pressed;
 
-  const _NetworkStatusBadge({
-    required this.status,
-    required this.label,
+  const _ScrollArrowCircle({
+    required this.icon,
+    required this.pressed,
   });
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    final loc =
-        AppLocalizations.of(context)!;
-
-    late final String statusText;
-
-    late final Color backgroundColor;
-    late final Color borderColor;
-    late final Color foregroundColor;
-
-    late final IconData icon;
-
-    switch (status) {
-      // ======================================================================
-      // LOADING
-      // ======================================================================
-
-      case BillerStatus.loading:
-        statusText =
-            loc.networkStatusChecking;
-
-        backgroundColor =
-            const Color(
-          0xFFF0F4F8,
-        );
-
-        borderColor =
-            const Color(
-          0xFFC7D2DE,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF536272,
-        );
-
-        icon =
-            Icons.sync_rounded;
-
-        break;
-
-      // ======================================================================
-      // HEALTHY
-      // ======================================================================
-
-      case BillerStatus.healthy:
-        statusText =
-            loc.networkStatusGood;
-
-        backgroundColor =
-            const Color(
-          0xFFE2F8EC,
-        );
-
-        borderColor =
-            const Color(
-          0xFF78C99B,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF08783E,
-        );
-
-        icon =
-            Icons
-                .check_circle_rounded;
-
-        break;
-
-      // ======================================================================
-      // INTERRUPTION
-      // ======================================================================
-
-      case BillerStatus.interruption:
-        statusText =
-            loc.networkStatusSlow;
-
-        backgroundColor =
-            const Color(
-          0xFFFFF0D7,
-        );
-
-        borderColor =
-            const Color(
-          0xFFF1B95D,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFFB75B00,
-        );
-
-        icon =
-            Icons
-                .warning_amber_rounded;
-
-        break;
-
-      // ======================================================================
-      // UNAVAILABLE
-      // ======================================================================
-
-      case BillerStatus.unavailable:
-        statusText =
-            loc.networkStatusUnknown;
-
-        backgroundColor =
-            const Color(
-          0xFFF1F1F1,
-        );
-
-        borderColor =
-            const Color(
-          0xFFC8C8C8,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF555555,
-        );
-
-        icon =
-            Icons
-                .help_outline_rounded;
-
-        break;
-    }
-
-    return Container(
-      constraints:
-          const BoxConstraints(
-        minHeight: 54,
+    return AnimatedContainer(
+      duration:
+          const Duration(
+        milliseconds: 140,
       ),
-      padding:
-          const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 12,
-      ),
+
+      width: 66,
+      height: 66,
+
       decoration:
           BoxDecoration(
-        color:
-            backgroundColor,
-        borderRadius:
-            BorderRadius.circular(
-          30,
+        gradient:
+            LinearGradient(
+          begin:
+              Alignment.topLeft,
+
+          end:
+              Alignment.bottomRight,
+
+          colors:
+              pressed
+                  ? const [
+                      Color(
+                        0xFF0B4FAE,
+                      ),
+                      Color(
+                        0xFF0A73E8,
+                      ),
+                    ]
+                  : const [
+                      Color(
+                        0xFF1469E8,
+                      ),
+                      Color(
+                        0xFF0A82F5,
+                      ),
+                    ],
         ),
-        border:
-            Border.all(
-          color:
-              borderColor,
-          width: 1.7,
-        ),
-      ),
-      child: Row(
-        mainAxisSize:
-            MainAxisSize.min,
-        children: [
-          if (status ==
-              BillerStatus.loading)
-            SizedBox(
-              width: 24,
-              height: 24,
-              child:
-                  CircularProgressIndicator(
-                strokeWidth: 3,
-                color:
-                    foregroundColor,
-              ),
-            )
-          else
-            Icon(
-              icon,
-              size: 26,
-              color:
-                  foregroundColor,
+
+        shape:
+            BoxShape.circle,
+
+        boxShadow: [
+          BoxShadow(
+            color:
+                const Color(
+              0xFF1469E8,
+            ).withOpacity(
+              0.30,
             ),
 
-          const SizedBox(
-            width: 9,
-          ),
+            blurRadius: 12,
 
-          Flexible(
-            child: Text(
-              '$label: $statusText',
-              maxLines: 1,
-              overflow:
-                  TextOverflow.ellipsis,
-              style:
-                  TextStyle(
-                color:
-                    foregroundColor,
-                fontSize: 17,
-                fontWeight:
-                    FontWeight.w900,
-                letterSpacing:
-                    0.5,
-              ),
+            offset:
+                const Offset(
+              0,
+              4,
             ),
           ),
         ],
       ),
-    );
-  }
-}
 
-// ============================================================================
-// SCROLL INDICATOR BUTTON
-// ============================================================================
+      child:
+          Icon(
+        icon,
 
-class _ScrollIndicatorButton
-    extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onPressed;
-  final bool iconBelowText;
-
-  const _ScrollIndicatorButton({
-    required this.icon,
-    required this.label,
-    required this.onPressed,
-    this.iconBelowText = false,
-  });
-
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    final Widget iconWidget =
-        Icon(
-      icon,
-      size: 52,
-      color:
-          const Color(
-        0xFF1469E8,
-      ),
-    );
-
-    final Widget textWidget =
-        Text(
-      label,
-      textAlign:
-          TextAlign.center,
-      style:
-          const TextStyle(
         color:
-            Color(
-          0xFF15253A,
-        ),
-        fontSize: 17,
-        fontWeight:
-            FontWeight.w900,
-      ),
-    );
+            Colors.white,
 
-    return Material(
-      color:
-          Colors.white.withOpacity(
-        0.96,
-      ),
-      borderRadius:
-          BorderRadius.circular(
-        22,
-      ),
-      elevation: 5,
-      child: InkWell(
-        onTap:
-            onPressed,
-        borderRadius:
-            BorderRadius.circular(
-          22,
-        ),
-        child: Container(
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 13,
-            vertical: 10,
-          ),
-          decoration:
-              BoxDecoration(
-            borderRadius:
-                BorderRadius.circular(
-              22,
-            ),
-            border:
-                Border.all(
-              color:
-                  Colors.black,
-              width: 2,
-            ),
-          ),
-          child: Column(
-            mainAxisSize:
-                MainAxisSize.min,
-            children:
-                iconBelowText
-                    ? [
-                        textWidget,
-                        iconWidget,
-                      ]
-                    : [
-                        iconWidget,
-                        textWidget,
-                      ],
-          ),
-        ),
+        size: 48,
       ),
     );
   }

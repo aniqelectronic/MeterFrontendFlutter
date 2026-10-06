@@ -9,90 +9,60 @@ import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.da
 
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 import 'package:frontend_v1/widgets/modern_provider_card.dart';
-
-import 'package:frontend_v1/pages/bil/digitalvoucher/pdigitalvoucher4.dart';
+import 'package:frontend_v1/pages/bil/foodbeverage/pfoodbeverage4.dart';
 
 // ============================================================================
-// DIGITAL VOUCHER PRODUCT
-//
-// Products come dynamically from:
-//
-// /v2/catalog
-//
-// tree.groups
-//      ↓
-// categories
-//      ↓
-// category.id == DIGITAL_VOUCHER
-//      ↓
-// category.product_codes
-//      ↓
-// products[productCode]
-//
-// Only:
-// is_active == true
-//
-// is displayed.
-//
-// No voucher provider is hardcoded.
+// FOOD & BEVERAGE PRODUCT MODEL
 // ============================================================================
 
-class _DigitalVoucherProduct {
+class _FoodBeverageProduct {
   final String code;
   final String name;
   final String imageUrl;
   final String processingTime;
+  final bool isActive;
   final String note;
 
-  const _DigitalVoucherProduct({
+  const _FoodBeverageProduct({
     required this.code,
     required this.name,
     required this.imageUrl,
     required this.processingTime,
+    required this.isActive,
     required this.note,
   });
 }
 
 // ============================================================================
-// DIGITAL VOUCHER PAGE 3
+// FOOD & BEVERAGE PAGE 3
 // ============================================================================
 
-class PDIGITALVOUCHER3PAGE extends StatefulWidget {
-  const PDIGITALVOUCHER3PAGE({
+class PFOODBEVERAGE3PAGE extends StatefulWidget {
+  const PFOODBEVERAGE3PAGE({
     super.key,
   });
 
   @override
-  State<PDIGITALVOUCHER3PAGE> createState() =>
-      _PDIGITALVOUCHER3PAGEState();
+  State<PFOODBEVERAGE3PAGE> createState() =>
+      _PFOODBEVERAGE3PAGEState();
 }
 
-// ============================================================================
-// STATE
-// ============================================================================
-
-class _PDIGITALVOUCHER3PAGEState
-    extends State<PDIGITALVOUCHER3PAGE> {
+class _PFOODBEVERAGE3PAGEState
+    extends State<PFOODBEVERAGE3PAGE> {
   // ==========================================================================
-  // PRODUCTS
+  // CATALOG
   // ==========================================================================
 
-  final List<_DigitalVoucherProduct> _voucherProducts = [];
+  final List<_FoodBeverageProduct> _products = [];
 
   bool _catalogLoading = true;
-
   String? _catalogError;
 
   // ==========================================================================
-  // NETWORK
-  //
-  // Shared status from:
-  //
-  // modern_provider_card.dart
+  // NETWORK STATUS
   // ==========================================================================
 
-  final Map<String, ProviderNetworkStatus>
-      _voucherStatuses = {};
+  final Map<String, ProviderNetworkStatus> _statuses = {};
 
   final Map<String, String?> _lastUpdated = {};
 
@@ -104,55 +74,36 @@ class _PDIGITALVOUCHER3PAGEState
       ScrollController();
 
   bool showScrollUp = false;
-
   bool showScrollDown = false;
 
   // ==========================================================================
-  // PAGE COLORS
-  // ==========================================================================
-
-  static const Color _primaryColor =
-      Color(
-    0xFFE65175,
-  );
-
-  static const Color _darkColor =
-      Color(
-    0xFFC83261,
-  );
-
-  // ==========================================================================
-  // DECORATIVE PROVIDER COLORS
-  //
-  // UI only.
-  //
-  // Provider/product information remains fully catalog-driven.
+  // CARD COLOURS
   // ==========================================================================
 
   static const List<Color> _accentColors = [
-    Color(0xFFE65175),
-    Color(0xFF6C5CE7),
-    Color(0xFFE39B19),
-    Color(0xFF00A86B),
-    Color(0xFF22A65A),
-    Color(0xFF16A085),
-    Color(0xFFFF5722),
-    Color(0xFF546E7A),
+    Color(0xFFE87522),
+    Color(0xFFD95D39),
+    Color(0xFFCA6F1E),
+    Color(0xFFB86B25),
+    Color(0xFFDC7633),
+    Color(0xFFC05A22),
+    Color(0xFFE09F3E),
+    Color(0xFFBF6B3A),
   ];
 
   static const List<Color> _lightAccentColors = [
-    Color(0xFFFFE7EE),
-    Color(0xFFEDE9FF),
-    Color(0xFFFFF4D8),
-    Color(0xFFE4F7EF),
-    Color(0xFFE5F7EA),
-    Color(0xFFE1F6F2),
-    Color(0xFFFFE8E1),
-    Color(0xFFEDF1F3),
+    Color(0xFFFFEBD9),
+    Color(0xFFFFE8DF),
+    Color(0xFFFFEEDC),
+    Color(0xFFFFECDD),
+    Color(0xFFFFE6D6),
+    Color(0xFFFFE9E0),
+    Color(0xFFFFF1D7),
+    Color(0xFFFCEAE1),
   ];
 
   // ==========================================================================
-  // INIT
+  // LIFE CYCLE
   // ==========================================================================
 
   @override
@@ -165,14 +116,10 @@ class _PDIGITALVOUCHER3PAGEState
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        _loadDigitalVoucherCatalog();
+        _loadFoodBeverageCatalog();
       },
     );
   }
-
-  // ==========================================================================
-  // DISPOSE
-  // ==========================================================================
 
   @override
   void dispose() {
@@ -186,31 +133,16 @@ class _PDIGITALVOUCHER3PAGEState
   }
 
   // ==========================================================================
-  // LOAD DIGITAL VOUCHERS
-  //
-  // /v2/catalog
-  //
-  // We only identify the category:
-  //
-  // DIGITAL_VOUCHER
-  //
-  // Product codes themselves come dynamically from:
-  //
-  // category.product_codes
-  //
-  // If IIMMPACT adds/removes products later,
-  // this page follows automatically.
+  // LOAD FOOD & BEVERAGE CATALOG
   // ==========================================================================
 
-  Future<void> _loadDigitalVoucherCatalog() async {
+  Future<void> _loadFoodBeverageCatalog() async {
     if (mounted) {
       setState(() {
         _catalogLoading = true;
-
         _catalogError = null;
 
         showScrollUp = false;
-
         showScrollDown = false;
       });
     }
@@ -255,10 +187,10 @@ class _PDIGITALVOUCHER3PAGEState
       }
 
       // ======================================================================
-      // FIND DIGITAL_VOUCHER CATEGORY
+      // FIND FOOD_BEVERAGE CATEGORY
       // ======================================================================
 
-      final List<String> voucherCodes = [];
+      final List<String> foodCodes = [];
 
       for (final dynamic groupRaw in groupsRaw) {
         if (groupRaw is! Map) {
@@ -295,12 +227,7 @@ class _PDIGITALVOUCHER3PAGEState
                       .toUpperCase() ??
                   '';
 
-          // ==================================================================
-          // DIGITAL VOUCHER ONLY
-          // ==================================================================
-
-          if (categoryId !=
-              'DIGITAL_VOUCHER') {
+          if (categoryId != 'FOOD_BEVERAGE') {
             continue;
           }
 
@@ -324,15 +251,19 @@ class _PDIGITALVOUCHER3PAGEState
               continue;
             }
 
-            if (!voucherCodes.contains(
-              code,
-            )) {
-              voucherCodes.add(
+            if (!foodCodes.contains(code)) {
+              foodCodes.add(
                 code,
               );
             }
           }
         }
+      }
+
+      if (foodCodes.isEmpty) {
+        debugPrint(
+          'FOOD_BEVERAGE category found no product codes.',
+        );
       }
 
       // ======================================================================
@@ -357,17 +288,15 @@ class _PDIGITALVOUCHER3PAGEState
       // BUILD ACTIVE PRODUCTS
       // ======================================================================
 
-      final List<_DigitalVoucherProduct>
-          loadedProducts = [];
+      final List<_FoodBeverageProduct> loadedProducts = [];
 
-      for (final String code in voucherCodes) {
+      for (final String code in foodCodes) {
         final dynamic rawProduct =
             products[code];
 
         if (rawProduct is! Map) {
           debugPrint(
-            'Digital voucher catalog product '
-            'not found: $code',
+            'Food & Beverage product not found: $code',
           );
 
           continue;
@@ -382,17 +311,19 @@ class _PDIGITALVOUCHER3PAGEState
         // ACTIVE
         // ====================================================================
 
-        if (product['is_active'] != true) {
+        final bool isActive =
+            product['is_active'] == true;
+
+        if (!isActive) {
           debugPrint(
-            'Digital voucher product inactive: '
-            '$code',
+            'Food & Beverage product inactive: $code',
           );
 
           continue;
         }
 
         // ====================================================================
-        // PRODUCT CODE
+        // CODE
         // ====================================================================
 
         final String productCode =
@@ -406,16 +337,11 @@ class _PDIGITALVOUCHER3PAGEState
         // NAME
         // ====================================================================
 
-        final String rawName =
+        final String productName =
             product['name']
                     ?.toString()
                     .trim() ??
-                '';
-
-        final String productName =
-            rawName.isNotEmpty
-                ? rawName
-                : productCode;
+                productCode;
 
         // ====================================================================
         // IMAGE
@@ -429,15 +355,6 @@ class _PDIGITALVOUCHER3PAGEState
 
         // ====================================================================
         // PROCESSING TIME
-        //
-        // Can be:
-        //
-        // pin
-        // link
-        // instant
-        // etc.
-        //
-        // Still dynamic.
         // ====================================================================
 
         final String processingTime =
@@ -457,83 +374,49 @@ class _PDIGITALVOUCHER3PAGEState
                 '';
 
         loadedProducts.add(
-          _DigitalVoucherProduct(
-            code:
-                productCode,
-
-            name:
-                productName,
-
-            imageUrl:
-                imageUrl,
-
-            processingTime:
-                processingTime,
-
-            note:
-                note,
+          _FoodBeverageProduct(
+            code: productCode,
+            name: productName,
+            imageUrl: imageUrl,
+            processingTime: processingTime,
+            isActive: isActive,
+            note: note,
           ),
         );
       }
+
+      // ======================================================================
+      // UPDATE PAGE
+      // ======================================================================
 
       if (!mounted) {
         return;
       }
 
-      // ======================================================================
-      // UPDATE UI
-      // ======================================================================
-
       setState(() {
-        _voucherProducts
+        _products
           ..clear()
           ..addAll(
             loadedProducts,
           );
 
-        _voucherStatuses.clear();
-
-        _lastUpdated.clear();
-
-        for (final _DigitalVoucherProduct product
-            in loadedProducts) {
-          _voucherStatuses[
-                  product.code] =
-              ProviderNetworkStatus.loading;
-        }
-
-        _catalogLoading = false;
-
-        _catalogError = null;
+        _catalogLoading =
+            false;
       });
 
-      // ======================================================================
-      // DEBUG
-      // ======================================================================
-
       debugPrint('');
-
       debugPrint(
-        '========================================',
+        '=============================================',
       );
-
       debugPrint(
-        'DIGITAL VOUCHER CATALOG LOADED',
+        'FOOD & BEVERAGE CATALOG LOADED',
       );
-
       debugPrint(
-        '========================================',
+        'Products: ${_products.map((e) => e.code).toList()}',
       );
-
       debugPrint(
-        'Products: '
-        '${_voucherProducts.map((e) => e.code).toList()}',
+        '=============================================',
       );
-
-      debugPrint(
-        '========================================',
-      );
-
       debugPrint('');
 
       // ======================================================================
@@ -545,6 +428,13 @@ class _PDIGITALVOUCHER3PAGEState
       if (!mounted) {
         return;
       }
+
+      // ======================================================================
+      // IMPORTANT:
+      //
+      // After cards are rendered we check if content actually overflows.
+      // This decides whether "LIHAT LAGI" must appear.
+      // ======================================================================
 
       WidgetsBinding.instance.addPostFrameCallback(
         (_) {
@@ -559,8 +449,7 @@ class _PDIGITALVOUCHER3PAGEState
 
     on IimmpactCatalogException catch (error) {
       debugPrint(
-        'Digital voucher catalog error: '
-        '${error.message}',
+        'Food & Beverage catalog error: ${error.message}',
       );
 
       if (!mounted) {
@@ -568,20 +457,19 @@ class _PDIGITALVOUCHER3PAGEState
       }
 
       setState(() {
-        _voucherProducts.clear();
+        _products.clear();
 
-        _voucherStatuses.clear();
-
-        _lastUpdated.clear();
-
-        _catalogLoading = false;
+        _catalogLoading =
+            false;
 
         _catalogError =
             error.message;
 
-        showScrollUp = false;
+        showScrollUp =
+            false;
 
-        showScrollDown = false;
+        showScrollDown =
+            false;
       });
     }
 
@@ -591,8 +479,7 @@ class _PDIGITALVOUCHER3PAGEState
 
     catch (error, stackTrace) {
       debugPrint(
-        'Unexpected digital voucher catalog error: '
-        '$error',
+        'Unexpected Food & Beverage catalog error: $error',
       );
 
       debugPrintStack(
@@ -605,20 +492,19 @@ class _PDIGITALVOUCHER3PAGEState
       }
 
       setState(() {
-        _voucherProducts.clear();
+        _products.clear();
 
-        _voucherStatuses.clear();
-
-        _lastUpdated.clear();
-
-        _catalogLoading = false;
+        _catalogLoading =
+            false;
 
         _catalogError =
             error.toString();
 
-        showScrollUp = false;
+        showScrollUp =
+            false;
 
-        showScrollDown = false;
+        showScrollDown =
+            false;
       });
     }
   }
@@ -628,14 +514,14 @@ class _PDIGITALVOUCHER3PAGEState
   // ==========================================================================
 
   Future<void> _loadNetworkStatuses() async {
-    if (_voucherProducts.isEmpty) {
+    if (_products.isEmpty) {
       return;
     }
 
     await Future.wait(
-      _voucherProducts.map(
+      _products.map(
         (
-          _DigitalVoucherProduct product,
+          _FoodBeverageProduct product,
         ) {
           return _refreshNetworkStatus(
             product.code,
@@ -649,14 +535,12 @@ class _PDIGITALVOUCHER3PAGEState
   // REFRESH NETWORK STATUS
   // ==========================================================================
 
-  Future<ProviderNetworkStatus>
-      _refreshNetworkStatus(
+  Future<ProviderNetworkStatus> _refreshNetworkStatus(
     String productCode,
   ) async {
     if (mounted) {
       setState(() {
-        _voucherStatuses[
-                productCode] =
+        _statuses[productCode] =
             ProviderNetworkStatus.loading;
       });
     }
@@ -675,12 +559,10 @@ class _PDIGITALVOUCHER3PAGEState
 
       if (mounted) {
         setState(() {
-          _voucherStatuses[
-                  productCode] =
+          _statuses[productCode] =
               status;
 
-          _lastUpdated[
-                  productCode] =
+          _lastUpdated[productCode] =
               result.lastUpdated;
         });
       }
@@ -688,14 +570,13 @@ class _PDIGITALVOUCHER3PAGEState
       return status;
     } catch (error) {
       debugPrint(
-        'Digital voucher network status error '
+        'Food & Beverage network status error '
         'for $productCode: $error',
       );
 
       if (mounted) {
         setState(() {
-          _voucherStatuses[
-                  productCode] =
+          _statuses[productCode] =
               ProviderNetworkStatus.unavailable;
         });
       }
@@ -705,58 +586,12 @@ class _PDIGITALVOUCHER3PAGEState
   }
 
   // ==========================================================================
-  // PROCESSING TIME FORMAT
+  // PRODUCT TAP
   // ==========================================================================
 
-  String _formatProcessingTime(
-    BuildContext context,
-    String value,
-  ) {
-    final loc =
-        AppLocalizations.of(context)!;
-
-    final String normalized =
-        value
-            .trim()
-            .toLowerCase();
-
-    switch (normalized) {
-      case 'instant':
-        return loc.processingInstant;
-
-      case '24_hours':
-        return loc.processing24Hours;
-
-      case '3_days':
-        return loc.processing3Days;
-
-      case 'pin':
-        return 'PIN';
-
-      case 'link':
-        return 'LINK';
-
-      default:
-        return value
-            .replaceAll(
-              '_',
-              ' ',
-            )
-            .toUpperCase();
-    }
-  }
-
-  // ==========================================================================
-  // VOUCHER TAP
-  // ==========================================================================
-
-  Future<void> _handleVoucherTap(
-    _DigitalVoucherProduct product,
+  Future<void> _handleProductTap(
+    _FoodBeverageProduct product,
   ) async {
-    // ========================================================================
-    // RECHECK NETWORK
-    // ========================================================================
-
     final ProviderNetworkStatus status =
         await _refreshNetworkStatus(
       product.code,
@@ -776,7 +611,6 @@ class _PDIGITALVOUCHER3PAGEState
           await _showInterruptionWarning(
         productName:
             product.name,
-
         productCode:
             product.code,
       );
@@ -800,43 +634,33 @@ class _PDIGITALVOUCHER3PAGEState
           AppLocalizations.of(context)!;
 
       await showDialog<void>(
-        context:
-            context,
-
+        context: context,
         builder:
             (
           BuildContext dialogContext,
         ) {
           return AlertDialog(
-            title:
-                Text(
+            title: Text(
               loc.alertTitle,
-
               style:
                   const TextStyle(
                 fontWeight:
                     FontWeight.bold,
               ),
             ),
-
-            content:
-                Text(
+            content: Text(
               loc.networkUnavailableMessage(
                 product.name,
               ),
             ),
-
             actions: [
               TextButton(
-                onPressed:
-                    () {
+                onPressed: () {
                   Navigator.pop(
                     dialogContext,
                   );
                 },
-
-                child:
-                    Text(
+                child: Text(
                   loc.electricOk,
                 ),
               ),
@@ -853,72 +677,46 @@ class _PDIGITALVOUCHER3PAGEState
     }
 
     // ========================================================================
-    // DEBUG
+    // SELECTED
     // ========================================================================
 
     debugPrint('');
-
     debugPrint(
-      '========================================',
+      '=============================================',
     );
-
     debugPrint(
-      'DIGITAL VOUCHER SELECTED',
+      'FOOD & BEVERAGE SELECTED',
     );
-
-    debugPrint(
-      '========================================',
-    );
-
     debugPrint(
       'Code: ${product.code}',
     );
-
     debugPrint(
       'Name: ${product.name}',
     );
-
     debugPrint(
       'Processing: ${product.processingTime}',
     );
-
     debugPrint(
       'Note: ${product.note}',
     );
-
     debugPrint(
-      '========================================',
+      '=============================================',
     );
-
     debugPrint('');
 
     // ========================================================================
     // PAGE 4
-    //
-    // IMPORTANT:
-    //
-    // Keep your existing dedicated Digital Voucher Page 4.
-    //
-    // Page 4 decides whether product uses:
-    //
-    // select
-    // money
-    // etc.
     // ========================================================================
 
-    await Navigator.push<DigitalVoucherSelectionResult>(
+    await Navigator.push(
       context,
-
       MaterialPageRoute(
-        builder:
-            (_) =>
-                PDIGITALVOUCHER4PAGE(
+        builder: (_) =>
+            PFOODBEVERAGE4PAGE(
           productCode:
               product.code,
-
           productName:
               product.name,
-
           imageUrl:
               product.imageUrl,
         ),
@@ -941,10 +739,8 @@ class _PDIGITALVOUCHER3PAGEState
         await showDialog<bool>(
       context:
           context,
-
       barrierDismissible:
           false,
-
       builder:
           (
         BuildContext dialogContext,
@@ -959,8 +755,7 @@ class _PDIGITALVOUCHER3PAGEState
                 80,
           ),
 
-          child:
-              Container(
+          child: Container(
             width:
                 800,
 
@@ -988,7 +783,6 @@ class _PDIGITALVOUCHER3PAGEState
                     const Color(
                   0xFFF2A520,
                 ),
-
                 width:
                     3,
               ),
@@ -999,10 +793,8 @@ class _PDIGITALVOUCHER3PAGEState
                       Colors.black.withOpacity(
                     0.25,
                   ),
-
                   blurRadius:
                       35,
-
                   offset:
                       const Offset(
                     0,
@@ -1012,20 +804,18 @@ class _PDIGITALVOUCHER3PAGEState
               ],
             ),
 
-            child:
-                Column(
+            child: Column(
               mainAxisSize:
                   MainAxisSize.min,
 
               children: [
                 // ============================================================
-                // WARNING ICON
+                // ICON
                 // ============================================================
 
                 Container(
                   width:
                       125,
-
                   height:
                       125,
 
@@ -1047,7 +837,6 @@ class _PDIGITALVOUCHER3PAGEState
                       ).withOpacity(
                         0.30,
                       ),
-
                       width:
                           2,
                     ),
@@ -1056,12 +845,10 @@ class _PDIGITALVOUCHER3PAGEState
                   child:
                       const Icon(
                     Icons.warning_amber_rounded,
-
                     color:
                         Color(
                       0xFFD87900,
                     ),
-
                     size:
                         78,
                   ),
@@ -1117,7 +904,6 @@ class _PDIGITALVOUCHER3PAGEState
                       const EdgeInsets.symmetric(
                     horizontal:
                         28,
-
                     vertical:
                         25,
                   ),
@@ -1140,14 +926,12 @@ class _PDIGITALVOUCHER3PAGEState
                           const Color(
                         0xFFF4D69D,
                       ),
-
                       width:
                           1.5,
                     ),
                   ),
 
-                  child:
-                      Text(
+                  child: Text(
                     loc.networkInterruptionMessage(
                       productName,
                     ),
@@ -1193,10 +977,8 @@ class _PDIGITALVOUCHER3PAGEState
                     children: [
                       const Icon(
                         Icons.schedule_rounded,
-
                         size:
                             24,
-
                         color:
                             Color(
                           0xFF758399,
@@ -1209,8 +991,7 @@ class _PDIGITALVOUCHER3PAGEState
                       ),
 
                       Flexible(
-                        child:
-                            Text(
+                        child: Text(
                           '${loc.networkLastUpdated}: '
                           '${_lastUpdated[productCode]}',
 
@@ -1242,7 +1023,7 @@ class _PDIGITALVOUCHER3PAGEState
                 ),
 
                 // ============================================================
-                // ACTIONS
+                // BUTTONS
                 // ============================================================
 
                 Row(
@@ -1252,15 +1033,13 @@ class _PDIGITALVOUCHER3PAGEState
                     // ========================================================
 
                     Expanded(
-                      child:
-                          SizedBox(
+                      child: SizedBox(
                         height:
                             78,
 
                         child:
                             OutlinedButton.icon(
-                          onPressed:
-                              () {
+                          onPressed: () {
                             Navigator.pop(
                               dialogContext,
                               false,
@@ -1270,13 +1049,11 @@ class _PDIGITALVOUCHER3PAGEState
                           icon:
                               const Icon(
                             Icons.arrow_back_rounded,
-
                             size:
                                 29,
                           ),
 
-                          label:
-                              Text(
+                          label: Text(
                             loc.backButton,
 
                             style:
@@ -1307,7 +1084,6 @@ class _PDIGITALVOUCHER3PAGEState
                                   Color(
                                 0xFFE57373,
                               ),
-
                               width:
                                   2,
                             ),
@@ -1334,15 +1110,13 @@ class _PDIGITALVOUCHER3PAGEState
                     // ========================================================
 
                     Expanded(
-                      child:
-                          SizedBox(
+                      child: SizedBox(
                         height:
                             78,
 
                         child:
                             ElevatedButton.icon(
-                          onPressed:
-                              () {
+                          onPressed: () {
                             Navigator.pop(
                               dialogContext,
                               true,
@@ -1352,13 +1126,11 @@ class _PDIGITALVOUCHER3PAGEState
                           icon:
                               const Icon(
                             Icons.arrow_forward_rounded,
-
                             size:
                                 29,
                           ),
 
-                          label:
-                              Text(
+                          label: Text(
                             loc.continueButton,
 
                             style:
@@ -1408,7 +1180,18 @@ class _PDIGITALVOUCHER3PAGEState
   }
 
   // ==========================================================================
-  // SCROLL HANDLER
+  // NEW SCROLL SYSTEM
+  //
+  // SAME IDEA AS PBIL3:
+  //
+  // TOP:
+  // [ LIHAT LAGI ↓ ]
+  //
+  // MIDDLE:
+  // [ ↑ KE ATAS ] [ LIHAT LAGI ↓ ]
+  //
+  // BOTTOM:
+  // [ ↑ KEMBALI KE ATAS ]
   // ==========================================================================
 
   void _handleScroll() {
@@ -1453,7 +1236,7 @@ class _PDIGITALVOUCHER3PAGEState
   }
 
   // ==========================================================================
-  // SCROLL UP
+  // SCROLL UP ONE SECTION
   // ==========================================================================
 
   void _scrollUp() {
@@ -1485,7 +1268,7 @@ class _PDIGITALVOUCHER3PAGEState
   }
 
   // ==========================================================================
-  // SCROLL DOWN
+  // SCROLL DOWN ONE SECTION
   // ==========================================================================
 
   void _scrollDown() {
@@ -1517,7 +1300,7 @@ class _PDIGITALVOUCHER3PAGEState
   }
 
   // ==========================================================================
-  // SCROLL TO TOP
+  // GO DIRECTLY BACK TO TOP
   // ==========================================================================
 
   void _scrollToTop() {
@@ -1540,7 +1323,7 @@ class _PDIGITALVOUCHER3PAGEState
   }
 
   // ==========================================================================
-  // MODERN SCROLL ACTION
+  // BUILD SCROLL ACTION
   // ==========================================================================
 
   Widget _buildScrollAction(
@@ -1549,7 +1332,7 @@ class _PDIGITALVOUCHER3PAGEState
     // ========================================================================
     // TOP
     //
-    // LIHAT LAGI ↓
+    // More content exists below.
     // ========================================================================
 
     if (!showScrollUp &&
@@ -1557,7 +1340,7 @@ class _PDIGITALVOUCHER3PAGEState
       return _ScrollDiscoveryControl(
         key:
             const ValueKey(
-          'digital-voucher-top-more',
+          'food-top-more',
         ),
 
         mode:
@@ -1568,19 +1351,13 @@ class _PDIGITALVOUCHER3PAGEState
 
         onPressed:
             _scrollDown,
-
-        accentColor:
-            _primaryColor,
-
-        darkColor:
-            _darkColor,
       );
     }
 
     // ========================================================================
     // MIDDLE
     //
-    // ↑ KE ATAS + LIHAT LAGI ↓
+    // User can move up or continue down.
     // ========================================================================
 
     if (showScrollUp &&
@@ -1588,7 +1365,7 @@ class _PDIGITALVOUCHER3PAGEState
       return Row(
         key:
             const ValueKey(
-          'digital-voucher-middle-controls',
+          'food-middle-controls',
         ),
 
         mainAxisSize:
@@ -1604,12 +1381,6 @@ class _PDIGITALVOUCHER3PAGEState
 
             onPressed:
                 _scrollUp,
-
-            accentColor:
-                _primaryColor,
-
-            darkColor:
-                _darkColor,
           ),
 
           const SizedBox(
@@ -1626,12 +1397,6 @@ class _PDIGITALVOUCHER3PAGEState
 
             onPressed:
                 _scrollDown,
-
-            accentColor:
-                _primaryColor,
-
-            darkColor:
-                _darkColor,
           ),
         ],
       );
@@ -1640,7 +1405,7 @@ class _PDIGITALVOUCHER3PAGEState
     // ========================================================================
     // BOTTOM
     //
-    // ↑ KEMBALI KE ATAS
+    // Return directly to the beginning.
     // ========================================================================
 
     if (showScrollUp &&
@@ -1648,7 +1413,7 @@ class _PDIGITALVOUCHER3PAGEState
       return _ScrollDiscoveryControl(
         key:
             const ValueKey(
-          'digital-voucher-bottom-top',
+          'food-bottom-top',
         ),
 
         mode:
@@ -1659,12 +1424,6 @@ class _PDIGITALVOUCHER3PAGEState
 
         onPressed:
             _scrollToTop,
-
-        accentColor:
-            _primaryColor,
-
-        darkColor:
-            _darkColor,
       );
     }
 
@@ -1672,7 +1431,7 @@ class _PDIGITALVOUCHER3PAGEState
   }
 
   // ==========================================================================
-  // BUILD
+  // BUILD PAGE
   // ==========================================================================
 
   @override
@@ -1683,16 +1442,14 @@ class _PDIGITALVOUCHER3PAGEState
         AppLocalizations.of(context)!;
 
     return Scaffold(
-      body:
-          Stack(
+      body: Stack(
         children: [
           // ==================================================================
           // BACKGROUND
           // ==================================================================
 
           Positioned.fill(
-            child:
-                Image.asset(
+            child: Image.asset(
               'lib/images/pnew.png',
 
               fit:
@@ -1700,9 +1457,12 @@ class _PDIGITALVOUCHER3PAGEState
             ),
           ),
 
+          // ==================================================================
+          // SOFT BACKGROUND OVERLAY
+          // ==================================================================
+
           Positioned.fill(
-            child:
-                Container(
+            child: Container(
               decoration:
                   BoxDecoration(
                 gradient:
@@ -1748,15 +1508,18 @@ class _PDIGITALVOUCHER3PAGEState
             child:
                 _ModernPageHeader(
               title:
-                  loc.digitalVoucherTitle,
+                  loc.foodBeverageTitle,
 
               subtitle:
-                  loc.digitalVoucherSubtitle,
+                  loc.foodBeverageSubtitle,
             ),
           ),
 
           // ==================================================================
           // PROVIDER AREA
+          //
+          // Extra bottom area allows the modern scroll action to stay outside
+          // the card list.
           // ==================================================================
 
           Positioned(
@@ -1770,7 +1533,7 @@ class _PDIGITALVOUCHER3PAGEState
                 45,
 
             bottom:
-                305,
+                300,
 
             child:
                 _buildProviderArea(
@@ -1779,12 +1542,15 @@ class _PDIGITALVOUCHER3PAGEState
           ),
 
           // ==================================================================
-          // BOTTOM FADE
+          // CONTENT FADE
+          //
+          // Same idea as PBIL3.
+          //
+          // Only appears when there is more content below.
           // ==================================================================
 
           if (!_catalogLoading &&
-              _catalogError == null &&
-              _voucherProducts.isNotEmpty &&
+              _products.isNotEmpty &&
               showScrollDown)
             Positioned(
               left:
@@ -1794,15 +1560,14 @@ class _PDIGITALVOUCHER3PAGEState
                   35,
 
               bottom:
-                  270,
+                  255,
 
               height:
                   175,
 
               child:
                   IgnorePointer(
-                child:
-                    Container(
+                child: Container(
                   decoration:
                       BoxDecoration(
                     gradient:
@@ -1845,12 +1610,11 @@ class _PDIGITALVOUCHER3PAGEState
             ),
 
           // ==================================================================
-          // MODERN SCROLL CONTROL
+          // NEW MODERN SCROLL CONTROL
           // ==================================================================
 
           if (!_catalogLoading &&
-              _catalogError == null &&
-              _voucherProducts.isNotEmpty)
+              _products.isNotEmpty)
             Positioned(
               left:
                   0,
@@ -1859,7 +1623,7 @@ class _PDIGITALVOUCHER3PAGEState
                   0,
 
               bottom:
-                  270,
+                  255,
 
               child:
                   Center(
@@ -1920,7 +1684,7 @@ class _PDIGITALVOUCHER3PAGEState
             ),
 
           // ==================================================================
-          // BACK
+          // BACK BUTTON
           // ==================================================================
 
           Positioned(
@@ -1935,15 +1699,13 @@ class _PDIGITALVOUCHER3PAGEState
 
             child:
                 KioskBackButton(
-              onPressed:
-                  () {
+              onPressed: () {
                 Navigator.pushReplacement(
                   context,
 
                   MaterialPageRoute(
-                    builder:
-                        (_) =>
-                            const PBIL3PAGE(),
+                    builder: (_) =>
+                        const PBIL3PAGE(),
                   ),
                 );
               },
@@ -1966,8 +1728,7 @@ class _PDIGITALVOUCHER3PAGEState
 
             child:
                 Center(
-              child:
-                  Text(
+              child: Text(
                 Data.copyrightText,
 
                 textAlign:
@@ -2016,8 +1777,188 @@ class _PDIGITALVOUCHER3PAGEState
     // ========================================================================
 
     if (_catalogError != null) {
-      return _buildError(
-        loc,
+      return Center(
+        child: Container(
+          width:
+              double.infinity,
+
+          padding:
+              const EdgeInsets.all(
+            35,
+          ),
+
+          decoration:
+              BoxDecoration(
+            color:
+                Colors.white.withOpacity(
+              0.96,
+            ),
+
+            borderRadius:
+                BorderRadius.circular(
+              28,
+            ),
+
+            border:
+                Border.all(
+              color:
+                  const Color(
+                0xFFD7E2F0,
+              ),
+
+              width:
+                  2,
+            ),
+
+            boxShadow: [
+              BoxShadow(
+                color:
+                    const Color(
+                  0xFF17375E,
+                ).withOpacity(
+                  0.10,
+                ),
+
+                blurRadius:
+                    22,
+
+                offset:
+                    const Offset(
+                  0,
+                  10,
+                ),
+              ),
+            ],
+          ),
+
+          child: Column(
+            mainAxisSize:
+                MainAxisSize.min,
+
+            children: [
+              Container(
+                width:
+                    100,
+
+                height:
+                    100,
+
+                decoration:
+                    const BoxDecoration(
+                  color:
+                      Color(
+                    0xFFFFEBD9,
+                  ),
+
+                  shape:
+                      BoxShape.circle,
+                ),
+
+                child:
+                    const Icon(
+                  Icons.cloud_off_rounded,
+
+                  size:
+                      55,
+
+                  color:
+                      Color(
+                    0xFFE87522,
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height:
+                    22,
+              ),
+
+              Text(
+                loc.billUnknownError,
+
+                textAlign:
+                    TextAlign.center,
+
+                style:
+                    const TextStyle(
+                  fontSize:
+                      27,
+
+                  fontWeight:
+                      FontWeight.bold,
+
+                  color:
+                      Color(
+                    0xFF17283E,
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height:
+                    25,
+              ),
+
+              SizedBox(
+                height:
+                    70,
+
+                child:
+                    ElevatedButton.icon(
+                  onPressed:
+                      _loadFoodBeverageCatalog,
+
+                  icon:
+                      const Icon(
+                    Icons.refresh_rounded,
+
+                    size:
+                        28,
+                  ),
+
+                  label:
+                      Text(
+                    loc.retryButton,
+
+                    style:
+                        const TextStyle(
+                      fontSize:
+                          23,
+
+                      fontWeight:
+                          FontWeight.w900,
+                    ),
+                  ),
+
+                  style:
+                      ElevatedButton.styleFrom(
+                    backgroundColor:
+                        const Color(
+                      0xFFE87522,
+                    ),
+
+                    foregroundColor:
+                        Colors.white,
+
+                    padding:
+                        const EdgeInsets.symmetric(
+                      horizontal:
+                          35,
+                    ),
+
+                    shape:
+                        RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(
+                        18,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     }
 
@@ -2025,14 +1966,91 @@ class _PDIGITALVOUCHER3PAGEState
     // EMPTY
     // ========================================================================
 
-    if (_voucherProducts.isEmpty) {
-      return _buildEmptyState(
-        loc,
+    if (_products.isEmpty) {
+      return Center(
+        child: Container(
+          width:
+              double.infinity,
+
+          padding:
+              const EdgeInsets.all(
+            35,
+          ),
+
+          decoration:
+              BoxDecoration(
+            color:
+                Colors.white.withOpacity(
+              0.96,
+            ),
+
+            borderRadius:
+                BorderRadius.circular(
+              28,
+            ),
+
+            border:
+                Border.all(
+              color:
+                  const Color(
+                0xFFD7E2F0,
+              ),
+
+              width:
+                  2,
+            ),
+          ),
+
+          child: Column(
+            mainAxisSize:
+                MainAxisSize.min,
+
+            children: [
+              const Icon(
+                Icons.restaurant_rounded,
+
+                size:
+                    70,
+
+                color:
+                    Color(
+                  0xFF60758D,
+                ),
+              ),
+
+              const SizedBox(
+                height:
+                    20,
+              ),
+
+              Text(
+                loc.networkStatusUnknown,
+
+                textAlign:
+                    TextAlign.center,
+
+                style:
+                    const TextStyle(
+                  color:
+                      Color(
+                    0xFF17283E,
+                  ),
+
+                  fontSize:
+                      27,
+
+                  fontWeight:
+                      FontWeight.w800,
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     }
 
     // ========================================================================
-    // DYNAMIC GRID
+    // TWO COLUMN PROVIDER GRID
     // ========================================================================
 
     return Scrollbar(
@@ -2069,17 +2087,20 @@ class _PDIGITALVOUCHER3PAGEState
           right:
               24,
 
+          // ================================================================
+          // Slightly larger bottom padding so the last row can scroll clear
+          // above the fade/control.
+          // ================================================================
+
           bottom:
               145,
         ),
 
-        child:
-            Column(
+        child: Column(
           children: [
             for (
               int index = 0;
-              index <
-                  _voucherProducts.length;
+              index < _products.length;
               index += 2
             )
               Padding(
@@ -2087,27 +2108,25 @@ class _PDIGITALVOUCHER3PAGEState
                     EdgeInsets.only(
                   bottom:
                       index + 2 <
-                              _voucherProducts
-                                  .length
+                              _products.length
                           ? 36
                           : 0,
                 ),
 
-                child:
-                    Row(
+                child: Row(
                   crossAxisAlignment:
                       CrossAxisAlignment.start,
 
                   children: [
                     // ========================================================
-                    // LEFT
+                    // LEFT PROVIDER
                     // ========================================================
 
                     Expanded(
                       child:
-                          _buildVoucherCard(
+                          _buildProductCard(
                         product:
-                            _voucherProducts[
+                            _products[
                           index
                         ],
 
@@ -2125,24 +2144,21 @@ class _PDIGITALVOUCHER3PAGEState
                     ),
 
                     // ========================================================
-                    // RIGHT
+                    // RIGHT PROVIDER
                     // ========================================================
 
                     Expanded(
                       child:
                           index + 1 <
-                                  _voucherProducts
-                                      .length
-                              ? _buildVoucherCard(
+                                  _products.length
+                              ? _buildProductCard(
                                   product:
-                                      _voucherProducts[
-                                    index +
-                                        1
+                                      _products[
+                                    index + 1
                                   ],
 
                                   index:
-                                      index +
-                                          1,
+                                      index + 1,
 
                                   loc:
                                       loc,
@@ -2159,98 +2175,7 @@ class _PDIGITALVOUCHER3PAGEState
   }
 
   // ==========================================================================
-  // SHARED MODERN PROVIDER CARD
-  // ==========================================================================
-
-  Widget _buildVoucherCard({
-    required _DigitalVoucherProduct product,
-    required int index,
-    required AppLocalizations loc,
-  }) {
-    final Color accentColor =
-        _accentColors[
-          index %
-              _accentColors.length
-        ];
-
-    final Color lightAccentColor =
-        _lightAccentColors[
-          index %
-              _lightAccentColors.length
-        ];
-
-    return ModernProviderCard(
-      // ======================================================================
-      // IMAGE
-      // ======================================================================
-
-      imageUrl:
-          product.imageUrl,
-
-      // ======================================================================
-      // NAME
-      // ======================================================================
-
-      label:
-          product.name,
-
-      // ======================================================================
-      // COLORS
-      // ======================================================================
-
-      accentColor:
-          accentColor,
-
-      lightAccentColor:
-          lightAccentColor,
-
-      // ======================================================================
-      // NETWORK
-      // ======================================================================
-
-      networkStatus:
-          _voucherStatuses[
-                  product.code] ??
-              ProviderNetworkStatus.loading,
-
-      networkLabel:
-          loc.networkLabel,
-
-      // ======================================================================
-      // PROCESSING
-      // ======================================================================
-
-      processingTime:
-          product.processingTime,
-
-      processingLabel:
-          loc.processingTimeLabel,
-
-      processingTimeFormatter:
-          _formatProcessingTime,
-
-      // ======================================================================
-      // FALLBACK
-      // ======================================================================
-
-      fallbackIcon:
-          Icons.card_giftcard_rounded,
-
-      // ======================================================================
-      // TAP
-      // ======================================================================
-
-      onPressed:
-          () {
-        _handleVoucherTap(
-          product,
-        );
-      },
-    );
-  }
-
-  // ==========================================================================
-  // MODERN LOADING
+  // LOADING
   // ==========================================================================
 
   Widget _buildModernLoading(
@@ -2258,10 +2183,6 @@ class _PDIGITALVOUCHER3PAGEState
   ) {
     return Column(
       children: [
-        // ====================================================================
-        // MAIN LOADING PANEL
-        // ====================================================================
-
         Container(
           width:
               double.infinity,
@@ -2290,8 +2211,8 @@ class _PDIGITALVOUCHER3PAGEState
             border:
                 Border.all(
               color:
-                  _primaryColor.withOpacity(
-                0.20,
+                  const Color(
+                0xFFF2D1B5,
               ),
 
               width:
@@ -2301,7 +2222,9 @@ class _PDIGITALVOUCHER3PAGEState
             boxShadow: [
               BoxShadow(
                 color:
-                    _primaryColor.withOpacity(
+                    const Color(
+                  0xFFE87522,
+                ).withOpacity(
                   0.10,
                 ),
 
@@ -2320,10 +2243,6 @@ class _PDIGITALVOUCHER3PAGEState
           child:
               Row(
             children: [
-              // ==============================================================
-              // ICON
-              // ==============================================================
-
               Container(
                 width:
                     100,
@@ -2335,7 +2254,7 @@ class _PDIGITALVOUCHER3PAGEState
                     BoxDecoration(
                   color:
                       const Color(
-                    0xFFFFE7EE,
+                    0xFFFFEBD9,
                   ),
 
                   shape:
@@ -2345,7 +2264,7 @@ class _PDIGITALVOUCHER3PAGEState
                       Border.all(
                     color:
                         const Color(
-                      0xFFF2C8D4,
+                      0xFFF2D1B5,
                     ),
 
                     width:
@@ -2359,7 +2278,7 @@ class _PDIGITALVOUCHER3PAGEState
                       Alignment.center,
 
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width:
                           70,
 
@@ -2372,20 +2291,24 @@ class _PDIGITALVOUCHER3PAGEState
                             5,
 
                         color:
-                            _primaryColor,
+                            Color(
+                          0xFFE87522,
+                        ),
 
                         backgroundColor:
-                            _primaryColor.withOpacity(
-                          0.12,
+                            Color(
+                          0xFFFFDCC2,
                         ),
                       ),
                     ),
 
                     const Icon(
-                      Icons.card_giftcard_rounded,
+                      Icons.restaurant_rounded,
 
                       color:
-                          _primaryColor,
+                          Color(
+                        0xFFE87522,
+                      ),
 
                       size:
                           40,
@@ -2398,10 +2321,6 @@ class _PDIGITALVOUCHER3PAGEState
                 width:
                     25,
               ),
-
-              // ==============================================================
-              // TEXT
-              // ==============================================================
 
               Expanded(
                 child:
@@ -2468,10 +2387,6 @@ class _PDIGITALVOUCHER3PAGEState
               28,
         ),
 
-        // ====================================================================
-        // SKELETON CARDS
-        // ====================================================================
-
         Row(
           children: [
             Expanded(
@@ -2534,7 +2449,9 @@ class _PDIGITALVOUCHER3PAGEState
         boxShadow: [
           BoxShadow(
             color:
-                _primaryColor.withOpacity(
+                const Color(
+              0xFF1A3A5C,
+            ).withOpacity(
               0.07,
             ),
 
@@ -2556,22 +2473,18 @@ class _PDIGITALVOUCHER3PAGEState
             CrossAxisAlignment.start,
 
         children: [
-          // ==================================================================
-          // IMAGE PLACEHOLDER
-          // ==================================================================
-
           Container(
             width:
                 double.infinity,
 
             height:
-                205,
+                210,
 
             decoration:
                 BoxDecoration(
               color:
                   const Color(
-                0xFFFFE7EE,
+                0xFFE9EFF6,
               ),
 
               borderRadius:
@@ -2585,10 +2498,6 @@ class _PDIGITALVOUCHER3PAGEState
             height:
                 28,
           ),
-
-          // ==================================================================
-          // TITLE PLACEHOLDER
-          // ==================================================================
 
           Container(
             width:
@@ -2639,10 +2548,6 @@ class _PDIGITALVOUCHER3PAGEState
 
           const Spacer(),
 
-          // ==================================================================
-          // STATUS PLACEHOLDER
-          // ==================================================================
-
           Container(
             width:
                 210,
@@ -2669,340 +2574,78 @@ class _PDIGITALVOUCHER3PAGEState
   }
 
   // ==========================================================================
-  // ERROR
+  // BUILD PRODUCT CARD
+  //
+  // Actual button design comes from:
+  //
+  // lib/widgets/modern_provider_card.dart
+  //
+  // So future design changes only need to be made there.
   // ==========================================================================
 
-  Widget _buildError(
-    AppLocalizations loc,
-  ) {
-    return Center(
-      child:
-          Container(
-        width:
-            680,
+  Widget _buildProductCard({
+    required _FoodBeverageProduct product,
+    required int index,
+    required AppLocalizations loc,
+  }) {
+    final Color accentColor =
+        _accentColors[
+          index %
+              _accentColors.length
+        ];
 
-        padding:
-            const EdgeInsets.all(
-          42,
-        ),
+    final Color lightAccentColor =
+        _lightAccentColors[
+          index %
+              _lightAccentColors.length
+        ];
 
-        decoration:
-            BoxDecoration(
-          color:
-              Colors.white.withOpacity(
-            0.97,
-          ),
+    return ModernProviderCard(
+      imageUrl:
+          product.imageUrl,
 
-          borderRadius:
-              BorderRadius.circular(
-            35,
-          ),
+      label:
+          product.name,
 
-          border:
-              Border.all(
-            color:
-                const Color(
-              0xFFE57373,
-            ),
+      accentColor:
+          accentColor,
 
-            width:
-                2,
-          ),
+      lightAccentColor:
+          lightAccentColor,
 
-          boxShadow: [
-            BoxShadow(
-              color:
-                  Colors.black.withOpacity(
-                0.10,
-              ),
+      networkStatus:
+          _statuses[
+                  product.code] ??
+              ProviderNetworkStatus.loading,
 
-              blurRadius:
-                  25,
+      networkLabel:
+          loc.networkLabel,
 
-              offset:
-                  const Offset(
-                0,
-                12,
-              ),
-            ),
-          ],
-        ),
+      processingTime:
+          product.processingTime,
 
-        child:
-            Column(
-          mainAxisSize:
-              MainAxisSize.min,
+      processingLabel:
+          loc.processingTimeLabel,
 
-          children: [
-            Container(
-              width:
-                  115,
+      fallbackIcon:
+          Icons.restaurant_rounded,
 
-              height:
-                  115,
-
-              decoration:
-                  const BoxDecoration(
-                color:
-                    Color(
-                  0xFFFFE7EE,
-                ),
-
-                shape:
-                    BoxShape.circle,
-              ),
-
-              child:
-                  const Icon(
-                Icons.cloud_off_rounded,
-
-                size:
-                    65,
-
-                color:
-                    _primaryColor,
-              ),
-            ),
-
-            const SizedBox(
-              height:
-                  25,
-            ),
-
-            Text(
-              loc.billUnknownError,
-
-              textAlign:
-                  TextAlign.center,
-
-              style:
-                  const TextStyle(
-                color:
-                    Color(
-                  0xFF17283E,
-                ),
-
-                fontSize:
-                    35,
-
-                fontWeight:
-                    FontWeight.w900,
-              ),
-            ),
-
-            const SizedBox(
-              height:
-                  14,
-            ),
-
-            Text(
-              loc.providerLoadErrorSubtitle,
-
-              textAlign:
-                  TextAlign.center,
-
-              style:
-                  const TextStyle(
-                color:
-                    Color(
-                  0xFF657386,
-                ),
-
-                fontSize:
-                    24,
-
-                fontWeight:
-                    FontWeight.w600,
-
-                height:
-                    1.35,
-              ),
-            ),
-
-            const SizedBox(
-              height:
-                  30,
-            ),
-
-            SizedBox(
-              width:
-                  double.infinity,
-
-              height:
-                  80,
-
-              child:
-                  ElevatedButton.icon(
-                onPressed:
-                    _loadDigitalVoucherCatalog,
-
-                icon:
-                    const Icon(
-                  Icons.refresh_rounded,
-
-                  size:
-                      30,
-                ),
-
-                label:
-                    Text(
-                  loc.retryButton,
-
-                  style:
-                      const TextStyle(
-                    fontSize:
-                        27,
-
-                    fontWeight:
-                        FontWeight.w900,
-                  ),
-                ),
-
-                style:
-                    ElevatedButton.styleFrom(
-                  backgroundColor:
-                      _primaryColor,
-
-                  foregroundColor:
-                      Colors.white,
-
-                  elevation:
-                      0,
-
-                  shape:
-                      RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(
-                      22,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // ==========================================================================
-  // EMPTY
-  // ==========================================================================
-
-  Widget _buildEmptyState(
-    AppLocalizations loc,
-  ) {
-    return Center(
-      child:
-          Container(
-        width:
-            680,
-
-        padding:
-            const EdgeInsets.all(
-          42,
-        ),
-
-        decoration:
-            BoxDecoration(
-          color:
-              Colors.white.withOpacity(
-            0.97,
-          ),
-
-          borderRadius:
-              BorderRadius.circular(
-            35,
-          ),
-
-          border:
-              Border.all(
-            color:
-                const Color(
-              0xFFD7E2F0,
-            ),
-
-            width:
-                2,
-          ),
-        ),
-
-        child:
-            Column(
-          mainAxisSize:
-              MainAxisSize.min,
-
-          children: [
-            Container(
-              width:
-                  115,
-
-              height:
-                  115,
-
-              decoration:
-                  const BoxDecoration(
-                color:
-                    Color(
-                  0xFFFFE7EE,
-                ),
-
-                shape:
-                    BoxShape.circle,
-              ),
-
-              child:
-                  const Icon(
-                Icons.card_giftcard_rounded,
-
-                color:
-                    _primaryColor,
-
-                size:
-                    65,
-              ),
-            ),
-
-            const SizedBox(
-              height:
-                  25,
-            ),
-
-            Text(
-              loc.networkStatusUnknown,
-
-              textAlign:
-                  TextAlign.center,
-
-              style:
-                  const TextStyle(
-                color:
-                    Color(
-                  0xFF17283E,
-                ),
-
-                fontSize:
-                    30,
-
-                fontWeight:
-                    FontWeight.w900,
-              ),
-            ),
-          ],
-        ),
-      ),
+      onPressed: () {
+        _handleProductTap(
+          product,
+        );
+      },
     );
   }
 }
 
 // ============================================================================
-// DIGITAL VOUCHER HEADER
+// FOOD & BEVERAGE HEADER
 // ============================================================================
 
 class _ModernPageHeader
     extends StatelessWidget {
   final String title;
-
   final String subtitle;
 
   const _ModernPageHeader({
@@ -3019,17 +2662,17 @@ class _ModernPageHeader
 
     const Color accentColor =
         Color(
-      0xFFE65175,
+      0xFFE87522,
     );
 
     const Color darkAccent =
         Color(
-      0xFFC83261,
+      0xFFC95C12,
     );
 
     const Color lightAccent =
         Color(
-      0xFFF06288,
+      0xFFF39A52,
     );
 
     return Container(
@@ -3141,7 +2784,7 @@ class _ModernPageHeader
 
             child:
                 const Icon(
-              Icons.card_giftcard_rounded,
+              Icons.restaurant_rounded,
 
               color:
                   Colors.white,
@@ -3167,10 +2810,6 @@ class _ModernPageHeader
                   CrossAxisAlignment.start,
 
               children: [
-                // ============================================================
-                // BADGE
-                // ============================================================
-
                 Container(
                   padding:
                       const EdgeInsets.symmetric(
@@ -3185,7 +2824,7 @@ class _ModernPageHeader
                       BoxDecoration(
                     color:
                         const Color(
-                      0xFFFFE7EE,
+                      0xFFFFEBD9,
                     ),
 
                     borderRadius:
@@ -3201,7 +2840,7 @@ class _ModernPageHeader
 
                     children: [
                       const Icon(
-                        Icons.card_giftcard_rounded,
+                        Icons.restaurant_menu_rounded,
 
                         size:
                             20,
@@ -3218,7 +2857,7 @@ class _ModernPageHeader
                       Flexible(
                         child:
                             Text(
-                          loc.digitalVoucherButton
+                          loc.foodBeverageButton
                               .toUpperCase(),
 
                           maxLines:
@@ -3251,10 +2890,6 @@ class _ModernPageHeader
                   height:
                       12,
                 ),
-
-                // ============================================================
-                // TITLE
-                // ============================================================
 
                 Text(
                   title.toUpperCase(),
@@ -3290,10 +2925,6 @@ class _ModernPageHeader
                   height:
                       9,
                 ),
-
-                // ============================================================
-                // SUBTITLE
-                // ============================================================
 
                 Text(
                   subtitle.toUpperCase(),
@@ -3331,7 +2962,7 @@ class _ModernPageHeader
           ),
 
           // ==================================================================
-          // RIGHT ACCENT
+          // RIGHT ACCENT BAR
           // ==================================================================
 
           Container(
@@ -3380,35 +3011,32 @@ enum _ScrollControlMode {
 }
 
 // ============================================================================
-// MODERN SCROLL CONTROL
+// MODERN SCROLL DISCOVERY CONTROL
 //
-// Colors are passed through parameters.
+// Same interaction/design idea as PBIL3.
 //
-// This avoids:
+// TOP:
+//   LIHAT LAGI ↓
 //
-// Undefined name '_primaryColor'
-// Undefined name '_darkColor'
+// MIDDLE:
+//   ↑ KE ATAS
+//   LIHAT LAGI ↓
+//
+// BOTTOM:
+//   ↑ KEMBALI KE ATAS
 // ============================================================================
 
 class _ScrollDiscoveryControl
     extends StatefulWidget {
   final _ScrollControlMode mode;
-
   final String label;
-
   final VoidCallback onPressed;
-
-  final Color accentColor;
-
-  final Color darkColor;
 
   const _ScrollDiscoveryControl({
     super.key,
     required this.mode,
     required this.label,
     required this.onPressed,
-    required this.accentColor,
-    required this.darkColor,
   });
 
   @override
@@ -3416,13 +3044,13 @@ class _ScrollDiscoveryControl
       _ScrollDiscoveryControlState();
 }
 
-// ============================================================================
-// SCROLL CONTROL STATE
-// ============================================================================
-
 class _ScrollDiscoveryControlState
     extends State<_ScrollDiscoveryControl> {
   bool _pressed = false;
+
+  // ==========================================================================
+  // PRESS
+  // ==========================================================================
 
   void _setPressed(
     bool value,
@@ -3436,6 +3064,10 @@ class _ScrollDiscoveryControlState
           value;
     });
   }
+
+  // ==========================================================================
+  // BUILD
+  // ==========================================================================
 
   @override
   Widget build(
@@ -3486,7 +3118,9 @@ class _ScrollDiscoveryControlState
           ),
 
           splashColor:
-              widget.accentColor.withOpacity(
+              const Color(
+            0xFFE87522,
+          ).withOpacity(
             0.10,
           ),
 
@@ -3531,10 +3165,11 @@ class _ScrollDiscoveryControlState
                   Border.all(
                 color:
                     _pressed
-                        ? widget.accentColor
-                        : widget.accentColor
-                            .withOpacity(
-                            0.30,
+                        ? const Color(
+                            0xFFE87522,
+                          )
+                        : const Color(
+                            0xFFE8CBB3,
                           ),
 
                 width:
@@ -3546,7 +3181,9 @@ class _ScrollDiscoveryControlState
               boxShadow: [
                 BoxShadow(
                   color:
-                      widget.darkColor.withOpacity(
+                      const Color(
+                    0xFF173B66,
+                  ).withOpacity(
                     _pressed
                         ? 0.09
                         : 0.17,
@@ -3560,7 +3197,6 @@ class _ScrollDiscoveryControlState
                   offset:
                       Offset(
                     0,
-
                     _pressed
                         ? 2
                         : 7,
@@ -3575,6 +3211,10 @@ class _ScrollDiscoveryControlState
                   MainAxisSize.min,
 
               children: [
+                // ============================================================
+                // LEFT ARROW FOR UP/TOP
+                // ============================================================
+
                 if (isUp) ...[
                   _ScrollArrowCircle(
                     icon:
@@ -3582,12 +3222,6 @@ class _ScrollDiscoveryControlState
 
                     pressed:
                         _pressed,
-
-                    accentColor:
-                        widget.accentColor,
-
-                    darkColor:
-                        widget.darkColor,
                   ),
 
                   const SizedBox(
@@ -3595,6 +3229,10 @@ class _ScrollDiscoveryControlState
                         14,
                   ),
                 ],
+
+                // ============================================================
+                // LABEL
+                // ============================================================
 
                 ConstrainedBox(
                   constraints:
@@ -3626,7 +3264,7 @@ class _ScrollDiscoveryControlState
                           const TextStyle(
                         color:
                             Color(
-                          0xFF6D2944,
+                          0xFF163B67,
                         ),
 
                         fontSize:
@@ -3642,6 +3280,10 @@ class _ScrollDiscoveryControlState
                   ),
                 ),
 
+                // ============================================================
+                // RIGHT ARROW FOR "MORE"
+                // ============================================================
+
                 if (!isUp) ...[
                   const SizedBox(
                     width:
@@ -3654,12 +3296,6 @@ class _ScrollDiscoveryControlState
 
                     pressed:
                         _pressed,
-
-                    accentColor:
-                        widget.accentColor,
-
-                    darkColor:
-                        widget.darkColor,
                   ),
                 ],
               ],
@@ -3672,38 +3308,23 @@ class _ScrollDiscoveryControlState
 }
 
 // ============================================================================
-// SCROLL ARROW
+// SCROLL ARROW CIRCLE
 // ============================================================================
 
 class _ScrollArrowCircle
     extends StatelessWidget {
   final IconData icon;
-
   final bool pressed;
-
-  final Color accentColor;
-
-  final Color darkColor;
 
   const _ScrollArrowCircle({
     required this.icon,
     required this.pressed,
-    required this.accentColor,
-    required this.darkColor,
   });
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    final Color lightColor =
-        Color.lerp(
-              accentColor,
-              Colors.white,
-              0.18,
-            ) ??
-            accentColor;
-
     return AnimatedContainer(
       duration:
           const Duration(
@@ -3729,13 +3350,21 @@ class _ScrollArrowCircle
 
           colors:
               pressed
-                  ? [
-                      darkColor,
-                      accentColor,
+                  ? const [
+                      Color(
+                        0xFFC95C12,
+                      ),
+                      Color(
+                        0xFFE87522,
+                      ),
                     ]
-                  : [
-                      accentColor,
-                      lightColor,
+                  : const [
+                      Color(
+                        0xFFE87522,
+                      ),
+                      Color(
+                        0xFFF39A52,
+                      ),
                     ],
         ),
 
@@ -3745,7 +3374,9 @@ class _ScrollArrowCircle
         boxShadow: [
           BoxShadow(
             color:
-                accentColor.withOpacity(
+                const Color(
+              0xFFE87522,
+            ).withOpacity(
               0.30,
             ),
 

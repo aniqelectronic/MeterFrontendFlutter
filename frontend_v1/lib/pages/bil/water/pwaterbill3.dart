@@ -9,32 +9,22 @@ import 'package:frontend_v1/services/iimmpact/iimmpact_catalog_service.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_network_status_service.dart';
 
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
-
-// ============================================================================
-// BILLER STATUS
-// ============================================================================
-
-enum BillerStatus {
-  loading,
-  healthy,
-  interruption,
-  unavailable,
-}
+import 'package:frontend_v1/widgets/modern_provider_card.dart';
 
 // ============================================================================
 // WATER PRODUCT MODEL
 //
-// Data comes from /v2/catalog:
+// SOURCE:
+//
+// /v2/catalog
 //
 // tree.groups
-//      ↓
-// categories
-//      ↓
-// category.id == WATER_BILLS
-//      ↓
-// category.product_codes
-//      ↓
-// products[productCode]
+//   -> categories
+//   -> category.id == WATER_BILLS
+//   -> category.product_codes
+//   -> products[code]
+//
+// No water provider is hardcoded.
 // ============================================================================
 
 class _WaterProduct {
@@ -81,9 +71,14 @@ class _PWATERBILL3PAGEState
 
   // ==========================================================================
   // NETWORK STATUS
+  //
+  // Uses shared ProviderNetworkStatus from:
+  //
+  // modern_provider_card.dart
   // ==========================================================================
 
-  final Map<String, BillerStatus> _billerStatuses = {};
+  final Map<String, ProviderNetworkStatus>
+      _billerStatuses = {};
 
   final Map<String, String?> _lastUpdated = {};
 
@@ -101,9 +96,6 @@ class _PWATERBILL3PAGEState
   // UI COLORS
   //
   // Decorative only.
-  //
-  // These are NOT provider configuration.
-  // Colors repeat if API adds more providers.
   // ==========================================================================
 
   static const List<Color> _accentColors = [
@@ -157,6 +149,17 @@ class _PWATERBILL3PAGEState
         _loadWaterCatalog();
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(
+      _handleScroll,
+    );
+
+    _scrollController.dispose();
+
+    super.dispose();
   }
 
   // ==========================================================================
@@ -291,6 +294,12 @@ class _PWATERBILL3PAGEState
         }
       }
 
+      if (waterCodes.isEmpty) {
+        debugPrint(
+          'WATER_BILLS category found no product codes.',
+        );
+      }
+
       // ======================================================================
       // 5. PRODUCTS
       // ======================================================================
@@ -390,11 +399,20 @@ class _PWATERBILL3PAGEState
 
         loadedProducts.add(
           _WaterProduct(
-            code: productCode,
-            name: productName,
-            imageUrl: imageUrl,
-            processingTime: processingTime,
-            isActive: isActive,
+            code:
+                productCode,
+
+            name:
+                productName,
+
+            imageUrl:
+                imageUrl,
+
+            processingTime:
+                processingTime,
+
+            isActive:
+                isActive,
           ),
         );
       }
@@ -414,7 +432,8 @@ class _PWATERBILL3PAGEState
             loadedProducts,
           );
 
-        _catalogLoading = false;
+        _catalogLoading =
+            false;
       });
 
       debugPrint('');
@@ -423,9 +442,6 @@ class _PWATERBILL3PAGEState
       );
       debugPrint(
         'WATER CATALOG LOADED',
-      );
-      debugPrint(
-        '========================================',
       );
       debugPrint(
         'Products: '
@@ -437,7 +453,7 @@ class _PWATERBILL3PAGEState
       debugPrint('');
 
       // ======================================================================
-      // 7. NETWORK STATUS
+      // NETWORK
       // ======================================================================
 
       await _loadNetworkStatuses();
@@ -470,13 +486,17 @@ class _PWATERBILL3PAGEState
       setState(() {
         _waterProducts.clear();
 
-        _catalogLoading = false;
+        _catalogLoading =
+            false;
 
         _catalogError =
             error.message;
 
-        showScrollUp = false;
-        showScrollDown = false;
+        showScrollUp =
+            false;
+
+        showScrollDown =
+            false;
       });
     }
 
@@ -491,7 +511,8 @@ class _PWATERBILL3PAGEState
       );
 
       debugPrintStack(
-        stackTrace: stackTrace,
+        stackTrace:
+            stackTrace,
       );
 
       if (!mounted) {
@@ -501,19 +522,23 @@ class _PWATERBILL3PAGEState
       setState(() {
         _waterProducts.clear();
 
-        _catalogLoading = false;
+        _catalogLoading =
+            false;
 
         _catalogError =
             error.toString();
 
-        showScrollUp = false;
-        showScrollDown = false;
+        showScrollUp =
+            false;
+
+        showScrollDown =
+            false;
       });
     }
   }
 
   // ==========================================================================
-  // LOAD ALL NETWORK STATUSES
+  // LOAD NETWORK STATUS
   // ==========================================================================
 
   Future<void> _loadNetworkStatuses() async {
@@ -538,26 +563,27 @@ class _PWATERBILL3PAGEState
   // REFRESH NETWORK STATUS
   // ==========================================================================
 
-  Future<BillerStatus> _refreshNetworkStatus(
+  Future<ProviderNetworkStatus> _refreshNetworkStatus(
     String productCode,
   ) async {
     if (mounted) {
       setState(() {
         _billerStatuses[productCode] =
-            BillerStatus.loading;
+            ProviderNetworkStatus.loading;
       });
     }
 
     try {
       final result =
           await IimmpactNetworkStatusService.getStatus(
-        productCode: productCode,
+        productCode:
+            productCode,
       );
 
-      final BillerStatus status =
+      final ProviderNetworkStatus status =
           result.isHealthy
-              ? BillerStatus.healthy
-              : BillerStatus.interruption;
+              ? ProviderNetworkStatus.healthy
+              : ProviderNetworkStatus.interruption;
 
       if (mounted) {
         setState(() {
@@ -579,12 +605,115 @@ class _PWATERBILL3PAGEState
       if (mounted) {
         setState(() {
           _billerStatuses[productCode] =
-              BillerStatus.unavailable;
+              ProviderNetworkStatus.unavailable;
         });
       }
 
-      return BillerStatus.unavailable;
+      return ProviderNetworkStatus.unavailable;
     }
+  }
+
+  // ==========================================================================
+  // WATER PROCESSING TIME
+  //
+  // KEEP WATER-SPECIFIC SUPPORT:
+  //
+  // instant
+  // 24_hours
+  // 48_hours
+  // 72_hours
+  // 2_days
+  // 3_days
+  // 5_days
+  // etc.
+  // ==========================================================================
+
+  String _formatWaterProcessingTime(
+    BuildContext context,
+    String value,
+  ) {
+    final loc =
+        AppLocalizations.of(context)!;
+
+    final String normalized =
+        value
+            .toLowerCase()
+            .trim();
+
+    // ========================================================================
+    // INSTANT
+    // ========================================================================
+
+    if (normalized == 'instant') {
+      return loc.processingInstant;
+    }
+
+    // ========================================================================
+    // 24 HOURS
+    // ========================================================================
+
+    if (normalized == '24_hours') {
+      return loc.processing24Hours;
+    }
+
+    // ========================================================================
+    // 3 DAYS
+    // ========================================================================
+
+    if (normalized == '3_days') {
+      return loc.processing3Days;
+    }
+
+    // ========================================================================
+    // GENERIC HOURS
+    //
+    // 48_hours
+    // 72_hours
+    // 96_hours
+    // etc.
+    // ========================================================================
+
+    if (normalized.endsWith(
+      '_hours',
+    )) {
+      final String hours =
+          normalized.replaceAll(
+        '_hours',
+        '',
+      );
+
+      return loc.waterUpdateWithinHours(
+        hours,
+      );
+    }
+
+    // ========================================================================
+    // GENERIC DAYS
+    //
+    // 2_days
+    // 5_days
+    // 7_days
+    // etc.
+    // ========================================================================
+
+    if (normalized.endsWith(
+      '_days',
+    )) {
+      final String days =
+          normalized.replaceAll(
+        '_days',
+        '',
+      );
+
+      return loc.waterUpdateWithinDays(
+        days,
+      );
+    }
+
+    return value.replaceAll(
+      '_',
+      ' ',
+    );
   }
 
   // ==========================================================================
@@ -594,7 +723,11 @@ class _PWATERBILL3PAGEState
   Future<void> _handleBillerTap(
     _WaterProduct product,
   ) async {
-    final BillerStatus status =
+    // ========================================================================
+    // REFRESH STATUS BEFORE CONTINUE
+    // ========================================================================
+
+    final ProviderNetworkStatus status =
         await _refreshNetworkStatus(
       product.code,
     );
@@ -608,11 +741,12 @@ class _PWATERBILL3PAGEState
     // ========================================================================
 
     if (status ==
-        BillerStatus.interruption) {
+        ProviderNetworkStatus.interruption) {
       final bool shouldContinue =
           await _showInterruptionWarning(
         billerName:
             product.name,
+
         productCode:
             product.code,
       );
@@ -631,12 +765,14 @@ class _PWATERBILL3PAGEState
     // ========================================================================
 
     if (status ==
-        BillerStatus.unavailable) {
+        ProviderNetworkStatus.unavailable) {
       final loc =
           AppLocalizations.of(context)!;
 
       await showDialog<void>(
-        context: context,
+        context:
+            context,
+
         builder:
             (
           BuildContext dialogContext,
@@ -644,17 +780,20 @@ class _PWATERBILL3PAGEState
           return AlertDialog(
             title: Text(
               loc.alertTitle,
+
               style:
                   const TextStyle(
                 fontWeight:
                     FontWeight.bold,
               ),
             ),
+
             content: Text(
               loc.networkUnavailableMessage(
                 product.name,
               ),
             ),
+
             actions: [
               TextButton(
                 onPressed: () {
@@ -662,6 +801,7 @@ class _PWATERBILL3PAGEState
                     dialogContext,
                   );
                 },
+
                 child: Text(
                   loc.electricOk,
                 ),
@@ -680,6 +820,8 @@ class _PWATERBILL3PAGEState
 
     // ========================================================================
     // PAGE 4
+    //
+    // ORIGINAL WATER FLOW KEPT
     // ========================================================================
 
     final loc =
@@ -687,17 +829,22 @@ class _PWATERBILL3PAGEState
 
     await Navigator.push(
       context,
+
       MaterialPageRoute(
         builder: (_) =>
             P4BILPAGE(
           title:
               loc.waterAccountTitle,
+
           hint:
               loc.waterAccountHint,
+
           productCode:
               product.code,
+
           billerName:
               product.name,
+
           serviceType:
               BillServiceType.water,
         ),
@@ -718,8 +865,12 @@ class _PWATERBILL3PAGEState
 
     final bool? result =
         await showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
+      context:
+          context,
+
+      barrierDismissible:
+          false,
+
       builder:
           (
         BuildContext dialogContext,
@@ -727,12 +878,17 @@ class _PWATERBILL3PAGEState
         return Dialog(
           backgroundColor:
               Colors.transparent,
+
           insetPadding:
               const EdgeInsets.symmetric(
-            horizontal: 80,
+            horizontal:
+                80,
           ),
+
           child: Container(
-            width: 800,
+            width:
+                800,
+
             padding:
                 const EdgeInsets.fromLTRB(
               45,
@@ -740,28 +896,38 @@ class _PWATERBILL3PAGEState
               45,
               38,
             ),
+
             decoration:
                 BoxDecoration(
-              color: Colors.white,
+              color:
+                  Colors.white,
+
               borderRadius:
                   BorderRadius.circular(
                 38,
               ),
+
               border:
                   Border.all(
                 color:
                     const Color(
                   0xFFF2A520,
                 ),
-                width: 3,
+
+                width:
+                    3,
               ),
+
               boxShadow: [
                 BoxShadow(
                   color:
                       Colors.black.withOpacity(
                     0.25,
                   ),
-                  blurRadius: 35,
+
+                  blurRadius:
+                      35,
+
                   offset:
                       const Offset(
                     0,
@@ -770,21 +936,33 @@ class _PWATERBILL3PAGEState
                 ),
               ],
             ),
+
             child: Column(
               mainAxisSize:
                   MainAxisSize.min,
+
               children: [
+                // ============================================================
+                // WARNING ICON
+                // ============================================================
+
                 Container(
-                  width: 125,
-                  height: 125,
+                  width:
+                      125,
+
+                  height:
+                      125,
+
                   decoration:
                       BoxDecoration(
                     color:
                         const Color(
                       0xFFFFF2D9,
                     ),
+
                     shape:
                         BoxShape.circle,
+
                     border:
                         Border.all(
                       color:
@@ -793,107 +971,155 @@ class _PWATERBILL3PAGEState
                       ).withOpacity(
                         0.30,
                       ),
-                      width: 2,
+
+                      width:
+                          2,
                     ),
                   ),
+
                   child:
                       const Icon(
-                    Icons
-                        .warning_amber_rounded,
+                    Icons.warning_amber_rounded,
+
                     color:
                         Color(
                       0xFFD87900,
                     ),
-                    size: 78,
+
+                    size:
+                        78,
                   ),
                 ),
 
                 const SizedBox(
-                  height: 28,
+                  height:
+                      28,
                 ),
+
+                // ============================================================
+                // TITLE
+                // ============================================================
 
                 Text(
                   loc.networkInterruptionTitle,
+
                   textAlign:
                       TextAlign.center,
+
                   style:
                       const TextStyle(
                     color:
                         Color(
                       0xFF17283E,
                     ),
-                    fontSize: 40,
+
+                    fontSize:
+                        40,
+
                     fontWeight:
                         FontWeight.w900,
-                    height: 1.1,
+
+                    height:
+                        1.1,
                   ),
                 ),
 
                 const SizedBox(
-                  height: 24,
+                  height:
+                      24,
                 ),
+
+                // ============================================================
+                // MESSAGE
+                // ============================================================
 
                 Container(
                   width:
                       double.infinity,
+
                   padding:
                       const EdgeInsets.symmetric(
-                    horizontal: 28,
-                    vertical: 25,
+                    horizontal:
+                        28,
+
+                    vertical:
+                        25,
                   ),
+
                   decoration:
                       BoxDecoration(
                     color:
                         const Color(
                       0xFFFFF9ED,
                     ),
+
                     borderRadius:
                         BorderRadius.circular(
                       24,
                     ),
+
                     border:
                         Border.all(
                       color:
                           const Color(
                         0xFFF4D69D,
                       ),
-                      width: 1.5,
+
+                      width:
+                          1.5,
                     ),
                   ),
+
                   child: Text(
                     loc.networkInterruptionMessage(
                       billerName,
                     ),
+
                     textAlign:
                         TextAlign.center,
+
                     style:
                         const TextStyle(
                       color:
                           Color(
                         0xFF4B4234,
                       ),
-                      fontSize: 29,
-                      height: 1.4,
+
+                      fontSize:
+                          29,
+
+                      height:
+                          1.4,
+
                       fontWeight:
                           FontWeight.w600,
                     ),
                   ),
                 ),
 
+                // ============================================================
+                // LAST UPDATED
+                // ============================================================
+
                 if (_lastUpdated[
                         productCode] !=
                     null) ...[
                   const SizedBox(
-                    height: 20,
+                    height:
+                        20,
                   ),
 
                   Row(
                     mainAxisAlignment:
                         MainAxisAlignment.center,
+
                     children: [
                       const Icon(
                         Icons.schedule_rounded,
-                        size: 24,
+
+                        size:
+                            24,
+
                         color:
                             Color(
                           0xFF758399,
@@ -901,22 +1127,28 @@ class _PWATERBILL3PAGEState
                       ),
 
                       const SizedBox(
-                        width: 8,
+                        width:
+                            8,
                       ),
 
                       Flexible(
                         child: Text(
                           '${loc.networkLastUpdated}: '
                           '${_lastUpdated[productCode]}',
+
                           textAlign:
                               TextAlign.center,
+
                           style:
                               const TextStyle(
-                            fontSize: 21,
+                            fontSize:
+                                21,
+
                             color:
                                 Color(
                               0xFF758399,
                             ),
+
                             fontWeight:
                                 FontWeight.w600,
                           ),
@@ -927,14 +1159,25 @@ class _PWATERBILL3PAGEState
                 ],
 
                 const SizedBox(
-                  height: 36,
+                  height:
+                      36,
                 ),
+
+                // ============================================================
+                // ACTIONS
+                // ============================================================
 
                 Row(
                   children: [
+                    // ========================================================
+                    // BACK
+                    // ========================================================
+
                     Expanded(
                       child: SizedBox(
-                        height: 78,
+                        height:
+                            78,
+
                         child:
                             OutlinedButton.icon(
                           onPressed: () {
@@ -943,39 +1186,51 @@ class _PWATERBILL3PAGEState
                               false,
                             );
                           },
+
                           icon:
                               const Icon(
-                            Icons
-                                .arrow_back_rounded,
-                            size: 29,
+                            Icons.arrow_back_rounded,
+
+                            size:
+                                29,
                           ),
+
                           label: Text(
                             loc.backButton,
+
                             style:
                                 const TextStyle(
-                              fontSize: 24,
+                              fontSize:
+                                  24,
+
                               fontWeight:
                                   FontWeight.w900,
                             ),
                           ),
+
                           style:
                               OutlinedButton.styleFrom(
                             backgroundColor:
                                 const Color(
                               0xFFFFE8E8,
                             ),
+
                             foregroundColor:
                                 const Color(
                               0xFFC62828,
                             ),
+
                             side:
                                 const BorderSide(
                               color:
                                   Color(
                                 0xFFE57373,
                               ),
-                              width: 2,
+
+                              width:
+                                  2,
                             ),
+
                             shape:
                                 RoundedRectangleBorder(
                               borderRadius:
@@ -989,12 +1244,19 @@ class _PWATERBILL3PAGEState
                     ),
 
                     const SizedBox(
-                      width: 22,
+                      width:
+                          22,
                     ),
+
+                    // ========================================================
+                    // CONTINUE
+                    // ========================================================
 
                     Expanded(
                       child: SizedBox(
-                        height: 78,
+                        height:
+                            78,
+
                         child:
                             ElevatedButton.icon(
                           onPressed: () {
@@ -1003,30 +1265,41 @@ class _PWATERBILL3PAGEState
                               true,
                             );
                           },
+
                           icon:
                               const Icon(
-                            Icons
-                                .arrow_forward_rounded,
-                            size: 29,
+                            Icons.arrow_forward_rounded,
+
+                            size:
+                                29,
                           ),
+
                           label: Text(
                             loc.continueButton,
+
                             style:
                                 const TextStyle(
-                              fontSize: 24,
+                              fontSize:
+                                  24,
+
                               fontWeight:
                                   FontWeight.w900,
                             ),
                           ),
+
                           style:
                               ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color(
                               0xFF168A50,
                             ),
+
                             foregroundColor:
                                 Colors.white,
-                            elevation: 0,
+
+                            elevation:
+                                0,
+
                             shape:
                                 RoundedRectangleBorder(
                               borderRadius:
@@ -1062,20 +1335,27 @@ class _PWATERBILL3PAGEState
     }
 
     final double maxScroll =
-        _scrollController.position.maxScrollExtent;
+        _scrollController
+            .position
+            .maxScrollExtent;
 
     final double currentScroll =
         _scrollController.offset;
 
+    final bool hasScrollableContent =
+        maxScroll > 10;
+
     final bool shouldShowScrollUp =
-        currentScroll > 10;
+        hasScrollableContent &&
+            currentScroll > 10;
 
     final bool shouldShowScrollDown =
-        maxScroll > 10 &&
-        currentScroll <
-            maxScroll - 10;
+        hasScrollableContent &&
+            currentScroll <
+                maxScroll - 10;
 
-    if (showScrollUp != shouldShowScrollUp ||
+    if (showScrollUp !=
+            shouldShowScrollUp ||
         showScrollDown !=
             shouldShowScrollDown) {
       setState(() {
@@ -1102,15 +1382,19 @@ class _PWATERBILL3PAGEState
             .clamp(
       0.0,
       _scrollController
-          .position.maxScrollExtent,
+          .position
+          .maxScrollExtent,
     );
 
     _scrollController.animateTo(
       destination,
+
       duration:
           const Duration(
-        milliseconds: 400,
+        milliseconds:
+            400,
       ),
+
       curve:
           Curves.easeOut,
     );
@@ -1130,15 +1414,19 @@ class _PWATERBILL3PAGEState
             .clamp(
       0.0,
       _scrollController
-          .position.maxScrollExtent,
+          .position
+          .maxScrollExtent,
     );
 
     _scrollController.animateTo(
       destination,
+
       duration:
           const Duration(
-        milliseconds: 400,
+        milliseconds:
+            400,
       ),
+
       curve:
           Curves.easeOut,
     );
@@ -1155,10 +1443,15 @@ class _PWATERBILL3PAGEState
 
     _scrollController.animateTo(
       0,
-      duration: const Duration(
-        milliseconds: 550,
+
+      duration:
+          const Duration(
+        milliseconds:
+            550,
       ),
-      curve: Curves.easeOutCubic,
+
+      curve:
+          Curves.easeOutCubic,
     );
   }
 
@@ -1169,73 +1462,106 @@ class _PWATERBILL3PAGEState
   Widget _buildScrollAction(
     AppLocalizations loc,
   ) {
+    // ========================================================================
     // TOP
-    if (!showScrollUp && showScrollDown) {
+    //
+    // LIHAT LAGI ↓
+    // ========================================================================
+
+    if (!showScrollUp &&
+        showScrollDown) {
       return _ScrollDiscoveryControl(
-        key: const ValueKey(
-          'top-more',
+        key:
+            const ValueKey(
+          'water-top-more',
         ),
-        mode: _ScrollControlMode.more,
-        label: loc.scrollViewMore,
-        onPressed: _scrollDown,
+
+        mode:
+            _ScrollControlMode.more,
+
+        label:
+            loc.scrollViewMore,
+
+        onPressed:
+            _scrollDown,
       );
     }
 
+    // ========================================================================
     // MIDDLE
-    if (showScrollUp && showScrollDown) {
+    //
+    // ↑ KE ATAS
+    // LIHAT LAGI ↓
+    // ========================================================================
+
+    if (showScrollUp &&
+        showScrollDown) {
       return Row(
-        key: const ValueKey(
-          'middle-controls',
+        key:
+            const ValueKey(
+          'water-middle-controls',
         ),
-        mainAxisSize: MainAxisSize.min,
+
+        mainAxisSize:
+            MainAxisSize.min,
+
         children: [
           _ScrollDiscoveryControl(
-            mode: _ScrollControlMode.up,
-            label: loc.scrollUpShort,
-            onPressed: _scrollUp,
+            mode:
+                _ScrollControlMode.up,
+
+            label:
+                loc.scrollUpShort,
+
+            onPressed:
+                _scrollUp,
           ),
 
           const SizedBox(
-            width: 22,
+            width:
+                22,
           ),
 
           _ScrollDiscoveryControl(
-            mode: _ScrollControlMode.more,
-            label: loc.scrollViewMore,
-            onPressed: _scrollDown,
+            mode:
+                _ScrollControlMode.more,
+
+            label:
+                loc.scrollViewMore,
+
+            onPressed:
+                _scrollDown,
           ),
         ],
       );
     }
 
+    // ========================================================================
     // BOTTOM
-    if (showScrollUp && !showScrollDown) {
+    //
+    // ↑ KEMBALI KE ATAS
+    // ========================================================================
+
+    if (showScrollUp &&
+        !showScrollDown) {
       return _ScrollDiscoveryControl(
-        key: const ValueKey(
-          'bottom-top',
+        key:
+            const ValueKey(
+          'water-bottom-top',
         ),
-        mode: _ScrollControlMode.top,
-        label: loc.scrollBackTop,
-        onPressed: _scrollToTop,
+
+        mode:
+            _ScrollControlMode.top,
+
+        label:
+            loc.scrollBackTop,
+
+        onPressed:
+            _scrollToTop,
       );
     }
 
     return const SizedBox.shrink();
-  }
-
-  // ==========================================================================
-  // DISPOSE
-  // ==========================================================================
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(
-      _handleScroll,
-    );
-
-    _scrollController.dispose();
-
-    super.dispose();
   }
 
   // ==========================================================================
@@ -1257,29 +1583,41 @@ class _PWATERBILL3PAGEState
           // ==================================================================
 
           Positioned.fill(
-            child: Image.asset(
+            child:
+                Image.asset(
               'lib/images/pnew.png',
-              fit: BoxFit.cover,
+
+              fit:
+                  BoxFit.cover,
             ),
           ),
 
+          // ==================================================================
+          // BACKGROUND OVERLAY
+          // ==================================================================
+
           Positioned.fill(
-            child: Container(
+            child:
+                Container(
               decoration:
                   BoxDecoration(
                 gradient:
                     LinearGradient(
                   begin:
                       Alignment.topCenter,
+
                   end:
                       Alignment.bottomCenter,
+
                   colors: [
                     Colors.white.withOpacity(
                       0.02,
                     ),
+
                     Colors.white.withOpacity(
                       0.13,
                     ),
+
                     Colors.white.withOpacity(
                       0.04,
                     ),
@@ -1294,13 +1632,20 @@ class _PWATERBILL3PAGEState
           // ==================================================================
 
           Positioned(
-            top: 75,
-            left: 65,
-            right: 65,
+            top:
+                75,
+
+            left:
+                65,
+
+            right:
+                65,
+
             child:
                 _ModernWaterHeader(
               title:
                   loc.waterBillProviderTitle,
+
               subtitle:
                   loc.pbil3Subtitle,
             ),
@@ -1311,10 +1656,18 @@ class _PWATERBILL3PAGEState
           // ==================================================================
 
           Positioned(
-            top: 390,
-            left: 45,
-            right: 45,
-            bottom: 305,
+            top:
+                390,
+
+            left:
+                45,
+
+            right:
+                45,
+
+            bottom:
+                305,
+
             child:
                 _buildProviderArea(
               loc,
@@ -1323,29 +1676,38 @@ class _PWATERBILL3PAGEState
 
           // ==================================================================
           // CONTENT FADE
-          //
-          // Visible only when more providers exist below.
-          // Helps users understand that the provider list continues.
           // ==================================================================
 
           if (!_catalogLoading &&
               _waterProducts.isNotEmpty &&
               showScrollDown)
             Positioned(
-              left: 35,
-              right: 35,
-              bottom: 270,
-              height: 175,
-              child: IgnorePointer(
-                child: Container(
+              left:
+                  35,
+
+              right:
+                  35,
+
+              bottom:
+                  270,
+
+              height:
+                  175,
+
+              child:
+                  IgnorePointer(
+                child:
+                    Container(
                   decoration:
                       BoxDecoration(
                     gradient:
                         LinearGradient(
                       begin:
                           Alignment.topCenter,
+
                       end:
                           Alignment.bottomCenter,
+
                       stops:
                           const [
                         0.0,
@@ -1353,16 +1715,20 @@ class _PWATERBILL3PAGEState
                         0.68,
                         1.0,
                       ],
+
                       colors: [
                         Colors.white.withOpacity(
                           0.00,
                         ),
+
                         Colors.white.withOpacity(
                           0.14,
                         ),
+
                         Colors.white.withOpacity(
                           0.62,
                         ),
+
                         Colors.white.withOpacity(
                           0.95,
                         ),
@@ -1374,64 +1740,71 @@ class _PWATERBILL3PAGEState
             ),
 
           // ==================================================================
-          // MODERN SCROLL CONTROLS
-          //
-          // TOP:
-          // [ LIHAT LAGI  ↓ ]
-          //
-          // MIDDLE:
-          // [ ↑  KE ATAS ]   [ LIHAT LAGI  ↓ ]
-          //
-          // BOTTOM:
-          // [ ↑  KEMBALI KE ATAS ]
+          // MODERN SCROLL CONTROL
           // ==================================================================
 
           if (!_catalogLoading &&
               _waterProducts.isNotEmpty)
             Positioned(
-              left: 0,
-              right: 0,
-              bottom: 270,
-              child: Center(
+              left:
+                  0,
+
+              right:
+                  0,
+
+              bottom:
+                  270,
+
+              child:
+                  Center(
                 child:
                     AnimatedSwitcher(
                   duration:
                       const Duration(
-                    milliseconds: 250,
+                    milliseconds:
+                        250,
                   ),
+
                   switchInCurve:
                       Curves.easeOutCubic,
+
                   switchOutCurve:
                       Curves.easeInCubic,
+
                   transitionBuilder:
                       (
-                    child,
-                    animation,
+                    Widget child,
+                    Animation<double> animation,
                   ) {
                     return FadeTransition(
                       opacity:
                           animation,
+
                       child:
                           ScaleTransition(
                         scale:
                             Tween<double>(
                           begin:
                               0.94,
+
                           end:
                               1.0,
                         ).animate(
                           CurvedAnimation(
                             parent:
                                 animation,
+
                             curve:
                                 Curves.easeOutCubic,
                           ),
                         ),
+
                         child:
                             child,
                       ),
                     );
                   },
+
                   child:
                       _buildScrollAction(
                     loc,
@@ -1445,14 +1818,21 @@ class _PWATERBILL3PAGEState
           // ==================================================================
 
           Positioned(
-            bottom: 105,
-            left: 300,
-            right: 300,
+            bottom:
+                105,
+
+            left:
+                300,
+
+            right:
+                300,
+
             child:
                 KioskBackButton(
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
+
                   MaterialPageRoute(
                     builder: (_) =>
                         const PBIL3PAGE(),
@@ -1467,20 +1847,32 @@ class _PWATERBILL3PAGEState
           // ==================================================================
 
           Positioned(
-            bottom: 25,
-            left: 0,
-            right: 0,
-            child: Text(
+            bottom:
+                25,
+
+            left:
+                0,
+
+            right:
+                0,
+
+            child:
+                Text(
               Data.copyrightText,
+
               textAlign:
                   TextAlign.center,
+
               style:
                   const TextStyle(
                 color:
                     Color(
                   0xFF26364A,
                 ),
-                fontSize: 20,
+
+                fontSize:
+                    20,
+
                 fontWeight:
                     FontWeight.w800,
               ),
@@ -1514,31 +1906,39 @@ class _PWATERBILL3PAGEState
 
     if (_catalogError != null) {
       return Center(
-        child: Container(
+        child:
+            Container(
           width:
               double.infinity,
+
           padding:
               const EdgeInsets.all(
             35,
           ),
+
           decoration:
               BoxDecoration(
             color:
                 Colors.white.withOpacity(
               0.96,
             ),
+
             borderRadius:
                 BorderRadius.circular(
               28,
             ),
+
             border:
                 Border.all(
               color:
                   const Color(
                 0xFFD7E2F0,
               ),
-              width: 2,
+
+              width:
+                  2,
             ),
+
             boxShadow: [
               BoxShadow(
                 color:
@@ -1547,7 +1947,10 @@ class _PWATERBILL3PAGEState
                 ).withOpacity(
                   0.10,
                 ),
-                blurRadius: 22,
+
+                blurRadius:
+                    22,
+
                 offset:
                     const Offset(
                   0,
@@ -1556,26 +1959,38 @@ class _PWATERBILL3PAGEState
               ),
             ],
           ),
-          child: Column(
+
+          child:
+              Column(
             mainAxisSize:
                 MainAxisSize.min,
+
             children: [
               Container(
-                width: 100,
-                height: 100,
+                width:
+                    100,
+
+                height:
+                    100,
+
                 decoration:
                     const BoxDecoration(
                   color:
                       Color(
                     0xFFEAF2FC,
                   ),
+
                   shape:
                       BoxShape.circle,
                 ),
+
                 child:
                     const Icon(
                   Icons.cloud_off_rounded,
-                  size: 55,
+
+                  size:
+                      55,
+
                   color:
                       Color(
                     0xFF0A2E70,
@@ -1584,18 +1999,24 @@ class _PWATERBILL3PAGEState
               ),
 
               const SizedBox(
-                height: 22,
+                height:
+                    22,
               ),
 
               Text(
                 loc.billUnknownError,
+
                 textAlign:
                     TextAlign.center,
+
                 style:
                     const TextStyle(
-                  fontSize: 27,
+                  fontSize:
+                      27,
+
                   fontWeight:
                       FontWeight.bold,
+
                   color:
                       Color(
                     0xFF0A2E70,
@@ -1604,41 +2025,57 @@ class _PWATERBILL3PAGEState
               ),
 
               const SizedBox(
-                height: 25,
+                height:
+                    25,
               ),
 
               SizedBox(
-                height: 70,
+                height:
+                    70,
+
                 child:
                     ElevatedButton.icon(
                   onPressed:
                       _loadWaterCatalog,
+
                   icon:
                       const Icon(
                     Icons.refresh_rounded,
-                    size: 28,
+
+                    size:
+                        28,
                   ),
-                  label: Text(
+
+                  label:
+                      Text(
                     loc.retryButton,
+
                     style:
                         const TextStyle(
-                      fontSize: 23,
+                      fontSize:
+                          23,
+
                       fontWeight:
                           FontWeight.w900,
                     ),
                   ),
+
                   style:
                       ElevatedButton.styleFrom(
                     backgroundColor:
                         const Color(
                       0xFF1687D9,
                     ),
+
                     foregroundColor:
                         Colors.white,
+
                     padding:
                         const EdgeInsets.symmetric(
-                      horizontal: 35,
+                      horizontal:
+                          35,
                     ),
+
                     shape:
                         RoundedRectangleBorder(
                       borderRadius:
@@ -1656,44 +2093,57 @@ class _PWATERBILL3PAGEState
     }
 
     // ========================================================================
-    // NO ACTIVE PROVIDERS
+    // NO PROVIDERS
     // ========================================================================
 
     if (_waterProducts.isEmpty) {
       return Center(
-        child: Container(
+        child:
+            Container(
           width:
               double.infinity,
+
           padding:
               const EdgeInsets.all(
             35,
           ),
+
           decoration:
               BoxDecoration(
             color:
                 Colors.white.withOpacity(
               0.96,
             ),
+
             borderRadius:
                 BorderRadius.circular(
               28,
             ),
+
             border:
                 Border.all(
               color:
                   const Color(
                 0xFFD7E2F0,
               ),
-              width: 2,
+
+              width:
+                  2,
             ),
           ),
-          child: Column(
+
+          child:
+              Column(
             mainAxisSize:
                 MainAxisSize.min,
+
             children: [
               const Icon(
                 Icons.water_drop_outlined,
-                size: 65,
+
+                size:
+                    65,
+
                 color:
                     Color(
                   0xFF60758D,
@@ -1701,20 +2151,26 @@ class _PWATERBILL3PAGEState
               ),
 
               const SizedBox(
-                height: 20,
+                height:
+                    20,
               ),
 
               Text(
                 loc.networkStatusUnknown,
+
                 textAlign:
                     TextAlign.center,
+
                 style:
                     const TextStyle(
                   color:
                       Color(
                     0xFF17283E,
                   ),
-                  fontSize: 27,
+
+                  fontSize:
+                      27,
+
                   fontWeight:
                       FontWeight.w800,
                 ),
@@ -1726,7 +2182,11 @@ class _PWATERBILL3PAGEState
     }
 
     // ========================================================================
-    // DYNAMIC GRID
+    // DYNAMIC WATER GRID
+    //
+    // Uses shared ModernProviderCard.
+    //
+    // mainAxisExtent = 510 because the shared card height is 510.
     // ========================================================================
 
     return Container(
@@ -1737,64 +2197,92 @@ class _PWATERBILL3PAGEState
         14,
         20,
       ),
+
       decoration:
           BoxDecoration(
         color:
             Colors.white.withOpacity(
           0.20,
         ),
+
         borderRadius:
             BorderRadius.circular(
           36,
         ),
+
         border:
             Border.all(
           color:
               Colors.white.withOpacity(
             0.60,
           ),
-          width: 1.5,
+
+          width:
+              1.5,
         ),
       ),
-      child: Scrollbar(
+
+      child:
+          Scrollbar(
         controller:
             _scrollController,
+
         thumbVisibility:
             true,
+
         trackVisibility:
             true,
+
         interactive:
             true,
+
         thickness:
             11,
+
         radius:
             const Radius.circular(
           20,
         ),
+
         child:
             GridView.builder(
           controller:
               _scrollController,
+
           padding:
               const EdgeInsets.only(
-            right: 24,
-            bottom: 145,
+            right:
+                24,
+
+            bottom:
+                145,
           ),
+
           physics:
               const BouncingScrollPhysics(),
+
           itemCount:
               _waterProducts.length,
+
           gridDelegate:
               const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount:
                 2,
+
             crossAxisSpacing:
                 34,
+
             mainAxisSpacing:
                 36,
-            childAspectRatio:
-                1.0,
+
+            // ==============================================================
+            // SHARED CARD HEIGHT
+            // ==============================================================
+
+            mainAxisExtent:
+                510,
           ),
+
           itemBuilder:
               (
             context,
@@ -1802,14 +2290,16 @@ class _PWATERBILL3PAGEState
           ) {
             final _WaterProduct product =
                 _waterProducts[
-                  index
-                ];
+              index
+            ];
 
             return _buildWaterCard(
               product:
                   product,
+
               index:
                   index,
+
               loc:
                   loc,
             );
@@ -1835,29 +2325,39 @@ class _PWATERBILL3PAGEState
         Container(
           width:
               double.infinity,
+
           padding:
               const EdgeInsets.symmetric(
-            horizontal: 35,
-            vertical: 30,
+            horizontal:
+                35,
+
+            vertical:
+                30,
           ),
+
           decoration:
               BoxDecoration(
             color:
                 Colors.white.withOpacity(
               0.97,
             ),
+
             borderRadius:
                 BorderRadius.circular(
               30,
             ),
+
             border:
                 Border.all(
               color:
                   const Color(
                 0xFFCFE0F7,
               ),
-              width: 2,
+
+              width:
+                  2,
             ),
+
             boxShadow: [
               BoxShadow(
                 color:
@@ -1866,7 +2366,10 @@ class _PWATERBILL3PAGEState
                 ).withOpacity(
                   0.12,
                 ),
-                blurRadius: 24,
+
+                blurRadius:
+                    24,
+
                 offset:
                     const Offset(
                   0,
@@ -1875,46 +2378,62 @@ class _PWATERBILL3PAGEState
               ),
             ],
           ),
-          child: Row(
-            children: [
-              // ==============================================================
-              // ICON
-              // ==============================================================
 
+          child:
+              Row(
+            children: [
               Container(
-                width: 100,
-                height: 100,
+                width:
+                    100,
+
+                height:
+                    100,
+
                 decoration:
                     BoxDecoration(
                   color:
                       const Color(
                     0xFFE6F4FF,
                   ),
+
                   shape:
                       BoxShape.circle,
+
                   border:
                       Border.all(
                     color:
                         const Color(
                       0xFFC5E4F8,
                     ),
-                    width: 2,
+
+                    width:
+                        2,
                   ),
                 ),
-                child: Stack(
+
+                child:
+                    Stack(
                   alignment:
                       Alignment.center,
+
                   children: [
                     const SizedBox(
-                      width: 70,
-                      height: 70,
+                      width:
+                          70,
+
+                      height:
+                          70,
+
                       child:
                           CircularProgressIndicator(
-                        strokeWidth: 5,
+                        strokeWidth:
+                            5,
+
                         color:
                             Color(
                           0xFF1687D9,
                         ),
+
                         backgroundColor:
                             Color(
                           0xFFD7EAF7,
@@ -1923,62 +2442,76 @@ class _PWATERBILL3PAGEState
                     ),
 
                     const Icon(
-                      Icons
-                          .water_drop_rounded,
+                      Icons.water_drop_rounded,
+
                       color:
                           Color(
                         0xFF1687D9,
                       ),
-                      size: 40,
+
+                      size:
+                          40,
                     ),
                   ],
                 ),
               ),
 
               const SizedBox(
-                width: 25,
+                width:
+                    25,
               ),
 
-              // ==============================================================
-              // TEXT
-              // ==============================================================
-
               Expanded(
-                child: Column(
+                child:
+                    Column(
                   crossAxisAlignment:
                       CrossAxisAlignment.start,
+
                   children: [
                     Text(
                       loc.providerLoading,
+
                       style:
                           const TextStyle(
                         color:
                             Color(
                           0xFF16324F,
                         ),
-                        fontSize: 30,
+
+                        fontSize:
+                            30,
+
                         fontWeight:
                             FontWeight.w900,
-                        height: 1.15,
+
+                        height:
+                            1.15,
                       ),
                     ),
 
                     const SizedBox(
-                      height: 9,
+                      height:
+                          9,
                     ),
 
                     Text(
                       loc.providerLoadingSubtitle,
+
                       style:
                           const TextStyle(
                         color:
                             Color(
                           0xFF6A7B90,
                         ),
-                        fontSize: 20,
+
+                        fontSize:
+                            20,
+
                         fontWeight:
                             FontWeight.w600,
-                        height: 1.35,
+
+                        height:
+                            1.35,
                       ),
                     ),
                   ],
@@ -1989,7 +2522,8 @@ class _PWATERBILL3PAGEState
         ),
 
         const SizedBox(
-          height: 28,
+          height:
+              28,
         ),
 
         // ====================================================================
@@ -2004,7 +2538,8 @@ class _PWATERBILL3PAGEState
             ),
 
             const SizedBox(
-              width: 34,
+              width:
+                  34,
             ),
 
             Expanded(
@@ -2018,34 +2553,42 @@ class _PWATERBILL3PAGEState
   }
 
   // ==========================================================================
-  // SKELETON CARD
+  // LOADING PROVIDER CARD
   // ==========================================================================
 
   Widget _buildLoadingProviderCard() {
     return Container(
-      height: 330,
+      height:
+          510,
+
       padding:
           const EdgeInsets.all(
         27,
       ),
+
       decoration:
           BoxDecoration(
         color:
             Colors.white.withOpacity(
           0.94,
         ),
+
         borderRadius:
             BorderRadius.circular(
           34,
         ),
+
         border:
             Border.all(
           color:
               const Color(
             0xFFDCE5EF,
           ),
-          width: 2,
+
+          width:
+              2,
         ),
+
         boxShadow: [
           BoxShadow(
             color:
@@ -2054,7 +2597,10 @@ class _PWATERBILL3PAGEState
             ).withOpacity(
               0.07,
             ),
-            blurRadius: 18,
+
+            blurRadius:
+                18,
+
             offset:
                 const Offset(
               0,
@@ -2063,22 +2609,82 @@ class _PWATERBILL3PAGEState
           ),
         ],
       ),
-      child: Column(
+
+      child:
+          Column(
         crossAxisAlignment:
             CrossAxisAlignment.start,
+
         children: [
           Container(
-            width: 150,
-            height: 115,
+            width:
+                double.infinity,
+
+            height:
+                210,
+
             decoration:
                 BoxDecoration(
               color:
                   const Color(
                 0xFFE9EFF6,
               ),
+
               borderRadius:
                   BorderRadius.circular(
                 24,
+              ),
+            ),
+          ),
+
+          const SizedBox(
+            height:
+                28,
+          ),
+
+          Container(
+            width:
+                double.infinity,
+
+            height:
+                28,
+
+            decoration:
+                BoxDecoration(
+              color:
+                  const Color(
+                0xFFE1E8F0,
+              ),
+
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
+            ),
+          ),
+
+          const SizedBox(
+            height:
+                15,
+          ),
+
+          Container(
+            width:
+                170,
+
+            height:
+                22,
+
+            decoration:
+                BoxDecoration(
+              color:
+                  const Color(
+                0xFFEDF2F7,
+              ),
+
+              borderRadius:
+                  BorderRadius.circular(
+                20,
               ),
             ),
           ),
@@ -2087,54 +2693,18 @@ class _PWATERBILL3PAGEState
 
           Container(
             width:
-                double.infinity,
-            height: 25,
-            decoration:
-                BoxDecoration(
-              color:
-                  const Color(
-                0xFFE1E8F0,
-              ),
-              borderRadius:
-                  BorderRadius.circular(
-                20,
-              ),
-            ),
-          ),
+                210,
 
-          const SizedBox(
-            height: 13,
-          ),
+            height:
+                54,
 
-          Container(
-            width: 170,
-            height: 20,
-            decoration:
-                BoxDecoration(
-              color:
-                  const Color(
-                0xFFEDF2F7,
-              ),
-              borderRadius:
-                  BorderRadius.circular(
-                20,
-              ),
-            ),
-          ),
-
-          const SizedBox(
-            height: 22,
-          ),
-
-          Container(
-            width: 185,
-            height: 48,
             decoration:
                 BoxDecoration(
               color:
                   const Color(
                 0xFFE8EEF5,
               ),
+
               borderRadius:
                   BorderRadius.circular(
                 30,
@@ -2148,6 +2718,17 @@ class _PWATERBILL3PAGEState
 
   // ==========================================================================
   // BUILD WATER CARD
+  //
+  // CARD DESIGN NOW COMES FROM:
+  //
+  // lib/widgets/modern_provider_card.dart
+  //
+  // Changing that one file changes:
+  //
+  // Food & Beverage
+  // Fuel
+  // Electric
+  // Water
   // ==========================================================================
 
   Widget _buildWaterCard({
@@ -2167,9 +2748,12 @@ class _PWATERBILL3PAGEState
               _lightAccentColors.length
         ];
 
-    return _WaterProviderCard(
-      product:
-          product,
+    return ModernProviderCard(
+      imageUrl:
+          product.imageUrl,
+
+      label:
+          product.name,
 
       accentColor:
           accentColor,
@@ -2180,7 +2764,7 @@ class _PWATERBILL3PAGEState
       networkStatus:
           _billerStatuses[
                   product.code] ??
-              BillerStatus.loading,
+              ProviderNetworkStatus.loading,
 
       networkLabel:
           loc.networkLabel,
@@ -2190,6 +2774,16 @@ class _PWATERBILL3PAGEState
 
       processingLabel:
           loc.processingTimeLabel,
+
+      // ======================================================================
+      // WATER-SPECIFIC PROCESSING TRANSLATION
+      // ======================================================================
+
+      processingTimeFormatter:
+          _formatWaterProcessingTime,
+
+      fallbackIcon:
+          Icons.water_drop_rounded,
 
       onPressed: () {
         _handleBillerTap(
@@ -2204,7 +2798,8 @@ class _PWATERBILL3PAGEState
 // MODERN WATER HEADER
 // ============================================================================
 
-class _ModernWaterHeader extends StatelessWidget {
+class _ModernWaterHeader
+    extends StatelessWidget {
   final String title;
   final String subtitle;
 
@@ -2214,173 +2809,354 @@ class _ModernWaterHeader extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    const Color accentColor = Color(0xFF1687D9);
+  Widget build(
+    BuildContext context,
+  ) {
+    const Color accentColor =
+        Color(
+      0xFF1687D9,
+    );
 
-    final loc = AppLocalizations.of(context)!;
+    final loc =
+        AppLocalizations.of(context)!;
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(
+      padding:
+          const EdgeInsets.fromLTRB(
         30,
         24,
         30,
         24,
       ),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.96),
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(
-          color: const Color(0xFFD5E4F7),
-          width: 2,
+
+      decoration:
+          BoxDecoration(
+        color:
+            Colors.white.withOpacity(
+          0.96,
         ),
+
+        borderRadius:
+            BorderRadius.circular(
+          32,
+        ),
+
+        border:
+            Border.all(
+          color:
+              const Color(
+            0xFFD5E4F7,
+          ),
+
+          width:
+              2,
+        ),
+
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF173A66).withOpacity(0.14),
-            blurRadius: 30,
-            offset: const Offset(0, 12),
+            color:
+                const Color(
+              0xFF173A66,
+            ).withOpacity(
+              0.14,
+            ),
+
+            blurRadius:
+                30,
+
+            offset:
+                const Offset(
+              0,
+              12,
+            ),
           ),
         ],
       ),
-      child: Row(
+
+      child:
+          Row(
         children: [
-          // ==========================================================
-          // LEFT WATER ICON
-          // ==========================================================
+          // ==================================================================
+          // WATER ICON
+          // ==================================================================
 
           Container(
-            width: 105,
-            height: 105,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+            width:
+                105,
+
+            height:
+                105,
+
+            decoration:
+                BoxDecoration(
+              gradient:
+                  const LinearGradient(
+                begin:
+                    Alignment.topLeft,
+
+                end:
+                    Alignment.bottomRight,
+
                 colors: [
-                  Color(0xFF0875C9),
-                  Color(0xFF28A9EA),
+                  Color(
+                    0xFF0875C9,
+                  ),
+
+                  Color(
+                    0xFF28A9EA,
+                  ),
                 ],
               ),
-              borderRadius: BorderRadius.circular(30),
+
+              borderRadius:
+                  BorderRadius.circular(
+                30,
+              ),
+
               boxShadow: [
                 BoxShadow(
-                  color: accentColor.withOpacity(0.28),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
+                  color:
+                      accentColor.withOpacity(
+                    0.28,
+                  ),
+
+                  blurRadius:
+                      20,
+
+                  offset:
+                      const Offset(
+                    0,
+                    8,
+                  ),
                 ),
               ],
             ),
-            child: const Icon(
+
+            child:
+                const Icon(
               Icons.water_drop_rounded,
-              color: Colors.white,
-              size: 56,
+
+              color:
+                  Colors.white,
+
+              size:
+                  56,
             ),
           ),
 
-          const SizedBox(width: 28),
+          const SizedBox(
+            width:
+                28,
+          ),
 
-          // ==========================================================
-          // EXISTING TEXT
-          // ==========================================================
+          // ==================================================================
+          // TEXT
+          // ==================================================================
 
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child:
+                Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
               children: [
-                // ------------------------------------------------------
-                // EXISTING WATER BADGE
-                // ------------------------------------------------------
+                // ============================================================
+                // BADGE
+                // ============================================================
 
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 7,
+                  padding:
+                      const EdgeInsets.symmetric(
+                    horizontal:
+                        18,
+
+                    vertical:
+                        7,
                   ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFE6F5FF),
-                    borderRadius: BorderRadius.circular(100),
+
+                  decoration:
+                      BoxDecoration(
+                    color:
+                        const Color(
+                      0xFFE6F5FF,
+                    ),
+
+                    borderRadius:
+                        BorderRadius.circular(
+                      100,
+                    ),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
+
+                  child:
+                      Row(
+                    mainAxisSize:
+                        MainAxisSize.min,
+
                     children: [
                       const Icon(
                         Icons.water_drop_rounded,
-                        size: 20,
-                        color: accentColor,
+
+                        size:
+                            20,
+
+                        color:
+                            accentColor,
                       ),
 
-                      const SizedBox(width: 8),
+                      const SizedBox(
+                        width:
+                            8,
+                      ),
 
-                      Text(
-                        loc.waterButton.toUpperCase(),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: accentColor,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 1.1,
+                      Flexible(
+                        child:
+                            Text(
+                          loc.waterButton
+                              .toUpperCase(),
+
+                          maxLines:
+                              1,
+
+                          overflow:
+                              TextOverflow.ellipsis,
+
+                          style:
+                              const TextStyle(
+                            color:
+                                accentColor,
+
+                            fontSize:
+                                17,
+
+                            fontWeight:
+                                FontWeight.w900,
+
+                            letterSpacing:
+                                1.1,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
 
-                const SizedBox(height: 12),
+                const SizedBox(
+                  height:
+                      12,
+                ),
 
-                // ------------------------------------------------------
-                // EXISTING TITLE
-                // ------------------------------------------------------
+                // ============================================================
+                // TITLE
+                // ============================================================
 
                 Text(
                   title.toUpperCase(),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF122C4C),
-                    fontSize: 52,
-                    fontWeight: FontWeight.w900,
-                    height: 1.02,
-                    letterSpacing: -0.8,
+
+                  maxLines:
+                      2,
+
+                  overflow:
+                      TextOverflow.ellipsis,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF122C4C,
+                    ),
+
+                    fontSize:
+                        52,
+
+                    fontWeight:
+                        FontWeight.w900,
+
+                    height:
+                        1.02,
+
+                    letterSpacing:
+                        -0.8,
                   ),
                 ),
 
-                const SizedBox(height: 9),
+                const SizedBox(
+                  height:
+                      9,
+                ),
 
-                // ------------------------------------------------------
-                // EXISTING SUBTITLE
-                // ------------------------------------------------------
+                // ============================================================
+                // SUBTITLE
+                // ============================================================
 
                 Text(
                   subtitle.toUpperCase(),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF607188),
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    height: 1.25,
+
+                  maxLines:
+                      2,
+
+                  overflow:
+                      TextOverflow.ellipsis,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(
+                      0xFF607188,
+                    ),
+
+                    fontSize:
+                        22,
+
+                    fontWeight:
+                        FontWeight.w600,
+
+                    height:
+                        1.25,
                   ),
                 ),
               ],
             ),
           ),
 
-          const SizedBox(width: 24),
+          const SizedBox(
+            width:
+                24,
+          ),
 
-          // ==========================================================
-          // RIGHT WATER ACCENT
-          // ==========================================================
+          // ==================================================================
+          // RIGHT ACCENT
+          // ==================================================================
 
           Container(
-            width: 8,
-            height: 105,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+            width:
+                8,
+
+            height:
+                105,
+
+            decoration:
+                BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
+
+              gradient:
+                  const LinearGradient(
+                begin:
+                    Alignment.topCenter,
+
+                end:
+                    Alignment.bottomCenter,
+
                 colors: [
-                  Color(0xFF0875C9),
-                  Color(0xFF28A9EA),
+                  Color(
+                    0xFF0875C9,
+                  ),
+
+                  Color(
+                    0xFF28A9EA,
+                  ),
                 ],
               ),
             ),
@@ -2392,908 +3168,7 @@ class _ModernWaterHeader extends StatelessWidget {
 }
 
 // ============================================================================
-// WATER PROVIDER CARD
-// ============================================================================
-
-class _WaterProviderCard
-    extends StatefulWidget {
-  final _WaterProduct product;
-
-  final Color accentColor;
-  final Color lightAccentColor;
-
-  final BillerStatus networkStatus;
-  final String networkLabel;
-
-  final String processingTime;
-  final String processingLabel;
-
-  final VoidCallback onPressed;
-
-  const _WaterProviderCard({
-    required this.product,
-    required this.accentColor,
-    required this.lightAccentColor,
-    required this.networkStatus,
-    required this.networkLabel,
-    required this.processingTime,
-    required this.processingLabel,
-    required this.onPressed,
-  });
-
-  @override
-  State<_WaterProviderCard> createState() =>
-      _WaterProviderCardState();
-}
-
-class _WaterProviderCardState
-    extends State<_WaterProviderCard> {
-  bool _isPressed = false;
-
-  void _setPressed(
-    bool value,
-  ) {
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      _isPressed = value;
-    });
-  }
-
-  // ==========================================================================
-  // PROCESSING TIME
-  // ==========================================================================
-
-  String _formatProcessingTime(
-    BuildContext context,
-    String value,
-  ) {
-    final loc =
-        AppLocalizations.of(context)!;
-
-    final String normalized =
-        value
-            .toLowerCase()
-            .trim();
-
-    if (normalized == 'instant') {
-      return loc.processingInstant;
-    }
-
-    if (normalized == '24_hours') {
-      return loc.processing24Hours;
-    }
-
-    if (normalized == '3_days') {
-      return loc.processing3Days;
-    }
-
-    // ========================================================================
-    // GENERIC HOURS
-    //
-    // 48_hours
-    // 72_hours
-    // etc.
-    // ========================================================================
-
-    if (normalized.endsWith(
-      '_hours',
-    )) {
-      final String hours =
-          normalized.replaceAll(
-        '_hours',
-        '',
-      );
-
-      return loc.waterUpdateWithinHours(
-        hours,
-      );
-    }
-
-    // ========================================================================
-    // GENERIC DAYS
-    //
-    // 2_days
-    // 5_days
-    // etc.
-    // ========================================================================
-
-    if (normalized.endsWith(
-      '_days',
-    )) {
-      final String days =
-          normalized.replaceAll(
-        '_days',
-        '',
-      );
-
-      return loc.waterUpdateWithinDays(
-        days,
-      );
-    }
-
-    return value.replaceAll(
-      '_',
-      ' ',
-    );
-  }
-
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    final bool isEnabled =
-        widget.networkStatus !=
-            BillerStatus.unavailable;
-
-    return GestureDetector(
-      behavior:
-          HitTestBehavior.opaque,
-
-      onTapDown:
-          isEnabled
-              ? (_) {
-                  _setPressed(
-                    true,
-                  );
-                }
-              : null,
-
-      onTapUp:
-          isEnabled
-              ? (_) {
-                  _setPressed(
-                    false,
-                  );
-                }
-              : null,
-
-      onTapCancel:
-          isEnabled
-              ? () {
-                  _setPressed(
-                    false,
-                  );
-                }
-              : null,
-
-      onTap:
-          isEnabled
-              ? widget.onPressed
-              : null,
-
-      child:
-          AnimatedScale(
-        scale:
-            _isPressed
-                ? 0.965
-                : 1,
-
-        duration:
-            const Duration(
-          milliseconds: 130,
-        ),
-
-        curve:
-            Curves.easeOut,
-
-        child:
-            AnimatedContainer(
-          duration:
-              const Duration(
-            milliseconds: 170,
-          ),
-
-          curve:
-              Curves.easeOut,
-
-          decoration:
-              BoxDecoration(
-            color:
-                Colors.white.withOpacity(
-              isEnabled
-                  ? 0.96
-                  : 0.72,
-            ),
-
-            borderRadius:
-                BorderRadius.circular(
-              38,
-            ),
-
-            border:
-                Border.all(
-              color:
-                  _isPressed
-                      ? widget
-                          .accentColor
-                      : Colors.black,
-
-              width:
-                  _isPressed
-                      ? 4
-                      : 3,
-            ),
-
-            boxShadow:
-                _isPressed
-                    ? [
-                        BoxShadow(
-                          color:
-                              widget
-                                  .accentColor
-                                  .withOpacity(
-                            0.18,
-                          ),
-                          blurRadius:
-                              17,
-                          offset:
-                              const Offset(
-                            0,
-                            8,
-                          ),
-                        ),
-                      ]
-                    : [
-                        BoxShadow(
-                          color:
-                              const Color(
-                            0xFF19375C,
-                          ).withOpacity(
-                            0.16,
-                          ),
-                          blurRadius:
-                              28,
-                          spreadRadius:
-                              1,
-                          offset:
-                              const Offset(
-                            0,
-                            14,
-                          ),
-                        ),
-                      ],
-          ),
-
-          child:
-              ClipRRect(
-            borderRadius:
-                BorderRadius.circular(
-              35,
-            ),
-            child: Stack(
-              children: [
-                // ============================================================
-                // DECORATION
-                // ============================================================
-
-                Positioned(
-                  right: -50,
-                  top: -50,
-                  child:
-                      AnimatedContainer(
-                    duration:
-                        const Duration(
-                      milliseconds: 180,
-                    ),
-                    width:
-                        _isPressed
-                            ? 215
-                            : 200,
-                    height:
-                        _isPressed
-                            ? 215
-                            : 200,
-                    decoration:
-                        BoxDecoration(
-                      shape:
-                          BoxShape.circle,
-                      color:
-                          widget
-                              .lightAccentColor
-                              .withOpacity(
-                        0.92,
-                      ),
-                    ),
-                  ),
-                ),
-
-                Positioned(
-                  right: 92,
-                  top: 105,
-                  child: Container(
-                    width: 34,
-                    height: 34,
-                    decoration:
-                        BoxDecoration(
-                      shape:
-                          BoxShape.circle,
-                      color:
-                          widget
-                              .accentColor
-                              .withOpacity(
-                        0.08,
-                      ),
-                    ),
-                  ),
-                ),
-
-                Padding(
-                  padding:
-                      const EdgeInsets.fromLTRB(
-                    27,
-                    27,
-                    27,
-                    25,
-                  ),
-                  child:
-                      Opacity(
-                    opacity:
-                        isEnabled
-                            ? 1
-                            : 0.50,
-                    child: Column(
-                      children: [
-                        // ====================================================
-                        // LOGO + ARROW
-                        // ====================================================
-
-                        Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment
-                                  .spaceBetween,
-                          crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .start,
-                          children: [
-                            Container(
-                              width: 210,
-                              height: 170,
-                              padding:
-                                  const EdgeInsets.all(
-                                22,
-                              ),
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    Colors.white,
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  32,
-                                ),
-                                border:
-                                    Border.all(
-                                  color:
-                                      widget
-                                          .accentColor
-                                          .withOpacity(
-                                    0.20,
-                                  ),
-                                  width:
-                                      1.5,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color:
-                                        Colors.black
-                                            .withOpacity(
-                                      0.07,
-                                    ),
-                                    blurRadius:
-                                        15,
-                                    offset:
-                                        const Offset(
-                                      0,
-                                      7,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              child:
-                                  _buildLogo(),
-                            ),
-
-                            AnimatedContainer(
-                              duration:
-                                  const Duration(
-                                milliseconds: 160,
-                              ),
-                              transform:
-                                  Matrix4.translationValues(
-                                _isPressed
-                                    ? 6
-                                    : 0,
-                                0,
-                                0,
-                              ),
-                              width: 54,
-                              height: 54,
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    widget
-                                        .accentColor,
-                                shape:
-                                    BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color:
-                                        widget
-                                            .accentColor
-                                            .withOpacity(
-                                      0.24,
-                                    ),
-                                    blurRadius:
-                                        13,
-                                    offset:
-                                        const Offset(
-                                      0,
-                                      6,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              child:
-                                  const Icon(
-                                Icons
-                                    .arrow_forward_rounded,
-                                color:
-                                    Colors.white,
-                                size: 30,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const Spacer(),
-
-                        // ====================================================
-                        // PROVIDER NAME
-                        // ====================================================
-
-                        Align(
-                          alignment:
-                              Alignment.centerLeft,
-                          child: Text(
-                            widget
-                                .product
-                                .name
-                                .toUpperCase(),
-                            textAlign:
-                                TextAlign.left,
-                            maxLines: 3,
-                            overflow:
-                                TextOverflow
-                                    .ellipsis,
-                            style:
-                                const TextStyle(
-                              color:
-                                  Color(
-                                0xFF15253A,
-                              ),
-                              fontSize: 30,
-                              fontWeight:
-                                  FontWeight.w900,
-                              height: 1.10,
-                              letterSpacing:
-                                  0.3,
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(
-                          height: 18,
-                        ),
-
-                        // ====================================================
-                        // NETWORK STATUS
-                        // ====================================================
-
-                        SizedBox(
-                          width:
-                              double.infinity,
-                          child:
-                              _NetworkStatusBadge(
-                            status:
-                                widget
-                                    .networkStatus,
-                            label:
-                                widget
-                                    .networkLabel,
-                          ),
-                        ),
-
-                        // ====================================================
-                        // PROCESSING TIME
-                        // ====================================================
-
-                        if (widget
-                            .processingTime
-                            .isNotEmpty) ...[
-                          const SizedBox(
-                            height: 14,
-                          ),
-
-                          Align(
-                            alignment:
-                                Alignment.centerLeft,
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons
-                                      .schedule_rounded,
-                                  size: 22,
-                                  color:
-                                      Color(
-                                    0xFF647187,
-                                  ),
-                                ),
-
-                                const SizedBox(
-                                  width: 8,
-                                ),
-
-                                Expanded(
-                                  child: Text(
-                                    '${widget.processingLabel}: '
-                                    '${_formatProcessingTime(
-                                      context,
-                                      widget.processingTime,
-                                    )}',
-                                    maxLines: 2,
-                                    overflow:
-                                        TextOverflow
-                                            .ellipsis,
-                                    style:
-                                        const TextStyle(
-                                      color:
-                                          Color(
-                                        0xFF647187,
-                                      ),
-                                      fontSize: 17,
-                                      fontWeight:
-                                          FontWeight.w700,
-                                      height: 1.15,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-
-                        const SizedBox(
-                          height: 20,
-                        ),
-
-                        // ====================================================
-                        // ACCENT BARS
-                        // ====================================================
-
-                        Row(
-                          children: [
-                            Container(
-                              width: 58,
-                              height: 7,
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    widget
-                                        .accentColor,
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  50,
-                                ),
-                              ),
-                            ),
-
-                            const SizedBox(
-                              width: 8,
-                            ),
-
-                            Container(
-                              width: 13,
-                              height: 7,
-                              decoration:
-                                  BoxDecoration(
-                                color:
-                                    widget
-                                        .accentColor
-                                        .withOpacity(
-                                  0.28,
-                                ),
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  50,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  // ==========================================================================
-  // LOGO FROM API
-  // ==========================================================================
-
-  Widget _buildLogo() {
-    if (widget.product.imageUrl.isEmpty) {
-      return Icon(
-        Icons.water_drop_rounded,
-        size: 90,
-        color:
-            widget.accentColor,
-      );
-    }
-
-    return Image.network(
-      widget.product.imageUrl,
-      fit:
-          BoxFit.contain,
-      loadingBuilder:
-          (
-        context,
-        child,
-        loadingProgress,
-      ) {
-        if (loadingProgress == null) {
-          return child;
-        }
-
-        return Center(
-          child:
-              CircularProgressIndicator(
-            strokeWidth: 3,
-            color:
-                widget.accentColor,
-          ),
-        );
-      },
-      errorBuilder:
-          (
-        context,
-        error,
-        stackTrace,
-      ) {
-        debugPrint(
-          'Failed to load water logo: '
-          '${widget.product.imageUrl}',
-        );
-
-        return Icon(
-          Icons.water_drop_rounded,
-          size: 90,
-          color:
-              widget.accentColor,
-        );
-      },
-    );
-  }
-}
-
-// ============================================================================
-// NETWORK STATUS BADGE
-// ============================================================================
-
-class _NetworkStatusBadge
-    extends StatelessWidget {
-  final BillerStatus status;
-  final String label;
-
-  const _NetworkStatusBadge({
-    required this.status,
-    required this.label,
-  });
-
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    final loc =
-        AppLocalizations.of(context)!;
-
-    late final String statusText;
-    late final Color backgroundColor;
-    late final Color borderColor;
-    late final Color foregroundColor;
-    late final IconData icon;
-
-    switch (status) {
-      case BillerStatus.loading:
-        statusText =
-            loc.networkStatusChecking;
-
-        backgroundColor =
-            const Color(
-          0xFFF0F4F8,
-        );
-
-        borderColor =
-            const Color(
-          0xFFC7D2DE,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF536272,
-        );
-
-        icon =
-            Icons.sync_rounded;
-
-        break;
-
-      case BillerStatus.healthy:
-        statusText =
-            loc.networkStatusGood;
-
-        backgroundColor =
-            const Color(
-          0xFFE2F8EC,
-        );
-
-        borderColor =
-            const Color(
-          0xFF78C99B,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF08783E,
-        );
-
-        icon =
-            Icons
-                .check_circle_rounded;
-
-        break;
-
-      case BillerStatus.interruption:
-        statusText =
-            loc.networkStatusSlow;
-
-        backgroundColor =
-            const Color(
-          0xFFFFF0D7,
-        );
-
-        borderColor =
-            const Color(
-          0xFFF1B95D,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFFB75B00,
-        );
-
-        icon =
-            Icons
-                .warning_amber_rounded;
-
-        break;
-
-      case BillerStatus.unavailable:
-        statusText =
-            loc.networkStatusUnknown;
-
-        backgroundColor =
-            const Color(
-          0xFFF1F1F1,
-        );
-
-        borderColor =
-            const Color(
-          0xFFC8C8C8,
-        );
-
-        foregroundColor =
-            const Color(
-          0xFF555555,
-        );
-
-        icon =
-            Icons
-                .help_outline_rounded;
-
-        break;
-    }
-
-    return Container(
-      constraints:
-          const BoxConstraints(
-        minHeight: 58,
-      ),
-      padding:
-          const EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 14,
-      ),
-      decoration:
-          BoxDecoration(
-        color:
-            backgroundColor,
-        borderRadius:
-            BorderRadius.circular(
-          22,
-        ),
-        border:
-            Border.all(
-          color:
-              borderColor,
-          width: 1.7,
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment:
-            MainAxisAlignment.center,
-        children: [
-          if (status ==
-              BillerStatus.loading)
-            SizedBox(
-              width: 26,
-              height: 26,
-              child:
-                  CircularProgressIndicator(
-                strokeWidth: 3,
-                color:
-                    foregroundColor,
-              ),
-            )
-          else
-            Icon(
-              icon,
-              size: 28,
-              color:
-                  foregroundColor,
-            ),
-
-          const SizedBox(
-            width: 8,
-          ),
-
-          Flexible(
-            child: Text(
-              '$label: $statusText',
-              textAlign:
-                  TextAlign.center,
-              maxLines: 2,
-              overflow:
-                  TextOverflow
-                      .ellipsis,
-              style:
-                  TextStyle(
-                color:
-                    foregroundColor,
-                fontSize: 18,
-                fontWeight:
-                    FontWeight.w900,
-                height: 1.1,
-                letterSpacing:
-                    0.3,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ============================================================================
-// SCROLL INDICATOR BUTTON
+// SCROLL CONTROL MODE
 // ============================================================================
 
 enum _ScrollControlMode {
@@ -3302,10 +3177,16 @@ enum _ScrollControlMode {
   top,
 }
 
+// ============================================================================
+// MODERN SCROLL DISCOVERY CONTROL
+// ============================================================================
+
 class _ScrollDiscoveryControl
     extends StatefulWidget {
   final _ScrollControlMode mode;
+
   final String label;
+
   final VoidCallback onPressed;
 
   const _ScrollDiscoveryControl({
@@ -3316,10 +3197,13 @@ class _ScrollDiscoveryControl
   });
 
   @override
-  State<_ScrollDiscoveryControl>
-      createState() =>
-          _ScrollDiscoveryControlState();
+  State<_ScrollDiscoveryControl> createState() =>
+      _ScrollDiscoveryControlState();
 }
+
+// ============================================================================
+// SCROLL CONTROL STATE
+// ============================================================================
 
 class _ScrollDiscoveryControlState
     extends State<_ScrollDiscoveryControl> {
@@ -3333,7 +3217,8 @@ class _ScrollDiscoveryControlState
     }
 
     setState(() {
-      _pressed = value;
+      _pressed =
+          value;
     });
   }
 
@@ -3349,52 +3234,66 @@ class _ScrollDiscoveryControlState
 
     final IconData arrow =
         isUp
-            ? Icons
-                .keyboard_arrow_up_rounded
-            : Icons
-                .keyboard_arrow_down_rounded;
+            ? Icons.keyboard_arrow_up_rounded
+            : Icons.keyboard_arrow_down_rounded;
 
     return AnimatedScale(
       scale:
           _pressed
               ? 0.96
               : 1.0,
+
       duration:
           const Duration(
-        milliseconds: 120,
+        milliseconds:
+            120,
       ),
+
       curve:
           Curves.easeOutCubic,
-      child: Material(
+
+      child:
+          Material(
         color:
             Colors.transparent,
-        child: InkWell(
+
+        child:
+            InkWell(
           onTap:
               widget.onPressed,
+
           onHighlightChanged:
               _setPressed,
+
           borderRadius:
               BorderRadius.circular(
             100,
           ),
+
           splashColor:
               const Color(
             0xFF1469E8,
           ).withOpacity(
             0.10,
           ),
+
           highlightColor:
               Colors.transparent,
+
           child:
               AnimatedContainer(
             duration:
                 const Duration(
-              milliseconds: 140,
+              milliseconds:
+                  140,
             ),
+
             constraints:
                 const BoxConstraints(
-              minHeight: 88,
+              minHeight:
+                  88,
             ),
+
             padding:
                 const EdgeInsets.fromLTRB(
               30,
@@ -3402,16 +3301,19 @@ class _ScrollDiscoveryControlState
               22,
               13,
             ),
+
             decoration:
                 BoxDecoration(
               color:
                   Colors.white.withOpacity(
                 0.98,
               ),
+
               borderRadius:
                   BorderRadius.circular(
                 100,
               ),
+
               border:
                   Border.all(
                 color:
@@ -3422,11 +3324,13 @@ class _ScrollDiscoveryControlState
                         : const Color(
                             0xFFC4D8EE,
                           ),
+
                 width:
                     _pressed
                         ? 2.5
                         : 1.7,
               ),
+
               boxShadow: [
                 BoxShadow(
                   color:
@@ -3437,13 +3341,16 @@ class _ScrollDiscoveryControlState
                         ? 0.09
                         : 0.17,
                   ),
+
                   blurRadius:
                       _pressed
                           ? 8
                           : 20,
+
                   offset:
                       Offset(
                     0,
+
                     _pressed
                         ? 2
                         : 7,
@@ -3451,46 +3358,75 @@ class _ScrollDiscoveryControlState
                 ),
               ],
             ),
-            child: Row(
+
+            child:
+                Row(
               mainAxisSize:
                   MainAxisSize.min,
+
               children: [
+                // ============================================================
+                // UP ARROW
+                // ============================================================
+
                 if (isUp) ...[
                   _ScrollArrowCircle(
-                    icon: arrow,
+                    icon:
+                        arrow,
+
                     pressed:
                         _pressed,
                   ),
+
                   const SizedBox(
-                    width: 14,
+                    width:
+                        14,
                   ),
                 ],
+
+                // ============================================================
+                // LABEL
+                // ============================================================
 
                 ConstrainedBox(
                   constraints:
                       const BoxConstraints(
-                    minWidth: 88,
-                    maxWidth: 190,
+                    minWidth:
+                        88,
+
+                    maxWidth:
+                        190,
                   ),
+
                   child:
                       FittedBox(
                     fit:
                         BoxFit.scaleDown,
-                    child: Text(
+
+                    child:
+                        Text(
                       widget.label
                           .toUpperCase(),
-                      maxLines: 1,
+
+                      maxLines:
+                          1,
+
                       textAlign:
                           TextAlign.center,
+
                       style:
                           const TextStyle(
                         color:
                             Color(
                           0xFF163B67,
                         ),
-                        fontSize: 24,
+
+                        fontSize:
+                            24,
+
                         fontWeight:
                             FontWeight.w900,
+
                         letterSpacing:
                             0.5,
                       ),
@@ -3498,12 +3434,20 @@ class _ScrollDiscoveryControlState
                   ),
                 ),
 
+                // ============================================================
+                // DOWN ARROW
+                // ============================================================
+
                 if (!isUp) ...[
                   const SizedBox(
-                    width: 14,
+                    width:
+                        14,
                   ),
+
                   _ScrollArrowCircle(
-                    icon: arrow,
+                    icon:
+                        arrow,
+
                     pressed:
                         _pressed,
                   ),
@@ -3517,9 +3461,14 @@ class _ScrollDiscoveryControlState
   }
 }
 
+// ============================================================================
+// SCROLL ARROW CIRCLE
+// ============================================================================
+
 class _ScrollArrowCircle
     extends StatelessWidget {
   final IconData icon;
+
   final bool pressed;
 
   const _ScrollArrowCircle({
@@ -3534,24 +3483,33 @@ class _ScrollArrowCircle
     return AnimatedContainer(
       duration:
           const Duration(
-        milliseconds: 140,
+        milliseconds:
+            140,
       ),
-      width: 66,
-      height: 66,
+
+      width:
+          66,
+
+      height:
+          66,
+
       decoration:
           BoxDecoration(
         gradient:
             LinearGradient(
           begin:
               Alignment.topLeft,
+
           end:
               Alignment.bottomRight,
+
           colors:
               pressed
                   ? const [
                       Color(
                         0xFF0B4FAE,
                       ),
+
                       Color(
                         0xFF0A73E8,
                       ),
@@ -3560,13 +3518,16 @@ class _ScrollArrowCircle
                       Color(
                         0xFF1469E8,
                       ),
+
                       Color(
                         0xFF0A82F5,
                       ),
                     ],
         ),
+
         shape:
             BoxShape.circle,
+
         boxShadow: [
           BoxShadow(
             color:
@@ -3575,8 +3536,10 @@ class _ScrollArrowCircle
             ).withOpacity(
               0.30,
             ),
+
             blurRadius:
                 12,
+
             offset:
                 const Offset(
               0,
@@ -3585,13 +3548,17 @@ class _ScrollArrowCircle
           ),
         ],
       ),
-      child: Icon(
+
+      child:
+          Icon(
         icon,
+
         color:
             Colors.white,
-        size: 48,
+
+        size:
+            48,
       ),
     );
   }
 }
-

@@ -7496,4 +7496,43 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get providerSearchNoResults => 'பொருந்தும் வழங்குநர் எதுவும் கிடைக்கவில்லை.';
+
+  @override
+  String get foodBeverageButton => 'உணவு & பானங்கள்';
+
+  @override
+  String get foodBeverageSupportingText => 'பங்கேற்கும் நிறுவனங்களிலிருந்து உணவு மற்றும் பான வவுச்சர்களை வாங்குங்கள்.';
+
+  @override
+  String get foodBeverageTitle => 'உணவு & பானங்கள்';
+
+  @override
+  String get foodBeverageSubtitle => 'பங்கேற்கும் உணவு அல்லது பான வழங்குநரைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get taksiranKioskIntro => 'கணக்குகளையும் கட்டணக் காலத்தையும் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get taksiranKioskChooseAccounts => 'செலுத்த வேண்டிய கணக்குகளைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get taksiranKioskAccountHint => 'தேர்ந்தெடுக்க கணக்கைத் தொடவும். ஒன்றுக்கு மேற்பட்ட கணக்குகளைத் தேர்ந்தெடுக்கலாம்.';
+
+  @override
+  String get taksiranKioskViewDetails => 'விவரங்களைக் காண்க';
+
+  @override
+  String get taksiranKioskChoosePeriod => 'அரையாண்டு அல்லது முழு ஆண்டுக்கான கட்டணத்தைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get taksiranKioskPeriodRequired => 'தொடர, அரையாண்டு அல்லது முழு ஆண்டுக்கான தொகையைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get taksiranKioskAmountUnavailable => 'தொகை கிடைக்கவில்லை';
+
+  @override
+  String get taksiranKioskInvalidSelection => 'தேர்ந்தெடுத்த கணக்கில் இக்காலத்திற்குச் செலுத்தக்கூடிய தொகை இல்லை. கணக்குத் தேர்வைச் சரிபார்க்கவும் அல்லது வேறு காலத்தைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get taksiranKioskAccountUnavailable => 'கணக்கு எண் இல்லாததால் இந்தக் கணக்கைத் தேர்ந்தெடுக்க முடியாது.';
 }

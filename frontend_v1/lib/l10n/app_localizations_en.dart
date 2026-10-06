@@ -7502,4 +7502,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get providerSearchNoResults => 'No matching providers found.';
+
+  @override
+  String get foodBeverageButton => 'Food & Beverage';
+
+  @override
+  String get foodBeverageSupportingText => 'Purchase food and beverage vouchers from participating brands.';
+
+  @override
+  String get foodBeverageTitle => 'Food & Beverage';
+
+  @override
+  String get foodBeverageSubtitle => 'Select a participating food or beverage provider';
+
+  @override
+  String get taksiranKioskIntro => 'Choose your accounts and payment period.';
+
+  @override
+  String get taksiranKioskChooseAccounts => 'Choose accounts to pay';
+
+  @override
+  String get taksiranKioskAccountHint => 'Tap an account to select it. You may select more than one.';
+
+  @override
+  String get taksiranKioskViewDetails => 'View details';
+
+  @override
+  String get taksiranKioskChoosePeriod => 'Choose half-year or full-year payment';
+
+  @override
+  String get taksiranKioskPeriodRequired => 'Choose half-year or full-year to continue.';
+
+  @override
+  String get taksiranKioskAmountUnavailable => 'Amount unavailable';
+
+  @override
+  String get taksiranKioskInvalidSelection => 'A selected account has no payable amount for this period. Review your selection or choose another period.';
+
+  @override
+  String get taksiranKioskAccountUnavailable => 'This account cannot be selected because its account number is missing.';
 }
