@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/model/compound/compound_model.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/pages/pbt/newp4.dart';
 import 'package:frontend_v1/pages/pbt/p4.dart';
 import 'package:frontend_v1/pages/payment/payment.dart';
 import 'package:intl/intl.dart';
@@ -665,18 +666,24 @@ Widget _buildTitle(AppLocalizations loc) {
               backgroundColor: const Color(0xFFF2F3F5),
               foregroundColor: const Color(0xFF20242A),
               borderColor: const Color(0xFF5D6269),
+              // onPressed: () {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (_) => NEWP4PAGE(
+              //         title: loc.singlecompoundTitle,
+              //         type: 'PBT',
+              //         hint: loc.inputCompoundHint,
+              //         biz: 'SINGLECOMPOUND',
+              //       ),
+              //     ),
+              //   );
+              // },
+
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => P4PAGE(
-                      title: loc.singlecompoundTitle,
-                      type: 'PBT',
-                      hint: loc.inputCompoundHint,
-                      biz: 'SINGLECOMPOUND',
-                    ),
-                  ),
-                );
+                if (Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ),

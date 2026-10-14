@@ -69,9 +69,6 @@ class PTOURISTPAGE extends StatelessWidget {
             ),
           ),
 
-          // ============================================================
-          // SAME KNOWLEDGE SLIDER AS PBT
-          // ============================================================
           const Positioned(
             top: 325,
             left: 58,
@@ -79,13 +76,11 @@ class PTOURISTPAGE extends StatelessWidget {
             child: KnowledgeSlider(
               height: 250,
 
-              /// SAME SIZE AS PBT
               titleFontSize: 32,
               subtitleFontSize: 25,
               factFontSize: 25,
               counterFontSize: 25,
 
-              /// AUTO CHANGE EVERY 8 SECONDS
               slideDuration: Duration(
                 seconds: 8,
               ),
@@ -312,6 +307,14 @@ class PTOURISTPAGE extends StatelessWidget {
                 );
               },
             ),
+
+            // child: KioskBackButton(
+            //   onPressed: () {
+            //     if (Navigator.of(context).canPop()) {
+            //       Navigator.of(context).pop();
+            //     }
+            //   },
+            // ),
           ),
 
           // ============================================================

@@ -860,17 +860,21 @@ Widget _buildTopTitle() {
               foregroundColor: const Color(0xFF20242A),
               borderColor: const Color(0xFF5D6269),
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => P4PAGE(
-                      title: loc.parkirButton,
-                      type: 'PBT',
-                      hint: loc.inputPlateHint,
-                      biz: 'PARKING',
-                    ),
-                  ),
-                );
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (_) => P4PAGE(
+                //       title: loc.parkirButton,
+                //       type: 'PBT',
+                //       hint: loc.inputPlateHint,
+                //       biz: 'PARKING',
+                //     ),
+                //   ),
+                // );
+
+                  if (Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ),

@@ -14810,6 +14810,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This account cannot be selected because its account number is missing.'**
   String get taksiranKioskAccountUnavailable;
+
+  /// No description provided for @p2MainServicesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'MAIN SERVICES'**
+  String get p2MainServicesTitle;
+
+  /// No description provided for @p2FrequentlyUsedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'FREQUENTLY USED SERVICES'**
+  String get p2FrequentlyUsedTitle;
+
+  /// No description provided for @p2DidYouKnowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'DID YOU KNOW?'**
+  String get p2DidYouKnowTitle;
+
+  /// No description provided for @p2HelpInformationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'HELP & INFORMATION'**
+  String get p2HelpInformationTitle;
+
+  /// No description provided for @scanInputScanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'SCAN CODE'**
+  String get scanInputScanTitle;
+
+  /// No description provided for @scanInputScanDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan a barcode or QR code to enter details'**
+  String get scanInputScanDescription;
+
+  /// No description provided for @scanInputTypeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'USE KEYPAD'**
+  String get scanInputTypeTitle;
+
+  /// No description provided for @scanInputTypeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the keys below to enter details'**
+  String get scanInputTypeDescription;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

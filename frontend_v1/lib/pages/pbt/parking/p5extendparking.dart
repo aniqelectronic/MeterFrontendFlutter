@@ -236,20 +236,26 @@ class _P5EXTENDPARKINGPAGEState
   // ==========================================================================
   // RETURN TO PLATE INPUT PAGE
   // ==========================================================================
-  void _goBackToParkingInput() {
-    final loc = AppLocalizations.of(context)!;
+  // void _goBackToParkingInput() {
+  //   final loc = AppLocalizations.of(context)!;
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (_) => P4PAGE(
-          title: loc.parkirButton,
-          type: 'PBT',
-          hint: loc.inputPlateHint,
-          biz: 'PARKING',
-        ),
-      ),
-    );
+  //   Navigator.pushReplacement(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (_) => P4PAGE(
+  //         title: loc.parkirButton,
+  //         type: 'PBT',
+  //         hint: loc.inputPlateHint,
+  //         biz: 'PARKING',
+  //       ),
+  //     ),
+  //   );
+  // }
+
+    void _goBackToParkingInput() {
+    if (Navigator.of(context).canPop()) {
+      Navigator.of(context).pop();
+    }
   }
 
   @override

@@ -79,21 +79,27 @@ class _P5SemakanCukaiTaksiranBentongScreenState
     }
   }
 
-  void _goBack(
-    AppLocalizations loc,
-  ) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (_) => P4PAGE(
-          title: loc.semakancukaititle,
-          type: "PBT",
-          hint: loc.inputTaxHint,
-          biz: "SEMAKAN CUKAI",
-        ),
-      ),
-    );
+  // void _goBack(
+  //   AppLocalizations loc,
+  // ) {
+  //   Navigator.pushReplacement(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (_) => P4PAGE(
+  //         title: loc.semakancukaititle,
+  //         type: "PBT",
+  //         hint: loc.inputTaxHint,
+  //         biz: "SEMAKAN CUKAI",
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  void _goBack() {
+  if (Navigator.of(context).canPop()) {
+    Navigator.of(context).pop();
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -480,10 +486,13 @@ class _P5SemakanCukaiTaksiranBentongScreenState
       ),
       child: SizedBox(
         height: 105,
+        // child: KioskBackButton(
+        //   onPressed: () {
+        //     _goBack(loc);
+        //   },
+        // ),
         child: KioskBackButton(
-          onPressed: () {
-            _goBack(loc);
-          },
+          onPressed: _goBack,
         ),
       ),
     );

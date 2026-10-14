@@ -4035,15 +4035,26 @@
 "foodBeverageTitle": "Food & Beverage",
 "foodBeverageSubtitle": "Select a participating food or beverage provider",
 
-  "taksiranKioskIntro": "Choose your accounts and payment period.",
-  "taksiranKioskChooseAccounts": "Choose accounts to pay",
-  "taksiranKioskAccountHint": "Tap an account to select it. You may select more than one.",
-  "taksiranKioskViewDetails": "View details",
-  "taksiranKioskChoosePeriod": "Choose half-year or full-year payment",
-  "taksiranKioskPeriodRequired": "Choose half-year or full-year to continue.",
-  "taksiranKioskAmountUnavailable": "Amount unavailable",
-  "taksiranKioskInvalidSelection": "A selected account has no payable amount for this period. Review your selection or choose another period.",
-  "taksiranKioskAccountUnavailable": "This account cannot be selected because its account number is missing."
+"taksiranKioskIntro": "Choose your accounts and payment period.",
+"taksiranKioskChooseAccounts": "Choose accounts to pay",
+"taksiranKioskAccountHint": "Tap an account to select it. You may select more than one.",
+"taksiranKioskViewDetails": "View details",
+"taksiranKioskChoosePeriod": "Choose half-year or full-year payment",
+"taksiranKioskPeriodRequired": "Choose half-year or full-year to continue.",
+"taksiranKioskAmountUnavailable": "Amount unavailable",
+"taksiranKioskInvalidSelection": "A selected account has no payable amount for this period. Review your selection or choose another period.",
+"taksiranKioskAccountUnavailable": "This account cannot be selected because its account number is missing.",
+
+"p2MainServicesTitle": "MAIN SERVICES",
+"p2FrequentlyUsedTitle": "FREQUENTLY USED SERVICES",
+"p2DidYouKnowTitle": "DID YOU KNOW?",
+
+"p2HelpInformationTitle": "HELP & INFORMATION",
+
+"scanInputScanTitle": "SCAN CODE",
+"scanInputScanDescription": "Scan a barcode or QR code to enter details",
+"scanInputTypeTitle": "USE KEYPAD",
+"scanInputTypeDescription": "Tap the keys below to enter details"
 
 
 

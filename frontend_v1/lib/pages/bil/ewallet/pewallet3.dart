@@ -1781,18 +1781,11 @@ class _PEWALLET3PAGEState
                 300,
 
             child:
-                KioskBackButton(
-              onPressed:
-                  () {
-                Navigator.pushReplacement(
-                  context,
-
-                  MaterialPageRoute(
-                    builder:
-                        (_) =>
-                            const PBIL3PAGE(),
-                  ),
-                );
+            KioskBackButton(
+              onPressed: () {
+                if (Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ),

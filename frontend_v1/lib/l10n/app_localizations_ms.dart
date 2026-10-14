@@ -7535,4 +7535,28 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get taksiranKioskAccountUnavailable => 'Akaun ini tidak boleh dipilih kerana nombor akaun tiada.';
+
+  @override
+  String get p2MainServicesTitle => 'PERKHIDMATAN UTAMA';
+
+  @override
+  String get p2FrequentlyUsedTitle => 'PERKHIDMATAN PILIHAN UTAMA';
+
+  @override
+  String get p2DidYouKnowTitle => 'TAHUKAH ANDA?';
+
+  @override
+  String get p2HelpInformationTitle => 'BANTUAN & MAKLUMAT';
+
+  @override
+  String get scanInputScanTitle => 'IMBAS KOD';
+
+  @override
+  String get scanInputScanDescription => 'Imbas kod bar atau kod QR untuk masukkan maklumat';
+
+  @override
+  String get scanInputTypeTitle => 'GUNA PAPAN KEKUNCI';
+
+  @override
+  String get scanInputTypeDescription => 'Tekan kekunci di bawah untuk masukkan maklumat';
 }

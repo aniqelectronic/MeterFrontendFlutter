@@ -88,20 +88,26 @@ class _P5SemakanSewaanBentongScreenState
   // BACK
   // =========================================================
 
-  void _goBack(
-    AppLocalizations loc,
-  ) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (_) => P4PAGE(
-          title: loc.semakanSewaanTitle,
-          type: "PBT",
-          hint: loc.inputTaxHint,
-          biz: "SEMAKAN SEWAAN",
-        ),
-      ),
-    );
+  // void _goBack(
+  //   AppLocalizations loc,
+  // ) {
+  //   Navigator.pushReplacement(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (_) => P4PAGE(
+  //         title: loc.semakanSewaanTitle,
+  //         type: "PBT",
+  //         hint: loc.inputTaxHint,
+  //         biz: "SEMAKAN SEWAAN",
+  //       ),
+  //     ),
+  //   );
+  // }
+
+    void _goBack() {
+    if (Navigator.of(context).canPop()) {
+      Navigator.of(context).pop();
+    }
   }
 
   // =========================================================
@@ -590,10 +596,13 @@ class _P5SemakanSewaanBentongScreenState
       ),
       child: SizedBox(
         height: 105,
+        // child: KioskBackButton(
+        //   onPressed: () {
+        //     _goBack(loc);
+        //   },
+        // ),
         child: KioskBackButton(
-          onPressed: () {
-            _goBack(loc);
-          },
+          onPressed: _goBack,
         ),
       ),
     );

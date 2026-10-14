@@ -7541,4 +7541,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get taksiranKioskAccountUnavailable => 'This account cannot be selected because its account number is missing.';
+
+  @override
+  String get p2MainServicesTitle => 'MAIN SERVICES';
+
+  @override
+  String get p2FrequentlyUsedTitle => 'FREQUENTLY USED SERVICES';
+
+  @override
+  String get p2DidYouKnowTitle => 'DID YOU KNOW?';
+
+  @override
+  String get p2HelpInformationTitle => 'HELP & INFORMATION';
+
+  @override
+  String get scanInputScanTitle => 'SCAN CODE';
+
+  @override
+  String get scanInputScanDescription => 'Scan a barcode or QR code to enter details';
+
+  @override
+  String get scanInputTypeTitle => 'USE KEYPAD';
+
+  @override
+  String get scanInputTypeDescription => 'Tap the keys below to enter details';
 }

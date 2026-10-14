@@ -548,18 +548,23 @@ class _P5MultipleCompoundScreenState extends State<P5MULTIPLECompoundScreen> {
                         child: SizedBox(
                           height: 105,
                           child: ElevatedButton.icon(
+                            // onPressed: () {
+                            //   Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (_) => P4PAGE(
+                            //         title: loc.multicompoundTitle,
+                            //         type: "PBT",
+                            //         hint: loc.inputPlateHint,
+                            //         biz: "MULTICOMPOUND",
+                            //       ),
+                            //     ),
+                            //   );
+                            // },
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => P4PAGE(
-                                    title: loc.multicompoundTitle,
-                                    type: "PBT",
-                                    hint: loc.inputPlateHint,
-                                    biz: "MULTICOMPOUND",
-                                  ),
-                                ),
-                              );
+                              if (Navigator.of(context).canPop()) {
+                                Navigator.of(context).pop();
+                              }
                             },
                             icon: const Icon(
                               Icons.arrow_back_rounded,

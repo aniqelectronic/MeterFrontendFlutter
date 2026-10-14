@@ -1172,27 +1172,9 @@ void _showAlert(
                         onPressed: _isLoading
                             ? null
                             : () {
-                                if (widget.type == "PBT") {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => const PBT3PAGE(),
-                                    ),
-                                  );
-                                  return;
+                                if (Navigator.of(context).canPop()) {
+                                  Navigator.of(context).pop();
                                 }
-
-                                if (widget.type == "OTHERS") {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => const P2Page(),
-                                    ),
-                                  );
-                                  return;
-                                }
-
-                                Navigator.pop(context);
                               },
                         icon: const Icon(
                           Icons.arrow_back_rounded,

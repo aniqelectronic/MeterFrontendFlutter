@@ -7535,4 +7535,28 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get taksiranKioskAccountUnavailable => 'கணக்கு எண் இல்லாததால் இந்தக் கணக்கைத் தேர்ந்தெடுக்க முடியாது.';
+
+  @override
+  String get p2MainServicesTitle => 'முக்கிய சேவைகள்';
+
+  @override
+  String get p2FrequentlyUsedTitle => 'அடிக்கடி பயன்படுத்தும் சேவைகள்';
+
+  @override
+  String get p2DidYouKnowTitle => 'உங்களுக்குத் தெரியுமா?';
+
+  @override
+  String get p2HelpInformationTitle => 'உதவி மற்றும் தகவல்';
+
+  @override
+  String get scanInputScanTitle => 'குறியீட்டை ஸ்கேன் செய்க';
+
+  @override
+  String get scanInputScanDescription => 'விவரங்களை உள்ளிட பார்கோடு அல்லது QR குறியீட்டை ஸ்கேன் செய்க';
+
+  @override
+  String get scanInputTypeTitle => 'விசைப்பலகையைப் பயன்படுத்தவும்';
+
+  @override
+  String get scanInputTypeDescription => 'விவரங்களை உள்ளிட கீழே உள்ள விசைகளைத் தொடவும்';
 }

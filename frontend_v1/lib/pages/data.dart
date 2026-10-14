@@ -15,7 +15,7 @@ class Data {
   static String aduanMajlisBentong = "1300-88-1148";
 
     //to change waktu solat for demo url justchange zone part. ps: to know the zone code is from https://www.e-solat.gov.my/
-  static String waktusolatplacedemo = "Kuala Lumpur, Melaka";
+  static String waktusolatplacedemo = "Melaka";
   static String waktusolaturldemo = "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=MLK01&period=today";
 
     //page map demo

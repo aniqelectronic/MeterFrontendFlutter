@@ -7535,4 +7535,28 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get taksiranKioskAccountUnavailable => '此户口缺少户口号码，无法选择。';
+
+  @override
+  String get p2MainServicesTitle => '主要服务';
+
+  @override
+  String get p2FrequentlyUsedTitle => '常用服务';
+
+  @override
+  String get p2DidYouKnowTitle => '你知道吗？';
+
+  @override
+  String get p2HelpInformationTitle => '帮助与资讯';
+
+  @override
+  String get scanInputScanTitle => '扫描代码';
+
+  @override
+  String get scanInputScanDescription => '扫描条形码或二维码以输入资料';
+
+  @override
+  String get scanInputTypeTitle => '使用键盘';
+
+  @override
+  String get scanInputTypeDescription => '点击下方按键以输入资料';
 }

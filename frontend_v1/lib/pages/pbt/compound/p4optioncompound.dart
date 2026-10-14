@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/pbt3.dart';
+import 'package:frontend_v1/pages/pbt/newp4.dart';
 import 'package:frontend_v1/pages/pbt/p4.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
@@ -84,7 +85,7 @@ class P4OPTIONCOMPOUND extends StatelessWidget {
                       Navigator.push(
                         context,
                         PageRouteBuilder(
-                          pageBuilder: (_, __, ___) => P4PAGE(
+                          pageBuilder: (_, __, ___) => NEWP4PAGE(
                             title: loc.singlecompoundTitle,
                             type: 'PBT',
                             hint: loc.inputCompoundHint,
@@ -146,12 +147,16 @@ class P4OPTIONCOMPOUND extends StatelessWidget {
             right: 300,
             child: KioskBackButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const PBT3PAGE(),
-                  ),
-                );
+                if (Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const PBT3PAGE(),
+                    ),
+                  );
+                }
               },
             ),
           ),

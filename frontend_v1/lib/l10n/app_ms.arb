@@ -4047,14 +4047,25 @@
 "foodBeverageTitle": "Food & Beverage",
 "foodBeverageSubtitle": "Select a participating food or beverage provider",
 
-  "taksiranKioskIntro": "Pilih akaun dan tempoh bayaran.",
-  "taksiranKioskChooseAccounts": "Pilih akaun untuk dibayar",
-  "taksiranKioskAccountHint": "Sentuh akaun untuk memilih. Anda boleh memilih lebih daripada satu akaun.",
-  "taksiranKioskViewDetails": "Lihat butiran",
-  "taksiranKioskChoosePeriod": "Pilih bayaran sepenggal atau setahun",
-  "taksiranKioskPeriodRequired": "Pilih jumlah sepenggal atau setahun untuk meneruskan.",
-  "taksiranKioskAmountUnavailable": "Jumlah tidak tersedia",
-  "taksiranKioskInvalidSelection": "Akaun yang dipilih tiada jumlah yang boleh dibayar bagi tempoh ini. Semak pilihan akaun atau pilih tempoh lain.",
-  "taksiranKioskAccountUnavailable": "Akaun ini tidak boleh dipilih kerana nombor akaun tiada."
+"taksiranKioskIntro": "Pilih akaun dan tempoh bayaran.",
+"taksiranKioskChooseAccounts": "Pilih akaun untuk dibayar",
+"taksiranKioskAccountHint": "Sentuh akaun untuk memilih. Anda boleh memilih lebih daripada satu akaun.",
+"taksiranKioskViewDetails": "Lihat butiran",
+"taksiranKioskChoosePeriod": "Pilih bayaran sepenggal atau setahun",
+"taksiranKioskPeriodRequired": "Pilih jumlah sepenggal atau setahun untuk meneruskan.",
+"taksiranKioskAmountUnavailable": "Jumlah tidak tersedia",
+"taksiranKioskInvalidSelection": "Akaun yang dipilih tiada jumlah yang boleh dibayar bagi tempoh ini. Semak pilihan akaun atau pilih tempoh lain.",
+"taksiranKioskAccountUnavailable": "Akaun ini tidak boleh dipilih kerana nombor akaun tiada.",
+
+"p2MainServicesTitle": "PERKHIDMATAN UTAMA",
+"p2FrequentlyUsedTitle": "PERKHIDMATAN PILIHAN UTAMA",
+"p2DidYouKnowTitle": "TAHUKAH ANDA?",
+
+"p2HelpInformationTitle": "BANTUAN & MAKLUMAT",
+
+"scanInputScanTitle": "IMBAS KOD",
+"scanInputScanDescription": "Imbas kod bar atau kod QR untuk masukkan maklumat",
+"scanInputTypeTitle": "GUNA PAPAN KEKUNCI",
+"scanInputTypeDescription": "Tekan kekunci di bawah untuk masukkan maklumat"
 
 }

@@ -3883,15 +3883,26 @@
 "foodBeverageSubtitle": "பங்கேற்கும் உணவு அல்லது பான வழங்குநரைத் தேர்ந்தெடுக்கவும்",
 
 
-  "taksiranKioskIntro": "கணக்குகளையும் கட்டணக் காலத்தையும் தேர்ந்தெடுக்கவும்.",
-  "taksiranKioskChooseAccounts": "செலுத்த வேண்டிய கணக்குகளைத் தேர்ந்தெடுக்கவும்",
-  "taksiranKioskAccountHint": "தேர்ந்தெடுக்க கணக்கைத் தொடவும். ஒன்றுக்கு மேற்பட்ட கணக்குகளைத் தேர்ந்தெடுக்கலாம்.",
-  "taksiranKioskViewDetails": "விவரங்களைக் காண்க",
-  "taksiranKioskChoosePeriod": "அரையாண்டு அல்லது முழு ஆண்டுக்கான கட்டணத்தைத் தேர்ந்தெடுக்கவும்",
-  "taksiranKioskPeriodRequired": "தொடர, அரையாண்டு அல்லது முழு ஆண்டுக்கான தொகையைத் தேர்ந்தெடுக்கவும்.",
-  "taksiranKioskAmountUnavailable": "தொகை கிடைக்கவில்லை",
-  "taksiranKioskInvalidSelection": "தேர்ந்தெடுத்த கணக்கில் இக்காலத்திற்குச் செலுத்தக்கூடிய தொகை இல்லை. கணக்குத் தேர்வைச் சரிபார்க்கவும் அல்லது வேறு காலத்தைத் தேர்ந்தெடுக்கவும்.",
-  "taksiranKioskAccountUnavailable": "கணக்கு எண் இல்லாததால் இந்தக் கணக்கைத் தேர்ந்தெடுக்க முடியாது."
+"taksiranKioskIntro": "கணக்குகளையும் கட்டணக் காலத்தையும் தேர்ந்தெடுக்கவும்.",
+"taksiranKioskChooseAccounts": "செலுத்த வேண்டிய கணக்குகளைத் தேர்ந்தெடுக்கவும்",
+"taksiranKioskAccountHint": "தேர்ந்தெடுக்க கணக்கைத் தொடவும். ஒன்றுக்கு மேற்பட்ட கணக்குகளைத் தேர்ந்தெடுக்கலாம்.",
+"taksiranKioskViewDetails": "விவரங்களைக் காண்க",
+"taksiranKioskChoosePeriod": "அரையாண்டு அல்லது முழு ஆண்டுக்கான கட்டணத்தைத் தேர்ந்தெடுக்கவும்",
+"taksiranKioskPeriodRequired": "தொடர, அரையாண்டு அல்லது முழு ஆண்டுக்கான தொகையைத் தேர்ந்தெடுக்கவும்.",
+"taksiranKioskAmountUnavailable": "தொகை கிடைக்கவில்லை",
+"taksiranKioskInvalidSelection": "தேர்ந்தெடுத்த கணக்கில் இக்காலத்திற்குச் செலுத்தக்கூடிய தொகை இல்லை. கணக்குத் தேர்வைச் சரிபார்க்கவும் அல்லது வேறு காலத்தைத் தேர்ந்தெடுக்கவும்.",
+"taksiranKioskAccountUnavailable": "கணக்கு எண் இல்லாததால் இந்தக் கணக்கைத் தேர்ந்தெடுக்க முடியாது.",
+
+"p2MainServicesTitle": "முக்கிய சேவைகள்",
+"p2FrequentlyUsedTitle": "அடிக்கடி பயன்படுத்தும் சேவைகள்",
+"p2DidYouKnowTitle": "உங்களுக்குத் தெரியுமா?",
+
+"p2HelpInformationTitle": "உதவி மற்றும் தகவல்",
+
+"scanInputScanTitle": "குறியீட்டை ஸ்கேன் செய்க",
+"scanInputScanDescription": "விவரங்களை உள்ளிட பார்கோடு அல்லது QR குறியீட்டை ஸ்கேன் செய்க",
+"scanInputTypeTitle": "விசைப்பலகையைப் பயன்படுத்தவும்",
+"scanInputTypeDescription": "விவரங்களை உள்ளிட கீழே உள்ள விசைகளைத் தொடவும்"
 
 
 

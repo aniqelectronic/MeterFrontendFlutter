@@ -204,27 +204,36 @@ class _KnowledgeSlider extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Container(
-                        width: 56,
-                        height: 56,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFFFF7E2),
-                        border: Border.all(color: const Color(0xFFE8CC8E), width: 1.5),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF18324F).withOpacity(0.12),
-                            blurRadius: 12,
-                            offset: const Offset(0, 5),
-                          ),
+
+                  Container(
+                    width: 56,
+                    height: 56,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFF39B6FF),
+                          Color(0xFF086BE8),
+                          Color(0xFF0344AE),
                         ],
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        child: const Icon(
-                          Icons.lightbulb_rounded,
-                          color: Color(0xFFA66B09),
-                          size: 33,
-                        ),
                       ),
+                      borderRadius: BorderRadius.circular(14),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF086BE8).withOpacity(0.28),
+                          blurRadius: 12,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.lightbulb_rounded,
+                      color: Color(0xFFFFD633),
+                      size: 36,
+                    ),
+                  ),
+
                       const SizedBox(width: 16),
                       Expanded(
                         child: Column(

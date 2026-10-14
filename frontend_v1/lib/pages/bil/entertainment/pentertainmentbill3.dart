@@ -1172,16 +1172,11 @@ class _PENTERTAINMENTBILL3PAGEState
                 300,
 
             child:
-                KioskBackButton(
+            KioskBackButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-
-                  MaterialPageRoute(
-                    builder: (_) =>
-                        const PBIL3PAGE(),
-                  ),
-                );
+                if (Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ),

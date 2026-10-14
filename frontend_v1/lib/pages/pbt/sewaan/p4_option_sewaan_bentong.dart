@@ -4,8 +4,9 @@ import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 
 import '../../option/pbt3.dart';
-import '../p4.dart';
 
+import '../p4.dart';
+import 'package:frontend_v1/pages/pbt/newp4.dart';
 // ============================================================================
 // RENTAL PAYMENT CHECK WARNING
 // ============================================================================
@@ -133,7 +134,7 @@ void _showSemakanSewaanWarning(BuildContext context) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => P4PAGE(
+                              builder: (_) => NEWP4PAGE(
                                 title: loc.semakansewaantitle,
                                 type: 'PBT',
                                 hint: loc.inputTaxHint,
@@ -249,7 +250,7 @@ class P4OPTIONSEWAANBENTONG extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => P4PAGE(
+                          builder: (_) => NEWP4PAGE(
                             title: loc.p4optionsewaanTitle,
                             type: 'PBT',
                             hint: loc.inputTaxHint,
@@ -292,12 +293,16 @@ class P4OPTIONSEWAANBENTONG extends StatelessWidget {
             right: 300,
             child: KioskBackButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const PBT3PAGE(),
-                  ),
-                );
+                if (Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const PBT3PAGE(),
+                    ),
+                  );
+                }
               },
             ),
           ),

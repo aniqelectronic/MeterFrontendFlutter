@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_v1/controllers/taksiran/taksiran_service_bentong.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
+import 'package:frontend_v1/pages/pbt/newp4.dart';
 import 'package:frontend_v1/pages/pbt/p4.dart';
 import 'package:frontend_v1/pages/payment/payment.dart';
 import 'package:frontend_v1/model/taksiran/taksiran_payment_item.dart';
@@ -87,16 +88,22 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
       if (!_selected.remove(account)) _selected.add(account);
     });
   }
+  // void _back() {
+  //   if (_openingPayment) return;
+  //   final loc = AppLocalizations.of(context)!;
+  //   Navigator.pushReplacement(context, MaterialPageRoute(
+  //     builder: (_) => NEWP4PAGE(
+  //       title: loc.taksiranTitle, type: 'PBT',
+  //       hint: loc.inputTaxHint, biz: 'CUKAI',
+  //     ),
+  //   ));
+  // }
+
   void _back() {
-    if (_openingPayment) return;
-    final loc = AppLocalizations.of(context)!;
-    Navigator.pushReplacement(context, MaterialPageRoute(
-      builder: (_) => P4PAGE(
-        title: loc.taksiranTitle, type: 'PBT',
-        hint: loc.inputTaxHint, biz: 'CUKAI',
-      ),
-    ));
-  }
+  if (_openingPayment) return;
+  Navigator.of(context).pop();
+}
+
   Future<void> _proceed() async {
     if (!_canContinue) return;
     final cents = _totalCents!;
