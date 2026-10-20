@@ -24,6 +24,7 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
   final Set<String> _selected = <String>{};
   TaksiranPaymentPeriod? _period;
   bool _openingPayment = false;
+  int _stepIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -55,6 +56,33 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
     if (number == null || !number.isFinite || number < 0) return null;
     return (number * 100).round();
   }
+  bool _accountHasPayment(Map<String, dynamic> item) {
+    final half = _cents(item, 'jumlah_sepenggal');
+    final year = _cents(item, 'jumlah_setahun');
+    return (half != null && half > 0) || (year != null && year > 0);
+  }
+  bool _accountHasNoPayment(Map<String, dynamic> item) =>
+      _cents(item, 'jumlah_sepenggal') == 0 &&
+      _cents(item, 'jumlah_setahun') == 0;
+  bool get _hasMixedPeriods => _selectedItems.length > 1 &&
+      _periodTotal(TaksiranPaymentPeriod.sepenggal) == null &&
+      _periodTotal(TaksiranPaymentPeriod.setahun) == null;
+  Widget _notice(String message, {bool warning = true}) => Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: warning ? const Color(0xFFFFF5E5) : const Color(0xFFEAF3FF),
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: warning ? const Color(0xFFE5C58D) : _line),
+    ),
+    child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Icon(Icons.info_outline_rounded,
+        color: warning ? const Color(0xFF986000) : _blue, size: 30),
+      const SizedBox(width: 10),
+      Expanded(child: Text(message, style: _text(23,
+        color: warning ? const Color(0xFF805000) : _ink,
+        weight: FontWeight.w700))),
+    ]),
+  );
   String _rm(int cents) {
     final whole = (cents ~/ 100).toString().replaceAllMapped(
       RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => ',',
@@ -65,6 +93,18 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
       ? 'jumlah_sepenggal' : 'jumlah_setahun';
   List<Map<String, dynamic>> get _selectedItems => _items
       .where((item) => _selected.contains(_value(item, 'account_no'))).toList();
+  // Every selected account must have a positive amount for the SAME period.
+  // Never combine Sepenggal from one account with Setahun from another.
+  int? _periodTotal(TaksiranPaymentPeriod period) {
+    if (_selectedItems.isEmpty) return null;
+    final key = period == TaksiranPaymentPeriod.sepenggal
+        ? 'jumlah_sepenggal' : 'jumlah_setahun';
+    final amounts = _selectedItems.map((item) => _cents(item, key)).toList();
+    if (amounts.any((value) => value == null)) return null;
+    if (amounts.any((value) => value == 0) &&
+        amounts.any((value) => value! > 0)) return null;
+    return amounts.fold<int>(0, (sum, value) => sum + value!);
+  }
   int? get _totalCents {
     if (_period == null) return null;
     var sum = 0;
@@ -81,11 +121,12 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
       _period == TaksiranPaymentPeriod.sepenggal
           ? loc.taksiranHalfYearAmount : loc.taksiranAnnualAmount;
   void _toggle(Map<String, dynamic> item) {
-    if (_openingPayment) return;
+    if (_openingPayment || !_accountHasPayment(item)) return;
     final account = _value(item, 'account_no');
     if (_missing(account)) return;
     setState(() {
       if (!_selected.remove(account)) _selected.add(account);
+      _period = null;
     });
   }
   // void _back() {
@@ -100,9 +141,13 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
   // }
 
   void _back() {
-  if (_openingPayment) return;
-  Navigator.of(context).pop();
-}
+    if (_openingPayment) return;
+    if (_stepIndex == 1) {
+      setState(() => _stepIndex = 0);
+    } else {
+      Navigator.of(context).pop();
+    }
+  }
 
   Future<void> _proceed() async {
     if (!_canContinue) return;
@@ -147,114 +192,274 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFEAF3FF),
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('lib/images/pnew.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: SafeArea(
-        child: LayoutBuilder(builder: (context, constraints) {
-          // On smaller screens/large text, let the whole page scroll instead
-          // of squeezing or clipping the account list and payment controls.
-          final compact = constraints.maxHeight < 1200 ||
-              constraints.maxWidth < 600 ||
-              MediaQuery.textScalerOf(context).scale(24) > 31.2;
-          final padding = constraints.maxWidth < 600 ? 16.0 : 35.0;
-          final accountWidgets = <Widget>[
-            _accountHeading(loc),
-            if (_items.isEmpty) _empty(loc),
-            for (final item in _items) _accountCard(item, loc),
-          ];
-          return AbsorbPointer(
-            absorbing: _openingPayment,
-            child: Padding(
-              padding: EdgeInsets.all(padding),
-              child: compact
-                ? _KioskScroll(
-                    downLabel: loc.scrolldown, upLabel: loc.scrollup,
-                    children: [
-                      _header(loc), const SizedBox(height: 20),
-                      ...accountWidgets, const SizedBox(height: 12),
-                      if (_items.isNotEmpty) _periodPanel(loc),
-                      const SizedBox(height: 14), _footer(loc),
-                      const SizedBox(height: 20), _copyright(),
-                    ],
-                  )
-                : Column(children: [
-                    _header(loc), const SizedBox(height: 20),
-                    _accountHeading(loc),
-                    Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFEDF3FA),
-                          borderRadius: BorderRadius.circular(28),
-                          border: Border.all(
-                            color: const Color(0xFFB8CEE5),
-                            width: 2,
-                          ),
-                        ),
-                        child: _KioskScroll(
-                          downLabel: loc.scrolldown,
-                          upLabel: loc.scrollup,
-                          scrollHint: loc.scrollForMoreInformation,
-                          children: [
-                            if (_items.isEmpty) _empty(loc),
-                            for (final item in _items)
-                              _accountCard(item, loc),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-                    if (_items.isNotEmpty) _periodPanel(loc),
-                    const SizedBox(height: 14), _footer(loc),
-                    const SizedBox(height: 20), _copyright(),
-                  ]),
-            ),
-          );
-        }),
-        ),
+        decoration: const BoxDecoration(image: DecorationImage(
+          image: AssetImage('lib/images/pnew.png'), fit: BoxFit.cover)),
+        child: SafeArea(child: LayoutBuilder(builder: (context, size) {
+          final pad = size.maxWidth < 600 ? 14.0 : 22.0;
+          return AbsorbPointer(absorbing: _openingPayment, child: Padding(
+            padding: EdgeInsets.all(pad), child: Column(children: [
+              _header(loc), const SizedBox(height: 18),
+              _progress(loc), const SizedBox(height: 20),
+              Expanded(child: _stepIndex == 0
+                ? _accountSelectionContent(loc)
+                : _reviewContent(loc)),
+              const SizedBox(height: 12), _newFooter(loc),
+              const SizedBox(height: 8), _copyright(),
+            ]),
+          ));
+        })),
       ),
     );
   }
+  // Step 1: same scroll panel style as Sewaan PBT.
+  // Keep the heading outside the scroll area; only account cards scroll.
+  Widget _accountSelectionContent(AppLocalizations loc) => Column(children: [
+    _accountHeading(loc),
+    Expanded(child: Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFFEDF3FA),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: _line, width: 1.5),
+      ),
+      child: _KioskScroll(
+        key: const ValueKey('taksiran-account-scroll'),
+        downLabel: loc.scrolldown,
+        upLabel: loc.scrollup,
+        scrollHint: loc.scrollForMoreInformation,
+        children: [
+          if (_items.isEmpty) _empty(loc),
+          for (final item in _items) _accountCard(item, loc),
+        ],
+      ),
+    )),
+  ]);
+
+  Widget _progress(AppLocalizations loc) => Row(children: [
+    Expanded(child: _progressPart('1', loc.taksiranStepAccount, _stepIndex == 0)),
+    const SizedBox(width: 14),
+    Expanded(child: _progressPart('2', loc.taksiranStepPeriod, _stepIndex == 1)),
+  ]);
+  Widget _progressPart(String n, String label, bool active) => Container(
+    height: 82, padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    decoration: BoxDecoration(
+      color: active ? _blue : Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      border: Border.all(color: active ? _blue : _line, width: 1.5),
+      boxShadow: const [BoxShadow(color: Color(0x1516324D), blurRadius: 8, offset: Offset(0, 3))],
+    ),
+    child: Row(children: [
+      CircleAvatar(radius: 18, backgroundColor: active ? Colors.white : _pale,
+        child: Text(n, style: _text(25, color: _blue, weight: FontWeight.w800))),
+      const SizedBox(width: 9),
+      Expanded(child: Text(label, maxLines: 2, overflow: TextOverflow.ellipsis,
+        style: _text(23, color: active ? Colors.white : _ink, weight: FontWeight.w800))),
+    ]),
+  );
+Widget _reviewContent(AppLocalizations loc) => LayoutBuilder(
+  builder: (context, constraints) {
+    final manyAccounts = _selectedItems.length > 1;
+    final largeText =
+        MediaQuery.textScalerOf(context).scale(30) > 34.5;
+
+    final fallback = constraints.maxHeight < 760 ||
+        constraints.maxWidth < 650 ||
+        largeText ||
+        _hasMixedPeriods;
+
+    // One account: cards fit their content.
+    // Also allows scrolling if long text cannot fit the screen.
+    if (!manyAccounts || fallback) {
+      return _KioskScroll(
+        key: const ValueKey('taksiran-review-natural'),
+        downLabel: loc.scrolldown,
+        upLabel: loc.scrollup,
+        scrollHint: loc.scrollForMoreInformation,
+        children: [
+          _selectedSummary(loc),
+          const SizedBox(height: 14),
+          _periodPanel(loc),
+          const SizedBox(height: 14),
+          _paymentBreakdown(loc),
+        ],
+      );
+    }
+
+    // Multiple accounts: capped panels with independent scrolling.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Flexible(
+          flex: 5,
+          fit: FlexFit.loose,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 340, // Maximum Akaun Dipilih card height.
+            ),
+            child: _selectedSummary(loc, bounded: true),
+          ),
+        ),
+        const SizedBox(height: 14),
+
+        _periodPanel(loc),
+
+        const SizedBox(height: 14),
+        if (_period == null)
+          // No payment selected: show a compact instruction and total.
+          _paymentBreakdown(loc)
+        else
+          Flexible(
+            flex: 6,
+            fit: FlexFit.loose,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 300, // Maximum Pecahan Bayaran card height.
+              ),
+              child: _paymentBreakdown(loc, bounded: true),
+            ),
+          ),
+      ],
+    );
+  },
+);
+
+  Widget _selectedAccountRow(Map<String, dynamic> item) => Container(
+    margin: const EdgeInsets.only(bottom: 10, right: 10),
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(color: const Color(0xFFF1F7FE),
+      borderRadius: BorderRadius.circular(14), border: Border.all(color: _line)),
+    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(_value(item, 'account_no'), style: _text(34, weight: FontWeight.w800)),
+      Text(_value(item, 'name'), style: _text(29)),
+      Text(_propertyAddress(item), style: _text(26, color: _muted)),
+    ]),
+  );
+
+  Widget _selectedSummary(AppLocalizations loc, {bool bounded = false}) {
+    final rows = [for (final item in _selectedItems) _selectedAccountRow(item)];
+    return Container(
+      padding: const EdgeInsets.all(16), decoration: _surface(),
+      child: Column(mainAxisSize: bounded ? MainAxisSize.max : MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Row(children: [
+            Expanded(child: Text(loc.taksiranSelectedAccountsTitle,
+                style: _text(33, weight: FontWeight.w800))),
+            TextButton(onPressed: () => setState(() => _stepIndex = 0),
+              child: Text(loc.taksiranChangeAccounts,
+                  style: _text(29, color: _blue))),
+          ]),
+          Text(loc.selectedAccountCount(_selected.length),
+              style: _text(29, color: _muted)),
+          const SizedBox(height: 10),
+          if (bounded)
+            Expanded(child: _ReviewList(
+              key: const ValueKey('selected-account-list'),
+              upLabel: loc.scrollup, downLabel: loc.scrolldown, children: rows,
+            ))
+          else ...rows,
+        ],
+      ),
+    );
+  }
+
+  Widget _breakdownRow(Map<String, dynamic> item, AppLocalizations loc) => Padding(
+    padding: const EdgeInsets.fromLTRB(0, 8, 12, 8),
+    child: Wrap(alignment: WrapAlignment.spaceBetween,
+      spacing: 16, runSpacing: 5, children: [
+        Text(_value(item, 'account_no'), style: _text(30)),
+        Text(_cents(item, _amountKey) == null
+            ? loc.taksiranKioskAmountUnavailable : _rm(_cents(item, _amountKey)!),
+            style: _text(31, color: _green, weight: FontWeight.w800)),
+      ],
+    ),
+  );
+
+  Widget _paymentBreakdown(AppLocalizations loc, {bool bounded = false}) {
+    final rows = <Widget>[
+      if (_period == null)
+        Padding(padding: const EdgeInsets.only(right: 12, top: 8),
+          child: Text(loc.taksiranSelectPeriodFirst, style: _text(27, color: _muted)))
+      else
+        for (final item in _selectedItems) _breakdownRow(item, loc),
+    ];
+    return Container(
+      padding: const EdgeInsets.all(16), decoration: _surface(),
+      child: Column(mainAxisSize: bounded ? MainAxisSize.max : MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Text(loc.taksiranPaymentBreakdown,
+              style: _text(34, weight: FontWeight.w800)),
+          const SizedBox(height: 8),
+          if (bounded)
+            Expanded(child: _ReviewList(
+              key: const ValueKey('payment-breakdown-list'),
+              upLabel: loc.scrollup, downLabel: loc.scrolldown, children: rows,
+            ))
+          else ...rows,
+          const Divider(height: 16),
+          // Total stays outside the scrollable account charges.
+          Wrap(alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 14, runSpacing: 4, children: [
+              Text(loc.amountPayable, style: _text(29, weight: FontWeight.w700)),
+              Text(_totalCents == null ? '—' : _rm(_totalCents!),
+                  style: _text(42, color: _green, weight: FontWeight.w900)),
+            ],
+          ),
+          if (_period != null && _totalCents == null)
+            Text(loc.taksiranKioskInvalidSelection,
+                style: _text(29, color: Colors.deepOrange)),
+        ],
+      ),
+    );
+  }
+  Widget _newFooter(AppLocalizations loc) => Container(
+    padding: const EdgeInsets.all(14), decoration: _surface(),
+    child: Column(children: [
+      if (_stepIndex == 0) Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Text(_selected.isEmpty ? loc.taksiranSelectAlert
+          : loc.selectedAccountCount(_selected.length),
+          style: _text(30, color: _ink, weight: FontWeight.w800)),
+      ),
+      Row(children: [
+        Expanded(child: _action(loc.back.toUpperCase(), Icons.arrow_back_rounded,
+          _openingPayment ? null : _back, primary: false)),
+        const SizedBox(width: 12),
+        Expanded(child: _action(
+          _stepIndex == 0 ? loc.continueText : loc.paymenttax,
+          Icons.arrow_forward_rounded,
+          _stepIndex == 0
+            ? (_selected.isEmpty ? null : () => setState(() { _stepIndex = 1; _period = null; }))
+            : (_canContinue ? _proceed : null),
+        )),
+      ]),
+    ]),
+  );
   Widget _copyright() => Text(
     Data.copyrightText,
     textAlign: TextAlign.center,
     style: _text(18, color: const Color(0xFF26364A), weight: FontWeight.w800),
   );
   Widget _header(AppLocalizations loc) => Container(
-    padding: const EdgeInsets.all(20),
+    padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
     decoration: BoxDecoration(
-      gradient: const LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [Color(0xFF0D47A1), Color(0xFF1976D2), Color(0xFF42A5F5)],
-      ),
-      borderRadius: BorderRadius.circular(28),
-      boxShadow: const [BoxShadow(color: Color(0x1817324D),
-          blurRadius: 16, offset: Offset(0, 6))],
+      gradient: const LinearGradient(colors: [Color(0xFF0D47A1), Color(0xFF1976D2), Color(0xFF42A5F5)]),
+      borderRadius: BorderRadius.circular(22),
+      boxShadow: const [BoxShadow(color: Color(0x2616324D), blurRadius: 14, offset: Offset(0, 5))],
     ),
     child: Row(children: [
-      Container(
-        padding: const EdgeInsets.all(14),
+      Container(width: 64, height: 64, alignment: Alignment.center,
         decoration: BoxDecoration(color: const Color(0x2BFFFFFF),
-            borderRadius: BorderRadius.circular(16)),
-        child: const Icon(Icons.home_work_outlined,
-            color: Colors.white, size: 40),
-      ),
-      const SizedBox(width: 20),
-      Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(loc.taksiranTitle,
-              style: _text(40, color: Colors.white, weight: FontWeight.w800)),
-          const SizedBox(height: 5),
-          Text(loc.taksiranKioskIntro,
-              style: _text(28, color: const Color(0xFFE0EBF6))),
-        ],
-      )),
+          border: Border.all(color: const Color(0x55FFFFFF)),
+          borderRadius: BorderRadius.circular(17)),
+        child: const Icon(Icons.home_work_outlined, color: Colors.white, size: 39)),
+      const SizedBox(width: 18),
+      Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(loc.taksiranTitle, style: _text(35, color: Colors.white, weight: FontWeight.w900)),
+        const SizedBox(height: 3),
+        Text(loc.taksiranKioskIntro, style: _text(25, color: const Color(0xFFEAF4FF))),
+      ])),
     ]),
   );
   Widget _step(String number, String title) => Row(children: [
@@ -286,7 +491,7 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
   Widget _accountCard(Map<String, dynamic> item, AppLocalizations loc) {
     final account = _value(item, 'account_no');
     final selected = _selected.contains(account);
-    final valid = !_missing(account);
+    final valid = !_missing(account) && _accountHasPayment(item);
     final address = _propertyAddress(item);
     return Padding(
       padding: const EdgeInsets.only(bottom: 14, right: 10),
@@ -316,25 +521,26 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           clipBehavior: Clip.antiAlias,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // One large, accessible checkbox target. Details is a separate
-              // sibling button so opening details never selects the account.
-              Semantics(
+          child: Semantics(
                 label: '${loc.accountNo} $account', checked: selected,
                 enabled: valid, onTap: valid ? () => _toggle(item) : null,
                 child: InkWell(
                   excludeFromSemantics: true,
                   onTap: valid ? () => _toggle(item) : null,
-                  child: Padding(
+                  splashColor: const Color(0x301976D2),
+                  highlightColor: const Color(0x181976D2),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [Padding(
                     padding: const EdgeInsets.all(20),
                     child: Row(crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 3),
-                          child: Icon(selected ? Icons.check_box_rounded
-                              : Icons.check_box_outline_blank_rounded,
-                              size: 54, color: valid ? _blue : _muted),
+                          child: Icon(
+                            !valid ? Icons.block_rounded
+                                : selected ? Icons.check_box_rounded
+                                : Icons.check_box_outline_blank_rounded,
+                            size: 54, color: valid ? _blue : _muted),
                         ),
                         const SizedBox(width: 14),
                         Expanded(child: Column(
@@ -395,28 +601,19 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
                                 ),
                               ],
                             ),
-                            if (!valid) ...[
-                              const SizedBox(height: 8),
-                              Text(loc.taksiranKioskAccountUnavailable,
-                                  style: _text(27, color: const Color(0xFF963A12))),
-                            ],
                           ],
                         )),
                       ],
                     ),
                   ),
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: LayoutBuilder(builder: (context, constraints) {
                   final amounts = [
                     _amountTile(loc.taksiranHalfYearAmount,
-                        _cents(item, 'jumlah_sepenggal'),
-                        _period == TaksiranPaymentPeriod.sepenggal, loc),
+                        _cents(item, 'jumlah_sepenggal'), loc),
                     _amountTile(loc.taksiranAnnualAmount,
-                        _cents(item, 'jumlah_setahun'),
-                        _period == TaksiranPaymentPeriod.setahun, loc),
+                        _cents(item, 'jumlah_setahun'), loc),
                   ];
                   if (constraints.maxWidth < 450) {
                     return Column(crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -427,6 +624,11 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
                       const SizedBox(width: 12), Expanded(child: amounts[1])]);
                 }),
               ),
+              if (!_accountHasPayment(item))
+                Padding(padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+                  child: _notice(_accountHasNoPayment(item)
+                    ? loc.taksiranAccountNoPayment
+                    : loc.taksiranAccountAmountUnavailable)),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 8, 20, 10),
                 child: Align(alignment: Alignment.centerRight,
@@ -459,30 +661,51 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
                 ),
               ),
             ],
+            ),
+          ),
           ),
         ),
       ),
     );
   }
-  Widget _amountTile(String label, int? cents, bool active,
-      AppLocalizations loc) => Container(
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: active ? const Color(0xFFDDF1E3) : const Color(0xFFF1F8F4),
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: active ? _green : const Color(0xFFC7DECF), width: active ? 2 : 1),
+Widget _amountTile(
+  String label,
+  int? cents,
+  AppLocalizations loc,
+) => Container(
+  padding: const EdgeInsets.all(12),
+  decoration: BoxDecoration(
+    color: const Color(0xFFF0F8F3),
+    borderRadius: BorderRadius.circular(12),
+    border: Border.all(
+      color: const Color(0xFFC7DECF),
+      width: 1,
     ),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+  ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
       Text(label, style: _text(26, color: _muted)),
       const SizedBox(height: 3),
-      Text(cents == null ? loc.taksiranKioskAmountUnavailable : _rm(cents),
-          style: _text(34, color: _green, weight: FontWeight.w800)),
-    ]),
-  );
+      Text(
+        cents == null
+            ? loc.taksiranKioskAmountUnavailable
+            : _rm(cents),
+        style: _text(
+          34,
+          color: const Color(0xFF16813B),
+          weight: FontWeight.w800,
+        ),
+      ),
+    ],
+  ),
+);
   Widget _periodPanel(AppLocalizations loc) => Container(
-    padding: const EdgeInsets.all(18), decoration: _surface(),
+    padding: const EdgeInsets.all(22), decoration: _surface(),
     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _step('2', loc.taksiranKioskChoosePeriod),
+      _step('2', loc.taksiranChoosePaymentAmount),
+      const SizedBox(height: 5),
+      Text(loc.taksiranChoosePaymentHint, style: _text(26, color: _muted)),
       const SizedBox(height: 12),
       LayoutBuilder(builder: (context, constraints) {
         final half = _periodOption(TaksiranPaymentPeriod.sepenggal,
@@ -498,57 +721,135 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
           Expanded(child: year),
         ]));
       }),
+      if (_hasMixedPeriods) ...[
+        const SizedBox(height: 14),
+        _notice(loc.taksiranMixedPeriodWarning),
+      ],
     ]),
   );
-  Widget _periodOption(TaksiranPaymentPeriod period, String label) {
-    final selected = _period == period;
-    return Semantics(
-      label: label,
-      checked: selected,
-      inMutuallyExclusiveGroup: true,
-      enabled: !_openingPayment,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: [BoxShadow(
-            color: selected ? const Color(0x3516813B) : const Color(0x25163A65),
-            blurRadius: 8, offset: const Offset(0, 5),
-          )],
-        ),
-        child: Material(
-          color: selected ? _green : const Color(0xFFEAF3FF),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
-            side: BorderSide(color: selected ? const Color(0xFF0E652C) : _blue,
-                width: 2.5),
+Widget _periodOption(TaksiranPaymentPeriod period, String label) {
+  final loc = AppLocalizations.of(context)!;
+  final cents = _periodTotal(period);
+  final available = cents != null && cents > 0;
+  final selected = _period == period;
+
+  final amountText = cents == null
+      ? (_hasMixedPeriods ? loc.taksiranCannotSelect : loc.taksiranKioskAmountUnavailable)
+      : cents == 0
+          ? loc.taksiranNoPayment
+          : _rm(cents);
+
+  final statusText = cents == null
+      ? (_hasMixedPeriods ? loc.taksiranMixedPeriodShort : loc.taksiranPaymentUnavailable)
+      : cents == 0
+          ? loc.taksiranCannotSelect
+          : selected
+              ? loc.taksiranPaymentSelected
+              : loc.taksiranSelectToPay;
+
+  return Semantics(
+    label: '$label, $amountText',
+    checked: selected,
+    enabled: available,
+    inMutuallyExclusiveGroup: true,
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: selected
+                ? const Color(0x3516813B)
+                : const Color(0x25163A65),
+            blurRadius: 8,
+            offset: const Offset(0, 5),
           ),
-          clipBehavior: Clip.antiAlias,
-          child: InkWell(
-            onTap: _openingPayment ? null : () => setState(() => _period = period),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 104),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
-                child: Row(children: [
-                  Icon(selected ? Icons.check_circle_rounded
-                      : period == TaksiranPaymentPeriod.sepenggal
-                          ? Icons.receipt_long_rounded : Icons.calendar_month_rounded,
-                      color: selected ? Colors.white : _blue, size: 38),
-                  const SizedBox(width: 12),
-                  Expanded(child: Text(label,
-                      style: _text(30, color: selected ? Colors.white : _ink,
-                          weight: FontWeight.w800))),
-                  const SizedBox(width: 6),
-                  Icon(selected ? Icons.check_rounded : Icons.touch_app_rounded,
-                      color: selected ? Colors.white : _blue, size: 28),
-                ]),
+        ],
+      ),
+      child: Material(
+        color: selected
+            ? const Color(0xFFE3F5E9)
+            : available
+                ? const Color(0xFFEAF3FF)
+                : const Color(0xFFF0F2F4),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+          side: BorderSide(
+            color: selected ? _green : available ? _blue : _line,
+            width: selected ? 3 : 2,
+          ),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: !available || _openingPayment
+              ? null
+              : () => setState(() => _period = period),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 175),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        period == TaksiranPaymentPeriod.sepenggal
+                            ? Icons.receipt_long_rounded
+                            : Icons.calendar_month_rounded,
+                        color: available
+                            ? selected ? _green : _blue
+                            : _muted,
+                        size: 36,
+                      ),
+                      const Spacer(),
+                      Icon(
+                        selected
+                            ? Icons.check_circle_rounded
+                            : available
+                                ? Icons.radio_button_unchecked_rounded
+                                : Icons.block_rounded,
+                        color: selected ? _green : _muted,
+                        size: 34,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    label,
+                    style: _text(27, weight: FontWeight.w800),
+                  ),
+                  const SizedBox(height: 7),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      amountText,
+                      style: _text(
+                        36,
+                        color: selected
+                            ? _green
+                            : available ? _ink : _muted,
+                        weight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 7),
+                  Text(
+                    statusText,
+                    style: _text(
+                      21,
+                      color: selected ? _green : _muted,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
   Widget _footer(AppLocalizations loc) {
     String? hint;
     if (_items.isNotEmpty) {
@@ -792,8 +1093,6 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
     field(amountRows, loc.taxArrears, 'tunggakan_cukai', money: true);
     field(amountRows, loc.noticeE, 'notis_e', money: true);
     field(amountRows, loc.waranLod, 'waran_lod');
-    field(amountRows, loc.halfYearTotal, 'jumlah_sepenggal', money: true);
-    field(amountRows, loc.annualTotal, 'jumlah_setahun', money: true);
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -833,8 +1132,7 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
                     if (propertyRows.isNotEmpty)
                       _detailSection(loc.propertyAddress, Icons.home_outlined, propertyRows),
                     if (amountRows.isNotEmpty)
-                      _detailSection(loc.total, Icons.receipt_long_rounded,
-                          amountRows, money: true),
+                      _detailTaxGrid(loc.taksiranTaxInformation, amountRows),
                   ],
                 ),
               )),
@@ -849,6 +1147,45 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
       ),
     );
   }
+  // Popup only: responsive two-column tax information card.
+  Widget _detailTaxGrid(String title, List<Widget> rows) => Container(
+    margin: const EdgeInsets.only(bottom: 18, right: 12),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: _line, width: 1.5),
+    ),
+    clipBehavior: Clip.antiAlias,
+    child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Container(
+        padding: const EdgeInsets.all(18),
+        color: const Color(0xFFE3F5E9),
+        child: Row(children: [
+          const Icon(Icons.receipt_long_rounded, size: 32, color: _green),
+          const SizedBox(width: 12),
+          Expanded(child: Text(title,
+              style: _text(30, color: _green, weight: FontWeight.w800))),
+        ]),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(12),
+        child: LayoutBuilder(builder: (context, constraints) {
+          if (constraints.maxWidth < 460) {
+            return Column(crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: rows);
+          }
+          return Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: rows.map((row) => SizedBox(
+              width: (constraints.maxWidth - 8) / 2,
+              child: row,
+            )).toList(),
+          );
+        }),
+      ),
+    ]),
+  );
   Widget _detailSection(String title, IconData icon, List<Widget> rows,
       {bool money = false}) => Container(
     margin: const EdgeInsets.only(bottom: 18, right: 12),
@@ -892,6 +1229,7 @@ class _P5TaksiranBentongScreenState extends State<P5TaksiranBentongScreen> {
 // No blurred layers, timers, or continuous animation are required.
   class _KioskScroll extends StatefulWidget {
     const _KioskScroll({
+      super.key,
       required this.children,
       required this.downLabel,
       required this.upLabel,
@@ -1063,4 +1401,94 @@ if (_overflow)
           ),
         );
       }
+}
+
+// Independent scroll area used only by the two review panels.
+// Arrows occupy a side rail, leaving the total and headings stationary.
+class _ReviewList extends StatefulWidget {
+  const _ReviewList({super.key, required this.children,
+    required this.upLabel, required this.downLabel});
+  final List<Widget> children;
+  final String upLabel;
+  final String downLabel;
+  @override
+  State<_ReviewList> createState() => _ReviewListState();
+}
+class _ReviewListState extends State<_ReviewList> {
+  final _controller = ScrollController();
+  bool _overflow = false, _up = false, _down = false, _pending = false;
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_sync);
+    _sync();
+  }
+  @override
+  void didUpdateWidget(covariant _ReviewList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _sync();
+  }
+  void _sync() {
+    if (_pending) return;
+    _pending = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _pending = false;
+      if (!mounted || !_controller.hasClients ||
+          !_controller.position.hasContentDimensions) return;
+      final p = _controller.position;
+      final overflow = p.maxScrollExtent > 1;
+      final up = p.extentBefore > 1, down = p.extentAfter > 1;
+      if (overflow != _overflow || up != _up || down != _down) {
+        setState(() { _overflow = overflow; _up = up; _down = down; });
+      }
+    });
+  }
+  void _move(bool down) {
+    if (!_controller.hasClients) return;
+    final p = _controller.position;
+    final target = (p.pixels + (down ? 1 : -1) * p.viewportDimension * 0.75)
+        .clamp(0.0, p.maxScrollExtent).toDouble();
+    _controller.animateTo(target, duration: const Duration(milliseconds: 240),
+        curve: Curves.easeOut);
+  }
+  @override
+  void dispose() {
+    _controller.removeListener(_sync);
+    _controller.dispose();
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(builder: (context, size) {
+    return Row(children: [
+      Expanded(child: NotificationListener<ScrollMetricsNotification>(
+        onNotification: (_) { _sync(); return false; },
+        child: Scrollbar(controller: _controller, thumbVisibility: _overflow,
+          thickness: 9, radius: const Radius.circular(8),
+          child: ListView(controller: _controller, primary: false,
+            padding: EdgeInsets.zero, children: widget.children),
+        ),
+      )),
+      // Very short viewports retain touch scrolling and the scrollbar.
+      if (_overflow && size.maxHeight >= 104) ...[
+        const SizedBox(width: 8),
+        Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          _arrow(widget.upLabel, Icons.keyboard_arrow_up_rounded,
+              _up ? () => _move(false) : null),
+          const SizedBox(height: 8),
+          _arrow(widget.downLabel, Icons.keyboard_arrow_down_rounded,
+              _down ? () => _move(true) : null),
+        ]),
+      ],
+    ]);
+  });
+  Widget _arrow(String label, IconData icon, VoidCallback? onPressed) => IconButton(
+    tooltip: label, onPressed: onPressed, icon: Icon(icon, size: 32),
+    style: IconButton.styleFrom(minimumSize: const Size(48, 48),
+      maximumSize: const Size(48, 48), padding: EdgeInsets.zero,
+      backgroundColor: const Color(0xFFE7F2FF),
+      foregroundColor: const Color(0xFF1976D2),
+      disabledBackgroundColor: const Color(0xFFF0F3F7),
+      disabledForegroundColor: const Color(0xFF9AAABA),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+  );
 }

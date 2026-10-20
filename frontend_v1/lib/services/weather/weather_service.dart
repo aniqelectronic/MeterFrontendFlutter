@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:frontend_v1/pages/config.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,15 +36,15 @@ class WeatherResult {
 //
 // Location is controlled from:
 //
-// Data.weatherPlaceName
+// Config.weatherPlaceName
 // Data.weatherLocationId
 //
 // Example Putrajaya:
-// Data.weatherPlaceName = "Putrajaya";
+// Config.weatherPlaceName = "Putrajaya";
 // Data.weatherLocationId = "Tn088";
 //
 // Example Bentong:
-// Data.weatherPlaceName = "Bentong";
+// Config.weatherPlaceName = "Bentong";
 // Data.weatherLocationId = "Ds059";
 //
 // ============================================================================
@@ -316,7 +317,7 @@ class WeatherService {
         if (forecasts.isEmpty) {
           throw FormatException(
             'No weather records returned for '
-            '${Data.weatherPlaceName} '
+            '${Config.weatherPlaceName} '
             '($locationId).',
           );
         }

@@ -7565,4 +7565,115 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scanInputTypeDescription => 'Tap the keys below to enter details';
+
+  @override
+  String get taksiranChoosePaymentAmount => 'Choose Payment Amount';
+
+  @override
+  String get taksiranSelectedAccounts => 'Selected Accounts';
+
+  @override
+  String get taksiranChangeAccounts => 'Change';
+
+  @override
+  String get taksiranChoosePaymentHint => 'Please select the amount you wish to pay.';
+
+  @override
+  String get taksiranPaymentBreakdown => 'Payment Breakdown';
+
+  @override
+  String get taksiranSelectedPeriod => 'Selected Period';
+
+  @override
+  String get taksiranPaymentSelected => 'Selected';
+
+  @override
+  String get taksiranPaymentUnavailable => 'No payment available';
+
+  @override
+  String get taksiranSelectPeriodFirst => 'Please choose a payment amount to view the breakdown.';
+
+  @override
+  String get taksiranStepAccount => 'Select Account';
+
+  @override
+  String get taksiranStepPeriod => 'Select Period';
+
+  @override
+  String get taksiranSelectedAccountsTitle => 'Selected Accounts';
+
+  @override
+  String get taksiranNoPayment => 'No Payment Due';
+
+  @override
+  String get taksiranCannotSelect => 'Cannot be selected';
+
+  @override
+  String get taksiranSelectToPay => 'Select to pay';
+
+  @override
+  String get taksiranAccountNoPayment => 'No payment is required for this account at the moment. This account cannot be selected for payment.';
+
+  @override
+  String get taksiranAccountAmountUnavailable => 'The payment amount is currently unavailable. This account cannot be selected for payment.';
+
+  @override
+  String get taksiranMixedPeriodWarning => 'The selected accounts do not share an available payment period. Please change your account selection and pay the accounts separately.';
+
+  @override
+  String get taksiranMixedPeriodShort => 'Different payment periods';
+
+  @override
+  String get taksiranTaxInformation => 'Tax Information';
+
+  @override
+  String get sewaanStepSelectAccount => 'Select Account';
+
+  @override
+  String get sewaanStepReviewPayment => 'Review Payment';
+
+  @override
+  String get sewaanSelectAccountHint => 'Select the rental account you wish to pay.';
+
+  @override
+  String get sewaanReviewTitle => 'Review Rental Payment';
+
+  @override
+  String get sewaanReviewHint => 'Please check your account and payment amount before proceeding.';
+
+  @override
+  String get sewaanSelectedAccountsTitle => 'Selected Accounts';
+
+  @override
+  String get sewaanChangeSelection => 'Change';
+
+  @override
+  String get sewaanPaymentBreakdown => 'Payment Breakdown';
+
+  @override
+  String get sewaanPayButton => 'Pay';
+
+  @override
+  String get sewaanNoPaymentAvailable => 'No payment is required for this account at the moment.';
+
+  @override
+  String get sewaanAmountUnavailable => 'The payment amount is currently unavailable.';
+
+  @override
+  String get compoundAvailableCountLabel => 'AVAILABLE COMPOUNDS';
+
+  @override
+  String compoundSelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count compounds selected',
+      one: '1 compound selected',
+      zero: 'No compounds selected',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get makePaymentButton => 'Make Payment';
 }

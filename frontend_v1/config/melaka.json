@@ -1,0 +1,33 @@
+
+{
+  "branchId": "Melaka",
+  "branchName": "Juara Inovasi Melaka",
+
+  "baseUrl": "https://tipintar.juaraipasifik.com",
+  "apiVersion": "/api/v2",
+  "apiPublicBaseUrl": "https://tipintar.juaraipasifik.com",
+
+  "apiKey": "c826e49b1a0672e028907329d5171431",
+  "hmacSecret": "4e4b114e9a4e146706c9e5a258856051835638f87493227e69f2c30c5691e794",
+
+  "terminalId": "TEST01",
+  "storeId": "Kiosk_Terminal",
+  "shiftId": "DAY_SHIFT",
+  "qrValidity": 300,
+
+  "forcifyEndpoint": "https://v2.forcify.xyz/api/v1/external",
+  "forcifyToken": "5a5dd0ce-f986-4073-96a9-c3bbfe226fd9",
+  "compoundPrefix1": "KN",
+
+  "latitude": 3.06444,
+  "longitude": 101.59361,
+
+  "waktusolatplace": "Hang Tuah Jaya,Melaka",
+  "waktusolaturl": "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=MLK01&period=today",
+
+  "iotHubSharedAccessKey": "cAdzDjTzU9ZbHRk/odz7XiL41rtSug7xPN0WJop+gY0=",
+
+  "pbtArea": " Hang Tuah Jaya",
+  "weatherPlaceName": "Hang Tuah Jaya, Melaka",
+  "weatherLocationId": "St012"
+}

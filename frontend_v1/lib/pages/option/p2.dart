@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/language/pbahasa.dart';
 import 'package:frontend_v1/pages/tourist/ptourist3.dart';
@@ -263,7 +264,7 @@ class _P2PageState extends State<P2Page> {
                             backgroundImage: 'lib/images/majlis_bg.png',
                             imagePath: 'lib/images/municipal_service_icon.png',
                             icon: Icons.account_balance_rounded,
-                            label: '${loc.pbtText} ${Data.pbtArea}',
+                            label: '${loc.pbtText} ${Config.pbtArea}',
                             supportingText: loc.pbtSupportingText,
                             accentColor:
                                 const Color(

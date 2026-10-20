@@ -20,7 +20,7 @@ class TaksiranPaymentServiceBentong {
   // YOUR TIP FASTAPI BACKEND
   // ============================================================
 
-  static const String _kioskBackendUrl =
+  static final String _kioskBackendUrl =
       Config.apiBaseUrl;
 
   static const Duration _timeout =

@@ -22,6 +22,7 @@ class _P5SewaanPBTbentongScreenState extends State<P5SewaanPBTbentongScreen> {
   late final List<Map<String, dynamic>> _items;
   final Set<String> _selected = <String>{};
   bool _openingPayment = false;
+  int _stepIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -80,29 +81,33 @@ class _P5SewaanPBTbentongScreenState extends State<P5SewaanPBTbentongScreen> {
     final raw = item[key]?.toString().replaceAll(',', '') ?? '0';
     return double.tryParse(raw) ?? 0.0;
   }
-  void _toggle(Map<String, dynamic> item) {
-    if (_openingPayment) return;
+  bool _payable(Map<String, dynamic> item) {
     final account = _value(item, 'account_no');
-    if (_missing(account)) return;
+    final cents = _cents(item, 'jumlah');
+    return !_missing(account) && cents != null && cents > 0;
+  }
+
+  void _toggle(Map<String, dynamic> item) {
+    if (_openingPayment || !_payable(item)) return;
+    final account = _value(item, 'account_no');
     setState(() {
       if (!_selected.remove(account)) _selected.add(account);
     });
   }
-  // void _back() {
-  //   if (_openingPayment) return;
-  //   final loc = AppLocalizations.of(context)!;
-  //   Navigator.pushReplacement(context, MaterialPageRoute(
-  //     builder: (_) => NEWP4PAGE(
-  //       title: loc.sewaanPbtTitle, type: 'PBT',
-  //       hint: loc.inputTaxHint, biz: 'SEWAAN PBT',
-  //     ),
-  //   ));
-  // }
 
   void _back() {
-  if (_openingPayment) return;
-  Navigator.of(context).pop();
-}
+    if (_openingPayment) return;
+    if (_stepIndex == 1) {
+      setState(() => _stepIndex = 0);
+    } else {
+      Navigator.of(context).pop();
+    }
+  }
+
+  void _next() {
+    if (!_canContinue) return;
+    setState(() => _stepIndex = 1);
+  }
 
   Future<void> _proceed() async {
     if (!_canContinue) return;
@@ -150,83 +155,178 @@ class _P5SewaanPBTbentongScreenState extends State<P5SewaanPBTbentongScreen> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    return Scaffold(
-      backgroundColor: const Color(0xFFEAF3FF),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('lib/images/pnew.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: SafeArea(
-        child: LayoutBuilder(builder: (context, constraints) {
-          // On smaller screens/large text, let the whole page scroll instead
-          // of squeezing or clipping the account list and payment controls.
-          final compact = constraints.maxHeight < 1200 ||
-              constraints.maxWidth < 600 ||
-              MediaQuery.textScalerOf(context).scale(24) > 31.2;
-          final padding = constraints.maxWidth < 600 ? 16.0 : 35.0;
-          final accountWidgets = <Widget>[
-            _accountHeading(loc),
-            if (_items.isEmpty) _empty(loc),
-            for (final item in _items) _accountCard(item, loc),
-          ];
-          return AbsorbPointer(
-            absorbing: _openingPayment,
-            child: Padding(
-              padding: EdgeInsets.all(padding),
-              child: compact
-                ? _KioskScroll(
-                    downLabel: loc.scrolldown, upLabel: loc.scrollup,
-                    children: [
-                      _header(loc), const SizedBox(height: 20),
-                      ...accountWidgets,
-                      const SizedBox(height: 14), _footer(loc),
-                      const SizedBox(height: 20), _copyright(),
-                    ],
-                  )
-                : Column(children: [
-                    _header(loc), const SizedBox(height: 20),
-                    _accountHeading(loc),
-                    Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFEDF3FA),
-                          borderRadius: BorderRadius.circular(28),
-                          border: Border.all(
-                            color: const Color(0xFFB8CEE5),
-                            width: 2,
-                          ),
-                        ),
-                        child: _KioskScroll(
-                          downLabel: loc.scrolldown,
-                          upLabel: loc.scrollup,
-                          scrollHint: loc.scrollForMoreInformation,
-                          children: [
-                            if (_items.isEmpty) _empty(loc),
-                            for (final item in _items)
-                              _accountCard(item, loc),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 14), _footer(loc),
-                    const SizedBox(height: 20), _copyright(),
-                  ]),
+    return PopScope(
+      canPop: _stepIndex == 0 && !_openingPayment,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop && !_openingPayment && _stepIndex == 1) {
+          setState(() => _stepIndex = 0);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFEAF3FF),
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('lib/images/pnew.png'), fit: BoxFit.cover,
             ),
-          );
-        }),
+          ),
+          child: SafeArea(
+            child: LayoutBuilder(builder: (context, constraints) {
+              final padding = constraints.maxWidth < 600 ? 12.0 : 30.0;
+              return AbsorbPointer(
+                absorbing: _openingPayment,
+                child: Padding(
+                  padding: EdgeInsets.all(padding),
+                  child: Column(children: [
+                    _header(loc),
+                    const SizedBox(height: 15),
+                    _stepNavigation(loc),
+                    const SizedBox(height: 15),
+                    Expanded(child: _stepIndex == 0
+                        ? _selectionContent(loc)
+                        : _reviewContent(loc)),
+                    const SizedBox(height: 12),
+                    _footer(loc),
+                    const SizedBox(height: 8),
+                    _copyright(),
+                  ]),
+                ),
+              );
+            }),
+          ),
         ),
       ),
     );
   }
+
+  Widget _stepNavigation(AppLocalizations loc) => Row(children: [
+    Expanded(child: _navStep('1', loc.sewaanStepSelectAccount, _stepIndex == 0)),
+    const SizedBox(width: 10),
+    Expanded(child: _navStep('2', loc.sewaanStepReviewPayment, _stepIndex == 1)),
+  ]);
+
+  Widget _navStep(String number, String label, bool active) => Container(
+    constraints: const BoxConstraints(minHeight: 80),
+    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    decoration: BoxDecoration(
+      color: active ? _blue : Colors.white,
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: _line, width: 1.3),
+    ),
+    child: Row(children: [
+      Container(
+        width: 30, height: 30, alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: active ? Colors.white : _pale, shape: BoxShape.circle,
+        ),
+        child: Text(number, style: _text(26,
+            color: active ? _blue : _blue, weight: FontWeight.w900)),
+      ),
+      const SizedBox(width: 8),
+      Expanded(child: Text(label, maxLines: 3, overflow: TextOverflow.ellipsis,
+        style: _text(32, color: active ? Colors.white : _ink,
+            weight: FontWeight.w800))),
+    ]),
+  );
+
+  Widget _selectionContent(AppLocalizations loc) => Column(children: [
+    _accountHeading(loc),
+    Expanded(child: Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFFEDF3FA),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: _line, width: 1.5),
+      ),
+      child: _KioskScroll(
+        downLabel: loc.scrolldown, upLabel: loc.scrollup,
+        scrollHint: loc.scrollForMoreInformation,
+        children: [
+          if (_items.isEmpty) _empty(loc),
+          for (final item in _items) _accountCard(item, loc),
+        ],
+      ),
+    )),
+  ]);
+
+  Widget _reviewContent(AppLocalizations loc) => _KioskScroll(
+    downLabel: loc.scrolldown, upLabel: loc.scrollup,
+    children: [
+      Container(
+        padding: const EdgeInsets.all(20), decoration: _surface(),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          _step('2', loc.sewaanReviewTitle),
+          const SizedBox(height: 8),
+          Text(loc.sewaanReviewHint, style: _text(29, color: _muted)),
+        ]),
+      ),
+      const SizedBox(height: 14),
+      Container(
+        padding: const EdgeInsets.all(18), decoration: _surface(),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Row(children: [
+            Expanded(child: Text(loc.sewaanSelectedAccountsTitle,
+              style: _text(36, weight: FontWeight.w800))),
+            TextButton(
+              onPressed: () => setState(() => _stepIndex = 0),
+              child: Text(loc.sewaanChangeSelection,
+                style: _text(30, color: _blue, weight: FontWeight.w800)),
+            ),
+          ]),
+          Text(loc.selectedAccountCount(_selected.length),
+            style: _text(28, color: _muted)),
+          const SizedBox(height: 10),
+          for (final item in _selectedItems) ...[
+            Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF0F6FE),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: _line),
+              ),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(_value(item, 'account_no'),
+                  style: _text(33, weight: FontWeight.w800)),
+                Text(_value(item, 'name'), style: _text(29)),
+                Text(_propertyAddress(item),
+                  style: _text(26, color: _muted)),
+              ]),
+            ),
+          ],
+        ]),
+      ),
+      const SizedBox(height: 14),
+      Container(
+        padding: const EdgeInsets.all(18), decoration: _surface(),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Text(loc.sewaanPaymentBreakdown,
+            style: _text(36, weight: FontWeight.w800)),
+          const SizedBox(height: 12),
+          for (final item in _selectedItems) ...[
+            Row(children: [
+              Expanded(child: Text(_value(item, 'account_no'),
+                style: _text(29))),
+              Text(_rm(_cents(item, 'jumlah') ?? 0),
+                style: _text(30, weight: FontWeight.w800)),
+            ]),
+            const SizedBox(height: 10),
+          ],
+          const Divider(color: _line, thickness: 1.5),
+          Text(loc.amountPayable, style: _text(33, weight: FontWeight.w800)),
+          Align(alignment: Alignment.centerRight,
+            child: Text(_totalCents == null ? '—' : _rm(_totalCents!),
+              style: _text(46, color: _green, weight: FontWeight.w900))),
+        ]),
+      ),
+    ],
+  );
+
   Widget _copyright() => Text(
     Data.copyrightText,
     textAlign: TextAlign.center,
-    style: _text(18, color: const Color(0xFF26364A), weight: FontWeight.w800),
+    style: _text(20, color: const Color(0xFF26364A), weight: FontWeight.w800),
   );
   Widget _header(AppLocalizations loc) => Container(
     padding: const EdgeInsets.all(20),
@@ -252,10 +352,10 @@ class _P5SewaanPBTbentongScreenState extends State<P5SewaanPBTbentongScreen> {
       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(loc.sewaanPbtTitle,
-              style: _text(40, color: Colors.white, weight: FontWeight.w800)),
+              style: _text(44, color: Colors.white, weight: FontWeight.w800)),
           const SizedBox(height: 5),
           Text(loc.sewaanSelectPayment,
-              style: _text(28, color: const Color(0xFFE0EBF6))),
+              style: _text(32, color: const Color(0xFFE0EBF6))),
         ],
       )),
     ]),
@@ -263,193 +363,139 @@ class _P5SewaanPBTbentongScreenState extends State<P5SewaanPBTbentongScreen> {
   Widget _step(String number, String title) => Row(children: [
     Container(width: 36, height: 36, alignment: Alignment.center,
       decoration: const BoxDecoration(color: _blue, shape: BoxShape.circle),
-      child: Text(number, style: _text(30, color: Colors.white)),
+      child: Text(number, style: _text(34, color: Colors.white)),
     ),
     const SizedBox(width: 12),
-    Expanded(child: Text(title, style: _text(32, weight: FontWeight.w800))),
+    Expanded(child: Text(title, style: _text(36, weight: FontWeight.w800))),
   ]);
-  Widget _accountHeading(AppLocalizations loc) => Container(
-    margin: const EdgeInsets.only(bottom: 14),
-    padding: const EdgeInsets.all(16),
-    decoration: _surface(),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _step('1', loc.sewaanSelectPayment),
-      const SizedBox(height: 5),
-      Text(loc.sewaanSelectAlert, style: _text(27, color: _muted)),
-    ]),
-  );
+    Widget _accountHeading(AppLocalizations loc) => Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(16),
+      decoration: _surface(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+            _step('1', loc.sewaanStepSelectAccount),
+          const SizedBox(height: 5),
+          Text(
+            loc.sewaanSelectAccountHint,
+            style: _text(31, color: _muted),
+          ),
+        ],
+      ),
+    );
   Widget _empty(AppLocalizations loc) => Container(
     padding: const EdgeInsets.all(32), decoration: _surface(),
     child: Column(children: [
       const Icon(Icons.search_off_rounded, size: 64, color: _muted),
       const SizedBox(height: 18),
-      Text(loc.sewaanNoData, textAlign: TextAlign.center, style: _text(26)),
+      Text(loc.sewaanNoData, textAlign: TextAlign.center, style: _text(30)),
     ]),
   );
   Widget _accountCard(Map<String, dynamic> item, AppLocalizations loc) {
     final account = _value(item, 'account_no');
     final selected = _selected.contains(account);
-    final valid = !_missing(account);
+    final available = _payable(item);
     final address = _propertyAddress(item);
+    final cents = _cents(item, 'jumlah');
     return Padding(
-      padding: const EdgeInsets.fromLTRB(6, 6, 14, 22),
+      padding: const EdgeInsets.fromLTRB(2, 2, 8, 14),
       child: Container(
         decoration: BoxDecoration(
-          color: selected
-              ? const Color(0xFFEAF4FF)
-              : Colors.white,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            color: selected
-                ? const Color(0xFF1976D2)
-                : const Color(0xFFD5E2EF),
-            width: 2,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: selected
-                  ? const Color(0x281976D2)
-                  : const Color(0x2416324D),
-              blurRadius: 16,
-              offset: const Offset(0, 8),
-            ),
-          ],
+          color: selected ? const Color(0xFFEAF4FF) : Colors.white,
+          borderRadius: BorderRadius.circular(22),
+          border: Border.all(color: selected ? _blue : const Color(0xFFD5E2EF),
+            width: selected ? 2.5 : 1.5),
+          boxShadow: const [BoxShadow(color: Color(0x2416324D),
+            blurRadius: 14, offset: Offset(0, 6))],
         ),
         child: Material(
           color: Colors.transparent,
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(22),
           clipBehavior: Clip.antiAlias,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // One large, accessible checkbox target. Details is a separate
-              // sibling button so opening details never selects the account.
-              Semantics(
-                label: '${loc.accountNo} $account', checked: selected,
-                enabled: valid, onTap: valid ? () => _toggle(item) : null,
-                child: InkWell(
-                  excludeFromSemantics: true,
-                  onTap: valid ? () => _toggle(item) : null,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Row(crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 3),
-                          child: Icon(selected ? Icons.check_box_rounded
-                              : Icons.check_box_outline_blank_rounded,
-                              size: 54, color: valid ? _blue : _muted),
-                        ),
-                        const SizedBox(width: 14),
-                        Expanded(child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Text(loc.accountNo, style: _text(26, color: _muted)),
-                            Text(account, style: _text(38,
-                                weight: FontWeight.w800)),
-                            if (!_missing(_value(item, 'name'))) ...[
-                              const SizedBox(height: 5),
-                              Text(_value(item, 'name'), style: _text(29)),
-                            ],
-                            if (!_missing(address)) ...[
-                              const SizedBox(height: 5),
-                              Text(address, style: _text(27, color: _muted)),
-                            ],
-                            const SizedBox(height: 16),
-                            Wrap(
-                              spacing: 32,
-                              runSpacing: 16,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      loc.startDate,
-                                      style: _text(26, color: _muted),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      _value(item, 'start_date'),
-                                      style: _text(
-                                        30,
-                                        color: _ink,
-                                        weight: FontWeight.w800,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      loc.endDate,
-                                      style: _text(26, color: _muted),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      _value(item, 'end_date'),
-                                      style: _text(
-                                        30,
-                                        color: _ink,
-                                        weight: FontWeight.w800,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            if (!valid) ...[
-                              const SizedBox(height: 8),
-                              Text(loc.sewaanNoData,
-                                  style: _text(27, color: const Color(0xFF963A12))),
-                            ],
-                          ],
-                        )),
-                      ],
+          child: InkWell(
+            onTap: available ? () => _toggle(item) : null,
+            splashColor: const Color(0x301976D2),
+            highlightColor: const Color(0x181976D2),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(18, 18, 18, 12),
+                child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Icon(!available ? Icons.block_rounded
+                      : selected ? Icons.check_box_rounded
+                      : Icons.check_box_outline_blank_rounded,
+                    color: available ? _blue : _muted, size: 46),
+                  const SizedBox(width: 12),
+                  Expanded(child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text(account, style: _text(38, weight: FontWeight.w900)),
+                      if (!_missing(_value(item, 'name')))
+                        Text(_value(item, 'name'), style: _text(31)),
+                      if (!_missing(address))
+                        Text(address, style: _text(29, color: _muted)),
+                      const SizedBox(height: 12),
+                      Wrap(spacing: 28, runSpacing: 8, children: [
+                        _dateLabel(loc.startDate, _value(item, 'start_date')),
+                        _dateLabel(loc.endDate, _value(item, 'end_date')),
+                      ]),
+                    ],
+                  )),
+                ]),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: _amountTile(loc.total, cents, selected, loc),
+              ),
+              if (!available) Padding(
+                padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF5E5),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: const Color(0xFFE5C58D)),
+                  ),
+                  child: Row(children: [
+                    const Icon(Icons.info_outline_rounded,
+                      color: Color(0xFF986000), size: 28),
+                    const SizedBox(width: 10),
+                    Expanded(child: Text(cents == 0
+                        ? loc.sewaanNoPaymentAvailable
+                        : loc.sewaanAmountUnavailable,
+                      style: _text(26, color: const Color(0xFF805000)))),
+                  ]),
+                ),
+              ),
+              SizedBox(
+                height: 74,
+                child: Align(alignment: Alignment.centerRight,
+                  child: TextButton.icon(
+                    onPressed: () => _showDetails(item),
+                    icon: const Icon(Icons.info_outline_rounded, size: 30),
+                    label: Text(loc.taksiranKioskViewDetails,
+                      style: _text(30, color: _blue, weight: FontWeight.w800)),
+                    style: TextButton.styleFrom(
+                      foregroundColor: _blue,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: _amountTile(loc.total, _cents(item, 'jumlah'), selected, loc),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 8, 20, 10),
-                child: Align(alignment: Alignment.centerRight,
-                  child: TextButton.icon(
-                      onPressed: () => _showDetails(item),
-                      icon: const Icon(
-                        Icons.info_outline_rounded,
-                        size: 32,
-                      ),
-                      label: Text(
-                        loc.taksiranKioskViewDetails,
-                        style: _text(
-                          28,
-                          color: _blue,
-                          weight: FontWeight.w800,
-                        ),
-                      ),
-                      style: TextButton.styleFrom(
-                        foregroundColor: _blue,
-                        minimumSize: const Size(0, 72),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 10,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    )
-                ),
-              ),
-            ],
+            ]),
           ),
         ),
       ),
     );
   }
+
+  Widget _dateLabel(String label, String value) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(label, style: _text(27, color: _muted)),
+      Text(value, style: _text(31, weight: FontWeight.w800)),
+    ],
+  );
+
   Widget _amountTile(String label, int? cents, bool active,
       AppLocalizations loc) => Container(
     padding: const EdgeInsets.all(12),
@@ -459,149 +505,45 @@ class _P5SewaanPBTbentongScreenState extends State<P5SewaanPBTbentongScreen> {
       border: Border.all(color: active ? _green : const Color(0xFFC7DECF), width: active ? 2 : 1),
     ),
     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(label, style: _text(26, color: _muted)),
+      Text(label, style: _text(30, color: _muted)),
       const SizedBox(height: 3),
       Text(cents == null ? '—' : _rm(cents),
-          style: _text(34, color: _green, weight: FontWeight.w800)),
+          style: _text(38, color: _green, weight: FontWeight.w800)),
     ]),
   );
-  Widget _footer(AppLocalizations loc) {
-    String? hint;
-    if (_items.isNotEmpty) {
-      if (_selected.isEmpty) {
-        hint = loc.sewaanSelectAlert;
-
-      } else if (_totalCents == null) {
-        hint = loc.sewaanNoArrearsAlert;
-      }
-    }
-    return Container(
-      padding: const EdgeInsets.all(22),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: const Color(0xFF26364A), width: 2),
-        boxShadow: const [
-          BoxShadow(color: Color(0x24000000), blurRadius: 22,
-              offset: Offset(0, 8)),
-        ],
-      ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        if (_items.isNotEmpty) ...[
-          Container(
-            padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFFF1F8F4), Color(0xFFE3F5E9)],
-              ),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: const Color(0xFF273E34), width: 1.5),
-            ),
-            child: LayoutBuilder(builder: (context, constraints) {
-              final description = Row(children: [
-                Container(
-                  width: 54, height: 54,
-                  decoration: const BoxDecoration(color: _green,
-                      shape: BoxShape.circle),
-                  child: const Icon(Icons.account_balance_wallet_rounded,
-                      color: Colors.white, size: 30),
-                ),
-                const SizedBox(width: 14),
-                Expanded(child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(loc.amountPayable, style: _text(30,
-                        color: const Color(0xFF273E34), weight: FontWeight.w800)),
-                        const SizedBox(height: 12),
-                        if (_selected.isEmpty)
-                          Text(
-                            loc.sewaanSelectAlert,
-                            style: _text(
-                              27,
-                              color: _muted,
-                              weight: FontWeight.w600,
-                            ),
-                          )
-                        else
-                          Wrap(
-                            spacing: 12,
-                            runSpacing: 10,
-                            children: [
-                              // Number of accounts included in this payment.
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 14,
-                                  vertical: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(
-                                    color: const Color(0xFFB6D8C1),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Icon(
-                                      Icons.check_circle_rounded,
-                                      color: _green,
-                                      size: 28,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Flexible(
-                                      child: Text(
-                                        loc.selectedAccountCount(_selected.length),
-                                        style: _text(
-                                          26,
-                                          color: _ink,
-                                          weight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                  ],
-                )),
-              ]);
-              final amount = Text(
-                _selected.isEmpty || _totalCents == null
-                ? '—'
-                : _rm(_totalCents!),
-                style: _text(44, color: _green, weight: FontWeight.w900),
-              );
-              // Allow long translations and large totals to wrap naturally.
-              return Column(crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  description,
-                  const SizedBox(height: 8),
-                  Align(alignment: Alignment.centerRight, child: amount),
-                ],
-              );
-            }),
-          ),
-          if (hint != null && _selected.isNotEmpty) Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Text(hint, style: _text(26,
-                color: const Color(0xFF963A12))),
-          ),
-          const SizedBox(height: 18),
-        ],
-        Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Expanded(child: _action(loc.back.toUpperCase(), Icons.arrow_back_rounded,
-              _openingPayment ? null : _back, primary: false)),
-          if (_items.isNotEmpty) ...[
-            const SizedBox(width: 22),
-            Expanded(child: _action(loc.continueText.toUpperCase(),
-                Icons.arrow_forward_rounded, _canContinue ? _proceed : null)),
-          ],
-        ]),
+  Widget _footer(AppLocalizations loc) => Container(
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(color: _line, width: 1.5),
+      boxShadow: const [BoxShadow(color: Color(0x18000000),
+        blurRadius: 10, offset: Offset(0, 4))],
+    ),
+    child: Column(children: [
+      if (_stepIndex == 0) ...[
+        Text(_selected.isEmpty ? loc.sewaanSelectAlert
+            : loc.selectedAccountCount(_selected.length),
+          textAlign: TextAlign.center,
+          style: _text(28, weight: FontWeight.w800)),
+        const SizedBox(height: 8),
+      ],
+      Row(children: [
+        Expanded(child: _action(loc.back.toUpperCase(),
+          Icons.arrow_back_rounded, _openingPayment ? null : _back,
+          primary: false)),
+        const SizedBox(width: 12),
+        Expanded(child: _action(
+          _stepIndex == 0
+              ? loc.continueText.toUpperCase()
+              : loc.paymenttax.toUpperCase(),
+          Icons.arrow_forward_rounded,
+          _canContinue ? (_stepIndex == 0 ? _next : _proceed) : null,
+        )),
       ]),
-    );
-  }
+    ]),
+  );
+
   Widget _action(String label, IconData icon, VoidCallback? onPressed,
       {bool primary = true}) => ElevatedButton(
     onPressed: onPressed,
@@ -610,7 +552,7 @@ class _P5SewaanPBTbentongScreenState extends State<P5SewaanPBTbentongScreen> {
       foregroundColor: primary ? Colors.white : const Color(0xFF202A35),
       disabledBackgroundColor: const Color(0xFFE2E8F0),
       disabledForegroundColor: const Color(0xFF596B7E),
-      minimumSize: const Size(0, 94), elevation: 2,
+      minimumSize: const Size(0, 100), elevation: 2,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       side: const BorderSide(color: Color(0xFF26364A), width: 2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
@@ -618,7 +560,7 @@ class _P5SewaanPBTbentongScreenState extends State<P5SewaanPBTbentongScreen> {
     child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       if (!primary) ...[Icon(icon, size: 32), const SizedBox(width: 10)],
       Flexible(child: Text(label, textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800,
+          softWrap: true, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w800,
               height: 1.15))),
       if (primary) ...[const SizedBox(width: 10), Icon(icon, size: 32)],
     ]),
@@ -688,7 +630,7 @@ class _P5SewaanPBTbentongScreenState extends State<P5SewaanPBTbentongScreen> {
                   const Icon(Icons.home_work_rounded, color: Colors.white, size: 42),
                   const SizedBox(width: 16),
                   Expanded(child: Text(loc.sewaanDetailsTitle,
-                      style: _text(36, color: Colors.white, weight: FontWeight.w800))),
+                      style: _text(40, color: Colors.white, weight: FontWeight.w800))),
                 ]),
               ),
               Expanded(child: Padding(
@@ -735,7 +677,7 @@ class _P5SewaanPBTbentongScreenState extends State<P5SewaanPBTbentongScreen> {
           Icon(icon, size: 32, color: money ? _green : _blue),
           const SizedBox(width: 12),
           Expanded(child: Text(title,
-              style: _text(30, color: money ? _green : _ink,
+              style: _text(34, color: money ? _green : _ink,
                   weight: FontWeight.w800))),
         ]),
       ),
@@ -750,9 +692,9 @@ class _P5SewaanPBTbentongScreenState extends State<P5SewaanPBTbentongScreen> {
   Widget _detailField(String label, String value, {bool money = false}) => Padding(
     padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(label, style: _text(26, color: _muted)),
+      Text(label, style: _text(30, color: _muted)),
       const SizedBox(height: 8),
-      Text(value, style: _text(32, color: money ? _green : _ink,
+      Text(value, style: _text(36, color: money ? _green : _ink,
           weight: FontWeight.w800)),
     ]),
   );
@@ -872,7 +814,7 @@ if (_overflow)
                     widget.scrollHint!,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 28,
                       fontWeight: FontWeight.w700,
                       color: Color(0xFF163A65),
                       height: 1.2,
@@ -904,7 +846,7 @@ if (_overflow)
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(icon, size: 28), const SizedBox(width: 6),
           Flexible(child: Text(label, textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w800))),
+              style: const TextStyle(fontSize: 27, fontWeight: FontWeight.w800))),
         ]),
       ));
       Widget _popupScrollArrow({

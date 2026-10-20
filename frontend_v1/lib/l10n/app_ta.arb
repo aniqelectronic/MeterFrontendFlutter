@@ -3902,7 +3902,46 @@
 "scanInputScanTitle": "குறியீட்டை ஸ்கேன் செய்க",
 "scanInputScanDescription": "விவரங்களை உள்ளிட பார்கோடு அல்லது QR குறியீட்டை ஸ்கேன் செய்க",
 "scanInputTypeTitle": "விசைப்பலகையைப் பயன்படுத்தவும்",
-"scanInputTypeDescription": "விவரங்களை உள்ளிட கீழே உள்ள விசைகளைத் தொடவும்"
+"scanInputTypeDescription": "விவரங்களை உள்ளிட கீழே உள்ள விசைகளைத் தொடவும்",
+
+
+  "taksiranChoosePaymentAmount": "கட்டணத் தொகையைத் தேர்ந்தெடுக்கவும்",
+  "taksiranSelectedAccounts": "தேர்ந்தெடுக்கப்பட்ட கணக்குகள்",
+  "taksiranChangeAccounts": "மாற்றவும்",
+  "taksiranChoosePaymentHint": "நீங்கள் செலுத்த விரும்பும் தொகையைத் தேர்ந்தெடுக்கவும்.",
+  "taksiranPaymentBreakdown": "கட்டண விவரம்",
+  "taksiranSelectedPeriod": "தேர்ந்தெடுக்கப்பட்ட காலம்",
+  "taksiranPaymentSelected": "தேர்ந்தெடுக்கப்பட்டது",
+  "taksiranPaymentUnavailable": "செலுத்த வேண்டிய தொகை இல்லை",
+  "taksiranSelectPeriodFirst": "கட்டண விவரத்தைப் பார்க்க முதலில் கட்டணத் தொகையைத் தேர்ந்தெடுக்கவும்.",
+  "taksiranStepAccount": "கணக்கைத் தேர்ந்தெடுக்கவும்",
+  "taksiranStepPeriod": "கட்டணக் காலத்தைத் தேர்ந்தெடுக்கவும்",
+  "taksiranSelectedAccountsTitle": "தேர்ந்தெடுக்கப்பட்ட கணக்குகள்",
+  "taksiranNoPayment": "செலுத்த வேண்டிய தொகை இல்லை",
+  "taksiranCannotSelect": "தேர்ந்தெடுக்க முடியாது",
+  "taksiranSelectToPay": "பணம் செலுத்த தேர்ந்தெடுக்கவும்",
+  "taksiranAccountNoPayment": "இந்தக் கணக்கிற்கு தற்போது கட்டணம் செலுத்த வேண்டியதில்லை. கட்டணம் செலுத்த இந்தக் கணக்கைத் தேர்ந்தெடுக்க முடியாது.",
+"taksiranAccountAmountUnavailable": "கட்டணத் தொகை தற்போது கிடைக்கவில்லை. கட்டணம் செலுத்த இந்தக் கணக்கைத் தேர்ந்தெடுக்க முடியாது.",
+"taksiranMixedPeriodWarning": "தேர்ந்தெடுக்கப்பட்ட கணக்குகளுக்கு ஒரே கட்டணக் காலம் இல்லை. கணக்குத் தேர்வை மாற்றி, தனித்தனியாகப் பணம் செலுத்தவும்.",
+"taksiranMixedPeriodShort": "வெவ்வேறு கட்டணக் காலங்கள்",
+"taksiranTaxInformation": "வரி விவரங்கள்",
+
+"sewaanStepSelectAccount": "கணக்கைத் தேர்ந்தெடுக்கவும்",
+"sewaanStepReviewPayment": "கட்டணத்தைச் சரிபார்க்கவும்",
+"sewaanSelectAccountHint": "நீங்கள் பணம் செலுத்த விரும்பும் வாடகைக் கணக்கைத் தேர்ந்தெடுக்கவும்.",
+"sewaanReviewTitle": "வாடகைக் கட்டணத்தைச் சரிபார்க்கவும்",
+"sewaanReviewHint": "பணம் செலுத்துவதற்கு முன் கணக்கையும் கட்டணத் தொகையையும் சரிபார்க்கவும்.",
+"sewaanSelectedAccountsTitle": "தேர்ந்தெடுக்கப்பட்ட கணக்குகள்",
+"sewaanChangeSelection": "மாற்றவும்",
+"sewaanPaymentBreakdown": "கட்டண விவரம்",
+"sewaanPayButton": "செலுத்தவும்",
+"sewaanNoPaymentAvailable": "இந்தக் கணக்கிற்கு தற்போது கட்டணம் செலுத்த வேண்டியதில்லை.",
+"sewaanAmountUnavailable": "கட்டணத் தொகை தற்போது கிடைக்கவில்லை.",
+
+"compoundAvailableCountLabel": "கிடைக்கும் அபராத அறிவிப்புகளின் எண்ணிக்கை",
+"compoundSelectedCount": "தேர்ந்தெடுக்கப்பட்ட அபராத அறிவிப்புகள்: {count}",
+"@compoundSelectedCount": {"placeholders": {"count": {"type": "int"}}},
+"makePaymentButton": "பணம் செலுத்தவும்"
 
 
 

@@ -119,6 +119,9 @@ flutter:
     - lib/images/entertainment/
     - lib/videos/card_payment_video.mp4
     - lib/videos/duitnow_video.mp4
+    - config/hq.json
+    - config/melaka.json
+    - config/bentong.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

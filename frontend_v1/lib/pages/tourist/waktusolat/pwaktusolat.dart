@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
+import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/tourist/ptourist3.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
@@ -61,7 +62,7 @@ class _PWAKTUSOLATPAGEState
   });
     final response = await http.get(
       Uri.parse(
-        Data.waktusolaturldemo,
+        Config.waktusolaturl,
       ),
     );
 
@@ -886,7 +887,7 @@ class _PWAKTUSOLATPAGEState
     );
 
     final location =
-        Data.waktusolatplacedemo
+        Config.waktusolatplace
             .toUpperCase();
 
     return Scaffold(

@@ -5,10 +5,10 @@ import 'package:frontend_v1/pages/config.dart';
 import 'package:http/http.dart' as http;
 
 class PegePayService {
-  static const String baseUrl = Config.apiBaseUrl;
+  static final String baseUrl = Config.apiBaseUrl;
 
-  static const String apiKey = Config.apiKey;
-  static const String hmacSecret = Config.hmacSecret;
+  static final String apiKey = Config.apiKey;
+  static final String hmacSecret = Config.hmacSecret;
 
   static String _createBodyHash(String body) {
     final digest = sha256.convert(

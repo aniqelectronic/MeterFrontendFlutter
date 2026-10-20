@@ -7559,4 +7559,108 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get scanInputTypeDescription => 'விவரங்களை உள்ளிட கீழே உள்ள விசைகளைத் தொடவும்';
+
+  @override
+  String get taksiranChoosePaymentAmount => 'கட்டணத் தொகையைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get taksiranSelectedAccounts => 'தேர்ந்தெடுக்கப்பட்ட கணக்குகள்';
+
+  @override
+  String get taksiranChangeAccounts => 'மாற்றவும்';
+
+  @override
+  String get taksiranChoosePaymentHint => 'நீங்கள் செலுத்த விரும்பும் தொகையைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get taksiranPaymentBreakdown => 'கட்டண விவரம்';
+
+  @override
+  String get taksiranSelectedPeriod => 'தேர்ந்தெடுக்கப்பட்ட காலம்';
+
+  @override
+  String get taksiranPaymentSelected => 'தேர்ந்தெடுக்கப்பட்டது';
+
+  @override
+  String get taksiranPaymentUnavailable => 'செலுத்த வேண்டிய தொகை இல்லை';
+
+  @override
+  String get taksiranSelectPeriodFirst => 'கட்டண விவரத்தைப் பார்க்க முதலில் கட்டணத் தொகையைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get taksiranStepAccount => 'கணக்கைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get taksiranStepPeriod => 'கட்டணக் காலத்தைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get taksiranSelectedAccountsTitle => 'தேர்ந்தெடுக்கப்பட்ட கணக்குகள்';
+
+  @override
+  String get taksiranNoPayment => 'செலுத்த வேண்டிய தொகை இல்லை';
+
+  @override
+  String get taksiranCannotSelect => 'தேர்ந்தெடுக்க முடியாது';
+
+  @override
+  String get taksiranSelectToPay => 'பணம் செலுத்த தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get taksiranAccountNoPayment => 'இந்தக் கணக்கிற்கு தற்போது கட்டணம் செலுத்த வேண்டியதில்லை. கட்டணம் செலுத்த இந்தக் கணக்கைத் தேர்ந்தெடுக்க முடியாது.';
+
+  @override
+  String get taksiranAccountAmountUnavailable => 'கட்டணத் தொகை தற்போது கிடைக்கவில்லை. கட்டணம் செலுத்த இந்தக் கணக்கைத் தேர்ந்தெடுக்க முடியாது.';
+
+  @override
+  String get taksiranMixedPeriodWarning => 'தேர்ந்தெடுக்கப்பட்ட கணக்குகளுக்கு ஒரே கட்டணக் காலம் இல்லை. கணக்குத் தேர்வை மாற்றி, தனித்தனியாகப் பணம் செலுத்தவும்.';
+
+  @override
+  String get taksiranMixedPeriodShort => 'வெவ்வேறு கட்டணக் காலங்கள்';
+
+  @override
+  String get taksiranTaxInformation => 'வரி விவரங்கள்';
+
+  @override
+  String get sewaanStepSelectAccount => 'கணக்கைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get sewaanStepReviewPayment => 'கட்டணத்தைச் சரிபார்க்கவும்';
+
+  @override
+  String get sewaanSelectAccountHint => 'நீங்கள் பணம் செலுத்த விரும்பும் வாடகைக் கணக்கைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get sewaanReviewTitle => 'வாடகைக் கட்டணத்தைச் சரிபார்க்கவும்';
+
+  @override
+  String get sewaanReviewHint => 'பணம் செலுத்துவதற்கு முன் கணக்கையும் கட்டணத் தொகையையும் சரிபார்க்கவும்.';
+
+  @override
+  String get sewaanSelectedAccountsTitle => 'தேர்ந்தெடுக்கப்பட்ட கணக்குகள்';
+
+  @override
+  String get sewaanChangeSelection => 'மாற்றவும்';
+
+  @override
+  String get sewaanPaymentBreakdown => 'கட்டண விவரம்';
+
+  @override
+  String get sewaanPayButton => 'செலுத்தவும்';
+
+  @override
+  String get sewaanNoPaymentAvailable => 'இந்தக் கணக்கிற்கு தற்போது கட்டணம் செலுத்த வேண்டியதில்லை.';
+
+  @override
+  String get sewaanAmountUnavailable => 'கட்டணத் தொகை தற்போது கிடைக்கவில்லை.';
+
+  @override
+  String get compoundAvailableCountLabel => 'கிடைக்கும் அபராத அறிவிப்புகளின் எண்ணிக்கை';
+
+  @override
+  String compoundSelectedCount(int count) {
+    return 'தேர்ந்தெடுக்கப்பட்ட அபராத அறிவிப்புகள்: $count';
+  }
+
+  @override
+  String get makePaymentButton => 'பணம் செலுத்தவும்';
 }

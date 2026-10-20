@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onscreen_keyboard/flutter_onscreen_keyboard.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/pages/home/p1bentong.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:frontend_v1/pages/home/p1.dart';
@@ -109,13 +110,26 @@ class KioskPageTransitionsBuilder extends PageTransitionsBuilder {
   }
 }
 
+
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-    // Handle the secondary desktop WebView process first.
-  // It must not initialize the complete kiosk application.
+  // Handle secondary WebView process before kiosk initialization.
   if (Platform.isLinux && runWebViewTitleBarWidget(args)) {
     return;
+  }
+
+  // ============================================================
+  // LOAD CONFIGURATION
+  // ============================================================
+  if (Platform.isLinux) {
+    // Jetson: read this terminal's permanent configuration.
+    await Config.loadJetson();
+  } else {
+    // Windows: choose only one configuration for simulation.
+    await Config.loadHQ();
+    // await Config.loadMelaka();
+    // await Config.loadBentong();
   }
 
   MediaKit.ensureInitialized();
@@ -127,37 +141,24 @@ Future<void> main(List<String> args) async {
       size: Size(800, 1280),
       minimumSize: Size(800, 1280),
       maximumSize: Size(800, 1280),
-
-      // Do not wait for manual window positioning.
       center: true,
-
-      // Black while Flutter is rendering its first frame.
       backgroundColor: Colors.black,
-
-      // Remove Linux title bar.
       titleBarStyle: TitleBarStyle.hidden,
-
-      // Do not show the app in Ubuntu taskbar.
       skipTaskbar: true,
-
-      // Start in fullscreen immediately.
       fullScreen: true,
     );
 
     await windowManager.waitUntilReadyToShow(
       windowOptions,
       () async {
-        // Apply settings before displaying the window.
         await windowManager.setSkipTaskbar(true);
         await windowManager.setAlwaysOnTop(true);
         await windowManager.setFullScreen(true);
         await windowManager.setPreventClose(true);
 
-        // Show and focus the kiosk automatically.
         await windowManager.show();
         await windowManager.focus();
 
-        // Reapply after GNOME finishes creating the window.
         await Future<void>.delayed(
           const Duration(milliseconds: 300),
         );
@@ -171,6 +172,7 @@ Future<void> main(List<String> args) async {
 
   runApp(const App());
 }
+
 
 class App extends StatefulWidget {
   const App({super.key});

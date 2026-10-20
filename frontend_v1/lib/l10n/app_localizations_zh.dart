@@ -7559,4 +7559,108 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get scanInputTypeDescription => '点击下方按键以输入资料';
+
+  @override
+  String get taksiranChoosePaymentAmount => '选择付款金额';
+
+  @override
+  String get taksiranSelectedAccounts => '已选账户';
+
+  @override
+  String get taksiranChangeAccounts => '更改';
+
+  @override
+  String get taksiranChoosePaymentHint => '请选择您要支付的金额。';
+
+  @override
+  String get taksiranPaymentBreakdown => '付款明细';
+
+  @override
+  String get taksiranSelectedPeriod => '已选缴费期限';
+
+  @override
+  String get taksiranPaymentSelected => '已选择';
+
+  @override
+  String get taksiranPaymentUnavailable => '暂无可缴金额';
+
+  @override
+  String get taksiranSelectPeriodFirst => '请先选择付款金额，以查看付款明细。';
+
+  @override
+  String get taksiranStepAccount => '选择账户';
+
+  @override
+  String get taksiranStepPeriod => '选择缴费期限';
+
+  @override
+  String get taksiranSelectedAccountsTitle => '已选择的账户';
+
+  @override
+  String get taksiranNoPayment => '无需缴费';
+
+  @override
+  String get taksiranCannotSelect => '无法选择';
+
+  @override
+  String get taksiranSelectToPay => '请选择以付款';
+
+  @override
+  String get taksiranAccountNoPayment => '此账户目前无需缴费，因此无法选择此账户进行付款。';
+
+  @override
+  String get taksiranAccountAmountUnavailable => '目前无法获取缴费金额，因此无法选择此账户进行付款。';
+
+  @override
+  String get taksiranMixedPeriodWarning => '所选账户没有共同可用的缴费期限。请更改账户选择，并分别付款。';
+
+  @override
+  String get taksiranMixedPeriodShort => '缴费期限不同';
+
+  @override
+  String get taksiranTaxInformation => '税务资料';
+
+  @override
+  String get sewaanStepSelectAccount => '选择账户';
+
+  @override
+  String get sewaanStepReviewPayment => '核对付款';
+
+  @override
+  String get sewaanSelectAccountHint => '请选择您要付款的租赁账户。';
+
+  @override
+  String get sewaanReviewTitle => '核对租金付款';
+
+  @override
+  String get sewaanReviewHint => '付款前请核对账户及付款金额。';
+
+  @override
+  String get sewaanSelectedAccountsTitle => '已选账户';
+
+  @override
+  String get sewaanChangeSelection => '更改';
+
+  @override
+  String get sewaanPaymentBreakdown => '付款明细';
+
+  @override
+  String get sewaanPayButton => '付款';
+
+  @override
+  String get sewaanNoPaymentAvailable => '此账户目前无需付款。';
+
+  @override
+  String get sewaanAmountUnavailable => '目前无法获取付款金额。';
+
+  @override
+  String get compoundAvailableCountLabel => '可选择的罚单总数';
+
+  @override
+  String compoundSelectedCount(int count) {
+    return '已选择 $count 张罚单';
+  }
+
+  @override
+  String get makePaymentButton => '进行付款';
 }

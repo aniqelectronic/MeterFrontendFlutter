@@ -4054,8 +4054,45 @@
 "scanInputScanTitle": "SCAN CODE",
 "scanInputScanDescription": "Scan a barcode or QR code to enter details",
 "scanInputTypeTitle": "USE KEYPAD",
-"scanInputTypeDescription": "Tap the keys below to enter details"
+"scanInputTypeDescription": "Tap the keys below to enter details",
 
+  "taksiranChoosePaymentAmount": "Choose Payment Amount",
+  "taksiranSelectedAccounts": "Selected Accounts",
+  "taksiranChangeAccounts": "Change",
+  "taksiranChoosePaymentHint": "Please select the amount you wish to pay.",
+  "taksiranPaymentBreakdown": "Payment Breakdown",
+  "taksiranSelectedPeriod": "Selected Period",
+  "taksiranPaymentSelected": "Selected",
+  "taksiranPaymentUnavailable": "No payment available",
+  "taksiranSelectPeriodFirst": "Please choose a payment amount to view the breakdown.",
+  "taksiranStepAccount": "Select Account",
+  "taksiranStepPeriod": "Select Period",
+  "taksiranSelectedAccountsTitle": "Selected Accounts",
+  "taksiranNoPayment": "No Payment Due",
+  "taksiranCannotSelect": "Cannot be selected",
+  "taksiranSelectToPay": "Select to pay",
+  "taksiranAccountNoPayment": "No payment is required for this account at the moment. This account cannot be selected for payment.",
+"taksiranAccountAmountUnavailable": "The payment amount is currently unavailable. This account cannot be selected for payment.",
+"taksiranMixedPeriodWarning": "The selected accounts do not share an available payment period. Please change your account selection and pay the accounts separately.",
+"taksiranMixedPeriodShort": "Different payment periods",
+"taksiranTaxInformation": "Tax Information",
+
+"sewaanStepSelectAccount": "Select Account",
+"sewaanStepReviewPayment": "Review Payment",
+"sewaanSelectAccountHint": "Select the rental account you wish to pay.",
+"sewaanReviewTitle": "Review Rental Payment",
+"sewaanReviewHint": "Please check your account and payment amount before proceeding.",
+"sewaanSelectedAccountsTitle": "Selected Accounts",
+"sewaanChangeSelection": "Change",
+"sewaanPaymentBreakdown": "Payment Breakdown",
+"sewaanPayButton": "Pay",
+"sewaanNoPaymentAvailable": "No payment is required for this account at the moment.",
+"sewaanAmountUnavailable": "The payment amount is currently unavailable.",
+
+"compoundAvailableCountLabel": "AVAILABLE COMPOUNDS",
+"compoundSelectedCount": "{count, plural, =0{No compounds selected} =1{1 compound selected} other{{count} compounds selected}}",
+"@compoundSelectedCount": {"placeholders": {"count": {"type": "int"}}},
+"makePaymentButton": "Make Payment"
 
 
 

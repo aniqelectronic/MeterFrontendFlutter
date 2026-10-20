@@ -6,7 +6,7 @@ import 'package:frontend_v1/pages/config.dart';
 import 'package:http/http.dart' as http;
 
 class TaxService {
-  static const String baseUrl = Config.apiBaseUrl;
+  static final String baseUrl = Config.apiBaseUrl;
   static const Duration _timeout = Duration(seconds: 10);
 
   // ============================================================

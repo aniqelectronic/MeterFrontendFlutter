@@ -14858,6 +14858,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap the keys below to enter details'**
   String get scanInputTypeDescription;
+
+  /// No description provided for @taksiranChoosePaymentAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Payment Amount'**
+  String get taksiranChoosePaymentAmount;
+
+  /// No description provided for @taksiranSelectedAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Accounts'**
+  String get taksiranSelectedAccounts;
+
+  /// No description provided for @taksiranChangeAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get taksiranChangeAccounts;
+
+  /// No description provided for @taksiranChoosePaymentHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select the amount you wish to pay.'**
+  String get taksiranChoosePaymentHint;
+
+  /// No description provided for @taksiranPaymentBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Breakdown'**
+  String get taksiranPaymentBreakdown;
+
+  /// No description provided for @taksiranSelectedPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Period'**
+  String get taksiranSelectedPeriod;
+
+  /// No description provided for @taksiranPaymentSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected'**
+  String get taksiranPaymentSelected;
+
+  /// No description provided for @taksiranPaymentUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No payment available'**
+  String get taksiranPaymentUnavailable;
+
+  /// No description provided for @taksiranSelectPeriodFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose a payment amount to view the breakdown.'**
+  String get taksiranSelectPeriodFirst;
+
+  /// No description provided for @taksiranStepAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Account'**
+  String get taksiranStepAccount;
+
+  /// No description provided for @taksiranStepPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Period'**
+  String get taksiranStepPeriod;
+
+  /// No description provided for @taksiranSelectedAccountsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Accounts'**
+  String get taksiranSelectedAccountsTitle;
+
+  /// No description provided for @taksiranNoPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'No Payment Due'**
+  String get taksiranNoPayment;
+
+  /// No description provided for @taksiranCannotSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot be selected'**
+  String get taksiranCannotSelect;
+
+  /// No description provided for @taksiranSelectToPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Select to pay'**
+  String get taksiranSelectToPay;
+
+  /// No description provided for @taksiranAccountNoPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'No payment is required for this account at the moment. This account cannot be selected for payment.'**
+  String get taksiranAccountNoPayment;
+
+  /// No description provided for @taksiranAccountAmountUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The payment amount is currently unavailable. This account cannot be selected for payment.'**
+  String get taksiranAccountAmountUnavailable;
+
+  /// No description provided for @taksiranMixedPeriodWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected accounts do not share an available payment period. Please change your account selection and pay the accounts separately.'**
+  String get taksiranMixedPeriodWarning;
+
+  /// No description provided for @taksiranMixedPeriodShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Different payment periods'**
+  String get taksiranMixedPeriodShort;
+
+  /// No description provided for @taksiranTaxInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Information'**
+  String get taksiranTaxInformation;
+
+  /// No description provided for @sewaanStepSelectAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Account'**
+  String get sewaanStepSelectAccount;
+
+  /// No description provided for @sewaanStepReviewPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Payment'**
+  String get sewaanStepReviewPayment;
+
+  /// No description provided for @sewaanSelectAccountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the rental account you wish to pay.'**
+  String get sewaanSelectAccountHint;
+
+  /// No description provided for @sewaanReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Rental Payment'**
+  String get sewaanReviewTitle;
+
+  /// No description provided for @sewaanReviewHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your account and payment amount before proceeding.'**
+  String get sewaanReviewHint;
+
+  /// No description provided for @sewaanSelectedAccountsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Accounts'**
+  String get sewaanSelectedAccountsTitle;
+
+  /// No description provided for @sewaanChangeSelection.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get sewaanChangeSelection;
+
+  /// No description provided for @sewaanPaymentBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Breakdown'**
+  String get sewaanPaymentBreakdown;
+
+  /// No description provided for @sewaanPayButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay'**
+  String get sewaanPayButton;
+
+  /// No description provided for @sewaanNoPaymentAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No payment is required for this account at the moment.'**
+  String get sewaanNoPaymentAvailable;
+
+  /// No description provided for @sewaanAmountUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The payment amount is currently unavailable.'**
+  String get sewaanAmountUnavailable;
+
+  /// No description provided for @compoundAvailableCountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'AVAILABLE COMPOUNDS'**
+  String get compoundAvailableCountLabel;
+
+  /// No description provided for @compoundSelectedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No compounds selected} =1{1 compound selected} other{{count} compounds selected}}'**
+  String compoundSelectedCount(int count);
+
+  /// No description provided for @makePaymentButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Make Payment'**
+  String get makePaymentButton;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -17,7 +17,7 @@ class SewaanPaymentServiceBentong {
   // YOUR FASTAPI BACKEND
   // ============================================================
 
-  static const String _backendBaseUrl =
+  static final String _backendBaseUrl =
       Config.apiBaseUrl;
 
   static const Duration _timeout =

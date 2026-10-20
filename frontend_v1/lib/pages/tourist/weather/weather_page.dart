@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_v1/pages/config.dart';
 import 'package:intl/intl.dart';
 
 import 'package:frontend_v1/l10n/app_localizations.dart';
@@ -15,8 +16,8 @@ import 'package:frontend_v1/widgets/kiosk_back_button.dart';
 //
 // Location comes from:
 //
-// Data.weatherPlaceName
-// Data.weatherLocationId
+// Config.weatherPlaceName
+// Config.weatherLocationId
 //
 // ============================================================================
 class PWeatherPage extends StatefulWidget {
@@ -225,11 +226,11 @@ class _PWeatherPageState
                 _ModernWeatherHeader(
               title:
                   loc.weatherPageTitle(
-                Data.weatherPlaceName,
+                Config.weatherPlaceName,
               ),
               subtitle:
                   loc.weatherPageSubtitle(
-                Data.weatherPlaceName,
+                Config.weatherPlaceName,
               ),
             ),
           ),
@@ -1047,7 +1048,7 @@ class _CurrentSummaryCard
                           .start,
                   children: [
                     Text(
-                      Data.weatherPlaceName,
+                      Config.weatherPlaceName,
                       style:
                           const TextStyle(
                         color:

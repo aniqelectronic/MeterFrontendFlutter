@@ -1,3 +1,4 @@
+import 'package:frontend_v1/pages/config.dart';
 import 'package:frontend_v1/widgets/knowledge_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
@@ -156,7 +157,7 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
             left: 65,
             right: 65,
             child: _ModernPageHeader(
-              badgeText: '${loc.pbtText} ${Data.pbtArea}',
+              badgeText: '${loc.pbtText} ${Config.pbtArea}',
               title: loc.p3Title,
               subtitle: loc.p3Subtitle,
             ),

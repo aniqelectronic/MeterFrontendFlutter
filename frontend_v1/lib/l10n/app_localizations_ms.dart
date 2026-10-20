@@ -7559,4 +7559,114 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get scanInputTypeDescription => 'Tekan kekunci di bawah untuk masukkan maklumat';
+
+  @override
+  String get taksiranChoosePaymentAmount => 'Pilih Jumlah Bayaran';
+
+  @override
+  String get taksiranSelectedAccounts => 'Akaun Dipilih';
+
+  @override
+  String get taksiranChangeAccounts => 'Ubah';
+
+  @override
+  String get taksiranChoosePaymentHint => 'Sila pilih jumlah yang ingin dibayar.';
+
+  @override
+  String get taksiranPaymentBreakdown => 'Pecahan Bayaran';
+
+  @override
+  String get taksiranSelectedPeriod => 'Tempoh Dipilih';
+
+  @override
+  String get taksiranPaymentSelected => 'Dipilih';
+
+  @override
+  String get taksiranPaymentUnavailable => 'Tiada bayaran tersedia';
+
+  @override
+  String get taksiranSelectPeriodFirst => 'Sila pilih jumlah bayaran untuk melihat pecahan bayaran.';
+
+  @override
+  String get taksiranStepAccount => 'Pilih Akaun';
+
+  @override
+  String get taksiranStepPeriod => 'Pilih Tempoh';
+
+  @override
+  String get taksiranSelectedAccountsTitle => 'Akaun Dipilih';
+
+  @override
+  String get taksiranNoPayment => 'Tiada Bayaran';
+
+  @override
+  String get taksiranCannotSelect => 'Tidak boleh dipilih';
+
+  @override
+  String get taksiranSelectToPay => 'Sila pilih untuk bayar';
+
+  @override
+  String get taksiranAccountNoPayment => 'Tiada bayaran perlu dibuat untuk akaun ini buat masa ini. Akaun ini tidak boleh dipilih untuk pembayaran.';
+
+  @override
+  String get taksiranAccountAmountUnavailable => 'Jumlah bayaran tidak tersedia buat masa ini. Akaun ini tidak boleh dipilih untuk pembayaran.';
+
+  @override
+  String get taksiranMixedPeriodWarning => 'Akaun yang dipilih tidak mempunyai tempoh bayaran yang sama. Sila ubah pilihan akaun dan buat pembayaran secara berasingan.';
+
+  @override
+  String get taksiranMixedPeriodShort => 'Tempoh bayaran berbeza';
+
+  @override
+  String get taksiranTaxInformation => 'Maklumat Cukai';
+
+  @override
+  String get sewaanStepSelectAccount => 'Pilih Akaun';
+
+  @override
+  String get sewaanStepReviewPayment => 'Semak Bayaran';
+
+  @override
+  String get sewaanSelectAccountHint => 'Sila pilih akaun sewaan yang ingin dibayar.';
+
+  @override
+  String get sewaanReviewTitle => 'Semak Bayaran Sewaan';
+
+  @override
+  String get sewaanReviewHint => 'Sila semak akaun dan jumlah bayaran sebelum meneruskan pembayaran.';
+
+  @override
+  String get sewaanSelectedAccountsTitle => 'Akaun Dipilih';
+
+  @override
+  String get sewaanChangeSelection => 'Ubah';
+
+  @override
+  String get sewaanPaymentBreakdown => 'Pecahan Bayaran';
+
+  @override
+  String get sewaanPayButton => 'Bayar';
+
+  @override
+  String get sewaanNoPaymentAvailable => 'Tiada bayaran perlu dibuat untuk akaun ini buat masa ini.';
+
+  @override
+  String get sewaanAmountUnavailable => 'Jumlah bayaran tidak tersedia buat masa ini.';
+
+  @override
+  String get compoundAvailableCountLabel => 'JUMLAH KOMPAUN TERSEDIA';
+
+  @override
+  String compoundSelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kompaun yang dipilih',
+      zero: 'Tiada kompaun dipilih',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get makePaymentButton => 'Membuat Pembayaran';
 }
