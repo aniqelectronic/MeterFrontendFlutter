@@ -4000,6 +4000,8 @@
 "compoundAvailableCountLabel": "可选择的罚单总数",
 "compoundSelectedCount": "已选择 {count} 张罚单",
 "@compoundSelectedCount": {"placeholders": {"count": {"type": "int"}}},
-"makePaymentButton": "进行付款"
+"makePaymentButton": "进行付款",
+
+"perakExplorationTitle": "探索霹雳"
 
 }

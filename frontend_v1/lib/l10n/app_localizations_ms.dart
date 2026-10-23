@@ -7669,4 +7669,7 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get makePaymentButton => 'Membuat Pembayaran';
+
+  @override
+  String get perakExplorationTitle => 'Jelajah Perak';
 }

@@ -913,27 +913,31 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
     required double maxHeight,
   }) {
     final direction = Directionality.of(context);
-    for (double size = 38; size >= 24; size -= 1) {
+    final scaler = MediaQuery.textScalerOf(context);
+    for (double size = 38; size >= 12; size -= 1) {
       final painter = TextPainter(
         text: TextSpan(
           text: text,
           style: TextStyle(
-            color: const Color(0xFF102C50),
             fontSize: size,
             fontWeight: FontWeight.w900,
             height: 1.04,
             letterSpacing: -0.30,
           ),
         ),
-        maxLines: 2,
+        maxLines: 3,
         textDirection: direction,
+        textScaler: scaler,
       )..layout(maxWidth: maxWidth);
       if (!painter.didExceedMaxLines && painter.height <= maxHeight) {
+        painter.dispose();
         return size;
       }
+      painter.dispose();
     }
-    return 24;
+    return 12;
   }
+
   @override
   Widget build(BuildContext context) {
     final enabled = !widget.comingSoon;
@@ -1083,8 +1087,9 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
                                           alignment: Alignment.centerLeft,
                                           child: Text(
                                             text,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 3,
+                                            softWrap: true,
+                                            overflow: TextOverflow.clip,
                                             style: TextStyle(
                                               color: const Color(0xFF102C50),
                                               fontSize: fontSize,

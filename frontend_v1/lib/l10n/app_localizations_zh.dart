@@ -7663,4 +7663,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get makePaymentButton => '进行付款';
+
+  @override
+  String get perakExplorationTitle => '探索霹雳';
 }

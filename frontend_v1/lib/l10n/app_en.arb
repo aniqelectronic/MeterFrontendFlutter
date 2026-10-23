@@ -4092,7 +4092,9 @@
 "compoundAvailableCountLabel": "AVAILABLE COMPOUNDS",
 "compoundSelectedCount": "{count, plural, =0{No compounds selected} =1{1 compound selected} other{{count} compounds selected}}",
 "@compoundSelectedCount": {"placeholders": {"count": {"type": "int"}}},
-"makePaymentButton": "Make Payment"
+"makePaymentButton": "Make Payment",
+
+"perakExplorationTitle": "Explore Perak"
 
 
 

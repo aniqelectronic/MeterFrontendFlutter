@@ -63,6 +63,10 @@ class Config {
     await _loadAsset('config/bentong.json');
   }
 
+  static Future<void> loadPerak() async {
+  await _loadAsset('config/perak.json');
+}
+
   // ============================================================
   // JETSON LINUX - EXTERNAL CONFIGURATION
   // ============================================================

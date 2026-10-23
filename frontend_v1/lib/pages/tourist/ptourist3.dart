@@ -5,6 +5,7 @@ import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
 import 'package:frontend_v1/pages/option/p2.dart';
 import 'package:frontend_v1/pages/tourist/eksplorasi/pexploration_melaka.dart';
+import 'package:frontend_v1/pages/tourist/eksplorasi/pexploration_perak.dart';
 
 import 'package:frontend_v1/pages/tourist/eksplorasi/pexploration_putrajaya.dart';
 import 'package:frontend_v1/pages/tourist/map/pmapgoogle.dart';
@@ -142,7 +143,7 @@ class PTOURISTPAGE extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (_) =>
-                                    const PExplorationMelakaPage(),
+                                    const PExplorationPerakPage(),
                               ),
                             );
                           },

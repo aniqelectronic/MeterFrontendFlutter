@@ -127,7 +127,7 @@ Future<void> main(List<String> args) async {
     await Config.loadJetson();
   } else {
     // Windows: choose only one configuration for simulation.
-    await Config.loadHQ();
+    await Config.loadPerak();
     // await Config.loadMelaka();
     // await Config.loadBentong();
   }

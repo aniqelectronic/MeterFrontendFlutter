@@ -7663,4 +7663,7 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get makePaymentButton => 'பணம் செலுத்தவும்';
+
+  @override
+  String get perakExplorationTitle => 'பேராக்கைச் சுற்றிப் பாருங்கள்';
 }

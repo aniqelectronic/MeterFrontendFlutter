@@ -459,7 +459,7 @@ class _P1BentongPageState
               const BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                'lib/images/pmelaka.png',
+                'lib/images/p1perak.png',
               ),
 
               fit: BoxFit.cover,

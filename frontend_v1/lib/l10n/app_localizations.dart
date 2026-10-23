@@ -15062,6 +15062,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Make Payment'**
   String get makePaymentButton;
+
+  /// No description provided for @perakExplorationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Perak'**
+  String get perakExplorationTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

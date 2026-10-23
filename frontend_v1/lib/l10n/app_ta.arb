@@ -3941,7 +3941,9 @@
 "compoundAvailableCountLabel": "கிடைக்கும் அபராத அறிவிப்புகளின் எண்ணிக்கை",
 "compoundSelectedCount": "தேர்ந்தெடுக்கப்பட்ட அபராத அறிவிப்புகள்: {count}",
 "@compoundSelectedCount": {"placeholders": {"count": {"type": "int"}}},
-"makePaymentButton": "பணம் செலுத்தவும்"
+"makePaymentButton": "பணம் செலுத்தவும்",
+
+"perakExplorationTitle": "பேராக்கைச் சுற்றிப் பாருங்கள்"
 
 
 
