@@ -216,44 +216,9 @@ class PipBillTransactionService {
     };
   }
 
-  Future<String> _readTerminalKey() async {
-    // Prefer an explicit path to the existing private terminal.json.
-    final customPath = Platform.environment['TIP_TERMINAL_JSON'] ?? '';
-    final home = Platform.environment['HOME'] ?? '';
-    final keyCandidates = <String>[
-      Platform.environment['PIP_TERMINAL_KEY'] ?? '',
-    ];
-    for (final key in keyCandidates) {
-      if (key.trim().isNotEmpty) return key.trim();
-    }
-    final paths = <String>[
-      customPath,
-      '/etc/tip/terminal.json',
-      if (home.isNotEmpty) '$home/terminal.json',
-      'terminal.json',
-    ];
-    for (final path in paths) {
-      if (path.trim().isEmpty) continue;
-      try {
-        final file = File(path);
-        if (!await file.exists()) continue;
-        final config = jsonDecode(await file.readAsString());
-        if (config is Map) {
-          final key = config['pipApiKey']?.toString().trim() ?? '';
-          if (key.isNotEmpty) return key;
-        }
-      } catch (error) {
-        debugPrint('[PIP BILL] Could not read terminal configuration: $error');
-      }
-    }
-    throw StateError(
-      'PIP terminal API key missing. Set pipApiKey in the private '
-      'terminal.json and point TIP_TERMINAL_JSON to that file.',
-    );
-  }
-
   Future<bool> _post({required String status}) async {
     try {
+      lastStatusCode = null;
       await _ensureCatalog();
       if (terminalId.isEmpty || branchId.isEmpty || baseUrl.isEmpty) {
         throw StateError('PIP terminalId, branchId or pipBaseUrl is missing.');
@@ -261,13 +226,22 @@ class PipBillTransactionService {
       if (!amount.isFinite || amount <= 0) {
         throw StateError('Original Bill Utilities total is invalid.');
       }
-      final key = await _readTerminalKey();
+      // Use the same configured terminal credential as Parking and PBT.
+      final key = Config.pipApiKey.trim();
+      if (key.isEmpty) {
+        throw StateError('PIP terminal API key is not configured.');
+      }
       final uri = Uri.parse(
         '${baseUrl.replaceFirst(RegExp(r'/+$'), '')}$endpoint',
       );
       if (!const {'http', 'https'}.contains(uri.scheme) || !uri.hasAuthority) {
         throw StateError('Invalid PIP base URL.');
       }
+      debugPrint(
+        '[PIP BILL] SEND $status service=$serviceType '
+        'terminal=$terminalId branch=$branchId '
+        'attempt=$paymentAttemptId uri=$uri',
+      );
       final response = await http.post(
         uri,
         headers: <String, String>{
