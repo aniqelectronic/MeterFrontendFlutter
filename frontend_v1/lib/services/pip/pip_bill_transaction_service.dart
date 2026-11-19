@@ -9,8 +9,8 @@ import 'package:http/http.dart' as http;
 
 import 'pip_iimmpact_catalog_lookup.dart';
 
-/// One QR testing switch shared by all nine Bill Utilities QR pages.
-/// When false, PegePay charges the actual customer-payable total.
+/// Shared QR test setting for all nine IIMMPACT/BIL payment pages.
+/// The PIP transaction amount is always the actual customer-payable amount.
 class PipBillQrSettings {
   static const bool enableQrTesting = true;
   static const double qrTestingAmount = 0.05;
@@ -20,12 +20,14 @@ class PipBillQrSettings {
   }
 }
 
-/// Reports a single Bill Utilities payment attempt to PIP.
-/// PIP amount = original customer-payable total, NOT the test QR charge.
-/// PIP status describes the bank payment, not the IIMMPACT fulfillment result.
+/// Reports one PegePay QR attempt to PIP without blocking QR presentation.
 ///
-/// The kiosk must have a registered terminal and its private pipApiKey.
-/// This class does NOT store secrets or embed them in the source code.
+/// PENDING: PegePay has created an order, but no bank payment is confirmed.
+/// PAID: PegePay confirmed the bank payment (regardless of IIMMPACT outcome).
+/// CANCELLED: the customer explicitly cancelled before bank confirmation.
+///
+/// The original amount, product details, order time and payment attempt ID
+/// remain identical across the PENDING and final-status requests.
 class PipBillTransactionService {
   PipBillTransactionService({
     required String productCode,
@@ -39,7 +41,11 @@ class PipBillTransactionService {
     String? accountName,
     DateTime? createdAt,
   })  : productCode = productCode.trim().toUpperCase(),
-        _fallbackProductName = _short(productName, 120, productCode.trim()),
+        _fallbackProductName = _short(
+          productName,
+          120,
+          productCode.trim().toUpperCase(),
+        ),
         orderNo = orderNo.trim(),
         accountNo = _optional(accountNo, 120),
         accountName = _optional(accountName, 200),
@@ -52,6 +58,12 @@ class PipBillTransactionService {
   static const String endpoint = '/api/ingest/payments';
   static const Duration requestTimeout = Duration(seconds: 12);
 
+  // Catalog metadata is useful, but must not delay a payment event indefinitely.
+  // The supplied catalog snapshot supplies a valid, immediate fallback.
+  static const Duration catalogWaitTimeout = Duration(seconds: 1);
+
+  // Like the working Parking/PBT flow, serialize outgoing BIL events to avoid
+  // sending a newer PENDING ahead of an earlier attempt's final status.
   static Future<void> _sendQueue = Future<void>.value();
 
   final String terminalId;
@@ -63,19 +75,14 @@ class PipBillTransactionService {
   final double gatewayAmount;
   final bool qrTesting;
   final double amount;
-  PipIimmpactProduct? _catalogProduct;
-  Future<void>? _catalogRequest;
-
-  String get serviceType => _short(
-        _catalogProduct?.productName ?? _fallbackProductName,
-        120,
-        productCode,
-      );
   final String orderNo;
   final String? accountNo;
   final String? accountName;
   final DateTime orderCreatedAt;
   final String paymentAttemptId;
+
+  PipIimmpactProduct? _catalogProduct;
+  Future<void>? _catalogRequest;
 
   String? pipReferenceNo;
   String? lastError;
@@ -90,16 +97,26 @@ class PipBillTransactionService {
   DateTime? _sentAt;
   String? _bankTrxNo;
 
+  String get serviceType => _short(
+        _catalogProduct?.productName ?? _fallbackProductName,
+        120,
+        productCode,
+      );
+
   static String _short(String value, int maxLength, String fallback) {
     final cleaned = value.trim();
     if (cleaned.isEmpty) return fallback;
-    return cleaned.length > maxLength ? cleaned.substring(0, maxLength) : cleaned;
+    return cleaned.length > maxLength
+        ? cleaned.substring(0, maxLength)
+        : cleaned;
   }
 
   static String? _optional(String? value, int maxLength) {
     final cleaned = value?.trim() ?? '';
     if (cleaned.isEmpty) return null;
-    return cleaned.length > maxLength ? cleaned.substring(0, maxLength) : cleaned;
+    return cleaned.length > maxLength
+        ? cleaned.substring(0, maxLength)
+        : cleaned;
   }
 
   static String _newAttemptId(String terminalId) {
@@ -109,32 +126,54 @@ class PipBillTransactionService {
 
   static Future<bool> _enqueue(Future<bool> Function() operation) {
     final completer = Completer<bool>();
+
     _sendQueue = _sendQueue.then((_) async {
       try {
         completer.complete(await operation());
-      } catch (error, trace) {
-        debugPrint('[PIP BILL] Reporting error: $error');
-        debugPrintStack(stackTrace: trace);
-        completer.complete(false);
+      } catch (error, stackTrace) {
+        debugPrint('[PIP BILL] Queue operation failed: $error');
+        debugPrintStack(stackTrace: stackTrace);
+        if (!completer.isCompleted) completer.complete(false);
       }
-    }).catchError((Object error) {
-      debugPrint('[PIP BILL] Queue error: $error');
+    }).catchError((Object error, StackTrace stackTrace) {
+      debugPrint('[PIP BILL] Reporting queue failed: $error');
+      debugPrintStack(stackTrace: stackTrace);
       if (!completer.isCompleted) completer.complete(false);
     });
+
     return completer.future;
   }
 
-  /// PENDING is created immediately after the PegePay QR order exists.
+  /// This diagnostic appears as soon as a BIL QR page calls pending().
+  /// If it is absent, execution did not reach the BIL PIP service.
   Future<bool> pending() {
+    debugPrint(
+      '[PIP BILL] PENDING requested '
+      'order=$orderNo attempt=$paymentAttemptId',
+    );
+
     if (_pendingSaved) return Future<bool>.value(true);
-    return _pendingRequest ??= _enqueue(() async {
+    if (_pendingRequest != null) return _pendingRequest!;
+
+    final request = _enqueue(() async {
       _pendingSaved = await _post(status: 'PENDING');
       return _pendingSaved;
     });
+
+    _pendingRequest = request;
+    unawaited(request.then<void>((_) {
+      if (identical(_pendingRequest, request)) _pendingRequest = null;
+    }));
+    return request;
   }
 
-  /// Called only when PegePay verifies payment success.
+  /// Call ONLY after PegePay's verified onSuccess callback.
   Future<bool> paid({String? bankTrxNo}) {
+    debugPrint(
+      '[PIP BILL] PAID requested '
+      'order=$orderNo attempt=$paymentAttemptId',
+    );
+
     if (_finalStatus == 'PAID') return Future<bool>.value(true);
     if (_finalStatus == 'CANCELLED') return Future<bool>.value(false);
     if (_finalRequest != null) return _finalRequest!;
@@ -144,59 +183,123 @@ class PipBillTransactionService {
     final bank = bankTrxNo?.trim() ?? '';
     _bankTrxNo ??= bank.isEmpty ? null : bank;
 
-    return _finalRequest = _enqueue(() async {
+    final request = _enqueue(() async {
+      // A timed-out PENDING response may actually have been stored by PIP.
+      // Retry the SAME payment attempt safely, then send PAID.
       if (!_pendingSaved) {
-        // Recover the same attempt if the earlier PENDING request was unconfirmed.
         _pendingSaved = await _post(status: 'PENDING');
       }
       if (!_pendingSaved) {
-        debugPrint('[PIP BILL] PAID not sent: PENDING is unconfirmed. '
-            'order=$orderNo attempt=$paymentAttemptId');
+        debugPrint(
+          '[PIP BILL] PAID not sent: PENDING unconfirmed '
+          'order=$orderNo attempt=$paymentAttemptId',
+        );
         return false;
       }
+
       _sentAt ??= DateTime.now().toUtc();
       if (_sentAt!.isBefore(_completedAt!)) _sentAt = _completedAt;
+
       final saved = await _post(status: 'PAID');
       if (saved) _finalStatus = 'PAID';
       return saved;
     });
+
+    _finalRequest = request;
+    unawaited(request.then<void>((_) {
+      if (identical(_finalRequest, request)) _finalRequest = null;
+    }));
+    return request;
   }
 
-  /// Only an explicit QR cancellation before bank approval is a cancellation.
+  /// Only a customer cancellation before bank approval changes this status.
   Future<bool> cancelled() {
+    debugPrint(
+      '[PIP BILL] CANCELLED requested '
+      'order=$orderNo attempt=$paymentAttemptId',
+    );
+
     if (_paidStarted || _finalStatus == 'PAID') {
+      debugPrint('[PIP BILL] Cancellation ignored: payment already confirmed.');
       return Future<bool>.value(false);
     }
     if (_finalStatus == 'CANCELLED') return Future<bool>.value(true);
     if (_finalRequest != null) return _finalRequest!;
-    return _finalRequest = _enqueue(() async {
+
+    final request = _enqueue(() async {
+      // Ensure the attempt exists before issuing CANCELLED. This also covers
+      // the case where PENDING was written but its response was lost.
       if (!_pendingSaved) {
-        // If PENDING was never accepted, PIP has nothing to cancel.
+        _pendingSaved = await _post(status: 'PENDING');
+      }
+      if (!_pendingSaved) {
+        debugPrint(
+          '[PIP BILL] CANCELLED not sent: PENDING unconfirmed '
+          'order=$orderNo attempt=$paymentAttemptId',
+        );
         return false;
       }
+
       final saved = await _post(status: 'CANCELLED');
       if (saved) _finalStatus = 'CANCELLED';
       return saved;
     });
+
+    _finalRequest = request;
+    unawaited(request.then<void>((_) {
+      if (identical(_finalRequest, request)) _finalRequest = null;
+    }));
+    return request;
   }
 
   Future<void> _ensureCatalog() => _catalogRequest ??= _resolveCatalog();
 
   Future<void> _resolveCatalog() async {
-    _catalogProduct = await PipIimmpactCatalogLookup.resolve(
+    // Snapshot is available immediately; never require an IIMMPACT network
+    // response before a PIP transaction can be created.
+    _catalogProduct = PipIimmpactCatalogLookup.snapshot(
       productCode: productCode,
       fallbackName: _fallbackProductName,
     );
+
+    try {
+      final liveProduct = await PipIimmpactCatalogLookup.resolve(
+        productCode: productCode,
+        fallbackName: _fallbackProductName,
+      ).timeout(catalogWaitTimeout);
+
+      // Freeze the chosen product details for this specific payment attempt.
+      // PIP requires identical bill_details for PENDING and final statuses.
+      _catalogProduct = liveProduct;
+      debugPrint(
+        '[PIP BILL] Catalog ready: '
+        'group=${liveProduct.groupName} '
+        'category=${liveProduct.categoryName} '
+        'product=$productCode',
+      );
+    } on TimeoutException {
+      debugPrint(
+        '[PIP BILL] Catalog lookup exceeded 1 second; '
+        'using bundled snapshot for $productCode.',
+      );
+    } catch (error) {
+      debugPrint(
+        '[PIP BILL] Catalog lookup failed for $productCode; '
+        'using bundled snapshot: $error',
+      );
+    }
   }
 
   Map<String, dynamic> _payload(String status) {
     final paid = status == 'PAID';
+    final product = _catalogProduct!;
+
     return <String, dynamic>{
       'terminal_id': terminalId,
       'branch_id': branchId,
       'category': 'BIL',
       'service_type': serviceType,
-      'bill_details': _catalogProduct!.toJson(
+      'bill_details': product.toJson(
         providerAmount: providerAmount,
         gatewayAmount: gatewayAmount,
         pegepayOrderNo: orderNo,
@@ -217,31 +320,57 @@ class PipBillTransactionService {
   }
 
   Future<bool> _post({required String status}) async {
+    // Log BEFORE validation or catalog lookup. Previously the first SEND log
+    // appeared only after the potentially slow external catalog request.
+    debugPrint(
+      '[PIP BILL] PREPARE $status '
+      'order=$orderNo attempt=$paymentAttemptId',
+    );
+
     try {
       lastStatusCode = null;
-      await _ensureCatalog();
+
       if (terminalId.isEmpty || branchId.isEmpty || baseUrl.isEmpty) {
         throw StateError('PIP terminalId, branchId or pipBaseUrl is missing.');
+      }
+      if (productCode.isEmpty || orderNo.isEmpty) {
+        throw StateError('BIL product code or PegePay order number is missing.');
+      }
+      if (orderNo.length > 120) {
+        throw StateError('PegePay order number exceeds 120 characters.');
       }
       if (!amount.isFinite || amount <= 0) {
         throw StateError('Original Bill Utilities total is invalid.');
       }
-      // Use the same configured terminal credential as Parking and PBT.
+      if (!providerAmount.isFinite || providerAmount < 0) {
+        throw StateError('Invalid BIL provider amount.');
+      }
+      if (!gatewayAmount.isFinite || gatewayAmount <= 0) {
+        throw StateError('Invalid PegePay amount.');
+      }
+
+      // This is the private terminal credential, NOT Config.apiKey (HMAC).
       final key = Config.pipApiKey.trim();
       if (key.isEmpty) {
         throw StateError('PIP terminal API key is not configured.');
       }
+
       final uri = Uri.parse(
         '${baseUrl.replaceFirst(RegExp(r'/+$'), '')}$endpoint',
       );
       if (!const {'http', 'https'}.contains(uri.scheme) || !uri.hasAuthority) {
-        throw StateError('Invalid PIP base URL.');
+        throw StateError('Invalid PIP base URL: $baseUrl');
       }
+
+      await _ensureCatalog();
+
+      // No sensitive key or account number is printed to the journal.
       debugPrint(
-        '[PIP BILL] SEND $status service=$serviceType '
-        'terminal=$terminalId branch=$branchId '
+        '[PIP BILL] SEND $status '
+        'service=$serviceType terminal=$terminalId branch=$branchId '
         'attempt=$paymentAttemptId uri=$uri',
       );
+
       final response = await http.post(
         uri,
         headers: <String, String>{
@@ -251,26 +380,47 @@ class PipBillTransactionService {
         },
         body: jsonEncode(_payload(status)),
       ).timeout(requestTimeout);
+
       lastStatusCode = response.statusCode;
+      debugPrint(
+        '[PIP BILL] HTTP $status status=${response.statusCode} '
+        'order=$orderNo',
+      );
+
       if (response.statusCode < 200 || response.statusCode >= 300) {
-        throw HttpException('PIP HTTP ${response.statusCode}: ${response.body}');
+        throw HttpException(
+          'PIP HTTP ${response.statusCode}: ${response.body}',
+        );
       }
+
       final decoded = jsonDecode(response.body);
-      if (decoded is! Map) throw const FormatException('PIP JSON response invalid');
+      if (decoded is! Map) {
+        throw const FormatException('PIP JSON response is not an object.');
+      }
+
       final ref = decoded['pip_reference_no']?.toString().trim() ?? '';
-      if (ref.isEmpty) throw const FormatException('PIP reference missing');
+      if (ref.isEmpty) {
+        throw const FormatException('PIP response has no pip_reference_no.');
+      }
       if (pipReferenceNo != null && pipReferenceNo != ref) {
         throw StateError('PIP returned a different reference for this attempt.');
       }
+
       pipReferenceNo = ref;
       lastError = null;
-      debugPrint('[PIP BILL] ACK $status amount=${amount.toStringAsFixed(2)} '
-          'service=$serviceType order=$orderNo reference=$ref');
+      debugPrint(
+        '[PIP BILL] ACK $status '
+        'amount=${amount.toStringAsFixed(2)} '
+        'order=$orderNo reference=$ref',
+      );
       return true;
-    } catch (error) {
+    } catch (error, stackTrace) {
       lastError = error.toString();
-      debugPrint('[PIP BILL] $status unconfirmed: $error; '
-          'order=$orderNo attempt=$paymentAttemptId');
+      debugPrint(
+        '[PIP BILL] $status unconfirmed: $error; '
+        'order=$orderNo attempt=$paymentAttemptId',
+      );
+      debugPrintStack(stackTrace: stackTrace);
       return false;
     }
   }

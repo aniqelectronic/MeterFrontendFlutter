@@ -75,6 +75,15 @@ class PipIimmpactCatalogLookup {
     }
   }
 
+  /// Instant local metadata for payment reporting when the live catalog is slow.
+  /// A single PIP attempt must keep the same product metadata for all statuses.
+  static PipIimmpactProduct snapshot({
+    required String productCode,
+    required String fallbackName,
+  }) {
+    return _fallback(productCode.trim().toUpperCase(), fallbackName);
+  }
+
   static PipIimmpactProduct _fallback(String code, String fallbackName) {
     final record = PipIimmpactCatalogSnapshot.products[code];
     return PipIimmpactProduct(
