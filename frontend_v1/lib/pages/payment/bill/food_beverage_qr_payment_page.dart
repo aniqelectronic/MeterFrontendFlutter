@@ -9,6 +9,8 @@ import 'package:frontend_v1/pages/resit/bill/food_beverage_receipt_page.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_payment_service.dart';
 import 'package:frontend_v1/services/iimmpact/iimmpact_refid_service.dart';
 
+import 'dart:async';
+import 'package:frontend_v1/services/pip/pip_bill_transaction_service.dart';
 import 'package:frontend_v1/services/pegepay/pegepay_service.dart';
 import 'package:frontend_v1/services/pegepay/pegepay_webview_helper.dart';
 
@@ -389,7 +391,7 @@ class _FoodBeverageQrPaymentPageState
       // ======================================================================
 
       final double paymentAmount =
-          0.05;
+          PipBillQrSettings.gatewayAmount(widget.totalAmount);
 
       final Map<String, dynamic> result =
           await PegePayService
@@ -438,6 +440,22 @@ class _FoodBeverageQrPaymentPageState
       // OPEN QR WEBVIEW
       // ======================================================================
 
+      // PIP BILL UTILITIES: one new attempt for this QR order.
+      // Report the ORIGINAL customer total; never report the RM0.05 QR test charge.
+      // Does not interfere with IIMMPACT fulfillment or receipt generation.
+      final pipBill = PipBillTransactionService(
+        productCode: widget.productCode,
+        productName: widget.productName,
+        providerAmount: widget.topupAmount,
+        gatewayAmount: paymentAmount,
+        qrTesting: PipBillQrSettings.enableQrTesting,
+        amount: widget.totalAmount,
+        accountNo: null,
+        accountName: null,
+        orderNo: orderNo,
+      );
+      unawaited(pipBill.pending());
+
       await PegePayWebViewHelper.open(
         iframeUrl:
             iframeUrl,
@@ -465,6 +483,10 @@ class _FoodBeverageQrPaymentPageState
                       ?.toString()
                       .trim() ??
                   '';
+
+          // Gateway confirmed this QR payment. Track its original total in PIP.
+          // Send independently of the subsequent IIMMPACT provider result.
+          unawaited(pipBill.paid(bankTrxNo: bankTransactionNo));
 
           if (!mounted) {
             return;
@@ -875,6 +897,11 @@ class _FoodBeverageQrPaymentPageState
 
         onCancel:
             () async {
+          // Cancel only while the QR has not been confirmed PAID.
+          if (!_paymentCompleted) {
+            unawaited(pipBill.cancelled());
+          }
+
           await _restoreFlutterWindow();
 
           if (!mounted) {
