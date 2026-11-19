@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:frontend_v1/controllers/license/license_service.dart';
 import 'package:frontend_v1/controllers/parking/parking_controller.dart';
 // import 'package:frontend_v1/controllers/tax/tax_service.dart';
@@ -824,6 +823,7 @@ class _PAYMENTPAGEState extends State<PAYMENTPAGE> {
         'SEMAKAN CUKAI',
         'SEWAAN',
         'SEMAKAN SEWAAN',
+        'LESEN',
         'SINGLECOMPOUND',
         'MULTICOMPOUND',
       }.contains(widget.biz);
@@ -1030,6 +1030,25 @@ class _PAYMENTPAGEState extends State<PAYMENTPAGE> {
           'amount': _selectedAccountAmount(item),
         });
       }
+    } else if (widget.biz == 'LESEN') {
+      serviceType = 'Lesen';
+      for (final number in widget.data.licenseNos ?? <String>[]) {
+        final cleaned = _pipText(number);
+        if (cleaned != null && !accountNumbers.contains(cleaned)) {
+          accountNumbers.add(cleaned);
+        }
+      }
+      final singleLicense = _pipText(widget.data.licenseNo);
+      if (singleLicense != null && !accountNumbers.contains(singleLicense)) {
+        accountNumbers.add(singleLicense);
+      }
+      for (final number in accountNumbers) {
+        selectedAllocations.add(<String, Object?>{
+          'accountNo': number,
+          'accountName': null,
+          'amount': null,
+        });
+      }
     } else {
       serviceType = 'Kompaun';
       accountName = _pipText(widget.data.offenderName);
@@ -1119,44 +1138,30 @@ class _PAYMENTPAGEState extends State<PAYMENTPAGE> {
 
   Future<void> _markMunicipalPaid({
     required PipMunicipalTransactionService? pip,
-    required double billAmount,
-    required double chargedAmount,
+    required Future<bool>? pendingRequest,
     String? bankTrxNo,
   }) async {
     if (pip == null) return;
 
-    // The QR test is a simulation: never report a nominal payment as a
-    // full-bill PAID transaction from a production/release kiosk build.
-    // On the Windows debug test setup, the PIP database MUST be isolated
-    // from real financial reporting and live council accounts.
-    if (enableQrTesting && kReleaseMode) {
-      debugPrint(
-        '[PIP] Simulated PAID disabled in release builds. '
-        'Set enableQrTesting=false for real full-amount payments.',
-      );
-      return;
-    }
-
-    // No bill-vs-gateway-amount comparison is used to block this test.
-    // PIP's existing attempt retains the original selected bill amount.
-    if (enableQrTesting) {
-      debugPrint(
-        '[PIP] DEBUG SIMULATION ONLY: PegePay charged '
-        'RM${chargedAmount.toStringAsFixed(2)}; '
-        'PIP test record represents RM${billAmount.toStringAsFixed(2)}. '
-        'This is not actual full-bill settlement.',
-      );
+    // PIP keeps the original bill amount from _newMunicipalAttempt().
+    // The RM0.05 QR test amount is used only by PegePayService.createOrder().
+    // Do not compare the gateway amount with the bill amount here.
+    if (pendingRequest != null) {
+      try {
+        await pendingRequest;
+      } catch (error) {
+        debugPrint('[PIP] Municipal PENDING warning: $error');
+      }
     }
 
     try {
       final saved = await pip.paid(bankTrxNo: bankTrxNo);
       debugPrint(
-        '[PIP] Municipal ${enableQrTesting ? 'SIMULATED ' : ''}'
-        'PAID=$saved service=${pip.serviceType} '
-        'reference=${pip.pipReferenceNo}',
+        '[PIP] Municipal PAID=$saved service=${pip.serviceType} '
+        'billAmount=${pip.amount} reference=${pip.pipReferenceNo}',
       );
       if (!saved) {
-        debugPrint('[PIP] PAID update unconfirmed; check PIP server log.');
+        debugPrint('[PIP] Municipal PAID update unconfirmed; check PIP logs.');
       }
     } catch (error) {
       debugPrint('[PIP] Municipal PAID reporting error: $error');
@@ -1442,6 +1447,7 @@ void _closeCardSuccessDialog() {
                     PipTransactionService? pipCard;
                     Future<bool>? pipCardPending;
                     PipMunicipalTransactionService? municipalCard;
+                    Future<bool>? municipalCardPending;
                     
                     try {
                       // // Validate amount for RM250 threshold
@@ -1611,9 +1617,7 @@ void _closeCardSuccessDialog() {
                         paymentMethod: 'Debit/Credit Card',
                         originalAmount: _municipalBillAmount(),
                       );
-                      if (municipalCard != null) {
-                        unawaited(municipalCard.pending());
-                      }
+                      municipalCardPending = municipalCard?.pending();
                   
                       await service.execute(
                         amount,
@@ -1637,8 +1641,7 @@ void _closeCardSuccessDialog() {
                           if (municipalCard != null) {
                             unawaited(_markMunicipalPaid(
                               pip: municipalCard,
-                              billAmount: municipalCard.amount,
-                              chargedAmount: _municipalBillAmount(),
+                              pendingRequest: municipalCardPending,
                             ));
                           }
 
@@ -2080,18 +2083,14 @@ void _closeCardSuccessDialog() {
                         icon: IconData(0xe4f5, fontFamily: 'MaterialIcons'),
                         label: AppLocalizations.of(context)!.qrButton,
                         onPressed: () async {
-                          // Original parking amount
-                          final double originalAmount =
-                              double.tryParse(widget.data.amount ?? "0.00") ?? 0.00;
+                          // Always keep the original bill amount for PIP and PBT.
+                          final double originalAmount = _municipalBillAmount();
 
-                          // Only PegePay charges the testing amount
+                          // QR testing only changes the amount charged by PegePay.
                           final double paymentAmount =
                               enableQrTesting ? qrTestingAmount : originalAmount;
 
                           showLoadingDialog(context);
-
-                          // Use the actual amount for both PegePay and PIP.
-                          // For RM0.05 gateway testing, change this value deliberately.
 
                         
                           try {
@@ -2142,9 +2141,8 @@ void _closeCardSuccessDialog() {
                               paymentMethod: 'DuitNow QR',
                               originalAmount: _municipalBillAmount(),
                             );
-                            if (municipalQr != null) {
-                              unawaited(municipalQr.pending());
-                            }
+                            final Future<bool>? municipalQrPending =
+                                municipalQr?.pending();
                         
                             // Navigator.push(
                             //   context,
@@ -2239,8 +2237,7 @@ void _closeCardSuccessDialog() {
                                   if (municipalQr != null) {
                                     unawaited(_markMunicipalPaid(
                                       pip: municipalQr,
-                                      billAmount: municipalQr.amount,
-                                      chargedAmount: paymentAmount,
+                                      pendingRequest: municipalQrPending,
                                       bankTrxNo: pegeBankTrxNo.toString(),
                                     ));
                                   }
