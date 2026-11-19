@@ -32,10 +32,6 @@ class Data {
   static const String iimmpactBaseUrl =
       'https://staging.iimmpact.com';
 
-  static const double electricityServiceFee = 1.00;
-
-  static const double waterServiceFee = 1.00;
-
   //update the date the code was last updated
   static String lastUpdatedDate = "2026-10-06 16:40:00";
 

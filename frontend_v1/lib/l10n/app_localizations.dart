@@ -102,31 +102,31 @@ abstract class AppLocalizations {
   /// No description provided for @bilText.
   ///
   /// In en, this message translates to:
-  /// **'UTILITY BILLS'**
+  /// **'BILLS & TOP-UPS'**
   String get bilText;
 
   /// No description provided for @otherText.
   ///
   /// In en, this message translates to:
-  /// **'OTHERS'**
+  /// **'OTHER SERVICES'**
   String get otherText;
 
   /// No description provided for @touristText.
   ///
   /// In en, this message translates to:
-  /// **'TOURIST GUIDE'**
+  /// **'LOCAL INFO'**
   String get touristText;
 
   /// No description provided for @p2Title.
   ///
   /// In en, this message translates to:
-  /// **'MULTIPLE SERVICES'**
+  /// **'CHOOSE A SERVICE'**
   String get p2Title;
 
   /// No description provided for @pbtText.
   ///
   /// In en, this message translates to:
-  /// **'COUNCIL SERVICE BILLS'**
+  /// **'COUNCIL SERVICES'**
   String get pbtText;
 
   /// No description provided for @rentText.
@@ -150,61 +150,61 @@ abstract class AppLocalizations {
   /// No description provided for @processingReceipt.
   ///
   /// In en, this message translates to:
-  /// **'Payment successful.\nProcessing your receipt...\nPlease do not touch the screen.'**
+  /// **'Payment successful!\nPreparing your receipt...\nPlease keep this screen open.'**
   String get processingReceipt;
 
   /// No description provided for @noTaksiranRecordFound.
   ///
   /// In en, this message translates to:
-  /// **'No assessment tax record found'**
+  /// **'No assessment tax record found.'**
   String get noTaksiranRecordFound;
 
   /// No description provided for @noSewaanRecordFound.
   ///
   /// In en, this message translates to:
-  /// **'No rental record found'**
+  /// **'No rental record found.'**
   String get noSewaanRecordFound;
 
   /// No description provided for @noSewaanPaymentRecordFound.
   ///
   /// In en, this message translates to:
-  /// **'No rental payment record found'**
+  /// **'No rental payment record found.'**
   String get noSewaanPaymentRecordFound;
 
   /// No description provided for @noTaksiranPaymentRecordFound.
   ///
   /// In en, this message translates to:
-  /// **'No assessment tax payment record found'**
+  /// **'No tax payment record found.'**
   String get noTaksiranPaymentRecordFound;
 
   /// No description provided for @unknownService.
   ///
   /// In en, this message translates to:
-  /// **'Unknown service.'**
+  /// **'Service not recognised.'**
   String get unknownService;
 
   /// No description provided for @connectionFailed.
   ///
   /// In en, this message translates to:
-  /// **'Connection failed. Please try again.'**
+  /// **'Could not connect. Please try again.'**
   String get connectionFailed;
 
   /// No description provided for @inputRegistrationOrAccountNo.
   ///
   /// In en, this message translates to:
-  /// **'Enter Registration No / Account No'**
+  /// **'Enter registration or account number'**
   String get inputRegistrationOrAccountNo;
 
   /// No description provided for @inputSewaanRegistrationOrAccountNo.
   ///
   /// In en, this message translates to:
-  /// **'Enter Rental Registration No / Account No'**
+  /// **'Enter rental registration or account number'**
   String get inputSewaanRegistrationOrAccountNo;
 
   /// No description provided for @inputTaksiranRegistrationOrAccountNo.
   ///
   /// In en, this message translates to:
-  /// **'Enter Assessment Registration No / Account No'**
+  /// **'Enter assessment tax registration or account number'**
   String get inputTaksiranRegistrationOrAccountNo;
 
   /// No description provided for @scrollup.
@@ -228,13 +228,13 @@ abstract class AppLocalizations {
   /// No description provided for @p3rentTitle.
   ///
   /// In en, this message translates to:
-  /// **'RENT OPTIONS'**
+  /// **'RENTAL SERVICES'**
   String get p3rentTitle;
 
   /// No description provided for @p3rentSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'PLEASE SELECT YOUR OPTION'**
+  /// **'Choose what you want to do'**
   String get p3rentSubtitle;
 
   /// No description provided for @p3dewanButton.
@@ -258,37 +258,37 @@ abstract class AppLocalizations {
   /// No description provided for @p3othersTitle.
   ///
   /// In en, this message translates to:
-  /// **'TOURISM SERVICES OPTIONS'**
+  /// **'EXPLORE & DISCOVER'**
   String get p3othersTitle;
 
   /// No description provided for @p3othersSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'PLEASE SELECT YOUR OPTION'**
+  /// **'Choose what you want to do'**
   String get p3othersSubtitle;
 
   /// No description provided for @p3aduanButton.
   ///
   /// In en, this message translates to:
-  /// **'COMPLAINT'**
+  /// **'COMPLAINTS'**
   String get p3aduanButton;
 
   /// No description provided for @p3eksplorasiButton.
   ///
   /// In en, this message translates to:
-  /// **'EXPLORATION'**
+  /// **'PLACES TO VISIT'**
   String get p3eksplorasiButton;
 
   /// No description provided for @p3waktusolat.
   ///
   /// In en, this message translates to:
-  /// **'PRAYER TIME'**
+  /// **'PRAYER TIMES'**
   String get p3waktusolat;
 
   /// No description provided for @p3map.
   ///
   /// In en, this message translates to:
-  /// **'MAP'**
+  /// **'MAP & DIRECTIONS'**
   String get p3map;
 
   /// No description provided for @p4optioncukaiTitle.
@@ -300,7 +300,7 @@ abstract class AppLocalizations {
   /// No description provided for @p4optioncukaiSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'PLEASE SELECT YOUR OPTION'**
+  /// **'Choose what you want to do'**
   String get p4optioncukaiSubtitle;
 
   /// No description provided for @p4optionsewaanTitle.
@@ -312,37 +312,37 @@ abstract class AppLocalizations {
   /// No description provided for @p4optionsewaanSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'PLEASE SELECT YOUR OPTION'**
+  /// **'Choose what you want to do'**
   String get p4optionsewaanSubtitle;
 
   /// No description provided for @paymentsewaan.
   ///
   /// In en, this message translates to:
-  /// **'MAKE PAYMENT'**
+  /// **'PAY RENTAL'**
   String get paymentsewaan;
 
   /// No description provided for @semakansewaantitle.
   ///
   /// In en, this message translates to:
-  /// **'RENT PAYMENT HISTORY'**
+  /// **'RENTAL PAYMENT HISTORY'**
   String get semakansewaantitle;
 
   /// No description provided for @checkbuttonsewaan.
   ///
   /// In en, this message translates to:
-  /// **'PAYMENT HISTORY'**
+  /// **'VIEW PAYMENT HISTORY'**
   String get checkbuttonsewaan;
 
   /// No description provided for @checkbuttontax.
   ///
   /// In en, this message translates to:
-  /// **'PAYMENT HISTORY'**
+  /// **'VIEW PAYMENT HISTORY'**
   String get checkbuttontax;
 
   /// No description provided for @paymenttax.
   ///
   /// In en, this message translates to:
-  /// **'MAKE PAYMENT'**
+  /// **'PAY ASSESSMENT TAX'**
   String get paymenttax;
 
   /// No description provided for @semakancukaititle.
@@ -354,7 +354,7 @@ abstract class AppLocalizations {
   /// No description provided for @noPaymentRecordsFound.
   ///
   /// In en, this message translates to:
-  /// **'No payment records found'**
+  /// **'No payments found.'**
   String get noPaymentRecordsFound;
 
   /// No description provided for @assessmentTaxPaymentTransactionList.
@@ -456,13 +456,13 @@ abstract class AppLocalizations {
   /// No description provided for @semakanWarningTitle.
   ///
   /// In en, this message translates to:
-  /// **'Important Notice'**
+  /// **'PLEASE NOTE'**
   String get semakanWarningTitle;
 
   /// No description provided for @semakanWarningMessage.
   ///
   /// In en, this message translates to:
-  /// **'Payment checking is only available for transactions made through this kiosk. Payments made through other channels may not be displayed.'**
+  /// **'Only payments made at this kiosk can be checked here. Payments made elsewhere may not appear.'**
   String get semakanWarningMessage;
 
   /// No description provided for @cancelButton.
@@ -480,13 +480,13 @@ abstract class AppLocalizations {
   /// No description provided for @semakanSewaanWarningTitle.
   ///
   /// In en, this message translates to:
-  /// **'Important Notice'**
+  /// **'PLEASE NOTE'**
   String get semakanSewaanWarningTitle;
 
   /// No description provided for @semakanSewaanWarningMessage.
   ///
   /// In en, this message translates to:
-  /// **'Rental payment checking is only available for transactions made through this kiosk. Payments made through other channels may not be displayed.'**
+  /// **'Only rental payments made at this kiosk can be checked here. Payments made elsewhere may not appear.'**
   String get semakanSewaanWarningMessage;
 
   /// No description provided for @pwaktusolattitle.
@@ -522,7 +522,7 @@ abstract class AppLocalizations {
   /// No description provided for @p3Subtitle.
   ///
   /// In en, this message translates to:
-  /// **'PLEASE SELECT YOUR OPTION'**
+  /// **'Choose what you want to do'**
   String get p3Subtitle;
 
   /// No description provided for @parkirButton.
@@ -534,7 +534,7 @@ abstract class AppLocalizations {
   /// No description provided for @compoundButton.
   ///
   /// In en, this message translates to:
-  /// **'COMPOUND'**
+  /// **'COMPOUNDS'**
   String get compoundButton;
 
   /// No description provided for @taxButton.
@@ -546,7 +546,7 @@ abstract class AppLocalizations {
   /// No description provided for @compoundTitle.
   ///
   /// In en, this message translates to:
-  /// **'COMPOUND'**
+  /// **'COMPOUND PAYMENTS'**
   String get compoundTitle;
 
   /// No description provided for @aduanTitle.
@@ -558,19 +558,19 @@ abstract class AppLocalizations {
   /// No description provided for @singlecompoundTitle.
   ///
   /// In en, this message translates to:
-  /// **'SINGLE COMPOUND'**
+  /// **'SEARCH BY COMPOUND NUMBER'**
   String get singlecompoundTitle;
 
   /// No description provided for @multicompoundTitle.
   ///
   /// In en, this message translates to:
-  /// **'MULTIPLE COMPOUND'**
+  /// **'SEARCH BY PLATE NUMBER'**
   String get multicompoundTitle;
 
   /// No description provided for @compoundSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'CHOOSE SEARCH METHOD'**
+  /// **'How would you like to search?'**
   String get compoundSubtitle;
 
   /// No description provided for @singleCompoundButton.
@@ -594,13 +594,13 @@ abstract class AppLocalizations {
   /// No description provided for @inputPlateHint.
   ///
   /// In en, this message translates to:
-  /// **'ENTER YOUR PLATE NUMBER'**
+  /// **'ENTER VEHICLE PLATE NUMBER'**
   String get inputPlateHint;
 
   /// No description provided for @inputICHint.
   ///
   /// In en, this message translates to:
-  /// **'ENTER YOUR IC NUMBER'**
+  /// **'ENTER IC NUMBER'**
   String get inputICHint;
 
   /// No description provided for @inputCompoundHint.
@@ -612,25 +612,25 @@ abstract class AppLocalizations {
   /// No description provided for @inputTaxHint.
   ///
   /// In en, this message translates to:
-  /// **'ENTER YOUR ACCOUNT/IC/SSM NUMBER'**
+  /// **'ENTER ACCOUNT, IC OR SSM NUMBER'**
   String get inputTaxHint;
 
   /// No description provided for @pbil3Title.
   ///
   /// In en, this message translates to:
-  /// **'BILL OPTIONS'**
+  /// **'BILLS & RELOADS'**
   String get pbil3Title;
 
   /// No description provided for @pbilelectric3Title.
   ///
   /// In en, this message translates to:
-  /// **'BILL ELECTRIC OPTIONS'**
+  /// **'ELECTRICITY BILL'**
   String get pbilelectric3Title;
 
   /// No description provided for @pbil3Subtitle.
   ///
   /// In en, this message translates to:
-  /// **'PLEASE SELECT YOUR OPTION'**
+  /// **'Choose what you want to do'**
   String get pbil3Subtitle;
 
   /// No description provided for @electricitybutton.
@@ -690,61 +690,61 @@ abstract class AppLocalizations {
   /// No description provided for @alertTitle.
   ///
   /// In en, this message translates to:
-  /// **'Notice'**
+  /// **'NOTICE'**
   String get alertTitle;
 
   /// No description provided for @alertEnterInfo.
   ///
   /// In en, this message translates to:
-  /// **'Please enter information before proceeding.'**
+  /// **'Please enter the details first.'**
   String get alertEnterInfo;
 
   /// No description provided for @alertEnterIC.
   ///
   /// In en, this message translates to:
-  /// **'Please enter IC number.'**
+  /// **'Please enter your IC number.'**
   String get alertEnterIC;
 
   /// No description provided for @alertNoTaxRecord.
   ///
   /// In en, this message translates to:
-  /// **'No tax record found.'**
+  /// **'No tax record found. Check the number and try again.'**
   String get alertNoTaxRecord;
 
   /// No description provided for @alertNoLicenseRecord.
   ///
   /// In en, this message translates to:
-  /// **'No license record found.'**
+  /// **'No licence record found.'**
   String get alertNoLicenseRecord;
 
   /// No description provided for @alertEnterPlateNo.
   ///
   /// In en, this message translates to:
-  /// **'Please enter vehicle registration number.'**
+  /// **'Please enter the vehicle plate number.'**
   String get alertEnterPlateNo;
 
   /// No description provided for @alertNoCompoundRecord.
   ///
   /// In en, this message translates to:
-  /// **'No compound record found.'**
+  /// **'No compound found for this number.'**
   String get alertNoCompoundRecord;
 
   /// No description provided for @alertEnterCompoundNo.
   ///
   /// In en, this message translates to:
-  /// **'Please enter compound number.'**
+  /// **'Please enter the compound number.'**
   String get alertEnterCompoundNo;
 
   /// No description provided for @alertEnterSewaan.
   ///
   /// In en, this message translates to:
-  /// **'Please enter Account Number.'**
+  /// **'Please enter the rental account number.'**
   String get alertEnterSewaan;
 
   /// No description provided for @alertNoSewaan.
   ///
   /// In en, this message translates to:
-  /// **'No Rent Record Found.'**
+  /// **'No rental record found.'**
   String get alertNoSewaan;
 
   /// No description provided for @keyboardBackspace.
@@ -786,7 +786,7 @@ abstract class AppLocalizations {
   /// No description provided for @p5parkingTitle.
   ///
   /// In en, this message translates to:
-  /// **'SELECT PARKING DURATION'**
+  /// **'CHOOSE PARKING DURATION'**
   String get p5parkingTitle;
 
   /// No description provided for @p5parkingTimeRange.
@@ -810,7 +810,7 @@ abstract class AppLocalizations {
   /// No description provided for @parkingStartTimeDisclaimer.
   ///
   /// In en, this message translates to:
-  /// **'Disclaimer: The parking session start time will begin only after your payment has been successfully completed.'**
+  /// **'Your parking time starts only after payment is successful.'**
   String get parkingStartTimeDisclaimer;
 
   /// No description provided for @receiptDurationValue.
@@ -882,7 +882,7 @@ abstract class AppLocalizations {
   /// No description provided for @confirmDialogTitle.
   ///
   /// In en, this message translates to:
-  /// **'PRESS OK IF CONFIRMED'**
+  /// **'CONFIRM YOUR CHOICE'**
   String get confirmDialogTitle;
 
   /// No description provided for @plateNumberLabel.
@@ -930,13 +930,13 @@ abstract class AppLocalizations {
   /// No description provided for @paymentTitle.
   ///
   /// In en, this message translates to:
-  /// **'PAYMENT'**
+  /// **'MAKE PAYMENT'**
   String get paymentTitle;
 
   /// No description provided for @paymentSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'PLEASE CHOOSE YOUR PAYMENT'**
+  /// **'Choose how you want to pay'**
   String get paymentSubtitle;
 
   /// No description provided for @totalAmountText.
@@ -966,13 +966,13 @@ abstract class AppLocalizations {
   /// No description provided for @cardConfirmTitle.
   ///
   /// In en, this message translates to:
-  /// **'Confirm Card Payment'**
+  /// **'CONFIRM CARD PAYMENT'**
   String get cardConfirmTitle;
 
   /// No description provided for @cardConfirmMessage.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to pay using a Debit or Credit Card?\n\nBefore continuing:\n• Prepare your physical card.\n• Hold your card near the card reader when instructed.\n• Do not remove your card until you hear the beep sound.'**
+  /// **'Pay using a debit or credit card?\n\nBefore continuing:\n• Have your card ready.\n• Tap it on the reader when prompted.\n• Keep it in place until you hear a beep.'**
   String get cardConfirmMessage;
 
   /// No description provided for @cardConfirmContinue.
@@ -996,7 +996,7 @@ abstract class AppLocalizations {
   /// No description provided for @paymentCancellingInstruction.
   ///
   /// In en, this message translates to:
-  /// **'No card detected.\nCancelling transaction...\nPlease wait.'**
+  /// **'No card detected.\nCancelling payment...\nPlease wait.'**
   String get paymentCancellingInstruction;
 
   /// No description provided for @paymentTapYourCard.
@@ -1008,31 +1008,31 @@ abstract class AppLocalizations {
   /// No description provided for @paymentTapCardInstruction.
   ///
   /// In en, this message translates to:
-  /// **'Please tap on the card reader\nuntil \"Bip\" sound is heard'**
+  /// **'Hold your card near the reader\nuntil you hear a beep.'**
   String get paymentTapCardInstruction;
 
   /// No description provided for @paymentProcessing.
   ///
   /// In en, this message translates to:
-  /// **'PROCESSING'**
+  /// **'PROCESSING PAYMENT'**
   String get paymentProcessing;
 
   /// No description provided for @paymentProcessingInstruction.
   ///
   /// In en, this message translates to:
-  /// **'Please wait while we process\nyour payment...'**
+  /// **'Processing your payment...\nPlease wait.'**
   String get paymentProcessingInstruction;
 
   /// No description provided for @paymentSuccessful.
   ///
   /// In en, this message translates to:
-  /// **'Payment Successful'**
+  /// **'PAYMENT SUCCESSFUL'**
   String get paymentSuccessful;
 
   /// No description provided for @paymentSuccessInstruction.
   ///
   /// In en, this message translates to:
-  /// **'Redirecting to receipt...'**
+  /// **'Opening your receipt...'**
   String get paymentSuccessInstruction;
 
   /// No description provided for @paymentFailed.
@@ -1044,7 +1044,7 @@ abstract class AppLocalizations {
   /// No description provided for @paymentFailedInstruction.
   ///
   /// In en, this message translates to:
-  /// **'Please try again'**
+  /// **'Please try again or use another payment method.'**
   String get paymentFailedInstruction;
 
   /// No description provided for @titleReceiptParking.
@@ -1152,25 +1152,25 @@ abstract class AppLocalizations {
   /// No description provided for @receiptScanQrText2.
   ///
   /// In en, this message translates to:
-  /// **'Please Scan the QR Code for Full Receipt Details'**
+  /// **'Scan this QR code on your phone to view the full receipt.'**
   String get receiptScanQrText2;
 
   /// No description provided for @receiptScanQrText.
   ///
   /// In en, this message translates to:
-  /// **'Please Scan the QR Code for Full Receipt Details'**
+  /// **'Scan this QR code on your phone to view the full receipt.'**
   String get receiptScanQrText;
 
   /// No description provided for @p5extendparkingTitle.
   ///
   /// In en, this message translates to:
-  /// **'EXTEND YOUR PARKING TIME'**
+  /// **'EXTEND PARKING TIME'**
   String get p5extendparkingTitle;
 
   /// No description provided for @p5extendparkingSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'PLEASE SELECT AN OPTION'**
+  /// **'Choose an option'**
   String get p5extendparkingSubtitle;
 
   /// No description provided for @plusTimeButton.
@@ -1194,7 +1194,7 @@ abstract class AppLocalizations {
   /// No description provided for @p6extendparkingTitle.
   ///
   /// In en, this message translates to:
-  /// **'ADD ON PARKING TIME'**
+  /// **'ADD PARKING TIME'**
   String get p6extendparkingTitle;
 
   /// No description provided for @p6extendparkingSubtitle.
@@ -1212,13 +1212,13 @@ abstract class AppLocalizations {
   /// No description provided for @p5TaxTitle.
   ///
   /// In en, this message translates to:
-  /// **'TAX SELECTION'**
+  /// **'SELECT TAX BILLS'**
   String get p5TaxTitle;
 
   /// No description provided for @p5TaxSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'SELECT TAXES YOU WANT TO PAY'**
+  /// **'Choose the tax bills you want to pay'**
   String get p5TaxSubtitle;
 
   /// No description provided for @taxSelectAll.
@@ -1254,7 +1254,7 @@ abstract class AppLocalizations {
   /// No description provided for @taxAlertSelectAtLeastOne.
   ///
   /// In en, this message translates to:
-  /// **'Please select at least one tax'**
+  /// **'Select at least one tax bill to continue.'**
   String get taxAlertSelectAtLeastOne;
 
   /// No description provided for @taxHeaderBillNo.
@@ -1284,13 +1284,13 @@ abstract class AppLocalizations {
   /// No description provided for @p5LicenseTitle.
   ///
   /// In en, this message translates to:
-  /// **'LICENSE SELECTION'**
+  /// **'SELECT LICENCES'**
   String get p5LicenseTitle;
 
   /// No description provided for @p5LicenseSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'SELECT LICENSE(S) YOU WANT TO PAY'**
+  /// **'Choose the licences you want to pay for'**
   String get p5LicenseSubtitle;
 
   /// No description provided for @licenseSelectAll.
@@ -1338,7 +1338,7 @@ abstract class AppLocalizations {
   /// No description provided for @licenseAlertSelectAtLeastOne.
   ///
   /// In en, this message translates to:
-  /// **'Please select at least one license'**
+  /// **'Select at least one licence to continue.'**
   String get licenseAlertSelectAtLeastOne;
 
   /// No description provided for @licenseBackButton.
@@ -1362,19 +1362,19 @@ abstract class AppLocalizations {
   /// No description provided for @p5MultiCompoundTitle.
   ///
   /// In en, this message translates to:
-  /// **'COMPOUND SELECTION'**
+  /// **'SELECT COMPOUNDS'**
   String get p5MultiCompoundTitle;
 
   /// No description provided for @p5MultiCompoundSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'SELECT COMPOUNDS YOU WANT TO PAY'**
+  /// **'Choose the compounds you want to pay'**
   String get p5MultiCompoundSubtitle;
 
   /// No description provided for @multiCompoundAlertSelectAtLeastOne.
   ///
   /// In en, this message translates to:
-  /// **'Please select at least one compound'**
+  /// **'Select at least one compound.'**
   String get multiCompoundAlertSelectAtLeastOne;
 
   /// No description provided for @multiCompoundHeaderNo.
@@ -1530,13 +1530,13 @@ abstract class AppLocalizations {
   /// No description provided for @jomKeBentongDesc.
   ///
   /// In en, this message translates to:
-  /// **'Historical place in Bentong'**
+  /// **'A window into Bentong’s history and heritage.'**
   String get jomKeBentongDesc;
 
   /// No description provided for @jomKeBentongFull.
   ///
   /// In en, this message translates to:
-  /// **'Jom Ke Bentong Gallery is a cultural and historical gallery that introduces visitors to the heritage of Bentong. It showcases old photographs, traditional tools, and stories about the town’s development from a mining settlement into a modern district.'**
+  /// **'Step into Bentong’s past through old photographs, traditional objects and stories of the town’s growth. This gallery offers an inviting introduction to the people, heritage and changing streets of historic Bentong.'**
   String get jomKeBentongFull;
 
   /// No description provided for @jandaBaikTitle.
@@ -1548,13 +1548,13 @@ abstract class AppLocalizations {
   /// No description provided for @jandaBaikDesc.
   ///
   /// In en, this message translates to:
-  /// **'Let’s explore the scenery in Janda Baik'**
+  /// **'Cool greenery, flowing rivers and a peaceful village escape.'**
   String get jandaBaikDesc;
 
   /// No description provided for @jandaBaikFull.
   ///
   /// In en, this message translates to:
-  /// **'Janda Baik is a peaceful eco-tourism village surrounded by rainforest, rivers, and waterfalls. It is popular for homestays, jungle trekking, and nature activities, offering visitors a calm escape from busy city life.'**
+  /// **'Escape the city and slow down in Janda Baik, a green highland village known for its rainforest, cool streams and relaxed atmosphere. Spend time by the river, enjoy a nature retreat or explore outdoor activities such as jungle walks and cycling, depending on the operator and weather.'**
   String get jandaBaikFull;
 
   /// No description provided for @bentongWalkTitle.
@@ -1566,13 +1566,13 @@ abstract class AppLocalizations {
   /// No description provided for @bentongWalkDesc.
   ///
   /// In en, this message translates to:
-  /// **'Let’s take a walk at Bentong Walk'**
+  /// **'Food, local culture and a lively stroll through town.'**
   String get bentongWalkDesc;
 
   /// No description provided for @bentongWalkFull.
   ///
   /// In en, this message translates to:
-  /// **'Bentong Walk is a modern public space with food stalls, cafes, and event areas. It is a popular gathering spot, especially during weekends and evenings.'**
+  /// **'Take a leisurely walk through the heart of Bentong and enjoy the town’s local character. The area is known for its street atmosphere, food and community activities, making it a pleasant stop for visitors who want to experience Bentong beyond its natural attractions. Activities may vary by day.'**
   String get bentongWalkFull;
 
   /// No description provided for @lemangTokKiTitle.
@@ -1584,13 +1584,13 @@ abstract class AppLocalizations {
   /// No description provided for @lemangTokKiDesc.
   ///
   /// In en, this message translates to:
-  /// **'Famous lemang in Bentong'**
+  /// **'A favourite Bentong stop for traditional lemang.'**
   String get lemangTokKiDesc;
 
   /// No description provided for @lemangTokKiFull.
   ///
   /// In en, this message translates to:
-  /// **'Lemang Tok\'Ki is famous for traditional bamboo-cooked lemang made with glutinous rice and coconut milk. It is a must-visit food destination in Bentong.'**
+  /// **'Lemang To’ki is a well-known food stop in Bentong, celebrated for lemang made from glutinous rice and coconut milk cooked in bamboo. Enjoy a taste of this Malaysian favourite and, when available, other local dishes such as grilled chicken.'**
   String get lemangTokKiFull;
 
   /// No description provided for @alorsetarExplorationTitle.
@@ -2058,13 +2058,13 @@ abstract class AppLocalizations {
   /// No description provided for @receiptAutoReturn.
   ///
   /// In en, this message translates to:
-  /// **'Returning to home in {seconds} seconds'**
+  /// **'Returning to home in {seconds} seconds.'**
   String receiptAutoReturn(int seconds);
 
   /// No description provided for @idleTitle.
   ///
   /// In en, this message translates to:
-  /// **'Are you still using this service?'**
+  /// **'ARE YOU STILL THERE?'**
   String get idleTitle;
 
   /// No description provided for @idleContinue.
@@ -2076,13 +2076,13 @@ abstract class AppLocalizations {
   /// No description provided for @idleGoHome.
   ///
   /// In en, this message translates to:
-  /// **'Go to Home'**
+  /// **'HOME'**
   String get idleGoHome;
 
   /// No description provided for @idleMessage.
   ///
   /// In en, this message translates to:
-  /// **'You will be returned to the main menu in {seconds} seconds.'**
+  /// **'Returning to the home screen in {seconds} seconds.'**
   String idleMessage(int seconds);
 
   /// No description provided for @wildWestTitle.
@@ -8274,19 +8274,19 @@ abstract class AppLocalizations {
   /// No description provided for @pbtSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'View and pay council service bills'**
+  /// **'Check bills, pay council charges and manage your payments.'**
   String get pbtSupportingText;
 
   /// No description provided for @billSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Bill payments, top-ups, gaming credits, vouchers and more.'**
+  /// **'Pay bills, top up prepaid credit or buy digital vouchers.'**
   String get billSupportingText;
 
   /// No description provided for @touristSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Explore nearby attractions and facilities'**
+  /// **'Discover places to visit, eat and explore nearby.'**
   String get touristSupportingText;
 
   /// No description provided for @tourismServiceLabel.
@@ -8298,19 +8298,19 @@ abstract class AppLocalizations {
   /// No description provided for @explorationSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Discover interesting places and local attractions'**
+  /// **'Find local attractions and hidden gems worth visiting.'**
   String get explorationSupportingText;
 
   /// No description provided for @mapSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'View locations and navigate using the interactive map'**
+  /// **'Find a place and get directions on the map.'**
   String get mapSupportingText;
 
   /// No description provided for @prayerTimeSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check the latest daily prayer times'**
+  /// **'See today’s prayer times for this area.'**
   String get prayerTimeSupportingText;
 
   /// No description provided for @pbtServiceLabel.
@@ -8322,31 +8322,31 @@ abstract class AppLocalizations {
   /// No description provided for @parkingSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Pay parking charges and manage parking sessions'**
+  /// **'Pay for parking or extend your parking time.'**
   String get parkingSupportingText;
 
   /// No description provided for @compoundSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check and pay vehicle compounds'**
+  /// **'Check your vehicle compounds and pay them here.'**
   String get compoundSupportingText;
 
   /// No description provided for @taxSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check and pay assessment tax accounts'**
+  /// **'Check your assessment tax and pay any outstanding bills.'**
   String get taxSupportingText;
 
   /// No description provided for @licenseSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check and pay business licence accounts'**
+  /// **'Check your business licence and make payment.'**
   String get licenseSupportingText;
 
   /// No description provided for @rentalSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check and pay municipal rental accounts'**
+  /// **'Check and pay your council rental charges.'**
   String get rentalSupportingText;
 
   /// No description provided for @compoundServiceLabel.
@@ -8358,13 +8358,13 @@ abstract class AppLocalizations {
   /// No description provided for @singleCompoundSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Search and pay using a single compound number'**
+  /// **'Enter a compound number to check and pay.'**
   String get singleCompoundSupportingText;
 
   /// No description provided for @multiCompoundSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check all compounds and pay using the vehicle plate number'**
+  /// **'Use your vehicle plate number to find and pay compounds.'**
   String get multiCompoundSupportingText;
 
   /// No description provided for @assessmentTaxServiceLabel.
@@ -8376,13 +8376,13 @@ abstract class AppLocalizations {
   /// No description provided for @paymentTaxSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check outstanding assessment tax and make payment'**
+  /// **'Check outstanding assessment tax and make payment.'**
   String get paymentTaxSupportingText;
 
   /// No description provided for @checkTaxSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check assessment tax payments made at this kiosk'**
+  /// **'View tax payments made at this kiosk.'**
   String get checkTaxSupportingText;
 
   /// No description provided for @rentalServiceLabel.
@@ -8394,13 +8394,13 @@ abstract class AppLocalizations {
   /// No description provided for @paymentRentalSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check outstanding municipal rental charges and make payment'**
+  /// **'Check rental arrears and make payment.'**
   String get paymentRentalSupportingText;
 
   /// No description provided for @checkRentalSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check municipal rental payments made at this kiosk'**
+  /// **'View rental payments made at this kiosk.'**
   String get checkRentalSupportingText;
 
   /// No description provided for @parkingManagementLabel.
@@ -8412,13 +8412,13 @@ abstract class AppLocalizations {
   /// No description provided for @extendParkingSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Add more time to the current parking session'**
+  /// **'Add more time to your current parking session.'**
   String get extendParkingSupportingText;
 
   /// No description provided for @parkingReceiptSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'View and download the parking payment receipt'**
+  /// **'Open your parking receipt.'**
   String get parkingReceiptSupportingText;
 
   /// No description provided for @billPaymentServiceLabel.
@@ -8430,31 +8430,31 @@ abstract class AppLocalizations {
   /// No description provided for @electricityBillSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check and pay electricity bills from supported providers'**
+  /// **'Check and pay your electricity bill.'**
   String get electricityBillSupportingText;
 
   /// No description provided for @waterBillSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check and pay water bills from supported providers'**
+  /// **'Check and pay your water bill.'**
   String get waterBillSupportingText;
 
   /// No description provided for @broadbandBillSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check and pay broadband and internet service bills'**
+  /// **'Check and pay your internet bill.'**
   String get broadbandBillSupportingText;
 
   /// No description provided for @entertainmentBillSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check and pay television and entertainment service bills'**
+  /// **'Check and pay TV and entertainment bills.'**
   String get entertainmentBillSupportingText;
 
   /// No description provided for @telcoBillSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Check and pay mobile and telecommunication bills'**
+  /// **'Check and pay your mobile or telco bill.'**
   String get telcoBillSupportingText;
 
   /// No description provided for @mapInteractiveBadge.
@@ -8646,13 +8646,13 @@ abstract class AppLocalizations {
   /// No description provided for @faqButton.
   ///
   /// In en, this message translates to:
-  /// **'FREQUENTLY ASKED QUESTIONS'**
+  /// **'COMMON QUESTIONS'**
   String get faqButton;
 
   /// No description provided for @faqSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'Help with kiosk usage, payments and receipts'**
+  /// **'Get help with using the kiosk, paying and getting receipts.'**
   String get faqSupportingText;
 
   /// No description provided for @faqTitle.
@@ -8664,7 +8664,7 @@ abstract class AppLocalizations {
   /// No description provided for @faqSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Touch a question below to view the answer'**
+  /// **'Tap a question to see its answer.'**
   String get faqSubtitle;
 
   /// No description provided for @faqWhatIsKioskTitle.
@@ -8778,13 +8778,13 @@ abstract class AppLocalizations {
   /// No description provided for @faqHelpTitle.
   ///
   /// In en, this message translates to:
-  /// **'TROUBLESHOOTING & HELP'**
+  /// **'NEED HELP?'**
   String get faqHelpTitle;
 
   /// No description provided for @faqHelpContent.
   ///
   /// In en, this message translates to:
-  /// **'If the screen is unresponsive or blank, the payment is interrupted, the QR code does not appear, or another problem occurs, please contact:'**
+  /// **'If the screen freezes, a payment is interrupted, or a QR code does not appear, contact:'**
   String get faqHelpContent;
 
   /// No description provided for @weatherButton.
@@ -8796,7 +8796,7 @@ abstract class AppLocalizations {
   /// No description provided for @weatherSupportingText.
   ///
   /// In en, this message translates to:
-  /// **'View the official 7-day weather forecast for Ipoh, Perak'**
+  /// **'Check the 7-day weather forecast'**
   String get weatherSupportingText;
 
   /// No description provided for @weatherPageTitle.
@@ -14694,19 +14694,19 @@ abstract class AppLocalizations {
   /// No description provided for @scrollViewMore.
   ///
   /// In en, this message translates to:
-  /// **'View More'**
+  /// **'VIEW MORE'**
   String get scrollViewMore;
 
   /// No description provided for @scrollBackTop.
   ///
   /// In en, this message translates to:
-  /// **'Back to Top'**
+  /// **'BACK TO TOP'**
   String get scrollBackTop;
 
   /// No description provided for @scrollUpShort.
   ///
   /// In en, this message translates to:
-  /// **'Up'**
+  /// **'UP'**
   String get scrollUpShort;
 
   /// No description provided for @providerSearchTitle.
@@ -14820,7 +14820,7 @@ abstract class AppLocalizations {
   /// No description provided for @p2FrequentlyUsedTitle.
   ///
   /// In en, this message translates to:
-  /// **'FREQUENTLY USED SERVICES'**
+  /// **'QUICK ACCESS'**
   String get p2FrequentlyUsedTitle;
 
   /// No description provided for @p2DidYouKnowTitle.

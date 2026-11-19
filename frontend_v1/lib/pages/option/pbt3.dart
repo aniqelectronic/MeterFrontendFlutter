@@ -1,5 +1,4 @@
 import 'package:frontend_v1/pages/config.dart';
-import 'package:frontend_v1/widgets/knowledge_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_v1/l10n/app_localizations.dart';
 import 'package:frontend_v1/pages/data.dart';
@@ -7,11 +6,10 @@ import 'package:frontend_v1/pages/option/p2.dart';
 import 'package:frontend_v1/pages/pbt/compound/p4optioncompound.dart';
 import 'package:frontend_v1/pages/pbt/cukai/p4_option_cukai_bentong.dart';
 import 'package:frontend_v1/pages/pbt/p4.dart';
-
 import 'package:frontend_v1/pages/pbt/newp4.dart';
-
 import 'package:frontend_v1/pages/pbt/sewaan/p4_option_sewaan_bentong.dart';
 import 'package:frontend_v1/widgets/kiosk_back_button.dart';
+
 class PBT3PAGE extends StatefulWidget {
   const PBT3PAGE({super.key});
   @override
@@ -162,23 +160,9 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
               subtitle: loc.p3Subtitle,
             ),
           ),
-          // DID YOU KNOW / TAHUKAH ANDA
-          Positioned(
-            top: 325,
-            left: 58,
-            right: 58,
-            child: const KnowledgeSlider(
-              height: 250,
-              titleFontSize: 32,
-              subtitleFontSize: 25,
-              factFontSize: 25,
-              counterFontSize: 25,
-              slideDuration: Duration(seconds: 8),
-            ),
-          ),
           // SCROLLABLE SERVICE BUTTON AREA
           Positioned(
-            top: 605,
+            top: 325,
             left: 60,
             right: 60,
             bottom: 340,
@@ -194,7 +178,7 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                   parent: AlwaysScrollableScrollPhysics(),
                 ),
                 padding: const EdgeInsets.only(
-                  top: 30,
+                  top: 18,
                   right: 24,
                   bottom: 145,
                 ),
@@ -205,38 +189,36 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                       children: [
                         Expanded(
                           child: _ModernServiceButton(
-                            height: 300,
+                            height: 320,
                             imagePath: 'lib/images/pbt_parking_icon.png',
                             icon: Icons.local_parking_rounded,
                             label: loc.parkirButton,
                             accentColor: const Color(0xFF1469E8),
-                            accentLightColor:
-                                const Color(0xFFE6F0FF),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => P4PAGE(
-                                      title: loc.parkirButton,
-                                      type: 'PBT',
-                                      hint: loc.inputPlateHint,
-                                      biz: 'PARKING',
-                                    ),
+                            accentLightColor: const Color(0xFFE6F0FF),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => P4PAGE(
+                                    title: loc.parkirButton,
+                                    type: 'PBT',
+                                    hint: loc.inputPlateHint,
+                                    biz: 'PARKING',
                                   ),
-                                );
-                              },
+                                ),
+                              );
+                            },
                           ),
                         ),
                         const SizedBox(width: 24),
                         Expanded(
                           child: _ModernServiceButton(
-                            height: 300,
+                            height: 320,
                             imagePath: 'lib/images/pbt_compound_icon.png',
                             icon: Icons.gavel_rounded,
                             label: loc.compoundButton,
                             accentColor: const Color(0xFFE34E45),
-                            accentLightColor:
-                                const Color(0xFFFFE7E5),
+                            accentLightColor: const Color(0xFFFFE7E5),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -256,13 +238,12 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                       children: [
                         Expanded(
                           child: _ModernServiceButton(
-                            height: 300,
+                            height: 320,
                             imagePath: 'lib/images/pbt_tax_icon.png',
                             icon: Icons.account_balance_rounded,
                             label: loc.taxButton,
                             accentColor: const Color(0xFF7B4DE3),
-                            accentLightColor:
-                                const Color(0xFFF0E9FF),
+                            accentLightColor: const Color(0xFFF0E9FF),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -277,13 +258,12 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                         const SizedBox(width: 24),
                         Expanded(
                           child: _ModernServiceButton(
-                            height: 300,
+                            height: 320,
                             imagePath: 'lib/images/pbt_license_icon.png',
                             icon: Icons.badge_rounded,
                             label: loc.licenseButton,
                             accentColor: const Color(0xFFE56C16),
-                            accentLightColor:
-                                const Color(0xFFFFEBDC),
+                            accentLightColor: const Color(0xFFFFEBDC),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -307,13 +287,12 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                       children: [
                         Expanded(
                           child: _ModernServiceButton(
-                            height: 300,
+                            height: 320,
                             imagePath: 'lib/images/pbt_rental_icon.png',
                             icon: Icons.home_work_rounded,
                             label: loc.rentPBTText,
                             accentColor: const Color(0xFF008F72),
-                            accentLightColor:
-                                const Color(0xFFE0F8F1),
+                            accentLightColor: const Color(0xFFE0F8F1),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -329,7 +308,7 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                         // Keeps the final card aligned to the left.
                         const Expanded(
                           child: SizedBox(
-                            height: 300,
+                            height: 320,
                           ),
                         ),
                       ],
@@ -339,14 +318,13 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
               ),
             ),
           ),
-          // CONTENT FADE
-          // Shows that more PBT services continue below.
+          // Subtle fade hints that more PBT services are below.
           if (showScrollDown)
             Positioned(
               left: 45,
               right: 45,
               bottom: 300,
-              height: 170,
+              height: 114,
               child: IgnorePointer(
                 child: Container(
                   decoration: BoxDecoration(
@@ -362,8 +340,8 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
                       colors: [
                         Colors.white.withOpacity(0.00),
                         Colors.white.withOpacity(0.14),
-                        Colors.white.withOpacity(0.62),
-                        Colors.white.withOpacity(0.95),
+                        Colors.white.withOpacity(0.34),
+                        Colors.white.withOpacity(0.78),
                       ],
                     ),
                   ),
@@ -447,7 +425,7 @@ class _PBT3PAGEState extends State<PBT3PAGE> {
     );
   }
 }
-// KNOWLEDGE SLIDER
+// PAGE HEADER (unchanged)
 class _ModernPageHeader extends StatelessWidget {
   final String badgeText;
   final String title;
@@ -600,267 +578,279 @@ class _ModernPageHeader extends StatelessWidget {
     );
   }
 }
-// MODERN MAIN SERVICE BUTTON
+
+// MATCHED TO P2PAGE PERKHIDMATAN UTAMA: large icon, full-width title, arrow.
+// Entire card is tappable, not only the decorative arrow.
 class _ModernServiceButton extends StatefulWidget {
-  final IconData? icon;
+  final IconData icon;
   final String? imagePath;
   final String label;
   final VoidCallback onPressed;
-  final double height;
-  final bool comingSoon;
   final Color accentColor;
   final Color accentLightColor;
+  final double height;
+  final bool comingSoon;
+
   const _ModernServiceButton({
     super.key,
-    this.icon,
+    required this.icon,
     this.imagePath,
     required this.label,
     required this.onPressed,
     required this.accentColor,
     required this.accentLightColor,
-    this.height = 300,
+    this.height = 320,
     this.comingSoon = false,
   });
+
   @override
   State<_ModernServiceButton> createState() => _ModernServiceButtonState();
 }
+
 class _ModernServiceButtonState extends State<_ModernServiceButton> {
   bool _pressed = false;
   bool _focused = false;
-  void _setPressed(bool value) {
+  bool _hovered = false;
+  bool _activating = false;
+
+  void _setPressed(bool pressed) {
     if (!mounted || widget.comingSoon) return;
-    setState(() => _pressed = value);
+    setState(() => _pressed = pressed);
   }
-  double _bestLabelFontSize({
-    required BuildContext context,
-    required String text,
-    required double maxWidth,
-    required double maxHeight,
-  }) {
-    final direction = Directionality.of(context);
-    for (double size = 38; size >= 24; size -= 1) {
-      final painter = TextPainter(
-        text: TextSpan(
-          text: text,
-          style: TextStyle(
-            color: const Color(0xFF102C50),
-            fontSize: size,
-            fontWeight: FontWeight.w900,
-            height: 1.04,
-            letterSpacing: -0.30,
-          ),
-        ),
-        maxLines: 2,
-        textDirection: direction,
-      )..layout(maxWidth: maxWidth);
-      if (!painter.didExceedMaxLines && painter.height <= maxHeight) return size;
-    }
-    return 24;
+
+  // Let the touch feedback remain visible briefly before opening the page.
+  // Prevent a second tap from opening the same destination twice.
+  Future<void> _handleTap() async {
+    if (_activating || widget.comingSoon) return;
+
+    setState(() => _activating = true);
+    await Future<void>.delayed(const Duration(milliseconds: 150));
+    if (!mounted) return;
+
+    setState(() {
+      _activating = false;
+      _pressed = false;
+    });
+    widget.onPressed();
   }
+
   @override
   Widget build(BuildContext context) {
     final enabled = !widget.comingSoon;
-    final active = _pressed || _focused;
-    final radius = BorderRadius.circular(28);
+    final depressed = _pressed || _activating;
+    final active = depressed || _focused || _hovered;
+    final borderRadius = BorderRadius.circular(30);
     final borderColor = active
         ? widget.accentColor
-        : Color.lerp(widget.accentColor, Colors.white, 0.36)!;
-    final softTint = Color.lerp(Colors.white, widget.accentColor, 0.05)!;
+        : Color.lerp(widget.accentColor, Colors.white, 0.53)!;
+
     return Semantics(
       button: true,
       enabled: enabled,
       label: widget.label,
       child: RepaintBoundary(
         child: AnimatedScale(
-          scale: _pressed ? 0.970 : 1.0,
-          duration: const Duration(milliseconds: 105),
+          scale: depressed ? 0.952 : (_hovered ? 0.994 : 1.0),
+          duration: const Duration(milliseconds: 110),
           curve: Curves.easeOutCubic,
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 130),
             height: widget.height,
+            duration: const Duration(milliseconds: 130),
             decoration: BoxDecoration(
-              borderRadius: radius,
+              borderRadius: borderRadius,
               boxShadow: [
                 BoxShadow(
-                  color: widget.accentColor.withOpacity(_pressed ? 0.09 : 0.20),
-                  blurRadius: _pressed ? 7 : 18,
-                  spreadRadius: _pressed ? 0 : 0.5,
-                  offset: Offset(0, _pressed ? 2 : 7),
+                  color: widget.accentColor.withOpacity(
+                    depressed ? 0.07 : (_hovered ? 0.22 : 0.17),
+                  ),
+                  blurRadius: depressed ? 6 : (_hovered ? 21 : 17),
+                  offset: Offset(0, depressed ? 2 : 7),
                 ),
                 BoxShadow(
-                  color: Colors.black.withOpacity(_pressed ? 0.02 : 0.045),
-                  blurRadius: _pressed ? 4 : 9,
-                  offset: Offset(0, _pressed ? 1 : 3),
+                  color: const Color(0xFF142D4E).withOpacity(0.045),
+                  blurRadius: 9,
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
             child: Material(
-              color: Colors.transparent,
+              color: Colors.white,
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(
-                borderRadius: radius,
-                side: BorderSide(color: borderColor, width: active ? 3 : 2),
-              ),
-              child: Ink(
-                decoration: BoxDecoration(
-                  borderRadius: radius,
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [Colors.white.withOpacity(0.995), softTint],
-                  ),
+                borderRadius: borderRadius,
+                side: BorderSide(
+                  color: borderColor,
+                  width: depressed ? 3.5 : (active ? 2.8 : 1.7),
                 ),
-                child: InkWell(
-                  onTap: enabled ? widget.onPressed : null,
-                  onHighlightChanged: _setPressed,
-                  onFocusChange: (focused) {
-                    if (mounted) setState(() => _focused = focused);
-                  },
-                  splashColor: widget.accentColor.withOpacity(0.13),
-                  highlightColor: widget.accentColor.withOpacity(0.045),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: 7,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: widget.accentColor,
-                            borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 18, 16, 14),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            SizedBox(
-                              height: 164,
-                              child: Center(
+              ),
+              child: InkWell(
+                onTap: enabled ? _handleTap : null,
+                onHighlightChanged: _setPressed,
+                onHover: (hovered) {
+                  if (mounted && !widget.comingSoon) {
+                    setState(() => _hovered = hovered);
+                  }
+                },
+                onFocusChange: (focused) {
+                  if (mounted) setState(() => _focused = focused);
+                },
+                splashColor: widget.accentColor.withOpacity(0.20),
+                highlightColor: widget.accentColor.withOpacity(0.10),
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: widget.height * 0.45,
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        widget.accentLightColor,
+                                        Color.lerp(
+                                          widget.accentLightColor,
+                                          Colors.white,
+                                          0.64,
+                                        )!,
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                top: -70,
+                                left: -65,
+                                child: IgnorePointer(
+                                  child: Container(
+                                    width: 200,
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: widget.accentColor.withOpacity(0.035),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Center(
                                 child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 130),
-                                  width: 156,
-                                  height: 156,
+                                  duration: const Duration(milliseconds: 140),
+                                  width: widget.height < 370 ? 112 : 132,
+                                  height: widget.height < 370 ? 112 : 132,
+                                  padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(30),
+                                    borderRadius: BorderRadius.circular(29),
                                     border: Border.all(
-                                      color: widget.accentColor.withOpacity(active ? 0.34 : 0.17),
-                                      width: active ? 2.2 : 1.4,
+                                      color: widget.accentColor.withOpacity(
+                                        active ? 0.36 : 0.19,
+                                      ),
+                                      width: active ? 2.1 : 1.4,
                                     ),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: widget.accentColor.withOpacity(_pressed ? 0.06 : 0.13),
-                                        blurRadius: _pressed ? 5 : 13,
+                                        color: widget.accentColor.withOpacity(
+                                          _pressed ? 0.06 : 0.14,
+                                        ),
+                                        blurRadius: _pressed ? 7 : 15,
                                         offset: Offset(0, _pressed ? 2 : 5),
                                       ),
                                     ],
                                   ),
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(28),
-                                    clipBehavior: Clip.hardEdge,
+                                    borderRadius: BorderRadius.circular(22),
                                     child: widget.imagePath != null
-                                        ? _SharpAssetImage(path: widget.imagePath!)
+                                        ? _SharpAssetImage(
+                                            path: widget.imagePath!,
+                                          )
                                         : Icon(
-                                            widget.icon ?? Icons.apps_rounded,
+                                            widget.icon,
                                             color: widget.accentColor,
-                                            size: 92,
+                                            size: 86,
                                           ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 7),
-                            Container(height: 2, color: const Color(0xFFE7EDF5)),
-                            const SizedBox(height: 7),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: LayoutBuilder(
-                                      builder: (context, constraints) {
-                                        final text = widget.label.toUpperCase();
-                                        final fontSize = _bestLabelFontSize(
-                                          context: context,
-                                          text: text,
-                                          maxWidth: constraints.maxWidth,
-                                          maxHeight: constraints.maxHeight,
-                                        );
-                                        return Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            text,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              color: const Color(0xFF102C50),
-                                              fontSize: fontSize,
-                                              fontWeight: FontWeight.w900,
-                                              height: 1.04,
-                                              letterSpacing: -0.30,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  AnimatedContainer(
-                                    duration: const Duration(milliseconds: 120),
-                                    width: _pressed ? 48 : 52,
-                                    height: _pressed ? 48 : 52,
-                                    decoration: BoxDecoration(
-                                      color: widget.accentColor,
-                                      borderRadius: BorderRadius.circular(17),
-                                      border: Border.all(color: Colors.white, width: 2.5),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: widget.accentColor.withOpacity(_pressed ? 0.13 : 0.25),
-                                          blurRadius: _pressed ? 4 : 9,
-                                          offset: Offset(0, _pressed ? 2 : 4),
-                                        ),
-                                      ],
-                                    ),
-                                    child: const Icon(
-                                      Icons.arrow_forward_rounded,
-                                      color: Colors.white,
-                                      size: 32,
-                                    ),
-                                  ),
-                                ],
+                              Positioned(
+                                right: 18,
+                                top: 19,
+                                child: _CardArrow(
+                                  accentColor: widget.accentColor,
+                                  pressed: depressed,
+                                ),
                               ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 2,
+                          color: widget.accentColor.withOpacity(0.42),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(22, 17, 22, 19),
+                            child: LayoutBuilder(
+                              builder: (context, bounds) {
+                                return _AutoFitKioskTitle(
+                                  title: widget.label,
+                                  maxWidth: bounds.maxWidth,
+                                  maxHeight: bounds.maxHeight,
+                                  preferredSize: 38,
+                                  minimumSize: 18,
+                                  maxLines: 5,
+                                );
+                              },
                             ),
-                          ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    // A short tint makes the selected card unmistakable.
+                    Positioned.fill(
+                      child: IgnorePointer(
+                        child: AnimatedOpacity(
+                          opacity: depressed ? 1.0 : (_hovered ? 0.30 : 0.0),
+                          duration: const Duration(milliseconds: 110),
+                          child: ColoredBox(
+                            color: widget.accentColor.withOpacity(0.11),
+                            child: const SizedBox.expand(),
+                          ),
                         ),
                       ),
-                      if (widget.comingSoon)
-                        Positioned.fill(
+                    ),
+                    if (widget.comingSoon)
+                      Positioned.fill(
+                        child: Container(
+                          color: Colors.white.withOpacity(0.70),
+                          alignment: Alignment.center,
                           child: Container(
-                            color: Colors.white.withOpacity(0.68),
-                            alignment: Alignment.center,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF334155),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              child: Text(
-                                AppLocalizations.of(context)!.comingsoonText.toUpperCase(),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w800,
-                                ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF334155),
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .comingsoonText
+                                  .toUpperCase(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w800,
                               ),
                             ),
                           ),
                         ),
-                    ],
-                  ),
+                      ),
+                  ],
                 ),
               ),
             ),
@@ -870,23 +860,63 @@ class _ModernServiceButtonState extends State<_ModernServiceButton> {
     );
   }
 }
+
+// Icon arrow is visual guidance; the surrounding card receives the tap.
+class _CardArrow extends StatelessWidget {
+  final Color accentColor;
+  final bool pressed;
+
+  const _CardArrow({
+    required this.accentColor,
+    required this.pressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 140),
+      width: pressed ? 48 : 52,
+      height: pressed ? 48 : 52,
+      decoration: BoxDecoration(
+        color: accentColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white, width: 2.4),
+        boxShadow: [
+          BoxShadow(
+            color: accentColor.withOpacity(pressed ? 0.13 : 0.24),
+            blurRadius: pressed ? 5 : 10,
+            offset: Offset(0, pressed ? 2 : 4),
+          ),
+        ],
+      ),
+      child: const Icon(
+        Icons.arrow_forward_rounded,
+        color: Colors.white,
+        size: 31,
+      ),
+    );
+  }
+}
+
 class _SharpAssetImage extends StatelessWidget {
   final String path;
+
   const _SharpAssetImage({required this.path});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final dpr = MediaQuery.devicePixelRatioOf(context);
-        final cacheWidth = (constraints.maxWidth * dpr * 3.0).round();
-        final cacheHeight = (constraints.maxHeight * dpr * 3.0).round();
+        final cacheWidth = (constraints.maxWidth * dpr * 2).round();
+        final cacheHeight = (constraints.maxHeight * dpr * 2).round();
+
         return RepaintBoundary(
           child: Image.asset(
             path,
             width: constraints.maxWidth,
             height: constraints.maxHeight,
             fit: BoxFit.contain,
-            alignment: Alignment.center,
             filterQuality: FilterQuality.medium,
             isAntiAlias: false,
             gaplessPlayback: true,
@@ -898,6 +928,78 @@ class _SharpAssetImage extends StatelessWidget {
     );
   }
 }
+
+// Measures actual string layout, so Malay/English/Chinese/Tamil labels
+// have the maximum possible font size without depending on FittedBox scaling.
+class _AutoFitKioskTitle extends StatelessWidget {
+  final String title;
+  final double maxWidth;
+  final double maxHeight;
+  final double preferredSize;
+  final double minimumSize;
+  final int maxLines;
+
+  const _AutoFitKioskTitle({
+    required this.title,
+    required this.maxWidth,
+    required this.maxHeight,
+    this.preferredSize = 38,
+    this.minimumSize = 18,
+    this.maxLines = 5,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final text = title.toUpperCase();
+    final direction = Directionality.of(context);
+    final textScaler = MediaQuery.textScalerOf(context);
+    double selectedSize = minimumSize;
+
+    for (double size = preferredSize; size >= minimumSize; size -= 1) {
+      final painter = TextPainter(
+        text: TextSpan(
+          text: text,
+          style: TextStyle(
+            fontSize: size,
+            fontWeight: FontWeight.w900,
+            height: 1.06,
+            letterSpacing: -0.3,
+          ),
+        ),
+        maxLines: maxLines,
+        textDirection: direction,
+        textScaler: textScaler,
+      )..layout(maxWidth: maxWidth);
+
+      final fits = !painter.didExceedMaxLines &&
+          painter.height <= maxHeight;
+      painter.dispose();
+
+      if (fits) {
+        selectedSize = size;
+        break;
+      }
+    }
+
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        text,
+        maxLines: maxLines,
+        softWrap: true,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          color: const Color(0xFF102C50),
+          fontSize: selectedSize,
+          fontWeight: FontWeight.w900,
+          height: 1.06,
+          letterSpacing: -0.3,
+        ),
+      ),
+    );
+  }
+}
+
 enum _ScrollControlMode {
   up,
   more,
@@ -917,65 +1019,72 @@ class _ScrollDiscoveryControl extends StatefulWidget {
   State<_ScrollDiscoveryControl> createState() =>
       _ScrollDiscoveryControlState();
 }
-class _ScrollDiscoveryControlState
-    extends State<_ScrollDiscoveryControl> {
+class _ScrollDiscoveryControlState extends State<_ScrollDiscoveryControl> {
   bool _pressed = false;
+  bool _activating = false;
+  bool _hovered = false;
+
+  Future<void> _handleTap() async {
+    if (_activating) return;
+    setState(() => _activating = true);
+    await Future<void>.delayed(const Duration(milliseconds: 115));
+    if (!mounted) return;
+    setState(() => _activating = false);
+    widget.onPressed();
+  }
+
   void _setPressed(bool value) {
     if (!mounted) return;
-    setState(() {
-      _pressed = value;
-    });
+    setState(() => _pressed = value);
   }
+
   @override
   Widget build(BuildContext context) {
-    final bool isUp =
-        widget.mode == _ScrollControlMode.up ||
+    final depressed = _pressed || _activating;
+    final active = depressed || _hovered;
+    final isUp = widget.mode == _ScrollControlMode.up ||
         widget.mode == _ScrollControlMode.top;
-    final IconData arrow = isUp
+    final arrow = isUp
         ? Icons.keyboard_arrow_up_rounded
         : Icons.keyboard_arrow_down_rounded;
+
     return AnimatedScale(
-      scale: _pressed ? 0.96 : 1.0,
+      scale: depressed ? 0.946 : (_hovered ? 0.992 : 1.0),
       duration: const Duration(milliseconds: 120),
       curve: Curves.easeOutCubic,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: widget.onPressed,
+          onTap: _handleTap,
           onHighlightChanged: _setPressed,
+          onHover: (hovered) {
+            if (mounted) setState(() => _hovered = hovered);
+          },
           borderRadius: BorderRadius.circular(100),
-          splashColor: const Color(0xFF1469E8).withOpacity(0.10),
+          splashColor: const Color(0xFF1469E8).withOpacity(0.20),
           highlightColor: Colors.transparent,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 140),
-            constraints: const BoxConstraints(
-              minHeight: 88,
-            ),
-            padding: const EdgeInsets.fromLTRB(
-              30,
-              13,
-              22,
-              13,
-            ),
+            constraints: const BoxConstraints(minHeight: 88),
+            padding: const EdgeInsets.fromLTRB(30, 13, 22, 13),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.98),
+              color: depressed
+                  ? const Color(0xFFE4F1FF)
+                  : (_hovered ? const Color(0xFFF4F9FF) : Colors.white),
               borderRadius: BorderRadius.circular(100),
               border: Border.all(
-                color: _pressed
+                color: active
                     ? const Color(0xFF1469E8)
                     : const Color(0xFFC4D8EE),
-                width: _pressed ? 2.5 : 1.7,
+                width: depressed ? 3.0 : (active ? 2.2 : 1.7),
               ),
               boxShadow: [
                 BoxShadow(
                   color: const Color(0xFF173B66).withOpacity(
-                    _pressed ? 0.09 : 0.17,
+                    depressed ? 0.08 : 0.17,
                   ),
-                  blurRadius: _pressed ? 8 : 20,
-                  offset: Offset(
-                    0,
-                    _pressed ? 2 : 7,
-                  ),
+                  blurRadius: depressed ? 6 : 20,
+                  offset: Offset(0, depressed ? 2 : 7),
                 ),
               ],
             ),
@@ -983,10 +1092,7 @@ class _ScrollDiscoveryControlState
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (isUp) ...[
-                  _ScrollArrowCircle(
-                    icon: arrow,
-                    pressed: _pressed,
-                  ),
+                  _ScrollArrowCircle(icon: arrow, pressed: depressed),
                   const SizedBox(width: 14),
                 ],
                 ConstrainedBox(
@@ -1011,10 +1117,7 @@ class _ScrollDiscoveryControlState
                 ),
                 if (!isUp) ...[
                   const SizedBox(width: 14),
-                  _ScrollArrowCircle(
-                    icon: arrow,
-                    pressed: _pressed,
-                  ),
+                  _ScrollArrowCircle(icon: arrow, pressed: depressed),
                 ],
               ],
             ),
@@ -1024,6 +1127,7 @@ class _ScrollDiscoveryControlState
     );
   }
 }
+
 class _ScrollArrowCircle extends StatelessWidget {
   final IconData icon;
   final bool pressed;

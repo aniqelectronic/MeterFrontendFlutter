@@ -1,4 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:frontend_v1/controllers/license/license_service.dart';
 import 'package:frontend_v1/controllers/parking/parking_controller.dart';
 // import 'package:frontend_v1/controllers/tax/tax_service.dart';
@@ -32,17 +35,37 @@ import 'package:window_manager/window_manager.dart';
 import 'package:frontend_v1/widgets/payment_status_overlay.dart';
 import 'package:frontend_v1/widgets/payment_video_guide.dart';
 
+
+//PIP DASHBOARD API
+import 'dart:async';
+import 'package:frontend_v1/services/pip/pip_transaction_service.dart';
+import 'package:frontend_v1/services/pip/pip_municipal_transaction_service.dart';
+
 class PaymentData {
   String? plate;
   String? biz;
   int? hour;
   String? amount;
+
+  // PIP Parking information
+  String? negeri;
+  String? kawasan;
+  String? zon;
+  DateTime? mulaSesi;
+  DateTime? tamatSesi;
+
+  String? parkingSessionId;
+  DateTime? previousParkingEnd;
+
   String? samanNo;
   String? licenseNo;
   String? accountNo;
   List<PaymentTaxItem>? taxItems;
   List<String>? licenseNos;
   List<String>? compoundNos;
+  // Optional real per-compound allocations from the selecting page.
+  // Each item should provide compound_no, offender_name and amount.
+  List<Map<String, dynamic>>? compoundItems;
   List<TaksiranPaymentItem>? taksiranItems;
   List<SewaanPaymentItem>? sewaanItems;
 
@@ -57,12 +80,23 @@ class PaymentData {
     this.plate,
     this.hour,
     this.amount,
+
+    // PIP Parking information
+    this.negeri,
+    this.kawasan,
+    this.zon,
+    this.mulaSesi,
+    this.tamatSesi,
+    this.parkingSessionId,
+    this.previousParkingEnd,
+
     this.samanNo,
     this.licenseNo,
     this.accountNo,
     this.taxItems,
     this.licenseNos, 
     this.compoundNos,
+    this.compoundItems,
     this.offenderName,
     this.violationType,
     this.kodhasil,
@@ -734,6 +768,401 @@ class PAYMENTPAGE extends StatefulWidget {
 }
 
 class _PAYMENTPAGEState extends State<PAYMENTPAGE> {
+  // =====================================================
+  // PIP MANAGEMENT API - GLOBAL ENABLE / DISABLE
+  // =====================================================
+  static const bool enablePip = true;
+
+  // QR PAYMENT TESTING
+  static const bool enableQrTesting = true;
+  static const double qrTestingAmount = 0.05;
+
+  bool get _pipEnabled =>
+      enablePip &&
+      (widget.biz == 'PARKING' ||
+          widget.biz == 'EXTENDPARKING');
+
+  // =====================================================
+  // PIP PARKING - VERIFIED BACKEND SESSION TIME
+  // =====================================================
+  // Never calculate a paid session from the kiosk clock. The parking API
+  // must supply authoritative timein/timeout (or mula_sesi/tamat_sesi).
+  /// Called only after the existing parking provider API succeeds.
+  /// PIP derives session times from PAID sent_to_pip_at and duration_minutes.
+  Future<void> _saveParkingPaid({
+    required PipTransactionService? pip,
+    required Future<bool>? pendingRequest,
+    required bool extension,
+    String? bankTrxNo,
+  }) async {
+    if (pip == null) return;
+    try {
+      if (pendingRequest != null) await pendingRequest;
+      final saved = await pip.paid(bankTrxNo: bankTrxNo);
+      debugPrint('[PIP] ${extension ? 'EXTENSION' : 'NEW'} '
+          'PAID=$saved, duration=${pip.durationMinutes} minutes, '
+          'session=${pip.parkingSessionId}');
+      if (!saved) {
+        debugPrint('[PIP] PAID unconfirmed; reconciliation required.');
+      }
+    } catch (error) {
+      debugPrint('[PIP] PAID update error: $error');
+    }
+  }
+
+
+  // ============================================================
+  // PIP MUNICIPAL TRANSACTIONS
+  // ============================================================
+  // Keep _pipEnabled and PipTransactionService.parking unchanged.
+  // This separate flow covers Cukai, Sewaan and Kompaun only.
+  // enablePip = false disables both reporting paths.
+  bool get _municipalPipEnabled =>
+      enablePip &&
+      const <String>{
+        'CUKAI',
+        'SEMAKAN CUKAI',
+        'SEWAAN',
+        'SEMAKAN SEWAAN',
+        'SINGLECOMPOUND',
+        'MULTICOMPOUND',
+      }.contains(widget.biz);
+
+  String? _pipText(Object? value) {
+    final text = value?.toString().trim();
+    return text == null || text.isEmpty ? null : text;
+  }
+
+  // Read display metadata defensively: model field names may differ by branch.
+  // Missing metadata must never prevent a fresh PENDING from being created.
+  String? _accountFromSelectedItem(Object? item) {
+    if (item == null) return null;
+    if (item is Map) {
+      return _pipText(item['accountNo'] ?? item['account_no']);
+    }
+    try {
+      final dynamic selected = item;
+      return _pipText(selected.accountNo);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  String? _nameFromSelectedItem(Object? item, {required bool tax}) {
+    if (item == null) return null;
+    if (item is Map) {
+      return _pipText(tax
+          ? (item['ownerName'] ?? item['owner_name'])
+          : (item['tenantName'] ?? item['tenant_name']));
+    }
+    try {
+      final dynamic selected = item;
+      return _pipText(tax ? selected.ownerName : selected.tenantName);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  // Amounts may arrive formatted as "RM 1,000.00" from a council page.
+  // Parsing only here keeps the working Parking amount logic unchanged.
+  double _municipalBillAmount() {
+    final text = (widget.data.amount ?? '')
+        .replaceAll('RM', '')
+        .replaceAll('rm', '')
+        .replaceAll(',', '')
+        .trim();
+    return double.tryParse(text) ?? 0.0;
+  }
+
+  /// Read the actual selected amount without relying on branch-specific models.
+  /// Missing amounts are NOT guessed for multi-account payments.
+  double? _selectedAccountAmount(Object? item) {
+    Object? value;
+    if (item is Map) {
+      value = item['amount'];
+    } else if (item != null) {
+      try {
+        final dynamic selected = item;
+        value = selected.amount;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    if (value is num) {
+      final amount = value.toDouble();
+      return amount.isFinite && amount > 0 ? amount : null;
+    }
+
+    final cleaned = value?.toString()
+        .replaceAll('RM', '')
+        .replaceAll('rm', '')
+        .replaceAll(',', '')
+        .trim();
+    final amount = double.tryParse(cleaned ?? '');
+    return amount != null && amount.isFinite && amount > 0
+        ? amount
+        : null;
+  }
+
+  /// One PIP item per distinct account. Multiple-account allocations are only
+  /// sent when every source amount is present and totals match the bill.
+  /// For one distinct account, the full selected bill belongs to that account.
+  List<PipMunicipalPaymentItem> _municipalAllocations({
+    required List<Map<String, Object?>> selected,
+    required double originalAmount,
+    required String serviceType,
+  }) {
+    if (selected.isEmpty) return const <PipMunicipalPaymentItem>[];
+
+    final grouped = <String, Map<String, Object?>>{};
+    var hasMissingAccount = false;
+    for (final row in selected) {
+      final account = _pipText(row['accountNo']);
+      if (account == null) {
+        hasMissingAccount = true;
+        continue;
+      }
+      final name = _pipText(row['accountName']);
+      final partAmount = row['amount'] as double?;
+      final existing = grouped[account];
+      if (existing == null) {
+        grouped[account] = <String, Object?>{
+          'accountName': name,
+          'amount': partAmount,
+        };
+      } else {
+        existing['accountName'] ??= name;
+        final previous = existing['amount'] as double?;
+        existing['amount'] = previous != null && partAmount != null
+            ? previous + partAmount
+            : null;
+      }
+    }
+
+    if (hasMissingAccount || grouped.isEmpty) {
+      debugPrint('[PIP] $serviceType: missing account numbers; '
+          'saving only transaction summary.');
+      return const <PipMunicipalPaymentItem>[];
+    }
+
+    if (grouped.length == 1) {
+      final account = grouped.keys.first;
+      return <PipMunicipalPaymentItem>[
+        PipMunicipalPaymentItem(
+          accountNo: account,
+          accountName: grouped[account]!['accountName'] as String?,
+          amount: originalAmount,
+        ),
+      ];
+    }
+
+    final allocations = <PipMunicipalPaymentItem>[];
+    var allocatedCents = 0;
+    for (final entry in grouped.entries) {
+      final partAmount = entry.value['amount'] as double?;
+      if (partAmount == null ||
+          !partAmount.isFinite ||
+          partAmount <= 0 ||
+          (partAmount * 100 - (partAmount * 100).round()).abs() > 0.00001) {
+        debugPrint('[PIP] $serviceType: missing/invalid amount for '
+            '${entry.key}; saving summary without invented allocations.');
+        return const <PipMunicipalPaymentItem>[];
+      }
+      allocatedCents += (partAmount * 100).round();
+      allocations.add(PipMunicipalPaymentItem(
+        accountNo: entry.key,
+        accountName: entry.value['accountName'] as String?,
+        amount: partAmount,
+      ));
+    }
+
+    if (allocatedCents != (originalAmount * 100).round()) {
+      debugPrint('[PIP] $serviceType: selected-account amounts do not '
+          'match the bill total; saving summary only.');
+      return const <PipMunicipalPaymentItem>[];
+    }
+    return allocations;
+  }
+
+  PipMunicipalTransactionService? _newMunicipalAttempt({
+    required String paymentMethod,
+    required double originalAmount,
+  }) {
+    if (!_municipalPipEnabled ||
+        !originalAmount.isFinite ||
+        originalAmount <= 0) {
+      return null;
+    }
+
+    String serviceType;
+    String? accountName;
+    final accountNumbers = <String>[];
+    final selectedAllocations = <Map<String, Object?>>[];
+
+    if (widget.biz == 'CUKAI' || widget.biz == 'SEMAKAN CUKAI') {
+      serviceType = 'Cukai Taksiran';
+      for (final item in widget.data.taksiranItems ?? <TaksiranPaymentItem>[]) {
+        final number = _accountFromSelectedItem(item);
+        if (number != null && !accountNumbers.contains(number)) {
+          accountNumbers.add(number);
+        }
+        final owner = _nameFromSelectedItem(item, tax: true);
+        accountName ??= owner;
+        selectedAllocations.add(<String, Object?>{
+          'accountNo': number,
+          'accountName': owner,
+          'amount': _selectedAccountAmount(item),
+        });
+      }
+    } else if (widget.biz == 'SEWAAN' || widget.biz == 'SEMAKAN SEWAAN') {
+      serviceType = 'Sewaan Majlis';
+      for (final item in widget.data.sewaanItems ?? <SewaanPaymentItem>[]) {
+        final number = _accountFromSelectedItem(item);
+        if (number != null && !accountNumbers.contains(number)) {
+          accountNumbers.add(number);
+        }
+        final tenant = _nameFromSelectedItem(item, tax: false);
+        accountName ??= tenant;
+        selectedAllocations.add(<String, Object?>{
+          'accountNo': number,
+          'accountName': tenant,
+          'amount': _selectedAccountAmount(item),
+        });
+      }
+    } else {
+      serviceType = 'Kompaun';
+      accountName = _pipText(widget.data.offenderName);
+      for (final number in widget.data.compoundNos ?? <String>[]) {
+        final cleaned = _pipText(number);
+        if (cleaned != null && !accountNumbers.contains(cleaned)) {
+          accountNumbers.add(cleaned);
+        }
+      }
+      final saman = _pipText(widget.data.samanNo);
+      if (saman != null && !accountNumbers.contains(saman)) {
+        accountNumbers.add(saman);
+      }
+
+      final selectedCompounds = widget.data.compoundItems;
+      if (selectedCompounds != null && selectedCompounds.isNotEmpty) {
+        for (final item in selectedCompounds) {
+          final number = _pipText(
+            item['compound_no'] ??
+                item['compoundNo'] ??
+                item['account_no'] ??
+                item['accountNo'],
+          );
+          if (number != null && !accountNumbers.contains(number)) {
+            accountNumbers.add(number);
+          }
+          selectedAllocations.add(<String, Object?>{
+            'accountNo': number,
+            'accountName': _pipText(
+              item['offender_name'] ?? item['offenderName'],
+            ) ?? accountName,
+            'amount': _selectedAccountAmount(item),
+          });
+        }
+      } else {
+        for (final number in accountNumbers) {
+          selectedAllocations.add(<String, Object?>{
+            'accountNo': number,
+            'accountName': accountName,
+            'amount': null,
+          });
+        }
+      }
+    }
+
+    final fallbackAccount = _pipText(widget.data.accountNo);
+    if (accountNumbers.isEmpty && fallbackAccount != null) {
+      accountNumbers.add(fallbackAccount);
+      selectedAllocations.add(<String, Object?>{
+        'accountNo': fallbackAccount,
+        'accountName': accountName,
+        'amount': originalAmount,
+      });
+    }
+
+    final allocations = _municipalAllocations(
+      selected: selectedAllocations,
+      originalAmount: originalAmount,
+      serviceType: serviceType,
+    );
+
+    final joined = accountNumbers.join(', ');
+    final accountNo = joined.length <= 120 && joined.isNotEmpty
+        ? joined
+        : (accountNumbers.isEmpty ? null : accountNumbers.first);
+
+    try {
+      final transaction = PipMunicipalTransactionService(
+        serviceType: serviceType,
+        amount: originalAmount, // Bill total, never the RM0.05 QR test charge.
+        paymentMethod: paymentMethod,
+        accountNo: accountNo,
+        accountName: accountName,
+        paymentItems: allocations,
+      );
+      debugPrint(
+        '[PIP] NEW municipal attempt: $serviceType '
+        'account=${accountNo ?? '-'} amount=$originalAmount '
+        'payment_items=${allocations.length}',
+      );
+      return transaction;
+    } catch (error) {
+      debugPrint('[PIP] Municipal reporting setup failed: $error');
+      return null;
+    }
+  }
+
+  Future<void> _markMunicipalPaid({
+    required PipMunicipalTransactionService? pip,
+    required double billAmount,
+    required double chargedAmount,
+    String? bankTrxNo,
+  }) async {
+    if (pip == null) return;
+
+    // The QR test is a simulation: never report a nominal payment as a
+    // full-bill PAID transaction from a production/release kiosk build.
+    // On the Windows debug test setup, the PIP database MUST be isolated
+    // from real financial reporting and live council accounts.
+    if (enableQrTesting && kReleaseMode) {
+      debugPrint(
+        '[PIP] Simulated PAID disabled in release builds. '
+        'Set enableQrTesting=false for real full-amount payments.',
+      );
+      return;
+    }
+
+    // No bill-vs-gateway-amount comparison is used to block this test.
+    // PIP's existing attempt retains the original selected bill amount.
+    if (enableQrTesting) {
+      debugPrint(
+        '[PIP] DEBUG SIMULATION ONLY: PegePay charged '
+        'RM${chargedAmount.toStringAsFixed(2)}; '
+        'PIP test record represents RM${billAmount.toStringAsFixed(2)}. '
+        'This is not actual full-bill settlement.',
+      );
+    }
+
+    try {
+      final saved = await pip.paid(bankTrxNo: bankTrxNo);
+      debugPrint(
+        '[PIP] Municipal ${enableQrTesting ? 'SIMULATED ' : ''}'
+        'PAID=$saved service=${pip.serviceType} '
+        'reference=${pip.pipReferenceNo}',
+      );
+      if (!saved) {
+        debugPrint('[PIP] PAID update unconfirmed; check PIP server log.');
+      }
+    } catch (error) {
+      debugPrint('[PIP] Municipal PAID reporting error: $error');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -1010,6 +1439,9 @@ void _closeCardSuccessDialog() {
                     GlobalKey<PaymentStatusOverlayState>? overlayKey;
                     OverlayEntry? overlayEntry;
                     final cancelToken = CancellationToken();
+                    PipTransactionService? pipCard;
+                    Future<bool>? pipCardPending;
+                    PipMunicipalTransactionService? municipalCard;
                     
                     try {
                       // // Validate amount for RM250 threshold
@@ -1152,6 +1584,36 @@ void _closeCardSuccessDialog() {
                       if (port == null) {
                         throw Exception("No IM15 device detected. Please check connection.");
                       }
+
+                      // PIP: create one record for this IM15 card attempt (Parking only).
+                      pipCard = _pipEnabled
+                          ? PipTransactionService.parking(
+                              amount: double.tryParse(amount) ?? 0.0,
+                              paymentMethod: 'Debit/Credit Card',
+                              vehicleNo: widget.data.plate ?? '',
+                              durationMinutes: (widget.data.hour ?? 0) * 60,
+                              negeri: Config.negeri,
+                              kawasan: Config.kawasan,
+                              zon: Config.zon,
+                              parkingPaymentType:
+                                  widget.biz == 'EXTENDPARKING'
+                                      ? 'EXTENSION'
+                                      : 'NEW',
+                              parkingSessionId:
+                                  widget.data.parkingSessionId,
+                            )
+                          : null;
+
+                      pipCardPending = pipCard?.pending();
+
+                      // Municipal PENDING is independent of the working parking path.
+                      municipalCard = _newMunicipalAttempt(
+                        paymentMethod: 'Debit/Credit Card',
+                        originalAmount: _municipalBillAmount(),
+                      );
+                      if (municipalCard != null) {
+                        unawaited(municipalCard.pending());
+                      }
                   
                       await service.execute(
                         amount,
@@ -1168,6 +1630,17 @@ void _closeCardSuccessDialog() {
                         },
                         onSuccess: () async {
                           print('[PAYMENTPAGE] ✅ Card payment successful');
+
+                          // PIP is independent of the council update result.
+                          // IM15 reported success; record this municipal attempt
+                          // even if the later Cukai/Sewaan provider API fails.
+                          if (municipalCard != null) {
+                            unawaited(_markMunicipalPaid(
+                              pip: municipalCard,
+                              billAmount: municipalCard.amount,
+                              chargedAmount: _municipalBillAmount(),
+                            ));
+                          }
 
                           // First show the success state on the card-reader overlay.
                           overlayKey?.currentState?.setStage(
@@ -1204,16 +1677,30 @@ void _closeCardSuccessDialog() {
                           // ===== PARKING CARD PAYMENT
                           // =============================
                           if (widget.biz == "PARKING") {
-                            final result = await ParkingService.callParkingPayAPI(
+                            // Start PIP and ParkingService independently at the same time.
+                                  // Neither API waits for the other to finish.
+                                  unawaited(_saveParkingPaid(
+                                    pip: pipCard,
+                                    pendingRequest: pipCardPending,
+                                    extension: false,
+                                    bankTrxNo: null,
+                                  ));
+                                  final parkingRequest = ParkingService.callParkingPayAPI(
                               plate: widget.data.plate ?? "",
                               timeUsed: widget.data.hour ?? 0,
                               typePayment: "Debit/Credit Card",
                               orderNo: "0",
                               bankTrxNo: "0",
                             );
+                                  final result = await parkingRequest;
                   
-                        if (result != null && !result.startsWith("Error")) {
-                          _closeCardSuccessDialog();
+                          if (result != null && !result.startsWith("Error")) {
+                            // =====================================================
+                            // PIP - CARD PARKING PAID
+                            // =====================================================
+                            
+
+                            _closeCardSuccessDialog();
 
                           Navigator.push(
                             context,
@@ -1239,15 +1726,25 @@ void _closeCardSuccessDialog() {
                           // ===== EXTEND PARKING CARD PAYMENT
                           // =============================
                           else if (widget.biz == "EXTENDPARKING") {
-                            final result = await ParkingService.callParkingExtendAPI(
+                            // Start PIP and ParkingService independently at the same time.
+                                  // Neither API waits for the other to finish.
+                                  unawaited(_saveParkingPaid(
+                                    pip: pipCard,
+                                    pendingRequest: pipCardPending,
+                                    extension: true,
+                                    bankTrxNo: null,
+                                  ));
+                                  final parkingRequest = ParkingService.callParkingExtendAPI(
                               plate: widget.data.plate ?? "",
                               extendHours: widget.data.hour ?? 0,
                               typePayment: "Debit/Credit Card",
                               orderNo: "0",
                               bankTrxNo: "0",
                             );
-                  
+                                  final result = await parkingRequest;
+
                             if (result != null && !result.startsWith("Error")) {
+                              
                               _closeCardSuccessDialog();
 
                               Navigator.push(
@@ -1337,6 +1834,7 @@ void _closeCardSuccessDialog() {
                               );
                               return;
                             }
+
 
                             _closeCardSuccessDialog();
 
@@ -1435,6 +1933,7 @@ void _closeCardSuccessDialog() {
                           return;
                         }
 
+
                          _closeCardSuccessDialog();
 
                         Navigator.push(
@@ -1489,6 +1988,22 @@ void _closeCardSuccessDialog() {
                         },
                         onFailure: () async {
                           print('[PAYMENTPAGE] ❌ Card payment failed');
+
+                          // PIP: close this attempt as FAILED when IM15 reports failure.
+                          // A cancellation is kept separate from a confirmed failure.
+                          if (pipCard != null) {
+                            unawaited(() async {
+                              try {
+                                await pipCardPending;
+                                final saved = cancelToken.isCancelled
+                                    ? await pipCard!.cancelled()
+                                    : await pipCard!.failed();
+                                debugPrint('[PIP] CARD final status saved: $saved');
+                              } catch (e) {
+                                debugPrint('[PIP] CARD status error: $e');
+                              }
+                            }());
+                          }
 
                           if (cancelToken.isCancelled) {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -1565,21 +2080,29 @@ void _closeCardSuccessDialog() {
                         icon: IconData(0xe4f5, fontFamily: 'MaterialIcons'),
                         label: AppLocalizations.of(context)!.qrButton,
                         onPressed: () async {
-                         double amount = double.tryParse(widget.data.amount ?? "0.00") ?? 0.00;
-                          showLoadingDialog(context); 
+                          // Original parking amount
+                          final double originalAmount =
+                              double.tryParse(widget.data.amount ?? "0.00") ?? 0.00;
 
-                          double testing = 0.05;
+                          // Only PegePay charges the testing amount
+                          final double paymentAmount =
+                              enableQrTesting ? qrTestingAmount : originalAmount;
+
+                          showLoadingDialog(context);
+
+                          // Use the actual amount for both PegePay and PIP.
+                          // For RM0.05 gateway testing, change this value deliberately.
+
                         
                           try {
                             final result = await PegePayService.createOrder(
-                              // testing,
-                              amount,
+                              paymentAmount,
                               Config.storeId,
                               Config.terminalId,
                               Config.shiftId,
                             );
 
-                             Navigator.pop(context);
+                           //  Navigator.pop(context);
                         
                             final iframeUrl = result["iframe_url"];
                             final orderNo = result["order_no"];
@@ -1589,6 +2112,38 @@ void _closeCardSuccessDialog() {
                                 const SnackBar(content: Text("Failed to create PegePay order.")),
                               );
                               return;
+                            }
+
+                            // =====================================================
+                            // PIP - QR PARKING PENDING
+                            // =====================================================
+                            final PipTransactionService? pipQr = _pipEnabled
+                                ? PipTransactionService.parking(
+                                    amount: originalAmount, // Original parking tariff, not RM0.05.
+                                    paymentMethod: 'DuitNow QR',
+                                    vehicleNo: widget.data.plate ?? '',
+                                    durationMinutes: (widget.data.hour ?? 0) * 60,
+                                    negeri: Config.negeri,
+                                    kawasan: Config.kawasan,
+                                    zon: Config.zon,
+                                    parkingPaymentType:
+                                        widget.biz == 'EXTENDPARKING'
+                                            ? 'EXTENSION'
+                                            : 'NEW',
+                                    parkingSessionId:
+                                        widget.data.parkingSessionId,
+                                  )
+                                : null;
+
+                                  final Future<bool>? pipQrPending = pipQr?.pending();
+
+                            // NEW QR order => NEW PIP PENDING for municipal services.
+                            final municipalQr = _newMunicipalAttempt(
+                              paymentMethod: 'DuitNow QR',
+                              originalAmount: _municipalBillAmount(),
+                            );
+                            if (municipalQr != null) {
+                              unawaited(municipalQr.pending());
                             }
                         
                             // Navigator.push(
@@ -1614,6 +2169,13 @@ void _closeCardSuccessDialog() {
                             await PegePayWebViewHelper.open(
                               iframeUrl: iframeUrl,
                               orderNo: orderNo,
+
+                              onQrWindowOpened: () {
+                                if (!mounted) return;
+
+                                // Close the loading dialog when the QR window launches.
+                                Navigator.of(context, rootNavigator: true).pop();
+                              },
 
                               /*
                               * Called only when the backend reports that payment
@@ -1671,21 +2233,40 @@ void _closeCardSuccessDialog() {
 
                                   await WidgetsBinding.instance.endOfFrame;
 
+                                  // Gateway confirmed this QR order. Report to
+                                  // PIP now, without waiting for Cukai/Sewaan
+                                  // council APIs or the receipt navigation.
+                                  if (municipalQr != null) {
+                                    unawaited(_markMunicipalPaid(
+                                      pip: municipalQr,
+                                      billAmount: municipalQr.amount,
+                                      chargedAmount: paymentAmount,
+                                      bankTrxNo: pegeBankTrxNo.toString(),
+                                    ));
+                                  }
 
-                                  /* ======================= */
-                                  /* ===== PARKING QR PAYMENT ===== */
-                                  /* ======================= */
-                                  
-                                  if (widget.biz == "PARKING") {
-                                    final result = await ParkingService.callParkingPayAPI(
-                                      plate: widget.data.plate ?? "",
-                                      timeUsed: widget.data.hour ?? 0,
-                                      typePayment: "DuitNow QR",
-                                      orderNo: pegeOrderNo,
-                                      bankTrxNo: pegeBankTrxNo,
-                                    );
-                                  
-                                    if (result != null && !result.startsWith("Error")) {
+                                if (widget.biz == "PARKING") {
+                                  // EXISTING PARKING API - KEEP UNCHANGED
+                                  // Start PIP and ParkingService independently at the same time.
+                                  // Neither API waits for the other to finish.
+                                  unawaited(_saveParkingPaid(
+                                    pip: pipQr,
+                                    pendingRequest: pipQrPending,
+                                    extension: false,
+                                    bankTrxNo: (pegeBankTrxNo.toString().trim().isEmpty ? null : pegeBankTrxNo.toString().trim()),
+                                  ));
+                                  final parkingRequest = ParkingService.callParkingPayAPI(
+                                    plate: widget.data.plate ?? "",
+                                    timeUsed: widget.data.hour ?? 0,
+                                    typePayment: "DuitNow QR",
+                                    orderNo: pegeOrderNo,
+                                    bankTrxNo: pegeBankTrxNo,
+                                  );
+                                  final result = await parkingRequest;
+
+                                  if (result != null &&
+                                      !result.startsWith('Error')) {
+                                    
 
                                       removeQrPaymentSuccessOverlay(qrSuccessOverlay);
                                       Navigator.push(
@@ -1713,15 +2294,25 @@ void _closeCardSuccessDialog() {
                                   /* ======================= */
 
                                   else if (widget.biz == "EXTENDPARKING") {
-                                 final result = await ParkingService.callParkingExtendAPI(
+                                 // Start PIP and ParkingService independently at the same time.
+                                  // Neither API waits for the other to finish.
+                                  unawaited(_saveParkingPaid(
+                                    pip: pipQr,
+                                    pendingRequest: pipQrPending,
+                                    extension: true,
+                                    bankTrxNo: (pegeBankTrxNo.toString().trim().isEmpty ? null : pegeBankTrxNo.toString().trim()),
+                                  ));
+                                  final parkingRequest = ParkingService.callParkingExtendAPI(
                                    plate: widget.data.plate ?? "",
                                    extendHours: widget.data.hour ?? 0,
                                    typePayment: "DuitNow",
                                      orderNo: pegeOrderNo,
                                     bankTrxNo: pegeBankTrxNo,
                                  );
+                                  final result = await parkingRequest;
                                
                                  if (result != null && !result.startsWith("Error")) {
+                                   
 
                                   removeQrPaymentSuccessOverlay(qrSuccessOverlay);
                                    Navigator.push(
@@ -1821,6 +2412,7 @@ void _closeCardSuccessDialog() {
                                       return;
                                     }
 
+
                                     removeQrPaymentSuccessOverlay(qrSuccessOverlay);
 
                                     Navigator.push(
@@ -1883,6 +2475,7 @@ void _closeCardSuccessDialog() {
                                           );
                                           return;
                                         }
+
                                         removeQrPaymentSuccessOverlay(qrSuccessOverlay);
 
                                         Navigator.push(
@@ -2017,7 +2610,20 @@ void _closeCardSuccessDialog() {
                             print(
                               '[PegePay] User cancelled QR payment',
                             );
-
+                            // PIP: QR closed without a successful payment.
+                            // Treat this attempt as FAILED as requested.
+                            // NOTE: Only safe if onCancel cannot run after bank approval.
+                            if (pipQr != null) {
+                              unawaited(() async {
+                                try {
+                                  await pipQrPending;
+                                  final saved = await pipQr.cancelled();
+                                  debugPrint('[PIP] QR CANCELLED saved: $saved');
+                                } catch (e) {
+                                  debugPrint('[PIP] QR CANCELLED error: $e');
+                                }
+                              }());
+                            }
                             /*
                             * Usually this is null because payment was not successful.
                             * This cleanup is safe even when the overlay does not exist.
@@ -2030,9 +2636,18 @@ void _closeCardSuccessDialog() {
 
                             currentRouteName = '/payment';
 
-                            await windowManager.show();
-                            await windowManager.focus();
-                            await windowManager.setFullScreen(true);
+                              try {
+                                if (Platform.isWindows) {
+                                  await windowManager.show();
+                                  await windowManager.focus();
+                                } else if (Platform.isLinux) {
+                                  await windowManager.show();
+                                  await windowManager.focus();
+                                  await windowManager.setFullScreen(true);
+                                }
+                              } catch (e) {
+                                debugPrint('[PegePay] Window restoration warning: $e');
+                              }
 
                             if (!mounted) {
                               return;
@@ -2060,6 +2675,8 @@ void _closeCardSuccessDialog() {
                                 if (Navigator.of(context, rootNavigator: true).canPop()) {
                                   Navigator.of(context, rootNavigator: true).pop();
                                 }
+
+                                //PIP - QR CANCELLATION
 
                                 currentRouteName = '/payment';
 

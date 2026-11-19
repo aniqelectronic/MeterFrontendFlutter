@@ -58,7 +58,7 @@ class _PExplorationBentongPageState
 
     ExplorationItem(
       image:
-          "https://lh3.googleusercontent.com/grass-cs/ACvplmO-p6Zi4U9bNu7x7jM5Oa3lgKqWMoAES2RQGGxumpgn1pnrgCPOGcO39wcEui-eDgzpnPRJPNHopsf9d0k5ralb7_0ywpJsNZhA9F1OurH2XgESI_KuNtcH1d9YrrfPMZIYaNEn=w270-h312-n-k-no",
+          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0a/36/e3/36/suasana-di-japanese-village.jpg?w=1200&h=1200&s=1",
       title: loc.japaneseGardenTitle,
       date: "23/7/2026",
       description: loc.japaneseGardenDesc,
@@ -126,7 +126,7 @@ class _PExplorationBentongPageState
 
       ExplorationItem(
         image:
-            "https://lh3.googleusercontent.com/grass-cs/ACvplmNmkU_R-HFaQ0_IK8ptSd49juoOy8jtooar55fKdgJbdYaFw157ZVXk_81R8mtXpr5G400E5FQPd-2KUHjHzBnuE5Gy9UqTThUJfIhcEJrzi0NCsmGPge-Vk8GW0U6ahhS7DZFF=w270-h312-n-k-no",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3uF7L986NO_lt6gkmCJvZIfpJtwYCy_sw1QRVn821Z2hiGnM-IyJ562ov&s=10",
         title: loc.bilutExtremeParkTitle,
         date: "23/7/2026",
         description: loc.bilutExtremeParkDesc,
@@ -222,7 +222,7 @@ class _PExplorationBentongPageState
 
       ExplorationItem(
         image:
-            "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn1gb-XtTq1P-vBTAlYk4cbuLkp-vysoWjR5bvPZB83mlWzugaY53WfuBV-3y01AKP4-l2IbuKARLm_LsFhbTtXc63LwziE2sch-Mc_nwOajDuHK1pw__ib-9-z3LIKL0YThm8OOvp9v8C8=s1360-w1360-h1020-rw",
+            "https://thesmartlocal.my/wp-content/uploads/2021/05/Pineyard-Bentong-2.jpg",
         title: loc.pineyardTitle,
         date: "23/7/2026",
         description: loc.pineyardDesc,

@@ -9,58 +9,58 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get bilText => '水电账单';
+  String get bilText => '缴费与充值';
 
   @override
-  String get otherText => '其他';
+  String get otherText => '其他服务';
 
   @override
-  String get touristText => '旅游指南';
+  String get touristText => '本地资讯';
 
   @override
-  String get p2Title => '多元服务';
+  String get p2Title => '请选择服务';
 
   @override
-  String get pbtText => '市政服务账单';
+  String get pbtText => '地方政府服务';
 
   @override
   String get rentText => '其他租赁';
 
   @override
-  String get rentPBTText => '市议会租赁';
+  String get rentPBTText => '市议会租金';
 
   @override
   String get backText => '返回';
 
   @override
-  String get processingReceipt => '付款成功。\n您的收据正在处理中...\n请勿触碰屏幕。';
+  String get processingReceipt => '付款成功！\n正在准备您的收据……\n请暂时不要离开此页面。';
 
   @override
-  String get noTaksiranRecordFound => '找不到评估税记录';
+  String get noTaksiranRecordFound => '找不到门牌税记录。';
 
   @override
-  String get noSewaanRecordFound => '找不到租赁记录';
+  String get noSewaanRecordFound => '找不到租赁记录。';
 
   @override
-  String get noSewaanPaymentRecordFound => '找不到租赁付款记录';
+  String get noSewaanPaymentRecordFound => '找不到租金付款记录。';
 
   @override
-  String get noTaksiranPaymentRecordFound => '找不到评估税付款记录';
+  String get noTaksiranPaymentRecordFound => '找不到门牌税付款记录。';
 
   @override
-  String get unknownService => '无法识别的服务。';
+  String get unknownService => '无法识别此服务。';
 
   @override
-  String get connectionFailed => '连接失败，请重试。';
+  String get connectionFailed => '连接失败，请再试一次。';
 
   @override
-  String get inputRegistrationOrAccountNo => '请输入注册号 / 账号';
+  String get inputRegistrationOrAccountNo => '请输入登记号码或户口号码';
 
   @override
-  String get inputSewaanRegistrationOrAccountNo => '请输入租赁注册号 / 账号';
+  String get inputSewaanRegistrationOrAccountNo => '请输入租赁登记号码或户口号码';
 
   @override
-  String get inputTaksiranRegistrationOrAccountNo => '请输入评估税注册号 / 账号';
+  String get inputTaksiranRegistrationOrAccountNo => '请输入门牌税登记号码或户口号码';
 
   @override
   String get scrollup => '向上滚动';
@@ -72,10 +72,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get comingsoonText => '即将推出';
 
   @override
-  String get p3rentTitle => '租赁选项';
+  String get p3rentTitle => '租赁服务';
 
   @override
-  String get p3rentSubtitle => '请选择您的选项';
+  String get p3rentSubtitle => '请选择要办理的事项';
 
   @override
   String get p3dewanButton => '礼堂';
@@ -87,58 +87,58 @@ class AppLocalizationsZh extends AppLocalizations {
   String get p3ruangniagaButton => '商业空间';
 
   @override
-  String get p3othersTitle => '旅游服务选项';
+  String get p3othersTitle => '旅游与探索';
 
   @override
-  String get p3othersSubtitle => '请选择您的选项';
+  String get p3othersSubtitle => '请选择要办理的事项';
 
   @override
-  String get p3aduanButton => '投诉';
+  String get p3aduanButton => '投诉与反馈';
 
   @override
-  String get p3eksplorasiButton => '探索';
+  String get p3eksplorasiButton => '旅游景点';
 
   @override
   String get p3waktusolat => '祈祷时间';
 
   @override
-  String get p3map => '地图';
+  String get p3map => '地图与路线';
 
   @override
-  String get p4optioncukaiTitle => '评估税';
+  String get p4optioncukaiTitle => '门牌税';
 
   @override
-  String get p4optioncukaiSubtitle => '请选择您的选项';
+  String get p4optioncukaiSubtitle => '请选择要办理的事项';
 
   @override
-  String get p4optionsewaanTitle => '市议会租赁';
+  String get p4optionsewaanTitle => '市议会租金';
 
   @override
-  String get p4optionsewaanSubtitle => '请选择您的选项';
+  String get p4optionsewaanSubtitle => '请选择要办理的事项';
 
   @override
-  String get paymentsewaan => '进行付款';
+  String get paymentsewaan => '缴付租金';
 
   @override
-  String get semakansewaantitle => '查询租赁付款';
+  String get semakansewaantitle => '租金付款记录';
 
   @override
-  String get checkbuttonsewaan => '查询付款';
+  String get checkbuttonsewaan => '查看付款记录';
 
   @override
-  String get checkbuttontax => '查询付款';
+  String get checkbuttontax => '查看付款记录';
 
   @override
-  String get paymenttax => '进行付款';
+  String get paymenttax => '缴付门牌税';
 
   @override
-  String get semakancukaititle => '查询税款付款';
+  String get semakancukaititle => '门牌税付款记录';
 
   @override
-  String get noPaymentRecordsFound => '找不到付款记录';
+  String get noPaymentRecordsFound => '没有找到付款记录。';
 
   @override
-  String get assessmentTaxPaymentTransactionList => '评估税付款交易列表';
+  String get assessmentTaxPaymentTransactionList => '门牌税付款交易列表';
 
   @override
   String get account => '账户';
@@ -186,10 +186,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get close => '关闭';
 
   @override
-  String get semakanWarningTitle => '重要通知';
+  String get semakanWarningTitle => '温馨提醒';
 
   @override
-  String get semakanWarningMessage => '付款查询仅适用于通过本自助服务终端进行的交易。透过其他渠道进行的付款可能不会显示。';
+  String get semakanWarningMessage => '这里只能查询通过本自助终端完成的付款。其他渠道的付款可能不会显示。';
 
   @override
   String get cancelButton => '取消';
@@ -198,10 +198,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get continueButton => '继续';
 
   @override
-  String get semakanSewaanWarningTitle => '重要通知';
+  String get semakanSewaanWarningTitle => '温馨提醒';
 
   @override
-  String get semakanSewaanWarningMessage => '租赁付款查询仅适用于通过本自助服务终端进行的交易。透过其他渠道进行的付款可能不会显示。';
+  String get semakanSewaanWarningMessage => '这里只能查询通过本自助终端缴付的租金。其他渠道的付款可能不会显示。';
 
   @override
   String get pwaktusolattitle => '祈祷时间';
@@ -216,37 +216,37 @@ class AppLocalizationsZh extends AppLocalizations {
   String get mapsubtitle => '探索并了解您周围的一切';
 
   @override
-  String get p3Title => '市议会服务';
+  String get p3Title => '地方政府服务';
 
   @override
-  String get p3Subtitle => '请选择您的选项';
+  String get p3Subtitle => '请选择要办理的事项';
 
   @override
   String get parkirButton => '停车';
 
   @override
-  String get compoundButton => '罚款';
+  String get compoundButton => '罚单';
 
   @override
-  String get taxButton => '评估税';
+  String get taxButton => '门牌税';
 
   @override
-  String get compoundTitle => '罚款';
+  String get compoundTitle => '缴付罚单';
 
   @override
   String get aduanTitle => '投诉';
 
   @override
-  String get singlecompoundTitle => '单一罚款';
+  String get singlecompoundTitle => '按罚单编号查询';
 
   @override
-  String get multicompoundTitle => '多项罚款';
+  String get multicompoundTitle => '按车牌号码查询';
 
   @override
-  String get compoundSubtitle => '选择查询方式';
+  String get compoundSubtitle => '您想怎样查询？';
 
   @override
-  String get singleCompoundButton => '罚款编号';
+  String get singleCompoundButton => '罚单编号';
 
   @override
   String get multiCompoundButton => '车牌号码';
@@ -255,25 +255,25 @@ class AppLocalizationsZh extends AppLocalizations {
   String get licenseButton => '执照';
 
   @override
-  String get inputPlateHint => '请输入您的车牌号码';
+  String get inputPlateHint => '请输入车牌号码';
 
   @override
-  String get inputICHint => '请输入您的身份证号码';
+  String get inputICHint => '请输入身份证号码';
 
   @override
-  String get inputCompoundHint => '请输入罚款编号';
+  String get inputCompoundHint => '请输入罚单编号';
 
   @override
-  String get inputTaxHint => '请输入账号/身份证/公司注册号';
+  String get inputTaxHint => '请输入户口、身份证或SSM号码';
 
   @override
-  String get pbil3Title => '账单选项';
+  String get pbil3Title => '缴费与充值';
 
   @override
-  String get pbilelectric3Title => '电费账单选项';
+  String get pbilelectric3Title => '电费账单';
 
   @override
-  String get pbil3Subtitle => '请选择您的选项';
+  String get pbil3Subtitle => '请选择要办理的事项';
 
   @override
   String get electricitybutton => '电费账单';
@@ -306,28 +306,28 @@ class AppLocalizationsZh extends AppLocalizations {
   String get alertTitle => '提示';
 
   @override
-  String get alertEnterInfo => '请输入信息后再继续。';
+  String get alertEnterInfo => '请先填写资料。';
 
   @override
   String get alertEnterIC => '请输入身份证号码。';
 
   @override
-  String get alertNoTaxRecord => '找不到税务记录。';
+  String get alertNoTaxRecord => '找不到门牌税记录，请检查号码后重试。';
 
   @override
   String get alertNoLicenseRecord => '找不到执照记录。';
 
   @override
-  String get alertEnterPlateNo => '请输入车辆注册号码。';
+  String get alertEnterPlateNo => '请输入车牌号码。';
 
   @override
-  String get alertNoCompoundRecord => '找不到罚款记录。';
+  String get alertNoCompoundRecord => '这个号码没有罚单记录。';
 
   @override
-  String get alertEnterCompoundNo => '请输入罚款编号。';
+  String get alertEnterCompoundNo => '请输入罚单编号。';
 
   @override
-  String get alertEnterSewaan => '请输入账号。';
+  String get alertEnterSewaan => '请输入租赁户口号码。';
 
   @override
   String get alertNoSewaan => '找不到租赁记录。';
@@ -369,7 +369,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get parkingStartTimeDisclaimer => '免责声明：停车开始时间将在您成功完成付款后才开始计算。';
+  String get parkingStartTimeDisclaimer => '停车时间只会在付款成功后开始计算。';
 
   @override
   String receiptDurationValue(int hours) {
@@ -407,7 +407,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get time => '小时';
 
   @override
-  String get confirmDialogTitle => '如信息正确请按确定';
+  String get confirmDialogTitle => '确认您的选择';
 
   @override
   String plateNumberLabel(Object plate) {
@@ -448,7 +448,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get totalAmountText => '总金额';
 
   @override
-  String get cardButton => '银行卡付款';
+  String get cardButton => '刷卡付款';
 
   @override
   String get qrButton => '使用 DUITNOW QR 付款';
@@ -457,10 +457,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get weAcceptText => '我们接受：';
 
   @override
-  String get cardConfirmTitle => '确认卡付款';
+  String get cardConfirmTitle => '确认刷卡付款';
 
   @override
-  String get cardConfirmMessage => '您确定要使用借记卡或信用卡付款吗？\n\n在继续之前：\n• 请准备好您的卡。\n• 在收到指示时将卡靠近读卡器。\n• 在听到提示音之前请勿移开卡片。';
+  String get cardConfirmMessage => '确定使用借记卡或信用卡付款吗？\n\n继续前请注意：\n• 准备好您的卡。\n• 按提示将卡轻触读卡器。\n• 听到提示音后才移开卡片。';
 
   @override
   String get cardConfirmContinue => '继续';
@@ -472,31 +472,31 @@ class AppLocalizationsZh extends AppLocalizations {
   String get paymentCancelling => '正在取消付款';
 
   @override
-  String get paymentCancellingInstruction => '未检测到卡片。\n交易正在取消中...\n请稍候。';
+  String get paymentCancellingInstruction => '未检测到卡片。\n正在取消付款，请稍候……';
 
   @override
-  String get paymentTapYourCard => '请感应您的卡片';
+  String get paymentTapYourCard => '请轻触卡片';
 
   @override
-  String get paymentTapCardInstruction => '请将卡片轻触读卡器\n直到听到“哔”声';
+  String get paymentTapCardInstruction => '将卡片靠近读卡器，\n听到提示音后再移开。';
 
   @override
-  String get paymentProcessing => '正在处理';
+  String get paymentProcessing => '正在处理付款';
 
   @override
-  String get paymentProcessingInstruction => '请稍候，我们正在处理\n您的付款...';
+  String get paymentProcessingInstruction => '正在处理您的付款……\n请稍候。';
 
   @override
   String get paymentSuccessful => '付款成功';
 
   @override
-  String get paymentSuccessInstruction => '正在跳转至收据...';
+  String get paymentSuccessInstruction => '正在打开收据……';
 
   @override
   String get paymentFailed => '付款失败';
 
   @override
-  String get paymentFailedInstruction => '请重试';
+  String get paymentFailedInstruction => '请重试，或选择其他付款方式。';
 
   @override
   String get titleReceiptParking => '停车收据';
@@ -560,16 +560,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get receiptEndTimeLabel2 => '结束时间';
 
   @override
-  String get receiptScanQrText2 => '请扫描二维码以获取完整收据信息';
+  String get receiptScanQrText2 => '用手机扫描此二维码，查看完整收据。';
 
   @override
-  String get receiptScanQrText => '请扫描二维码以获取完整收据信息';
+  String get receiptScanQrText => '用手机扫描此二维码，查看完整收据。';
 
   @override
   String get p5extendparkingTitle => '延长停车时间';
 
   @override
-  String get p5extendparkingSubtitle => '请选择您的选项';
+  String get p5extendparkingSubtitle => '请选择';
 
   @override
   String get plusTimeButton => '增加\n时间';
@@ -592,10 +592,10 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get p5TaxTitle => '税务选项';
+  String get p5TaxTitle => '选择门牌税账单';
 
   @override
-  String get p5TaxSubtitle => '请选择您要缴付的税款';
+  String get p5TaxSubtitle => '请选择要缴付的门牌税账单';
 
   @override
   String get taxSelectAll => '全选';
@@ -613,7 +613,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get taxAlertTitle => '提示';
 
   @override
-  String get taxAlertSelectAtLeastOne => '请至少选择一项税款';
+  String get taxAlertSelectAtLeastOne => '请至少选择一张门牌税账单。';
 
   @override
   String get taxHeaderBillNo => '账单编号';
@@ -628,10 +628,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get taxHeaderAmount => '金额 (RM)';
 
   @override
-  String get p5LicenseTitle => '执照选项';
+  String get p5LicenseTitle => '选择执照';
 
   @override
-  String get p5LicenseSubtitle => '请选择您要缴付的执照';
+  String get p5LicenseSubtitle => '请选择要缴费的执照';
 
   @override
   String get licenseSelectAll => '全选';
@@ -655,7 +655,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get licenseAlertTitle => '提示';
 
   @override
-  String get licenseAlertSelectAtLeastOne => '请至少选择一项执照';
+  String get licenseAlertSelectAtLeastOne => '请至少选择一项执照。';
 
   @override
   String get licenseBackButton => '返回';
@@ -669,13 +669,13 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get p5MultiCompoundTitle => '罚款选项';
+  String get p5MultiCompoundTitle => '选择罚单';
 
   @override
-  String get p5MultiCompoundSubtitle => '请选择您要缴付的罚款';
+  String get p5MultiCompoundSubtitle => '请选择要缴付的罚单';
 
   @override
-  String get multiCompoundAlertSelectAtLeastOne => '请至少选择一项罚款';
+  String get multiCompoundAlertSelectAtLeastOne => '请至少选择一张罚单。';
 
   @override
   String get multiCompoundHeaderNo => '罚款编号';
@@ -755,37 +755,37 @@ class AppLocalizationsZh extends AppLocalizations {
   String get jomKeBentongGallery => '文冬走一趟画廊';
 
   @override
-  String get jomKeBentongDesc => '文冬的历史景点';
+  String get jomKeBentongDesc => '走进文冬，认识这座小镇的历史与文化。';
 
   @override
-  String get jomKeBentongFull => '“文冬走一趟”画廊透过老照片、传统器具和城市发展的故事，介绍文冬的历史与文化遗产。';
+  String get jomKeBentongFull => '来到这座画廊，从老照片、传统物件和小镇的发展故事中认识文冬的过去。这里不只是展示历史，也带您了解当地人的生活、文化与这座老镇一路走来的变化。';
 
   @override
   String get jandaBaikTitle => '彭亨振达拜';
 
   @override
-  String get jandaBaikDesc => '一起探索振达拜的美';
+  String get jandaBaikDesc => '走进绿意山林，享受清凉河水与宁静乡村。';
 
   @override
-  String get jandaBaikFull => '振达拜是一个宁静的生态旅游胜地，四周环绕着森林、河流和瀑布，适合悠闲度假和亲近大自然的活动。';
+  String get jandaBaikFull => '想暂时远离城市的忙碌，不妨到振达拜放慢脚步。这里有绿意盎然的森林、清凉的溪流和宁静的乡村景色。您可以在河边休息、享受自然住宿，或视天气与经营者安排体验林间漫步、骑行等户外活动。';
 
   @override
   String get bentongWalkTitle => '文冬步行街';
 
   @override
-  String get bentongWalkDesc => '一起在文冬步行街逛逛';
+  String get bentongWalkDesc => '边走边吃，感受文冬街头的热闹与人情味。';
 
   @override
-  String get bentongWalkFull => '文冬步行街是一个现代化的公共区域，设有美食摊位、咖啡馆和活动空间，深受游客欢迎。';
+  String get bentongWalkFull => '不妨放慢脚步，在文冬市区走走，感受这座老镇的人情味。街头美食、地方活动和热闹的社区氛围，让旅客看见文冬自然风光之外的另一面。实际活动会因日期和当地安排而不同。';
 
   @override
   String get lemangTokKiTitle => 'Tok\'Ki竹筒饭';
 
   @override
-  String get lemangTokKiDesc => '文冬著名的竹筒饭';
+  String get lemangTokKiDesc => '到文冬尝尝香喷喷的传统竹筒饭。';
 
   @override
-  String get lemangTokKiFull => 'Tok\'Ki竹筒饭以使用糯米和椰浆在竹筒中烹煮的传统竹筒饭闻名。';
+  String get lemangTokKiFull => 'Lemang To’ki 是文冬颇受欢迎的美食站，招牌是以糯米、椰浆放入竹筒中慢慢烹煮的传统竹筒饭，香气十足。来到这里，不妨尝尝这道马来西亚特色美食；若有供应，也可以搭配烤鸡等当地料理。';
 
   @override
   String get alorsetarExplorationTitle => '亚罗士打探索';
@@ -1020,21 +1020,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String receiptAutoReturn(int seconds) {
-    return '将在$seconds秒后返回主菜单';
+    return '$seconds 秒后返回主页。';
   }
 
   @override
-  String get idleTitle => '您仍在使用此服务吗？';
+  String get idleTitle => '您还在使用吗？';
 
   @override
-  String get idleContinue => '继续';
+  String get idleContinue => '继续使用';
 
   @override
   String get idleGoHome => '返回主页';
 
   @override
   String idleMessage(int seconds) {
-    return '您将在$seconds秒后返回主页。';
+    return '$seconds 秒后将返回主页。';
   }
 
   @override
@@ -2658,25 +2658,25 @@ class AppLocalizationsZh extends AppLocalizations {
   String get sewaanNoRecord => '找不到租赁记录';
 
   @override
-  String get taksiranTitle => '评估税';
+  String get taksiranTitle => '门牌税';
 
   @override
-  String get taksiranSelectPayment => '请选择欲缴付的评估税';
+  String get taksiranSelectPayment => '请选择欲缴付的门牌税';
 
   @override
-  String get taksiranDetailsTitle => '评估税详情';
+  String get taksiranDetailsTitle => '门牌税详情';
 
   @override
-  String get taksiranNoData => '找不到评估税数据';
+  String get taksiranNoData => '找不到门牌税数据';
 
   @override
-  String get taksiranSelectAlert => '请至少选择一项评估税。';
+  String get taksiranSelectAlert => '请至少选择一项门牌税。';
 
   @override
   String get taksiranNoAmountAlert => '没有需要缴付的税款。';
 
   @override
-  String get taksiranNoRecord => '找不到评估税记录';
+  String get taksiranNoRecord => '找不到门牌税记录';
 
   @override
   String get notice => '通知';
@@ -4173,97 +4173,97 @@ class AppLocalizationsZh extends AppLocalizations {
   String get serviceSelectionLabel => '服务选项';
 
   @override
-  String get pbtSupportingText => '查询与缴付市政服务账单';
+  String get pbtSupportingText => '在这里查询及缴付门牌税、罚单和市议会租金。';
 
   @override
-  String get billSupportingText => '账单缴付、充值、游戏点数、礼券及更多服务。';
+  String get billSupportingText => '缴付账单、充值预付额或购买电子礼券。';
 
   @override
-  String get touristSupportingText => '探索周边有趣地点及设施';
+  String get touristSupportingText => '发现附近好玩的地方、当地美食和休闲活动。';
 
   @override
   String get tourismServiceLabel => '旅游服务';
 
   @override
-  String get explorationSupportingText => '探索有趣地点及本地景点';
+  String get explorationSupportingText => '寻找值得一游的本地景点与特色去处。';
 
   @override
-  String get mapSupportingText => '使用互动地图查看位置及导航';
+  String get mapSupportingText => '在地图上找地点，并查看前往路线。';
 
   @override
-  String get prayerTimeSupportingText => '查看最新每日祈祷时间';
+  String get prayerTimeSupportingText => '查看本区今天的祈祷时间。';
 
   @override
   String get pbtServiceLabel => '地方政府机构服务';
 
   @override
-  String get parkingSupportingText => '缴付停车费及管理停车时段';
+  String get parkingSupportingText => '缴付停车费，或延长停车时间。';
 
   @override
-  String get compoundSupportingText => '查询及缴付车辆罚款';
+  String get compoundSupportingText => '查询车辆罚单，并在这里缴付。';
 
   @override
-  String get taxSupportingText => '查询及缴付评估税账户';
+  String get taxSupportingText => '查询门牌税，并缴清未付账单。';
 
   @override
-  String get licenseSupportingText => '查询及缴付商业执照账户';
+  String get licenseSupportingText => '查询营业执照并缴付相关费用。';
 
   @override
-  String get rentalSupportingText => '查询及缴付市议会租赁账户';
+  String get rentalSupportingText => '查询并缴付市议会租金。';
 
   @override
   String get compoundServiceLabel => '罚款服务';
 
   @override
-  String get singleCompoundSupportingText => '使用单一罚款编号查询及缴付';
+  String get singleCompoundSupportingText => '输入罚单编号即可查询及付款。';
 
   @override
-  String get multiCompoundSupportingText => '使用车牌号码查询所有罚款并进行缴付';
+  String get multiCompoundSupportingText => '输入车牌号码，查询并缴付罚单。';
 
   @override
-  String get assessmentTaxServiceLabel => '评估税服务';
+  String get assessmentTaxServiceLabel => '门牌税服务';
 
   @override
-  String get paymentTaxSupportingText => '查询评估税欠款并进行付款';
+  String get paymentTaxSupportingText => '查看未缴门牌税，并直接付款。';
 
   @override
-  String get checkTaxSupportingText => '查询在本自助服务终端进行的评估税付款';
+  String get checkTaxSupportingText => '查看在本终端缴付的门牌税记录。';
 
   @override
   String get rentalServiceLabel => '市议会租赁服务';
 
   @override
-  String get paymentRentalSupportingText => '查询市议会租赁欠款并进行付款';
+  String get paymentRentalSupportingText => '查询租金欠款，并直接付款。';
 
   @override
-  String get checkRentalSupportingText => '查询在本自助服务终端进行的市议会租赁付款';
+  String get checkRentalSupportingText => '查看在本终端缴付的租金记录。';
 
   @override
   String get parkingManagementLabel => '停车管理';
 
   @override
-  String get extendParkingSupportingText => '增加当前停车时段的时长';
+  String get extendParkingSupportingText => '为目前的停车时段增加时间。';
 
   @override
-  String get parkingReceiptSupportingText => '查看及下载停车付款收据';
+  String get parkingReceiptSupportingText => '查看您的停车付款收据。';
 
   @override
   String get billPaymentServiceLabel => '账单付款服务';
 
   @override
-  String get electricityBillSupportingText => '查询及缴付受支持供应商的电费账单';
+  String get electricityBillSupportingText => '查询并缴付电费账单。';
 
   @override
-  String get waterBillSupportingText => '查询及缴付受支持供应商的水费账单';
+  String get waterBillSupportingText => '查询并缴付水费账单。';
 
   @override
-  String get broadbandBillSupportingText => '查询及缴付宽频及互联网服务账单';
+  String get broadbandBillSupportingText => '查询并缴付网络账单。';
 
   @override
-  String get entertainmentBillSupportingText => '查询及缴付电视及娱乐服务账单';
+  String get entertainmentBillSupportingText => '查询并缴付电视及娱乐账单。';
 
   @override
-  String get telcoBillSupportingText => '查询及缴付手机及电信账单';
+  String get telcoBillSupportingText => '查询并缴付手机或电信账单。';
 
   @override
   String get mapInteractiveBadge => '互动地图';
@@ -4366,25 +4366,25 @@ class AppLocalizationsZh extends AppLocalizations {
   String get faqButton => '常见问题';
 
   @override
-  String get faqSupportingText => '有关自助服务终端使用、付款及收据的帮助';
+  String get faqSupportingText => '需要操作、付款或收据方面的帮助？请看这里。';
 
   @override
   String get faqTitle => '常见问题';
 
   @override
-  String get faqSubtitle => '点击下方问题以查看答案';
+  String get faqSubtitle => '点选问题即可查看答案。';
 
   @override
   String get faqWhatIsKioskTitle => '什么是TIP自助服务终端？';
 
   @override
-  String get faqWhatIsKioskContent => '智能综合服务终端（TIP）是一款自助服务终端，旨在让公众更快速、更方便、更安全地获取信息、进行查询及付款。\n\n本终端提供市政厅、县议会或市议会的服务，如停车、罚款、评估税、租赁及市议会提供的其他服务。';
+  String get faqWhatIsKioskContent => '智能综合服务终端（TIP）是一款自助服务终端，旨在让公众更快速、更方便、更安全地获取信息、进行查询及付款。\n\n本终端提供市政厅、县议会或市议会的服务，如停车、罚款、门牌税、租赁及市议会提供的其他服务。';
 
   @override
   String get faqCouncilServicesTitle => '本终端提供哪些市议会服务？';
 
   @override
-  String get faqCouncilServicesContent => '通过本终端可提供的市议会服务包括：\n\n• 停车付款\n• 罚款查询及付款\n• 评估税查询及付款\n• 市议会租赁查询及付款\n• 执照付款\n• 市议会提供的其他服务\n\n服务清单可能因不同市议会而异。';
+  String get faqCouncilServicesContent => '通过本终端可提供的市议会服务包括：\n\n• 停车付款\n• 罚款查询及付款\n• 门牌税查询及付款\n• 市议会租赁查询及付款\n• 执照付款\n• 市议会提供的其他服务\n\n服务清单可能因不同市议会而异。';
 
   @override
   String get faqBillServicesTitle => '本终端提供哪些账单服务？';
@@ -4429,16 +4429,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get faqTipsContent => '• 请确保正确输入账号或参考号码。\n• 在继续之前检查客户姓名及账单详情。\n• 在进行交易前检查付款金额。\n• 在扫描二维码之前请勿关闭收据页面。\n• 保存电子收据作为参考。\n• 请勿与不明人士分享付款信息。';
 
   @override
-  String get faqHelpTitle => '疑难排解与帮助';
+  String get faqHelpTitle => '需要帮助？';
 
   @override
-  String get faqHelpContent => '如屏幕无反应、屏幕空白、付款卡住、二维码未显示或发生其他任何问题，请联系：';
+  String get faqHelpContent => '如果屏幕没有反应、付款中断或二维码没有出现，请联系：';
 
   @override
   String get weatherButton => '天气';
 
   @override
-  String get weatherSupportingText => '查看霹雳州怡保未来7天的官方天气预报';
+  String get weatherSupportingText => '查看未来7天天气预报';
 
   @override
   String weatherPageTitle(Object place) {
@@ -7540,7 +7540,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get p2MainServicesTitle => '主要服务';
 
   @override
-  String get p2FrequentlyUsedTitle => '常用服务';
+  String get p2FrequentlyUsedTitle => '快捷服务';
 
   @override
   String get p2DidYouKnowTitle => '你知道吗？';

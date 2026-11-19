@@ -246,9 +246,9 @@ class _PBAHASAPAGEState extends State<PBAHASAPAGE> {
                             // MALAYSIAN MANDARIN
                             // ================================================
                             _languageButton(
-                              title: '中文',
+                              title: 'MANDARIN',
                               subtitle: '轻触以继续',
-                              languageCode: '中文',
+                              languageCode: 'ZH',
                               icon:
                                   Icons.translate_rounded,
                               mainColor:
@@ -275,9 +275,9 @@ class _PBAHASAPAGEState extends State<PBAHASAPAGE> {
                            // TAMIL
                            // ================================================
                            _languageButton(
-                             title: 'தமிழ்',
+                             title: 'TAMIL',
                              subtitle: 'தொடர இங்கே தொடவும்',
-                             languageCode: 'தமிழ்',
+                             languageCode: 'TA',
                              icon: Icons.translate_rounded,
                              mainColor: const Color(0xFF6A1B9A),
                              lightColor: const Color(0xFFF3E5F5),
@@ -563,233 +563,249 @@ class _PremiumLanguageButton extends StatefulWidget {
       _PremiumLanguageButtonState();
 }
 
-class _PremiumLanguageButtonState
-    extends State<_PremiumLanguageButton> {
+class _PremiumLanguageButtonState extends State<_PremiumLanguageButton> {
+  // Let the user see the selected card before switching language/pages.
+  static const Duration _pressFeedbackDuration = Duration(milliseconds: 170);
+
   bool _isPressed = false;
+  bool _isHovered = false;
+  bool _navigationPending = false;
 
   void _setPressed(bool value) {
-    if (!mounted) {
-      return;
-    }
+    if (!mounted || _isPressed == value) return;
+    setState(() => _isPressed = value);
+  }
 
-    setState(() {
-      _isPressed = value;
-    });
+  void _setHovered(bool value) {
+    if (!mounted || _isHovered == value) return;
+    setState(() => _isHovered = value);
+  }
+
+  Future<void> _handleSelection() async {
+    // Ignore repeated taps while feedback/navigation is in progress.
+    if (_navigationPending) return;
+    _navigationPending = true;
+    _setPressed(true);
+
+    await Future<void>.delayed(_pressFeedbackDuration);
+    if (!mounted) return;
+
+    try {
+      // Existing language selection and P2Page navigation remain unchanged.
+      widget.onTap();
+    } finally {
+      // Restore the card when this route remains in the navigation stack.
+      await Future<void>.delayed(const Duration(milliseconds: 300));
+      if (mounted) {
+        _navigationPending = false;
+        _setPressed(false);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTapDown: (_) {
-        _setPressed(true);
-      },
-      onTapUp: (_) {
-        _setPressed(false);
-      },
-      onTapCancel: () {
-        _setPressed(false);
-      },
-      onTap: widget.onTap,
-      child: AnimatedScale(
-        scale: _isPressed ? 0.975 : 1,
-        duration: const Duration(
-          milliseconds: 120,
-        ),
-        curve: Curves.easeOut,
-        child: AnimatedContainer(
-          duration: const Duration(
-            milliseconds: 160,
-          ),
-          width: double.infinity,
-          height: 210,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 28,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.98),
-            borderRadius: BorderRadius.circular(38),
-            border: Border.all(
+    final active = _isPressed || _isHovered;
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => _setHovered(true),
+      onExit: (_) => _setHovered(false),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTapDown: (_) => _setPressed(true),
+        onTapCancel: () {
+          if (!_navigationPending) _setPressed(false);
+        },
+        onTap: _handleSelection,
+        child: AnimatedScale(
+          scale: _isPressed ? 0.952 : (_isHovered ? 0.994 : 1.0),
+          duration: const Duration(milliseconds: 115),
+          curve: Curves.easeOutCubic,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
+            curve: Curves.easeOutCubic,
+            width: double.infinity,
+            height: 210,
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            decoration: BoxDecoration(
               color: _isPressed
-                  ? widget.mainColor
-                  : widget.mainColor.withOpacity(0.70),
-              width: _isPressed ? 4 : 3,
+                  ? Color.lerp(Colors.white, widget.lightColor, 0.55)
+                  : _isHovered
+                      ? Color.lerp(Colors.white, widget.lightColor, 0.16)
+                      : Colors.white.withOpacity(0.98),
+              borderRadius: BorderRadius.circular(38),
+              border: Border.all(
+                color: active
+                    ? widget.mainColor
+                    : widget.mainColor.withOpacity(0.70),
+                width: _isPressed ? 4.5 : (_isHovered ? 3.5 : 3),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: _isPressed
+                      ? widget.mainColor.withOpacity(0.18)
+                      : _isHovered
+                          ? widget.mainColor.withOpacity(0.15)
+                          : const Color(0xFF273B52).withOpacity(0.15),
+                  blurRadius: _isPressed ? 7 : (_isHovered ? 18 : 24),
+                  offset: Offset(0, _isPressed ? 2 : (_isHovered ? 8 : 12)),
+                ),
+              ],
             ),
-            boxShadow: _isPressed
-                ? [
-                    BoxShadow(
-                      color: widget.mainColor
-                          .withOpacity(0.16),
-                      blurRadius: 12,
-                      offset: const Offset(0, 6),
+            child: Row(
+              children: [
+                // Original icon artwork and optical alignment are preserved.
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 150),
+                  width: 145,
+                  height: 145,
+                  decoration: BoxDecoration(
+                    color: widget.lightColor,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: widget.mainColor.withOpacity(
+                        _isPressed ? 0.52 : (_isHovered ? 0.32 : 0.20),
+                      ),
+                      width: _isPressed ? 3 : 2,
                     ),
-                  ]
-                : [
-                    BoxShadow(
-                      color: const Color(0xFF273B52)
-                          .withOpacity(0.15),
-                      blurRadius: 24,
-                      offset: const Offset(0, 12),
-                    ),
-                  ],
-          ),
-          child: Row(
-            children: [
-              // ==============================================================
-              // ICON
-              // ==============================================================
-              Container(
-                width: 145,
-                height: 145,
-                decoration: BoxDecoration(
-                  color: widget.lightColor,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: widget.mainColor
-                        .withOpacity(0.20),
-                    width: 2,
+                  ),
+                  child: widget.languageCode == 'TA' ||
+                          widget.languageCode == 'ZH'
+                      ? Center(
+                          child: Transform.translate(
+                            offset: widget.languageCode == 'TA'
+                                ? const Offset(2, -7)
+                                : const Offset(0, -4),
+                            child: Text(
+                              widget.languageCode == 'TA' ? 'அ' : '中',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: widget.mainColor,
+                                fontSize:
+                                    widget.languageCode == 'TA' ? 68 : 75,
+                                fontWeight: FontWeight.w800,
+                                height: 1.0,
+                              ),
+                            ),
+                          ),
+                        )
+                      : Icon(
+                          widget.icon,
+                          size: 76,
+                          color: widget.mainColor,
+                        ),
+                ),
+                const SizedBox(width: 30),
+                // Original title, subtitle, and decorative bars.
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Color(0xFF1F2E3D),
+                          fontSize: 43,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 11),
+                      Text(
+                        widget.subtitle,
+                        style: const TextStyle(
+                          color: Color(0xFF5F6D7C),
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        children: [
+                          Container(
+                            width: 52,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              color: widget.mainColor,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Container(
+                            width: 13,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              color: widget.mainColor.withOpacity(0.25),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                child: Icon(
-                  widget.icon,
-                  size: 76,
-                  color: widget.mainColor,
-                ),
-              ),
-
-              const SizedBox(width: 30),
-
-              // ==============================================================
-              // TITLE AND SUBTITLE
-              // ==============================================================
-              Expanded(
-                child: Column(
-                  mainAxisAlignment:
-                      MainAxisAlignment.center,
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                const SizedBox(width: 20),
+                // Original language code and arrow, with stronger press motion.
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      widget.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: Color(0xFF1F2E3D),
-                        fontSize: 43,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 0.5,
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: widget.lightColor,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Text(
+                        widget.languageCode,
+                        style: TextStyle(
+                          color: widget.mainColor,
+                          fontSize: 19,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing:
+                              widget.languageCode == '中文' ? 0 : 1.3,
+                        ),
                       ),
                     ),
-
-                    const SizedBox(height: 11),
-
-                    Text(
-                      widget.subtitle,
-                      style: const TextStyle(
-                        color: Color(0xFF5F6D7C),
-                        fontSize: 25,
-                        fontWeight: FontWeight.w600,
+                    const SizedBox(height: 18),
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 150),
+                      transform: Matrix4.translationValues(
+                        _isPressed ? 10 : (_isHovered ? 3 : 0),
+                        0,
+                        0,
                       ),
-                    ),
-
-                    const SizedBox(height: 15),
-
-                    Row(
-                      children: [
-                        Container(
-                          width: 52,
-                          height: 6,
-                          decoration: BoxDecoration(
-                            color: widget.mainColor,
-                            borderRadius:
-                                BorderRadius.circular(50),
+                      width: 65,
+                      height: 65,
+                      decoration: BoxDecoration(
+                        color: widget.mainColor,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: widget.mainColor.withOpacity(
+                              _isPressed ? 0.12 : 0.22,
+                            ),
+                            blurRadius: _isPressed ? 6 : 12,
+                            offset: Offset(0, _isPressed ? 2 : 6),
                           ),
-                        ),
-                        const SizedBox(width: 8),
-                        Container(
-                          width: 13,
-                          height: 6,
-                          decoration: BoxDecoration(
-                            color: widget.mainColor
-                                .withOpacity(0.25),
-                            borderRadius:
-                                BorderRadius.circular(50),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.arrow_forward_rounded,
+                        color: Colors.white,
+                        size: 36,
+                      ),
                     ),
                   ],
                 ),
-              ),
-
-              const SizedBox(width: 20),
-
-              // ==============================================================
-              // LANGUAGE CODE AND ARROW
-              // ==============================================================
-              Column(
-                mainAxisAlignment:
-                    MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: widget.lightColor,
-                      borderRadius:
-                          BorderRadius.circular(100),
-                    ),
-                    child: Text(
-                      widget.languageCode,
-                      style: TextStyle(
-                        color: widget.mainColor,
-                        fontSize: 19,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing:
-                            widget.languageCode == '中文'
-                                ? 0
-                                : 1.3,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 18),
-
-                  AnimatedContainer(
-                    duration: const Duration(
-                      milliseconds: 150,
-                    ),
-                    transform:
-                        Matrix4.translationValues(
-                      _isPressed ? 6 : 0,
-                      0,
-                      0,
-                    ),
-                    width: 65,
-                    height: 65,
-                    decoration: BoxDecoration(
-                      color: widget.mainColor,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: widget.mainColor
-                              .withOpacity(0.22),
-                          blurRadius: 12,
-                          offset: const Offset(0, 6),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.arrow_forward_rounded,
-                      color: Colors.white,
-                      size: 36,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1189,21 +1189,19 @@ void _showAlert(
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color(0xFFE0E0E0),
-                          foregroundColor: Colors.black,
-                          disabledBackgroundColor:
-                              Colors.grey[400],
-                          disabledForegroundColor:
-                              Colors.black54,
-                          elevation: 0,
+                          backgroundColor: const Color(0xFFFAFCFF),
+                          foregroundColor: const Color(0xFF183B65),
+                          disabledBackgroundColor: const Color(0xFFE6EDF4),
+                          disabledForegroundColor: const Color(0xFF8195AA),
+                          shadowColor: const Color(0xFF173A66).withOpacity(0.20),
+                          elevation: 6,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           side: const BorderSide(
-                            color: Colors.black,
+                            color: Color(0xFFB9CEE2),
                             width: 2,
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(18),
+                            borderRadius: BorderRadius.circular(26),
                           ),
                         ),
                       ),
@@ -1220,21 +1218,19 @@ void _showAlert(
                         onPressed:
                             _isLoading ? null : _handleContinue,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color(0xFF16813B),
+                          backgroundColor: const Color(0xFF12834A),
                           foregroundColor: Colors.white,
-                          disabledBackgroundColor:
-                              Colors.green.shade300,
-                          disabledForegroundColor:
-                              Colors.white,
-                          elevation: 0,
+                          disabledBackgroundColor: const Color(0xFF8DC6A7),
+                          disabledForegroundColor: Colors.white,
+                          shadowColor: const Color(0xFF0D753F).withOpacity(0.32),
+                          elevation: 7,
+                          padding: const EdgeInsets.symmetric(horizontal: 18),
                           side: const BorderSide(
-                            color: Colors.black,
+                            color: Color(0xFF086838),
                             width: 2,
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(18),
+                            borderRadius: BorderRadius.circular(26),
                           ),
                         ),
                         child: _isLoading

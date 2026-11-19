@@ -13,7 +13,16 @@ class Config {
   static late String apiKey;
   static late String hmacSecret;
 
-  // QR PAYMENT
+  // PIP MANAGEMENT DASHBOARD
+  static const String pipBaseUrl = 'https://pip.juaraipasifik.com';
+  static const String pipPaymentEndpoint = '/api/ingest/payments';
+  static late String pipApiKey;
+
+  // PARKING LOCATION
+  static late String negeri;
+  static late String kawasan;
+  static late String zon;
+
   static late String terminalId;
   static late String storeId;
   static late String shiftId;
@@ -125,6 +134,9 @@ class Config {
       apiKey = requiredString('apiKey');
       hmacSecret = requiredString('hmacSecret');
 
+      // PIP MANAGEMENT DASHBOARD
+      pipApiKey = (data['pipApiKey'] as String?)?.trim() ?? '';
+
       // QR PAYMENT
       terminalId = requiredString('terminalId');
       storeId = requiredString('storeId');
@@ -146,6 +158,11 @@ class Config {
 
       // PBT AREA
       pbtArea = requiredString('pbtArea');
+
+      // PARKING LOCATION
+      negeri = (data['negeri'] as String?)?.trim() ?? '';
+      kawasan = (data['kawasan'] as String?)?.trim() ?? '';
+      zon = (data['zon'] as String?)?.trim() ?? '';
 
       // WEATHER
       weatherPlaceName = requiredString('weatherPlaceName');

@@ -9,58 +9,58 @@ class AppLocalizationsTa extends AppLocalizations {
   AppLocalizationsTa([String locale = 'ta']) : super(locale);
 
   @override
-  String get bilText => 'பயன்பாட்டுக் கட்டணம்';
+  String get bilText => 'பில் கட்டணம் & ரீசார்ஜ்';
 
   @override
-  String get otherText => 'இதர சேவைகள்';
+  String get otherText => 'பிற சேவைகள்';
 
   @override
-  String get touristText => 'சுற்றுலா வழிகாட்டி';
+  String get touristText => 'உள்ளூர் தகவல்கள்';
 
   @override
-  String get p2Title => 'பல்வேறு சேவைகள்';
+  String get p2Title => 'சேவையைத் தேர்ந்தெடுக்கவும்';
 
   @override
-  String get pbtText => 'நகராட்சி சேவைக் கட்டணங்கள்';
+  String get pbtText => 'நகராட்சி சேவைகள்';
 
   @override
   String get rentText => 'இதர வாடகை';
 
   @override
-  String get rentPBTText => 'நகராட்சி வாடகை';
+  String get rentPBTText => 'மன்ற வாடகை';
 
   @override
-  String get backText => 'பின்செல்க';
+  String get backText => 'திரும்பு';
 
   @override
-  String get processingReceipt => 'செலுத்துதல் வெற்றி.\nரசீது செயலாக்கப்படுகிறது...\nதிரையைத் தொட வேண்டாம்.';
+  String get processingReceipt => 'பணம் செலுத்தப்பட்டது!\nஉங்கள் ரசீது தயாராகிறது...\nதயவுசெய்து இந்தத் திரையிலேயே இருங்கள்.';
 
   @override
-  String get noTaksiranRecordFound => 'வரிப் பதிவு இல்லை';
+  String get noTaksiranRecordFound => 'மதிப்பீட்டு வரிப் பதிவு கிடைக்கவில்லை.';
 
   @override
-  String get noSewaanRecordFound => 'வாடகை பதிவு இல்லை';
+  String get noSewaanRecordFound => 'வாடகைப் பதிவு கிடைக்கவில்லை.';
 
   @override
-  String get noSewaanPaymentRecordFound => 'வாடகை செலுத்திய பதிவு இல்லை';
+  String get noSewaanPaymentRecordFound => 'வாடகை செலுத்திய பதிவு கிடைக்கவில்லை.';
 
   @override
-  String get noTaksiranPaymentRecordFound => 'வரி செலுத்திய பதிவு இல்லை';
+  String get noTaksiranPaymentRecordFound => 'வரி செலுத்திய பதிவு கிடைக்கவில்லை.';
 
   @override
-  String get unknownService => 'தெரியாத சேவை.';
+  String get unknownService => 'இந்தச் சேவையை அடையாளம் காண முடியவில்லை.';
 
   @override
-  String get connectionFailed => 'இணைப்பு தோல்வி. மீண்டும் முயற்சிக்கவும்.';
+  String get connectionFailed => 'இணைக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.';
 
   @override
-  String get inputRegistrationOrAccountNo => 'பதிவு / கணக்கு எண் உள்ளிடுக';
+  String get inputRegistrationOrAccountNo => 'பதிவு எண் அல்லது கணக்கு எண்ணை உள்ளிடவும்';
 
   @override
-  String get inputSewaanRegistrationOrAccountNo => 'வாடகை பதிவு / கணக்கு எண் உள்ளிடுக';
+  String get inputSewaanRegistrationOrAccountNo => 'வாடகைப் பதிவு அல்லது கணக்கு எண்ணை உள்ளிடவும்';
 
   @override
-  String get inputTaksiranRegistrationOrAccountNo => 'வரி பதிவு / கணக்கு எண் உள்ளிடுக';
+  String get inputTaksiranRegistrationOrAccountNo => 'வரி பதிவு எண் அல்லது கணக்கு எண்ணை உள்ளிடவும்';
 
   @override
   String get scrollup => 'மேலே நகரவும்';
@@ -69,13 +69,13 @@ class AppLocalizationsTa extends AppLocalizations {
   String get scrolldown => 'கீழே நகரவும்';
 
   @override
-  String get comingsoonText => 'விரைவில்';
+  String get comingsoonText => 'விரைவில் வருகிறது';
 
   @override
-  String get p3rentTitle => 'வாடகைத் தேர்வு';
+  String get p3rentTitle => 'வாடகைச் சேவைகள்';
 
   @override
-  String get p3rentSubtitle => 'உங்கள் தேர்வைத் தேர்ந்தெடுக்கவும்';
+  String get p3rentSubtitle => 'நீங்கள் செய்ய விரும்புவதைத் தேர்ந்தெடுக்கவும்';
 
   @override
   String get p3dewanButton => 'மண்டபம்';
@@ -87,55 +87,55 @@ class AppLocalizationsTa extends AppLocalizations {
   String get p3ruangniagaButton => 'வணிக இடம்';
 
   @override
-  String get p3othersTitle => 'சுற்றுலாச் சேவைகள்';
+  String get p3othersTitle => 'சுற்றிப் பார்க்கலாம்';
 
   @override
-  String get p3othersSubtitle => 'உங்கள் தேர்வைத் தேர்ந்தெடுக்கவும்';
+  String get p3othersSubtitle => 'நீங்கள் செய்ய விரும்புவதைத் தேர்ந்தெடுக்கவும்';
 
   @override
-  String get p3aduanButton => 'புகார்';
+  String get p3aduanButton => 'புகார்கள்';
 
   @override
-  String get p3eksplorasiButton => 'சுற்றுலா ஆய்வு';
+  String get p3eksplorasiButton => 'சுற்றுலாத் தலங்கள்';
 
   @override
-  String get p3waktusolat => 'தொழுகை நேரம்';
+  String get p3waktusolat => 'தொழுகை நேரங்கள்';
 
   @override
-  String get p3map => 'வரைபடம்';
+  String get p3map => 'வரைபடம் & வழிகள்';
 
   @override
   String get p4optioncukaiTitle => 'மதிப்பீட்டு வரி';
 
   @override
-  String get p4optioncukaiSubtitle => 'உங்கள் தேர்வைத் தேர்ந்தெடுக்கவும்';
+  String get p4optioncukaiSubtitle => 'நீங்கள் செய்ய விரும்புவதைத் தேர்ந்தெடுக்கவும்';
 
   @override
-  String get p4optionsewaanTitle => 'நகராட்சி வாடகை';
+  String get p4optionsewaanTitle => 'மன்ற வாடகை';
 
   @override
-  String get p4optionsewaanSubtitle => 'உங்கள் தேர்வைத் தேர்ந்தெடுக்கவும்';
+  String get p4optionsewaanSubtitle => 'நீங்கள் செய்ய விரும்புவதைத் தேர்ந்தெடுக்கவும்';
 
   @override
-  String get paymentsewaan => 'பணம் செலுத்துங்கள்';
+  String get paymentsewaan => 'வாடகை செலுத்து';
 
   @override
-  String get semakansewaantitle => 'வாடகை செலுத்தல் சரிபார்ப்பு';
+  String get semakansewaantitle => 'வாடகைக் கட்டண வரலாறு';
 
   @override
-  String get checkbuttonsewaan => 'செலுத்தல் சரிபார்ப்பு';
+  String get checkbuttonsewaan => 'செலுத்திய விவரங்களைப் பார்';
 
   @override
-  String get checkbuttontax => 'செலுத்தல் சரிபார்ப்பு';
+  String get checkbuttontax => 'செலுத்திய விவரங்களைப் பார்';
 
   @override
-  String get paymenttax => 'பணம் செலுத்துங்கள்';
+  String get paymenttax => 'வரி செலுத்து';
 
   @override
-  String get semakancukaititle => 'வரி செலுத்தல் சரிபார்ப்பு';
+  String get semakancukaititle => 'வரி செலுத்திய வரலாறு';
 
   @override
-  String get noPaymentRecordsFound => 'செலுத்திய பதிவு இல்லை';
+  String get noPaymentRecordsFound => 'பணம் செலுத்திய பதிவு இல்லை.';
 
   @override
   String get assessmentTaxPaymentTransactionList => 'வரி செலுத்திய பரிவர்த்தனைப் பட்டியல்';
@@ -186,10 +186,10 @@ class AppLocalizationsTa extends AppLocalizations {
   String get close => 'மூடுக';
 
   @override
-  String get semakanWarningTitle => 'முக்கிய அறிவிப்பு';
+  String get semakanWarningTitle => 'முக்கிய குறிப்பு';
 
   @override
-  String get semakanWarningMessage => 'இக்கியோஸ்க் மூலம் செலுத்திய பரிவர்த்தனைகளை மட்டுமே சரிபார்க்க முடியும்.';
+  String get semakanWarningMessage => 'இந்தக் கியோஸ்க் வழியாகச் செலுத்திய பணத்தையே இங்கு சரிபார்க்க முடியும். மற்ற வழிகளில் செலுத்தியவை காட்டப்படாமல் இருக்கலாம்.';
 
   @override
   String get cancelButton => 'ரத்துசெய்';
@@ -198,10 +198,10 @@ class AppLocalizationsTa extends AppLocalizations {
   String get continueButton => 'தொடரவும்';
 
   @override
-  String get semakanSewaanWarningTitle => 'முக்கிய அறிவிப்பு';
+  String get semakanSewaanWarningTitle => 'முக்கிய குறிப்பு';
 
   @override
-  String get semakanSewaanWarningMessage => 'இக்கியோஸ்க் மூலம் செலுத்திய வாடகையை மட்டுமே சரிபார்க்க முடியும்.';
+  String get semakanSewaanWarningMessage => 'இந்தக் கியோஸ்க் வழியாகச் செலுத்திய வாடகையை மட்டுமே இங்கு சரிபார்க்க முடியும். மற்ற வழிகளில் செலுத்தியவை காட்டப்படாமல் இருக்கலாம்.';
 
   @override
   String get pwaktusolattitle => 'தொழுகை நேரம்';
@@ -219,31 +219,31 @@ class AppLocalizationsTa extends AppLocalizations {
   String get p3Title => 'நகராட்சி சேவைகள்';
 
   @override
-  String get p3Subtitle => 'உங்கள் தேர்வைத் தேர்ந்தெடுக்கவும்';
+  String get p3Subtitle => 'நீங்கள் செய்ய விரும்புவதைத் தேர்ந்தெடுக்கவும்';
 
   @override
   String get parkirButton => 'வாகன நிறுத்தம்';
 
   @override
-  String get compoundButton => 'அபராதம் (Kompaun)';
+  String get compoundButton => 'அபராதங்கள்';
 
   @override
   String get taxButton => 'மதிப்பீட்டு வரி';
 
   @override
-  String get compoundTitle => 'அபராதம்';
+  String get compoundTitle => 'அபராதம் செலுத்து';
 
   @override
   String get aduanTitle => 'புகார்';
 
   @override
-  String get singlecompoundTitle => 'தனி அபராதம்';
+  String get singlecompoundTitle => 'அபராத எண் மூலம் தேடு';
 
   @override
-  String get multicompoundTitle => 'பல அபராதங்கள்';
+  String get multicompoundTitle => 'வாகன எண் மூலம் தேடு';
 
   @override
-  String get compoundSubtitle => 'தேடல் முறையைத் தேர்ந்தெடுக்கவும்';
+  String get compoundSubtitle => 'எப்படி தேட விரும்புகிறீர்கள்?';
 
   @override
   String get singleCompoundButton => 'அபராத எண்';
@@ -255,25 +255,25 @@ class AppLocalizationsTa extends AppLocalizations {
   String get licenseButton => 'உரிமம் (Lesen)';
 
   @override
-  String get inputPlateHint => 'வாகன எண்ணை உள்ளிடுக';
+  String get inputPlateHint => 'வாகனப் பதிவு எண்ணை உள்ளிடவும்';
 
   @override
-  String get inputICHint => 'IC எண்ணை உள்ளிடுக';
+  String get inputICHint => 'அடையாள அட்டை எண்ணை உள்ளிடவும்';
 
   @override
-  String get inputCompoundHint => 'அபராத எண்ணை உள்ளிடுக';
+  String get inputCompoundHint => 'அபராத எண்ணை உள்ளிடவும்';
 
   @override
-  String get inputTaxHint => 'கணக்கு / IC / SSM உள்ளிடுக';
+  String get inputTaxHint => 'கணக்கு, அடையாள அட்டை அல்லது SSM எண்ணை உள்ளிடவும்';
 
   @override
-  String get pbil3Title => 'கட்டணத் தேர்வு';
+  String get pbil3Title => 'பில் கட்டணம் & ரீசார்ஜ்';
 
   @override
-  String get pbilelectric3Title => 'மின்சாரக் கட்டணத் தேர்வு';
+  String get pbilelectric3Title => 'மின்சாரக் கட்டணம்';
 
   @override
-  String get pbil3Subtitle => 'உங்கள் தேர்வைத் தேர்ந்தெடுக்கவும்';
+  String get pbil3Subtitle => 'நீங்கள் செய்ய விரும்புவதைத் தேர்ந்தெடுக்கவும்';
 
   @override
   String get electricitybutton => 'மின்சாரக் கட்டணம்';
@@ -306,31 +306,31 @@ class AppLocalizationsTa extends AppLocalizations {
   String get alertTitle => 'அறிவிப்பு';
 
   @override
-  String get alertEnterInfo => 'தொடர்வதற்கு முன் விவரங்களை உள்ளிடவும்.';
+  String get alertEnterInfo => 'முதலில் விவரங்களை உள்ளிடவும்.';
 
   @override
-  String get alertEnterIC => 'IC எண்ணை உள்ளிடவும்.';
+  String get alertEnterIC => 'அடையாள அட்டை எண்ணை உள்ளிடவும்.';
 
   @override
-  String get alertNoTaxRecord => 'வரி பதிவு இல்லை.';
+  String get alertNoTaxRecord => 'வரி பதிவு கிடைக்கவில்லை. எண்ணைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.';
 
   @override
-  String get alertNoLicenseRecord => 'உரிமப் பதிவு இல்லை.';
+  String get alertNoLicenseRecord => 'உரிமப் பதிவு கிடைக்கவில்லை.';
 
   @override
-  String get alertEnterPlateNo => 'வாகன எண்ணை உள்ளிடவும்.';
+  String get alertEnterPlateNo => 'வாகனப் பதிவு எண்ணை உள்ளிடவும்.';
 
   @override
-  String get alertNoCompoundRecord => 'அபராதப் பதிவு இல்லை.';
+  String get alertNoCompoundRecord => 'இந்த எண்ணுக்கான அபராதப் பதிவு இல்லை.';
 
   @override
   String get alertEnterCompoundNo => 'அபராத எண்ணை உள்ளிடவும்.';
 
   @override
-  String get alertEnterSewaan => 'கணக்கு எண்ணை உள்ளிடவும்.';
+  String get alertEnterSewaan => 'வாடகைக் கணக்கு எண்ணை உள்ளிடவும்.';
 
   @override
-  String get alertNoSewaan => 'வாடகை பதிவு இல்லை.';
+  String get alertNoSewaan => 'வாடகைப் பதிவு கிடைக்கவில்லை.';
 
   @override
   String get keyboardBackspace => 'அழி';
@@ -345,13 +345,13 @@ class AppLocalizationsTa extends AppLocalizations {
   String get buttonContinue => 'தொடரவும்';
 
   @override
-  String get p5parkingText1 => 'நிறுத்த நேரத்தைத் தேர்ந்தெடுக்கவும்';
+  String get p5parkingText1 => 'வாகன நிறுத்த நேரத்தைத் தேர்ந்தெடுக்கவும்';
 
   @override
   String get p5parkingText2 => 'வரை';
 
   @override
-  String get p5parkingTitle => 'நிறுத்த நேரத்தைத் தேர்ந்தெடுக்கவும்';
+  String get p5parkingTitle => 'வாகன நிறுத்த நேரத்தைத் தேர்ந்தெடுக்கவும்';
 
   @override
   String p5parkingTimeRange(Object endTime, Object startTime) {
@@ -369,7 +369,7 @@ class AppLocalizationsTa extends AppLocalizations {
   }
 
   @override
-  String get parkingStartTimeDisclaimer => 'பொறுப்புத் துறப்பு: பணம் செலுத்திய பிறகே நிறுத்தும் நேரம் தொடங்கும்.';
+  String get parkingStartTimeDisclaimer => 'பணம் செலுத்திய பிறகே வாகன நிறுத்த நேரம் தொடங்கும்.';
 
   @override
   String receiptDurationValue(int hours) {
@@ -407,7 +407,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get time => 'மணி';
 
   @override
-  String get confirmDialogTitle => 'உறுதியென்றால் OK அழுத்தவும்';
+  String get confirmDialogTitle => 'உங்கள் தேர்வை உறுதிசெய்யவும்';
 
   @override
   String plateNumberLabel(Object plate) {
@@ -439,7 +439,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get confirmButton => 'OK';
 
   @override
-  String get paymentTitle => 'பணம் செலுத்துதல்';
+  String get paymentTitle => 'பணம் செலுத்து';
 
   @override
   String get paymentSubtitle => 'பணம் செலுத்தும் முறையைத் தேர்ந்தெடுக்கவும்';
@@ -448,19 +448,19 @@ class AppLocalizationsTa extends AppLocalizations {
   String get totalAmountText => 'மொத்தத் தொகை';
 
   @override
-  String get cardButton => 'அட்டை மூலம் செலுத்துங்கள்';
+  String get cardButton => 'அட்டை மூலம் செலுத்து';
 
   @override
-  String get qrButton => 'DUITNOW QR மூலம் செலுத்துங்கள்';
+  String get qrButton => 'DUITNOW QR மூலம் செலுத்து';
 
   @override
   String get weAcceptText => 'நாங்கள் ஏற்றுக்கொள்வது:';
 
   @override
-  String get cardConfirmTitle => 'அட்டை செலுத்துதலை உறுதிசெய்';
+  String get cardConfirmTitle => 'அட்டை கட்டணத்தை உறுதிசெய்';
 
   @override
-  String get cardConfirmMessage => 'அட்டை மூலம் பணம் செலுத்த விரும்புகிறீர்களா?\n\n• அட்டையைத் தயார் செய்க.\n• அறிவுறுத்தும்போது ரீடரில் தொடவும்.\n• \"பீப்\" ஒலி வரை அட்டையை நகர்த்த வேண்டாம்.';
+  String get cardConfirmMessage => 'பற்று அல்லது கடன் அட்டை மூலம் செலுத்த வேண்டுமா?\n\nதொடரும் முன்:\n• அட்டையைத் தயாராக வைத்திருங்கள்.\n• அறிவுறுத்தும்போது வாசிப்பானில் தொடுங்கள்.\n• பீப் ஒலி கேட்ட பிறகே அட்டையை அகற்றுங்கள்.';
 
   @override
   String get cardConfirmContinue => 'தொடரவும்';
@@ -469,34 +469,34 @@ class AppLocalizationsTa extends AppLocalizations {
   String get cardConfirmCancel => 'ரத்துசெய்';
 
   @override
-  String get paymentCancelling => 'ரத்து செய்யப்படுகிறது';
+  String get paymentCancelling => 'கட்டணம் ரத்து செய்யப்படுகிறது';
 
   @override
-  String get paymentCancellingInstruction => 'அட்டை கண்டறியப்படவில்லை.\nபரிவர்த்தனை ரத்து செய்யப்படுகிறது...\nகாத்திருக்கவும்.';
+  String get paymentCancellingInstruction => 'அட்டை கண்டறியப்படவில்லை.\nகட்டணம் ரத்து செய்யப்படுகிறது...\nதயவுசெய்து காத்திருக்கவும்.';
 
   @override
-  String get paymentTapYourCard => 'அட்டையைத் தொடவும்';
+  String get paymentTapYourCard => 'அட்டையைத் தொடுங்கள்';
 
   @override
-  String get paymentTapCardInstruction => '\"பீப்\" ஒலி கேட்கும் வரை அட்டையை\nரீடரில் தொட வைக்கவும்';
+  String get paymentTapCardInstruction => 'பீப் ஒலி கேட்கும் வரை\nஅட்டையை வாசிப்பானில் வையுங்கள்.';
 
   @override
-  String get paymentProcessing => 'செயலாக்கப்படுகிறது';
+  String get paymentProcessing => 'கட்டணம் செயலாக்கப்படுகிறது';
 
   @override
-  String get paymentProcessingInstruction => 'பணம் செலுத்துதல் செயலாக்கப்படுகிறது...\nகாத்திருக்கவும்.';
+  String get paymentProcessingInstruction => 'உங்கள் கட்டணம் செயலாக்கப்படுகிறது...\nதயவுசெய்து காத்திருக்கவும்.';
 
   @override
-  String get paymentSuccessful => 'கட்டணம் வெற்றிகரமாக முடிந்தது';
+  String get paymentSuccessful => 'பணம் செலுத்தப்பட்டது';
 
   @override
-  String get paymentSuccessInstruction => 'ரசீதுக்குச் செல்கிறது...';
+  String get paymentSuccessInstruction => 'உங்கள் ரசீது திறக்கப்படுகிறது...';
 
   @override
-  String get paymentFailed => 'பணம் செலுத்துதல் தோல்வி';
+  String get paymentFailed => 'பணம் செலுத்த முடியவில்லை';
 
   @override
-  String get paymentFailedInstruction => 'மீண்டும் முயற்சிக்கவும்';
+  String get paymentFailedInstruction => 'மீண்டும் முயற்சிக்கவும் அல்லது வேறு கட்டண முறையைப் பயன்படுத்தவும்.';
 
   @override
   String get titleReceiptParking => 'வாகன நிறுத்த ரசீது';
@@ -560,16 +560,16 @@ class AppLocalizationsTa extends AppLocalizations {
   String get receiptEndTimeLabel2 => 'முடிவு';
 
   @override
-  String get receiptScanQrText2 => 'முழு ரசீதுக்கு QR குறியீட்டை ஸ்கேன் செய்க';
+  String get receiptScanQrText2 => 'முழு ரசீதைக் காண கைபேசியில் இந்த QR குறியீட்டை ஸ்கேன் செய்யவும்.';
 
   @override
-  String get receiptScanQrText => 'முழு ரசீதுக்கு QR குறியீட்டை ஸ்கேன் செய்க';
+  String get receiptScanQrText => 'முழு ரசீதைக் காண கைபேசியில் இந்த QR குறியீட்டை ஸ்கேன் செய்யவும்.';
 
   @override
-  String get p5extendparkingTitle => 'நேர நீட்டிப்பு';
+  String get p5extendparkingTitle => 'வாகன நிறுத்த நேரத்தை நீட்டிக்கவும்';
 
   @override
-  String get p5extendparkingSubtitle => 'விருப்பத்தைத் தேர்ந்தெடுக்கவும்';
+  String get p5extendparkingSubtitle => 'ஒரு விருப்பத்தைத் தேர்ந்தெடுக்கவும்';
 
   @override
   String get plusTimeButton => 'நேரம்\nசேர்';
@@ -581,7 +581,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get parkingExpiredAfter6pm => 'மாலை 6:00 மணிக்கு மேல் நேரத்தை நீட்டிக்க முடியாது.';
 
   @override
-  String get p6extendparkingTitle => 'நேரம் சேர்';
+  String get p6extendparkingTitle => 'வாகன நிறுத்த நேரத்தைச் சேர்';
 
   @override
   String get p6extendparkingSubtitle => 'சீட்டின் முடிவு நேரம்:';
@@ -592,10 +592,10 @@ class AppLocalizationsTa extends AppLocalizations {
   }
 
   @override
-  String get p5TaxTitle => 'வரித் தேர்வு';
+  String get p5TaxTitle => 'வரி பில்களைத் தேர்ந்தெடுக்கவும்';
 
   @override
-  String get p5TaxSubtitle => 'செலுத்த வேண்டிய வரியைத் தேர்ந்தெடுக்கவும்';
+  String get p5TaxSubtitle => 'செலுத்த வேண்டிய வரி பில்களைத் தேர்ந்தெடுக்கவும்';
 
   @override
   String get taxSelectAll => 'அனைத்தும் தேர்ந்தெடு';
@@ -613,7 +613,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get taxAlertTitle => 'அறிவிப்பு';
 
   @override
-  String get taxAlertSelectAtLeastOne => 'குறைந்தது ஒரு வரியைத் தேர்ந்தெடுக்கவும்';
+  String get taxAlertSelectAtLeastOne => 'குறைந்தது ஒரு வரி பில்லைத் தேர்ந்தெடுக்கவும்.';
 
   @override
   String get taxHeaderBillNo => 'பில் எண்';
@@ -628,10 +628,10 @@ class AppLocalizationsTa extends AppLocalizations {
   String get taxHeaderAmount => 'தொகை (RM)';
 
   @override
-  String get p5LicenseTitle => 'உரிமத் தேர்வு';
+  String get p5LicenseTitle => 'உரிமங்களைத் தேர்ந்தெடுக்கவும்';
 
   @override
-  String get p5LicenseSubtitle => 'செலுத்த வேண்டிய உரிமத்தைத் தேர்ந்தெடுக்கவும்';
+  String get p5LicenseSubtitle => 'கட்டணம் செலுத்த வேண்டிய உரிமங்களைத் தேர்ந்தெடுக்கவும்';
 
   @override
   String get licenseSelectAll => 'அனைத்தும் தேர்ந்தெடு';
@@ -655,7 +655,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get licenseAlertTitle => 'அறிவிப்பு';
 
   @override
-  String get licenseAlertSelectAtLeastOne => 'குறைந்தது ஒரு உரிமத்தைத் தேர்ந்தெடுக்கவும்';
+  String get licenseAlertSelectAtLeastOne => 'குறைந்தது ஓர் உரிமத்தைத் தேர்ந்தெடுக்கவும்.';
 
   @override
   String get licenseBackButton => 'பின்செல்க';
@@ -669,13 +669,13 @@ class AppLocalizationsTa extends AppLocalizations {
   }
 
   @override
-  String get p5MultiCompoundTitle => 'அபராதத் தேர்வு';
+  String get p5MultiCompoundTitle => 'அபராதங்களைத் தேர்ந்தெடுக்கவும்';
 
   @override
-  String get p5MultiCompoundSubtitle => 'செலுத்த வேண்டிய அபராதத்தைத் தேர்ந்தெடுக்கவும்';
+  String get p5MultiCompoundSubtitle => 'செலுத்த வேண்டிய அபராதங்களைத் தேர்ந்தெடுக்கவும்';
 
   @override
-  String get multiCompoundAlertSelectAtLeastOne => 'குறைந்தது ஒரு அபராதத்தைத் தேர்ந்தெடுக்கவும்';
+  String get multiCompoundAlertSelectAtLeastOne => 'குறைந்தது ஓர் அபராதத்தைத் தேர்ந்தெடுக்கவும்.';
 
   @override
   String get multiCompoundHeaderNo => 'அபராத எண்';
@@ -755,37 +755,37 @@ class AppLocalizationsTa extends AppLocalizations {
   String get jomKeBentongGallery => 'பெந்தோங் கேலரி';
 
   @override
-  String get jomKeBentongDesc => 'பெந்தோங் வரலாற்று இடம்';
+  String get jomKeBentongDesc => 'பெந்தோங் நகரின் வரலாறும் பாரம்பரியமும் அறிய ஓர் அருமையான இடம்.';
 
   @override
-  String get jomKeBentongFull => 'ஜோம் கே பெந்தோங் கேலரி பழங்கால புகைப்படங்கள், பாரம்பரிய உபகரணங்கள் மற்றும் நகரத்தின் வரலாற்று வளர்ச்சியைக் காட்டுகிறது.';
+  String get jomKeBentongFull => 'பழைய புகைப்படங்கள், பாரம்பரியப் பொருட்கள், நகர வளர்ச்சிக் கதைகள் வழியாக பெந்தோங்கின் கடந்த காலத்தை அறிந்துகொள்ளுங்கள். இங்குள்ள காட்சிகள், உள்ளூர் மக்களின் வாழ்க்கை, பண்பாடு மற்றும் நகரின் பாரம்பரியத்தை நெருக்கமாக உணர உதவுகின்றன.';
 
   @override
   String get jandaBaikTitle => 'ஜாந்தா பைக்';
 
   @override
-  String get jandaBaikDesc => 'இயற்கை எழில் கொஞ்சும் இடம்';
+  String get jandaBaikDesc => 'பசுமையான காடுகள், ஓடும் ஆறுகள், அமைதியான கிராமச் சூழல்.';
 
   @override
-  String get jandaBaikFull => 'ஜாந்தா பைக் என்பது காடுகள், ஆறுகள் மற்றும் அருவிகளால் சூழப்பட்ட அமைதியான சூழல்-சுற்றுலா தலமாகும்.';
+  String get jandaBaikFull => 'நகரத்தின் பரபரப்பிலிருந்து விலகி, ஜாந்தா பைக்கின் பசுமையான மலைக்கிராமச் சூழலை அனுபவியுங்கள். காடுகள், குளிர்ந்த ஓடைகள், அமைதியான இயற்கைக் காட்சிகள் இங்குள்ள சிறப்புகள். ஆற்றங்கரையில் ஓய்வெடுக்கலாம்; வானிலை மற்றும் ஏற்பாடுகளைப் பொறுத்து இயற்கை நடைபயணம், மிதிவண்டிச் சவாரி போன்ற செயல்களிலும் கலந்துகொள்ளலாம்.';
 
   @override
   String get bentongWalkTitle => 'பெந்தோங் வாக்';
 
   @override
-  String get bentongWalkDesc => 'பெந்தோங் வாக்கில் உலா வாருங்கள்';
+  String get bentongWalkDesc => 'உணவு, உள்ளூர் கலாசாரம், கலகலப்பான நகர உலா.';
 
   @override
-  String get bentongWalkFull => 'பெந்தோங் வாக் என்பது உணவுக் கடைகள், காஃபேக்கள் மற்றும் சமூக நிகழ்வுகளுக்கான நவீன பொதுக்கூடலாகும்.';
+  String get bentongWalkFull => 'பெந்தோங் நகரின் மையப்பகுதியில் நிதானமாக நடந்து, உள்ளூர் மக்களின் வாழ்வியலை ரசிக்கலாம். தெரு உணவுகள், சமூக நிகழ்ச்சிகள், கலகலப்பான சூழல் ஆகியவை இயற்கைச் சுற்றுலாவுக்கு அப்பாலும் நகரின் தனிச்சிறப்பை அறிய உதவுகின்றன. நிகழ்ச்சிகள் நடைபெறும் நாளைப் பொறுத்து மாறலாம்.';
 
   @override
   String get lemangTokKiTitle => 'லெமாங் தோக் கி';
 
   @override
-  String get lemangTokKiDesc => 'புகழ்பெற்ற லெமாங்';
+  String get lemangTokKiDesc => 'பெந்தோங்கில் பிரபலமான பாரம்பரிய லெமாங் சுவையை அனுபவியுங்கள்.';
 
   @override
-  String get lemangTokKiFull => 'லெமாங் தோக் கி மூங்கிலில் சமைக்கப்படும் சுவையான பாரம்பரிய லெமாங் உணவகத்திற்குப் பெயர் பெற்றது.';
+  String get lemangTokKiFull => 'பெந்தோங்கின் பிரபலமான உணவிடங்களில் லெமாங் தோக்கியும் ஒன்று. பசையரிசி, தேங்காய்ப்பால் சேர்த்து மூங்கில் குழாயில் பாரம்பரிய முறையில் சமைக்கும் லெமாங் இங்குள்ள சிறப்பு. கிடைப்பதைப் பொறுத்து, சுட்ட கோழி போன்ற உள்ளூர் உணவுகளுடனும் இதைச் சுவைக்கலாம்.';
 
   @override
   String get alorsetarExplorationTitle => 'அலோர் சேத்தார் ஆய்வு';
@@ -1020,11 +1020,11 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String receiptAutoReturn(int seconds) {
-    return '$seconds வினாடிகளில் முகப்புக்குத் திரும்பும்';
+    return '$seconds வினாடிகளில் முகப்புக்குத் திரும்பும்.';
   }
 
   @override
-  String get idleTitle => 'இன்னும் பயன்படுத்துகிறீர்களா?';
+  String get idleTitle => 'நீங்கள் இன்னும் பயன்படுத்துகிறீர்களா?';
 
   @override
   String get idleContinue => 'தொடரவும்';
@@ -1034,7 +1034,7 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String idleMessage(int seconds) {
-    return '$seconds வினாடிகளில் முகப்புக்குத் திரும்பும்.';
+    return '$seconds வினாடிகளில் முகப்புத் திரைக்குத் திரும்பும்.';
   }
 
   @override
@@ -4173,97 +4173,97 @@ class AppLocalizationsTa extends AppLocalizations {
   String get serviceSelectionLabel => 'சேவைத் தேர்வு';
 
   @override
-  String get pbtSupportingText => 'நகராட்சி கட்டணங்களைச் சரிபார்த்து செலுத்துங்கள்';
+  String get pbtSupportingText => 'மன்ற வரி, அபராதம், வாடகைக் கட்டணங்களை இங்கே சரிபார்த்துச் செலுத்தலாம்.';
 
   @override
-  String get billSupportingText => 'பில்கள், ரீலோடுகள், கேம் கிரெடிட்கள், வவுச்சர்கள் மற்றும் பல.';
+  String get billSupportingText => 'பில்களைச் செலுத்தவும், முன்பணம் ரீசார்ஜ் செய்யவும், மின்னணு வவுச்சர்கள் வாங்கவும்.';
 
   @override
-  String get touristSupportingText => 'சுற்றுலா இடங்களை ஆராயுங்கள்';
+  String get touristSupportingText => 'அருகிலுள்ள சுற்றுலாத் தலங்கள், உணவகங்கள், பொழுதுபோக்கு இடங்களைக் கண்டறியுங்கள்.';
 
   @override
   String get tourismServiceLabel => 'சுற்றுலா சேவைகள்';
 
   @override
-  String get explorationSupportingText => 'சுற்றுலா இடங்களை ஆராயுங்கள்';
+  String get explorationSupportingText => 'சென்று பார்க்க வேண்டிய உள்ளூர் சுற்றுலாத் தலங்களைக் கண்டறியுங்கள்.';
 
   @override
-  String get mapSupportingText => 'வரைபடத்தில் வழியறியுங்கள்';
+  String get mapSupportingText => 'வரைபடத்தில் இடத்தைக் கண்டுபிடித்து செல்லும் வழியைப் பாருங்கள்.';
 
   @override
-  String get prayerTimeSupportingText => 'தொழுகை நேரங்களைச் சரிபார்க்கவும்';
+  String get prayerTimeSupportingText => 'இந்தப் பகுதிக்கான இன்றைய தொழுகை நேரங்களைப் பாருங்கள்.';
 
   @override
   String get pbtServiceLabel => 'உள்ளாட்சிச் சேவைகள்';
 
   @override
-  String get parkingSupportingText => 'நிறுத்தக் கட்டணம் செலுத்துங்கள்';
+  String get parkingSupportingText => 'வாகன நிறுத்தக் கட்டணம் செலுத்தவும், நிறுத்த நேரத்தை நீட்டிக்கவும்.';
 
   @override
-  String get compoundSupportingText => 'அபராதம் சரிபார்த்துச் செலுத்துங்கள்';
+  String get compoundSupportingText => 'வாகன அபராதங்களைச் சரிபார்த்து இங்கே செலுத்துங்கள்.';
 
   @override
-  String get taxSupportingText => 'வரி சரிபார்த்துச் செலுத்துங்கள்';
+  String get taxSupportingText => 'மதிப்பீட்டு வரியைச் சரிபார்த்து நிலுவைத் தொகையைச் செலுத்துங்கள்.';
 
   @override
-  String get licenseSupportingText => 'உரிமக் கட்டணம் செலுத்துங்கள்';
+  String get licenseSupportingText => 'வணிக உரிமத்தைச் சரிபார்த்து கட்டணம் செலுத்துங்கள்.';
 
   @override
-  String get rentalSupportingText => 'வாடகை நிலுவை செலுத்துங்கள்';
+  String get rentalSupportingText => 'மன்ற வாடகைக் கட்டணத்தைச் சரிபார்த்துச் செலுத்துங்கள்.';
 
   @override
   String get compoundServiceLabel => 'அபராத சேவைகள்';
 
   @override
-  String get singleCompoundSupportingText => 'அபராத எண் மூலம் செலுத்துங்கள்';
+  String get singleCompoundSupportingText => 'அபராத எண்ணை உள்ளிட்டு சரிபார்த்துச் செலுத்துங்கள்.';
 
   @override
-  String get multiCompoundSupportingText => 'வாகன எண் மூலம் செலுத்துங்கள்';
+  String get multiCompoundSupportingText => 'வாகன எண்ணைப் பயன்படுத்தி அபராதங்களைத் தேடிச் செலுத்துங்கள்.';
 
   @override
   String get assessmentTaxServiceLabel => 'வரி சேவைகள்';
 
   @override
-  String get paymentTaxSupportingText => 'வரி நிலுவை செலுத்துங்கள்';
+  String get paymentTaxSupportingText => 'நிலுவை மதிப்பீட்டு வரியைச் சரிபார்த்து செலுத்துங்கள்.';
 
   @override
-  String get checkTaxSupportingText => 'செலுத்திய வரிப் பதிவு சரிபார்க்கவும்';
+  String get checkTaxSupportingText => 'இந்தக் கியோஸ்கில் செலுத்திய வரிப் பதிவுகளைப் பாருங்கள்.';
 
   @override
   String get rentalServiceLabel => 'வாடகை சேவைகள்';
 
   @override
-  String get paymentRentalSupportingText => 'வாடகை நிலுவை செலுத்துங்கள்';
+  String get paymentRentalSupportingText => 'நிலுவை வாடகையைச் சரிபார்த்து செலுத்துங்கள்.';
 
   @override
-  String get checkRentalSupportingText => 'செலுத்திய வாடகை சரிபார்க்கவும்';
+  String get checkRentalSupportingText => 'இந்தக் கியோஸ்கில் செலுத்திய வாடகைப் பதிவுகளைப் பாருங்கள்.';
 
   @override
   String get parkingManagementLabel => 'நிறுத்த மேலாண்மை';
 
   @override
-  String get extendParkingSupportingText => 'நிறுத்த நேரத்தை நீட்டிக்கவும்';
+  String get extendParkingSupportingText => 'தற்போதைய வாகன நிறுத்த நேரத்தை நீட்டிக்கவும்.';
 
   @override
-  String get parkingReceiptSupportingText => 'நிறுத்த ரசீதுகளைப் பார்க்கவும்';
+  String get parkingReceiptSupportingText => 'வாகன நிறுத்த ரசீதைப் பாருங்கள்.';
 
   @override
   String get billPaymentServiceLabel => 'கட்டணச் சேவைகள்';
 
   @override
-  String get electricityBillSupportingText => 'மின்சாரக் கட்டணம் செலுத்துங்கள்';
+  String get electricityBillSupportingText => 'மின்சாரப் பில்லைச் சரிபார்த்துச் செலுத்துங்கள்.';
 
   @override
-  String get waterBillSupportingText => 'குடிநீர்க் கட்டணம் செலுத்துங்கள்';
+  String get waterBillSupportingText => 'தண்ணீர்ப் பில்லைச் சரிபார்த்துச் செலுத்துங்கள்.';
 
   @override
-  String get broadbandBillSupportingText => 'இணையக் கட்டணம் செலுத்துங்கள்';
+  String get broadbandBillSupportingText => 'இணையப் பில்லைச் சரிபார்த்துச் செலுத்துங்கள்.';
 
   @override
-  String get entertainmentBillSupportingText => 'தொலைக்காட்சிக் கட்டணம் செலுத்துங்கள்';
+  String get entertainmentBillSupportingText => 'தொலைக்காட்சி மற்றும் பொழுதுபோக்குப் பில்களைச் செலுத்துங்கள்.';
 
   @override
-  String get telcoBillSupportingText => 'தொலைபேசிக் கட்டணம் செலுத்துங்கள்';
+  String get telcoBillSupportingText => 'தொலைபேசி அல்லது தொலைத்தொடர்புப் பில்லைச் செலுத்துங்கள்.';
 
   @override
   String get mapInteractiveBadge => 'ஊடாடும் வரைபடம்';
@@ -4363,16 +4363,16 @@ class AppLocalizationsTa extends AppLocalizations {
   String get extendParkingConfirmationNotice => 'தொடர்வதற்கு முன் புதிய முடிவு நேரத்தையும் கட்டணத்தையும் உறுதிப்படுத்தவும்.';
 
   @override
-  String get faqButton => 'பொதுக் கேள்விகள் (FAQ)';
+  String get faqButton => 'அடிக்கடி கேட்கப்படும் கேள்விகள்';
 
   @override
-  String get faqSupportingText => 'கியோஸ்க் உதவி';
+  String get faqSupportingText => 'கியோஸ்க் பயன்பாடு, பணம் செலுத்துதல், ரசீது பெறுதல் பற்றிய உதவி இங்கே உள்ளது.';
 
   @override
   String get faqTitle => 'அடிக்கடி கேட்கப்படும் கேள்விகள்';
 
   @override
-  String get faqSubtitle => 'பதில்களைப் பார்க்க கேள்வியைத் தொடவும்';
+  String get faqSubtitle => 'பதிலைப் பார்க்க கேள்வியைத் தொடுங்கள்.';
 
   @override
   String get faqWhatIsKioskTitle => 'TIP கியோஸ்க் என்றால் என்ன?';
@@ -4429,16 +4429,16 @@ class AppLocalizationsTa extends AppLocalizations {
   String get faqTipsContent => '• கணக்கு எண்ணைச் சரியாக உள்ளிடவும்.\n• வாடிக்கையாளர் பெயர் மற்றும் பில் தொகையைச் சரிபார்க்கவும்.\n• QR குறியீட்டை ஸ்கேன் செய்யும் வரை திரையை மூட வேண்டாம்.';
 
   @override
-  String get faqHelpTitle => 'சிக்கல் தீர்த்தல் & உதவி';
+  String get faqHelpTitle => 'உதவி வேண்டுமா?';
 
   @override
-  String get faqHelpContent => 'திரை இயங்கவில்லை என்றாலோ, செலுத்துதல் தடைபட்டாலோ உதவி எண்களைத் தொடர்பு கொள்ளவும்:';
+  String get faqHelpContent => 'திரை இயங்கவில்லை, கட்டணம் தடைபட்டது அல்லது QR குறியீடு வரவில்லை என்றால் தொடர்பு கொள்ளுங்கள்:';
 
   @override
   String get weatherButton => 'வானிலை';
 
   @override
-  String get weatherSupportingText => 'ஈப்போ, பேராக்கிற்கான அதிகாரப்பூர்வ 7 நாள் வானிலை முன்னறிவிப்பைப் பார்க்கவும்';
+  String get weatherSupportingText => 'அடுத்த 7 நாட்களுக்கான வானிலை முன்னறிவிப்பைப் பார்க்கவும்';
 
   @override
   String weatherPageTitle(Object place) {
@@ -7477,10 +7477,10 @@ class AppLocalizationsTa extends AppLocalizations {
   String get pegePayUnavailableOk => 'சரி';
 
   @override
-  String get scrollViewMore => 'மேலும் காண்க';
+  String get scrollViewMore => 'மேலும் பார்க்க';
 
   @override
-  String get scrollBackTop => 'மேலே திரும்புக';
+  String get scrollBackTop => 'மேலே செல்ல';
 
   @override
   String get scrollUpShort => 'மேலே';
@@ -7540,13 +7540,13 @@ class AppLocalizationsTa extends AppLocalizations {
   String get p2MainServicesTitle => 'முக்கிய சேவைகள்';
 
   @override
-  String get p2FrequentlyUsedTitle => 'அடிக்கடி பயன்படுத்தும் சேவைகள்';
+  String get p2FrequentlyUsedTitle => 'விரைவுச் சேவைகள்';
 
   @override
   String get p2DidYouKnowTitle => 'உங்களுக்குத் தெரியுமா?';
 
   @override
-  String get p2HelpInformationTitle => 'உதவி மற்றும் தகவல்';
+  String get p2HelpInformationTitle => 'உதவி & தகவல்';
 
   @override
   String get scanInputScanTitle => 'குறியீட்டை ஸ்கேன் செய்க';

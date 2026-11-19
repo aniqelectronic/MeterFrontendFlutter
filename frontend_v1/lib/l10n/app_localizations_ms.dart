@@ -9,19 +9,19 @@ class AppLocalizationsMs extends AppLocalizations {
   AppLocalizationsMs([String locale = 'ms']) : super(locale);
 
   @override
-  String get bilText => 'BIL UTILITI';
+  String get bilText => 'BIL & TAMBAH NILAI';
 
   @override
-  String get otherText => 'LAIN-LAIN';
+  String get otherText => 'PERKHIDMATAN LAIN';
 
   @override
-  String get touristText => 'PANDUAN PELANCONG';
+  String get touristText => 'INFO SETEMPAT';
 
   @override
-  String get p2Title => 'PELBAGAI PERKHIDMATAN';
+  String get p2Title => 'PILIH PERKHIDMATAN';
 
   @override
-  String get pbtText => 'BIL PERKHIDMATAN MAJLIS';
+  String get pbtText => 'URUSAN MAJLIS';
 
   @override
   String get rentText => 'SEWAAN LAIN';
@@ -33,34 +33,34 @@ class AppLocalizationsMs extends AppLocalizations {
   String get backText => 'KEMBALI';
 
   @override
-  String get processingReceipt => 'Pembayaran berjaya.\nResit anda sedang diproses...\nSila jangan sentuh skrin.';
+  String get processingReceipt => 'Bayaran berjaya!\nResit anda sedang disediakan...\nSila tunggu di skrin ini.';
 
   @override
-  String get noTaksiranRecordFound => 'Tiada rekod cukai taksiran dijumpai';
+  String get noTaksiranRecordFound => 'Tiada rekod cukai taksiran ditemui.';
 
   @override
-  String get noSewaanRecordFound => 'Tiada rekod sewaan dijumpai';
+  String get noSewaanRecordFound => 'Tiada rekod sewaan ditemui.';
 
   @override
-  String get noSewaanPaymentRecordFound => 'Tiada rekod bayaran sewaan dijumpai';
+  String get noSewaanPaymentRecordFound => 'Tiada rekod bayaran sewaan ditemui.';
 
   @override
-  String get noTaksiranPaymentRecordFound => 'Tiada rekod bayaran cukai taksiran dijumpai';
+  String get noTaksiranPaymentRecordFound => 'Tiada rekod bayaran cukai ditemui.';
 
   @override
-  String get unknownService => 'Servis tidak dikenali.';
+  String get unknownService => 'Perkhidmatan tidak dikenali.';
 
   @override
-  String get connectionFailed => 'Sambungan gagal. Sila cuba lagi.';
+  String get connectionFailed => 'Sambungan tidak berjaya. Sila cuba lagi.';
 
   @override
-  String get inputRegistrationOrAccountNo => 'Masukkan No Pendaftaran / No Akaun';
+  String get inputRegistrationOrAccountNo => 'Masukkan no. pendaftaran atau akaun';
 
   @override
-  String get inputSewaanRegistrationOrAccountNo => 'Masukkan No Pendaftaran Sewaan / No Akaun';
+  String get inputSewaanRegistrationOrAccountNo => 'Masukkan no. pendaftaran sewaan atau akaun';
 
   @override
-  String get inputTaksiranRegistrationOrAccountNo => 'Masukkan No Pendaftaran Cukai Taksiran / No Akaun';
+  String get inputTaksiranRegistrationOrAccountNo => 'Masukkan no. pendaftaran cukai atau akaun';
 
   @override
   String get scrollup => 'SKROL KE ATAS';
@@ -72,10 +72,10 @@ class AppLocalizationsMs extends AppLocalizations {
   String get comingsoonText => 'AKAN DATANG';
 
   @override
-  String get p3rentTitle => 'PILIHAN SEWAAN';
+  String get p3rentTitle => 'URUSAN SEWAAN';
 
   @override
-  String get p3rentSubtitle => 'SILA PILIH PILIHAN ANDA';
+  String get p3rentSubtitle => 'Pilih urusan anda';
 
   @override
   String get p3dewanButton => 'DEWAN';
@@ -87,55 +87,55 @@ class AppLocalizationsMs extends AppLocalizations {
   String get p3ruangniagaButton => 'RUANG NIAGA';
 
   @override
-  String get p3othersTitle => 'PILIHAN PERKHIDMATAN PELANCONGAN';
+  String get p3othersTitle => 'JELAJAH & KENALI';
 
   @override
-  String get p3othersSubtitle => 'SILA PILIH PILIHAN ANDA';
+  String get p3othersSubtitle => 'Pilih urusan anda';
 
   @override
   String get p3aduanButton => 'ADUAN';
 
   @override
-  String get p3eksplorasiButton => 'EKSPLORASI';
+  String get p3eksplorasiButton => 'TEMPAT UNTUK DILAWATI';
 
   @override
   String get p3waktusolat => 'WAKTU SOLAT';
 
   @override
-  String get p3map => 'PETA';
+  String get p3map => 'PETA & ARAH';
 
   @override
   String get p4optioncukaiTitle => 'CUKAI TAKSIRAN';
 
   @override
-  String get p4optioncukaiSubtitle => 'SILA PILIH PILIHAN ANDA';
+  String get p4optioncukaiSubtitle => 'Pilih urusan anda';
 
   @override
   String get p4optionsewaanTitle => 'SEWAAN MAJLIS';
 
   @override
-  String get p4optionsewaanSubtitle => 'SILA PILIH PILIHAN ANDA';
+  String get p4optionsewaanSubtitle => 'Pilih urusan anda';
 
   @override
-  String get paymentsewaan => 'MEMBUAT PEMBAYARAN';
+  String get paymentsewaan => 'BAYAR SEWAAN';
 
   @override
-  String get semakansewaantitle => 'SEMAKAN PEMBAYARAN SEWAAN';
+  String get semakansewaantitle => 'REKOD BAYARAN SEWAAN';
 
   @override
-  String get checkbuttonsewaan => 'SEMAKAN PEMBAYARAN';
+  String get checkbuttonsewaan => 'SEMAK BAYARAN';
 
   @override
-  String get checkbuttontax => 'SEMAKAN PEMBAYARAN';
+  String get checkbuttontax => 'SEMAK BAYARAN';
 
   @override
-  String get paymenttax => 'MEMBUAT PEMBAYARAN';
+  String get paymenttax => 'BAYAR CUKAI';
 
   @override
-  String get semakancukaititle => 'SEMAKAN PEMBAYARAN CUKAI';
+  String get semakancukaititle => 'REKOD BAYARAN CUKAI';
 
   @override
-  String get noPaymentRecordsFound => 'Tiada rekod bayaran dijumpai';
+  String get noPaymentRecordsFound => 'Tiada rekod bayaran.';
 
   @override
   String get assessmentTaxPaymentTransactionList => 'Senarai Transaksi Bayaran Cukai Taksiran';
@@ -186,10 +186,10 @@ class AppLocalizationsMs extends AppLocalizations {
   String get close => 'Tutup';
 
   @override
-  String get semakanWarningTitle => 'Notis Penting';
+  String get semakanWarningTitle => 'UNTUK MAKLUMAN';
 
   @override
-  String get semakanWarningMessage => 'Semakan bayaran hanya tersedia untuk transaksi yang dibuat melalui kiosk ini. Bayaran yang dibuat melalui saluran lain mungkin tidak dipaparkan.';
+  String get semakanWarningMessage => 'Hanya bayaran yang dibuat melalui kiosk ini boleh disemak di sini. Bayaran melalui saluran lain mungkin tidak dipaparkan.';
 
   @override
   String get cancelButton => 'BATAL';
@@ -198,10 +198,10 @@ class AppLocalizationsMs extends AppLocalizations {
   String get continueButton => 'Teruskan';
 
   @override
-  String get semakanSewaanWarningTitle => 'Notis Penting';
+  String get semakanSewaanWarningTitle => 'UNTUK MAKLUMAN';
 
   @override
-  String get semakanSewaanWarningMessage => 'Semakan bayaran sewaan hanya tersedia untuk transaksi yang dibuat melalui kiosk ini. Bayaran yang dibuat melalui saluran lain mungkin tidak dipaparkan.';
+  String get semakanSewaanWarningMessage => 'Hanya bayaran sewaan melalui kiosk ini boleh disemak di sini. Bayaran melalui saluran lain mungkin tidak dipaparkan.';
 
   @override
   String get pwaktusolattitle => 'WAKTU SOLAT';
@@ -216,10 +216,10 @@ class AppLocalizationsMs extends AppLocalizations {
   String get mapsubtitle => 'TEROKAI DAN LIHAT APA YANG TERDAPAT DI SEKITAR ANDA';
 
   @override
-  String get p3Title => 'PERKHIDMATAN MAJLIS';
+  String get p3Title => 'URUSAN MAJLIS';
 
   @override
-  String get p3Subtitle => 'SILA PILIH PILIHAN ANDA';
+  String get p3Subtitle => 'Pilih urusan anda';
 
   @override
   String get parkirButton => 'PARKIR';
@@ -231,49 +231,49 @@ class AppLocalizationsMs extends AppLocalizations {
   String get taxButton => 'CUKAI TAKSIRAN';
 
   @override
-  String get compoundTitle => 'KOMPAUN';
+  String get compoundTitle => 'BAYAR KOMPAUN';
 
   @override
   String get aduanTitle => 'ADUAN';
 
   @override
-  String get singlecompoundTitle => 'KOMPAUN TUNGGAL';
+  String get singlecompoundTitle => 'CARI IKUT NO. KOMPAUN';
 
   @override
-  String get multicompoundTitle => 'PELBAGAI KOMPAUN';
+  String get multicompoundTitle => 'CARI IKUT NO. PLAT';
 
   @override
-  String get compoundSubtitle => 'PILIH CARA PENCARIAN';
+  String get compoundSubtitle => 'Bagaimana anda mahu cari?';
 
   @override
-  String get singleCompoundButton => 'NOMBOR KOMPAUN';
+  String get singleCompoundButton => 'NO. KOMPAUN';
 
   @override
-  String get multiCompoundButton => 'NOMBOR PLAT';
+  String get multiCompoundButton => 'NO. PLAT';
 
   @override
   String get licenseButton => 'LESEN';
 
   @override
-  String get inputPlateHint => 'MASUKKAN NO. PLAT ANDA';
+  String get inputPlateHint => 'MASUKKAN NO. PLAT KENDERAAN';
 
   @override
-  String get inputICHint => 'MASUKKAN NO. IC ANDA';
+  String get inputICHint => 'MASUKKAN NO. KAD PENGENALAN';
 
   @override
   String get inputCompoundHint => 'MASUKKAN NO. KOMPAUN';
 
   @override
-  String get inputTaxHint => 'MASUKKAN NO. ACCOUNT/IC/SSM';
+  String get inputTaxHint => 'MASUKKAN NO. AKAUN, IC ATAU SSM';
 
   @override
-  String get pbil3Title => 'PILIHAN BIL';
+  String get pbil3Title => 'BIL & TAMBAH NILAI';
 
   @override
-  String get pbilelectric3Title => 'PILIHAN BIL ELEKTRIK';
+  String get pbilelectric3Title => 'BIL ELEKTRIK';
 
   @override
-  String get pbil3Subtitle => 'SILA PILIH PILIHAN ANDA';
+  String get pbil3Subtitle => 'Pilih urusan anda';
 
   @override
   String get electricitybutton => 'BIL ELEKTRIK';
@@ -303,34 +303,34 @@ class AppLocalizationsMs extends AppLocalizations {
   String get backButton => 'KEMBALI';
 
   @override
-  String get alertTitle => 'Makluman';
+  String get alertTitle => 'MAKLUMAN';
 
   @override
-  String get alertEnterInfo => 'Sila masukkan info sebelum TERUSKAN.';
+  String get alertEnterInfo => 'Sila isi maklumat dahulu.';
 
   @override
-  String get alertEnterIC => 'Sila masukkan No. IC.';
+  String get alertEnterIC => 'Sila masukkan no. kad pengenalan.';
 
   @override
-  String get alertNoTaxRecord => 'Tiada rekod cukai dijumpai.';
+  String get alertNoTaxRecord => 'Rekod cukai tidak ditemui. Semak nombor dan cuba lagi.';
 
   @override
-  String get alertNoLicenseRecord => 'Tiada rekod lesen dijumpai.';
+  String get alertNoLicenseRecord => 'Tiada rekod lesen ditemui.';
 
   @override
-  String get alertEnterPlateNo => 'Sila masukkan No. Pendaftaran Kenderaan.';
+  String get alertEnterPlateNo => 'Sila masukkan no. plat kenderaan.';
 
   @override
-  String get alertNoCompoundRecord => 'Tiada rekod kompaun dijumpai.';
+  String get alertNoCompoundRecord => 'Tiada rekod kompaun bagi nombor ini.';
 
   @override
-  String get alertEnterCompoundNo => 'Sila masukkan No. Kompaun.';
+  String get alertEnterCompoundNo => 'Sila masukkan no. kompaun.';
 
   @override
-  String get alertEnterSewaan => 'Sila masukkan No. Akaun.';
+  String get alertEnterSewaan => 'Sila masukkan no. akaun sewaan.';
 
   @override
-  String get alertNoSewaan => 'Tiada rekod sewaan dijumpai.';
+  String get alertNoSewaan => 'Tiada rekod sewaan ditemui.';
 
   @override
   String get keyboardBackspace => 'PADAM';
@@ -345,13 +345,13 @@ class AppLocalizationsMs extends AppLocalizations {
   String get buttonContinue => 'TERUSKAN';
 
   @override
-  String get p5parkingText1 => 'PILIH DURASI PARKIR';
+  String get p5parkingText1 => 'PILIH TEMPOH PARKIR';
 
   @override
   String get p5parkingText2 => 'SEHINGGA';
 
   @override
-  String get p5parkingTitle => 'PILIH DURASI PARKIR';
+  String get p5parkingTitle => 'PILIH TEMPOH PARKIR';
 
   @override
   String p5parkingTimeRange(Object endTime, Object startTime) {
@@ -369,7 +369,7 @@ class AppLocalizationsMs extends AppLocalizations {
   }
 
   @override
-  String get parkingStartTimeDisclaimer => 'Penafian: Masa permulaan parkir hanya akan bermula selepas pembayaran anda berjaya diselesaikan.';
+  String get parkingStartTimeDisclaimer => 'Tempoh parkir hanya bermula selepas bayaran berjaya.';
 
   @override
   String receiptDurationValue(int hours) {
@@ -407,7 +407,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get time => 'JAM';
 
   @override
-  String get confirmDialogTitle => 'TEKAN OK JIKA SAH';
+  String get confirmDialogTitle => 'SAHKAN PILIHAN ANDA';
 
   @override
   String plateNumberLabel(Object plate) {
@@ -439,28 +439,28 @@ class AppLocalizationsMs extends AppLocalizations {
   String get confirmButton => 'OK';
 
   @override
-  String get paymentTitle => 'BAYARAN';
+  String get paymentTitle => 'BUAT BAYARAN';
 
   @override
-  String get paymentSubtitle => 'SILA PILIH KAEDAH PEMBAYARAN';
+  String get paymentSubtitle => 'Pilih cara bayaran anda';
 
   @override
   String get totalAmountText => 'JUMLAH AMAUN';
 
   @override
-  String get cardButton => 'BAYAR DENGAN KAD';
+  String get cardButton => 'BAYAR GUNA KAD';
 
   @override
-  String get qrButton => 'BAYAR DENGAN DUITNOW QR';
+  String get qrButton => 'BAYAR GUNA DUITNOW QR';
 
   @override
   String get weAcceptText => 'KAMI MENERIMA :';
 
   @override
-  String get cardConfirmTitle => 'Sahkan Pembayaran Kad';
+  String get cardConfirmTitle => 'SAHKAN BAYARAN KAD';
 
   @override
-  String get cardConfirmMessage => 'Adakah anda pasti ingin membuat pembayaran menggunakan Kad Debit atau Kad Kredit?\n\nSebelum meneruskan:\n• Sediakan kad anda.\n• Dekatkan kad pada pembaca kad apabila diarahkan.\n• Jangan alihkan kad sehingga bunyi bip kedengaran.';
+  String get cardConfirmMessage => 'Bayar menggunakan kad debit atau kredit?\n\nSebelum teruskan:\n• Sediakan kad anda.\n• Sentuh kad pada pembaca apabila diminta.\n• Tunggu bunyi bip sebelum mengalihkan kad.';
 
   @override
   String get cardConfirmContinue => 'TERUSKAN';
@@ -472,31 +472,31 @@ class AppLocalizationsMs extends AppLocalizations {
   String get paymentCancelling => 'MEMBATALKAN BAYARAN';
 
   @override
-  String get paymentCancellingInstruction => 'Tiada kad dikesan.\nTransaksi sedang dibatalkan...\nSila tunggu.';
+  String get paymentCancellingInstruction => 'Kad tidak dikesan.\nBayaran sedang dibatalkan...\nSila tunggu.';
 
   @override
   String get paymentTapYourCard => 'SENTUH KAD ANDA';
 
   @override
-  String get paymentTapCardInstruction => 'Sila sentuh kad pada pembaca kad\nsehingga bunyi \"Bip\" kedengaran';
+  String get paymentTapCardInstruction => 'Sentuh kad pada pembaca kad\nsehingga bunyi bip kedengaran.';
 
   @override
-  String get paymentProcessing => 'SEDANG DIPROSES';
+  String get paymentProcessing => 'BAYARAN DIPROSES';
 
   @override
-  String get paymentProcessingInstruction => 'Sila tunggu sementara kami memproses\npembayaran anda...';
+  String get paymentProcessingInstruction => 'Bayaran anda sedang diproses...\nSila tunggu.';
 
   @override
-  String get paymentSuccessful => 'Pembayaran Berjaya';
+  String get paymentSuccessful => 'BAYARAN BERJAYA';
 
   @override
-  String get paymentSuccessInstruction => 'Sedang ke resit...';
+  String get paymentSuccessInstruction => 'Resit anda akan dipaparkan...';
 
   @override
-  String get paymentFailed => 'PEMBAYARAN GAGAL';
+  String get paymentFailed => 'BAYARAN GAGAL';
 
   @override
-  String get paymentFailedInstruction => 'Sila cuba lagi';
+  String get paymentFailedInstruction => 'Sila cuba lagi atau pilih cara bayaran lain.';
 
   @override
   String get titleReceiptParking => 'RESIT PARKIR';
@@ -560,16 +560,16 @@ class AppLocalizationsMs extends AppLocalizations {
   String get receiptEndTimeLabel2 => 'Masa Tamat';
 
   @override
-  String get receiptScanQrText2 => 'Sila Imbas QR Untuk Maklumat Penuh Resit';
+  String get receiptScanQrText2 => 'Imbas kod QR ini dengan telefon untuk lihat resit penuh.';
 
   @override
-  String get receiptScanQrText => 'Sila Imbas QR Untuk Maklumat Penuh Resit';
+  String get receiptScanQrText => 'Imbas kod QR ini dengan telefon untuk lihat resit penuh.';
 
   @override
-  String get p5extendparkingTitle => 'PENAMBAHAN WAKTU PARKIR';
+  String get p5extendparkingTitle => 'TAMBAH WAKTU PARKIR';
 
   @override
-  String get p5extendparkingSubtitle => 'SILA PILIH OPSI ANDA';
+  String get p5extendparkingSubtitle => 'Pilih urusan anda';
 
   @override
   String get plusTimeButton => 'TAMBAH\nWAKTU';
@@ -592,10 +592,10 @@ class AppLocalizationsMs extends AppLocalizations {
   }
 
   @override
-  String get p5TaxTitle => 'PILIHAN CUKAI';
+  String get p5TaxTitle => 'PILIH BIL CUKAI';
 
   @override
-  String get p5TaxSubtitle => 'PILIH CUKAI YANG ANDA MAHU BAYAR';
+  String get p5TaxSubtitle => 'Pilih bil cukai yang mahu dibayar';
 
   @override
   String get taxSelectAll => 'PILIH SEMUA';
@@ -613,7 +613,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get taxAlertTitle => 'Makluman';
 
   @override
-  String get taxAlertSelectAtLeastOne => 'Sila pilih sekurang-kurangnya satu cukai';
+  String get taxAlertSelectAtLeastOne => 'Pilih sekurang-kurangnya satu bil cukai.';
 
   @override
   String get taxHeaderBillNo => 'No Bil';
@@ -628,10 +628,10 @@ class AppLocalizationsMs extends AppLocalizations {
   String get taxHeaderAmount => 'Amaun (RM)';
 
   @override
-  String get p5LicenseTitle => 'PILIHAN LESEN';
+  String get p5LicenseTitle => 'PILIH LESEN';
 
   @override
-  String get p5LicenseSubtitle => 'PILIH LESEN YANG ANDA MAHU BAYAR';
+  String get p5LicenseSubtitle => 'Pilih lesen yang mahu dibayar';
 
   @override
   String get licenseSelectAll => 'PILIH SEMUA';
@@ -655,7 +655,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get licenseAlertTitle => 'Makluman';
 
   @override
-  String get licenseAlertSelectAtLeastOne => 'Sila pilih sekurang-kurangnya satu lesen';
+  String get licenseAlertSelectAtLeastOne => 'Pilih sekurang-kurangnya satu lesen.';
 
   @override
   String get licenseBackButton => 'KEMBALI';
@@ -669,13 +669,13 @@ class AppLocalizationsMs extends AppLocalizations {
   }
 
   @override
-  String get p5MultiCompoundTitle => 'PILIHAN KOMPAUN';
+  String get p5MultiCompoundTitle => 'PILIH KOMPAUN';
 
   @override
-  String get p5MultiCompoundSubtitle => 'PILIH KOMPAUN YANG ANDA MAHU BAYAR';
+  String get p5MultiCompoundSubtitle => 'Pilih kompaun yang mahu dibayar';
 
   @override
-  String get multiCompoundAlertSelectAtLeastOne => 'Sila pilih sekurang-kurangnya satu kompaun';
+  String get multiCompoundAlertSelectAtLeastOne => 'Pilih sekurang-kurangnya satu kompaun.';
 
   @override
   String get multiCompoundHeaderNo => 'No Kompaun';
@@ -755,37 +755,37 @@ class AppLocalizationsMs extends AppLocalizations {
   String get jomKeBentongGallery => 'Galeri Bentong';
 
   @override
-  String get jomKeBentongDesc => 'Tempat bersejarah di Bentong';
+  String get jomKeBentongDesc => 'Kenali kisah lama dan warisan bandar Bentong.';
 
   @override
-  String get jomKeBentongFull => 'Galeri Jom Ke Bentong memperkenalkan sejarah dan warisan Bentong melalui gambar lama, peralatan tradisional dan kisah perkembangan bandar Bentong.';
+  String get jomKeBentongFull => 'Singgah ke galeri ini untuk mengenali kisah Bentong dari dahulu hingga kini. Gambar lama, barangan tradisional dan cerita perkembangan bandar membuka ruang untuk anda memahami warisan serta kehidupan masyarakat Bentong dengan lebih dekat.';
 
   @override
   String get jandaBaikTitle => 'Janda Baik, Pahang';
 
   @override
-  String get jandaBaikDesc => 'Mari terokai keindahan Janda Baik';
+  String get jandaBaikDesc => 'Nikmati suasana desa, sungai yang jernih dan kehijauan hutan.';
 
   @override
-  String get jandaBaikFull => 'Janda Baik ialah sebuah destinasi eko-pelancongan yang tenang dikelilingi hutan, sungai dan air terjun. Ia sesuai untuk percutian santai dan aktiviti alam semula jadi.';
+  String get jandaBaikFull => 'Janda Baik menawarkan suasana kampung yang tenang, dikelilingi kehijauan hutan dan aliran sungai yang menyegarkan. Sesuai untuk berehat daripada kesibukan bandar, menikmati perkelahan tepi sungai atau mencuba aktiviti alam seperti berjalan di denai dan berbasikal, mengikut cuaca serta kemudahan yang tersedia.';
 
   @override
   String get bentongWalkTitle => 'BENTONG WALK';
 
   @override
-  String get bentongWalkDesc => 'Mari berjalan-jalan di Bentong Walk';
+  String get bentongWalkDesc => 'Jalan-jalan sambil nikmati makanan dan suasana bandar Bentong.';
 
   @override
-  String get bentongWalkFull => 'Bentong Walk ialah kawasan awam moden dengan gerai makanan, kafe dan ruang acara yang menjadi tumpuan pengunjung.';
+  String get bentongWalkFull => 'Luangkan masa berjalan santai di sekitar pusat bandar Bentong sambil menikmati suasana tempatan. Kawasan ini terkenal dengan makanan, aktiviti komuniti dan kemeriahan jalanannya, sesuai untuk anda mengenali sisi Bentong yang berbeza daripada tarikan alam semula jadi. Aktiviti bergantung pada hari dan penganjuran setempat.';
 
   @override
   String get lemangTokKiTitle => 'Lemang Tok\'Ki';
 
   @override
-  String get lemangTokKiDesc => 'Lemang terkenal di Bentong';
+  String get lemangTokKiDesc => 'Singgah rasa lemang tradisional yang terkenal di Bentong.';
 
   @override
-  String get lemangTokKiFull => 'Lemang Tok\'Ki terkenal dengan lemang tradisional yang dimasak dalam buluh menggunakan beras pulut dan santan.';
+  String get lemangTokKiFull => 'Lemang To’ki antara persinggahan makanan yang terkenal di Bentong. Lemangnya dimasak secara tradisional di dalam buluh menggunakan beras pulut dan santan, menghasilkan aroma yang cukup menyelerakan. Nikmati hidangan tempatan ini bersama lauk seperti ayam bakar, jika tersedia.';
 
   @override
   String get alorsetarExplorationTitle => 'Eksplorasi Alor Setar';
@@ -1020,21 +1020,21 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String receiptAutoReturn(int seconds) {
-    return 'Kembali ke menu utama dalam $seconds saat';
+    return 'Kembali ke halaman utama dalam $seconds saat.';
   }
 
   @override
-  String get idleTitle => 'Masih menggunakan perkhidmatan ini?';
+  String get idleTitle => 'ANDA MASIH MENGGUNAKAN KIOSK?';
 
   @override
   String get idleContinue => 'TERUSKAN';
 
   @override
-  String get idleGoHome => 'Laman Utama';
+  String get idleGoHome => 'UTAMA';
 
   @override
   String idleMessage(int seconds) {
-    return 'Anda akan kembali ke laman utama dalam $seconds saat.';
+    return 'Kembali ke halaman utama dalam $seconds saat.';
   }
 
   @override
@@ -4173,97 +4173,97 @@ class AppLocalizationsMs extends AppLocalizations {
   String get serviceSelectionLabel => 'PILIHAN PERKHIDMATAN';
 
   @override
-  String get pbtSupportingText => 'Semakan dan pembayaran bil perkhidmatan majlis';
+  String get pbtSupportingText => 'Semak bil, bayar cukai, kompaun atau sewaan majlis di sini.';
 
   @override
-  String get billSupportingText => 'Bayaran bil, tambah nilai, kredit permainan, baucar dan banyak lagi.';
+  String get billSupportingText => 'Bayar bil, tambah nilai prabayar atau beli baucar digital.';
 
   @override
-  String get touristSupportingText => 'Terokai lokasi menarik dan kemudahan sekitar';
+  String get touristSupportingText => 'Cari tempat menarik, makanan sedap dan aktiviti di sekitar anda.';
 
   @override
   String get tourismServiceLabel => 'PERKHIDMATAN PELANCONGAN';
 
   @override
-  String get explorationSupportingText => 'Terokai tempat menarik dan tarikan tempatan';
+  String get explorationSupportingText => 'Kenali tarikan tempatan dan tempat menarik untuk dikunjungi.';
 
   @override
-  String get mapSupportingText => 'Lihat lokasi dan navigasi menggunakan peta interaktif';
+  String get mapSupportingText => 'Cari lokasi dan lihat arah perjalanan pada peta.';
 
   @override
-  String get prayerTimeSupportingText => 'Semak waktu solat harian terkini';
+  String get prayerTimeSupportingText => 'Lihat waktu solat hari ini bagi kawasan ini.';
 
   @override
   String get pbtServiceLabel => 'PERKHIDMATAN PIHAK BERKUASA TEMPATAN';
 
   @override
-  String get parkingSupportingText => 'Bayar caj parkir dan urus sesi parkir';
+  String get parkingSupportingText => 'Bayar parkir atau tambah masa parkir anda.';
 
   @override
-  String get compoundSupportingText => 'Semak dan bayar kompaun kenderaan';
+  String get compoundSupportingText => 'Semak kompaun kenderaan dan buat bayaran di sini.';
 
   @override
-  String get taxSupportingText => 'Semak dan bayar akaun cukai taksiran';
+  String get taxSupportingText => 'Semak cukai taksiran dan bayar bil tertunggak.';
 
   @override
-  String get licenseSupportingText => 'Semak dan bayar akaun lesen perniagaan';
+  String get licenseSupportingText => 'Semak lesen perniagaan dan buat bayaran.';
 
   @override
-  String get rentalSupportingText => 'Semak dan bayar akaun sewaan majlis';
+  String get rentalSupportingText => 'Semak dan bayar sewaan majlis anda.';
 
   @override
   String get compoundServiceLabel => 'PERKHIDMATAN KOMPAUN';
 
   @override
-  String get singleCompoundSupportingText => 'Semak dan bayar menggunakan satu nombor kompaun';
+  String get singleCompoundSupportingText => 'Masukkan no. kompaun untuk semak dan bayar.';
 
   @override
-  String get multiCompoundSupportingText => 'Semak semua kompaun dan bayar menggunakan nombor plat kenderaan';
+  String get multiCompoundSupportingText => 'Guna no. plat kenderaan untuk semak dan bayar kompaun.';
 
   @override
   String get assessmentTaxServiceLabel => 'PERKHIDMATAN CUKAI TAKSIRAN';
 
   @override
-  String get paymentTaxSupportingText => 'Semak tunggakan cukai taksiran dan buat pembayaran';
+  String get paymentTaxSupportingText => 'Semak baki cukai taksiran dan terus buat bayaran.';
 
   @override
-  String get checkTaxSupportingText => 'Semak pembayaran cukai taksiran yang dibuat di kiosk ini';
+  String get checkTaxSupportingText => 'Lihat rekod bayaran cukai melalui kiosk ini.';
 
   @override
   String get rentalServiceLabel => 'PERKHIDMATAN SEWAAN MAJLIS';
 
   @override
-  String get paymentRentalSupportingText => 'Semak tunggakan sewaan majlis dan buat pembayaran';
+  String get paymentRentalSupportingText => 'Semak tunggakan sewaan dan terus buat bayaran.';
 
   @override
-  String get checkRentalSupportingText => 'Semak pembayaran sewaan majlis yang dibuat di kiosk ini';
+  String get checkRentalSupportingText => 'Lihat rekod bayaran sewaan melalui kiosk ini.';
 
   @override
   String get parkingManagementLabel => 'PENGURUSAN PARKIR';
 
   @override
-  String get extendParkingSupportingText => 'Tambah tempoh untuk sesi parkir semasa';
+  String get extendParkingSupportingText => 'Tambah masa untuk parkir anda yang masih aktif.';
 
   @override
-  String get parkingReceiptSupportingText => 'Lihat dan muat turun resit pembayaran parkir';
+  String get parkingReceiptSupportingText => 'Lihat resit bayaran parkir anda.';
 
   @override
   String get billPaymentServiceLabel => 'PERKHIDMATAN PEMBAYARAN BIL';
 
   @override
-  String get electricityBillSupportingText => 'Semak dan bayar bil elektrik daripada penyedia yang disokong';
+  String get electricityBillSupportingText => 'Semak dan bayar bil elektrik anda.';
 
   @override
-  String get waterBillSupportingText => 'Semak dan bayar bil air daripada penyedia yang disokong';
+  String get waterBillSupportingText => 'Semak dan bayar bil air anda.';
 
   @override
-  String get broadbandBillSupportingText => 'Semak dan bayar bil jalur lebar serta perkhidmatan internet';
+  String get broadbandBillSupportingText => 'Semak dan bayar bil internet anda.';
 
   @override
-  String get entertainmentBillSupportingText => 'Semak dan bayar bil televisyen serta perkhidmatan hiburan';
+  String get entertainmentBillSupportingText => 'Semak dan bayar bil TV serta hiburan.';
 
   @override
-  String get telcoBillSupportingText => 'Semak dan bayar bil mudah alih serta telekomunikasi';
+  String get telcoBillSupportingText => 'Semak dan bayar bil telefon anda.';
 
   @override
   String get mapInteractiveBadge => 'PETA INTERAKTIF';
@@ -4366,13 +4366,13 @@ class AppLocalizationsMs extends AppLocalizations {
   String get faqButton => 'SOALAN LAZIM';
 
   @override
-  String get faqSupportingText => 'Bantuan penggunaan kiosk, pembayaran dan resit';
+  String get faqSupportingText => 'Dapatkan bantuan menggunakan kiosk, membuat bayaran dan mendapatkan resit.';
 
   @override
   String get faqTitle => 'SOALAN LAZIM';
 
   @override
-  String get faqSubtitle => 'Sentuh soalan di bawah untuk melihat jawapan';
+  String get faqSubtitle => 'Sentuh soalan untuk lihat jawapannya.';
 
   @override
   String get faqWhatIsKioskTitle => 'Apakah Kiosk TIP?';
@@ -4429,16 +4429,16 @@ class AppLocalizationsMs extends AppLocalizations {
   String get faqTipsContent => '• Pastikan nombor akaun atau nombor rujukan dimasukkan dengan betul.\n• Semak nama pelanggan dan butiran bil sebelum meneruskan.\n• Semak jumlah pembayaran sebelum membuat transaksi.\n• Jangan tutup halaman resit sebelum mengimbas kod QR.\n• Simpan resit digital sebagai rujukan.\n• Jangan berkongsi maklumat pembayaran dengan pihak yang tidak dikenali.';
 
   @override
-  String get faqHelpTitle => 'PENYELESAIAN MASALAH & BANTUAN';
+  String get faqHelpTitle => 'PERLUKAN BANTUAN?';
 
   @override
-  String get faqHelpContent => 'Sekiranya skrin tidak bertindak balas, skrin kosong, pembayaran tergendala, kod QR tidak dipaparkan atau berlaku sebarang masalah lain, sila hubungi:';
+  String get faqHelpContent => 'Jika skrin tidak bertindak balas, bayaran terganggu atau kod QR tidak keluar, sila hubungi:';
 
   @override
   String get weatherButton => 'Cuaca';
 
   @override
-  String get weatherSupportingText => 'Lihat ramalan cuaca rasmi Bentong untuk 7 hari';
+  String get weatherSupportingText => 'Semak ramalan cuaca 7 hari';
 
   @override
   String weatherPageTitle(Object place) {
@@ -4496,7 +4496,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get weatherDisclaimerText => 'Ramalan rasmi 7 hari daripada MET Malaysia melalui laman web data.gov.my.';
 
   @override
-  String get weatherScrollHint => 'Leret ke atas atau ke bawah untuk melihat ramalan seterusnya';
+  String get weatherScrollHint => 'Skrol ke atas atau ke bawah untuk melihat ramalan seterusnya';
 
   @override
   String get weatherToday => 'Hari Ini';
@@ -7477,13 +7477,13 @@ class AppLocalizationsMs extends AppLocalizations {
   String get pegePayUnavailableOk => 'OK';
 
   @override
-  String get scrollViewMore => 'Lihat Lagi';
+  String get scrollViewMore => 'LIHAT LAGI';
 
   @override
-  String get scrollBackTop => 'Kembali Ke Atas';
+  String get scrollBackTop => 'KE ATAS';
 
   @override
-  String get scrollUpShort => 'Ke Atas';
+  String get scrollUpShort => 'ATAS';
 
   @override
   String get providerSearchTitle => 'Cari Penyedia';
@@ -7540,7 +7540,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get p2MainServicesTitle => 'PERKHIDMATAN UTAMA';
 
   @override
-  String get p2FrequentlyUsedTitle => 'PERKHIDMATAN PILIHAN UTAMA';
+  String get p2FrequentlyUsedTitle => 'PILIHAN PANTAS';
 
   @override
   String get p2DidYouKnowTitle => 'TAHUKAH ANDA?';

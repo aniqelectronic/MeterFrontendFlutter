@@ -40,6 +40,9 @@ class NEWP4PAGE extends StatefulWidget {
   State<NEWP4PAGE> createState() => _NEWP4PAGEState();
 }
 class _NEWP4PAGEState extends State<NEWP4PAGE> {
+  // Set true to show the scan/type guide. False hides the UI only.
+  // ScannerService and all existing input behavior remain unchanged.
+  static const bool _showScanOrTypeInfo = false;
   final TextEditingController _controller = TextEditingController();
   String? _activeKey;
   bool _isLoading = false;
@@ -777,7 +780,7 @@ Widget _buildInputGuideCard(IconData icon, String title, String description) {
             ),
           ),
       Positioned(
-        top: 20,
+        top: _showScanOrTypeInfo ? 20 : 45,
         left: 90,
         right: 90,
         child:Container(
@@ -836,7 +839,7 @@ Widget _buildInputGuideCard(IconData icon, String title, String description) {
       )
       ),
           Positioned(
-            top: 160,
+            top: _showScanOrTypeInfo ? 160 : 230,
             left: horizontalPadding,
             right: horizontalPadding,
             child: SizedBox(
@@ -868,7 +871,7 @@ Widget _buildInputGuideCard(IconData icon, String title, String description) {
             ),
           ),
           Positioned(
-            top: 300,
+            top: _showScanOrTypeInfo ? 300 : 400,
             left: 20,
             right: 20,
             bottom: 120,
@@ -882,9 +885,11 @@ Widget _buildInputGuideCard(IconData icon, String title, String description) {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                       // SCAN OR TYPE GUIDE - display only, no extra buttons.
-                       _buildScanInputGuide(AppLocalizations.of(context)!),
-                       const SizedBox(height: 40),
+                      // Optional guide: hide both the panel and its spacing.
+                      if (_showScanOrTypeInfo) ...[
+                        _buildScanInputGuide(AppLocalizations.of(context)!),
+                        const SizedBox(height: 40),
+                      ],
                       ...keyboardRows.take(5).map((row) {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: keySpacing),
@@ -1164,7 +1169,7 @@ Widget _buildInputGuideCard(IconData icon, String title, String description) {
           ),
             // BACK AND CONTINUE BUTTONS
             Positioned(
-              bottom: 100,
+              bottom: _showScanOrTypeInfo ? 100 : 200,
               left: 100,
               right: 100,
               child: Row(
@@ -1193,21 +1198,19 @@ Widget _buildInputGuideCard(IconData icon, String title, String description) {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color(0xFFE0E0E0),
-                          foregroundColor: Colors.black,
-                          disabledBackgroundColor:
-                              Colors.grey[400],
-                          disabledForegroundColor:
-                              Colors.black54,
-                          elevation: 0,
+                          backgroundColor: const Color(0xFFFAFCFF),
+                          foregroundColor: const Color(0xFF183B65),
+                          disabledBackgroundColor: const Color(0xFFE6EDF4),
+                          disabledForegroundColor: const Color(0xFF8195AA),
+                          shadowColor: const Color(0xFF173A66).withOpacity(0.20),
+                          elevation: 6,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           side: const BorderSide(
-                            color: Colors.black,
+                            color: Color(0xFFB9CEE2),
                             width: 2,
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(18),
+                            borderRadius: BorderRadius.circular(26),
                           ),
                         ),
                       ),
@@ -1221,21 +1224,19 @@ Widget _buildInputGuideCard(IconData icon, String title, String description) {
                         onPressed:
                             _isLoading ? null : _handleContinue,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color(0xFF16813B),
+                          backgroundColor: const Color(0xFF12834A),
                           foregroundColor: Colors.white,
-                          disabledBackgroundColor:
-                              Colors.green.shade300,
-                          disabledForegroundColor:
-                              Colors.white,
-                          elevation: 0,
+                          disabledBackgroundColor: const Color(0xFF8DC6A7),
+                          disabledForegroundColor: Colors.white,
+                          shadowColor: const Color(0xFF0D753F).withOpacity(0.32),
+                          elevation: 7,
+                          padding: const EdgeInsets.symmetric(horizontal: 18),
                           side: const BorderSide(
-                            color: Colors.black,
+                            color: Color(0xFF086838),
                             width: 2,
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(18),
+                            borderRadius: BorderRadius.circular(26),
                           ),
                         ),
                         child: _isLoading
@@ -1510,7 +1511,7 @@ Widget _buildInputGuideCard(IconData icon, String title, String description) {
             ),
           ),
           Positioned(
-            bottom: 20,
+            bottom: _showScanOrTypeInfo ? 20 : 100,
             left: 0,
             right: 0,
             child: Center(

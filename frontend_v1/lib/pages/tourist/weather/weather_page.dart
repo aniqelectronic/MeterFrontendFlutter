@@ -255,7 +255,7 @@ class _PWeatherPageState
           Positioned(
             left: 70,
             right: 70,
-            bottom: 250,
+            bottom: 230,
             child:
                 _DisclaimerCard(
               title:
@@ -607,7 +607,7 @@ class _PWeatherPageState
                                     0xFF17263A,
                                   ),
                                   fontSize:
-                                      31,
+                                      40,
                                   fontWeight:
                                       FontWeight
                                           .w900,
@@ -626,7 +626,7 @@ class _PWeatherPageState
                                     0xFF64748B,
                                   ),
                                   fontSize:
-                                      20,
+                                      28,
                                   fontWeight:
                                       FontWeight
                                           .w700,
@@ -1426,6 +1426,9 @@ class _ForecastCard
                         Expanded(
                           child: Text(
                             dateText,
+                            maxLines: 2,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
                             style:
                                 const TextStyle(
                               color:
@@ -1433,7 +1436,7 @@ class _ForecastCard
                                 0xFF17263A,
                               ),
                               fontSize:
-                                  25,
+                                  38,
                               fontWeight:
                                   FontWeight
                                       .w900,
@@ -1470,7 +1473,7 @@ class _ForecastCard
                                 color:
                                     Colors.white,
                                 fontSize:
-                                    16,
+                                    23,
                                 fontWeight:
                                     FontWeight
                                         .w900,
@@ -1490,7 +1493,7 @@ class _ForecastCard
                             .summaryForecast,
                         localeName,
                       ),
-                      maxLines: 2,
+                      maxLines: 3,
                       overflow:
                           TextOverflow
                               .ellipsis,
@@ -1500,7 +1503,7 @@ class _ForecastCard
                             Color(
                           0xFF607085,
                         ),
-                        fontSize: 20,
+                        fontSize: 29,
                         fontWeight:
                             FontWeight
                                 .w700,
@@ -1550,7 +1553,7 @@ class _ForecastCard
                         Color(
                       0xFF087DA5,
                     ),
-                    fontSize: 27,
+                    fontSize: 37,
                     fontWeight:
                         FontWeight
                             .w900,
@@ -1561,7 +1564,7 @@ class _ForecastCard
           ),
 
           const SizedBox(
-            height: 16,
+            height: 20,
           ),
 
           Row(
@@ -1680,11 +1683,11 @@ class _PeriodChip
     return Container(
       constraints:
           const BoxConstraints(
-        minHeight: 118,
+        minHeight: 235,
       ),
       padding:
           const EdgeInsets.all(
-        12,
+        16,
       ),
       decoration:
           BoxDecoration(
@@ -1704,8 +1707,8 @@ class _PeriodChip
       child: Column(
         children: [
           Container(
-            width: 37,
-            height: 37,
+            width: 52,
+            height: 52,
             decoration:
                 BoxDecoration(
               color:
@@ -1722,37 +1725,42 @@ class _PeriodChip
               icon,
               color:
                   accentColor,
-              size: 24,
+              size: 32,
             ),
           ),
 
           const SizedBox(
-            height: 7,
+            height: 9,
           ),
 
           Text(
             label,
+            textAlign: TextAlign.center,
+            maxLines: 3,
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,
             style:
                 const TextStyle(
               color:
                   Color(
                 0xFF334155,
               ),
-              fontSize: 17,
+              fontSize: 29,
               fontWeight:
                   FontWeight.w900,
             ),
           ),
 
           const SizedBox(
-            height: 5,
+            height: 8,
           ),
 
           Text(
             value,
             textAlign:
                 TextAlign.center,
-            maxLines: 2,
+            maxLines: 6,
+            softWrap: true,
             overflow:
                 TextOverflow.ellipsis,
             style:
@@ -1761,7 +1769,7 @@ class _PeriodChip
                   Color(
                 0xFF64748B,
               ),
-              fontSize: 15,
+              fontSize: 26,
               fontWeight:
                   FontWeight.w700,
               height: 1.18,
@@ -1877,7 +1885,7 @@ class _DisclaimerCard
                       Color(
                     0xFF73520C,
                   ),
-                  fontSize: 19,
+                  fontSize: 27,
                   fontWeight:
                       FontWeight
                           .w700,

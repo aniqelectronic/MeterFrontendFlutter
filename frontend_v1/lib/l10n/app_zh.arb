@@ -1,58 +1,49 @@
 {
   "@@locale": "zh",
-
-  "bilText": "水电账单",
-  "otherText": "其他",
-  "p2Title": "多元服务",
-  "touristText": "旅游指南",
-  "pbtText": "市政服务账单",
+  "bilText": "缴费与充值",
+  "otherText": "其他服务",
+  "p2Title": "请选择服务",
+  "touristText": "本地资讯",
+  "pbtText": "地方政府服务",
   "rentText": "其他租赁",
-  "rentPBTText": "市议会租赁",
+  "rentPBTText": "市议会租金",
   "backText": "返回",
-
-  "processingReceipt": "付款成功。\n您的收据正在处理中...\n请勿触碰屏幕。",
-
-  "noTaksiranRecordFound": "找不到评估税记录",
-  "noSewaanRecordFound": "找不到租赁记录",
-  "noSewaanPaymentRecordFound": "找不到租赁付款记录",
-  "noTaksiranPaymentRecordFound": "找不到评估税付款记录",
-  "unknownService": "无法识别的服务。",
-  "connectionFailed": "连接失败，请重试。",
-  "inputRegistrationOrAccountNo": "请输入注册号 / 账号",
-  "inputSewaanRegistrationOrAccountNo": "请输入租赁注册号 / 账号",
-  "inputTaksiranRegistrationOrAccountNo": "请输入评估税注册号 / 账号",
-
+  "processingReceipt": "付款成功！\n正在准备您的收据……\n请暂时不要离开此页面。",
+  "noTaksiranRecordFound": "找不到门牌税记录。",
+  "noSewaanRecordFound": "找不到租赁记录。",
+  "noSewaanPaymentRecordFound": "找不到租金付款记录。",
+  "noTaksiranPaymentRecordFound": "找不到门牌税付款记录。",
+  "unknownService": "无法识别此服务。",
+  "connectionFailed": "连接失败，请再试一次。",
+  "inputRegistrationOrAccountNo": "请输入登记号码或户口号码",
+  "inputSewaanRegistrationOrAccountNo": "请输入租赁登记号码或户口号码",
+  "inputTaksiranRegistrationOrAccountNo": "请输入门牌税登记号码或户口号码",
   "scrollup": "向上滚动",
   "scrolldown": "向下滚动",
-
   "comingsoonText": "即将推出",
-
-  "p3rentTitle": "租赁选项",
-  "p3rentSubtitle": "请选择您的选项",
+  "p3rentTitle": "租赁服务",
+  "p3rentSubtitle": "请选择要办理的事项",
   "p3dewanButton": "礼堂",
   "p3geraiButton": "摊位",
   "p3ruangniagaButton": "商业空间",
-
-  "p3othersTitle": "旅游服务选项",
-  "p3othersSubtitle": "请选择您的选项",
-  "p3aduanButton": "投诉",
-  "p3eksplorasiButton": "探索",
+  "p3othersTitle": "旅游与探索",
+  "p3othersSubtitle": "请选择要办理的事项",
+  "p3aduanButton": "投诉与反馈",
+  "p3eksplorasiButton": "旅游景点",
   "p3waktusolat": "祈祷时间",
-  "p3map": "地图",
-
-  "p4optioncukaiTitle": "评估税",
-  "p4optioncukaiSubtitle": "请选择您的选项",
-  "p4optionsewaanTitle": "市议会租赁",
-  "p4optionsewaanSubtitle": "请选择您的选项",
-  "paymentsewaan": "进行付款",
-  "semakansewaantitle": "查询租赁付款",
-  "checkbuttonsewaan": "查询付款",
-  "checkbuttontax": "查询付款",
-  "paymenttax": "进行付款",
-  "semakancukaititle": "查询税款付款",
-
-  "noPaymentRecordsFound": "找不到付款记录",
-  "assessmentTaxPaymentTransactionList": "评估税付款交易列表",
+  "p3map": "地图与路线",
+  "p4optioncukaiTitle": "门牌税",
+  "p4optioncukaiSubtitle": "请选择要办理的事项",
+  "p4optionsewaanTitle": "市议会租金",
+  "p4optionsewaanSubtitle": "请选择要办理的事项",
+  "paymentsewaan": "缴付租金",
+  "semakansewaantitle": "租金付款记录",
+  "checkbuttonsewaan": "查看付款记录",
+  "checkbuttontax": "查看付款记录",
+  "paymenttax": "缴付门牌税",
+  "semakancukaititle": "门牌税付款记录",
+  "noPaymentRecordsFound": "没有找到付款记录。",
+  "assessmentTaxPaymentTransactionList": "门牌税付款交易列表",
   "account": "账户",
   "transactionNo": "交易编号",
   "amount": "金额",
@@ -68,41 +59,36 @@
   "paymentMethod": "付款方式",
   "paidDate": "付款日期",
   "close": "关闭",
-
-  "semakanWarningTitle": "重要通知",
-  "semakanWarningMessage": "付款查询仅适用于通过本自助服务终端进行的交易。透过其他渠道进行的付款可能不会显示。",
+  "semakanWarningTitle": "温馨提醒",
+  "semakanWarningMessage": "这里只能查询通过本自助终端完成的付款。其他渠道的付款可能不会显示。",
   "cancelButton": "取消",
   "continueButton": "继续",
-
-  "semakanSewaanWarningTitle": "重要通知",
-  "semakanSewaanWarningMessage": "租赁付款查询仅适用于通过本自助服务终端进行的交易。透过其他渠道进行的付款可能不会显示。",
-
+  "semakanSewaanWarningTitle": "温馨提醒",
+  "semakanSewaanWarningMessage": "这里只能查询通过本自助终端缴付的租金。其他渠道的付款可能不会显示。",
   "pwaktusolattitle": "祈祷时间",
   "textsolat1": "下一个祈祷时间：",
   "maptitle": "位置地图",
   "mapsubtitle": "探索并了解您周围的一切",
-
-  "p3Title": "市议会服务",
-  "p3Subtitle": "请选择您的选项",
+  "p3Title": "地方政府服务",
+  "p3Subtitle": "请选择要办理的事项",
   "parkirButton": "停车",
-  "compoundButton": "罚款",
-  "compoundTitle": "罚款",
+  "compoundButton": "罚单",
+  "compoundTitle": "缴付罚单",
   "aduanTitle": "投诉",
-  "singlecompoundTitle": "单一罚款",
-  "multicompoundTitle": "多项罚款",
-  "compoundSubtitle": "选择查询方式",
-  "singleCompoundButton": "罚款编号",
+  "singlecompoundTitle": "按罚单编号查询",
+  "multicompoundTitle": "按车牌号码查询",
+  "compoundSubtitle": "您想怎样查询？",
+  "singleCompoundButton": "罚单编号",
   "multiCompoundButton": "车牌号码",
-  "taxButton": "评估税",
+  "taxButton": "门牌税",
   "licenseButton": "执照",
-  "inputPlateHint": "请输入您的车牌号码",
-  "inputICHint": "请输入您的身份证号码",
-  "inputCompoundHint": "请输入罚款编号",
-  "inputTaxHint": "请输入账号/身份证/公司注册号",
-
-  "pbil3Title": "账单选项",
-  "pbilelectric3Title": "电费账单选项",
-  "pbil3Subtitle": "请选择您的选项",
+  "inputPlateHint": "请输入车牌号码",
+  "inputICHint": "请输入身份证号码",
+  "inputCompoundHint": "请输入罚单编号",
+  "inputTaxHint": "请输入户口、身份证或SSM号码",
+  "pbil3Title": "缴费与充值",
+  "pbilelectric3Title": "电费账单",
+  "pbil3Subtitle": "请选择要办理的事项",
   "electricitybutton": "电费账单",
   "tnbButton": "国家能源账单",
   "sarawakenergyButton": "砂拉越能源账单",
@@ -111,32 +97,28 @@
   "waterButton": "水费账单",
   "tmButton": "TM账单",
   "telkoButton": "电信账单",
-
   "backButton": "返回",
   "alertTitle": "提示",
-  "alertEnterInfo": "请输入信息后再继续。",
+  "alertEnterInfo": "请先填写资料。",
   "alertEnterIC": "请输入身份证号码。",
-  "alertNoTaxRecord": "找不到税务记录。",
+  "alertNoTaxRecord": "找不到门牌税记录，请检查号码后重试。",
   "alertNoLicenseRecord": "找不到执照记录。",
-  "alertEnterPlateNo": "请输入车辆注册号码。",
-  "alertNoCompoundRecord": "找不到罚款记录。",
-  "alertEnterCompoundNo": "请输入罚款编号。",
-  "alertEnterSewaan": "请输入账号。",
+  "alertEnterPlateNo": "请输入车牌号码。",
+  "alertNoCompoundRecord": "这个号码没有罚单记录。",
+  "alertEnterCompoundNo": "请输入罚单编号。",
+  "alertEnterSewaan": "请输入租赁户口号码。",
   "alertNoSewaan": "找不到租赁记录。",
   "keyboardBackspace": "删除",
   "keyboardClearAll": "全部清除",
   "buttonBack": "返回",
   "buttonContinue": "继续",
-
   "p5parkingText1": "选择停车时长",
   "p5parkingText2": "直到",
   "p5parkingTitle": "选择停车时长",
   "p5parkingTimeRange": "{startTime} 至 {endTime}",
   "p5parkingRatePerHour": "每小时收费 = RM {ratePerHour}",
   "p5parkingTotalAmount": "总金额 = RM {amount}",
-
-  "parkingStartTimeDisclaimer": "免责声明：停车开始时间将在您成功完成付款后才开始计算。",
-
+  "parkingStartTimeDisclaimer": "停车时间只会在付款成功后开始计算。",
   "receiptDurationValue": "{hours} 小时",
   "@receiptDurationValue": {
     "placeholders": {
@@ -145,7 +127,6 @@
       }
     }
   },
-
   "p5parkingNumberPlate": "车牌号码",
   "p5parkingTotal": "总付款额",
   "p5parkingStart": "开始",
@@ -155,9 +136,8 @@
   "p5Total": "总付款额：",
   "currentParkingEnd": "当前停车结束时间",
   "newParkingEnd": "新停车结束时间",
-
   "time": "小时",
-  "confirmDialogTitle": "如信息正确请按确定",
+  "confirmDialogTitle": "确认您的选择",
   "plateNumberLabel": "车牌号码：{plate}",
   "parkingStartTimeLabel": "开始时间",
   "parkingEndTimeLabel": "结束时间",
@@ -165,31 +145,26 @@
   "timeRangeLabel": "{startTime} 至 {endTime}",
   "totalAmountLabel": "您的总金额：RM {total}",
   "confirmButton": "确定",
-
   "paymentTitle": "付款",
   "paymentSubtitle": "请选择付款方式",
   "totalAmountText": "总金额",
-  "cardButton": "银行卡付款",
+  "cardButton": "刷卡付款",
   "qrButton": "使用 DUITNOW QR 付款",
   "weAcceptText": "我们接受：",
-
-  "cardConfirmTitle": "确认卡付款",
-  "cardConfirmMessage": "您确定要使用借记卡或信用卡付款吗？\n\n在继续之前：\n• 请准备好您的卡。\n• 在收到指示时将卡靠近读卡器。\n• 在听到提示音之前请勿移开卡片。",
+  "cardConfirmTitle": "确认刷卡付款",
+  "cardConfirmMessage": "确定使用借记卡或信用卡付款吗？\n\n继续前请注意：\n• 准备好您的卡。\n• 按提示将卡轻触读卡器。\n• 听到提示音后才移开卡片。",
   "cardConfirmContinue": "继续",
   "cardConfirmCancel": "取消",
-
   "paymentCancelling": "正在取消付款",
-  "paymentCancellingInstruction": "未检测到卡片。\n交易正在取消中...\n请稍候。",
-
-  "paymentTapYourCard": "请感应您的卡片",
-  "paymentTapCardInstruction": "请将卡片轻触读卡器\n直到听到“哔”声",
-  "paymentProcessing": "正在处理",
-  "paymentProcessingInstruction": "请稍候，我们正在处理\n您的付款...",
+  "paymentCancellingInstruction": "未检测到卡片。\n正在取消付款，请稍候……",
+  "paymentTapYourCard": "请轻触卡片",
+  "paymentTapCardInstruction": "将卡片靠近读卡器，\n听到提示音后再移开。",
+  "paymentProcessing": "正在处理付款",
+  "paymentProcessingInstruction": "正在处理您的付款……\n请稍候。",
   "paymentSuccessful": "付款成功",
-  "paymentSuccessInstruction": "正在跳转至收据...",
+  "paymentSuccessInstruction": "正在打开收据……",
   "paymentFailed": "付款失败",
-  "paymentFailedInstruction": "请重试",
-
+  "paymentFailedInstruction": "请重试，或选择其他付款方式。",
   "titleReceiptParking": "停车收据",
   "titleReceiptLicense": "执照收据",
   "titleReceiptTax": "税务收据",
@@ -202,41 +177,35 @@
   "receiptAmountLabel": "总付款额：RM {amount}",
   "receiptStartTimeLabel": "开始时间：{time}",
   "receiptEndTimeLabel": "结束时间：{time}",
-
   "receiptPlateLabel2": "车牌号码",
   "receiptDurationLabel2": "时长",
   "receiptAmountLabel2": "总付款额",
   "receiptStartTimeLabel2": "开始时间",
   "receiptEndTimeLabel2": "结束时间",
-
-  "receiptScanQrText": "请扫描二维码以获取完整收据信息",
-  "receiptScanQrText2": "请扫描二维码以获取完整收据信息",
-
+  "receiptScanQrText": "用手机扫描此二维码，查看完整收据。",
+  "receiptScanQrText2": "用手机扫描此二维码，查看完整收据。",
   "p5extendparkingTitle": "延长停车时间",
-  "p5extendparkingSubtitle": "请选择您的选项",
+  "p5extendparkingSubtitle": "请选择",
   "plusTimeButton": "增加\n时间",
   "receiptButton": "收据",
   "parkingExpiredAfter6pm": "停车结束时间已达到或超过下午6点，无法增加时间。",
-
   "p6extendparkingTitle": "增加停车时间",
   "p6extendparkingSubtitle": "停车票结束时间：",
   "extendTimeUntil": "延长时间至 {time}",
-
-  "p5TaxTitle": "税务选项",
-  "p5TaxSubtitle": "请选择您要缴付的税款",
+  "p5TaxTitle": "选择门牌税账单",
+  "p5TaxSubtitle": "请选择要缴付的门牌税账单",
   "taxSelectAll": "全选",
   "taxUnselectAll": "取消全选",
   "taxBack": "返回",
   "taxProceed": "继续",
   "taxAlertTitle": "提示",
-  "taxAlertSelectAtLeastOne": "请至少选择一项税款",
+  "taxAlertSelectAtLeastOne": "请至少选择一张门牌税账单。",
   "taxHeaderBillNo": "账单编号",
   "taxHeaderProperty": "物业",
   "taxHeaderDueDate": "到期日",
   "taxHeaderAmount": "金额 (RM)",
-
-  "p5LicenseTitle": "执照选项",
-  "p5LicenseSubtitle": "请选择您要缴付的执照",
+  "p5LicenseTitle": "选择执照",
+  "p5LicenseSubtitle": "请选择要缴费的执照",
   "licenseSelectAll": "全选",
   "licenseUnselectAll": "取消全选",
   "licenseHeaderNo": "执照编号",
@@ -244,14 +213,13 @@
   "licenseHeaderEndDate": "到期日",
   "licenseHeaderAmount": "金额 (RM)",
   "licenseAlertTitle": "提示",
-  "licenseAlertSelectAtLeastOne": "请至少选择一项执照",
+  "licenseAlertSelectAtLeastOne": "请至少选择一项执照。",
   "licenseBackButton": "返回",
   "licenseProceedButton": "继续",
   "licenseTotalAmount": "RM {amount}",
-
-  "p5MultiCompoundTitle": "罚款选项",
-  "p5MultiCompoundSubtitle": "请选择您要缴付的罚款",
-  "multiCompoundAlertSelectAtLeastOne": "请至少选择一项罚款",
+  "p5MultiCompoundTitle": "选择罚单",
+  "p5MultiCompoundSubtitle": "请选择要缴付的罚单",
+  "multiCompoundAlertSelectAtLeastOne": "请至少选择一张罚单。",
   "multiCompoundHeaderNo": "罚款编号",
   "multiCompoundHeaderOffense": "违规事项",
   "detailCompoundText": "罚款详情",
@@ -263,7 +231,6 @@
   "multiCompoundSelectAll": "全选",
   "multiCompoundUnselectAll": "取消全选",
   "multiCompoundTotalAmount": "RM {amount}",
-
   "p5SingleCompoundTitle": "罚款信息",
   "singleCompoundOffenderName": "违规者姓名",
   "singleCompoundNo": "罚款编号",
@@ -273,148 +240,110 @@
   "singleCompoundTime": "时间",
   "singleCompoundKodHasil": "收入编码",
   "singleCompoundAmount": "金额 (RM)",
-
   "closetext": "关闭",
   "scantext": "扫描以导航",
-
   "bentongExplorationTitle": "文冬探索",
-
   "tabHistorical": "历史景点",
   "tabInteresting": "热门景点",
   "tabEating": "美食地点",
-
   "back": "返回",
   "copyright": "版权所有 © 2025 保留所有权利。",
-
   "jomKeBentongGallery": "文冬走一趟画廊",
-  "jomKeBentongDesc": "文冬的历史景点",
-  "jomKeBentongFull": "“文冬走一趟”画廊透过老照片、传统器具和城市发展的故事，介绍文冬的历史与文化遗产。",
-
+  "jomKeBentongDesc": "走进文冬，认识这座小镇的历史与文化。",
+  "jomKeBentongFull": "来到这座画廊，从老照片、传统物件和小镇的发展故事中认识文冬的过去。这里不只是展示历史，也带您了解当地人的生活、文化与这座老镇一路走来的变化。",
   "jandaBaikTitle": "彭亨振达拜",
-  "jandaBaikDesc": "一起探索振达拜的美",
-  "jandaBaikFull": "振达拜是一个宁静的生态旅游胜地，四周环绕着森林、河流和瀑布，适合悠闲度假和亲近大自然的活动。",
-
+  "jandaBaikDesc": "走进绿意山林，享受清凉河水与宁静乡村。",
+  "jandaBaikFull": "想暂时远离城市的忙碌，不妨到振达拜放慢脚步。这里有绿意盎然的森林、清凉的溪流和宁静的乡村景色。您可以在河边休息、享受自然住宿，或视天气与经营者安排体验林间漫步、骑行等户外活动。",
   "bentongWalkTitle": "文冬步行街",
-  "bentongWalkDesc": "一起在文冬步行街逛逛",
-  "bentongWalkFull": "文冬步行街是一个现代化的公共区域，设有美食摊位、咖啡馆和活动空间，深受游客欢迎。",
-
+  "bentongWalkDesc": "边走边吃，感受文冬街头的热闹与人情味。",
+  "bentongWalkFull": "不妨放慢脚步，在文冬市区走走，感受这座老镇的人情味。街头美食、地方活动和热闹的社区氛围，让旅客看见文冬自然风光之外的另一面。实际活动会因日期和当地安排而不同。",
   "lemangTokKiTitle": "Tok'Ki竹筒饭",
-  "lemangTokKiDesc": "文冬著名的竹筒饭",
-  "lemangTokKiFull": "Tok'Ki竹筒饭以使用糯米和椰浆在竹筒中烹煮的传统竹筒饭闻名。",
-
+  "lemangTokKiDesc": "到文冬尝尝香喷喷的传统竹筒饭。",
+  "lemangTokKiFull": "Lemang To’ki 是文冬颇受欢迎的美食站，招牌是以糯米、椰浆放入竹筒中慢慢烹煮的传统竹筒饭，香气十足。来到这里，不妨尝尝这道马来西亚特色美食；若有供应，也可以搭配烤鸡等当地料理。",
   "alorsetarExplorationTitle": "亚罗士打探索",
-
   "muziumDirajaTitle": "吉打皇家博物馆",
   "muziumDirajaDesc": "前吉打皇家王宫。",
   "muziumDirajaFull": "吉打皇家博物馆前身为皇家王宫，如今作为历史博物馆使用，展示皇室文物、历史文献以及与吉打苏丹制度相关的重要资讯。",
-
   "menaraAlorSetarTitle": "亚罗士打塔",
   "menaraAlorSetarDesc": "吉打州的标志性地标。",
   "menaraAlorSetarFull": "亚罗士打塔是吉打州主要的电讯塔和旅游景点。游客可在观景台欣赏亚罗士打市区及周边地区的景色。",
-
   "masjidZahirTitle": "扎希清真寺",
   "masjidZahirDesc": "马来西亚最古老、最美丽的清真寺之一。",
   "masjidZahirFull": "扎希清真寺建于1912年，以独特的摩尔式建筑风格著称，是吉打州主要的礼拜场所及重要宗教活动地点。",
-
   "balaiBesarTitle": "皇家大厅",
   "balaiBesarDesc": "吉打皇家仪式厅。",
   "balaiBesarFull": "皇家大厅用于举行皇室正式仪式、登基典礼及州级盛大活动，象征吉打苏丹王朝的皇室传统与历史。",
-
   "mahathirHouseTitle": "敦马哈迪医生出生地",
   "mahathirHouseDesc": "马来西亚第四任及第七任首相的出生地。",
   "mahathirHouseFull": "此屋为敦马哈迪医生的出生地，现已改建为博物馆，展示他早年的生活背景以及对国家发展的重大贡献。",
-
   "muziumPadiTitle": "稻米博物馆",
   "muziumPadiDesc": "展示吉打稻米种植历史的独特博物馆。",
   "muziumPadiFull": "稻米博物馆展示了被誉为马来西亚米仓的吉打州的稻米种植遗产。馆内设有互动展览、历史文物及全景画廊，描绘从传统方法到现代科技的水稻种植历程。",
-
   "tamanJubliTitle": "金禧公园",
   "tamanJubliDesc": "适合全家的休闲康乐公园。",
   "tamanJubliFull": "金禧公园是一片适合步行、慢跑及与家人休闲相聚的绿地，是当地居民户外活动的热门选择。",
-
   "pekanRabuTitle": "星期三市场",
   "pekanRabuDesc": "吉打著名的传统市场。",
   "pekanRabuFull": "星期三市场出售各类当地产品，如传统食品、服装及手工艺品，是游客体验当地市场氛围的必到之处。",
-
   "kualaKedahTitle": "吉打河口海滩",
   "kualaKedahDesc": "著名的渔村地区。",
   "kualaKedahFull": "吉打河口海滩以海景及新鲜海产闻名，也是品尝当地海鲜美食的热门地点。",
-
   "royaleTitle": "皇家椰浆饭",
   "royaleDesc": "来自吉打的著名椰浆饭。",
   "royaleFull": "皇家椰浆饭以搭配浓郁咖喱汁、炸鸡及多种诱人配菜的椰浆饭而闻名。",
-
   "meeShamTitle": "Sham面 Doll煎饼",
   "meeShamDesc": "吉打州标志性的传统面食。",
   "meeShamFull": "Sham面是吉打的传统面食，搭配浓稠甜汁供应，通常与Doll煎饼或炸糕一起食用。",
-
   "laksaTelukKechaiTitle": "Teluk Kechai叻沙",
   "laksaTelukKechaiDesc": "以浓郁酸味鱼汤闻名的吉打叻沙。",
   "laksaTelukKechaiFull": "Teluk Kechai叻沙是吉打的热门美食，以罗望子及当地香料调制出浓郁酸味的鱼汤闻名，深受当地人喜爱，展现吉打叻沙的独特传统。",
-
   "yasmeenTitle": "Yasmeen印度煎饼饭",
   "yasmeenDesc": "亚罗士打受欢迎的印度穆斯林美食。",
   "yasmeenFull": "Yasmeen印度煎饼饭以多种配菜及浓郁咖喱著称，是印度穆斯林美食爱好者的热门去处。",
-
   "gulaiPanasTitle": "Mak Teh辣汁",
   "gulaiPanasDesc": "著名的传统辣汁料理。",
   "gulaiPanasFull": "Mak Teh辣汁以原汁原味及浓郁的本地香料闻名，是游客品尝吉打传统美食的热门选择。",
-
   "skydeckTitle": "亚罗士打塔天空平台",
   "skydeckDesc": "令人心跳加速的玻璃观景台。",
   "skydeckFull": "亚罗士打塔天空平台提供独特体验，透过玻璃地板可从高处欣赏亚罗士打市区景色，是喜爱刺激与美景的游客的主要景点之一。",
-
   "nsExplorationTitle": "探索森美兰",
-
   "nsIstanaTitle": "斯里芝兰皇宫",
   "nsIstanaDesc": "米南加保风格的皇家宫殿。",
   "nsIstanaFull": "斯里芝兰皇宫是森美兰的皇家宫殿，建造时未使用任何钉子，具有米南加保建筑特色。",
-
   "nsMuseumTitle": "森美兰州博物馆",
   "nsMuseumDesc": "历史与文化博物馆。",
   "nsMuseumFull": "该博物馆展示森美兰的历史、习俗与文化。",
-
   "nsMasjidTitle": "斯里森达延清真寺",
   "nsMasjidDesc": "标志性现代清真寺。",
   "nsMasjidFull": "斯里森达延清真寺是森美兰最大的清真寺之一，建筑风格引人注目。",
-
   "nsPortDicksonTitle": "波德申海滩",
   "nsPortDicksonDesc": "著名的海滩胜地。",
   "nsPortDicksonFull": "波德申以海滩、度假村及海滨景点闻名。",
-
   "nsGunungAngsiTitle": "安西山",
   "nsGunungAngsiDesc": "受欢迎的登山地点。",
   "nsGunungAngsiFull": "安西山提供美丽景色和具挑战性的登山路线。",
-
   "nsJeramTitle": "多依急流生态公园",
   "nsJeramDesc": "生态公园与瀑布。",
   "nsJeramFull": "多依急流生态公园设有河流、瀑布和天然森林。",
-
   "nsMasakLemakTitle": "辣椒椰浆咖喱",
   "nsMasakLemakDesc": "森美兰的标志性美食。",
   "nsMasakLemakFull": "辣椒椰浆咖喱是一道以椰浆为基础的辛辣美食，广受欢迎。",
-
   "nsRendangTitle": "森美兰仁当",
   "nsRendangDesc": "传统米南加保仁当。",
   "nsRendangFull": "仁当以各种香料和椰浆慢火烹煮而成。",
-
   "nsKuwaahTitle": "Kuwaah咖啡馆",
   "nsKuwaahDesc": "融合本地风味的现代咖啡馆。",
   "nsKuwaahFull": "Kuwaah咖啡馆提供融合本地与西式料理的现代用餐体验。",
-
   "nsRimbaTitle": "The Rimba, Lavender Heights",
   "nsRimbaDesc": "以大自然为主题的餐厅。",
   "nsRimbaFull": "The Rimba提供被绿意环绕、氛围宁静的用餐环境。",
-
   "nsZamiraTitle": "Zamira柴火厨房",
   "nsZamiraDesc": "森美兰传统美食。",
   "nsZamiraFull": "Zamira柴火厨房以世代相传的食谱供应正宗森美兰传统美食。",
-
   "nsHayyanTitle": "Hayyan Huda奶奶的厨房",
   "nsHayyanDesc": "家常乡村美食。",
   "nsHayyanFull": "Hayyan Huda奶奶的厨房提供如同在奶奶家中烹调的乡村美食。",
-
-  "receiptAutoReturn": "将在{seconds}秒后返回主菜单",
+  "receiptAutoReturn": "{seconds} 秒后返回主页。",
   "@receiptAutoReturn": {
     "placeholders": {
       "seconds": {
@@ -422,11 +351,10 @@
       }
     }
   },
-
-  "idleTitle": "您仍在使用此服务吗？",
-  "idleContinue": "继续",
+  "idleTitle": "您还在使用吗？",
+  "idleContinue": "继续使用",
   "idleGoHome": "返回主页",
-  "idleMessage": "您将在{seconds}秒后返回主页。",
+  "idleMessage": "{seconds} 秒后将返回主页。",
   "@idleMessage": {
     "placeholders": {
       "seconds": {
@@ -434,443 +362,308 @@
       }
     }
   },
-
   "wildWestTitle": "狂野西部牛仔主题公园",
   "wildWestDesc": "适合各年龄层游玩的牛仔主题乐园。",
   "wildWestFull": "位于波德申Dataran Segar的狂野西部牛仔室内主题公园，是一个独特的家庭娱乐场所，提供色彩缤纷的游乐设施、互动式街机游戏、刺激的5D及7D电影体验、主题解谜逃脱室，以及牛仔咖啡馆和纪念品店，全年适合大人小孩前来游玩。",
-
   "wetWorldTitle": "Wet World哇沙温泉度假村",
   "wetWorldDesc": "拥有天然温泉、滑梯及休闲泳池的水上乐园。",
   "wetWorldFull": "Wet World哇沙温泉度假村是森美兰哇沙著名的水上乐园及温泉景点，将刺激的水上滑梯与富含矿物质的天然温泉相结合，据信具有缓解关节和肌肉疼痛等理疗功效，适合全家人休闲放松。",
-
   "tnKenaboiTitle": "根那波州立公园",
   "tnKenaboiDesc": "拥有丰富生态与自然步道的州立森林公园。",
   "tnKenaboiFull": "根那波州立公园是一片动植物资源丰富的森林保护区，设有步行小径、自然景观及观察野生动物的机会。",
-
   "eduEcoSungaiMenyalaTitle": "梅雅拉河教育生态旅游中心",
   "eduEcoSungaiMenyalaDesc": "河畔的教育生态旅游中心。",
   "eduEcoSungaiMenyalaFull": "梅雅拉河教育生态旅游中心专注于沿梅雅拉河一带的保育与教育工作。",
-
   "hutanRecTanjungTuanTitle": "丹绒端休闲森林",
   "hutanRecTanjungTuanDesc": "以观鸟和自然步道闻名的沿海森林公园。",
   "hutanRecTanjungTuanFull": "丹绒端休闲森林是一片沿海森林公园，设有自然步道、美丽的海角景色，以及每年观赏候鸟迁徙的机会。",
-
   "serembanHillParkTitle": "芙蓉S2山丘公园",
   "serembanHillParkDesc": "拥有步行小径和美丽景色的山丘公园。",
   "serembanHillParkFull": "芙蓉S2山丘公园是本地热门的山丘休闲公园，设有步行小径及观景点，可俯瞰芙蓉市区及周边地区的全景。",
-
   "pIkanHiasanPDTitle": "波德申观赏鱼中心",
   "pIkanHiasanPDDesc": "展示海洋观赏鱼种的水族馆。",
   "pIkanHiasanPDFull": "波德申观赏鱼中心在精心维护的水族箱中展示多种海洋观赏鱼类，适合家庭及教育参观。",
-
   "airTerjunLataKijangTitle": "拉达吉浪瀑布",
   "airTerjunLataKijangDesc": "森林环境中的美丽瀑布。",
   "airTerjunLataKijangFull": "拉达吉浪瀑布是森林深处的天然瀑布，吸引登山者、家庭及大自然爱好者前来游玩。",
-
   "hutanLipurJeramTengkekTitle": "登克急流休闲森林",
   "hutanLipurJeramTengkekDesc": "拥有急流和绿意的休闲森林。",
   "hutanLipurJeramTengkekFull": "登克急流休闲森林是一片自然休闲区，游客可在此享受林荫小径、河流急流及清新绿意，适合户外活动。",
-
   "puncakBukitBatuPutihTitle": "白石山山顶",
   "puncakBukitBatuPutihDesc": "拥有迷人景色的山顶景点。",
   "puncakBukitBatuPutihFull": "白石山山顶提供美丽的山丘景色和自然氛围，是登山、摄影及欣赏全景地貌的理想地点。",
-
   "muziumAstanaRajaMelawarTitle": "拉惹麦拉华宫复制博物馆",
   "muziumAstanaRajaMelawarDesc": "复制历史宫殿的博物馆。",
   "muziumAstanaRajaMelawarFull": "拉惹麦拉华宫复制博物馆是一处文化遗址，展示拉惹麦拉华宫的精细复制品，让游客一窥当地的历史传承与建筑艺术。",
-
   "hutanSimpanGunungTampinTitle": "淡边山森林保护区",
   "hutanSimpanGunungTampinDesc": "拥有自然步道的森林保护区。",
   "hutanSimpanGunungTampinFull": "淡边山森林保护区以步行小径、本地动植物及宁静的登山路线闻名。",
-
   "primalandTitle": "PRIMALAND水上主题公园",
   "primalandDesc": "拥有滑梯和泳池的水上主题公园。",
   "primalandFull": "PRIMALAND水上主题公园是一家适合全家出游的水上乐园，提供水上滑梯和泳池区域，供游客尽情戏水娱乐。",
-
   "rantauEcoParkTitle": "浪都生态公园",
   "rantauEcoParkDesc": "拥有步道及自然活动的生态公园。",
   "rantauEcoParkFull": "浪都生态公园是一处天然公园，游客可在此享受轻松步道、野餐区及推广户外乐趣的生态旅游活动。",
-
   "royalGalleryTitle": "端姑贾化皇家画廊",
   "royalGalleryDesc": "展示森美兰皇室制度传承的皇家画廊。",
   "royalGalleryFull": "位于芙蓉的端姑贾化皇家画廊展示了端姑贾化·依布尼·已故端姑阿都拉曼的历史、皇家器物、私人收藏及其成就，是反映森美兰治理体系与风俗传统的文化地标。",
-
   "centipedeTempleTitle": "千足庙",
   "centipedeTempleDesc": "以巨型千足雕像闻名的历史华人庙宇。",
   "centipedeTempleFull": "位于波德申的千足庙是一座著名的道教庙宇，以大型千足雕像闻名，吸引游客与信徒前来参拜，同时也可借此了解华人社区的文化。",
-
   "armyMuseumPDTitle": "波德申陆军博物馆",
   "armyMuseumPDDesc": "展示马来西亚军事历史的主要军事博物馆。",
   "armyMuseumPDFull": "波德申陆军博物馆透过武器、坦克、飞机、军装及历史文件等收藏，展示马来西亚的军事传承，致力于教育年轻一代了解马来西亚武装部队的牺牲精神。",
-
   "hayyanHudaTitle": "Hayyan Huda奶奶的厨房",
   "hayyanHudaDesc": "森美兰乡村美食。",
   "hayyanHudaFull": "Hayyan Huda奶奶的厨房以世代相传的食谱供应森美兰传统美食闻名。",
-
   "kafeIkhwanTitle": "Ikhwan咖啡馆海南鸡饭",
   "kafeIkhwanDesc": "受欢迎的海南鸡饭。",
   "kafeIkhwanFull": "Ikhwan咖啡馆供应香气四溢、酱汁美味的海南鸡饭。",
-
   "meeHirisTitle": "华人穆斯林手拉面",
   "meeHirisDesc": "清真华式手拉面。",
   "meeHirisFull": "华人穆斯林手拉面供应新鲜手拉面配浓郁清真汤底。",
-
   "belqisTitle": "Belqis餐厅",
   "belqisDesc": "中东与本地美食。",
   "belqisFull": "Belqis餐厅供应中东美食及本地料理。",
-
   "seleraNogoriTitle": "Selera Nogori餐厅",
   "seleraNogoriDesc": "森美兰辛辣美食。",
   "seleraNogoriFull": "Selera Nogori餐厅以辣椒椰浆咖喱及森美兰传统美食闻名。",
-
   "kemangiTitle": "Kemangi餐厅",
   "kemangiDesc": "印尼与马来美食。",
   "kemangiFull": "Kemangi餐厅供应香料浓郁的印尼料理。",
-
   "hajiShariffCendolTitle": "Haji Shariff煎蕊",
   "hajiShariffCendolDesc": "马来西亚传统煎蕊。",
   "hajiShariffCendolFull": "Haji Shariff煎蕊是配以马六甲椰糖的热门甜品。",
-
   "nasiArabDamsyikTitle": "大马士革阿拉伯饭",
   "nasiArabDamsyikDesc": "中东风味饭食。",
   "nasiArabDamsyikFull": "大马士革阿拉伯饭以香料饭及嫩滑肉类闻名。",
-
   "restoranDPantaiTitle": "D'Pantai餐厅",
   "restoranDPantaiDesc": "海滨海鲜餐厅。",
   "restoranDPantaiFull": "D'Pantai餐厅在海滨氛围中供应新鲜海鲜。",
-
   "nasiLemakSenawangTitle": "士拿旺椰浆饭",
   "nasiLemakSenawangDesc": "受欢迎的本地椰浆饭。",
   "nasiLemakSenawangFull": "士拿旺椰浆饭以香喷喷的米饭和美味的参巴酱闻名。",
-
   "n9StickFactoryTitle": "N9 Stick Factory",
   "n9StickFactoryDesc": "供应火锅料理的餐厅。",
   "n9StickFactoryFull": "N9 Stick Factory供应火锅料理，食材新鲜多样，价格实惠。",
-
   "bayuVillageTitle": "Bayu Village餐厅",
   "bayuVillageDesc": "度假村风格的用餐体验。",
   "bayuVillageFull": "Bayu Village餐厅提供轻松氛围及多样化的美食选择。",
-
   "pdFamousCendolTitle": "波德申著名煎蕊与椰奶昔",
   "pdFamousCendolDesc": "搭配椰水的煎蕊。",
   "pdFamousCendolFull": "波德申著名的煎蕊与椰奶昔，清凉解暑。",
-
   "beraExplorationTitle": "探索北根",
-
   "guaGelanggiTitle": "哥打格朗吉洞穴",
   "guaGelanggiDesc": "古老的石灰岩洞穴群",
   "guaGelanggiFull": "哥打格朗吉洞穴是一处拥有超过一亿年历史的古老石灰岩洞穴系统，充满传奇色彩。",
-
   "beraSemelaiTitle": "西马莱原住民村",
   "beraSemelaiDesc": "传统原住民聚落",
   "beraSemelaiFull": "西马莱族世代定居于北根湖周边地区。",
-
   "beraMasjidTitle": "北根旧清真寺",
   "beraMasjidDesc": "北根早期的伊斯兰地标",
   "beraMasjidFull": "这是当地穆斯林社区最早期的清真寺之一。",
-
   "bukitBertanggaTitle": "阶梯山",
   "bukitBertanggaDesc": "登山与自然景观",
   "bukitBertanggaFull": "适合进行生态旅游活动的山丘。",
-
   "bukitSenorangTitle": "斯诺让山",
   "bukitSenorangDesc": "天然山丘",
   "bukitSenorangFull": "以绿意盎然、氛围宁静著称。",
-
   "lamanLesungTitle": "北根臼庭",
   "lamanLesungDesc": "传统休闲活动区",
   "lamanLesungFull": "举行舂米及传统民间游戏等活动的地点。",
-
   "warungPatinTitle": "Mat Singah发酵榴莲巴丁鱼档",
   "warungPatinDesc": "著名的发酵榴莲巴丁鱼",
   "warungPatinFull": "以彭亨传统美食闻名。",
-
   "makanBaratTitle": "Kitchen Syaidris西式美食",
   "makanBaratDesc": "西式餐厅",
   "makanBaratFull": "为游客供应各式西式美食。",
-
   "melakaExplorationTitle": "探索马六甲",
-
   "aFamosaDesc": "探索16世纪葡萄牙堡垒遗迹。",
   "aFamosaFull": "法摩沙古堡建于1511年，是亚洲现存最古老的欧洲建筑遗迹之一。",
-
   "perigiHangTuahDesc": "探访马来武士汉都亚的传奇水井。",
   "perigiHangTuahFull": "汉都亚水井相传曾被马来武士汉都亚及其同伴使用。",
-
   "istanaKesultananDesc": "走进复制皇宫，了解马六甲皇室历史。",
   "istanaKesultananFull": "这座博物馆是马六甲苏丹王宫的复制建筑，展示马六甲的历史与文化。",
-
   "babaNyonyaDesc": "体验峇峇娘惹社群的生活文化。",
   "babaNyonyaFull": "峇峇娘惹文化遗产博物馆展示马六甲峇峇娘惹社群的历史、服饰及文物。",
-
   "galeriWarisanDesc": "欣赏马六甲的传统工艺与文化遗产。",
   "galeriWarisanFull": "马六甲古城文化遗产画廊展示传统器具、工艺品及马六甲文化展览。",
-
   "chengHoDesc": "了解郑和及其航海事迹。",
   "chengHoFull": "郑和文化馆讲述这位著名中国将领的生平及其15世纪抵达马六甲的航海历程。",
-
   "samuderaDesc": "深入了解马六甲海上贸易的历史。",
   "samuderaFull": "海洋博物馆展现马六甲的海上贸易历史及殖民时期的影响。",
-
   "middelburgDesc": "参观遗留的历史葡萄牙堡垒。",
   "middelburgFull": "米德堡棱堡是遗留至今的葡萄牙堡垒的一部分，建于16世纪。",
-
   "ethnoDesc": "探索马六甲多元文化的文物。",
   "ethnoFull": "该博物馆探索反映马六甲文化多样性的人种学文物及历史。",
-
   "zeroKmDesc": "在马六甲历史性的零公里标志处拍照留念。",
   "zeroKmFull": "此纪念碑标志着马六甲历史性的零公里点，象征城市中心。",
-
   "stPaulDesc": "参观马六甲最古老的教堂之一。",
   "stPaulFull": "圣保罗教堂建于1521年，是马六甲最古老的教堂之一，拥有丰富的殖民历史。",
-
   "hangJebatDesc": "缅怀传奇武士汉惹拔。",
   "hangJebatFull": "汉惹拔陵墓纪念马来武士汉惹拔，其事迹在马来文学与历史中广为流传。",
-
   "zooDesc": "在马六甲动物园与家人共度欢乐时光，观赏动物。",
   "zooFull": "马六甲动物园饲养多种动物，并为游客提供教育与休闲活动。",
-
   "riverDesc": "在美丽的河上巡游中放松身心，游览马六甲市区。",
   "riverFull": "在历史悠久的马六甲河上乘船游览，欣赏马六甲市区的美丽景色。",
-
   "crocDesc": "近距离接触鳄鱼与爬行动物。",
   "crocFull": "马六甲鳄鱼与休闲公园展示鳄鱼、爬行动物，并提供适合家庭的娱乐活动。",
-
   "magicDesc": "在3D错觉博物馆拍摄创意照片。",
   "magicFull": "该博物馆展示3D立体画，让游客拍摄互动创意照片。",
-
   "breakoutDesc": "解谜逃出主题密室。",
   "breakoutFull": "马六甲密室逃脱是适合儿童与家庭的解谜及探员游戏体验。",
-
   "waterDesc": "在有趣的水上主题公园戏水玩乐。",
-  "waterFull": "在法摩沙水上主题乐园享受水上游戏与娱乐，适合各年龄层。",
-
+  "waterFull": "全额",
   "mocityDesc": "玩迷你游戏及互动活动。",
   "mocityFull": "MoCity Fun Park为儿童提供迷你游戏、游乐场及互动活动。",
-
   "wonderlandDesc": "享受游乐设施、泳池及度假村设施。",
   "wonderlandFull": "这座主题公园设有丰富的游乐设施、泳池及度假村设施，适合家庭出游。",
-
   "wonderparkDesc": "享受适合各年龄层的精彩游乐设施。",
   "wonderparkFull": "Wonderpark是一座提供精彩游乐设施的娱乐公园，适合所有人。",
-
   "ukfunDesc": "适合家庭的公园，设有游乐设施与娱乐活动。",
   "ukfunFull": "适合家庭的公园，设有游乐设施、景点与娱乐活动。",
-
   "safariDesc": "在野生动物主题公园探索异国动物。",
   "safariFull": "Safari Wonderland是一座以野生动物为主题的公园，设有草原动物及互动体验。",
-
   "asahanDesc": "在水上乐园滑水、游泳与玩乐。",
   "asahanFull": "Asahan水上主题公园提供水上滑梯与泳池，适合全家欢乐游玩。",
-
   "bayouDesc": "冒险游乐设施与休闲泳池等着您。",
   "bayouFull": "Bayou Lagoon是一座设有冒险游乐设施与休闲泳池的水上乐园。",
-
   "babaKayaDesc": "在此品尝正宗峇峇美食。",
   "babaKayaFull": "Baba Kaya餐厅供应传统峇峇娘惹美食。",
-
   "asamSeleraDesc": "享用辛辣酸味的亚参叻沙料理。",
   "asamSeleraFull": "专门供应马六甲热门的酸辣鱼料理亚参叻沙。",
-
   "atlanticDesc": "在传统氛围中享用现代娘惹风味。",
   "atlanticFull": "在现代传统氛围中供应正宗娘惹美食。",
-
   "cendolDesc": "以马六甲经典煎蕊甜品消暑降温。",
   "cendolFull": "马六甲传统甜品，配以刨冰、马六甲椰糖浆及椰浆。",
-
   "asamOrangDesc": "在舒适氛围中享用家常风味亚参叻沙。",
   "asamOrangFull": "在舒适氛围中供应家常风味的亚参叻沙。",
-
   "atasDesc": "在河畔享用本地美食。",
   "atasFull": "马六甲河畔的高级餐厅，供应本地料理。",
-
   "rooftopDesc": "在欣赏市景的同时享用美味佳肴。",
   "rooftopFull": "轻松惬意的咖啡馆，可欣赏市景，供应本地及西式美食。",
-
   "chefWanDesc": "品尝名厨烹调的娘惹料理。",
   "chefWanFull": "以名厨为主题的咖啡馆，供应娘惹及马来西亚美食。",
-
   "calantheDesc": "在充满艺术气息的咖啡馆享用咖啡与甜品。",
   "calantheFull": "这家人气咖啡馆以咖啡与本地甜品闻名，氛围充满艺术感与舒适感。",
-
   "papayunDesc": "在河畔享用传统美食。",
   "papayunFull": "在宁静的河畔氛围中供应马六甲传统美食。",
-
   "kamparExplorationTitle": "金宝探索",
-
   "kintaTinDesc": "锡矿历史博物馆。",
   "kintaTinFull": "近打锡矿博物馆展示近打谷的采矿历史，包括器具与重力泵技术。",
-
   "chimneyDesc": "历史悠久的日据时期电石烟囱。",
   "chimneyFull": "日据电石烟囱是金宝早期采矿工业时代遗留的建筑结构。",
-
   "kellieDesc": "未完工的殖民时期城堡。",
   "kellieFull": "凯利城堡是霹雳州著名的历史建筑，拥有独特建筑风格及神秘传说。",
-
   "greenRidgeDesc": "第二次世界大战战场遗址。",
   "greenRidgeFull": "青岭是第二次世界大战期间金宝战役的发生地点。",
-
   "clockDesc": "金宝市钟楼。",
   "clockFull": "金宝钟楼是金宝市的主要地标。",
-
   "gravelDesc": "重力泵采矿技术博物馆。",
   "gravelFull": "该博物馆展示使用重力泵进行锡矿开采的方法。",
-
   "westLakeDesc": "风景优美的休闲湖泊。",
   "westLakeFull": "金宝西湖是热门的休闲区，适合散步及欣赏日落。",
-
   "ilhamDesc": "街头艺术壁画街。",
   "ilhamFull": "金宝艺术灵感街展示与本地文化相关的多彩壁画。",
-
   "pipelineDesc": "历史悠久的管道桥。",
   "pipelineFull": "务边管道桥是老旧的管道结构，也是热门的摄影地点。",
-
   "tempurungDesc": "最长的石灰岩洞穴。",
   "tempurungFull": "椰壳洞是马来半岛最长的洞穴之一，提供导览参观。",
-
   "heritageDesc": "传统文化遗产屋。",
   "heritageFull": "务边文化遗产屋保存了当地的建筑风格与古董物品。",
-
   "saluDesc": "雨林区域。",
   "saluFull": "沙鲁河雨林提供徒步及生态旅游活动。",
-
   "kanduDesc": "极限运动洞穴。",
   "kanduFull": "干都洞是热门的洞穴探险及露营地点。",
-
   "agaciaDesc": "彩色欧式风格小镇。",
   "agaciaFull": "Agacia Land以色彩缤纷的欧式建筑及热门拍照地点闻名。",
-
   "gaharuDesc": "沉香茶园。",
   "gaharuFull": "沉香茶园是一处农业旅游景点，可欣赏山丘景色。",
-
   "refarmDesc": "农场休闲公园。",
   "refarmFull": "Refarm提供家庭活动、农场动物及骑自行车体验。",
-
   "sahomDesc": "生态农业度假村。",
   "sahomFull": "沙宏山谷度假村是一座提供户外活动的生态村。",
-
   "zaharaDesc": "私人景观花园。",
   "zaharaFull": "Zahara花园适合悠闲参观及摄影。",
-
   "buncitDesc": "熏肉与西式咖啡馆。",
   "buncitFull": "Buncit咖啡馆以熏肉椰浆咖喱及西式菜单闻名。",
-
   "lacottageDesc": "在河中用餐的热门体验。",
   "lacottageFull": "La'cottage咖啡馆提供在河中用餐的独特体验。",
-
   "kelapaDesc": "椰子甜品。",
   "kelapaFull": "Kelapa Lelehhh贩售椰子饮品及甜品。",
-
   "nasi786Desc": "受欢迎的印度煎饼饭。",
   "nasi786Full": "786号排队印度煎饼饭以浓郁咖喱汁闻名。",
-
   "adilyDesc": "本地美食餐厅。",
   "adilyFull": "Adily餐厅供应马来日常美食。",
-
   "cousinDesc": "现代咖啡馆。",
   "cousinFull": "Cousin'ss咖啡馆供应现代咖啡馆菜单。",
-
   "ahboyDesc": "西式简餐厅。",
   "ahboyFull": "Ah Boy Diner供应西式美食。",
-
   "iqaDesc": "以Wanggey饭闻名。",
   "iqaFull": "Iqa Corner以Wanggey饭闻名。",
-
   "jayneDesc": "炸鸡椰浆饭。",
   "jayneFull": "Jayne Kitchen专精炸鸡椰浆饭。",
-
   "peladangDesc": "经典鸡饭。",
   "peladangFull": "Peladang鸡饭供应传统鸡饭。",
-
   "rompinExplorationTitle": "彭亨北干探索",
-
   "rompin0kmDesc": "北干港正式起点。",
   "rompin0kmFull": "北干港零公里标志着这座城市的象征中心，常成为游客拍照的地点。",
-
   "seriMahkotaDesc": "被大自然环绕的美丽瀑布。",
   "seriMahkotaFull": "斯里马柯达瀑布是适合野餐与在宁静氛围中休息的天然景点。",
-
   "rompinTrailDesc": "具挑战性的丛林徒步路线。",
   "rompinTrailFull": "北干步道提供拥有丰富动植物的雨林徒步体验。",
-
   "pantaiHiburanDesc": "适合家庭的休闲海滩。",
   "pantaiHiburanFull": "娱乐海滩是与家人野餐及享受海风的热门去处。",
-
   "beachResortDesc": "海滨舒适住宿。",
   "beachResortFull": "北干港海滩度假村提供拥有美丽海景的住宿。",
-
   "tamanNegeriDesc": "受保护的森林保护区。",
   "tamanNegeriFull": "彭亨北干州立公园提供生态旅游体验及原始雨林之美。",
-
   "rainforestLodgeDesc": "森林氛围中的住宿。",
   "rainforestLodgeFull": "北干雨林小屋提供亲近大自然的生活体验。",
-
   "cemaraDesc": "河畔木屋。",
   "cemaraFull": "Cemara河景木屋提供靠近河边的宁静住宿。",
-
   "jetiBernasDesc": "供垂钓使用的公共码头。",
   "jetiBernasFull": "柏纳斯海滩公共码头用于垂钓活动及出海船只停泊。",
-
   "food1Desc": "本地马来西亚美食。",
   "food1Full": "北干新餐厅供应多种传统马来西亚美食。",
-
   "food2Desc": "以蓝钳河虾闻名。",
   "food2Full": "Mak Ngah美食摊以新鲜河虾料理闻名。",
-
   "food3Desc": "湖畔早餐。",
   "food3Full": "Sarap D' Tasek在轻松氛围中供应本地早餐。",
-
   "food4Desc": "价格实惠的本地美食。",
   "food4Full": "Selera Serdang美食店供应美味且价格亲民的餐点。",
-
   "food5Desc": "人气海鲜摊。",
   "food5Full": "Azizah美食摊以新鲜海鲜闻名。",
-
   "food6Desc": "知名本地餐厅。",
   "food6Full": "蓝管餐厅是本地居民的热门选择。",
-
   "food7Desc": "河畔海鲜美食。",
   "food7Full": "北干河海鲜餐厅供应新鲜海鲜料理。",
-
   "food8Desc": "传统咖啡店。",
   "food8Full": "Johan咖啡店供应本地咖啡与经典早餐。",
-
   "food9Desc": "香脆炸鱼片。",
   "food9Full": "Qaseh Armani炸鱼片以酥脆炸物闻名。",
-
   "food10Desc": "傍晚小吃角。",
   "food10Full": "Embun Corner炸物角是傍晚时分的热门去处。",
-
   "food11Desc": "家常风味料理。",
   "food11Full": "Hajjah Rosminah美食摊供应传统家常料理。",
-
   "food12Desc": "传统乡村摊位。",
   "food12Full": "山竹树美食店供应乡村风味餐点。",
-
   "food13Desc": "河虾专家。",
   "food13Full": "Mak Ngah河虾分行2号延续其招牌河虾料理。",
-
   "food14Desc": "现代咖啡馆。",
   "food14Full": "DYA ZARA CAFE提供现代氛围及本地与西式菜单。",
-
   "food15Desc": "家庭聚餐好去处。",
   "food15Full": "Meisha Corner适合与家人共进美食。",
-
   "food16Desc": "现代街头厨房。",
   "food16Full": "MS Street Kitchen供应受年轻人喜爱的街头美食。",
-
   "food17Desc": "简朴乡村小摊。",
   "food17Full": "Warung Mokla供应令人垂涎的传统美食。",
-
   "food18Desc": "海鲜专家。",
   "food18Full": "One's Seafood以新鲜海鲜选择闻名。",
-
   "food19Desc": "多元选择的美食广场。",
   "food19Full": "北干美食广场提供多种本地美食摊位。",
-
   "food20Desc": "甜蜜甜品。",
   "food20Full": "MR CHURROS以吉拿棒及甜点闻名。",
-
   "jerantutExplorationTitle": "查蒂探索",
   "matKilauDesc": "马吉劳历史画廊。",
   "matKilauFull": "布劳打瓦马吉劳画廊综合展示马吉劳对抗英国殖民统治的斗争历史。",
@@ -894,315 +687,211 @@
   "viaFerrataFull": "Paya Gunung钢索攀岩提供设有安全钢索及美丽景色的攀登路线。",
   "jer_food1Desc": "受欢迎的沙爹地点。",
   "jer_food1Full": "查蒂Temeen沙爹以搭配美味花生酱的软嫩沙爹闻名。",
-
   "tapahExplorationTitle": "打巴探索，霹雳",
   "tabBusiness": "商业地点",
-
   "memoryLaneDesc": "怡保知名跳蚤市场。",
   "memoryLaneFull": "Memory Lane是热门的周日跳蚤市场，出售古董及旧物收藏品。",
-
   "concubineLaneDesc": "设有咖啡馆的文化遗产小巷。",
   "concubineLaneFull": "二奶巷是充满历史气息的小巷，遍布咖啡馆及纪念品店。",
-
   "lorongSeniDesc": "艺术壁画小巷。",
   "lorongSeniFull": "艺术小巷展示引人注目的壁画与街头艺术。",
-
   "gerbangMalamDesc": "怡保市区夜市。",
   "gerbangMalamFull": "夜之门是出售服饰及美食的夜市。",
-
   "pettingZooDesc": "适合家庭的迷你动物园。",
   "pettingZooFull": "浪中山动物互动区为家庭提供与动物互动的体验。",
-
   "lightSoundDesc": "夜间灯光表演。",
   "lightSoundFull": "怡保广场的灯光音效秀是配以音乐与彩灯的夜间景点。",
-
   "ipohPadangDesc": "怡保历史悠久的草场。",
   "ipohPadangFull": "怡保广场四周环绕着古老的殖民时期建筑。",
-
   "sultanAzizDesc": "受欢迎的休闲公园。",
   "sultanAzizFull": "苏丹阿都拉希兹休闲公园适合慢跑及休闲活动。",
-
-  "gunungLangDesc": "石灰岩湖泊公园。",
-  "gunungLangFull": "浪中山休闲公园拥有湖泊及石灰岩山丘。",
-
+  "gunungLangDesc": "拥有湖泊、石灰岩山丘及景观花园的美丽休闲公园。",
+  "gunungLangFull": "浪中山休闲公园以湖泊、石灰岩景观、花园及悠闲氛围闻名。游客可在自然环境中欣赏美景、拍照及享受家庭休闲活动。",
   "tamanJepunDesc": "日式风格公园。",
   "tamanJepunFull": "日本花园是以日式景观为灵感设计的公园。",
-
   "drSeenivasagamDesc": "市区休闲公园。",
   "drSeenivasagamFull": "D.R. Seenivasagam公园是受欢迎的家庭活动公园。",
-
   "guaTambunDesc": "史前岩画遗址。",
   "guaTambunFull": "淡汶洞以史前岩画闻名。",
-
   "qinXingLingDesc": "石灰岩洞穴庙宇。",
   "qinXingLingFull": "青星岭是怡保著名的洞穴庙宇。",
-
   "guaMasooratDesc": "天然石灰岩洞穴。",
   "guaMasooratFull": "Masoorat洞是美丽的天然洞穴景点。",
-
   "tasekCerminDesc": "隐世湖泊。",
   "tasekCerminFull": "镜湖是被石灰岩山丘环绕的美丽湖泊。",
-
   "medanSagorDesc": "本地美食广场。",
   "medanSagorFull": "Dato Sagor美食广场提供多种本地美食。",
-
   "rojakDesc": "著名的罗惹与煎蕊摊位。",
   "rojakFull": "享用美味煎蕊与罗惹的热门去处。",
-
   "planBDesc": "怡保现代咖啡馆。",
   "planBFull": "Plan B供应西式及创意融合料理。",
-
   "stgDesc": "咖啡专门咖啡馆。",
   "stgFull": "STG怡保旧街场以优质咖啡闻名。",
-
   "durbarDesc": "历史悠久的印度餐厅。",
   "durbarFull": "Durbar at FMS是怡保最古老的印度餐厅之一。",
-
   "mikerDesc": "受欢迎的比萨餐厅。",
   "mikerFull": "Miker Pizza供应经典比萨及本地风味。",
-
   "thumbsDesc": "怡保休闲咖啡馆。",
   "thumbsFull": "Thumb's Cafe供应精致糕点及特色饮品。",
-
   "tandoorDesc": "正宗北印度料理。",
   "tandoorFull": "Tandoor Grill供应正宗北印度美食。",
-
   "centralKitchenDesc": "马来西亚美食中心。",
   "centralKitchenFull": "怡保中央厨房供应传统与现代马来西亚美食。",
-
   "greentownDesc": "知名点心餐厅。",
   "greentownFull": "青城点心咖啡馆以多种精选点心闻名。",
-
   "cameronExplorationTitle": "探索金马仑高原",
-
   "keaFarmMarketDesc": "出售蔬菜及本地产品的早市。",
   "keaFarmMarketFull": "Kea Farm早市是热门市场，出售新鲜蔬菜、水果及来自金马仑高原的纪念品。",
-
   "farmersArcadeDesc": "本地产品购物拱廊。",
   "farmersArcadeFull": "Farmers Arcade提供本地农户种植的新鲜蔬菜、水果、花卉及农产品。",
-
   "bazarKeaFarmDesc": "出售水果及纪念品的本地市集。",
   "bazarKeaFarmFull": "Kea Farm市集是游客市场，出售草莓、蔬菜、零食及纪念品。",
-
   "agroMarketDesc": "出售本地农产品的农业市场。",
   "agroMarketFull": "Agro Market提供来自金马仑高原的新鲜农产品，如蔬菜与花卉。",
-
   "sCornerDesc": "购物中央市场。",
   "sCornerFull": "S'Corner中央市场为游客提供多种本地产品及纪念品。",
-
   "pasarRayaDesc": "出售日常用品的超市。",
   "pasarRayaFull": "金马仑高原超市提供日用品、食品及各种生活必需品。",
-
   "keaVegetableDesc": "出售新鲜蔬菜的农场。",
   "keaVegetableFull": "Kea Farm Vegetable Farm出售在金马仑高原高地种植的新鲜蔬菜。",
-
   "kokLamDesc": "蔬菜种植农业企业。",
   "kokLamFull": "Kok Lam Farm以在金马仑高原生产优质蔬菜闻名。",
-
   "cameronSquareDesc": "金马仑高原购物中心。",
   "cameronSquareFull": "Cameron Square是设有餐厅、咖啡馆及零售店的购物中心。",
-
   "arkedPeladangDesc": "出售农产品的农夫市场。",
   "arkedPeladangFull": "金马仑高原农夫拱廊出售新鲜农产品及本地农业产品。",
-
   "brinchangNightDesc": "供应美食及纪念品的夜市。",
   "brinchangNightFull": "冷力夜市以街头美食、草莓、蔬菜及纪念品闻名。",
-
   "avantChocolateDesc": "巧克力店与工厂。",
   "avantChocolateFull": "Avant Chocolate金马仑高原生产并出售美味的本地手工巧克力。",
-
   "cameronCentrumDesc": "金马仑高原现代生活方式景点。",
   "cameronCentrumFull": "Cameron Centrum是新型旅游中心，设有餐厅、咖啡馆及多种景点。",
-
   "greenViewDesc": "花园及草莓农场景点。",
   "greenViewFull": "Green View Garden设有草莓农场、花园及家庭景点。",
-
   "lavenderGardenDesc": "美丽的薰衣草花园。",
   "lavenderGardenFull": "金马仑薰衣草花园以色彩缤纷的花卉、薰衣草花园及纪念品闻名。",
-
   "bohTeaDesc": "设有咖啡馆的著名茶园。",
   "bohTeaFull": "Sungei Palas宝茶中心提供美丽茶园景色及品茶体验。",
-
   "freshCropDesc": "出售新鲜农作物的本地市集。",
   "freshCropFull": "金马仑新鲜农产市集出售蔬菜、水果及本地产品。",
-
   "sheepSanctuaryDesc": "动物农场景点。",
   "sheepSanctuaryFull": "The Sheep Sanctuary让游客可与山羊及绵羊互动喂食。",
-
   "ppkStrawberryDesc": "供游客参观的草莓农场。",
   "ppkStrawberryFull": "PPK金马仑高原草莓农场让游客亲手采摘新鲜草莓。",
-
   "bigRedDesc": "受欢迎的草莓农场。",
   "bigRedFull": "Big Red Strawberry Farm提供草莓采摘体验及咖啡馆。",
-
   "floraParkDesc": "美丽的花卉公园。",
   "floraParkFull": "金马仑高原花卉公园展示多种色彩缤纷的花卉与花园。",
-
   "rainbowGardenDesc": "设有动物喂食活动的花园。",
   "rainbowGardenFull": "彩虹花园设有各式植物、花卉及动物喂食活动。",
-
   "cactusPointDesc": "大型仙人掌花园。",
   "cactusPointFull": "Cactus Point种植数千种仙人掌及植物。",
-
   "apiaryFarmDesc": "蜜蜂及蜂蜜农场。",
   "apiaryFarmFull": "Highlands Apiary Farm以蜂蜜生产及养蜂闻名。",
-
   "orGardenDesc": "迷人的花卉花园。",
   "orGardenFull": "O&R Garden展示多种花卉及观赏植物。",
-
   "pertabalanDesc": "丹拉打的公共公园。",
   "pertabalanFull": "丹拉打登基纪念公园是适合休闲的休憩公园。",
-
   "zoomaniDesc": "蝴蝶及昆虫农场。",
   "zoomaniFull": "ZooMania Butterfly Farm饲养多种蝴蝶及昆虫。",
-
   "mardiDesc": "农业研究公园。",
   "mardiFull": "MARDI农业科技公园展示农业科技及作物园地。",
-
   "timeTunnelDesc": "金马仑高原历史博物馆。",
   "timeTunnelFull": "Time Tunnel博物馆展示金马仑高原的历史文物与回忆。",
-
   "lataIskandarDesc": "打巴与金马仑高原之间的瀑布。",
   "lataIskandarFull": "拉达伊斯干达瀑布是热门瀑布，常成为游客途中的停留点。",
-
   "robinsonDesc": "设有徒步小径的隐世瀑布。",
   "robinsonFull": "罗宾逊瀑布可透过森林徒步小径抵达。",
-
   "mossyForestDesc": "独特的高地森林。",
   "mossyForestFull": "苔藓森林是被云雾笼罩、树木覆满苔藓的森林。",
-
   "eeFengDesc": "著名蜂场。",
   "eeFengFull": "Ee Feng Gu蜂场生产蜂蜜并出售多种蜂产品。",
-
   "gunungIrauDesc": "金马仑高原最高的山峰。",
   "gunungIrauFull": "Irau山以穿越苔藓森林的登山路线闻名。",
-
   "cameronAdventureDesc": "户外冒险活动。",
   "cameronAdventureFull": "Cameron Adventurous提供ATV及冒险体验活动。",
-
   "grapeFarmDesc": "葡萄农场。",
   "grapeFarmFull": "KC Kwang & Sons葡萄农场种植葡萄及其他水果。",
-
   "camelliaDesc": "山茶花园。",
   "camelliaFull": "Tan's Camellia Garden展示美丽的山茶花。",
-
   "rajuHillDesc": "设有咖啡馆的草莓农场。",
   "rajuHillFull": "Raju Hill草莓农场让游客亲手采摘新鲜草莓。",
-
   "mahMeriDesc": "传统艺术画廊。",
   "mahMeriFull": "Mah Meri艺术画廊展示马来西亚传统艺术与工艺品。",
-
   "khmDesc": "出售草莓甜品的咖啡馆。",
   "khmFull": "KHM Strawberries & Jam供应草莓甜品及相关产品。",
-
   "yzAgroDesc": "草莓农场与咖啡馆。",
   "yzAgroFull": "YZ Agro Farm提供草莓采摘体验及咖啡馆美食。",
-
   "teaHouseDesc": "可欣赏茶园景色的茶馆。",
   "teaHouseFull": "Cameron Valley Tea House提供茶饮及美丽的茶园景色。",
-
   "teaKualaTerlaDesc": "话拉登拉的茶饮咖啡馆。",
   "teaKualaTerlaFull": "Cameron Valley Tea House Kuala Terla供应茶饮及迷人景色。",
-
   "seedsCafeDesc": "金马仑高原现代咖啡馆。",
   "seedsCafeFull": "200 Seeds Café供应咖啡、甜品及轻松惬意的氛围。",
-
   "dragText": "拖动地图以浏览",
   "searchMap": "请点击以搜索位置",
   "errorMapSearch": "找不到位置建议。",
-
   "temerlohExplorationTitle": "彭亨淡马鲁探索",
-
   "temBusiness1Desc": "出售本地产品的每周市场。",
   "temBusiness1Full": "淡马鲁每日市场是热门的每周市场，出售新鲜农产品、服饰及本地美食。",
-
   "temBusiness2Desc": "淡马鲁的主要广场。",
   "temBusiness2Full": "巴丁广场是以著名巴丁鱼命名的淡马鲁地标。",
-
   "temBusiness3Desc": "主要湿巴刹与干巴刹。",
   "temBusiness3Full": "淡马鲁大巴刹提供蔬菜、鱼类、肉类及日常用品。",
-
   "temBusiness4Desc": "出售组合商品的夜市。",
   "temBusiness4Full": "淡马鲁跳蚤市场以二手物品、古董及低价商品闻名。",
-
   "temBusiness5Desc": "本地艺术市场。",
   "temBusiness5Full": "淡马鲁艺术市场出售工艺品、绘画及文化艺术作品。",
-
   "temBusiness6Desc": "文化遗产概念市场。",
   "temBusiness6Full": "淡马鲁文化遗产市场展示传统美食及本地文化。",
-
   "temBusiness7Desc": "受欢迎的夜市。",
   "temBusiness7Full": "淡马鲁夜市遍布美食摊位、服饰及各类商品。",
-
   "temBusiness8Desc": "本地社区市场。",
   "temBusiness8Full": "淡马鲁三号市场为周边居民提供日常所需。",
-
   "temInteresting1Desc": "马来半岛的中心点。",
   "temInteresting1Full": "半岛中心点是马来半岛的地理中心位置，也是热门拍照地点。",
-
   "temInteresting2Desc": "休闲湖泊公园。",
   "temInteresting2Full": "Chatin湖适合慢跑、休闲及家庭活动。",
-
   "temInteresting3Desc": "国家大象保护中心。",
   "temInteresting3Full": "国家大象保护中心致力于保护大象，并向游客普及野生动物知识。",
-
   "temInteresting4Desc": "适合家庭的动物景点。",
   "temInteresting4Full": "Deerland Park让游客观赏鹿及其他动物。",
-
   "temInteresting5Desc": "适合家庭的水上主题公园。",
   "temInteresting5Full": "古邦加渣水上主题公园适合儿童与家庭游玩。",
-
   "temInteresting6Desc": "美丽的石灰岩山丘。",
   "temInteresting6Full": "笑山以洞穴、登山及自然景色闻名。",
-
   "temInteresting7Desc": "野牛保护中心。",
   "temInteresting7Full": "该中心专注于野生野牛的保育工作。",
-
   "temInteresting8Desc": "传统乡村住宿体验。",
   "temInteresting8Full": "淳美乡村民宿提供乡村生活与文化体验。",
-
   "temInteresting9Desc": "宁静的休闲公园。",
   "temInteresting9Full": "Wadi Al-Amin休闲公园适合与家人共度悠闲时光。",
-
   "temInteresting10Desc": "清凉宜人的瀑布。",
   "temInteresting10Full": "拉达布章瀑布是野餐及戏水的热门去处。",
-
   "temInteresting11Desc": "原住民乡村体验。",
   "temInteresting11Full": "游客可在此了解Che' Wong族的文化与生活。",
-
   "temInteresting12Desc": "野生动物森林保护区。",
   "temInteresting12Full": "格劳野生动物保护区生物多样性丰富，适合生态旅游。",
-
   "temInteresting13Desc": "河畔休闲区。",
   "temInteresting13Full": "淡马鲁滨江大道是散步及享受市区氛围的休闲场所。",
-
   "temFood1Desc": "受欢迎的本地摊位。",
   "temFood1Full": "Warung Acu以美味的本地美食闻名。",
-
   "temFood2Desc": "旅客首选摊位。",
   "temFood2Full": "Go' Bang Maju Tol是许多人途中用餐的热门去处。",
-
   "temFood3Desc": "著名巴丁鱼餐厅。",
   "temFood3Full": "Angah Maju Selera Patin河畔餐厅以发酵榴莲巴丁鱼闻名。",
-
   "temFood4Desc": "价格实惠的美食摊。",
   "temFood4Full": "Adik Hanizan美食摊供应美味且亲民的餐点。",
-
   "temFood5Desc": "现代咖啡馆。",
   "temFood5Full": "KOI & AOK Cafe供应汉堡、牛排、咖啡及甜品。",
-
   "temFood6Desc": "传统餐厅。",
   "temFood6Full": "Tok Gajah淡马鲁餐厅供应正宗彭亨美食。",
-
   "temFood7Desc": "轻松惬意的咖啡馆。",
   "temFood7Full": "Mukmin Cafe适合享用饮品及轻食。",
-
   "temFood8Desc": "独特的咖啡店。",
   "temFood8Full": "楼梯下咖啡以咖啡及吸引人的氛围闻名。",
-
   "temFood9Desc": "受欢迎的巴丁鱼去处。",
   "temFood9Full": "Selera Patin Bangau淡马鲁是品尝淡马鲁巴丁鱼的知名地点。",
-
   "sewaanPbtTitle": "市议会租赁",
   "sewaanInfoTitle": "租赁信息",
   "sewaanSelectPayment": "请选择欲缴付的租赁欠款",
@@ -1211,15 +900,13 @@
   "sewaanSelectAlert": "请至少选择一项租赁。",
   "sewaanNoArrearsAlert": "没有需要缴付的租赁欠款。",
   "sewaanNoRecord": "找不到租赁记录",
-
-  "taksiranTitle": "评估税",
-  "taksiranSelectPayment": "请选择欲缴付的评估税",
-  "taksiranDetailsTitle": "评估税详情",
-  "taksiranNoData": "找不到评估税数据",
-  "taksiranSelectAlert": "请至少选择一项评估税。",
+  "taksiranTitle": "门牌税",
+  "taksiranSelectPayment": "请选择欲缴付的门牌税",
+  "taksiranDetailsTitle": "门牌税详情",
+  "taksiranNoData": "找不到门牌税数据",
+  "taksiranSelectAlert": "请至少选择一项门牌税。",
   "taksiranNoAmountAlert": "没有需要缴付的税款。",
-  "taksiranNoRecord": "找不到评估税记录",
-
+  "taksiranNoRecord": "找不到门牌税记录",
   "notice": "通知",
   "oldAccountNo": "旧账号",
   "invoiceNo": "发票号码",
@@ -1229,7 +916,6 @@
   "endDate": "结束日期",
   "total": "总额",
   "continueText": "继续",
-
   "rentalMonthly": "每月租金",
   "rentalPlace": "租赁地点",
   "rentalCity": "租赁城市",
@@ -1241,7 +927,6 @@
   "electricArrears": "电费欠款",
   "managementArrears": "管理费欠款",
   "annualTotal": "全年总额",
-
   "propertyPostcode": "物业邮政编码",
   "propertyCity": "物业所在城市",
   "state": "州属",
@@ -1260,7 +945,6 @@
   "noticeE": "E通知书",
   "waranLod": "LOD执行令",
   "halfYearTotal": "半年总额",
-
   "semakanSewaanTitle": "查询租赁付款",
   "semakanSewaanSubtitle": "租赁付款交易列表",
   "transactionInfoTitle": "交易信息",
@@ -1268,69 +952,52 @@
   "premiseAddress": "店铺地址",
   "paymentDate": "付款日期",
   "transactionId": "编号",
-
   "subangExplorationTitle": "梳邦再也之旅",
-
   "subangBlueMosqueTitle": "莎阿南蓝色清真寺",
   "subangBlueMosqueDesc": "雪兰莪著名地标之一。",
   "subangBlueMosqueFull": "苏丹沙拉胡丁阿都阿兹沙清真寺，又称蓝色清真寺，是梳邦再也附近著名的地标之一，以巨大的蓝色圆顶、精美的伊斯兰建筑及宁静的氛围闻名。",
-
   "subangIstanaAlamTitle": "阿南沙宫",
   "subangIstanaAlamDesc": "雪兰莪苏丹的皇宫。",
   "subangIstanaAlamFull": "阿南沙宫是雪兰莪重要的皇家地标，象征着雪兰莪的皇室传统与历史，距离梳邦再也不远。",
-
   "subangLakeGardenTitle": "莎阿南湖滨公园",
   "subangLakeGardenDesc": "迷人的公共公园及湖泊区域。",
   "subangLakeGardenFull": "莎阿南湖滨公园是雪兰莪著名的公共休闲区之一，适合悠闲漫步、家庭活动及散心。",
-
   "subangSunwayLagoonTitle": "云顶双威水上乐园",
   "subangSunwayLagoonDesc": "双威镇著名的主题公园。",
   "subangSunwayLagoonFull": "双威水上乐园是马来西亚最受欢迎的主题公园之一，提供水上设施、野生动物区、刺激游乐设施及适合家庭与游客的娱乐活动。",
-
   "subangSunwayPyramidTitle": "双威金字塔",
   "subangSunwayPyramidDesc": "以金字塔造型闻名的标志性购物中心。",
   "subangSunwayPyramidFull": "双威金字塔是双威镇著名的购物与生活方式中心，以埃及风格建筑、购物商店、餐厅、电影院及溜冰场而闻名。",
-
   "subangRiaParkTitle": "梳邦丽亚休闲公园",
   "subangRiaParkDesc": "受欢迎的休闲运动公园。",
   "subangRiaParkFull": "梳邦丽亚休闲公园是梳邦再也的绿地，拥有湖景及步行小径，适合慢跑、放松及与家人共度时光。",
-
   "subangEmpireTitle": "帝国购物廊",
   "subangEmpireDesc": "现代购物与美食目的地。",
   "subangEmpireFull": "帝国购物廊是梳邦再也受欢迎的生活方式中心。游客可在此享受购物、咖啡馆、餐厅及室内设施。",
-
   "subangSS15Title": "梳邦再也SS15",
   "subangSS15Desc": "著名的美食、咖啡馆及学生聚集区。",
   "subangSS15Full": "SS15是梳邦再也最热闹的区域之一，以咖啡馆、饮品店、本地美食、餐厅及充满活力的年轻氛围闻名。",
-
   "subangDaMenTitle": "Da Men购物中心",
   "subangDaMenDesc": "位于USJ的购物中心。",
   "subangDaMenFull": "Da Men购物中心是梳邦再也USJ区便利的购物目的地，提供零售店、美食及适合家庭的设施。",
-
   "subangSummitTitle": "The Summit USJ购物中心",
   "subangSummitDesc": "USJ区历史悠久且知名的购物中心。",
   "subangSummitFull": "The Summit USJ购物中心是许多梳邦再也居民熟知的购物中心，为当地社区提供零售店、美食及各种服务。",
-
   "subangJibbyTitle": "Jibby & Co",
   "subangJibbyDesc": "受欢迎的咖啡馆及餐厅。",
   "subangJibbyFull": "Jibby & Co是梳邦再也受欢迎的用餐地点，在现代咖啡馆氛围中供应西式、本地及融合料理。",
-
   "subangVillageParkTitle": "Village Park餐厅",
   "subangVillageParkDesc": "著名的椰浆饭餐厅。",
   "subangVillageParkFull": "Village Park餐厅以椰浆饭及马来西亚本地美食闻名，是本地居民与游客的热门美食目的地。",
-
   "subangRakuzenTitle": "双威金字塔乐膳日本料理",
   "subangRakuzenDesc": "位于双威金字塔的日本餐厅。",
   "subangRakuzenFull": "乐膳供应寿司、刺身、套餐及面食等日本料理，适合想在梳邦再也一带享用日本美食的游客。",
-
   "subangFoodStreetTitle": "SS15美食街",
   "subangFoodStreetDesc": "梳邦再也受欢迎的美食区。",
   "subangFoodStreetFull": "SS15美食街以本地美食、甜品店、咖啡馆及休闲餐厅闻名，是梳邦再也探索美食的最佳去处之一。",
-
   "prayerTimeDisclaimerTitle": "祈祷时间免责声明",
   "prayerTimeDisclaimer": "所显示的祈祷时间仅供参考，数据来源为马来西亚伊斯兰事务发展局（JAKIM）e-Solat官方服务。",
   "prayerTimeQrInstruction": "请扫描二维码，透过e-Solat官方网站查看最新祈祷时间。",
-
   "parkingInfoTitle": "停车信息",
   "parkingRateLabel": "停车收费标准",
   "parkingRatePerHour": "RM {rate} / 小时",
@@ -1343,37 +1010,27 @@
   "parkingCouncilHotline": "市议会投诉热线",
   "parkingCityCarParkHotline": "营运投诉热线",
   "parkingInfoOk": "确定",
-
   "pinConnectingTitle": "正在准备卡付款",
   "pinConnectingMessage": "请依照读卡器上显示的指示操作。",
-
   "pinEntryTitle": "请输入PIN码",
   "pinEntryMessage": "请使用读卡器上的键盘安全输入您的PIN码。",
-
   "pinProcessingTitle": "正在处理付款",
   "pinProcessingMessage": "您的PIN码已接收。付款处理期间请稍候。",
-
   "pinSuccessTitle": "付款成功",
   "pinSuccessMessage": "您的卡付款已获批准。",
   "pinTestSuccessMessage": "读卡器流程已完成。此结果视为测试成功。",
-
   "pinFailedTitle": "付款失败",
-
   "pinCancellingTitle": "正在取消付款",
   "pinCancellingMessage": "请稍候，读卡器正在完成取消流程。",
-
   "pinPaymentAmount": "付款金额",
   "pinKeypadInstruction": "请在读卡器键盘上输入PIN码，然后按下绿色确认按钮。",
   "pinDoNotRemoveCard": "在读卡器指示之前请勿取出卡片。",
   "pinTimeRemaining": "剩余时间",
   "pinSeconds": "秒",
-
   "pinSuccessNextStep": "请稍候，您的收据正在准备中。",
   "pinFailureNextStep": "您将很快返回付款页面。",
   "pinReferenceCode": "参考代码",
-
   "pinTestingModeNotice": "测试模式：读卡器正在进行实际流程，但所有最终结果都将被视为成功而继续。",
-
   "pinFailureDeclined": "付款未获批准。请使用其他卡片或付款方式。",
   "pinFailureInsufficientFunds": "付款无法完成。请检查可用余额或使用其他付款方式。",
   "pinFailureExpiredCard": "此卡已过期，请使用其他卡片。",
@@ -1384,15 +1041,12 @@
   "pinFailureCancelled": "付款已取消，未完成任何付款。",
   "pinFailureTimeout": "付款过程耗时过长，无法完成，请重试。",
   "pinFailureGeneral": "付款无法完成，请重试或使用其他付款方式。",
-
   "cardPaymentSuccessTitle": "付款成功",
   "cardPaymentSuccessMessage": "您的卡付款已成功获批。",
   "cardPreparingReceipt": "正在准备您的收据...",
   "cardPleaseWaitNotice": "请稍候，请勿触碰屏幕。",
-
   "pinTitle": "请输入PIN码",
   "pinInstruction": "请在读卡器上输入您的PIN码",
-
   "ipohExplorationTitle": "怡保之旅",
   "ipohTabHistorical": "历史景点",
   "ipohTabInteresting": "热门景点",
@@ -1442,8 +1096,6 @@
   "artOfOldTownDesc": "描绘怡保传承与日常生活的壁画作品。",
   "artOfOldTownFull": "怡保旧街场艺术以绘制在怡保旧街场文化遗产建筑上的壁画为特色，描绘本地文化、传统活动及怀旧氛围，使该区域成为热门的步行及拍照地点。",
   "gunungLangTitle": "浪中山休闲公园",
-  "gunungLangDesc": "拥有湖泊、石灰岩山丘及景观花园的美丽休闲公园。",
-  "gunungLangFull": "浪中山休闲公园以湖泊、石灰岩景观、花园及悠闲氛围闻名。游客可在自然环境中欣赏美景、拍照及享受家庭休闲活动。",
   "funtasyHouseTitle": "Funtasy House错觉艺术馆",
   "funtasyHouseDesc": "展示创意视觉错觉的互动艺术画廊。",
   "funtasyHouseFull": "Funtasy House错觉艺术馆提供互动绘画及视觉错觉氛围，让游客成为艺术作品的一部分，专为拍照及家庭娱乐而设计。",
@@ -1471,29 +1123,23 @@
   "redBrickKitchenTitle": "Red Brick Kitchen",
   "redBrickKitchenDesc": "拥有现代舒适氛围的用餐地点。",
   "redBrickKitchenFull": "Red Brick Kitchen提供轻松的用餐氛围，配有现代室内空间及多种美食选择，适合家庭、朋友及在怡保寻找舒适用餐地点的游客。",
-
   "networkInterruptionTitle": "服务中断",
   "networkLastUpdated": "最后更新时间",
-
   "networkInterruptionMessage": "{biller}目前正遇到服务中断。您的交易可能会变慢或不成功，您仍可以继续付款。",
   "@networkInterruptionMessage": {
     "placeholders": {
       "biller": {}
     }
   },
-
   "electricAccountRequired": "请输入您的电费账号。",
   "electricAccountNumber": "电费账号",
   "electricAccountNotFound": "找不到电费账户记录。",
-
   "electricAccountTitle": "请输入您的电费账号",
   "electricAccountHint": "请输入您的电费账号",
-
   "electricProductCodeRequired": "需要提供产品代码。",
   "electricAccountNumberRequired": "需要提供账号。",
   "electricApiKeyMissing": "IIMMPACT API密钥不可用。",
   "electricHmacSecretMissing": "IIMMPACT HMAC密钥不可用。",
-
   "electricInquiryHttpFailed": "账单查询失败。HTTP {statusCode}。",
   "@electricInquiryHttpFailed": {
     "placeholders": {
@@ -1502,12 +1148,10 @@
       }
     }
   },
-
   "electricNoBillRecordFound": "找不到账单记录。",
   "electricNoBillRecordForAccount": "该账户找不到账单记录。",
   "electricInquiryTimeout": "查询耗时过长，请重试。",
   "electricUnableToConnect": "无法连接到账单查询服务。",
-
   "electricInvalidServerResponse": "服务器响应无效：{error}",
   "@electricInvalidServerResponse": {
     "placeholders": {
@@ -1516,7 +1160,6 @@
       }
     }
   },
-
   "electricInquiryFailed": "电费账单查询失败：{error}",
   "@electricInquiryFailed": {
     "placeholders": {
@@ -1525,15 +1168,12 @@
       }
     }
   },
-
   "electricInvalidHmacBase64": "IIMMPACT HMAC密钥不是有效的Base64格式。",
   "electricEmptyApiResponse": "API响应为空。",
   "electricInvalidJsonObject": "API响应不是有效的JSON对象。",
   "electricInvalidAccount": "账号无效。",
-
   "electricInformation": "信息",
   "electricOk": "确定",
-
   "electricMaximumPayment": "最高付款金额为{amount}。",
   "@electricMaximumPayment": {
     "placeholders": {
@@ -1542,7 +1182,6 @@
       }
     }
   },
-
   "electricMinimumPayment": "最低付款金额为{amount}。",
   "@electricMinimumPayment": {
     "placeholders": {
@@ -1551,64 +1190,36 @@
       }
     }
   },
-
   "electricNoOutstandingBalance": "此账户没有未缴余额。",
-
   "electricEnterPaymentAmount": "请输入付款金额",
-
   "electricUseKeypad": "请使用下方键盘",
-
   "electricKeyboard": "金额键盘",
-
   "electricClear": "清除",
-
   "electricDone": "完成",
-
   "electricCancel": "取消",
-
   "electricMinimumMaximum": "最低 RM 1.00 • 最高 RM 10,000.00",
-
   "electricBillPayment": "电费账单付款",
-
   "electricBillInformation": "账单信息",
-
   "electricOutstandingAmount": "未缴金额",
-
   "electricCreditBalance": "信用余额",
-
   "electricDueDate": "缴费到期日",
-
   "electricCustomerName": "客户姓名",
-
   "electricServiceAddress": "服务地址",
-
   "electricCreditNotice": "此账户有信用余额。",
-
   "electricSelectPaymentAmount": "选择付款金额",
-
   "electricAmountInstruction": "点击金额栏输入付款金额，或使用 − 及 + 按钮。",
-
   "electricIncreaseDecreaseInstruction": "按 − 以减少或 + 以增加RM1.00的金额。",
-
   "electricAmountLimit": "最低：RM 1.00 | 最高：RM 10,000.00",
-
   "electricFull": "全额",
-
   "electricOrderSummary": "付款摘要",
-
   "electricServiceFee": "服务费",
-
   "electricTotalAmount": "总金额",
-
   "electricContinue": "继续",
-
   "electricPaymentUpdateTime": "账单更新时间",
   "electricUpdateInstant": "即时",
   "electricUpdateWithinThreeDays": "3天内",
-
   "waterUpdateInstant": "即时",
   "waterUpdateTwentyFourHours": "24小时内",
-
   "waterBillProviderTitle": "水费账单选项",
   "waterBillProviderSubtitle": "请选择您的水费服务供应商",
   "waterAccountTitle": "请输入水费账号",
@@ -1618,7 +1229,6 @@
   "networkStatusGood": "良好",
   "networkStatusSlow": "缓慢",
   "networkStatusUnknown": "未知",
-
   "waterBillPayment": "水费账单付款",
   "waterBillInformation": "水费账单信息",
   "waterOutstandingAmount": "未缴金额",
@@ -1640,7 +1250,6 @@
   "waterEnterPaymentAmount": "请输入付款金额",
   "waterCancel": "取消",
   "waterDone": "完成",
-  "waterFull": "全额",
   "waterNoOutstandingBalance": "此账户没有未缴余额。",
   "waterMinimumPayment": "最低付款金额为{amount}。",
   "@waterMinimumPayment": {
@@ -1695,66 +1304,52 @@
   "waterInvalidJsonObject": "API响应不是有效的JSON对象。",
   "waterNoBillRecordFound": "找不到水费账单记录。",
   "waterInvalidAccount": "水费账号无效。",
-
   "waterProviderTimeout": "水费服务供应商响应耗时过长，请稍后重试。",
-
   "electricAmountToPay": "应付金额",
   "@electricAmountToPay": {
     "description": "客户应支付金额的标签"
   },
-
   "@electricOutstandingAmount": {
     "description": "由公用事业供应商返回的实际余额。如客户有溢缴款，数值可能为负数。"
   },
-
   "waterAmountToPay": "应付金额",
   "@waterAmountToPay": {
     "description": "水费账单当前应付的金额"
   },
-
   "@waterOutstandingAmount": {
     "description": "由账单供应商返回的水费账户实际未缴余额"
   },
-
   "electricReviewDetailsTitle": "请核实您的信息",
   "@electricReviewDetailsTitle": {
     "description": "显示在账单信息核实步骤上方的标题"
   },
-
   "electricReviewDetailsSubtitle": "请在继续之前确认账单信息及账号是否正确。",
   "@electricReviewDetailsSubtitle": {
     "description": "显示在账单信息核实步骤上的说明"
   },
-
   "waterReviewDetailsTitle": "请核实您的信息",
   "@waterReviewDetailsTitle": {
     "description": "显示在水费账单信息核实步骤上方的标题"
   },
-
   "waterReviewDetailsSubtitle": "请在继续之前确认水费账单信息及账号是否正确。",
   "@waterReviewDetailsSubtitle": {
     "description": "显示在水费账单信息核实步骤上的说明"
   },
-
   "billbroadbandButton": "宽频账单",
   "broadbandSelectionTitle": "宽频账单选项",
   "broadbandAccountTitle": "请输入宽频账号",
   "broadbandAccountHint": "请输入您的账号",
   "tmBroadbandButton": "TM账单",
   "unbBroadbandButton": "Unifi账单",
-
   "electricProviderDiscount": "供应商折扣",
   "electricServiceAdjustment": "折扣",
-
   "@waterServiceFee": {
     "description": "加在客户水费账单上的服务费"
   },
-
   "waterServiceAdjustment": "折扣",
   "@waterServiceAdjustment": {
     "description": "从客户水费账单中扣除的调整金额"
   },
-
   "broadbandBillPayment": "宽频账单付款",
   "broadbandBillInformation": "宽频账户信息",
   "broadbandCustomerName": "客户姓名",
@@ -1781,7 +1376,6 @@
   "broadbandCancel": "取消",
   "broadbandDone": "完成",
   "broadbandAccountNotFound": "找不到宽频账户。",
-
   "broadbandMinimumPayment": "最低付款金额为{amount}。",
   "@broadbandMinimumPayment": {
     "placeholders": {
@@ -1790,7 +1384,6 @@
       }
     }
   },
-
   "broadbandMaximumPayment": "最高付款金额为{amount}。",
   "@broadbandMaximumPayment": {
     "placeholders": {
@@ -1799,7 +1392,6 @@
       }
     }
   },
-
   "broadbandProductCodeRequired": "需要提供宽频产品代码。",
   "broadbandAccountNumberRequired": "需要提供宽频账号。",
   "broadbandApiKeyMissing": "未设置宽频API密钥。",
@@ -1812,7 +1404,6 @@
   "broadbandNoBillRecordFound": "找不到宽频账单记录。",
   "broadbandInvalidAccount": "宽频账号无效。",
   "broadbandProviderTimeout": "宽频供应商响应耗时过长，请稍后重试。",
-
   "broadbandInquiryHttpFailed": "宽频查询失败，状态代码为{statusCode}。",
   "@broadbandInquiryHttpFailed": {
     "placeholders": {
@@ -1821,7 +1412,6 @@
       }
     }
   },
-
   "broadbandInvalidServerResponse": "宽频服务器响应无效：{error}",
   "@broadbandInvalidServerResponse": {
     "placeholders": {
@@ -1830,7 +1420,6 @@
       }
     }
   },
-
   "broadbandInquiryFailed": "宽频账单查询失败：{error}",
   "@broadbandInquiryFailed": {
     "placeholders": {
@@ -1839,9 +1428,7 @@
       }
     }
   },
-
   "broadbandAccountRequired": "请输入您的宽频账号。",
-
   "billEntertainmentButton": "娱乐账单",
   "entertainmentBillTitle": "娱乐账单",
   "astroButton": "Astro",
@@ -1859,7 +1446,6 @@
       }
     }
   },
-
   "entertainmentMaximumPayment": "最高付款金额为{amount}。",
   "@entertainmentMaximumPayment": {
     "placeholders": {
@@ -1876,7 +1462,6 @@
       }
     }
   },
-
   "entertainmentNoOutstandingBalance": "Astro没有未缴余额。",
   "entertainmentInformation": "信息",
   "entertainmentOk": "确定",
@@ -1910,27 +1495,22 @@
   "entertainmentPaymentUpdateTime": "付款更新时间",
   "entertainmentUpdateInstant": "即时",
   "entertainmentContinue": "继续",
-
   "loadingTitle": "请稍候",
   "@loadingTitle": {
     "description": "加载对话框标题"
   },
-
   "loadingMessage": "正在处理您的信息。\n此过程可能需要一些时间。",
   "@loadingMessage": {
     "description": "加载对话框讯息"
   },
-
   "loadingStatusMessage": "您的请求正在安全处理中",
   "@loadingStatusMessage": {
     "description": "处理卡片上显示的状态"
   },
-
   "loadingDoNotClose": "请留在此屏幕",
   "@loadingDoNotClose": {
     "description": "处理期间显示的指示"
   },
-
   "amountPayable": "应付金额",
   "selectedAccountCount": "已选 {count} 个账户",
   "@selectedAccountCount": {
@@ -1940,7 +1520,6 @@
       }
     }
   },
-
   "prayerLocation": "地点",
   "prayerDate": "日期",
   "prayerHijriDate": "回历日期",
@@ -1951,7 +1530,6 @@
   "prayerLoading": "正在加载祈祷时间...",
   "prayerLoadFailed": "无法加载祈祷时间。",
   "prayerRetry": "重试",
-
   "prayerImsak": "封斋",
   "prayerSubuh": "晨礼",
   "prayerSyuruk": "日出",
@@ -1960,97 +1538,75 @@
   "prayerAsar": "晡礼",
   "prayerMaghrib": "昏礼",
   "prayerIsyak": "宵礼",
-
   "scanGoogleMaps": "在谷歌地图中打开",
   "scanGoogleMapsInstruction": "使用手机扫描此二维码以查看位置及路线。",
-
   "adventureParkColmarTitle": "Colmar Tropicale冒险公园",
   "adventureParkColmarDesc": "位于武吉丁宜高原的户外冒险目的地，提供多种精彩休闲活动。",
   "adventureParkColmarFull": "Colmar Tropicale冒险公园在武吉丁宜高原怡人的环境中提供多种户外活动。游客可在自然美景的环绕下，享受适合家庭、团体及户外活动爱好者的冒险体验。",
-
   "bukitTinggiHorseTrailTitle": "武吉丁宜骑马道",
   "bukitTinggiHorseTrailDesc": "在武吉丁宜怡人氛围及美丽景色中享受骑马体验。",
   "bukitTinggiHorseTrailFull": "武吉丁宜骑马道让游客通过骑马探索高地美丽景观。此活动适合新手及有经验的骑手，可在武吉丁宜大自然中享受悠闲体验。",
-
   "rabbitFarmBukitTinggiTitle": "武吉丁宜兔子农场",
   "rabbitFarmBukitTinggiDesc": "适合家庭的景点，让游客观赏并与兔子互动。",
   "rabbitFarmBukitTinggiFull": "武吉丁宜兔子农场是适合家庭的景点，让游客观赏、喂食并与兔子互动。这座农场在怡人的高地环境中为儿童及家庭提供有趣且富有教育意义的体验。",
-
   "bilutExtremeParkTitle": "Bilut极限公园",
   "bilutExtremeParkDesc": "为冒险爱好者提供挑战性活动的户外休闲公园。",
   "bilutExtremeParkFull": "Bilut极限公园是户外休闲目的地，为热爱冒险的游客提供多种精彩及具挑战性的活动。四周环绕自然美景，此公园适合团体、家庭及喜爱户外活动的游客。",
-
   "bilutValleyBeeFarmTitle": "Bilut山谷蜜蜂农场",
   "bilutValleyBeeFarmDesc": "了解养蜂、蜂蜜生产及蜜蜂对生态系统的重要性。",
   "bilutValleyBeeFarmFull": "Bilut山谷蜜蜂农场提供有关蜜蜂、养蜂及蜂蜜生产过程的教育体验。游客可了解蜜蜂在生态系统中的重要角色，并认识本地蜂蜜产品及相关产品。",
-
   "swatPaintballJandaBaikTitle": "振达拜村SWAT彩弹射击",
   "swatPaintballJandaBaikDesc": "在振达拜自然环境中体验刺激的彩弹射击活动。",
   "swatPaintballJandaBaikFull": "振达拜村SWAT彩弹射击在振达拜的优美环境中提供精彩的团体彩弹射击体验。此活动适合团体、企业活动、朋友及寻求活跃户外挑战的游客。",
-
   "japaneseGardenTitle": "日本花园",
   "japaneseGardenDesc": "宁静的日式概念花园，被武吉丁宜高原怡人氛围所环绕。",
   "japaneseGardenFull": "武吉丁宜的日本花园设有精心布置的花园景观、日式建筑、石径及令人心旷神怡的自然环境。游客可在此悠闲漫步，欣赏景色，感受日式花园概念带来的宁静氛围。",
-
   "lemangToki2Title": "Lemang To'ki 2",
   "lemangToki2Desc": "以传统竹筒饭及多种马来西亚美食闻名的美食目的地。",
   "lemangToki2Full": "Lemang To'ki 2是文冬受欢迎的美食目的地，以传统竹筒饭及本地马来西亚美食闻名。游客可在适合家庭、团体及游客的悠闲氛围中享用多种美食。",
-
   "udangGalahLubukHantuTitle": "Lubuk Hantu河虾餐厅",
   "udangGalahLubukHantuDesc": "以河虾料理及多种马来西亚美食闻名的本地餐厅。",
   "udangGalahLubukHantuFull": "Lubuk Hantu河虾餐厅供应多种马来西亚美食，其中河虾料理是热门之选。此餐厅适合希望在舒适惬意氛围中享用本地美食的游客。",
-
   "cintaRasaAirenaTitle": "Cinta Rasa Airena (AAA) 文冬餐厅",
   "cintaRasaAirenaDesc": "适合家庭的餐厅，供应多种具马来西亚风味的本地美食。",
   "cintaRasaAirenaFull": "Cinta Rasa Airena餐厅，又称AAA文冬，在舒适的氛围中供应多种马来西亚本地美食。此餐厅适合家庭、团体及在文冬寻找用餐地点的游客。",
-
   "pineyardTitle": "Pineyard",
   "pineyardDesc": "被绿意环绕的时尚用餐场所，氛围宁静，景色迷人。",
   "pineyardFull": "Pineyard是现代美食目的地，以悠闲氛围、自然环境及迷人景色闻名。游客可在宁静氛围中享用美食与饮品，适合悠闲用餐、聚会及拍照。",
-
   "fetchingPrayerTime": "正在加载祈祷时间",
   "fetchingPrayerTimeDesc": "请稍候，正在获取最新的祈祷时间。",
-
   "serviceSelectionLabel": "服务选项",
-  "pbtSupportingText": "查询与缴付市政服务账单",
-  "billSupportingText": "账单缴付、充值、游戏点数、礼券及更多服务。",
-  "touristSupportingText": "探索周边有趣地点及设施",
-
+  "pbtSupportingText": "在这里查询及缴付门牌税、罚单和市议会租金。",
+  "billSupportingText": "缴付账单、充值预付额或购买电子礼券。",
+  "touristSupportingText": "发现附近好玩的地方、当地美食和休闲活动。",
   "tourismServiceLabel": "旅游服务",
-  "explorationSupportingText": "探索有趣地点及本地景点",
-  "mapSupportingText": "使用互动地图查看位置及导航",
-  "prayerTimeSupportingText": "查看最新每日祈祷时间",
-
+  "explorationSupportingText": "寻找值得一游的本地景点与特色去处。",
+  "mapSupportingText": "在地图上找地点，并查看前往路线。",
+  "prayerTimeSupportingText": "查看本区今天的祈祷时间。",
   "pbtServiceLabel": "地方政府机构服务",
-  "parkingSupportingText": "缴付停车费及管理停车时段",
-  "compoundSupportingText": "查询及缴付车辆罚款",
-  "taxSupportingText": "查询及缴付评估税账户",
-  "licenseSupportingText": "查询及缴付商业执照账户",
-  "rentalSupportingText": "查询及缴付市议会租赁账户",
-
+  "parkingSupportingText": "缴付停车费，或延长停车时间。",
+  "compoundSupportingText": "查询车辆罚单，并在这里缴付。",
+  "taxSupportingText": "查询门牌税，并缴清未付账单。",
+  "licenseSupportingText": "查询营业执照并缴付相关费用。",
+  "rentalSupportingText": "查询并缴付市议会租金。",
   "compoundServiceLabel": "罚款服务",
-  "singleCompoundSupportingText": "使用单一罚款编号查询及缴付",
-  "multiCompoundSupportingText": "使用车牌号码查询所有罚款并进行缴付",
-
-  "assessmentTaxServiceLabel": "评估税服务",
-  "paymentTaxSupportingText": "查询评估税欠款并进行付款",
-  "checkTaxSupportingText": "查询在本自助服务终端进行的评估税付款",
-
+  "singleCompoundSupportingText": "输入罚单编号即可查询及付款。",
+  "multiCompoundSupportingText": "输入车牌号码，查询并缴付罚单。",
+  "assessmentTaxServiceLabel": "门牌税服务",
+  "paymentTaxSupportingText": "查看未缴门牌税，并直接付款。",
+  "checkTaxSupportingText": "查看在本终端缴付的门牌税记录。",
   "rentalServiceLabel": "市议会租赁服务",
-  "paymentRentalSupportingText": "查询市议会租赁欠款并进行付款",
-  "checkRentalSupportingText": "查询在本自助服务终端进行的市议会租赁付款",
-
+  "paymentRentalSupportingText": "查询租金欠款，并直接付款。",
+  "checkRentalSupportingText": "查看在本终端缴付的租金记录。",
   "parkingManagementLabel": "停车管理",
-  "extendParkingSupportingText": "增加当前停车时段的时长",
-  "parkingReceiptSupportingText": "查看及下载停车付款收据",
-
+  "extendParkingSupportingText": "为目前的停车时段增加时间。",
+  "parkingReceiptSupportingText": "查看您的停车付款收据。",
   "billPaymentServiceLabel": "账单付款服务",
-  "electricityBillSupportingText": "查询及缴付受支持供应商的电费账单",
-  "waterBillSupportingText": "查询及缴付受支持供应商的水费账单",
-  "broadbandBillSupportingText": "查询及缴付宽频及互联网服务账单",
-  "entertainmentBillSupportingText": "查询及缴付电视及娱乐服务账单",
-  "telcoBillSupportingText": "查询及缴付手机及电信账单",
-
+  "electricityBillSupportingText": "查询并缴付电费账单。",
+  "waterBillSupportingText": "查询并缴付水费账单。",
+  "broadbandBillSupportingText": "查询并缴付网络账单。",
+  "entertainmentBillSupportingText": "查询并缴付电视及娱乐账单。",
+  "telcoBillSupportingText": "查询并缴付手机或电信账单。",
   "mapInteractiveBadge": "互动地图",
   "mapSearchingLocation": "正在搜索位置...",
   "mapDistanceAway": "距离您{distance}公里",
@@ -2065,7 +1621,6 @@
   "mapZoomIn": "放大",
   "mapZoomOut": "缩小",
   "mapReset": "重置地图",
-
   "receiptPaymentTitle": "付款收据",
   "receiptSummonsTitle": "罚单付款收据",
   "receiptPaymentSuccessful": "付款成功",
@@ -2079,22 +1634,18 @@
   "receiptQrLoading": "您的电子收据正在准备中...",
   "receiptQrLoadFailed": "无法加载收据二维码。",
   "receiptTryAgain": "重试",
-
   "parkingDurationGuide": "选择停车时长，按 − 或 + 按钮以调整小时数。",
   "@parkingDurationGuide": {
     "description": "停车时长选择卡上的说明"
   },
-
   "parkingDecreaseDuration": "减少停车时长",
   "@parkingDecreaseDuration": {
     "description": "减少停车时长按钮的无障碍标签"
   },
-
   "parkingIncreaseDuration": "增加停车时长",
   "@parkingIncreaseDuration": {
     "description": "增加停车时长按钮的无障碍标签"
   },
-
   "parkingMaximumUntil": "最长至{time}",
   "@parkingMaximumUntil": {
     "description": "允许的最长结束时间信息",
@@ -2104,50 +1655,42 @@
       }
     }
   },
-
   "extendParkingDurationGuide": "选择额外时长，按 − 或 + 按钮以调整小时数。",
   "@extendParkingDurationGuide": {
     "description": "选择额外停车时长的说明"
   },
-
   "extendParkingSelectDuration": "选择额外时长",
   "@extendParkingSelectDuration": {
     "description": "额外停车时长选择区块的标题"
   },
-
   "extendParkingInfoTitle": "增加时间信息",
   "@extendParkingInfoTitle": {
     "description": "增加停车时间信息对话框的标题"
   },
-
   "extendParkingInfoSubtitle": "为您当前的停车时段增加时间。",
   "@extendParkingInfoSubtitle": {
     "description": "增加停车时间对话框的简短说明"
   },
-
   "extendParkingNotice": "额外时间将从当前停车结束时间开始计算，停车时间不得超过下午6:00。",
   "@extendParkingNotice": {
     "description": "增加停车时间流程的重要通知"
   },
-
   "extendParkingConfirmTitle": "确认增加时间",
   "@extendParkingConfirmTitle": {
     "description": "确认增加停车时间对话框的标题"
   },
-
   "extendParkingConfirmationNotice": "请在继续之前确认新的停车结束时间及付款金额是否正确。",
   "@extendParkingConfirmationNotice": {
     "description": "增加停车时间付款前的审核通知"
   },
-
   "faqButton": "常见问题",
-  "faqSupportingText": "有关自助服务终端使用、付款及收据的帮助",
+  "faqSupportingText": "需要操作、付款或收据方面的帮助？请看这里。",
   "faqTitle": "常见问题",
-  "faqSubtitle": "点击下方问题以查看答案",
+  "faqSubtitle": "点选问题即可查看答案。",
   "faqWhatIsKioskTitle": "什么是TIP自助服务终端？",
-  "faqWhatIsKioskContent": "智能综合服务终端（TIP）是一款自助服务终端，旨在让公众更快速、更方便、更安全地获取信息、进行查询及付款。\n\n本终端提供市政厅、县议会或市议会的服务，如停车、罚款、评估税、租赁及市议会提供的其他服务。",
+  "faqWhatIsKioskContent": "智能综合服务终端（TIP）是一款自助服务终端，旨在让公众更快速、更方便、更安全地获取信息、进行查询及付款。\n\n本终端提供市政厅、县议会或市议会的服务，如停车、罚款、门牌税、租赁及市议会提供的其他服务。",
   "faqCouncilServicesTitle": "本终端提供哪些市议会服务？",
-  "faqCouncilServicesContent": "通过本终端可提供的市议会服务包括：\n\n• 停车付款\n• 罚款查询及付款\n• 评估税查询及付款\n• 市议会租赁查询及付款\n• 执照付款\n• 市议会提供的其他服务\n\n服务清单可能因不同市议会而异。",
+  "faqCouncilServicesContent": "通过本终端可提供的市议会服务包括：\n\n• 停车付款\n• 罚款查询及付款\n• 门牌税查询及付款\n• 市议会租赁查询及付款\n• 执照付款\n• 市议会提供的其他服务\n\n服务清单可能因不同市议会而异。",
   "faqBillServicesTitle": "本终端提供哪些账单服务？",
   "faqBillServicesContent": "除市议会服务外，本终端还提供以下水电账单及数码服务的查询及付款：\n\n• 电费账单\n• 水费账单\n• TM及Unifi账单\n• Astro账单\n• 电信充值\n• 其他受支持的服务",
   "faqReceiptTitle": "我的付款收据在哪里？",
@@ -2162,30 +1705,28 @@
   "faqUpdateTimeContent": "大多数付款将在短时间内更新。\n\n然而，部分市议会、机构或服务供应商可能需要一些时间，才能在其系统中显示付款记录。\n\n请保存电子收据作为付款证明。",
   "faqTipsTitle": "付款前的小贴士",
   "faqTipsContent": "• 请确保正确输入账号或参考号码。\n• 在继续之前检查客户姓名及账单详情。\n• 在进行交易前检查付款金额。\n• 在扫描二维码之前请勿关闭收据页面。\n• 保存电子收据作为参考。\n• 请勿与不明人士分享付款信息。",
-  "faqHelpTitle": "疑难排解与帮助",
-  "faqHelpContent": "如屏幕无反应、屏幕空白、付款卡住、二维码未显示或发生其他任何问题，请联系：",
-
+  "faqHelpTitle": "需要帮助？",
+  "faqHelpContent": "如果屏幕没有反应、付款中断或二维码没有出现，请联系：",
   "weatherButton": "天气",
-  "weatherSupportingText": "查看文冬7天官方天气预报",
+  "weatherSupportingText": "查看未来7天天气预报",
   "weatherPageTitle": "{place}天气",
   "@weatherPageTitle": {
     "place": {
       "type": "String"
     }
   },
-
-  "weatherPageSubtitle": "{place}未来7天天气预报",
+  "weatherPageSubtitle": "由马来西亚气象局通过 data.gov.my 提供的7天官方预报",
   "@weatherPageSubtitle": {
     "place": {
       "type": "String"
     }
   },
   "weatherLoadingTitle": "正在加载天气",
-  "weatherLoadingMessage": "请稍候，最新预报正在准备中。",
-  "weatherUnavailableTitle": "天气数据暂不可用",
-  "weatherUnavailableMessage": "目前无法加载最新预报，请重试。",
+  "weatherLoadingMessage": "请稍候，正在获取最新天气预报。",
+  "weatherUnavailableTitle": "天气资料暂不可用",
+  "weatherUnavailableMessage": "目前无法加载最新天气预报，请重试。",
   "weatherTryAgain": "重试",
-  "weatherSevenDayForecast": "7天预报",
+  "weatherSevenDayForecast": "7天天气预报",
   "weatherUpdated": "更新时间",
   "weatherCachedData": "缓存数据",
   "weatherMinimumShort": "最低",
@@ -2193,12 +1734,10 @@
   "weatherMorning": "早上",
   "weatherAfternoon": "下午",
   "weatherNight": "晚上",
-
   "weatherDisclaimerTitle": "免责声明",
-  "weatherDisclaimerText": "透过data.gov.my网站提供的马来西亚气象局官方7天预报。",
-  "weatherScrollHint": "向上或向下滑动以查看接下来的预报",
+  "weatherDisclaimerText": "本7天官方天气预报由马来西亚气象局通过 data.gov.my 网站提供。",
+  "weatherScrollHint": "向上或向下滑动以查看更多预报",
   "weatherToday": "今天",
-
   "taksiranPaymentPeriodQuestion": "您想缴付半年金额还是全年金额？",
   "@taksiranPaymentPeriodQuestion": {
     "description": "让用户选择评估税缴纳期限的问题"
@@ -2211,1759 +1750,1300 @@
   "@taksiranAnnualAmount": {
     "description": "缴付全年评估税金额的按钮标签"
   },
-
   "scrollForMoreInformation": "滚动以查看更多信息",
-
   "qrPaymentSuccessTitle": "付款成功",
   "qrPaymentSuccessMessage": "您的QR付款已成功接收。",
   "qrPreparingReceipt": "您的收据正在准备中",
   "qrPleaseWaitNotice": "请稍候，请勿离开此页面。",
   "qrTotalAmount": "总金额",
-
   "qrOpeningPayment": "正在打开QR付款",
   "qrOpeningPaymentMessage": "请在QR付款屏幕上完成付款。",
-
   "qrClosingPaymentTitle": "正在关闭QR付款",
   "qrClosingPaymentMessage": "返回付款菜单。",
   "qrClosingPleaseWait": "请稍候，QR付款屏幕正在关闭。",
-  "qrPaymentCancelled": "付款已取消",
-
+  "qrPaymentCancelled": "二维码付款已取消。",
   "didYouKnowTitle": "你知道吗？",
   "didYouKnowSubtitle": "在探索我们的服务同时学习新知识。",
-
-"knowledgeFact01": "马来西亚由13个州和3个联邦直辖区组成。",
-"knowledgeFact02": "马来西亚的国花是大红花，马来文称为 Bunga Raya。",
-"knowledgeFact03": "国家原则的五项原则提倡全民团结、互相尊重与和谐共处。",
-"knowledgeFact04": "马来语是马来西亚的国语，也是联系各族群的共同语言。",
-"knowledgeFact05": "地方政府协助管理辖区内的社区设施与公共空间。",
-"knowledgeFact06": "门牌税有助于支付地方公共服务及公共设施维护的费用。",
-"knowledgeFact07": "保留付款收据，方便日后查询交易记录及跟进相关事项。",
-"knowledgeFact08": "举报公共设施损坏时，请提供地点和清楚的说明，以便相关单位采取行动。",
-"knowledgeFact09": "保持沟渠清洁、不乱丢垃圾，有助于排水顺畅并减少堵塞。",
-"knowledgeFact10": "公共公园为居民提供休闲、运动及举办社区活动的空间。",
-"knowledgeFact11": "将车辆停放在指定车位，有助于保持道路、出入口和行人通道畅通。",
-"knowledgeFact12": "残障人士专用停车位，方便有需要的人士进出建筑物及使用相关服务。",
-"knowledgeFact13": "保持人行道畅通，方便行人、轮椅使用者及推婴儿车的家庭通行。",
-"knowledgeFact14": "将可回收物品与其他垃圾分开，有助于后续收集与处理。",
-"knowledgeFact15": "使用可重复使用的购物袋和水瓶，有助于减少一次性用品垃圾。",
-"knowledgeFact16": "马来西亚的红树林为野生动物提供栖息地，也有助于保护海岸。",
-"knowledgeFact17": "树木提供遮荫，让街道、公园和住宅区更加舒适。",
-"knowledgeFact18": "支持本地商家，有助于促进社区经济发展。",
-"knowledgeFact19": "爱护历史建筑，有助于为下一代保存本地历史。",
-"knowledgeFact20": "在自助服务机确认付款前，请仔细核对服务项目、账号资料和付款金额。",
-
-
+  "knowledgeFact01": "马来西亚由13个州和3个联邦直辖区组成。",
+  "knowledgeFact02": "马来西亚的国花是大红花，马来文称为 Bunga Raya。",
+  "knowledgeFact03": "国家原则的五项原则提倡全民团结、互相尊重与和谐共处。",
+  "knowledgeFact04": "马来语是马来西亚的国语，也是联系各族群的共同语言。",
+  "knowledgeFact05": "地方政府协助管理辖区内的社区设施与公共空间。",
+  "knowledgeFact06": "门牌税有助于支付地方公共服务及公共设施维护的费用。",
+  "knowledgeFact07": "保留付款收据，方便日后查询交易记录及跟进相关事项。",
+  "knowledgeFact08": "举报公共设施损坏时，请提供地点和清楚的说明，以便相关单位采取行动。",
+  "knowledgeFact09": "保持沟渠清洁、不乱丢垃圾，有助于排水顺畅并减少堵塞。",
+  "knowledgeFact10": "公共公园为居民提供休闲、运动及举办社区活动的空间。",
+  "knowledgeFact11": "将车辆停放在指定车位，有助于保持道路、出入口和行人通道畅通。",
+  "knowledgeFact12": "残障人士专用停车位，方便有需要的人士进出建筑物及使用相关服务。",
+  "knowledgeFact13": "保持人行道畅通，方便行人、轮椅使用者及推婴儿车的家庭通行。",
+  "knowledgeFact14": "将可回收物品与其他垃圾分开，有助于后续收集与处理。",
+  "knowledgeFact15": "使用可重复使用的购物袋和水瓶，有助于减少一次性用品垃圾。",
+  "knowledgeFact16": "马来西亚的红树林为野生动物提供栖息地，也有助于保护海岸。",
+  "knowledgeFact17": "树木提供遮荫，让街道、公园和住宅区更加舒适。",
+  "knowledgeFact18": "支持本地商家，有助于促进社区经济发展。",
+  "knowledgeFact19": "爱护历史建筑，有助于为下一代保存本地历史。",
+  "knowledgeFact20": "在自助服务机确认付款前，请仔细核对服务项目、账号资料和付款金额。",
   "billPayment": "账单付款",
-
   "paymentForBill": "支付 {billType} 账单",
   "@paymentForBill": {
     "placeholders": {
       "billType": {}
     }
   },
-
   "billProvider": "账单机构",
   "billCode": "账单代码",
   "accountNumber": "账户号码",
-
   "totalPaymentAmount": "付款总额",
-
   "payWithDuitNowQr": "使用 DuitNow QR 付款",
   "preparingQr": "正在生成二维码...",
-
   "scanQrInstruction": "点击“使用 DuitNow QR 付款”，然后使用您的银行应用扫描二维码。",
-
   "preparingQrPayment": "正在准备二维码付款",
-
   "pleaseDoNotClose": "请不要关闭此页面。",
-
-  "paymentSuccessful": "付款成功",
-
-  "amount": "金额",
-
   "orderNumber": "订单编号",
-
   "bankTransaction": "银行交易编号",
-
-  "continueButton": "继续",
-
   "invalidAmount": "金额无效",
-
   "paymentAmountMustBeMoreThanZero": "付款金额必须大于 RM 0.00。",
-
   "paymentError": "付款错误",
-
   "unableToCreateQr": "无法生成二维码付款，请重试。",
-
   "ok": "确定",
-
-  "qrPaymentCancelled": "二维码付款已取消。",
-
   "billReceiptDigitalTitle": "电子收据",
   "billReceiptDigitalSubtitle": "扫描二维码以查看或下载您的正式收据。",
   "billReceiptQrLoading": "正在生成电子收据二维码...",
   "billReceiptQrScanInstruction": "请使用手机扫描此二维码，以查看或下载收据。",
   "billReceiptQrError": "无法加载电子收据二维码，请重试。",
   "billReceiptQrRetry": "重试",
-
   "receiptPaymentMethodLabel": "付款方式",
-
   "billReceiptProcessingTitle": "正在准备您的收据",
-"billReceiptProcessingMessage": "付款已成功。请稍候，我们正在准备您的电子收据。",
-"billReceiptProcessingLocked": "请勿返回或再次按下付款按钮。",
-
-"billInformationTitle": "账单资料",
-"paymentSectionTitle": "付款",
-
-
-"weatherButton": "天气",
-"weatherSupportingText": "查看霹雳州怡保未来7天的官方天气预报",
-"weatherPageSubtitle": "由马来西亚气象局通过 data.gov.my 提供的7天官方预报",
-"weatherIpohLocation": "霹雳州怡保",
-"weatherLoadingTitle": "正在加载天气",
-"weatherLoadingMessage": "请稍候，正在获取最新天气预报。",
-"weatherUnavailableTitle": "天气资料暂不可用",
-"weatherUnavailableMessage": "目前无法加载最新天气预报，请重试。",
-"weatherTryAgain": "重试",
-"weatherSevenDayForecast": "7天天气预报",
-"weatherUpdated": "更新时间",
-"weatherCachedData": "缓存数据",
-"weatherMinimumShort": "最低",
-"weatherRefresh": "刷新天气",
-"weatherMorning": "早上",
-"weatherAfternoon": "下午",
-"weatherNight": "晚上",
-"weatherDisclaimerTitle": "免责声明",
-"weatherDisclaimerText": "本7天官方天气预报由马来西亚气象局通过 data.gov.my 网站提供。",
-"weatherScrollHint": "向上或向下滑动以查看更多预报",
-"weatherToday": "今天",
-
-
-"billPresentmentUnavailable": "此服务的账单信息目前暂时无法获取，请稍后再试。",
-"billServiceUnavailable": "此服务目前暂时无法使用，请稍后再试。",
-"billInvalidAccountNo": "账号无效。请检查账号后重试。",
-"billUnknownError": "目前无法处理您的请求，请稍后再试。",
-
-"telcoServiceLabel": "电讯服务",
-"telcoPageTitle": "电讯服务",
-"telcoPageSubtitle": "请选择您要使用的电讯服务",
-
-"telcoBillPaymentTitle": "账单缴费",
-"telcoBillPaymentDescription": "查询并缴付您的后付移动电话或电讯账单",
-
-"telcoMobilePinTitle": "手机充值码",
-"telcoMobilePinDescription": "购买预付手机充值码",
-
-"telcoSelectionHint": "点击以上其中一个选项以继续",
-
-"telcoBillServiceLabel": "电讯账单缴费",
-"telcoBillProviderTitle": "选择电讯服务商",
-"telcoBillProviderSubtitle": "请选择您的电讯服务商以继续缴付账单",
-
-"mobilePinServiceLabel": "手机充值码",
-"mobilePinProviderTitle": "选择手机充值服务商",
-"mobilePinProviderSubtitle": "请选择您的手机服务商以购买预付充值码",
-
-"telcoBillInputService": "电讯账单缴费",
-"mobilePinInputService": "手机充值",
-
-"telcoBillInputTitle": "输入账户号码或手机号码",
-"mobilePinInputTitle": "输入手机号码",
-
-"telcoSelectedProviderLabel": "已选择的服务商",
-
-"telcoBillNumberHint": "输入账户号码或手机号码",
-"mobilePinNumberHint": "输入手机号码",
-
-"telcoBillInputInstruction": "请使用下方数字键盘输入您向电讯服务商登记的号码。",
-"mobilePinInputInstruction": "请输入将接收预付充值的手机号码。",
-
-"telcoClearAllButton": "清除",
-
-"telcoInputAlertTitle": "请检查",
-"telcoBillNumberRequired": "请输入您的账户号码或手机号码。",
-"mobilePinNumberRequired": "请输入手机号码。",
-"telcoNumberInvalid": "请输入有效的8至15位数字号码。",
-
-"telcoProcessingTitle": "处理中",
-"telcoProcessingMessage": "请稍候，我们正在处理您的请求。",
-
-"telcoInputSuccessTitle": "号码已接收",
-"telcoInputSuccessMessage": "号码已成功接收，可以进行下一步。",
-
-"telcoOkButton": "确定",
-
-"telcoInvalidAccount": "输入的账户号码或手机号码无效。请检查号码后再试。",
-"telcoServiceUnavailable": "电讯服务暂时无法使用，请稍后再试。",
-"mobilePinComingSoon": "手机充值功能将在下一步骤提供。",
-
-"telcoAccountVerified": "账户已验证",
-"telcoBillDetailsTitle": "电讯账单详情",
-"telcoProvider": "服务商",
-"telcoAccountNumber": "账户 / 手机号码",
-"telcoOutstanding": "未缴金额",
-"telcoDueDate": "到期日",
-"telcoCustomerName": "客户姓名",
-
-"telcoBillPayment": "电讯账单缴费",
-"telcoReviewBillDetails": "检查账单资料",
-"telcoReviewBillSubtitle": "请确认您的电讯账户资料后再继续。",
-"telcoServiceProvider": "电讯服务商",
-"telcoAccountVerified": "账户已验证",
-"telcoAccountMobileNumber": "账户 / 手机号码",
-"telcoOutstandingBalance": "未缴余额",
-"telcoCustomerName": "客户姓名",
-"telcoDueDate": "缴费截止日期",
-"telcoPaymentAmountNextInfo": "您可以在下一页选择要缴付的金额。",
-
-"telcoChoosePaymentAmount": "选择缴费金额",
-"telcoChoosePaymentSubtitle": "请选择您要为此电讯账户缴付的金额。",
-"telcoAmountToPay": "缴费金额",
-"telcoSelectPaymentAmount": "选择缴费金额",
-"telcoTapAmountKeypad": "点击金额以打开数字键盘",
-"telcoPayFullOutstanding": "缴清未缴余额",
-"telcoProceedToPayment": "继续缴费",
-
-"telcoOrderSummary": "缴费摘要",
-"telcoServiceFee": "服务费",
-"telcoServiceAdjustment": "服务调整",
-"telcoTotalPayment": "缴费总额",
-"telcoLatestPricingInfo": "最终金额将根据服务商的最新价格自动计算。",
-
-"telcoInformation": "提示",
-"telcoMaximumPayment": "最高缴费金额为 {amount}。",
-"@telcoMaximumPayment": {
-  "placeholders": {
-    "amount": {
+  "billReceiptProcessingMessage": "付款已成功。请稍候，我们正在准备您的电子收据。",
+  "billReceiptProcessingLocked": "请勿返回或再次按下付款按钮。",
+  "billInformationTitle": "账单资料",
+  "paymentSectionTitle": "付款",
+  "weatherIpohLocation": "霹雳州怡保",
+  "billPresentmentUnavailable": "此服务的账单信息目前暂时无法获取，请稍后再试。",
+  "billServiceUnavailable": "此服务目前暂时无法使用，请稍后再试。",
+  "billInvalidAccountNo": "账号无效。请检查账号后重试。",
+  "billUnknownError": "目前无法处理您的请求，请稍后再试。",
+  "telcoServiceLabel": "电讯服务",
+  "telcoPageTitle": "电讯服务",
+  "telcoPageSubtitle": "请选择您要使用的电讯服务",
+  "telcoBillPaymentTitle": "账单缴费",
+  "telcoBillPaymentDescription": "查询并缴付您的后付移动电话或电讯账单",
+  "telcoMobilePinTitle": "手机充值码",
+  "telcoMobilePinDescription": "购买预付手机充值码",
+  "telcoSelectionHint": "点击以上其中一个选项以继续",
+  "telcoBillServiceLabel": "电讯账单缴费",
+  "telcoBillProviderTitle": "选择电讯服务商",
+  "telcoBillProviderSubtitle": "请选择您的电讯服务商以继续缴付账单",
+  "mobilePinServiceLabel": "手机充值码",
+  "mobilePinProviderTitle": "选择手机充值服务商",
+  "mobilePinProviderSubtitle": "请选择您的手机服务商以购买预付充值码",
+  "telcoBillInputService": "电讯账单缴费",
+  "mobilePinInputService": "手机充值",
+  "telcoBillInputTitle": "输入账户号码或手机号码",
+  "mobilePinInputTitle": "输入手机号码",
+  "telcoSelectedProviderLabel": "已选择的服务商",
+  "telcoBillNumberHint": "输入账户号码或手机号码",
+  "mobilePinNumberHint": "输入手机号码",
+  "telcoBillInputInstruction": "请使用下方数字键盘输入您向电讯服务商登记的号码。",
+  "mobilePinInputInstruction": "请输入将接收预付充值的手机号码。",
+  "telcoClearAllButton": "清除",
+  "telcoInputAlertTitle": "请检查",
+  "telcoBillNumberRequired": "请输入您的账户号码或手机号码。",
+  "mobilePinNumberRequired": "请输入接收者的手机号码。",
+  "telcoNumberInvalid": "请输入有效的8至15位数字号码。",
+  "telcoProcessingTitle": "处理中",
+  "telcoProcessingMessage": "请稍候，我们正在处理您的请求。",
+  "telcoInputSuccessTitle": "号码已接收",
+  "telcoInputSuccessMessage": "号码已成功接收，可以进行下一步。",
+  "telcoOkButton": "确定",
+  "telcoInvalidAccount": "输入的账户号码或手机号码无效。请检查号码后再试。",
+  "telcoServiceUnavailable": "电讯服务暂时无法使用，请稍后再试。",
+  "mobilePinComingSoon": "手机充值功能将在下一步骤提供。",
+  "telcoAccountVerified": "账户已验证",
+  "telcoBillDetailsTitle": "电讯账单详情",
+  "telcoProvider": "服务商",
+  "telcoAccountNumber": "账户 / 手机号码",
+  "telcoOutstanding": "未缴金额",
+  "telcoDueDate": "缴费截止日期",
+  "telcoCustomerName": "客户姓名",
+  "telcoBillPayment": "电讯账单缴费",
+  "telcoReviewBillDetails": "检查账单资料",
+  "telcoReviewBillSubtitle": "请确认您的电讯账户资料后再继续。",
+  "telcoServiceProvider": "电讯服务商",
+  "telcoAccountMobileNumber": "账户 / 手机号码",
+  "telcoOutstandingBalance": "未缴余额",
+  "telcoPaymentAmountNextInfo": "您可以在下一页选择要缴付的金额。",
+  "telcoChoosePaymentAmount": "选择缴费金额",
+  "telcoChoosePaymentSubtitle": "请选择您要为此电讯账户缴付的金额。",
+  "telcoAmountToPay": "缴费金额",
+  "telcoSelectPaymentAmount": "选择缴费金额",
+  "telcoTapAmountKeypad": "点击金额以打开数字键盘",
+  "telcoPayFullOutstanding": "缴清未缴余额",
+  "telcoProceedToPayment": "继续缴费",
+  "telcoOrderSummary": "缴费摘要",
+  "telcoServiceFee": "服务费",
+  "telcoServiceAdjustment": "服务调整",
+  "telcoTotalPayment": "缴费总额",
+  "telcoLatestPricingInfo": "最终金额将根据服务商的最新价格自动计算。",
+  "telcoInformation": "提示",
+  "telcoMaximumPayment": "最高缴费金额为 {amount}。",
+  "@telcoMaximumPayment": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "telcoMinimumPayment": "最低缴费金额为 {amount}。",
+  "@telcoMinimumPayment": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "telcoNoOutstandingBalance": "此账户目前没有未缴余额。",
+  "telcoEnterPaymentAmount": "输入缴费金额",
+  "telcoKeypadInstruction": "请使用数字键盘输入金额",
+  "telcoPaymentRange": "最低 RM 1.00 • 最高 RM 10,000.00",
+  "telcoClear": "清除",
+  "telcoDone": "完成",
+  "telcoCancel": "取消",
+  "mobilePinPurchaseTitle": "购买手机充值 PIN",
+  "mobilePinSelectedProvider": "已选择的服务商",
+  "mobilePinAvailable": "可用",
+  "mobilePinUnavailable": "暂不可用",
+  "mobilePinImportantNote": "重要提示",
+  "mobilePinSelectAmount": "选择 PIN 金额",
+  "mobilePinQuantity": "数量",
+  "mobilePinQuantityHelp": "请选择要购买的 PIN 数量。",
+  "mobilePinOrderSummary": "订单摘要",
+  "mobilePinSubtotal": "小计",
+  "mobilePinTotalAmount": "总金额",
+  "mobilePinProceed": "继续付款",
+  "mobilePinLoadingTitle": "正在加载手机充值 PIN",
+  "mobilePinLoadingMessage": "请稍候，我们正在获取最新的 PIN 选项。",
+  "mobilePinCatalogErrorTitle": "无法加载手机充值 PIN",
+  "mobilePinCatalogErrorMessage": "无法获取最新的手机充值 PIN 资料，请重试。",
+  "mobilePinRetry": "重试",
+  "mobilePinUnavailableTitle": "服务暂不可用",
+  "mobilePinUnavailableMessage": "此手机充值 PIN 服务目前暂不可用。",
+  "mobilePinSelectAmountTitle": "选择金额",
+  "mobilePinSelectAmountMessage": "请先选择 PIN 金额再继续。",
+  "mobilePinDebugTitle": "选择已记录",
+  "mobilePinDebugMessage": "您的手机充值 PIN 选择已准备好，购买 API 将在下一步骤连接。",
+  "mobilePinNoteCelcom": "充值时，请拨打 *122*，接着输入16位 PIN 号码和 #，然后按拨号键。",
+  "mobilePinNoteDigi": "充值时，请拨打 *123*，接着输入16位 PIN 号码和 #，然后按拨号键。",
+  "mobilePinNoteHelloSim": "充值时，请拨打 *178*，接着输入 PIN 号码和 #，然后按拨号键。",
+  "mobilePinNoteMaxis": "充值时，请拨打 *111*，接着输入16位 PIN 号码和 #，然后按拨号键。",
+  "mobilePinNoteRedOne": "充值时，请拨打 *122*，接着输入16位 PIN 号码和 #，然后按拨号键。",
+  "mobilePinNoteSpeakOut": "拨打 *129# 并按发送。选择选项 2 进行充值，输入充值 PIN 后再按发送。",
+  "mobilePinNoteTuneTalk": "充值时，请拨打 *122*，接着输入16位 PIN 和 #，然后按拨号键。",
+  "mobilePinNoteUnifi": "打开 unifi 应用程序，选择 Reload，再选择 Reload Voucher，输入12位充值 PIN，然后点击 Continue。",
+  "mobilePinNoteUMobile": "充值时，请拨打 *138*，接着输入14位 PIN 号码和 #，然后按拨号键。",
+  "mobilePinNoteXox": "充值时，请拨打 *132*1*，接着输入16位 PIN 号码和 #，然后按拨号键。",
+  "mobilePinNoteYes": "充值时，请输入 REL、您的 Yes 手机号码及 PIN 代码，然后发送至 0183301111。",
+  "mobilePinServiceAdjustment": "服务调整",
+  "eWalletReloadButton": "电子钱包充值",
+  "eWalletReloadSupportingText": "快速便捷地为您选择的电子钱包充值",
+  "eWalletServiceLabel": "电子钱包充值服务",
+  "eWalletProviderTitle": "选择电子钱包",
+  "eWalletProviderSubtitle": "请选择电子钱包服务以继续",
+  "touchNGoPin": "Touch 'n Go 充值码",
+  "touchNGoPinless": "Touch 'n Go 充值",
+  "trueMoneyEWallet": "TrueMoney 电子钱包",
+  "telcoReceiptTitle": "电讯缴费收据",
+  "telcoReceiptPaymentSuccessful": "付款成功",
+  "telcoReceiptThankYou": "谢谢。您的电讯账单付款已成功接收。",
+  "telcoReceiptProvider": "电讯服务商",
+  "telcoReceiptTransactionDetails": "交易详情",
+  "telcoReceiptAccountNumber": "账户 / 手机号码",
+  "telcoReceiptProductCode": "产品代码",
+  "telcoReceiptBillAmount": "账单金额",
+  "telcoReceiptServiceAdjustment": "服务调整",
+  "telcoReceiptPaymentMethod": "付款方式",
+  "telcoReceiptPaymentDate": "付款日期与时间",
+  "telcoReceiptOrderNumber": "订单号码",
+  "telcoReceiptBankTransaction": "银行交易号码",
+  "telcoReceiptTotalPaid": "已付总额",
+  "telcoReceiptAutoReturn": "{seconds} 秒后返回主页。",
+  "@telcoReceiptAutoReturn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "receiptTransactionReference": "交易参考编号",
+  "mobilePinReceiptTitle": "手机 PIN 收据",
+  "mobilePinReceiptProvider": "手机 PIN 服务商",
+  "mobilePinReceiptTransactionDetails": "交易详情",
+  "mobilePinReceiptProductCode": "产品代码",
+  "mobilePinReceiptPinValue": "PIN 面值",
+  "mobilePinReceiptQuantity": "数量",
+  "mobilePinReceiptPaymentMethod": "付款方式",
+  "mobilePinReceiptPaymentDate": "付款日期与时间",
+  "mobilePinReceiptOrderNumber": "订单号码",
+  "mobilePinReceiptBankTransaction": "银行交易号码",
+  "mobilePinReceiptPinDetails": "PIN 详情",
+  "mobilePinReceiptPinNumber": "PIN {number}",
+  "@mobilePinReceiptPinNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "mobilePinReceiptSerialNumber": "序列号",
+  "mobilePinReceiptPinCode": "PIN 代码",
+  "mobilePinReceiptExpiry": "有效期限",
+  "mobilePinReceiptNote": "使用说明",
+  "mobilePinReceiptVoucherLink": "兑换链接",
+  "mobilePinReceiptTotalPaid": "已付总额",
+  "mobilePinReceiptAutoReturn": "{seconds} 秒后返回主页。",
+  "@mobilePinReceiptAutoReturn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "mobilePinRecipientMobileTitle": "接收者手机号码",
+  "mobilePinRecipientMobileSubtitle": "请输入用于此次 PIN 购买的接收者手机号码。",
+  "mobilePinRecipientMobileHint": "例如：0123456789",
+  "mobilePinRecipientMobileHelp": "继续付款前，请仔细确认手机号码是否正确。",
+  "mobilePinRecipientMobileSummary": "接收者手机号码",
+  "mobilePinMobileNumberRequired": "请输入手机号码。",
+  "mobilePinMobileNumberInvalid": "请输入有效的手机号码。",
+  "mobilePinContinue": "继续",
+  "mobilePinNumberServiceLabel": "手机 PIN 购买",
+  "mobilePinEnterNumberTitle": "输入手机号码",
+  "mobilePinEnterNumberSubtitle": "请输入接收者的手机号码，然后继续付款。",
+  "mobilePinSelectedProduct": "已选择的 PIN",
+  "mobilePinPaymentTotal": "总额",
+  "mobilePinNumberInstruction": "请使用下方数字键盘输入接收者的手机号码。付款前请仔细确认号码。",
+  "mobilePinNumberAlertTitle": "手机号码",
+  "mobilePinNumberInvalid": "请输入有效的马来西亚手机号码。",
+  "mobilePinContinueToPayment": "继续付款",
+  "mobilePinNextStepMobileNumber": "下一步，请输入接收者的手机号码。",
+  "eWalletPinPurchaseTitle": "电子钱包充值码购买",
+  "eWalletSelectedProvider": "已选择的电子钱包",
+  "eWalletAvailable": "可使用",
+  "eWalletUnavailable": "暂不可用",
+  "eWalletSelectReloadValue": "选择充值金额",
+  "eWalletPinValue": "充值码金额",
+  "eWalletReloadValue": "充值金额",
+  "eWalletServiceAdjustment": "服务调整",
+  "eWalletTotalPayment": "付款总额",
+  "eWalletContinue": "继续",
+  "eWalletContinuePayment": "继续付款",
+  "eWalletPhoneStepLabel": "电子钱包手机号码",
+  "eWalletAmountStepLabel": "电子钱包充值金额",
+  "eWalletEnterPhoneTitle": "输入手机号码",
+  "eWalletEnterPhoneSubtitle": "请输入此电子钱包交易的手机号码",
+  "eWalletPhoneNumber": "手机号码",
+  "eWalletPhoneHint": "请输入手机号码",
+  "eWalletPhoneReferenceHint": "请输入作为交易参考的手机号码。",
+  "eWalletEnterAmountTitle": "选择充值金额",
+  "eWalletAmountHint": "请输入金额",
+  "eWalletAmountRange": "允许金额：{minimum} - {maximum}",
+  "@eWalletAmountRange": {
+    "placeholders": {
+      "minimum": {
+        "type": "String"
+      },
+      "maximum": {
+        "type": "String"
+      }
+    }
+  },
+  "eWalletLoadingTitle": "正在加载电子钱包",
+  "eWalletLoadingMessage": "正在获取最新电子钱包资料...",
+  "eWalletCatalogErrorTitle": "无法加载",
+  "eWalletCatalogErrorMessage": "无法获取最新电子钱包资料。",
+  "eWalletRetry": "重试",
+  "eWalletUnavailableTitle": "服务暂不可用",
+  "eWalletUnavailableMessage": "此电子钱包服务目前暂不可用。",
+  "eWalletSelectAmountTitle": "选择充值金额",
+  "eWalletSelectAmountMessage": "请先选择充值金额。",
+  "eWalletPhoneRequiredTitle": "请输入手机号码",
+  "eWalletPhoneRequiredMessage": "请输入手机号码。",
+  "eWalletInvalidPhoneTitle": "手机号码无效",
+  "eWalletInvalidPhoneMessage": "请输入有效的马来西亚手机号码。",
+  "eWalletAmountRequiredTitle": "请输入金额",
+  "eWalletAmountRequiredMessage": "请输入充值金额。",
+  "eWalletInvalidAmountTitle": "金额无效",
+  "eWalletMinimumAmount": "最低充值金额为 {amount}。",
+  "@eWalletMinimumAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "eWalletMaximumAmount": "最高充值金额为 {amount}。",
+  "@eWalletMaximumAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "eWalletTngPinNote": "请选择充值码金额。下一页将输入手机号码作为交易参考。",
+  "eWalletTrueMoneyNote": "每日充值上限为 RM1,000，每月充值上限为 RM5,000。",
+  "eWalletOkButton": "确定",
+  "eWalletReloadDetails": "电子钱包充值",
+  "eWalletAmountStepSubtitle": "请选择或输入您要充值的金额",
+  "eWalletReloadAmount": "充值金额",
+  "eWalletOrderSummary": "订单摘要",
+  "eWalletLatestPricingInfo": "所显示的总额采用最新的服务价格。",
+  "eWalletKeypadClear": "清除",
+  "eWalletKeypadDone": "完成",
+  "eWalletKeypadCancel": "取消",
+  "eWalletPinlessPhoneHint": "请输入您的电子钱包手机号码。",
+  "eWalletPinPhoneReferenceHint": "交易需要手机号码作为参考。",
+  "eWalletConfirmNumberTitle": "确认手机号码",
+  "eWalletConfirmNumberQuestion": "这个手机号码正确吗？",
+  "eWalletConfirmBack": "返回",
+  "eWalletConfirmContinue": "继续",
+  "electricPaymentRange": "最低 {minimum} • 最高 {maximum}",
+  "@electricPaymentRange": {
+    "placeholders": {
+      "minimum": {
+        "type": "String"
+      },
+      "maximum": {
+        "type": "String"
+      }
+    }
+  },
+  "electricOutstandingExceedsMaximum": "未缴金额为 {outstanding}，但单次最高付款金额为 {maximum}。",
+  "@electricOutstandingExceedsMaximum": {
+    "placeholders": {
+      "outstanding": {
+        "type": "String"
+      },
+      "maximum": {
+        "type": "String"
+      }
+    }
+  },
+  "eWalletPinReceiptTitle": "电子钱包 PIN 收据",
+  "eWalletPinReceiptProvider": "电子钱包服务商",
+  "eWalletPinReceiptTransactionDetails": "交易详情",
+  "eWalletPinReceiptProductCode": "产品代码",
+  "eWalletPinReceiptPhoneReference": "手机号码 / 参考号码",
+  "eWalletPinReceiptValue": "PIN 金额",
+  "eWalletPinReceiptPaymentMethod": "付款方式",
+  "eWalletPinReceiptPaymentDate": "付款日期",
+  "eWalletPinReceiptBankTransaction": "银行交易",
+  "eWalletPinReceiptPinDetails": "PIN 详情",
+  "eWalletPinReceiptSerialNumber": "序列号",
+  "eWalletPinReceiptPinCode": "PIN",
+  "eWalletPinReceiptExpiry": "有效期",
+  "eWalletPinReceiptNote": "备注",
+  "eWalletPinReceiptVoucherLink": "兑换链接",
+  "eWalletPinReceiptTotalPaid": "已付总额",
+  "eWalletPinReceiptSavePinMessage": "离开此页面前，请先保存您的 PIN。",
+  "eWalletTngRedeemNote": "要兑换 PIN，请登录 Touch 'n Go eWallet 应用",
+  "mobilePinReceiptSavePinMessage": "请在离开此页面前保存您的 PIN。",
+  "eWalletProviderSurchargeTitle": "服务商附加费",
+  "eWalletProviderSurchargeMessage": "将收取 {surcharge} 服务商附加费。充值 {reloadAmount}，电子钱包将收到 {receivedAmount}。",
+  "@eWalletProviderSurchargeMessage": {
+    "placeholders": {
+      "surcharge": {
+        "type": "String"
+      },
+      "reloadAmount": {
+        "type": "String"
+      },
+      "receivedAmount": {
+        "type": "String"
+      }
+    }
+  },
+  "eWalletReloadReceiptTitle": "电子钱包充值收据",
+  "eWalletReloadReceiptProvider": "电子钱包服务商",
+  "electricUpdateWithinHours": "{hours} 小时内",
+  "@electricUpdateWithinHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "electricUpdateWithinDays": "{days} 天内",
+  "@electricUpdateWithinDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "electricProcessingTimeUnavailable": "暂无法获取处理时间",
+  "waterUpdateWithinHours": "{hours} 小时内",
+  "@waterUpdateWithinHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "waterUpdateWithinDays": "{days} 天内",
+  "@waterUpdateWithinDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "broadbandUpdateInstant": "即时",
+  "broadbandUpdateWithinHours": "{hours} 小时内",
+  "@broadbandUpdateWithinHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "broadbandUpdateWithinDays": "{days} 天内",
+  "@broadbandUpdateWithinDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "entertainmentUpdateWithinHours": "{hours} 小时内",
+  "@entertainmentUpdateWithinHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "entertainmentUpdateWithinDays": "{days} 天内",
+  "@entertainmentUpdateWithinDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "telcoPaymentUpdateTime": "付款更新时间",
+  "telcoUpdateInstant": "即时",
+  "telcoUpdateWithinHours": "{hours} 小时内",
+  "@telcoUpdateWithinHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "telcoUpdateWithinDays": "{days} 天内",
+  "@telcoUpdateWithinDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "eWalletProcessingTime": "处理时间",
+  "eWalletUpdateInstant": "即时",
+  "eWalletUpdateWithinHours": "{hours} 小时内",
+  "@eWalletUpdateWithinHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "eWalletUpdateWithinDays": "{days} 天内",
+  "@eWalletUpdateWithinDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "loanEducationButton": "贷款与教育",
+  "loanEducationSupportingText": "支付贷款及教育融资",
+  "loanServiceLabel": "贷款与教育服务",
+  "loanProviderTitle": "贷款与教育",
+  "loanProviderSubtitle": "请选择服务机构以继续",
+  "processingTimeLabel": "处理时间",
+  "catalogUnavailableTitle": "服务资料暂时无法显示",
+  "catalogUnavailableMessage": "无法加载最新服务资料，请重试。",
+  "retryButton": "重试",
+  "serviceUnavailableTitle": "服务暂不可用",
+  "ptptnUnavailableMessage": "PTPTN 服务目前暂不可用，请稍后再试。",
+  "ptptnNextPageMessage": "已选择 PTPTN，请继续输入身份证号码。",
+  "processingInstant": "即时",
+  "processing24Hours": "24 小时",
+  "processing3Days": "3 天",
+  "loanNricStepLabel": "PTPTN 账户",
+  "loanEnterNricTitle": "输入身份证号码",
+  "loanEnterNricSubtitle": "请输入您的12位身份证号码以继续",
+  "loanSelectedProvider": "已选择服务机构",
+  "loanNricHint": "输入身份证号码",
+  "loanNricHintText": "请输入12位数字，无需空格或符号",
+  "loanContinue": "继续",
+  "loanConfirmNricTitle": "确认身份证号码",
+  "loanConfirmNricQuestion": "这个身份证号码正确吗？",
+  "loanConfirmBack": "修改",
+  "loanConfirmContinue": "继续",
+  "loanNricRequiredTitle": "请输入身份证号码",
+  "loanNricRequiredMessage": "请输入您的身份证号码。",
+  "loanInvalidNricTitle": "身份证号码无效",
+  "loanInvalidNricMessage": "请输入有效的12位身份证号码。",
+  "loanUnavailableTitle": "服务暂不可用",
+  "loanUnavailableMessage": "PTPTN 服务目前暂不可用，请稍后再试。",
+  "loanLoadingTitle": "正在加载 PTPTN",
+  "loanLoadingMessage": "正在加载最新的 PTPTN 资料，请稍候。",
+  "loanCatalogErrorTitle": "无法加载 PTPTN",
+  "loanCatalogErrorMessage": "无法加载 PTPTN 服务资料，请重试。",
+  "loanRetry": "重试",
+  "loanOkButton": "确定",
+  "loanNricConfirmedMessage": "身份证号码已确认，正在获取 PTPTN 账户选项。",
+  "loanAccountStepLabel": "PTPTN 账户",
+  "loanSelectAccountTitle": "选择账户",
+  "loanSelectAccountSubtitle": "请选择您要付款的 PTPTN 或 SSPN 账户",
+  "loanNricLabel": "身份证号码",
+  "loanAccountNumber": "账户号码",
+  "loanAccountType": "账户类型",
+  "loanTypeConventional": "传统贷款",
+  "loanTypeUjrah": "Ujrah",
+  "loanTypeSspnPrime": "SSPN Prime",
+  "loanTypeSspnPlus": "SSPN Plus",
+  "loanAccountCategoryUnknown": "账户",
+  "loanAccountLoadingTitle": "正在查询账户",
+  "loanAccountLoadingMessage": "正在获取您的 PTPTN 和 SSPN 账户，请稍候。",
+  "loanAccountErrorTitle": "无法获取账户",
+  "loanAccountErrorMessage": "无法获取您的 PTPTN 账户资料，请重试。",
+  "loanNoAccountTitle": "没有可用账户",
+  "loanNoAccountMessage": "此身份证号码没有可用的 PTPTN 或 SSPN 账户，请稍后再试。",
+  "loanAccountRequiredTitle": "请选择账户",
+  "loanAccountRequiredMessage": "请选择一个账户以继续。",
+  "loanAccountSelectedMessage": "账户已选择，请继续输入付款金额。",
+  "loanAvailableAccounts": "可用账户：{count}",
+  "@loanAvailableAccounts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "loanAvailableAccountTitle": "可用账户",
+  "loanAccountSelectionTitle": "选择 PTPTN 账户",
+  "loanPaymentTitle": "PTPTN 付款",
+  "loanPaymentSubtitle": "请输入您要支付的金额",
+  "loanAccountInformation": "账户资料",
+  "loanAccountCategory": "账户",
+  "loanSelectPaymentAmount": "选择付款金额",
+  "loanAmountInstruction": "点击金额框输入付款金额，或使用 − 和 + 按钮调整。",
+  "loanEnterPaymentAmount": "输入付款金额",
+  "loanUseKeypad": "请使用下方数字键盘",
+  "loanKeyboardTitle": "付款金额键盘",
+  "loanPaymentRange": "最低 {minimum} • 最高 {maximum}",
+  "@loanPaymentRange": {
+    "placeholders": {
+      "minimum": {
+        "type": "String"
+      },
+      "maximum": {
+        "type": "String"
+      }
+    }
+  },
+  "loanMinimumPayment": "最低付款金额为 {amount}。",
+  "@loanMinimumPayment": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "loanMaximumPayment": "最高付款金额为 {amount}。",
+  "@loanMaximumPayment": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "loanImportantNote": "重要提示",
+  "loanOrderSummary": "付款摘要",
+  "loanPaymentAmount": "付款金额",
+  "loanServiceFee": "服务费",
+  "loanServiceAdjustment": "服务调整",
+  "loanTotalPayment": "付款总额",
+  "loanProcessingTime": "处理时间",
+  "loanProcessingWithinHours": "{hours} 小时内",
+  "@loanProcessingWithinHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "loanProcessingWithinDays": "{days} 天内",
+  "@loanProcessingWithinDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "loanClear": "清除",
+  "loanDone": "完成",
+  "loanCancel": "取消",
+  "loanInformation": "提示",
+  "loanPaymentLoadingTitle": "正在加载付款资料",
+  "loanPaymentLoadingMessage": "请稍候，正在获取最新的 PTPTN 付款资料。",
+  "loanPaymentLoadErrorTitle": "无法加载付款资料",
+  "loanPaymentLoadErrorMessage": "无法获取最新的 PTPTN 付款资料，请重试。",
+  "loanPtptnSurchargeNote": "您的付款将收取 {surcharge} 附加费。",
+  "@loanPtptnSurchargeNote": {
+    "placeholders": {
+      "surcharge": {
+        "type": "String"
+      }
+    }
+  },
+  "loanReceiptTitle": "PTPTN 付款收据",
+  "loanReceiptThankYou": "谢谢。您的 PTPTN 或 SSPN 付款已收到。",
+  "loanReceiptSuccessfulTitle": "付款成功",
+  "loanReceiptSuccessfulMessage": "您的付款已成功提交给服务提供商。",
+  "loanReceiptProcessingTitle": "付款处理中",
+  "loanReceiptProcessingMessage": "您的付款已被接受，目前仍由服务提供商处理中。",
+  "loanReceiptAccountDetails": "账户资料",
+  "loanReceiptProvider": "服务提供商",
+  "loanReceiptNric": "身份证号码",
+  "loanReceiptAccountType": "账户类型",
+  "loanReceiptAccountNumber": "账户号码",
+  "loanReceiptCategory": "账户类别",
+  "loanReceiptSubproductCode": "账户代码",
+  "loanReceiptTransactionDetails": "交易资料",
+  "loanReceiptPaymentAmount": "付款金额",
+  "loanReceiptServiceAdjustment": "服务调整",
+  "loanReceiptPaymentMethod": "付款方式",
+  "loanReceiptPaymentDate": "付款日期与时间",
+  "loanReceiptOrderNumber": "订单号码",
+  "loanReceiptBankTransaction": "银行交易",
+  "loanReceiptReference": "交易参考编号",
+  "loanReceiptProviderStatus": "服务状态",
+  "loanReceiptTotalPaid": "已付总额",
+  "gamingPlatformButton": "游戏平台",
+  "gamingPlatformSupportingText": "充值游戏平台点数",
+  "gamingPurchaseSubtitle": "游戏代金券购买",
+  "gamingPlatformCategory": "游戏平台",
+  "gamingHowToRedeem": "兑换方法",
+  "gamingRedeemAfterPurchase": "收到代码、PIN 或兑换链接后，请按照以下步骤操作。",
+  "gamingKeepCodeSafe": "请妥善保管您的 PIN、序列号或兑换链接。每个代码通常只能使用一次。",
+  "gamingSelectAmount": "选择金额 / 配套",
+  "gamingSelectAmountHint": "请选择您要购买的游戏点数或配套。",
+  "gamingNoOptionsAvailable": "目前没有可用的购买选项。",
+  "gamingQuantity": "数量",
+  "gamingQuantityHint": "请选择要购买的代金券数量。",
+  "gamingMaximumQuantity": "已达到最大数量。",
+  "gamingOrderSummary": "订单摘要",
+  "gamingProduct": "产品",
+  "gamingSelectedOption": "已选项目",
+  "gamingUnitPrice": "单价",
+  "gamingSubtotal": "小计",
+  "gamingServiceFee": "服务费",
+  "gamingServiceAdjustment": "服务调整",
+  "gamingTotalAmount": "付款总额",
+  "gamingDeliveryMethod": "领取方式",
+  "gamingDeliveryPin": "PIN",
+  "gamingDeliveryLink": "兑换链接",
+  "gamingContinuePayment": "继续",
+  "gamingProductUnavailable": "此游戏产品目前不可用。",
+  "gamingSelectOptionRequired": "请选择金额或配套。",
+  "gamingUnableToLoad": "无法加载游戏购买选项。",
+  "gamingTryAgain": "重试",
+  "gamingPaymentNextMessage": "选择已确认。下一步请连接到付款页面。",
+  "gamingRedeemCcStep1": "前往 Cherry Credits，并登录您的 Cherry 账户。",
+  "gamingRedeemCcStep2": "打开 Top Up 页面，选择 Cherry Credits Prepaid Card / ePIN。",
+  "gamingRedeemCcStep3": "输入收据上提供的序列号和安全码。",
+  "gamingRedeemCcStep4": "确认兑换，点数将加入您的 Cherry Credits 余额。",
+  "gamingRedeemGarenaStep1": "打开 Garena 官方充值中心并登录 Garena 账户。",
+  "gamingRedeemGarenaStep2": "选择 Shell Top Up，然后选择 Redeem。",
+  "gamingRedeemGarenaStep3": "选择预付卡 / 代金券选项，并输入收据上的代码。",
+  "gamingRedeemGarenaStep4": "确认兑换，并检查 Garena Shells 是否已加入账户。",
+  "gamingRedeemRazerStep1": "打开 Razer Gold 并登录您的 Razer 账户。",
+  "gamingRedeemRazerStep2": "选择 Reload 或 Razer Gold PIN 选项。",
+  "gamingRedeemRazerStep3": "输入收据上的 Razer Gold PIN，或序列号和 PIN。",
+  "gamingRedeemRazerStep4": "按照画面指示完成操作，并确认充值或直接充值成功。",
+  "gamingRedeemOffgamersStep1": "登录您的 OffGamers 账户。",
+  "gamingRedeemOffgamersStep2": "打开 Store Credit，并选择 Gift Card 兑换。",
+  "gamingRedeemOffgamersStep3": "输入收据上的序列号和 PIN Code。",
+  "gamingRedeemOffgamersStep4": "确认兑换，并检查 OffGamers Store Credit 余额。",
+  "gamingRedeemSteamStep1": "登录要接收钱包余额的 Steam 账户。",
+  "gamingRedeemSteamStep2": "打开 Account Details，并选择 Redeem a Steam Gift Card or Wallet Code。",
+  "gamingRedeemSteamStep3": "输入收据上的 Steam Wallet Code。",
+  "gamingRedeemSteamStep4": "选择 Continue，并确认金额已加入 Steam Wallet。",
+  "gamingRedeemUnipinStep1": "登录您的 UniPin 账户。",
+  "gamingRedeemUnipinStep2": "打开代金券或 UniPin Credits 兑换选项。",
+  "gamingRedeemUnipinStep3": "输入收据上的序列号和 PIN。",
+  "gamingRedeemUnipinStep4": "确认兑换，并检查 UniPin Credits 是否已更新。",
+  "gamingRedeemGenericStep1": "打开该平台的官方网站或应用并登录。",
+  "gamingRedeemGenericStep2": "进入 Redeem、Voucher 或 Wallet 页面，并输入收据上的代码。",
+  "gamingRedeemGenericStep3": "确认兑换并检查余额。",
+  "gamingRedeemButtonHint": "点击这里查看兑换步骤。",
+  "gamingClose": "关闭",
+  "gamingReviewSelection": "检查",
+  "gamingConfirmTitle": "确认购买",
+  "gamingConfirmSubtitle": "付款前请检查您的游戏购买资料",
+  "gamingPleaseCheckTitle": "请检查您的选择",
+  "gamingPleaseCheckMessage": "继续前，请确认游戏平台、金额或配套以及付款总额正确。",
+  "gamingYouSelected": "您的选择",
+  "gamingChangeSelection": "更改",
+  "gamingPayNow": "立即付款",
+  "gamingReceiptTitle": "游戏购买收据",
+  "gamingReceiptPlatform": "游戏平台",
+  "gamingReceiptPurchaseDetails": "购买详情",
+  "gamingReceiptSelectedPackage": "已选金额 / 配套",
+  "gamingReceiptDescription": "说明",
+  "gamingReceiptBaseAmount": "代金券价值",
+  "gamingReceiptServiceAdjustment": "服务调整",
+  "gamingReceiptPaymentMethod": "付款方式",
+  "gamingReceiptPaymentDate": "付款日期",
+  "gamingReceiptBankTransaction": "银行交易",
+  "gamingReceiptRedemptionDetails": "兑换资料",
+  "gamingReceiptSerialNumber": "序列号",
+  "gamingReceiptPinCode": "PIN / 代码",
+  "gamingReceiptExpiry": "有效期",
+  "gamingReceiptVoucherLink": "兑换链接",
+  "gamingReceiptProviderNote": "供应商备注",
+  "gamingReceiptKeepCodeSafe": "请妥善保管您的 PIN、序列号或兑换链接。离开自助终端前请保存这些资料。",
+  "gamingReceiptTotalPaid": "已付总额",
+  "gamingPaymentTitle": "游戏付款",
+  "gamingPaymentTotal": "付款总额",
+  "gamingPreparingQrPayment": "正在准备游戏付款二维码",
+  "gamingProcessingPurchaseTitle": "正在处理购买",
+  "gamingProcessingPurchaseMessage": "付款已收到。请稍候，系统正在准备游戏代码或兑换链接。",
+  "gamingProcessingPurchaseLocked": "游戏购买完成前，请不要触碰屏幕。",
+  "gamingPaymentInvalidProductTitle": "无效的游戏产品",
+  "gamingPaymentInvalidProductMessage": "缺少游戏产品代码。",
+  "gamingPaymentProviderRejected": "游戏平台拒绝了此交易。",
+  "gamingPaymentProviderRefunded": "游戏平台交易已退款。",
+  "gamingPaymentUnexpectedStatus": "游戏平台返回了非预期状态",
+  "gamingPaymentProviderErrorTitle": "游戏处理错误",
+  "gamingPaymentReference": "付款参考编号",
+  "gamingPaymentAlreadyReceivedWarning": "DuitNow 付款已收到。请勿为同一交易再次付款。",
+  "telcoMobileReloadTitle": "手机充值",
+  "telcoMobileReloadDescription": "充值预付余额或购买手机上网配套",
+  "mobileReloadServiceLabel": "手机充值",
+  "mobileReloadProviderTitle": "选择电讯服务商",
+  "mobileReloadProviderSubtitle": "请选择您的电讯服务商以继续",
+  "mobileReloadLoadingTitle": "正在加载手机充值",
+  "mobileReloadLoadingMessage": "请稍候，正在加载可用的手机服务。",
+  "mobileReloadErrorTitle": "无法加载服务",
+  "mobileReloadErrorMessage": "手机充值服务目前无法使用，请稍后再试。",
+  "mobileReloadRetry": "重试",
+  "mobileReloadPhoneStepLabel": "手机号码",
+  "mobileReloadEnterPhoneTitle": "输入手机号码",
+  "mobileReloadEnterPhoneSubtitle": "输入需要充值的手机号码",
+  "mobileReloadSelectedProvider": "已选服务商",
+  "mobileReloadPhoneHint": "输入手机号码",
+  "mobileReloadConfirmNumberTitle": "确认手机号码",
+  "mobileReloadConfirmNumberQuestion": "这个手机号码正确吗？",
+  "mobileReloadConfirmBack": "修改",
+  "mobileReloadConfirmContinue": "继续",
+  "mobileReloadPhoneRequiredTitle": "请输入手机号码",
+  "mobileReloadPhoneRequiredMessage": "请输入手机号码。",
+  "mobileReloadInvalidPhoneTitle": "手机号码无效",
+  "mobileReloadInvalidPhoneMessage": "请输入有效的马来西亚手机号码。",
+  "mobileReloadUnavailableTitle": "服务暂不可用",
+  "mobileReloadUnavailableMessage": "此手机充值服务目前无法使用。",
+  "mobileReloadOkButton": "确定",
+  "mobileReloadInternetPlanSubtitle": "为此手机号码选择上网配套",
+  "mobileReloadPrepaidSubtitle": "为此手机号码选择充值金额",
+  "mobileReloadPhoneNumber": "手机号码",
+  "mobileReloadSelectInternetPlan": "选择上网配套",
+  "mobileReloadSelectInternetPlanHint": "请选择可用的上网配套",
+  "mobileReloadSelectReloadAmount": "选择充值金额",
+  "mobileReloadSelectReloadAmountHint": "选择您要充值的金额",
+  "mobileReloadEnterReloadAmount": "输入充值金额",
+  "mobileReloadEnterReloadAmountHint": "请输入服务商允许的充值金额",
+  "mobileReloadMinimum": "最低",
+  "mobileReloadMaximum": "最高",
+  "mobileReloadProvider": "电讯服务商",
+  "mobileReloadSelectedPlan": "已选配套",
+  "mobileReloadReloadAmount": "充值金额",
+  "mobileReloadServiceAdjustment": "服务调整",
+  "mobileReloadTotalPayment": "付款总额",
+  "mobileReloadNoOptions": "此手机号码目前没有可用选项。",
+  "mobileReloadSelectOptionRequired": "请选择一个选项以继续。",
+  "mobileReloadInvalidAmount": "请输入有效的充值金额。",
+  "mobileReloadMinimumAmountMessage": "最低充值金额为 {amount}。",
+  "@mobileReloadMinimumAmountMessage": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "mobileReloadMaximumAmountMessage": "最高充值金额为 {amount}。",
+  "@mobileReloadMaximumAmountMessage": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "mobileReloadConfirmTitle": "确认购买",
+  "mobileReloadConfirmSubtitle": "付款前请检查手机充值资料",
+  "mobileReloadPleaseCheckTitle": "请检查",
+  "mobileReloadPleaseCheckMessage": "付款前请确认手机号码及所选服务正确。",
+  "mobileReloadYouSelected": "您的选择",
+  "mobileReloadOrderSummary": "订单摘要",
+  "mobileReloadSubtotal": "小计",
+  "mobileReloadServiceFee": "服务费",
+  "mobileReloadChangeSelection": "更改选择",
+  "mobileReloadPayNow": "立即付款",
+  "mobileReloadPaymentTitle": "手机充值付款",
+  "mobileReloadPaymentDetails": "手机充值资料",
+  "mobileReloadPreparingQrPayment": "正在准备 QR 付款",
+  "mobileReloadProcessingTitle": "正在处理手机充值",
+  "mobileReloadProcessingMessage": "付款成功。请稍候，我们正在处理您的手机充值。",
+  "mobileReloadProcessingLocked": "请勿返回或再次付款。",
+  "mobileReloadPaymentInvalidProductTitle": "产品无效",
+  "mobileReloadPaymentInvalidProductMessage": "所选手机充值产品无效。",
+  "mobileReloadPaymentInvalidPlanTitle": "上网配套无效",
+  "mobileReloadPaymentInvalidPlanMessage": "找不到所选上网配套。请返回并重新选择。",
+  "mobileReloadPaymentProviderRejected": "电讯服务商拒绝了此交易。",
+  "mobileReloadPaymentProviderRefunded": "电讯服务商已退回此交易。",
+  "mobileReloadPaymentProviderErrorTitle": "手机充值错误",
+  "mobileReloadPaymentStillProcessing": "电讯服务商仍在处理此交易。",
+  "mobileReloadPaymentReference": "交易参考编号",
+  "mobileReloadPaymentAlreadyReceivedWarning": "您的 DuitNow 付款已收到。请勿为同一交易再次付款。",
+  "mobileReloadInternetReceiptTitle": "上网配套收据",
+  "mobileReloadPrepaidReceiptTitle": "手机充值收据",
+  "mobileReloadReceiptTransactionDetails": "交易详情",
+  "mobileReloadReceiptPlanDetails": "配套详情",
+  "mobileReloadReceiptPaymentDate": "付款日期",
+  "mobileReloadReceiptBankTransaction": "银行交易",
+  "mobileReloadReceiptTotalPaid": "已付总额",
+  "mobileReloadReceiptSerialNumber": "序列号",
+  "mobileReloadReceiptPin": "PIN",
+  "mobileReloadReceiptExpiry": "有效期",
+  "mobileReloadReceiptVoucherLink": "兑换链接",
+  "iddButton": "国际直拨",
+  "iddBillSupportingText": "充值国际通话余额",
+  "iddHeaderLabel": "国际通话",
+  "iddPageTitle": "国际直拨",
+  "iddPageSubtitle": "请选择您的服务供应商",
+  "iddCatalogLoadError": "无法加载国际直拨服务",
+  "iddCatalogRetryMessage": "请重试。",
+  "iddNoServices": "目前没有可用的国际直拨服务。",
+  "networkUnavailableMessage": "{billerName} 目前无法使用，请稍后再试。",
+  "@networkUnavailableMessage": {
+    "placeholders": {
+      "billerName": {}
+    }
+  },
+  "iddCategoryLabel": "IDD 国际直拨",
+  "iddSelectAmountTitle": "选择金额",
+  "iddSelectAmountSubtitle": "请选择您要购买的 IDD 充值金额。",
+  "iddQuantityTitle": "数量",
+  "iddQuantitySubtitle": "请选择您要购买的 PIN 数量。",
+  "iddOrderSummaryTitle": "订单摘要",
+  "iddSubtotalLabel": "小计",
+  "iddServiceAdjustmentLabel": "服务调整费",
+  "iddTotalAmountLabel": "总金额",
+  "iddDeliveryPin": "PIN",
+  "iddNoAmountsAvailable": "目前没有可用的充值金额。",
+  "iddUnableToLoadOptions": "无法加载 IDD 选项",
+  "iddUnableToLoadOptionsSubtitle": "无法加载 IDD 选项，请再试一次。",
+  "iddProductUnavailable": "此 IDD 服务目前不可用。",
+  "iddSelectAmountRequired": "请先选择金额再继续。",
+  "providerLoading": "正在加载服务商",
+  "providerLoadingSubtitle": "请稍候，我们正在获取最新可用的服务。",
+  "providerLoadError": "无法加载服务商",
+  "providerLoadErrorSubtitle": "无法加载服务商资料，请再试一次。",
+  "gameCreditsButton": "游戏点数",
+  "gameCreditsSupportingText": "为支持的游戏充值点数",
+  "gameCreditsPageTitle": "游戏点数",
+  "gameCreditsPageSubtitle": "请选择您要充值的游戏",
+  "gameCreditsNoServices": "目前没有可用的游戏点数服务",
+  "gameCreditsCategoryLabel": "游戏点数",
+  "gameCreditsSelectAmountTitle": "选择金额",
+  "gameCreditsSelectAmountSubtitle": "请选择您要购买的游戏点数或配套",
+  "gameCreditsNoAmountsAvailable": "目前没有可用的游戏点数选项。",
+  "gameCreditsOrderSummaryTitle": "订单摘要",
+  "gameCreditsProductLabel": "产品",
+  "gameCreditsSelectedOptionLabel": "已选选项",
+  "gameCreditsCreditLabel": "游戏点数",
+  "gameCreditsSubtotalLabel": "小计",
+  "gameCreditsServiceAdjustmentLabel": "服务调整",
+  "gameCreditsTotalAmountLabel": "付款总额",
+  "gameCreditsDeliveryLink": "电子链接",
+  "gameCreditsDeliveryPin": "PIN",
+  "gameCreditsProductUnavailable": "此游戏点数产品目前不可用。",
+  "gameCreditsSelectAmountRequired": "请选择游戏点数金额后再继续。",
+  "gameCreditsUnableToLoadOptions": "无法加载游戏点数",
+  "gameCreditsUnableToLoadOptionsSubtitle": "无法加载可用的游戏点数选项。请重试。",
+  "gameCreditsReviewTitle": "检查游戏点数",
+  "gameCreditsReviewSelection": "检查您的选择",
+  "gameCreditsEnterAccountTitle": "输入游戏账户资料",
+  "gameCreditsEnterAccountSubtitle": "请输入此游戏所需的玩家 ID 或账户资料",
+  "gameCreditsAccountLabel": "玩家 ID / 账户",
+  "gameCreditsAccountHint": "输入玩家 ID 或账户号码",
+  "gameCreditsCheckAccountMessage": "请仔细检查此资料。游戏点数可能会发送到您所输入的账户。",
+  "gameCreditsNoAccountRequiredTitle": "无需玩家 ID",
+  "gameCreditsNoAccountRequiredMessage": "此游戏点数无需玩家 ID 或账户号码。您可以继续付款。",
+  "gameCreditsAccountRequired": "请输入所需的玩家 ID 或账户资料。",
+  "gameCreditsAccountInvalid": "输入的玩家 ID 或账户资料无效。",
+  "gameCreditsAccountRequiredTitle": "需要账户资料",
+  "gameCreditsContinuePayment": "继续付款",
+  "gameCreditsUnableToLoadDetails": "无法加载游戏点数资料。",
+  "gameCreditsInformation": "资料",
+  "gameCreditsPaymentTitle": "游戏点数付款",
+  "gameCreditsGameLabel": "游戏",
+  "gameCreditsPaymentTotal": "付款总额",
+  "gameCreditsPreparingQrPayment": "正在准备游戏点数二维码",
+  "gameCreditsProcessingPurchaseTitle": "正在处理游戏点数",
+  "gameCreditsProcessingPurchaseMessage": "您的付款已收到。请稍候，游戏点数交易正在处理中。",
+  "gameCreditsProcessingPurchaseLocked": "游戏点数交易处理期间请勿触碰屏幕。",
+  "gameCreditsPaymentInvalidProductTitle": "游戏点数产品无效",
+  "gameCreditsPaymentInvalidProductMessage": "缺少游戏点数产品代码。",
+  "gameCreditsPaymentProviderRejected": "游戏点数供应商拒绝了此交易。",
+  "gameCreditsPaymentProviderRefunded": "游戏点数交易已退款。",
+  "gameCreditsPaymentUnexpectedStatus": "游戏点数供应商返回了未知状态",
+  "gameCreditsPaymentProviderErrorTitle": "游戏点数处理错误",
+  "gameCreditsPaymentReference": "付款参考",
+  "gameCreditsPaymentAlreadyReceivedWarning": "DuitNow 付款已经收到。请勿为同一笔交易再次付款。",
+  "gameCreditsReceiptTitle": "游戏点数收据",
+  "gameCreditsReceiptGame": "游戏",
+  "gameCreditsReceiptPurchaseDetails": "购买详情",
+  "gameCreditsReceiptSelectedCredit": "已选点数",
+  "gameCreditsReceiptCreditReceived": "游戏点数",
+  "gameCreditsReceiptAccount": "玩家 ID / 账户",
+  "gameCreditsReceiptBaseAmount": "金额",
+  "gameCreditsReceiptServiceAdjustment": "服务调整",
+  "gameCreditsReceiptPaymentMethod": "付款方式",
+  "gameCreditsReceiptPaymentDate": "付款日期",
+  "gameCreditsReceiptBankTransaction": "银行交易",
+  "gameCreditsReceiptDeliveryDetails": "交付详情",
+  "gameCreditsReceiptSerialNumber": "序列号",
+  "gameCreditsReceiptPin": "PIN",
+  "gameCreditsReceiptExpiry": "有效期",
+  "gameCreditsReceiptVoucherLink": "兑换链接",
+  "gameCreditsReceiptKeepCodeSafe": "请妥善保管您的 PIN、序列号或兑换链接，请勿与他人分享。",
+  "gameCreditsReceiptDeliveryMessage": "您的游戏点数交易已完成。请检查购买时输入的游戏账户。",
+  "gameCreditsReceiptTotalPaid": "已付款总额",
+  "iddPaymentTitle": "IDD 付款",
+  "iddPaymentDetails": "IDD 购买详情",
+  "iddSelectedAmount": "所选金额",
+  "iddPreparingQrPayment": "正在准备二维码付款",
+  "iddProcessingTitle": "正在处理 IDD 购买",
+  "iddProcessingMessage": "付款已收到。请稍候，正在处理您的 IDD 购买。",
+  "iddProcessingLocked": "处理期间请勿关闭此页面。",
+  "iddPaymentInvalidProductTitle": "IDD 产品无效",
+  "iddPaymentInvalidProductMessage": "所选的 IDD 产品无效。请返回并重新选择。",
+  "iddPaymentInvalidAmountTitle": "IDD 金额无效",
+  "iddPaymentInvalidAmountMessage": "请先选择 IDD 金额再继续。",
+  "iddPaymentProviderRejected": "IDD 服务商已拒绝此交易。",
+  "iddPaymentProviderRefunded": "IDD 交易已退款。",
+  "iddPaymentStillProcessing": "IDD 交易仍在处理中。",
+  "iddPaymentReference": "参考编号",
+  "iddPaymentProviderErrorTitle": "IDD 处理错误",
+  "iddPaymentAlreadyReceivedWarning": "您的二维码付款已收到。请勿再次付款。",
+  "iddReceiptTitle": "IDD 购买成功",
+  "iddReceiptProvider": "IDD 服务商",
+  "iddReceiptPurchaseDetails": "IDD 购买详情",
+  "iddReceiptProduct": "所选 IDD",
+  "iddReceiptAmount": "IDD 金额",
+  "iddReceiptPinDetails": "PIN 详情",
+  "iddReceiptSerialNumber": "序列号",
+  "iddReceiptPin": "PIN",
+  "iddReceiptExpiry": "有效期",
+  "iddReceiptVoucherLink": "充值券链接",
+  "iddReceiptTransactionDetails": "交易详情",
+  "iddReceiptPaymentDate": "付款日期",
+  "iddReceiptBankTransaction": "银行交易",
+  "iddReceiptProviderNote": "服务商信息",
+  "iddReceiptTotalPaid": "已付总额",
+  "consoleStoresButton": "游戏主机与应用商店",
+  "consoleStoresSupportingText": "购买游戏主机及应用商店礼品卡",
+  "consoleStoresTitle": "游戏主机与应用商店",
+  "consoleStoresSubtitle": "请选择您要购买的商店",
+  "consoleStoresBadge": "数码商店",
+  "consoleStoreCategoryLabel": "游戏主机与应用商店",
+  "consoleStoreSelectPackageTitle": "选择面额",
+  "consoleStoreSelectPackageSubtitle": "请选择您要购买的面额",
+  "consoleStoreNoPackagesAvailable": "目前没有可用的面额。",
+  "consoleStoreOrderSummaryTitle": "订单摘要",
+  "consoleStoreProductLabel": "产品",
+  "consoleStoreSelectedPackageLabel": "已选面额",
+  "consoleStorePackageDescriptionLabel": "说明",
+  "consoleStoreSubtotalLabel": "小计",
+  "consoleStoreServiceAdjustmentLabel": "服务调整",
+  "consoleStoreTotalAmountLabel": "付款总额",
+  "consoleStoreProductUnavailable": "此产品目前无法使用。",
+  "consoleStoreSelectPackageRequired": "请选择一个面额以继续。",
+  "consoleStoreUnableToLoadOptions": "无法加载可用面额",
+  "consoleStoreUnableToLoadOptionsSubtitle": "请稍后再试。",
+  "consoleStorePaymentTitle": "游戏主机与应用商店付款",
+  "consoleStorePaymentTotal": "付款总额",
+  "consoleStorePreparingQrPayment": "正在准备二维码付款",
+  "consoleStoreProcessingPurchaseTitle": "正在处理购买",
+  "consoleStoreProcessingPurchaseMessage": "付款已收到。我们正在向供应商处理您的购买。",
+  "consoleStoreProcessingPurchaseLocked": "请勿关闭或离开此页面。",
+  "consoleStorePaymentInvalidProductTitle": "产品无效",
+  "consoleStorePaymentInvalidProductMessage": "所选产品无效。请返回并重新选择产品。",
+  "consoleStorePaymentProviderRejected": "供应商无法完成此购买。",
+  "consoleStorePaymentProviderRefunded": "供应商已退还此交易款项。",
+  "consoleStorePaymentUnexpectedStatus": "供应商状态异常",
+  "consoleStorePaymentProviderErrorTitle": "无法完成购买",
+  "consoleStorePaymentReference": "参考编号",
+  "consoleStorePaymentAlreadyReceivedWarning": "您的二维码付款已收到。请保留此参考编号以便寻求协助。",
+  "consoleStoreReceiptTitle": "购买收据",
+  "consoleStoreReceiptProduct": "产品",
+  "consoleStoreReceiptPurchaseDetails": "购买详情",
+  "consoleStoreReceiptSelectedValue": "已选面额",
+  "consoleStoreReceiptDescription": "说明",
+  "consoleStoreReceiptBaseAmount": "基本金额",
+  "consoleStoreReceiptServiceAdjustment": "服务调整",
+  "consoleStoreReceiptPaymentMethod": "付款方式",
+  "consoleStoreReceiptPaymentDate": "付款日期",
+  "consoleStoreReceiptBankTransaction": "银行交易",
+  "consoleStoreReceiptDeliveryDetails": "兑换详情",
+  "consoleStoreReceiptSerialNumber": "序列号",
+  "consoleStoreReceiptPin": "PIN / 兑换码",
+  "consoleStoreReceiptExpiry": "有效期限",
+  "consoleStoreReceiptVoucherLink": "礼券链接",
+  "consoleStoreReceiptProviderInstructions": "供应商说明",
+  "consoleStoreReceiptKeepCodeSafe": "请妥善保管您的 PIN、兑换码或礼券链接。兑换购买内容时可能需要使用。",
+  "consoleStoreReceiptSuccessMessage": "您的购买已成功处理。",
+  "consoleStoreReceiptTotalPaid": "已付总额",
+  "consoleStoreInvalidOptionValue": "所选面额无法处理。请选择其他面额或重试。",
+  "putrajayaExplorationTitle": "探索布城",
+  "putrajayaTabHistorical": "历史景点",
+  "putrajayaTabInteresting": "旅游景点",
+  "putrajayaTabEating": "美食",
+  "putrajayaViewDetails": "查看详情",
+  "putrajayaGoogleMap": "Google 地图",
+  "putrajayaScanMap": "扫描二维码查看地点",
+  "putrajayaClose": "关闭",
+  "putrajayaNoPlaces": "暂无地点",
+  "putrajayaInterestingDesc": "探索 {place}，布城值得参观的景点之一。",
+  "@putrajayaInterestingDesc": {
+    "place": {
       "type": "String"
     }
-  }
-},
-"telcoMinimumPayment": "最低缴费金额为 {amount}。",
-"@telcoMinimumPayment": {
-  "placeholders": {
-    "amount": {
+  },
+  "putrajayaInterestingFull": "{place} 是游客到访布城时可以探索的地点之一。请扫描下方的 Google 地图二维码查看地点并规划您的行程。",
+  "@putrajayaInterestingFull": {
+    "place": {
       "type": "String"
     }
-  }
-},
-"telcoNoOutstandingBalance": "此账户目前没有未缴余额。",
-
-"telcoEnterPaymentAmount": "输入缴费金额",
-"telcoKeypadInstruction": "请使用数字键盘输入金额",
-"telcoPaymentRange": "最低 RM 1.00 • 最高 RM 10,000.00",
-"telcoClear": "清除",
-"telcoDone": "完成",
-"telcoCancel": "取消",
-
-
-"mobilePinPurchaseTitle": "购买手机充值 PIN",
-"mobilePinSelectedProvider": "已选择的服务商",
-"mobilePinAvailable": "可用",
-"mobilePinUnavailable": "暂不可用",
-"mobilePinImportantNote": "重要提示",
-"mobilePinSelectAmount": "选择 PIN 金额",
-"mobilePinQuantity": "数量",
-"mobilePinQuantityHelp": "请选择要购买的 PIN 数量。",
-"mobilePinOrderSummary": "订单摘要",
-"mobilePinSubtotal": "小计",
-"mobilePinTotalAmount": "总金额",
-"mobilePinProceed": "继续付款",
-
-"mobilePinLoadingTitle": "正在加载手机充值 PIN",
-"mobilePinLoadingMessage": "请稍候，我们正在获取最新的 PIN 选项。",
-
-"mobilePinCatalogErrorTitle": "无法加载手机充值 PIN",
-"mobilePinCatalogErrorMessage": "无法获取最新的手机充值 PIN 资料，请重试。",
-"mobilePinRetry": "重试",
-
-"mobilePinUnavailableTitle": "服务暂不可用",
-"mobilePinUnavailableMessage": "此手机充值 PIN 服务目前暂不可用。",
-
-"mobilePinSelectAmountTitle": "选择金额",
-"mobilePinSelectAmountMessage": "请先选择 PIN 金额再继续。",
-
-"mobilePinDebugTitle": "选择已记录",
-"mobilePinDebugMessage": "您的手机充值 PIN 选择已准备好，购买 API 将在下一步骤连接。",
-
-"mobilePinNoteCelcom": "充值时，请拨打 *122*，接着输入16位 PIN 号码和 #，然后按拨号键。",
-"mobilePinNoteDigi": "充值时，请拨打 *123*，接着输入16位 PIN 号码和 #，然后按拨号键。",
-"mobilePinNoteHelloSim": "充值时，请拨打 *178*，接着输入 PIN 号码和 #，然后按拨号键。",
-"mobilePinNoteMaxis": "充值时，请拨打 *111*，接着输入16位 PIN 号码和 #，然后按拨号键。",
-"mobilePinNoteRedOne": "充值时，请拨打 *122*，接着输入16位 PIN 号码和 #，然后按拨号键。",
-"mobilePinNoteSpeakOut": "拨打 *129# 并按发送。选择选项 2 进行充值，输入充值 PIN 后再按发送。",
-"mobilePinNoteTuneTalk": "充值时，请拨打 *122*，接着输入16位 PIN 和 #，然后按拨号键。",
-"mobilePinNoteUnifi": "打开 unifi 应用程序，选择 Reload，再选择 Reload Voucher，输入12位充值 PIN，然后点击 Continue。",
-"mobilePinNoteUMobile": "充值时，请拨打 *138*，接着输入14位 PIN 号码和 #，然后按拨号键。",
-"mobilePinNoteXox": "充值时，请拨打 *132*1*，接着输入16位 PIN 号码和 #，然后按拨号键。",
-"mobilePinNoteYes": "充值时，请输入 REL、您的 Yes 手机号码及 PIN 代码，然后发送至 0183301111。",
-"mobilePinServiceAdjustment": "服务调整",
-
-"eWalletReloadButton": "电子钱包充值",
-"eWalletReloadSupportingText": "快速便捷地为您选择的电子钱包充值",
-
-"eWalletServiceLabel": "电子钱包充值服务",
-"eWalletProviderTitle": "选择电子钱包",
-"eWalletProviderSubtitle": "请选择电子钱包服务以继续",
-"touchNGoPin": "Touch 'n Go 充值码",
-"touchNGoPinless": "Touch 'n Go 充值",
-"trueMoneyEWallet": "TrueMoney 电子钱包",
-
-"telcoReceiptTitle": "电讯缴费收据",
-"telcoReceiptPaymentSuccessful": "付款成功",
-"telcoReceiptThankYou": "谢谢。您的电讯账单付款已成功接收。",
-"telcoReceiptProvider": "电讯服务商",
-"telcoReceiptTransactionDetails": "交易详情",
-"telcoReceiptAccountNumber": "账户 / 手机号码",
-"telcoReceiptProductCode": "产品代码",
-"telcoReceiptBillAmount": "账单金额",
-"telcoReceiptServiceAdjustment": "服务调整",
-"telcoReceiptPaymentMethod": "付款方式",
-"telcoReceiptPaymentDate": "付款日期与时间",
-"telcoReceiptOrderNumber": "订单号码",
-"telcoReceiptBankTransaction": "银行交易号码",
-"telcoReceiptTotalPaid": "已付总额",
-
-"telcoReceiptAutoReturn": "{seconds} 秒后返回主页。",
-"@telcoReceiptAutoReturn": {
-  "placeholders": {
-    "seconds": {
-      "type": "int"
-    }
-  }
-},
-
-"receiptTransactionReference": "交易参考编号",
-
-"telcoReceiptTitle": "电讯缴费收据",
-"telcoReceiptProvider": "电讯服务商",
-"telcoReceiptTransactionDetails": "交易详情",
-"telcoReceiptAccountNumber": "账户 / 手机号码",
-"telcoReceiptProductCode": "产品代码",
-"telcoReceiptPaymentMethod": "付款方式",
-"telcoReceiptPaymentDate": "付款日期与时间",
-"telcoReceiptOrderNumber": "订单号码",
-"telcoReceiptBankTransaction": "银行交易号码",
-"telcoReceiptTotalPaid": "已付总额",
-
-"telcoReceiptAutoReturn": "{seconds} 秒后返回主页。",
-"@telcoReceiptAutoReturn": {
-  "placeholders": {
-    "seconds": {
-      "type": "int"
-    }
-  }
-},
-
-"mobilePinReceiptTitle": "手机 PIN 收据",
-"mobilePinReceiptProvider": "手机 PIN 服务商",
-"mobilePinReceiptTransactionDetails": "交易详情",
-"mobilePinReceiptProductCode": "产品代码",
-"mobilePinReceiptPinValue": "PIN 面值",
-"mobilePinReceiptQuantity": "数量",
-"mobilePinReceiptPaymentMethod": "付款方式",
-"mobilePinReceiptPaymentDate": "付款日期与时间",
-"mobilePinReceiptOrderNumber": "订单号码",
-"mobilePinReceiptBankTransaction": "银行交易号码",
-"mobilePinReceiptPinDetails": "PIN 详情",
-"mobilePinReceiptPinNumber": "PIN {number}",
-"@mobilePinReceiptPinNumber": {
-  "placeholders": {
-    "number": {
-      "type": "int"
-    }
-  }
-},
-"mobilePinReceiptSerialNumber": "序列号",
-"mobilePinReceiptPinCode": "PIN 代码",
-"mobilePinReceiptExpiry": "有效期限",
-"mobilePinReceiptNote": "使用说明",
-"mobilePinReceiptVoucherLink": "兑换链接",
-"mobilePinReceiptTotalPaid": "已付总额",
-
-"mobilePinReceiptAutoReturn": "{seconds} 秒后返回主页。",
-"@mobilePinReceiptAutoReturn": {
-  "placeholders": {
-    "seconds": {
-      "type": "int"
-    }
-  }
-},
-
-
-"mobilePinRecipientMobileTitle": "接收者手机号码",
-"mobilePinRecipientMobileSubtitle": "请输入用于此次 PIN 购买的接收者手机号码。",
-"mobilePinRecipientMobileHint": "例如：0123456789",
-"mobilePinRecipientMobileHelp": "继续付款前，请仔细确认手机号码是否正确。",
-"mobilePinRecipientMobileSummary": "接收者手机号码",
-"mobilePinMobileNumberRequired": "请输入手机号码。",
-"mobilePinMobileNumberInvalid": "请输入有效的手机号码。",
-"mobilePinProceed": "继续付款",
-
-"mobilePinContinue": "继续",
-
-"mobilePinNumberServiceLabel": "手机 PIN 购买",
-"mobilePinEnterNumberTitle": "输入手机号码",
-"mobilePinEnterNumberSubtitle": "请输入接收者的手机号码，然后继续付款。",
-
-"mobilePinSelectedProduct": "已选择的 PIN",
-"mobilePinPaymentTotal": "总额",
-
-"mobilePinNumberHint": "输入手机号码",
-"mobilePinNumberInstruction": "请使用下方数字键盘输入接收者的手机号码。付款前请仔细确认号码。",
-
-"mobilePinNumberAlertTitle": "手机号码",
-"mobilePinNumberRequired": "请输入接收者的手机号码。",
-"mobilePinNumberInvalid": "请输入有效的马来西亚手机号码。",
-
-"mobilePinContinueToPayment": "继续付款",
-
-"mobilePinNextStepMobileNumber": "下一步，请输入接收者的手机号码。",
-
-"eWalletPinPurchaseTitle": "电子钱包充值码购买",
-"eWalletSelectedProvider": "已选择的电子钱包",
-"eWalletAvailable": "可使用",
-"eWalletUnavailable": "暂不可用",
-
-"eWalletSelectReloadValue": "选择充值金额",
-"eWalletPinValue": "充值码金额",
-"eWalletReloadValue": "充值金额",
-"eWalletServiceAdjustment": "服务调整",
-"eWalletTotalPayment": "付款总额",
-
-"eWalletContinue": "继续",
-"eWalletContinuePayment": "继续付款",
-
-"eWalletPhoneStepLabel": "电子钱包手机号码",
-"eWalletAmountStepLabel": "电子钱包充值金额",
-
-"eWalletEnterPhoneTitle": "输入手机号码",
-"eWalletEnterPhoneSubtitle": "请输入此电子钱包交易的手机号码",
-"eWalletPhoneNumber": "手机号码",
-"eWalletPhoneHint": "请输入手机号码",
-"eWalletPhoneReferenceHint": "请输入作为交易参考的手机号码。",
-
-"eWalletEnterAmountTitle": "输入充值金额",
-"eWalletAmountHint": "请输入金额",
-
-"eWalletAmountRange": "允许金额：{minimum} - {maximum}",
-"@eWalletAmountRange": {
-  "placeholders": {
-    "minimum": {
-      "type": "String"
-    },
-    "maximum": {
+  },
+  "putrajayaHistoricalDesc": "认识 {place}，布城其中一个著名地标。",
+  "@putrajayaHistoricalDesc": {
+    "place": {
       "type": "String"
     }
-  }
-},
-
-"eWalletLoadingTitle": "正在加载电子钱包",
-"eWalletLoadingMessage": "正在获取最新电子钱包资料...",
-
-"eWalletCatalogErrorTitle": "无法加载",
-"eWalletCatalogErrorMessage": "无法获取最新电子钱包资料。",
-"eWalletRetry": "重试",
-
-"eWalletUnavailableTitle": "服务暂不可用",
-"eWalletUnavailableMessage": "此电子钱包服务目前暂不可用。",
-
-"eWalletSelectAmountTitle": "选择充值金额",
-"eWalletSelectAmountMessage": "请先选择充值金额。",
-
-"eWalletPhoneRequiredTitle": "请输入手机号码",
-"eWalletPhoneRequiredMessage": "请输入手机号码。",
-
-"eWalletInvalidPhoneTitle": "手机号码无效",
-"eWalletInvalidPhoneMessage": "请输入有效的马来西亚手机号码。",
-
-"eWalletAmountRequiredTitle": "请输入金额",
-"eWalletAmountRequiredMessage": "请输入充值金额。",
-
-"eWalletInvalidAmountTitle": "金额无效",
-
-"eWalletMinimumAmount": "最低充值金额为 {amount}。",
-"@eWalletMinimumAmount": {
-  "placeholders": {
-    "amount": {
+  },
+  "putrajayaHistoricalFull": "{place} 是游客在布城可以参观和探索的地标之一。请扫描下方的 Google 地图二维码查看地点。",
+  "@putrajayaHistoricalFull": {
+    "place": {
       "type": "String"
     }
-  }
-},
-
-"eWalletMaximumAmount": "最高充值金额为 {amount}。",
-"@eWalletMaximumAmount": {
-  "placeholders": {
-    "amount": {
+  },
+  "putrajayaFoodDesc": "探索 {place}，布城其中一个用餐选择。",
+  "@putrajayaFoodDesc": {
+    "place": {
       "type": "String"
     }
-  }
-},
-
-"eWalletTngPinNote": "请选择充值码金额。下一页将输入手机号码作为交易参考。",
-
-"eWalletTrueMoneyNote": "每日充值上限为 RM1,000，每月充值上限为 RM5,000。",
-
-"eWalletOkButton": "确定",
-
-"eWalletReloadDetails": "电子钱包充值",
-"eWalletPhoneStepLabel": "电子钱包手机号码",
-"eWalletEnterPhoneTitle": "输入手机号码",
-"eWalletPhoneNumber": "手机号码",
-"eWalletPhoneHint": "请输入手机号码",
-
-"eWalletEnterAmountTitle": "选择充值金额",
-"eWalletAmountStepSubtitle": "请选择或输入您要充值的金额",
-"eWalletReloadAmount": "充值金额",
-"eWalletSelectReloadValue": "选择充值金额",
-
-"eWalletAmountRange": "允许金额：{minimum} - {maximum}",
-"@eWalletAmountRange": {
-  "placeholders": {
-    "minimum": {
-      "type": "String"
-    },
-    "maximum": {
+  },
+  "putrajayaFoodFull": "{place} 是游客在布城期间可以考虑的用餐地点之一。请扫描下方的 Google 地图二维码查看地点。",
+  "@putrajayaFoodFull": {
+    "place": {
       "type": "String"
     }
-  }
-},
-
-"eWalletOrderSummary": "订单摘要",
-"eWalletPinValue": "充值码金额",
-"eWalletReloadValue": "充值金额",
-"eWalletServiceAdjustment": "服务调整",
-"eWalletTotalPayment": "付款总额",
-"eWalletLatestPricingInfo": "所显示的总额采用最新的服务价格。",
-
-"eWalletContinuePayment": "继续付款",
-
-"eWalletLoadingTitle": "正在加载电子钱包",
-"eWalletLoadingMessage": "正在获取最新电子钱包资料...",
-
-"eWalletCatalogErrorTitle": "无法加载",
-"eWalletCatalogErrorMessage": "无法获取最新电子钱包资料。",
-"eWalletRetry": "重试",
-
-"eWalletPhoneRequiredTitle": "请输入手机号码",
-"eWalletPhoneRequiredMessage": "请输入手机号码。",
-
-"eWalletInvalidPhoneTitle": "手机号码无效",
-"eWalletInvalidPhoneMessage": "请输入有效的马来西亚手机号码。",
-
-"eWalletAmountRequiredTitle": "请输入金额",
-"eWalletAmountRequiredMessage": "请输入充值金额。",
-
-"eWalletInvalidAmountTitle": "金额无效",
-
-"eWalletMinimumAmount": "最低充值金额为 {amount}。",
-"@eWalletMinimumAmount": {
-  "placeholders": {
-    "amount": {
-      "type": "String"
+  },
+  "gameCreditsEnterPhoneReferenceTitle": "输入手机号码",
+  "gameCreditsEnterPhoneReferenceSubtitle": "请输入马来西亚手机号码作为此交易的参考号码",
+  "gameCreditsPhoneReferenceLabel": "手机号码参考",
+  "gameCreditsPhoneReferenceHint": "输入手机号码",
+  "gameCreditsPhoneReferenceNotice": "此手机号码仅作为交易参考，并不是您的游戏账户。",
+  "gameCreditsPhoneRequired": "请输入手机号码。",
+  "gameCreditsPhoneInvalid": "请输入以 01 开头的有效马来西亚手机号码。",
+  "digitalVoucherButton": "电子礼券",
+  "digitalVoucherSupportingText": "购买电子礼券和礼品代码",
+  "digitalVoucherTitle": "电子礼券",
+  "digitalVoucherSubtitle": "请选择您要购买的电子礼券",
+  "digitalVoucherSelectValueTitle": "选择礼券金额",
+  "digitalVoucherPurchaseSubtitle": "选择您的礼券金额或配套",
+  "digitalVoucherCategory": "电子礼券",
+  "digitalVoucherImportantNote": "重要提示",
+  "digitalVoucherDelivery": "发放方式",
+  "digitalVoucherDeliveryPin": "PIN",
+  "digitalVoucherDeliveryLink": "链接",
+  "digitalVoucherSelectPackage": "选择配套",
+  "digitalVoucherSelectPackageHint": "请选择一个可用配套以继续",
+  "digitalVoucherSelectAmount": "选择金额",
+  "digitalVoucherSelectAmountHint": "请选择一个可用的礼券金额以继续",
+  "digitalVoucherNoOptionsAvailable": "目前没有可用的礼券选项",
+  "digitalVoucherTapAmountHint": "点击金额栏或使用按钮选择礼券金额",
+  "digitalVoucherAmountRange": "允许金额：{minimum} - {maximum}",
+  "@digitalVoucherAmountRange": {
+    "placeholders": {
+      "minimum": {
+        "type": "String"
+      },
+      "maximum": {
+        "type": "String"
+      }
     }
-  }
-},
-
-"eWalletMaximumAmount": "最高充值金额为 {amount}。",
-"@eWalletMaximumAmount": {
-  "placeholders": {
-    "amount": {
-      "type": "String"
+  },
+  "digitalVoucherEnterAmount": "输入礼券金额",
+  "digitalVoucherKeypadHint": "使用数字键盘输入礼券金额",
+  "digitalVoucherClear": "清除",
+  "digitalVoucherDone": "完成",
+  "digitalVoucherCancel": "取消",
+  "digitalVoucherMinimumAmount": "最低礼券金额为 {amount}。",
+  "@digitalVoucherMinimumAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
     }
-  }
-},
-
-"eWalletTrueMoneyNote": "每日充值上限为 RM1,000，每月充值上限为 RM5,000。",
-
-"eWalletKeypadClear": "清除",
-"eWalletKeypadDone": "完成",
-"eWalletKeypadCancel": "取消",
-
-"eWalletOkButton": "确定",
-
-"eWalletPinlessPhoneHint": "请输入您的电子钱包手机号码。",
-"eWalletPinPhoneReferenceHint": "交易需要手机号码作为参考。",
-
-"eWalletConfirmNumberTitle": "确认手机号码",
-"eWalletConfirmNumberQuestion": "这个手机号码正确吗？",
-"eWalletConfirmBack": "返回",
-"eWalletConfirmContinue": "继续",
-
-"electricPaymentRange": "最低 {minimum} • 最高 {maximum}",
-"@electricPaymentRange": {
-  "placeholders": {
-    "minimum": {
-      "type": "String"
-    },
-    "maximum": {
-      "type": "String"
+  },
+  "digitalVoucherMaximumAmount": "最高礼券金额为 {amount}。",
+  "@digitalVoucherMaximumAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
     }
-  }
-},
-
-"electricOutstandingExceedsMaximum": "未缴金额为 {outstanding}，但单次最高付款金额为 {maximum}。",
-"@electricOutstandingExceedsMaximum": {
-  "placeholders": {
-    "outstanding": {
-      "type": "String"
-    },
-    "maximum": {
-      "type": "String"
-    }
-  }
-},
-
-
-"eWalletPinReceiptTitle": "电子钱包 PIN 收据",
-"eWalletPinReceiptProvider": "电子钱包服务商",
-"eWalletPinReceiptTransactionDetails": "交易详情",
-"eWalletPinReceiptProductCode": "产品代码",
-"eWalletPinReceiptPhoneReference": "手机号码 / 参考号码",
-"eWalletPinReceiptValue": "PIN 金额",
-"eWalletPinReceiptPaymentMethod": "付款方式",
-"eWalletPinReceiptPaymentDate": "付款日期",
-"eWalletPinReceiptBankTransaction": "银行交易",
-"eWalletPinReceiptPinDetails": "PIN 详情",
-"eWalletPinReceiptSerialNumber": "序列号",
-"eWalletPinReceiptPinCode": "PIN",
-"eWalletPinReceiptExpiry": "有效期",
-"eWalletPinReceiptNote": "备注",
-"eWalletPinReceiptVoucherLink": "兑换链接",
-"eWalletPinReceiptTotalPaid": "已付总额",
-"eWalletPinReceiptSavePinMessage": "离开此页面前，请先保存您的 PIN。",
-
-"eWalletTngRedeemNote": "要兑换 PIN，请登录 Touch 'n Go eWallet 应用",
-
-"mobilePinReceiptSavePinMessage": "请在离开此页面前保存您的 PIN。",
-
-
-"eWalletProviderSurchargeTitle": "服务商附加费",
-"eWalletProviderSurchargeMessage": "将收取 {surcharge} 服务商附加费。充值 {reloadAmount}，电子钱包将收到 {receivedAmount}。",
-"@eWalletProviderSurchargeMessage": {
-  "placeholders": {
-    "surcharge": {
-      "type": "String"
-    },
-    "reloadAmount": {
-      "type": "String"
-    },
-    "receivedAmount": {
-      "type": "String"
-    }
-  }
-},
-
-
-"eWalletReloadReceiptTitle": "电子钱包充值收据",
-"eWalletReloadReceiptProvider": "电子钱包服务商",
-
-"eWalletProviderSurchargeTitle": "服务商附加费",
-"eWalletProviderSurchargeMessage": "将收取 {surcharge} 服务商附加费。充值 {reloadAmount}，电子钱包将收到 {receivedAmount}。",
-"@eWalletProviderSurchargeMessage": {
-  "placeholders": {
-    "surcharge": {
-      "type": "String"
-    },
-    "reloadAmount": {
-      "type": "String"
-    },
-    "receivedAmount": {
-      "type": "String"
-    }
-  }
-},
-
-
-"electricUpdateInstant": "即时",
-
-"electricUpdateWithinHours": "{hours} 小时内",
-"@electricUpdateWithinHours": {
-  "placeholders": {
-    "hours": {
-      "type": "String"
-    }
-  }
-},
-
-"electricUpdateWithinDays": "{days} 天内",
-"@electricUpdateWithinDays": {
-  "placeholders": {
-    "days": {
-      "type": "String"
-    }
-  }
-},
-
-"electricProcessingTimeUnavailable": "暂无法获取处理时间",
-
-"waterUpdateWithinHours": "{hours} 小时内",
-"@waterUpdateWithinHours": {
-  "placeholders": {
-    "hours": {
-      "type": "String"
-    }
-  }
-},
-
-"waterUpdateWithinDays": "{days} 天内",
-"@waterUpdateWithinDays": {
-  "placeholders": {
-    "days": {
-      "type": "String"
-    }
-  }
-},
-
-
-"broadbandUpdateInstant": "即时",
-
-"broadbandUpdateWithinHours": "{hours} 小时内",
-"@broadbandUpdateWithinHours": {
-  "placeholders": {
-    "hours": {
-      "type": "String"
-    }
-  }
-},
-
-"broadbandUpdateWithinDays": "{days} 天内",
-"@broadbandUpdateWithinDays": {
-  "placeholders": {
-    "days": {
-      "type": "String"
-    }
-  }
-},
-
-"entertainmentUpdateInstant": "即时",
-
-"entertainmentUpdateWithinHours": "{hours} 小时内",
-"@entertainmentUpdateWithinHours": {
-  "placeholders": {
-    "hours": {
-      "type": "String"
-    }
-  }
-},
-
-"entertainmentUpdateWithinDays": "{days} 天内",
-"@entertainmentUpdateWithinDays": {
-  "placeholders": {
-    "days": {
-      "type": "String"
-    }
-  }
-},
-
-
-"telcoPaymentUpdateTime": "付款更新时间",
-"telcoUpdateInstant": "即时",
-"telcoUpdateWithinHours": "{hours} 小时内",
-"@telcoUpdateWithinHours": {
-  "placeholders": {
-    "hours": {
-      "type": "String"
-    }
-  }
-},
-"telcoUpdateWithinDays": "{days} 天内",
-"@telcoUpdateWithinDays": {
-  "placeholders": {
-    "days": {
-      "type": "String"
-    }
-  }
-},
-
-
-"eWalletProcessingTime": "处理时间",
-"eWalletUpdateInstant": "即时",
-"eWalletUpdateWithinHours": "{hours} 小时内",
-"@eWalletUpdateWithinHours": {
-  "placeholders": {
-    "hours": {
-      "type": "String"
-    }
-  }
-},
-"eWalletUpdateWithinDays": "{days} 天内",
-"@eWalletUpdateWithinDays": {
-  "placeholders": {
-    "days": {
-      "type": "String"
-    }
-  }
-},
-
-"loanEducationButton": "贷款与教育",
-"loanEducationSupportingText": "支付贷款及教育融资",
-
-"loanServiceLabel": "贷款与教育服务",
-"loanProviderTitle": "贷款与教育",
-"loanProviderSubtitle": "请选择服务机构以继续",
-"processingTimeLabel": "处理时间",
-"catalogUnavailableTitle": "服务资料暂时无法显示",
-"catalogUnavailableMessage": "无法加载最新服务资料，请重试。",
-"retryButton": "重试",
-"serviceUnavailableTitle": "服务暂不可用",
-"ptptnUnavailableMessage": "PTPTN 服务目前暂不可用，请稍后再试。",
-"ptptnNextPageMessage": "已选择 PTPTN，请继续输入身份证号码。",
-
-"processingTimeLabel": "处理时间",
-"processingInstant": "即时",
-"processing24Hours": "24 小时",
-"processing3Days": "3 天",
-
-
-"loanNricStepLabel": "PTPTN 账户",
-"loanEnterNricTitle": "输入身份证号码",
-"loanEnterNricSubtitle": "请输入您的12位身份证号码以继续",
-"loanSelectedProvider": "已选择服务机构",
-"loanNricHint": "输入身份证号码",
-"loanNricHintText": "请输入12位数字，无需空格或符号",
-"loanContinue": "继续",
-
-"loanConfirmNricTitle": "确认身份证号码",
-"loanConfirmNricQuestion": "这个身份证号码正确吗？",
-"loanConfirmBack": "修改",
-"loanConfirmContinue": "继续",
-
-"loanNricRequiredTitle": "请输入身份证号码",
-"loanNricRequiredMessage": "请输入您的身份证号码。",
-
-"loanInvalidNricTitle": "身份证号码无效",
-"loanInvalidNricMessage": "请输入有效的12位身份证号码。",
-
-"loanUnavailableTitle": "服务暂不可用",
-"loanUnavailableMessage": "PTPTN 服务目前暂不可用，请稍后再试。",
-
-"loanLoadingTitle": "正在加载 PTPTN",
-"loanLoadingMessage": "正在加载最新的 PTPTN 资料，请稍候。",
-
-"loanCatalogErrorTitle": "无法加载 PTPTN",
-"loanCatalogErrorMessage": "无法加载 PTPTN 服务资料，请重试。",
-
-"loanRetry": "重试",
-"loanOkButton": "确定",
-"loanNricConfirmedMessage": "身份证号码已确认，正在获取 PTPTN 账户选项。",
-
-"loanAccountStepLabel": "PTPTN 账户",
-"loanSelectAccountTitle": "选择账户",
-"loanSelectAccountSubtitle": "请选择您要付款的 PTPTN 或 SSPN 账户",
-"loanNricLabel": "身份证号码",
-
-"loanAccountNumber": "账户号码",
-"loanAccountType": "账户类型",
-
-"loanTypeConventional": "传统贷款",
-"loanTypeUjrah": "Ujrah",
-"loanTypeSspnPrime": "SSPN Prime",
-"loanTypeSspnPlus": "SSPN Plus",
-
-"loanAccountCategoryUnknown": "账户",
-
-"loanAccountLoadingTitle": "正在查询账户",
-"loanAccountLoadingMessage": "正在获取您的 PTPTN 和 SSPN 账户，请稍候。",
-
-"loanAccountErrorTitle": "无法获取账户",
-"loanAccountErrorMessage": "无法获取您的 PTPTN 账户资料，请重试。",
-
-"loanNoAccountTitle": "没有可用账户",
-"loanNoAccountMessage": "此身份证号码没有可用的 PTPTN 或 SSPN 账户，请稍后再试。",
-
-"loanAccountRequiredTitle": "请选择账户",
-"loanAccountRequiredMessage": "请选择一个账户以继续。",
-
-"loanAccountSelectedMessage": "账户已选择，请继续输入付款金额。",
-
-"loanAvailableAccounts": "可用账户：{count}",
-"@loanAvailableAccounts": {
-  "placeholders": {
-    "count": {
-      "type": "int"
-    }
-  }
-},
-
-"loanAvailableAccountTitle": "可用账户",
-
-"loanAccountSelectionTitle": "选择 PTPTN 账户",
-
-"loanPaymentTitle": "PTPTN 付款",
-"loanPaymentSubtitle": "请输入您要支付的金额",
-
-"loanAccountInformation": "账户资料",
-"loanAccountCategory": "账户",
-
-"loanSelectPaymentAmount": "选择付款金额",
-"loanAmountInstruction": "点击金额框输入付款金额，或使用 − 和 + 按钮调整。",
-
-"loanEnterPaymentAmount": "输入付款金额",
-"loanUseKeypad": "请使用下方数字键盘",
-"loanKeyboardTitle": "付款金额键盘",
-
-"loanPaymentRange": "最低 {minimum} • 最高 {maximum}",
-"@loanPaymentRange": {
-  "placeholders": {
-    "minimum": {
-      "type": "String"
-    },
-    "maximum": {
-      "type": "String"
-    }
-  }
-},
-
-"loanMinimumPayment": "最低付款金额为 {amount}。",
-"@loanMinimumPayment": {
-  "placeholders": {
-    "amount": {
-      "type": "String"
-    }
-  }
-},
-
-"loanMaximumPayment": "最高付款金额为 {amount}。",
-"@loanMaximumPayment": {
-  "placeholders": {
-    "amount": {
-      "type": "String"
-    }
-  }
-},
-
-"loanImportantNote": "重要提示",
-
-"loanOrderSummary": "付款摘要",
-"loanPaymentAmount": "付款金额",
-"loanServiceFee": "服务费",
-"loanServiceAdjustment": "服务调整",
-"loanTotalPayment": "付款总额",
-
-"loanProcessingTime": "处理时间",
-
-"loanProcessingWithinHours": "{hours} 小时内",
-"@loanProcessingWithinHours": {
-  "placeholders": {
-    "hours": {
-      "type": "String"
-    }
-  }
-},
-
-"loanProcessingWithinDays": "{days} 天内",
-"@loanProcessingWithinDays": {
-  "placeholders": {
-    "days": {
-      "type": "String"
-    }
-  }
-},
-
-"loanClear": "清除",
-"loanDone": "完成",
-"loanCancel": "取消",
-
-"loanInformation": "提示",
-
-"loanPaymentLoadingTitle": "正在加载付款资料",
-"loanPaymentLoadingMessage": "请稍候，正在获取最新的 PTPTN 付款资料。",
-
-"loanPaymentLoadErrorTitle": "无法加载付款资料",
-"loanPaymentLoadErrorMessage": "无法获取最新的 PTPTN 付款资料，请重试。",
-
-"loanPtptnSurchargeNote": "您的付款将收取 {surcharge} 附加费。",
-"@loanPtptnSurchargeNote": {
-  "placeholders": {
-    "surcharge": {
-      "type": "String"
-    }
-  }
-},
-
-
-"loanReceiptTitle": "PTPTN 付款收据",
-"loanReceiptThankYou": "谢谢。您的 PTPTN 或 SSPN 付款已收到。",
-
-"loanReceiptSuccessfulTitle": "付款成功",
-"loanReceiptSuccessfulMessage": "您的付款已成功提交给服务提供商。",
-
-"loanReceiptProcessingTitle": "付款处理中",
-"loanReceiptProcessingMessage": "您的付款已被接受，目前仍由服务提供商处理中。",
-
-"loanReceiptAccountDetails": "账户资料",
-"loanReceiptProvider": "服务提供商",
-"loanReceiptNric": "身份证号码",
-"loanReceiptAccountType": "账户类型",
-"loanReceiptAccountNumber": "账户号码",
-"loanReceiptCategory": "账户类别",
-"loanReceiptSubproductCode": "账户代码",
-
-"loanReceiptTransactionDetails": "交易资料",
-"loanReceiptPaymentAmount": "付款金额",
-"loanReceiptServiceAdjustment": "服务调整",
-"loanReceiptPaymentMethod": "付款方式",
-"loanReceiptPaymentDate": "付款日期与时间",
-"loanReceiptOrderNumber": "订单号码",
-"loanReceiptBankTransaction": "银行交易",
-"loanReceiptReference": "交易参考编号",
-"loanReceiptProviderStatus": "服务状态",
-
-"loanReceiptTotalPaid": "已付总额",
-
-"gamingPlatformButton": "游戏平台",
-"gamingPlatformSupportingText": "充值游戏平台点数",
-
-"gamingPurchaseSubtitle": "游戏代金券购买",
-"gamingPlatformCategory": "游戏平台",
-"gamingHowToRedeem": "兑换方法",
-"gamingRedeemAfterPurchase": "收到代码、PIN 或兑换链接后，请按照以下步骤操作。",
-"gamingKeepCodeSafe": "请妥善保管您的 PIN、序列号或兑换链接。每个代码通常只能使用一次。",
-"gamingSelectAmount": "选择金额 / 配套",
-"gamingSelectAmountHint": "请选择您要购买的游戏点数或配套。",
-"gamingNoOptionsAvailable": "目前没有可用的购买选项。",
-"gamingQuantity": "数量",
-"gamingQuantityHint": "请选择要购买的代金券数量。",
-"gamingMaximumQuantity": "已达到最大数量。",
-"gamingOrderSummary": "订单摘要",
-"gamingProduct": "产品",
-"gamingSelectedOption": "已选项目",
-"gamingUnitPrice": "单价",
-"gamingSubtotal": "小计",
-"gamingServiceFee": "服务费",
-"gamingServiceAdjustment": "服务调整",
-"gamingTotalAmount": "付款总额",
-"gamingDeliveryMethod": "领取方式",
-"gamingDeliveryPin": "PIN",
-"gamingDeliveryLink": "兑换链接",
-"gamingContinuePayment": "继续",
-"gamingProductUnavailable": "此游戏产品目前不可用。",
-"gamingSelectOptionRequired": "请选择金额或配套。",
-"gamingUnableToLoad": "无法加载游戏购买选项。",
-"gamingTryAgain": "重试",
-"gamingPaymentNextMessage": "选择已确认。下一步请连接到付款页面。",
-
-"gamingRedeemCcStep1": "前往 Cherry Credits，并登录您的 Cherry 账户。",
-"gamingRedeemCcStep2": "打开 Top Up 页面，选择 Cherry Credits Prepaid Card / ePIN。",
-"gamingRedeemCcStep3": "输入收据上提供的序列号和安全码。",
-"gamingRedeemCcStep4": "确认兑换，点数将加入您的 Cherry Credits 余额。",
-
-"gamingRedeemGarenaStep1": "打开 Garena 官方充值中心并登录 Garena 账户。",
-"gamingRedeemGarenaStep2": "选择 Shell Top Up，然后选择 Redeem。",
-"gamingRedeemGarenaStep3": "选择预付卡 / 代金券选项，并输入收据上的代码。",
-"gamingRedeemGarenaStep4": "确认兑换，并检查 Garena Shells 是否已加入账户。",
-
-"gamingRedeemRazerStep1": "打开 Razer Gold 并登录您的 Razer 账户。",
-"gamingRedeemRazerStep2": "选择 Reload 或 Razer Gold PIN 选项。",
-"gamingRedeemRazerStep3": "输入收据上的 Razer Gold PIN，或序列号和 PIN。",
-"gamingRedeemRazerStep4": "按照画面指示完成操作，并确认充值或直接充值成功。",
-
-"gamingRedeemOffgamersStep1": "登录您的 OffGamers 账户。",
-"gamingRedeemOffgamersStep2": "打开 Store Credit，并选择 Gift Card 兑换。",
-"gamingRedeemOffgamersStep3": "输入收据上的序列号和 PIN Code。",
-"gamingRedeemOffgamersStep4": "确认兑换，并检查 OffGamers Store Credit 余额。",
-
-"gamingRedeemSteamStep1": "登录要接收钱包余额的 Steam 账户。",
-"gamingRedeemSteamStep2": "打开 Account Details，并选择 Redeem a Steam Gift Card or Wallet Code。",
-"gamingRedeemSteamStep3": "输入收据上的 Steam Wallet Code。",
-"gamingRedeemSteamStep4": "选择 Continue，并确认金额已加入 Steam Wallet。",
-
-"gamingRedeemUnipinStep1": "登录您的 UniPin 账户。",
-"gamingRedeemUnipinStep2": "打开代金券或 UniPin Credits 兑换选项。",
-"gamingRedeemUnipinStep3": "输入收据上的序列号和 PIN。",
-"gamingRedeemUnipinStep4": "确认兑换，并检查 UniPin Credits 是否已更新。",
-
-"gamingRedeemGenericStep1": "打开该平台的官方网站或应用并登录。",
-"gamingRedeemGenericStep2": "进入 Redeem、Voucher 或 Wallet 页面，并输入收据上的代码。",
-"gamingRedeemGenericStep3": "确认兑换并检查余额。",
-
-"gamingRedeemButtonHint": "点击这里查看兑换步骤。",
-"gamingClose": "关闭",
-
-"gamingReviewSelection": "检查",
-"gamingConfirmTitle": "确认购买",
-"gamingConfirmSubtitle": "付款前请检查您的游戏购买资料",
-"gamingPleaseCheckTitle": "请检查您的选择",
-"gamingPleaseCheckMessage": "继续前，请确认游戏平台、金额或配套以及付款总额正确。",
-"gamingYouSelected": "您的选择",
-"gamingChangeSelection": "更改",
-"gamingPayNow": "立即付款",
-
-"gamingReceiptTitle": "游戏购买收据",
-"gamingReceiptPlatform": "游戏平台",
-"gamingReceiptPurchaseDetails": "购买详情",
-"gamingReceiptSelectedPackage": "已选金额 / 配套",
-"gamingReceiptDescription": "说明",
-"gamingReceiptBaseAmount": "代金券价值",
-"gamingReceiptServiceAdjustment": "服务调整",
-"gamingReceiptPaymentMethod": "付款方式",
-"gamingReceiptPaymentDate": "付款日期",
-"gamingReceiptBankTransaction": "银行交易",
-"gamingReceiptRedemptionDetails": "兑换资料",
-"gamingReceiptSerialNumber": "序列号",
-"gamingReceiptPinCode": "PIN / 代码",
-"gamingReceiptExpiry": "有效期",
-"gamingReceiptVoucherLink": "兑换链接",
-"gamingReceiptProviderNote": "供应商备注",
-"gamingReceiptKeepCodeSafe": "请妥善保管您的 PIN、序列号或兑换链接。离开自助终端前请保存这些资料。",
-"gamingReceiptTotalPaid": "已付总额",
-
-"gamingPaymentTitle": "游戏付款",
-"gamingPaymentTotal": "付款总额",
-"gamingPreparingQrPayment": "正在准备游戏付款二维码",
-"gamingProcessingPurchaseTitle": "正在处理购买",
-"gamingProcessingPurchaseMessage": "付款已收到。请稍候，系统正在准备游戏代码或兑换链接。",
-"gamingProcessingPurchaseLocked": "游戏购买完成前，请不要触碰屏幕。",
-"gamingPaymentInvalidProductTitle": "无效的游戏产品",
-"gamingPaymentInvalidProductMessage": "缺少游戏产品代码。",
-"gamingPaymentProviderRejected": "游戏平台拒绝了此交易。",
-"gamingPaymentProviderRefunded": "游戏平台交易已退款。",
-"gamingPaymentUnexpectedStatus": "游戏平台返回了非预期状态",
-"gamingPaymentProviderErrorTitle": "游戏处理错误",
-"gamingPaymentReference": "付款参考编号",
-"gamingPaymentAlreadyReceivedWarning": "DuitNow 付款已收到。请勿为同一交易再次付款。",
-
-
-"telcoMobileReloadTitle": "手机充值",
-"telcoMobileReloadDescription": "充值预付余额或购买手机上网配套",
-
-"mobileReloadServiceLabel": "手机充值",
-"mobileReloadProviderTitle": "选择电讯服务商",
-"mobileReloadProviderSubtitle": "请选择您的电讯服务商以继续",
-
-"mobileReloadLoadingTitle": "正在加载手机充值",
-"mobileReloadLoadingMessage": "请稍候，正在加载可用的手机服务。",
-
-"mobileReloadErrorTitle": "无法加载服务",
-"mobileReloadErrorMessage": "手机充值服务目前无法使用，请稍后再试。",
-"mobileReloadRetry": "重试",
-
-
-"mobileReloadPhoneStepLabel": "手机号码",
-"mobileReloadEnterPhoneTitle": "输入手机号码",
-"mobileReloadEnterPhoneSubtitle": "输入需要充值的手机号码",
-"mobileReloadSelectedProvider": "已选服务商",
-"mobileReloadPhoneHint": "输入手机号码",
-
-"mobileReloadConfirmNumberTitle": "确认手机号码",
-"mobileReloadConfirmNumberQuestion": "这个手机号码正确吗？",
-"mobileReloadConfirmBack": "修改",
-"mobileReloadConfirmContinue": "继续",
-
-"mobileReloadPhoneRequiredTitle": "请输入手机号码",
-"mobileReloadPhoneRequiredMessage": "请输入手机号码。",
-"mobileReloadInvalidPhoneTitle": "手机号码无效",
-"mobileReloadInvalidPhoneMessage": "请输入有效的马来西亚手机号码。",
-
-"mobileReloadUnavailableTitle": "服务暂不可用",
-"mobileReloadUnavailableMessage": "此手机充值服务目前无法使用。",
-"mobileReloadOkButton": "确定",
-
-"mobileReloadInternetPlanSubtitle": "为此手机号码选择上网配套",
-"mobileReloadPrepaidSubtitle": "为此手机号码选择充值金额",
-
-"mobileReloadPhoneNumber": "手机号码",
-
-"mobileReloadSelectInternetPlan": "选择上网配套",
-"mobileReloadSelectInternetPlanHint": "请选择可用的上网配套",
-
-"mobileReloadSelectReloadAmount": "选择充值金额",
-"mobileReloadSelectReloadAmountHint": "选择您要充值的金额",
-
-"mobileReloadEnterReloadAmount": "输入充值金额",
-"mobileReloadEnterReloadAmountHint": "请输入服务商允许的充值金额",
-
-"mobileReloadMinimum": "最低",
-"mobileReloadMaximum": "最高",
-
-"mobileReloadProvider": "电讯服务商",
-"mobileReloadSelectedPlan": "已选配套",
-"mobileReloadReloadAmount": "充值金额",
-"mobileReloadServiceAdjustment": "服务调整",
-"mobileReloadTotalPayment": "付款总额",
-
-"mobileReloadNoOptions": "此手机号码目前没有可用选项。",
-"mobileReloadSelectOptionRequired": "请选择一个选项以继续。",
-"mobileReloadInvalidAmount": "请输入有效的充值金额。",
-
-
-"mobileReloadMinimumAmountMessage": "最低充值金额为 {amount}。",
-"@mobileReloadMinimumAmountMessage": {
-  "placeholders": {
-    "amount": {
-      "type": "String"
-    }
-  }
-},
-
-"mobileReloadMaximumAmountMessage": "最高充值金额为 {amount}。",
-"@mobileReloadMaximumAmountMessage": {
-  "placeholders": {
-    "amount": {
-      "type": "String"
-    }
-  }
-},
-
-
-"mobileReloadConfirmTitle": "确认购买",
-"mobileReloadConfirmSubtitle": "付款前请检查手机充值资料",
-
-"mobileReloadPleaseCheckTitle": "请检查",
-"mobileReloadPleaseCheckMessage": "付款前请确认手机号码及所选服务正确。",
-
-"mobileReloadYouSelected": "您的选择",
-"mobileReloadOrderSummary": "订单摘要",
-"mobileReloadSubtotal": "小计",
-"mobileReloadServiceFee": "服务费",
-
-"mobileReloadChangeSelection": "更改选择",
-"mobileReloadPayNow": "立即付款",
-
-
-
-"mobileReloadPaymentTitle": "手机充值付款",
-"mobileReloadPaymentDetails": "手机充值资料",
-"mobileReloadPreparingQrPayment": "正在准备 QR 付款",
-
-"mobileReloadProcessingTitle": "正在处理手机充值",
-"mobileReloadProcessingMessage": "付款成功。请稍候，我们正在处理您的手机充值。",
-"mobileReloadProcessingLocked": "请勿返回或再次付款。",
-
-"mobileReloadPaymentInvalidProductTitle": "产品无效",
-"mobileReloadPaymentInvalidProductMessage": "所选手机充值产品无效。",
-
-"mobileReloadPaymentInvalidPlanTitle": "上网配套无效",
-"mobileReloadPaymentInvalidPlanMessage": "找不到所选上网配套。请返回并重新选择。",
-
-"mobileReloadPaymentProviderRejected": "电讯服务商拒绝了此交易。",
-"mobileReloadPaymentProviderRefunded": "电讯服务商已退回此交易。",
-"mobileReloadPaymentProviderErrorTitle": "手机充值错误",
-"mobileReloadPaymentStillProcessing": "电讯服务商仍在处理此交易。",
-"mobileReloadPaymentReference": "交易参考编号",
-"mobileReloadPaymentAlreadyReceivedWarning": "您的 DuitNow 付款已收到。请勿为同一交易再次付款。",
-
-"mobileReloadInternetReceiptTitle": "上网配套收据",
-"mobileReloadPrepaidReceiptTitle": "手机充值收据",
-"mobileReloadReceiptTransactionDetails": "交易详情",
-"mobileReloadReceiptPlanDetails": "配套详情",
-"mobileReloadReceiptPaymentDate": "付款日期",
-"mobileReloadReceiptBankTransaction": "银行交易",
-"mobileReloadReceiptTotalPaid": "已付总额",
-
-
-"mobileReloadReceiptSerialNumber": "序列号",
-"mobileReloadReceiptPin": "PIN",
-"mobileReloadReceiptExpiry": "有效期",
-"mobileReloadReceiptVoucherLink": "兑换链接",
-
-"iddButton": "国际直拨",
-"iddBillSupportingText": "充值国际通话余额",
-
-
-"iddHeaderLabel": "国际通话",
-"iddPageTitle": "国际直拨",
-"iddPageSubtitle": "请选择您的服务供应商",
-
-"iddBillSupportingText": "充值国际通话余额",
-
-"iddCatalogLoadError": "无法加载国际直拨服务",
-"iddCatalogRetryMessage": "请重试。",
-"iddNoServices": "目前没有可用的国际直拨服务。",
-
-"networkUnavailableMessage": "{billerName} 目前无法使用，请稍后再试。",
-"@networkUnavailableMessage": {
-  "placeholders": {
-    "billerName": {}
-  }
-},
-
-
-"iddCategoryLabel": "IDD 国际直拨",
-"iddSelectAmountTitle": "选择金额",
-"iddSelectAmountSubtitle": "请选择您要购买的 IDD 充值金额。",
-"iddQuantityTitle": "数量",
-"iddQuantitySubtitle": "请选择您要购买的 PIN 数量。",
-"iddOrderSummaryTitle": "订单摘要",
-"iddSubtotalLabel": "小计",
-"iddServiceAdjustmentLabel": "服务调整费",
-"iddTotalAmountLabel": "总金额",
-"iddDeliveryPin": "PIN",
-"iddNoAmountsAvailable": "目前没有可用的充值金额。",
-"iddUnableToLoadOptions": "无法加载 IDD 选项",
-"iddUnableToLoadOptionsSubtitle": "无法加载 IDD 选项，请再试一次。",
-"iddProductUnavailable": "此 IDD 服务目前不可用。",
-"iddSelectAmountRequired": "请先选择金额再继续。",
-
-"providerLoading": "正在加载服务商",
-"providerLoadingSubtitle": "请稍候，我们正在获取最新可用的服务。",
-
-"providerLoadError": "无法加载服务商",
-"providerLoadErrorSubtitle": "无法加载服务商资料，请再试一次。",
-
-"gameCreditsButton": "游戏点数",
-"gameCreditsSupportingText": "为支持的游戏充值点数",
-"gameCreditsPageTitle": "游戏点数",
-"gameCreditsPageSubtitle": "请选择您要充值的游戏",
-"gameCreditsNoServices": "目前没有可用的游戏点数服务",
-
-"gameCreditsCategoryLabel": "游戏点数",
-"gameCreditsSelectAmountTitle": "选择金额",
-"gameCreditsSelectAmountSubtitle": "请选择您要购买的游戏点数或配套",
-"gameCreditsNoAmountsAvailable": "目前没有可用的游戏点数选项。",
-"gameCreditsOrderSummaryTitle": "订单摘要",
-"gameCreditsProductLabel": "产品",
-"gameCreditsSelectedOptionLabel": "已选选项",
-"gameCreditsCreditLabel": "游戏点数",
-"gameCreditsSubtotalLabel": "小计",
-"gameCreditsServiceAdjustmentLabel": "服务调整",
-"gameCreditsTotalAmountLabel": "付款总额",
-"gameCreditsDeliveryLink": "电子链接",
-"gameCreditsDeliveryPin": "PIN",
-"gameCreditsProductUnavailable": "此游戏点数产品目前不可用。",
-"gameCreditsSelectAmountRequired": "请选择游戏点数金额后再继续。",
-"gameCreditsUnableToLoadOptions": "无法加载游戏点数",
-"gameCreditsUnableToLoadOptionsSubtitle": "无法加载可用的游戏点数选项。请重试。",
-
-
-
-"gameCreditsReviewTitle": "检查游戏点数",
-"gameCreditsReviewSelection": "检查您的选择",
-
-"gameCreditsEnterAccountTitle": "输入游戏账户资料",
-"gameCreditsEnterAccountSubtitle": "请输入此游戏所需的玩家 ID 或账户资料",
-"gameCreditsAccountLabel": "玩家 ID / 账户",
-"gameCreditsAccountHint": "输入玩家 ID 或账户号码",
-"gameCreditsCheckAccountMessage": "请仔细检查此资料。游戏点数可能会发送到您所输入的账户。",
-
-"gameCreditsNoAccountRequiredTitle": "无需玩家 ID",
-"gameCreditsNoAccountRequiredMessage": "此游戏点数无需玩家 ID 或账户号码。您可以继续付款。",
-
-"gameCreditsAccountRequired": "请输入所需的玩家 ID 或账户资料。",
-"gameCreditsAccountInvalid": "输入的玩家 ID 或账户资料无效。",
-"gameCreditsAccountRequiredTitle": "需要账户资料",
-
-"gameCreditsContinuePayment": "继续付款",
-
-"gameCreditsUnableToLoadDetails": "无法加载游戏点数资料。",
-"gameCreditsInformation": "资料",
-
-"gameCreditsPaymentTitle": "游戏点数付款",
-"gameCreditsGameLabel": "游戏",
-"gameCreditsPaymentTotal": "付款总额",
-
-"gameCreditsPreparingQrPayment": "正在准备游戏点数二维码",
-
-"gameCreditsProcessingPurchaseTitle": "正在处理游戏点数",
-"gameCreditsProcessingPurchaseMessage": "您的付款已收到。请稍候，游戏点数交易正在处理中。",
-"gameCreditsProcessingPurchaseLocked": "游戏点数交易处理期间请勿触碰屏幕。",
-
-"gameCreditsPaymentInvalidProductTitle": "游戏点数产品无效",
-"gameCreditsPaymentInvalidProductMessage": "缺少游戏点数产品代码。",
-
-"gameCreditsPaymentProviderRejected": "游戏点数供应商拒绝了此交易。",
-"gameCreditsPaymentProviderRefunded": "游戏点数交易已退款。",
-"gameCreditsPaymentUnexpectedStatus": "游戏点数供应商返回了未知状态",
-"gameCreditsPaymentProviderErrorTitle": "游戏点数处理错误",
-"gameCreditsPaymentReference": "付款参考",
-"gameCreditsPaymentAlreadyReceivedWarning": "DuitNow 付款已经收到。请勿为同一笔交易再次付款。",
-
-
-"gameCreditsReceiptTitle": "游戏点数收据",
-"gameCreditsReceiptGame": "游戏",
-"gameCreditsReceiptPurchaseDetails": "购买详情",
-"gameCreditsReceiptSelectedCredit": "已选点数",
-"gameCreditsReceiptCreditReceived": "游戏点数",
-"gameCreditsReceiptAccount": "玩家 ID / 账户",
-"gameCreditsReceiptBaseAmount": "金额",
-"gameCreditsReceiptServiceAdjustment": "服务调整",
-"gameCreditsReceiptPaymentMethod": "付款方式",
-"gameCreditsReceiptPaymentDate": "付款日期",
-"gameCreditsReceiptBankTransaction": "银行交易",
-"gameCreditsReceiptDeliveryDetails": "交付详情",
-"gameCreditsReceiptSerialNumber": "序列号",
-"gameCreditsReceiptPin": "PIN",
-"gameCreditsReceiptExpiry": "有效期",
-"gameCreditsReceiptVoucherLink": "兑换链接",
-"gameCreditsReceiptKeepCodeSafe": "请妥善保管您的 PIN、序列号或兑换链接，请勿与他人分享。",
-"gameCreditsReceiptDeliveryMessage": "您的游戏点数交易已完成。请检查购买时输入的游戏账户。",
-"gameCreditsReceiptTotalPaid": "已付款总额",
-
-
-"iddPaymentTitle": "IDD 付款",
-"iddPaymentDetails": "IDD 购买详情",
-"iddSelectedAmount": "所选金额",
-"iddPreparingQrPayment": "正在准备二维码付款",
-"iddProcessingTitle": "正在处理 IDD 购买",
-"iddProcessingMessage": "付款已收到。请稍候，正在处理您的 IDD 购买。",
-"iddProcessingLocked": "处理期间请勿关闭此页面。",
-"iddPaymentInvalidProductTitle": "IDD 产品无效",
-"iddPaymentInvalidProductMessage": "所选的 IDD 产品无效。请返回并重新选择。",
-"iddPaymentInvalidAmountTitle": "IDD 金额无效",
-"iddPaymentInvalidAmountMessage": "请先选择 IDD 金额再继续。",
-"iddPaymentProviderRejected": "IDD 服务商已拒绝此交易。",
-"iddPaymentProviderRefunded": "IDD 交易已退款。",
-"iddPaymentStillProcessing": "IDD 交易仍在处理中。",
-"iddPaymentReference": "参考编号",
-"iddPaymentProviderErrorTitle": "IDD 处理错误",
-"iddPaymentAlreadyReceivedWarning": "您的二维码付款已收到。请勿再次付款。",
-
-"iddReceiptTitle": "IDD 购买成功",
-"iddReceiptProvider": "IDD 服务商",
-"iddReceiptPurchaseDetails": "IDD 购买详情",
-"iddReceiptProduct": "所选 IDD",
-"iddReceiptAmount": "IDD 金额",
-"iddReceiptPinDetails": "PIN 详情",
-"iddReceiptSerialNumber": "序列号",
-"iddReceiptPin": "PIN",
-"iddReceiptExpiry": "有效期",
-"iddReceiptVoucherLink": "充值券链接",
-"iddReceiptTransactionDetails": "交易详情",
-"iddReceiptPaymentDate": "付款日期",
-"iddReceiptBankTransaction": "银行交易",
-"iddReceiptProviderNote": "服务商信息",
-"iddReceiptTotalPaid": "已付总额",
-
-
-"consoleStoresButton": "游戏主机与应用商店",
-"consoleStoresSupportingText": "购买游戏主机及应用商店礼品卡",
-
-"consoleStoresTitle": "游戏主机与应用商店",
-"consoleStoresSubtitle": "请选择您要购买的商店",
-"consoleStoresBadge": "数码商店",
-
-"consoleStoreCategoryLabel": "游戏主机与应用商店",
-"consoleStoreSelectPackageTitle": "选择面额",
-"consoleStoreSelectPackageSubtitle": "请选择您要购买的面额",
-"consoleStoreNoPackagesAvailable": "目前没有可用的面额。",
-"consoleStoreOrderSummaryTitle": "订单摘要",
-"consoleStoreProductLabel": "产品",
-"consoleStoreSelectedPackageLabel": "已选面额",
-"consoleStorePackageDescriptionLabel": "说明",
-"consoleStoreSubtotalLabel": "小计",
-"consoleStoreServiceAdjustmentLabel": "服务调整",
-"consoleStoreTotalAmountLabel": "付款总额",
-"consoleStoreProductUnavailable": "此产品目前无法使用。",
-"consoleStoreSelectPackageRequired": "请选择一个面额以继续。",
-"consoleStoreUnableToLoadOptions": "无法加载可用面额",
-"consoleStoreUnableToLoadOptionsSubtitle": "请稍后再试。",
-
-
-"consoleStorePaymentTitle": "游戏主机与应用商店付款",
-"consoleStorePaymentTotal": "付款总额",
-"consoleStorePreparingQrPayment": "正在准备二维码付款",
-"consoleStoreProcessingPurchaseTitle": "正在处理购买",
-"consoleStoreProcessingPurchaseMessage": "付款已收到。我们正在向供应商处理您的购买。",
-"consoleStoreProcessingPurchaseLocked": "请勿关闭或离开此页面。",
-"consoleStorePaymentInvalidProductTitle": "产品无效",
-"consoleStorePaymentInvalidProductMessage": "所选产品无效。请返回并重新选择产品。",
-"consoleStorePaymentProviderRejected": "供应商无法完成此购买。",
-"consoleStorePaymentProviderRefunded": "供应商已退还此交易款项。",
-"consoleStorePaymentUnexpectedStatus": "供应商状态异常",
-"consoleStorePaymentProviderErrorTitle": "无法完成购买",
-"consoleStorePaymentReference": "参考编号",
-"consoleStorePaymentAlreadyReceivedWarning": "您的二维码付款已收到。请保留此参考编号以便寻求协助。",
-
-"consoleStoreReceiptTitle": "购买收据",
-"consoleStoreReceiptProduct": "产品",
-"consoleStoreReceiptPurchaseDetails": "购买详情",
-"consoleStoreReceiptSelectedValue": "已选面额",
-"consoleStoreReceiptDescription": "说明",
-"consoleStoreReceiptBaseAmount": "基本金额",
-"consoleStoreReceiptServiceAdjustment": "服务调整",
-"consoleStoreReceiptPaymentMethod": "付款方式",
-"consoleStoreReceiptPaymentDate": "付款日期",
-"consoleStoreReceiptBankTransaction": "银行交易",
-"consoleStoreReceiptDeliveryDetails": "兑换详情",
-"consoleStoreReceiptSerialNumber": "序列号",
-"consoleStoreReceiptPin": "PIN / 兑换码",
-"consoleStoreReceiptExpiry": "有效期限",
-"consoleStoreReceiptVoucherLink": "礼券链接",
-"consoleStoreReceiptProviderInstructions": "供应商说明",
-"consoleStoreReceiptKeepCodeSafe": "请妥善保管您的 PIN、兑换码或礼券链接。兑换购买内容时可能需要使用。",
-"consoleStoreReceiptSuccessMessage": "您的购买已成功处理。",
-"consoleStoreReceiptTotalPaid": "已付总额",
-"consoleStoreInvalidOptionValue": "所选面额无法处理。请选择其他面额或重试。",
-
-
-"putrajayaExplorationTitle": "探索布城",
-"putrajayaTabHistorical": "历史景点",
-"putrajayaTabInteresting": "旅游景点",
-"putrajayaTabEating": "美食",
-"putrajayaViewDetails": "查看详情",
-"putrajayaGoogleMap": "Google 地图",
-"putrajayaScanMap": "扫描二维码查看地点",
-"putrajayaClose": "关闭",
-"putrajayaNoPlaces": "暂无地点",
-
-"putrajayaInterestingDesc": "探索 {place}，布城值得参观的景点之一。",
-"@putrajayaInterestingDesc": {
-  "place": {
-    "type": "String"
-  }
-},
-
-"putrajayaInterestingFull": "{place} 是游客到访布城时可以探索的地点之一。请扫描下方的 Google 地图二维码查看地点并规划您的行程。",
-"@putrajayaInterestingFull": {
-  "place": {
-    "type": "String"
-  }
-},
-
-"putrajayaHistoricalDesc": "认识 {place}，布城其中一个著名地标。",
-"@putrajayaHistoricalDesc": {
-  "place": {
-    "type": "String"
-  }
-},
-
-"putrajayaHistoricalFull": "{place} 是游客在布城可以参观和探索的地标之一。请扫描下方的 Google 地图二维码查看地点。",
-"@putrajayaHistoricalFull": {
-  "place": {
-    "type": "String"
-  }
-},
-
-"putrajayaFoodDesc": "探索 {place}，布城其中一个用餐选择。",
-"@putrajayaFoodDesc": {
-  "place": {
-    "type": "String"
-  }
-},
-
-"putrajayaFoodFull": "{place} 是游客在布城期间可以考虑的用餐地点之一。请扫描下方的 Google 地图二维码查看地点。",
-"@putrajayaFoodFull": {
-  "place": {
-    "type": "String"
-  }
-},
-
-
-"gameCreditsEnterPhoneReferenceTitle": "输入手机号码",
-"gameCreditsEnterPhoneReferenceSubtitle": "请输入马来西亚手机号码作为此交易的参考号码",
-"gameCreditsPhoneReferenceLabel": "手机号码参考",
-"gameCreditsPhoneReferenceHint": "输入手机号码",
-"gameCreditsPhoneReferenceNotice": "此手机号码仅作为交易参考，并不是您的游戏账户。",
-"gameCreditsPhoneRequired": "请输入手机号码。",
-"gameCreditsPhoneInvalid": "请输入以 01 开头的有效马来西亚手机号码。",
-
-"digitalVoucherButton": "电子礼券",
-"digitalVoucherSupportingText": "购买电子礼券和礼品代码",
-"digitalVoucherTitle": "电子礼券",
-"digitalVoucherSubtitle": "请选择您要购买的电子礼券",
-"digitalVoucherSelectValueTitle": "选择礼券金额",
-
-
-"digitalVoucherPurchaseSubtitle": "选择您的礼券金额或配套",
-"digitalVoucherCategory": "电子礼券",
-"digitalVoucherImportantNote": "重要提示",
-"digitalVoucherDelivery": "发放方式",
-"digitalVoucherDeliveryPin": "PIN",
-"digitalVoucherDeliveryLink": "链接",
-
-"digitalVoucherSelectPackage": "选择配套",
-"digitalVoucherSelectPackageHint": "请选择一个可用配套以继续",
-"digitalVoucherSelectAmount": "选择金额",
-"digitalVoucherSelectAmountHint": "请选择一个可用的礼券金额以继续",
-"digitalVoucherNoOptionsAvailable": "目前没有可用的礼券选项",
-
-"digitalVoucherTapAmountHint": "点击金额栏或使用按钮选择礼券金额",
-"digitalVoucherAmountRange": "允许金额：{minimum} - {maximum}",
-"@digitalVoucherAmountRange": {
-  "placeholders": {
-    "minimum": {
-      "type": "String"
-    },
-    "maximum": {
-      "type": "String"
-    }
-  }
-},
-
-"digitalVoucherEnterAmount": "输入礼券金额",
-"digitalVoucherKeypadHint": "使用数字键盘输入礼券金额",
-"digitalVoucherClear": "清除",
-"digitalVoucherDone": "完成",
-"digitalVoucherCancel": "取消",
-
-"digitalVoucherMinimumAmount": "最低礼券金额为 {amount}。",
-"@digitalVoucherMinimumAmount": {
-  "placeholders": {
-    "amount": {
-      "type": "String"
-    }
-  }
-},
-
-"digitalVoucherMaximumAmount": "最高礼券金额为 {amount}。",
-"@digitalVoucherMaximumAmount": {
-  "placeholders": {
-    "amount": {
-      "type": "String"
-    }
-  }
-},
-
-"digitalVoucherOrderSummary": "订单摘要",
-"digitalVoucherSelectedPackage": "已选配套",
-"digitalVoucherSelectedAmount": "已选金额",
-"digitalVoucherServiceAdjustment": "服务调整",
-"digitalVoucherTotalPayment": "付款总额",
-
-"digitalVoucherReviewSelection": "检查选择",
-
-"digitalVoucherProductUnavailable": "此电子礼券目前无法使用。",
-"digitalVoucherSelectOptionRequired": "请先选择礼券选项再继续。",
-"digitalVoucherInvalidAmount": "请输入有效的礼券金额。",
-"digitalVoucherUnableToLoad": "无法加载电子礼券资料。",
-"digitalVoucherTryAgain": "重试",
-
-
-
-"digitalVoucherNoteAdidas": "请在 https://www.adidas.com.my 结账时，在“Promo Code”栏输入礼券代码。此礼券仅适用于已注册账户，不适用于访客结账。",
-
-"digitalVoucherNoteDiscord": "RM43 = 1个月，RM432 = 12个月。",
-
-"digitalVoucherNoteEatCakeToday": "适用于 https://www.eatcaketoday.com 的线上购买。请在结账页面输入折扣代码。",
-
-"digitalVoucherNoteGrabGiftCode": "结账时，请在“Use Offers”中的“Use Grab Gifts”栏目输入礼券代码。",
-
-"digitalVoucherNoteGrabFood": "打开礼券链接（Activation URL），并在 Grab 应用程序中兑换。如果使用电脑，请用手机扫描二维码。前往 My Rewards 查找礼券。此电子礼券仅适用于 GrabFood 类别的购买。",
-
-"digitalVoucherNoteGrabMart": "使用礼券链接进行兑换。打开礼券链接（Activation URL），并在 Grab 应用程序中兑换。如果使用电脑，请用手机扫描二维码。前往 My Rewards 查找礼券。",
-
-"digitalVoucherNoteShopee": "自发出日起有效期为3个月。适用于新用户及现有用户，并且只能使用一次。礼券仅适用于 Shopee Mall 和 Preferred Sellers。请在 Shopee 手机应用程序结账时输入促销代码。",
-
-"digitalVoucherNoteZalora": "1. 登录 www.zalora.my。2. 在 My Account 中选择 My Store Credit。3. 输入礼券代码并选择 Add Credit。4. 礼品卡金额将显示在 My Store Credit 中，之后即可开始购物。",
-
-
-"digitalVoucherPaymentTitle": "电子礼券付款",
-"digitalVoucherPaymentDetails": "礼券详情",
-"digitalVoucherVoucherValue": "礼券金额",
-"digitalVoucherOptionDetails": "配套详情",
-
-"digitalVoucherPreparingQrPayment": "正在准备二维码付款",
-"digitalVoucherProcessingTitle": "正在处理礼券",
-"digitalVoucherProcessingMessage": "付款已收到。请稍候，我们正在处理您的电子礼券。",
-"digitalVoucherProcessingLocked": "礼券处理中，请勿关闭此页面。",
-
-"digitalVoucherPaymentInvalidProductTitle": "无效礼券",
-"digitalVoucherPaymentInvalidProductMessage": "所选电子礼券无效。请返回并重新选择礼券。",
-
-"digitalVoucherPaymentProviderRejected": "礼券供应商拒绝了此交易。",
-"digitalVoucherPaymentProviderRefunded": "礼券供应商已退款此交易。",
-"digitalVoucherPaymentStillProcessing": "礼券仍在处理中。",
-"digitalVoucherPaymentReference": "交易参考编号",
-
-"digitalVoucherPaymentProviderErrorTitle": "礼券处理错误",
-"digitalVoucherPaymentAlreadyReceivedWarning": "您的付款已经收到。请勿再次付款。请保留交易参考编号以便寻求协助。",
-
-"digitalVoucherReceiptTitle": "电子礼券收据",
-"digitalVoucherReceiptProvider": "礼券供应商",
-"digitalVoucherReceiptTransactionDetails": "交易详情",
-"digitalVoucherReceiptVoucherDetails": "礼券详情",
-"digitalVoucherReceiptPaymentDate": "付款日期与时间",
-"digitalVoucherReceiptBankTransaction": "银行交易编号",
-"digitalVoucherReceiptSerialNumber": "序列号",
-"digitalVoucherReceiptPin": "PIN",
-"digitalVoucherReceiptExpiry": "有效期",
-"digitalVoucherReceiptVoucherLink": "礼券链接",
-"digitalVoucherReceiptTotalPaid": "已付总额",
-"digitalVoucherHowToRedeem": "兑换方法",
-
-
-"fuelButton": "燃油",
-"fuelSupportingText": "向可用的供应商购买电子燃油礼券。",
-"fuelPageTitle": "燃油礼券",
-"fuelSelectAmountNext": "请选择供应商以继续选择燃油礼券面额。",
-
-"fuelPurchaseSubtitle": "选择您所需的燃油礼券面额",
-
-
-"fuelDelivery": "交付方式",
-"fuelDeliveryPin": "礼券密码",
-"fuelDeliveryLink": "礼券链接",
-"fuelHowToRedeem": "如何兑换",
-"fuelOptionDetails": "选项详情",
-"fuelPaymentAlreadyReceivedWarning": "您的二维码付款已收到。请勿再次付款。",
-"fuelPaymentDetails": "燃油礼券付款详情",
-"fuelPaymentInvalidProductMessage": "所选的燃油供应商无效。请返回并重新选择供应商。",
-"fuelPaymentInvalidProductTitle": "无效的燃油供应商",
-"fuelPaymentProviderErrorTitle": "燃油礼券处理错误",
-"fuelPaymentProviderRefunded": "供应商已退还此交易款项。",
-"fuelPaymentProviderRejected": "供应商已拒绝此燃油礼券交易。",
-"fuelPaymentReference": "交易参考编号",
-"fuelPaymentStillProcessing": "您的付款已收到，但燃油礼券仍在处理中。",
-"fuelPaymentTitle": "燃油礼券付款",
-"fuelPreparingQrPayment": "正在准备 DUITNOW 二维码",
-"fuelProcessingLocked": "处理燃油礼券时，请勿关闭此页面。",
-"fuelProcessingMessage": "付款已收到。我们正在处理您的燃油礼券。",
-"fuelProcessingTitle": "正在处理燃油礼券",
-"fuelReceiptBankTransaction": "银行交易编号",
-"fuelReceiptExpiry": "有效期",
-"fuelReceiptPaymentDate": "付款日期",
-"fuelReceiptPin": "礼券密码",
-"fuelReceiptProvider": "燃油供应商",
-"fuelReceiptSerialNumber": "序列号",
-"fuelReceiptTitle": "燃油礼券收据",
-"fuelReceiptTotalPaid": "已付总额",
-"fuelReceiptTransactionDetails": "交易详情",
-"fuelReceiptVoucherDetails": "燃油礼券详情",
-"fuelReceiptVoucherLink": "礼券链接",
-"fuelSelectedPackage": "已选配套",
-"fuelServiceAdjustment": "服务调整",
-"fuelTotalPayment": "付款总额",
-"fuelVoucherValue": "燃油礼券价值",
-
-
-"paymentGuideTitle": "付款指南",
-"paymentGuideSubtitle": "请选择付款方式观看教学视频",
-"paymentGuideQr": "DUITNOW 二维码",
-"paymentGuideCard": "银行卡",
-"paymentGuideOk": "确定",
-
-"pegePayUnavailableTitle": "QR 付款暂时无法使用",
-"pegePayUnavailableMessage": "QR 付款服务目前暂时无法使用。请稍后再试或选择其他付款方式。",
-"pegePayUnavailableOk": "确定",
-
-
-"scrollViewMore": "查看更多",
-"scrollBackTop": "返回顶部",
-"scrollUpShort": "向上",
-
-"providerSearchTitle": "搜索供应商",
-"providerSearchHint": "输入供应商名称或代码",
-"providerSearchButton": "搜索",
-"providerSearchNoResults": "未找到匹配的供应商。",
-
-
-"foodBeverageButton": "餐饮",
-"foodBeverageSupportingText": "购买参与品牌的餐饮礼券。",
-"foodBeverageTitle": "餐饮",
-"foodBeverageSubtitle": "请选择参与的餐饮品牌",
-
-"taksiranKioskIntro": "请选择户口及缴费周期。",
-"taksiranKioskChooseAccounts": "选择要缴费的户口",
-"taksiranKioskAccountHint": "轻触户口即可选择。您可选择多个户口。",
-"taksiranKioskViewDetails": "查看详情",
-"taksiranKioskChoosePeriod": "选择缴付半年或全年税款",
-"taksiranKioskPeriodRequired": "请选择半年或全年应缴金额以继续。",
-"taksiranKioskAmountUnavailable": "暂无金额",
-"taksiranKioskInvalidSelection": "所选户口在此缴费周期内没有可缴付的金额。请检查所选户口，或选择其他缴费周期。",
-"taksiranKioskAccountUnavailable": "此户口缺少户口号码，无法选择。",
-
-"p2MainServicesTitle": "主要服务",
-"p2FrequentlyUsedTitle": "常用服务",
-"p2DidYouKnowTitle": "你知道吗？",
-
-"p2HelpInformationTitle": "帮助与资讯",
-
-"scanInputScanTitle": "扫描代码",
-"scanInputScanDescription": "扫描条形码或二维码以输入资料",
-"scanInputTypeTitle": "使用键盘",
-"scanInputTypeDescription": "点击下方按键以输入资料",
-
+  },
+  "digitalVoucherOrderSummary": "订单摘要",
+  "digitalVoucherSelectedPackage": "已选配套",
+  "digitalVoucherSelectedAmount": "已选金额",
+  "digitalVoucherServiceAdjustment": "服务调整",
+  "digitalVoucherTotalPayment": "付款总额",
+  "digitalVoucherReviewSelection": "检查选择",
+  "digitalVoucherProductUnavailable": "此电子礼券目前无法使用。",
+  "digitalVoucherSelectOptionRequired": "请先选择礼券选项再继续。",
+  "digitalVoucherInvalidAmount": "请输入有效的礼券金额。",
+  "digitalVoucherUnableToLoad": "无法加载电子礼券资料。",
+  "digitalVoucherTryAgain": "重试",
+  "digitalVoucherNoteAdidas": "请在 https://www.adidas.com.my 结账时，在“Promo Code”栏输入礼券代码。此礼券仅适用于已注册账户，不适用于访客结账。",
+  "digitalVoucherNoteDiscord": "RM43 = 1个月，RM432 = 12个月。",
+  "digitalVoucherNoteEatCakeToday": "适用于 https://www.eatcaketoday.com 的线上购买。请在结账页面输入折扣代码。",
+  "digitalVoucherNoteGrabGiftCode": "结账时，请在“Use Offers”中的“Use Grab Gifts”栏目输入礼券代码。",
+  "digitalVoucherNoteGrabFood": "打开礼券链接（Activation URL），并在 Grab 应用程序中兑换。如果使用电脑，请用手机扫描二维码。前往 My Rewards 查找礼券。此电子礼券仅适用于 GrabFood 类别的购买。",
+  "digitalVoucherNoteGrabMart": "使用礼券链接进行兑换。打开礼券链接（Activation URL），并在 Grab 应用程序中兑换。如果使用电脑，请用手机扫描二维码。前往 My Rewards 查找礼券。",
+  "digitalVoucherNoteShopee": "自发出日起有效期为3个月。适用于新用户及现有用户，并且只能使用一次。礼券仅适用于 Shopee Mall 和 Preferred Sellers。请在 Shopee 手机应用程序结账时输入促销代码。",
+  "digitalVoucherNoteZalora": "1. 登录 www.zalora.my。2. 在 My Account 中选择 My Store Credit。3. 输入礼券代码并选择 Add Credit。4. 礼品卡金额将显示在 My Store Credit 中，之后即可开始购物。",
+  "digitalVoucherPaymentTitle": "电子礼券付款",
+  "digitalVoucherPaymentDetails": "礼券详情",
+  "digitalVoucherVoucherValue": "礼券金额",
+  "digitalVoucherOptionDetails": "配套详情",
+  "digitalVoucherPreparingQrPayment": "正在准备二维码付款",
+  "digitalVoucherProcessingTitle": "正在处理礼券",
+  "digitalVoucherProcessingMessage": "付款已收到。请稍候，我们正在处理您的电子礼券。",
+  "digitalVoucherProcessingLocked": "礼券处理中，请勿关闭此页面。",
+  "digitalVoucherPaymentInvalidProductTitle": "无效礼券",
+  "digitalVoucherPaymentInvalidProductMessage": "所选电子礼券无效。请返回并重新选择礼券。",
+  "digitalVoucherPaymentProviderRejected": "礼券供应商拒绝了此交易。",
+  "digitalVoucherPaymentProviderRefunded": "礼券供应商已退款此交易。",
+  "digitalVoucherPaymentStillProcessing": "礼券仍在处理中。",
+  "digitalVoucherPaymentReference": "交易参考编号",
+  "digitalVoucherPaymentProviderErrorTitle": "礼券处理错误",
+  "digitalVoucherPaymentAlreadyReceivedWarning": "您的付款已经收到。请勿再次付款。请保留交易参考编号以便寻求协助。",
+  "digitalVoucherReceiptTitle": "电子礼券收据",
+  "digitalVoucherReceiptProvider": "礼券供应商",
+  "digitalVoucherReceiptTransactionDetails": "交易详情",
+  "digitalVoucherReceiptVoucherDetails": "礼券详情",
+  "digitalVoucherReceiptPaymentDate": "付款日期与时间",
+  "digitalVoucherReceiptBankTransaction": "银行交易编号",
+  "digitalVoucherReceiptSerialNumber": "序列号",
+  "digitalVoucherReceiptPin": "PIN",
+  "digitalVoucherReceiptExpiry": "有效期",
+  "digitalVoucherReceiptVoucherLink": "礼券链接",
+  "digitalVoucherReceiptTotalPaid": "已付总额",
+  "digitalVoucherHowToRedeem": "兑换方法",
+  "fuelButton": "燃油",
+  "fuelSupportingText": "向可用的供应商购买电子燃油礼券。",
+  "fuelPageTitle": "燃油礼券",
+  "fuelSelectAmountNext": "请选择供应商以继续选择燃油礼券面额。",
+  "fuelPurchaseSubtitle": "选择您所需的燃油礼券面额",
+  "fuelDelivery": "交付方式",
+  "fuelDeliveryPin": "礼券密码",
+  "fuelDeliveryLink": "礼券链接",
+  "fuelHowToRedeem": "如何兑换",
+  "fuelOptionDetails": "选项详情",
+  "fuelPaymentAlreadyReceivedWarning": "您的二维码付款已收到。请勿再次付款。",
+  "fuelPaymentDetails": "燃油礼券付款详情",
+  "fuelPaymentInvalidProductMessage": "所选的燃油供应商无效。请返回并重新选择供应商。",
+  "fuelPaymentInvalidProductTitle": "无效的燃油供应商",
+  "fuelPaymentProviderErrorTitle": "燃油礼券处理错误",
+  "fuelPaymentProviderRefunded": "供应商已退还此交易款项。",
+  "fuelPaymentProviderRejected": "供应商已拒绝此燃油礼券交易。",
+  "fuelPaymentReference": "交易参考编号",
+  "fuelPaymentStillProcessing": "您的付款已收到，但燃油礼券仍在处理中。",
+  "fuelPaymentTitle": "燃油礼券付款",
+  "fuelPreparingQrPayment": "正在准备 DUITNOW 二维码",
+  "fuelProcessingLocked": "处理燃油礼券时，请勿关闭此页面。",
+  "fuelProcessingMessage": "付款已收到。我们正在处理您的燃油礼券。",
+  "fuelProcessingTitle": "正在处理燃油礼券",
+  "fuelReceiptBankTransaction": "银行交易编号",
+  "fuelReceiptExpiry": "有效期",
+  "fuelReceiptPaymentDate": "付款日期",
+  "fuelReceiptPin": "礼券密码",
+  "fuelReceiptProvider": "燃油供应商",
+  "fuelReceiptSerialNumber": "序列号",
+  "fuelReceiptTitle": "燃油礼券收据",
+  "fuelReceiptTotalPaid": "已付总额",
+  "fuelReceiptTransactionDetails": "交易详情",
+  "fuelReceiptVoucherDetails": "燃油礼券详情",
+  "fuelReceiptVoucherLink": "礼券链接",
+  "fuelSelectedPackage": "已选配套",
+  "fuelServiceAdjustment": "服务调整",
+  "fuelTotalPayment": "付款总额",
+  "fuelVoucherValue": "燃油礼券价值",
+  "paymentGuideTitle": "付款指南",
+  "paymentGuideSubtitle": "请选择付款方式观看教学视频",
+  "paymentGuideQr": "DUITNOW 二维码",
+  "paymentGuideCard": "银行卡",
+  "paymentGuideOk": "确定",
+  "pegePayUnavailableTitle": "QR 付款暂时无法使用",
+  "pegePayUnavailableMessage": "QR 付款服务目前暂时无法使用。请稍后再试或选择其他付款方式。",
+  "pegePayUnavailableOk": "确定",
+  "scrollViewMore": "查看更多",
+  "scrollBackTop": "返回顶部",
+  "scrollUpShort": "向上",
+  "providerSearchTitle": "搜索供应商",
+  "providerSearchHint": "输入供应商名称或代码",
+  "providerSearchButton": "搜索",
+  "providerSearchNoResults": "未找到匹配的供应商。",
+  "foodBeverageButton": "餐饮",
+  "foodBeverageSupportingText": "购买参与品牌的餐饮礼券。",
+  "foodBeverageTitle": "餐饮",
+  "foodBeverageSubtitle": "请选择参与的餐饮品牌",
+  "taksiranKioskIntro": "请选择户口及缴费周期。",
+  "taksiranKioskChooseAccounts": "选择要缴费的户口",
+  "taksiranKioskAccountHint": "轻触户口即可选择。您可选择多个户口。",
+  "taksiranKioskViewDetails": "查看详情",
+  "taksiranKioskChoosePeriod": "选择缴付半年或全年税款",
+  "taksiranKioskPeriodRequired": "请选择半年或全年应缴金额以继续。",
+  "taksiranKioskAmountUnavailable": "暂无金额",
+  "taksiranKioskInvalidSelection": "所选户口在此缴费周期内没有可缴付的金额。请检查所选户口，或选择其他缴费周期。",
+  "taksiranKioskAccountUnavailable": "此户口缺少户口号码，无法选择。",
+  "p2MainServicesTitle": "主要服务",
+  "p2FrequentlyUsedTitle": "快捷服务",
+  "p2DidYouKnowTitle": "你知道吗？",
+  "p2HelpInformationTitle": "帮助与资讯",
+  "scanInputScanTitle": "扫描代码",
+  "scanInputScanDescription": "扫描条形码或二维码以输入资料",
+  "scanInputTypeTitle": "使用键盘",
+  "scanInputTypeDescription": "点击下方按键以输入资料",
   "taksiranChoosePaymentAmount": "选择付款金额",
   "taksiranSelectedAccounts": "已选账户",
   "taksiranChangeAccounts": "更改",
@@ -3980,28 +3060,30 @@
   "taksiranCannotSelect": "无法选择",
   "taksiranSelectToPay": "请选择以付款",
   "taksiranAccountNoPayment": "此账户目前无需缴费，因此无法选择此账户进行付款。",
-"taksiranAccountAmountUnavailable": "目前无法获取缴费金额，因此无法选择此账户进行付款。",
-"taksiranMixedPeriodWarning": "所选账户没有共同可用的缴费期限。请更改账户选择，并分别付款。",
-"taksiranMixedPeriodShort": "缴费期限不同",
-"taksiranTaxInformation": "税务资料",
-
-"sewaanStepSelectAccount": "选择账户",
-"sewaanStepReviewPayment": "核对付款",
-"sewaanSelectAccountHint": "请选择您要付款的租赁账户。",
-"sewaanReviewTitle": "核对租金付款",
-"sewaanReviewHint": "付款前请核对账户及付款金额。",
-"sewaanSelectedAccountsTitle": "已选账户",
-"sewaanChangeSelection": "更改",
-"sewaanPaymentBreakdown": "付款明细",
-"sewaanPayButton": "付款",
-"sewaanNoPaymentAvailable": "此账户目前无需付款。",
-"sewaanAmountUnavailable": "目前无法获取付款金额。",
-
-"compoundAvailableCountLabel": "可选择的罚单总数",
-"compoundSelectedCount": "已选择 {count} 张罚单",
-"@compoundSelectedCount": {"placeholders": {"count": {"type": "int"}}},
-"makePaymentButton": "进行付款",
-
-"perakExplorationTitle": "探索霹雳"
-
+  "taksiranAccountAmountUnavailable": "目前无法获取缴费金额，因此无法选择此账户进行付款。",
+  "taksiranMixedPeriodWarning": "所选账户没有共同可用的缴费期限。请更改账户选择，并分别付款。",
+  "taksiranMixedPeriodShort": "缴费期限不同",
+  "taksiranTaxInformation": "税务资料",
+  "sewaanStepSelectAccount": "选择账户",
+  "sewaanStepReviewPayment": "核对付款",
+  "sewaanSelectAccountHint": "请选择您要付款的租赁账户。",
+  "sewaanReviewTitle": "核对租金付款",
+  "sewaanReviewHint": "付款前请核对账户及付款金额。",
+  "sewaanSelectedAccountsTitle": "已选账户",
+  "sewaanChangeSelection": "更改",
+  "sewaanPaymentBreakdown": "付款明细",
+  "sewaanPayButton": "付款",
+  "sewaanNoPaymentAvailable": "此账户目前无需付款。",
+  "sewaanAmountUnavailable": "目前无法获取付款金额。",
+  "compoundAvailableCountLabel": "可选择的罚单总数",
+  "compoundSelectedCount": "已选择 {count} 张罚单",
+  "@compoundSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "makePaymentButton": "进行付款",
+  "perakExplorationTitle": "探索霹雳"
 }

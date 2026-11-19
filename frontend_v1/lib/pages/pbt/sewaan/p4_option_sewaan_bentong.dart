@@ -546,10 +546,31 @@ class _ModernTextServiceButton extends StatefulWidget {
 class _ModernTextServiceButtonState extends State<_ModernTextServiceButton> {
   bool _isPressed = false;
   bool _isFocused = false;
+  bool _isHovered = false;
+  bool _activationPending = false;
 
   void _setPressed(bool value) {
-    if (!mounted || _isPressed == value) return;
+    if (!mounted || widget.comingSoon || _isPressed == value) return;
     setState(() => _isPressed = value);
+  }
+
+  // Let touch feedback become visible before opening the next page or dialog.
+  // A second tap during this short interval is ignored.
+  Future<void> _handleTap() async {
+    if (!mounted || widget.comingSoon || _activationPending) return;
+
+    setState(() => _activationPending = true);
+    await Future<void>.delayed(const Duration(milliseconds: 170));
+
+    if (!mounted) return;
+
+    try {
+      widget.onPressed();
+    } finally {
+      if (mounted) {
+        setState(() => _activationPending = false);
+      }
+    }
   }
 
   @override
@@ -557,16 +578,17 @@ class _ModernTextServiceButtonState extends State<_ModernTextServiceButton> {
     final enabled = !widget.comingSoon;
     final accent = widget.accentColor;
     final light = widget.accentLightColor;
-    final emphasized = enabled && (_isPressed || _isFocused);
+    final pressed = _isPressed || _activationPending;
+    final emphasized = enabled && (pressed || _isFocused || _isHovered);
     final radius = BorderRadius.circular(26);
     final borderColor = emphasized
         ? accent
         : Color.lerp(const Color(0xFFB9C8DA), accent, 0.28)!;
 
     return AnimatedScale(
-      scale: _isPressed ? 0.985 : 1,
+      scale: pressed ? 0.967 : 1.0,
       duration: const Duration(milliseconds: 120),
-      curve: Curves.easeOut,
+      curve: Curves.easeOutCubic,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 160),
         height: widget.height,
@@ -574,27 +596,35 @@ class _ModernTextServiceButtonState extends State<_ModernTextServiceButton> {
           borderRadius: radius,
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF18324F)
-                  .withOpacity(_isPressed ? 0.05 : 0.11),
-              blurRadius: _isPressed ? 8 : 18,
-              offset: Offset(0, _isPressed ? 2 : 7),
+              color: accent.withOpacity(pressed ? 0.08 : 0.14),
+              blurRadius: pressed ? 7 : 18,
+              offset: Offset(0, pressed ? 2 : 7),
             ),
           ],
         ),
         child: Material(
-          color: Colors.white,
+          color: pressed
+              ? Color.lerp(Colors.white, light, 0.70)!
+              : Colors.white,
+          animationDuration: const Duration(milliseconds: 140),
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(borderRadius: radius),
           child: InkWell(
-            onTap: enabled ? widget.onPressed : null,
+            onTap: enabled ? _handleTap : null,
             canRequestFocus: enabled,
             onHighlightChanged: enabled ? _setPressed : null,
             onFocusChange: (value) {
               if (!mounted || _isFocused == value) return;
               setState(() => _isFocused = value);
             },
-            splashColor: accent.withOpacity(0.10),
-            highlightColor: accent.withOpacity(0.04),
+            onHover: enabled
+                ? (value) {
+                    if (!mounted || _isHovered == value) return;
+                    setState(() => _isHovered = value);
+                  }
+                : null,
+            splashColor: accent.withOpacity(0.18),
+            highlightColor: accent.withOpacity(0.09),
             child: Stack(
               fit: StackFit.expand,
               children: [
@@ -643,10 +673,10 @@ class _ModernTextServiceButtonState extends State<_ModernTextServiceButton> {
                                     boxShadow: [
                                       BoxShadow(
                                         color: accent.withOpacity(
-                                          _isPressed ? 0.08 : 0.15,
+                                          pressed ? 0.08 : 0.15,
                                         ),
-                                        blurRadius: _isPressed ? 10 : 18,
-                                        offset: Offset(0, _isPressed ? 3 : 7),
+                                        blurRadius: pressed ? 8 : 18,
+                                        offset: Offset(0, pressed ? 2 : 7),
                                       ),
                                     ],
                                   ),
@@ -680,11 +710,20 @@ class _ModernTextServiceButtonState extends State<_ModernTextServiceButton> {
                                       Positioned(
                                         top: 0,
                                         right: 0,
-                                        child: Container(
-                                          width: 38,
-                                          height: 38,
+                                        child: AnimatedContainer(
+                                          duration: const Duration(
+                                            milliseconds: 140,
+                                          ),
+                                          width: pressed ? 36 : 38,
+                                          height: pressed ? 36 : 38,
                                           decoration: BoxDecoration(
-                                            color: accent,
+                                            color: pressed
+                                                ? Color.lerp(
+                                                    accent,
+                                                    Colors.black,
+                                                    0.15,
+                                                  )!
+                                                : accent,
                                             borderRadius:
                                                 BorderRadius.circular(12),
                                           ),
@@ -800,10 +839,15 @@ class _ModernTextServiceButtonState extends State<_ModernTextServiceButton> {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 160),
                       decoration: BoxDecoration(
+                        color: pressed
+                            ? accent.withOpacity(0.085)
+                            : _isHovered
+                                ? accent.withOpacity(0.025)
+                                : Colors.transparent,
                         borderRadius: radius,
                         border: Border.all(
                           color: borderColor,
-                          width: emphasized ? 3 : 2,
+                          width: pressed ? 3.5 : emphasized ? 3 : 2,
                         ),
                       ),
                     ),

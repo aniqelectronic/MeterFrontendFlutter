@@ -30,6 +30,10 @@ class PegePayWebViewHelper {
   static int? _programmaticClosingSessionId;
 
   static bool _isClosing = false;
+  static Future<void>? _closingOperation;
+  static final Set<int> _intentionalCloseSessions = <int>{};
+  // Tracks a Windows native QR window that has been asked to close.
+  static Future<void>? _pendingWindowsClose;
 
   static DateTime? _lastWebViewClosedAt;
   static const Duration _webViewCooldown = Duration(seconds: 3);
@@ -46,24 +50,75 @@ class PegePayWebViewHelper {
     required Function onCancel,
     FutureOr<void> Function()? onPaymentDetected,
     FutureOr<void> Function()? onQrWindowOpened,
+    FutureOr<void> Function(String message)? onError,
   }) async {
     print('[PegePay] Opening QR for order: $orderNo');
+
+    Future<void> reportOpenError(String message) async {
+      print('[PegePay] OPEN ERROR: $message');
+      try {
+        if (onError != null) {
+          await onError(message);
+        } else {
+          // Backwards compatibility for other payment pages.
+          await Future<void>.sync(() => onCancel());
+        }
+      } catch (error) {
+        print('[PegePay] Error callback failed: $error');
+      }
+    }
 
     /*
      * Invalidate every callback belonging to the previous WebView
      * before closing that previous window.
      */
+    // Complete any in-flight teardown before starting a new session.
+    if (_closingOperation != null) {
+      try {
+        await _closingOperation!.timeout(const Duration(seconds: 10));
+      } catch (error) {
+        print('[PegePay] Previous teardown still pending: $error');
+      }
+    }
+
+    _intentionalCloseSessions.removeWhere((id) => id < _activeSessionId);
     final int sessionId = ++_activeSessionId;
 
     // Pause the Linux kiosk focus guard before creating the
     // separate native PegePay QR window.
-    LinuxKioskService.allowSecondaryWindow();
+    if (Platform.isLinux) {
+      LinuxKioskService.allowSecondaryWindow();
+    }
 
     currentRouteName = '/payment';
 
-    await _closeOldWebView();
+try {
+  await _closeOldWebView();
+  await _waitForWebViewCooldown();
 
-    await _waitForWebViewCooldown();
+  if (Platform.isWindows && _pendingWindowsClose != null) {
+    try {
+      await _pendingWindowsClose!.timeout(const Duration(seconds: 8));
+    } on TimeoutException {
+      print('[PegePay] Clearing stale Windows close wait');
+      _pendingWindowsClose = null;
+    }
+  }
+} catch (e) {
+  print('[PegePay] Previous QR window is not ready: $e');
+
+  if (sessionId == _activeSessionId) {
+    await _restoreFlutterWindow(sessionId: sessionId);
+
+    try {
+      await reportOpenError('Previous QR window is not ready: $e');
+    } catch (error) {
+      print('[PegePay] Failed to cancel pending QR: $error');
+    }
+  }
+
+  return;
+}
 
     /*
      * Another open() might have started while cleanup was running.
@@ -75,6 +130,21 @@ class PegePayWebViewHelper {
 
     bool finished = false;
     bool cancelCallbackCalled = false;
+
+    // WINDOWS ONLY: fetch the authenticated page before opening a native window.
+    // Linux retains its existing creation/download/launch order.
+    String? windowsWrapperUrl;
+    if (Platform.isWindows) {
+      try {
+        windowsWrapperUrl = await _prepareWindowsWrapper(iframeUrl, sessionId);
+      } catch (error) {
+        if (sessionId == _activeSessionId) {
+          await _restoreFlutterWindow(sessionId: sessionId);
+          await reportOpenError('Cannot load QR wrapper: $error');
+        }
+        return;
+      }
+    }
 
     late final Webview webview;
 
@@ -120,7 +190,7 @@ class PegePayWebViewHelper {
 
         if (!cancelCallbackCalled) {
           cancelCallbackCalled = true;
-          onCancel();
+          await reportOpenError('Failed to create QR window: $e');
         }
       }
 
@@ -131,7 +201,7 @@ class PegePayWebViewHelper {
     // WEBVIEW WINDOW CLOSED
     // ==========================================================
 
-    webview.onClose.whenComplete(() async {
+    unawaited(webview.onClose.then<void>((_) async {
       print(
         '[PegePay] onClose received for session $sessionId',
       );
@@ -144,6 +214,7 @@ class PegePayWebViewHelper {
        * delayed callback could cancel the newly opened QR screen.
        */
       if (sessionId != _activeSessionId) {
+        _intentionalCloseSessions.remove(sessionId);
         print(
           '[PegePay] Ignoring old onClose event '
           'for session $sessionId',
@@ -169,7 +240,8 @@ class PegePayWebViewHelper {
        * - payment succeeded
        * - close() was called
        */
-      if (_programmaticClosingSessionId == sessionId || finished) {
+      if (_intentionalCloseSessions.remove(sessionId) ||
+          _programmaticClosingSessionId == sessionId || finished) {
         print(
           '[PegePay] Programmatic close completed '
           'for session $sessionId',
@@ -188,14 +260,16 @@ class PegePayWebViewHelper {
         cancelCallbackCalled = true;
 
         try {
-          onCancel();
+          await Future<void>.sync(() => onCancel());
         } catch (e) {
           print(
             '[PegePay] onCancel failed after X close: $e',
           );
         }
       }
-    });
+    }).catchError((Object error, StackTrace trace) {
+      print('[PegePay] onClose callback error: $error');
+    }));
 
     // ==========================================================
     // CANCEL BUTTON FROM THE BACKEND WRAPPER
@@ -225,13 +299,13 @@ class PegePayWebViewHelper {
       unawaited(
         _handleCancel(
           sessionId: sessionId,
-          onCancel: () {
+          onCancel: () async {
             if (cancelCallbackCalled) {
               return;
             }
 
             cancelCallbackCalled = true;
-            onCancel();
+            await Future<void>.sync(() => onCancel());
           },
         ),
       );
@@ -254,6 +328,9 @@ class PegePayWebViewHelper {
     String localWrapperUrl;
 
     try {
+      if (Platform.isWindows && windowsWrapperUrl != null) {
+        localWrapperUrl = windowsWrapperUrl;
+      } else {
       final wrapperResponse = await http
           .get(
             wrapperUri,
@@ -302,6 +379,7 @@ class PegePayWebViewHelper {
         '[PegePay] Local wrapper URL: '
         '$localWrapperUrl',
       );
+      }
     } catch (e) {
       print(
         '[PegePay] Failed to download wrapper HTML: $e',
@@ -316,10 +394,16 @@ class PegePayWebViewHelper {
 
         if (!cancelCallbackCalled) {
           cancelCallbackCalled = true;
-          onCancel();
+          await reportOpenError('Failed to download QR wrapper: $e');
         }
       }
 
+      return;
+    }
+
+    // Do not launch into a window closed while its wrapper was downloading.
+    if (sessionId != _activeSessionId || finished ||
+        !identical(_currentWebview, webview)) {
       return;
     }
 
@@ -328,7 +412,13 @@ class PegePayWebViewHelper {
     // ==========================================================
 
     try {
-      webview.launch(localWrapperUrl);
+      if (Platform.isWindows) {
+        // Future.sync works with both void and Future-returning plugin versions.
+        await Future<void>.sync(() => webview.launch(localWrapperUrl));
+      } else {
+        // Original Linux launch sequence is intentionally unchanged.
+        webview.launch(localWrapperUrl);
+      }
     } catch (e) {
       print('[PegePay] Failed to launch WebView: $e');
 
@@ -341,7 +431,7 @@ class PegePayWebViewHelper {
 
         if (!cancelCallbackCalled) {
           cancelCallbackCalled = true;
-          onCancel();
+          await reportOpenError('Failed to launch QR content: $e');
         }
       }
 
@@ -355,13 +445,22 @@ class PegePayWebViewHelper {
      * - PegePayQR
      * - PegePay QR Payment
      */
-    unawaited(
-      _makeWebViewFullscreen(
-        sessionId: sessionId,
-        onQrWindowOpened: onQrWindowOpened,
-      ),
-    );
-
+      if (Platform.isLinux) {
+        unawaited(
+          _makeWebViewFullscreen(
+            sessionId: sessionId,
+            onQrWindowOpened: onQrWindowOpened,
+          ),
+        );
+      } else if (Platform.isWindows) {
+        if (onQrWindowOpened != null) {
+          try {
+            await onQrWindowOpened();
+          } catch (error) {
+            print('[PegePay] Opening overlay callback failed: $error');
+          }
+        }
+      }
     // The opening overlay is closed only after the native QR window
     // is found and brought to the front. Minimize monitoring is not
     // used in this flow. If the QR window is minimized, the next QR
@@ -395,35 +494,21 @@ class PegePayWebViewHelper {
         statusRequestRunning = true;
 
         try {
-          final paid = await PegePayService.checkStatus(
-            orderNo,
-          );
+          // One authoritative result for this exact order, rather than a true
+          // first response followed by unchecked/failed details from a second.
+          final paymentResult = await PegePayService.checkStatusDetails(orderNo)
+              .timeout(const Duration(seconds: 10));
+          if (sessionId != _activeSessionId || finished) return;
 
-          if (sessionId != _activeSessionId || finished) {
+          final confirmedOrder = paymentResult['order_no']?.toString().trim();
+          if (paymentResult['success'] != true || confirmedOrder != orderNo) {
+            // False, timeout and incomplete details are NOT payment approval.
             return;
           }
-
-          if (!paid) {
-            return;
-          }
-
-          print(
-            '[PegePay] Payment successful for $orderNo',
-          );
-
+          print('[PegePay] VERIFIED payment for $orderNo');
           finished = true;
-
           timer.cancel();
           _statusTimer = null;
-
-          final paymentResult =
-              await PegePayService.checkStatusDetails(
-            orderNo,
-          );
-
-          if (sessionId != _activeSessionId) {
-            return;
-          }
 
           /*
            * Update the Flutter transition overlay before closing
@@ -448,7 +533,7 @@ class PegePayWebViewHelper {
           );
 
           try {
-            onSuccess(paymentResult);
+            await Future<void>.sync(() => onSuccess(paymentResult));
           } catch (e) {
             print(
               '[PegePay] onSuccess callback failed: $e',
@@ -463,13 +548,43 @@ class PegePayWebViewHelper {
     );
   }
 
+  static Future<String> _prepareWindowsWrapper(
+    String iframeUrl,
+    int sessionId,
+  ) async {
+    final uri = Uri.parse('${Config.apiBaseUrl}/pegepay/iframe-wrapper').replace(
+      queryParameters: {'iframe_url': iframeUrl},
+    );
+    print('[PegePay] Windows wrapper fetch: ${uri.origin}${uri.path}');
+    final response = await http.get(
+      uri,
+      headers: ApiHmacHelper.createHeaders(
+        method: 'GET',
+        uri: uri,
+        body: '',
+        accept: 'text/html',
+      ),
+    ).timeout(const Duration(seconds: 20));
+    print('[PegePay] Windows wrapper HTTP ${response.statusCode}');
+    if (response.statusCode != 200 || response.body.trim().isEmpty) {
+      throw StateError('QR wrapper HTTP ${response.statusCode} or empty body.');
+    }
+    final directory = await getTemporaryDirectory();
+    final file = File(
+      '${directory.path}${Platform.pathSeparator}'
+      'pegepay_wrapper_${sessionId}_${DateTime.now().microsecondsSinceEpoch}.html',
+    );
+    await file.writeAsString(response.body, encoding: utf8, flush: true);
+    return file.uri.toString();
+  }
+
   // ============================================================
   // HANDLE CANCEL
   // ============================================================
 
   static Future<void> _handleCancel({
     required int sessionId,
-    required void Function() onCancel,
+    required FutureOr<void> Function() onCancel,
   }) async {
     if (sessionId != _activeSessionId) {
       return;
@@ -484,7 +599,7 @@ class PegePayWebViewHelper {
     }
 
     try {
-      onCancel();
+      await onCancel();
     } catch (e) {
       print('[PegePay] onCancel callback failed: $e');
     }
@@ -511,26 +626,33 @@ class PegePayWebViewHelper {
   // CLOSE CURRENT QR WEBVIEW
   // ============================================================
 
+
   static Future<void> _closeCurrentWebView({
     required int sessionId,
   }) async {
-    if (sessionId != _activeSessionId) {
-      print(
-        '[PegePay] Refusing to close an old session',
-      );
+    if (sessionId != _activeSessionId) return;
+
+    // Concurrent close requests must wait for the same teardown.
+    if (_closingOperation != null) {
+      await _closingOperation;
       return;
     }
 
-    if (_isClosing) {
-      print(
-        '[PegePay] QR window is already closing',
-      );
-      return;
+    final operation = _performClose(sessionId);
+    _closingOperation = operation;
+    try {
+      await operation;
+    } finally {
+      if (identical(_closingOperation, operation)) {
+        _closingOperation = null;
+      }
     }
+  }
 
+  static Future<void> _performClose(int sessionId) async {
     _isClosing = true;
     _programmaticClosingSessionId = sessionId;
-
+    _intentionalCloseSessions.add(sessionId);
     _statusTimer?.cancel();
     _statusTimer = null;
 
@@ -539,126 +661,154 @@ class PegePayWebViewHelper {
 
     try {
       if (webview != null) {
-        print(
-          '[PegePay] Closing native QR WebView '
-          'for session $sessionId',
-        );
+        final closeCompleted = webview.onClose;
+        if (Platform.isWindows) {
+          _pendingWindowsClose = closeCompleted;
+          // Avoid leaving a permanently blocked retry if the native
+          // plugin never emits onClose after close().
+          unawaited(
+            closeCompleted.whenComplete(() {
+              if (identical(_pendingWindowsClose, closeCompleted)) {
+                _pendingWindowsClose = null;
+              }
+            }).catchError((Object error, StackTrace trace) {
+              print('[PegePay] Windows QR close notification error: $error');
+            }),
+          );
+        }
 
         try {
-          final closeCompleted = webview.onClose;
-
           webview.close();
-
-          /*
-          * Windows normally closes immediately.
-          * Linux WebKit sometimes does not complete onClose,
-          * so wait only one second.
-          */
           await closeCompleted.timeout(
-            const Duration(seconds: 1),
+            Duration(seconds: Platform.isWindows ? 8 : 1),
           );
-
-          print(
-            '[PegePay] Native QR WebView closed normally',
-          );
+          print('[PegePay] Native QR WebView closed');
         } on TimeoutException {
-          print(
-            '[PegePay] Native close timed out',
-          );
-
-          /*
-          * Linux fallback:
-          * close the native window using xdotool/wmctrl.
-          */
+          print('[PegePay] Native QR close timed out');
           if (Platform.isLinux) {
-            print(
-              '[PegePay] Force-closing Linux QR window',
-            );
-
             await _forceClosePegePayWindows();
+          } else {
+            // The plugin may fail to complete onClose on Windows.
+            // Clear the stale wait so a subsequent QR attempt can retry.
+            if (identical(_pendingWindowsClose, closeCompleted)) {
+              _pendingWindowsClose = null;
+            }
           }
         } catch (error) {
-          print(
-            '[PegePay] Native close error: $error',
-          );
-
+          print('[PegePay] Native QR close error: $error');
           if (Platform.isLinux) {
             await _forceClosePegePayWindows();
+          } else if (identical(_pendingWindowsClose, closeCompleted)) {
+            _pendingWindowsClose = null;
           }
         }
       }
 
       _lastWebViewClosedAt = DateTime.now();
-
-      /*
-      * Explicitly restore Flutter.
-      * This is safe because _restoreFlutterWindow prevents
-      * restoring the same session twice.
-      */
-      await _restoreFlutterWindow(
-        sessionId: sessionId,
-      );
+      await _restoreFlutterWindow(sessionId: sessionId);
     } finally {
       _isClosing = false;
-
-      if (
-          _programmaticClosingSessionId ==
-              sessionId
-      ) {
+      if (_programmaticClosingSessionId == sessionId) {
         _programmaticClosingSessionId = null;
       }
     }
-
-    /*
-    * Do not call _waitForWebViewCooldown() here.
-    * It causes an unnecessary three-second delay before
-    * onSuccess and the receipt page.
-    *
-    * The cooldown is still used before opening another QR.
-    */
   }
 
   // ============================================================
   // CLOSE PREVIOUS WEBVIEW BEFORE OPENING A NEW ONE
   // ============================================================
 
-  static Future<void> _closeOldWebView() async {
-    _statusTimer?.cancel();
-    _statusTimer = null;
 
-    final oldWebview = _currentWebview;
-    _currentWebview = null;
+static Future<void> _closeOldWebView() async {
+  _statusTimer?.cancel();
+  _statusTimer = null;
 
-    if (oldWebview != null) {
-      _isClosing = true;
+  // Never create another Windows QR window while the
+  // previous native window is still being destroyed.
+  if (Platform.isWindows && _pendingWindowsClose != null) {
+    print('[PegePay] Waiting for previous Windows QR to close');
 
-      try {
-        print('[PegePay] Closing previous QR WebView');
+    try {
+      await _pendingWindowsClose!.timeout(const Duration(seconds: 8));
+    } on TimeoutException {
+      print('[PegePay] Clearing stale Windows close wait');
+      _pendingWindowsClose = null;
+    }
+  }
 
-        final closeCompleted = oldWebview.onClose;
-        oldWebview.close();
+  final oldWebview = _currentWebview;
 
-        await closeCompleted.timeout(
-          const Duration(seconds: 5),
-        );
+  if (oldWebview == null) {
+    return;
+  }
 
-        _lastWebViewClosedAt = DateTime.now();
-      } on TimeoutException {
-        print('[PegePay] Previous WebView close timed out');
-        await _forceClosePegePayWindows();
-        _lastWebViewClosedAt = DateTime.now();
-      } catch (e) {
-        print(
-          '[PegePay] Failed to close previous WebView: $e',
-        );
-        _lastWebViewClosedAt = DateTime.now();
-      } finally {
-        _isClosing = false;
-      }
+  _isClosing = true;
+
+  try {
+    print('[PegePay] Closing previous QR WebView');
+
+    final closeCompleted = oldWebview.onClose;
+
+    if (Platform.isWindows) {
+      _pendingWindowsClose = closeCompleted;
+
+      unawaited(
+        closeCompleted.whenComplete(() {
+          if (identical(_pendingWindowsClose, closeCompleted)) {
+            _pendingWindowsClose = null;
+          }
+        }).catchError((Object error, StackTrace trace) {
+          print('[PegePay] Previous Windows QR close notification error: $error');
+        }),
+      );
     }
 
-    await _waitForWebViewCooldown();
+    oldWebview.close();
+
+    await closeCompleted.timeout(
+      Duration(
+        seconds: Platform.isWindows ? 10 : 5,
+      ),
+    );
+
+    print('[PegePay] Previous QR WebView closed');
+
+    if (identical(_currentWebview, oldWebview)) {
+      _currentWebview = null;
+    }
+
+    _lastWebViewClosedAt = DateTime.now();
+  } on TimeoutException {
+    print('[PegePay] Previous WebView close timed out');
+
+    if (Platform.isLinux) {
+      await _forceClosePegePayWindows();
+
+      if (identical(_currentWebview, oldWebview)) {
+        _currentWebview = null;
+      }
+
+      _lastWebViewClosedAt = DateTime.now();
+    } else {
+      // The Windows plugin may not complete onClose even after close().
+      // Release the stale handle to allow the next QR attempt.
+      if (identical(_currentWebview, oldWebview)) {
+        _currentWebview = null;
+      }
+      _pendingWindowsClose = null;
+      _lastWebViewClosedAt = DateTime.now();
+    }
+  } catch (e) {
+    print('[PegePay] Failed to close previous WebView: $e');
+
+    if (Platform.isWindows) {
+      rethrow;
+    }
+  } finally {
+    _isClosing = false;
   }
+}
+
 
   // ============================================================
   // WAIT FOR WEBKIT/GTK TO FINISH NATIVE WINDOW TEARDOWN
@@ -957,7 +1107,12 @@ done
 
       // Re-enable the kiosk guard and restore the main Flutter
       // window only after the PegePay QR window has closed.
-      await LinuxKioskService.restoreFlutterWindow();
+      if (Platform.isLinux) {
+        await LinuxKioskService.restoreFlutterWindow();
+      } else if (Platform.isWindows) {
+        await windowManager.show();
+        await windowManager.focus();
+      }
 
       print('[PegePay] Flutter window restored');
     } catch (e) {

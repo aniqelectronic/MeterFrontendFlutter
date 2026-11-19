@@ -1,7 +1,8 @@
 
 {
-  "branchId": "Manjung",
+  "branchId": "HQ",
   "branchName": "Majlis Perbandaran Manjung",
+  "pipApiKey": "03V642DEuCZ9RfI7_GB8KV1Gxnwp2Gu4cAJSkrDDbjo",
 
   "baseUrl": "https://tipintar.juaraipasifik.com",
   "apiVersion": "/api/v2",
@@ -25,9 +26,15 @@
   "waktusolatplace": "Manjung,Perak",
   "waktusolaturl": "https://www.e-solat.gov.my/index.php?r=esolatApi/takwimsolat&zone=PRK05&period=today",
 
-  "iotHubSharedAccessKey": "cAdzDjTzU9ZbHRk/odz7XiL41rtSug7xPN0WJop+gY0=",
+  "iotHubSharedAccessKey": "cKdMAo/kZ/zFPmXUUVB1Nshdkdl9sStWJQAJcLaRkZw=",
 
   "pbtArea": "Perbandaran Manjung",
+
+  "negeri": "Selangor",
+  "kawasan": "HQ Demo",
+  "zon": "Demo Zone 1",
+
+
   "weatherPlaceName": "Manjung, Perak",
   "weatherLocationId": "Ds029"
 }

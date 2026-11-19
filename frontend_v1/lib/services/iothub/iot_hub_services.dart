@@ -245,9 +245,10 @@ class IoTHubService {
 
       final data = <String, dynamic>{
         'terminal_ID': Config.terminalId,
+        'branch_id': Config.branchId,
 
         // Replace these values with the actual sensor readings later.
-        'battery_health': 80,
+        'battery_health': 80 + Random().nextInt(21),
         'door_status':
             Random().nextBool() ? 'open' : 'close',
 

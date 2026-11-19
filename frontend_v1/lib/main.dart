@@ -115,7 +115,8 @@ Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Handle secondary WebView process before kiosk initialization.
-  if (Platform.isLinux && runWebViewTitleBarWidget(args)) {
+  if ((Platform.isLinux || Platform.isWindows) &&
+      runWebViewTitleBarWidget(args)) {
     return;
   }
 
@@ -169,6 +170,26 @@ Future<void> main(List<String> args) async {
       },
     );
   }
+
+if (Platform.isWindows) {
+  await windowManager.ensureInitialized();
+
+  const windowOptions = WindowOptions(
+    size: Size(1080, 1920),
+    center: true,
+    backgroundColor: Colors.black,
+    titleBarStyle: TitleBarStyle.hidden,
+    fullScreen: true,
+  );
+
+  await windowManager.waitUntilReadyToShow(
+    windowOptions,
+    () async {
+      await windowManager.show();
+      await windowManager.focus();
+    },
+  );
+}
 
   runApp(const App());
 }
