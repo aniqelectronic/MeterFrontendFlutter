@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
+
 import 'package:frontend_v1/im15_utils/im15_transaction_logger.dart';
+
 import '../im15_serial/native_serial_port.dart';
-import 'dart:typed_data';
 
 /// Native Serial Manager using BLOCKING reads (like Java implementation)
 /// This ensures no bytes are missed during critical handshake moments
@@ -21,19 +22,19 @@ class IM15NativeSerialManager {
     try {
       print('[IM15NativeSerialManager] Opening port: $portName');
       _port = NativeSerialPort(portName);
-      
+
       final opened = _port!.open(
         baudRate: 9600,
         dataBits: 8,
         stopBits: 1,
-        parity: 2, 
+        parity: 2,
       );
-      
+
       if (!opened) {
         print('[IM15NativeSerialManager] Failed to open port');
         return false;
       }
-      
+
       print('[IM15NativeSerialManager] ✅ Port opened successfully');
       return true;
     } catch (e) {
@@ -49,8 +50,8 @@ class IM15NativeSerialManager {
   }
 
   void sendAbort() {
-  sendBytes(Uint8List.fromList('ABORT'.codeUnits));
-}
+    sendBytes(Uint8List.fromList('ABORT'.codeUnits));
+  }
 
   /// CRITICAL FIX: Force reset card reader by sending multiple EOT bytes
   Future<void> forceReset() async {
@@ -63,7 +64,7 @@ class IM15NativeSerialManager {
           print('[IM15NativeSerialManager] 📤 Sent EOT #${i + 1}');
           await Future.delayed(const Duration(milliseconds: 100));
         }
-        
+
         // Give card reader time to process
         await Future.delayed(const Duration(milliseconds: 500));
         print('[IM15NativeSerialManager] ✅ Force reset completed');
@@ -77,10 +78,21 @@ class IM15NativeSerialManager {
 
   // ---------- SEND METHODS ----------
   void sendByte(int byte) {
-    if (_port?.isOpen == true) {
-      _port!.write(Uint8List.fromList([byte]));
-      print('[IM15NativeSerialManager] Sent: ${_printable(byte)} (0x${byte.toRadixString(16).padLeft(2, '0')})');
+    final port = _port;
+    final label = _printable(byte);
+    if (port == null || !port.isOpen) {
+      print('[IM15NativeSerialManager] $label write skipped: port is closed');
+      return;
     }
+
+    final written = port.write(Uint8List.fromList([byte]));
+    if (written != 1) {
+      print('[IM15NativeSerialManager] $label write=$written/1 (failed)');
+      return;
+    }
+
+    final hex = byte.toRadixString(16).padLeft(2, '0');
+    print('[IM15NativeSerialManager] $label write=$written/1 (0x$hex)');
   }
 
   void sendBytes(Uint8List bytes, {String label = 'Packet'}) {
@@ -90,13 +102,21 @@ class IM15NativeSerialManager {
     }
   }
 
-  void sendPacket(Uint8List packet, String label, [IM15TransactionLogger? logger]) {
+  void sendPacket(
+    Uint8List packet,
+    String label, [
+    IM15TransactionLogger? logger,
+  ]) {
     sendByte(STX);
     logger?.logSend('STX ($label)');
     traceableSend(packet, label, logger);
   }
 
-  void traceableSend(Uint8List bytes, String label, [IM15TransactionLogger? logger]) {
+  void traceableSend(
+    Uint8List bytes,
+    String label, [
+    IM15TransactionLogger? logger,
+  ]) {
     sendBytes(bytes, label: label);
     if (logger != null) {
       final hexStr = bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join(' ');
@@ -107,20 +127,20 @@ class IM15NativeSerialManager {
   // ---------- BLOCKING WAIT FOR BYTE (like Java) ----------
   Future<bool> waitForByte(int expected, int timeoutMillis) async {
     final start = DateTime.now().millisecondsSinceEpoch;
-    
+
     while (DateTime.now().millisecondsSinceEpoch - start < timeoutMillis) {
       // Check if data is available (blocking read with small timeout)
-        final _t0 = DateTime.now();
-        final data = _port!.read(1, timeoutMs: 20);
-        final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
-        if (_elapsed > 25) {
-          print('[TIMING] ⚠️ waitForByte read() took ${_elapsed}ms');
-        }
-      
+      final _t0 = DateTime.now();
+      final data = _port!.read(1, timeoutMs: 20);
+      final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
+      if (_elapsed > 25) {
+        print('[TIMING] ⚠️ waitForByte read() took ${_elapsed}ms');
+      }
+
       if (data != null && data.isNotEmpty) {
         final received = data[0];
         print('[IM15NativeSerialManager] Received: ${_printable(received)} (0x${received.toRadixString(16).padLeft(2, '0')})');
-        
+
         if (received == expected) {
           return true;
         } else {
@@ -128,11 +148,11 @@ class IM15NativeSerialManager {
           print('[IM15NativeSerialManager] ⚠️ Expected ${_printable(expected)} but got ${_printable(received)}');
         }
       }
-      
+
       // Small delay between checks (like Java's Thread.sleep(20))
       await Future.delayed(const Duration(milliseconds: 20));
     }
-    
+
     print('[IM15NativeSerialManager] ⏱️ Timeout waiting for ${_printable(expected)}');
     return false;
   }
@@ -142,26 +162,26 @@ class IM15NativeSerialManager {
   Future<bool> waitForAscii(String expected, int timeoutMillis) async {
     final start = DateTime.now().millisecondsSinceEpoch;
     final buffer = StringBuffer();
-    
+
     while (DateTime.now().millisecondsSinceEpoch - start < timeoutMillis) {
       final data = _port!.read(1, timeoutMs: 20);
-      
+
       if (data != null && data.isNotEmpty) {
         final byte = data[0];
-        
+
         // Only process printable ASCII characters
         if (byte >= 0x20 && byte <= 0x7E) {
           final char = String.fromCharCode(byte);
           buffer.write(char);
           print('[IM15NativeSerialManager] Received ASCII: \'$char\' (0x${byte.toRadixString(16).padLeft(2, '0')})');
-          
+
           // Check if buffer contains the expected string
           final currentBuffer = buffer.toString();
           if (currentBuffer.contains(expected)) {
             print('[IM15NativeSerialManager] ✅ Detected ASCII string: "$expected"');
             return true;
           }
-          
+
           // Keep buffer reasonable size (max 10 chars)
           if (currentBuffer.length > 10) {
             buffer.clear();
@@ -172,10 +192,10 @@ class IM15NativeSerialManager {
           print('[IM15NativeSerialManager] Received non-printable: ${_printable(byte)}');
         }
       }
-      
+
       await Future.delayed(const Duration(milliseconds: 20));
     }
-    
+
     print('[IM15NativeSerialManager] ⏱️ Timeout waiting for ASCII: "$expected"');
     return false;
   }
@@ -186,20 +206,24 @@ class IM15NativeSerialManager {
   }
 
   // ---------- BLOCKING READ UNTIL WITH CUSTOM TIMEOUT ----------
-  Future<String> readUntilWithTimeout(int stopByte, int timeoutMillis, [bool onlyPrintable = true]) async {
+  Future<String> readUntilWithTimeout(
+    int stopByte,
+    int timeoutMillis, [
+    bool onlyPrintable = true,
+  ]) async {
     final List<int> buffer = [];
     final start = DateTime.now().millisecondsSinceEpoch;
-    
+
     while (DateTime.now().millisecondsSinceEpoch - start < timeoutMillis) {
       final data = _port!.read(1, timeoutMs: 20);
-      
+
       if (data != null && data.isNotEmpty) {
         final byte = data[0];
-        
+
         if (byte == stopByte) {
           break;
         }
-        
+
         if (!onlyPrintable || (byte >= 0x20 && byte <= 0x7E)) {
           buffer.add(byte);
         }
@@ -208,7 +232,7 @@ class IM15NativeSerialManager {
         await Future.delayed(const Duration(milliseconds: 20));
       }
     }
-    
+
     final result = ascii.decode(buffer);
     if (result.isNotEmpty) {
       print('[IM15NativeSerialManager] Read until ${_printable(stopByte)}: $result (timeout: ${timeoutMillis}ms)');
@@ -221,28 +245,31 @@ class IM15NativeSerialManager {
   // ---------- NEW: READ ASCII RESPONSE WITHOUT NEWLINE ----------
   /// Reads ASCII response that may not end with newline
   /// Stops when no data is received for [silenceTimeout] milliseconds
-  Future<String> readAsciiResponse(int maxTimeoutMillis, int silenceTimeout) async {
+  Future<String> readAsciiResponse(
+    int maxTimeoutMillis,
+    int silenceTimeout,
+  ) async {
     final List<int> buffer = [];
     final start = DateTime.now().millisecondsSinceEpoch;
     int lastDataTime = DateTime.now().millisecondsSinceEpoch;
-    
+
     while (DateTime.now().millisecondsSinceEpoch - start < maxTimeoutMillis) {
-        final _t0 = DateTime.now();
-        final data = _port!.read(1, timeoutMs: 20);
-        final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
-        if (_elapsed > 25) {
-          print('[TIMING] ⚠️ readAsciiResponse read() took ${_elapsed}ms');
-        }
-      
+      final _t0 = DateTime.now();
+      final data = _port!.read(1, timeoutMs: 20);
+      final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
+      if (_elapsed > 25) {
+        print('[TIMING] ⚠️ readAsciiResponse read() took ${_elapsed}ms');
+      }
+
       if (data != null && data.isNotEmpty) {
         final byte = data[0];
         lastDataTime = DateTime.now().millisecondsSinceEpoch;
-        
+
         // Only add printable ASCII characters
         if (byte >= 0x20 && byte <= 0x7E) {
           buffer.add(byte);
         }
-        
+
         // Check if we have a complete R200 response (ends with 'T')
         if (byte == 0x54 && buffer.length > 50) { // 'T' character
           final response = ascii.decode(buffer);
@@ -251,12 +278,12 @@ class IM15NativeSerialManager {
             break;
           }
         }
-        
+
         // Check if we have a complete prompt (PIN, PEF, CARD, etc.)
         if (buffer.length >= 3) {
           final response = ascii.decode(buffer);
-          if (response.endsWith('PIN') || response.endsWith('PEF') || 
-              response.endsWith('CARD') || response.endsWith('CLES') || 
+          if (response.endsWith('PIN') || response.endsWith('PEF') ||
+              response.endsWith('CARD') || response.endsWith('CLES') ||
               response.endsWith('MAGS') || response.endsWith('SCAN')) {
             print('[IM15NativeSerialManager] 🔍 Detected complete prompt');
             break;
@@ -268,17 +295,17 @@ class IM15NativeSerialManager {
           print('[IM15NativeSerialManager] ⏱️ No data for ${silenceTimeout}ms, stopping read');
           break;
         }
-        
+
         // Small delay between checks
         await Future.delayed(const Duration(milliseconds: 10));
       }
     }
-    
+
     final result = ascii.decode(buffer);
     if (result.isNotEmpty) {
       print('[IM15NativeSerialManager] 📨 Read ASCII response (${buffer.length} bytes): ${result.length > 50 ? result.substring(0, 50) + '...' : result}');
     }
-    
+
     return result;
   }
 
@@ -289,20 +316,20 @@ class IM15NativeSerialManager {
 
     while (true) {
       final data = _port!.read(1, timeoutMs: 20);
-      
+
       if (data != null && data.isNotEmpty) {
         final byte = data[0];
         buffer.add(byte);
-        
+
         if (logger != null) {
           logger.logRecvBytes(Uint8List.fromList([byte]), 'Response Packet');
         }
-        
+
         if (byte == ETX) {
           etxReceived = true;
           continue; // next byte is LRC
         }
-        
+
         // After ETX, the next byte is LRC, then stop
         if (etxReceived && buffer.length >= 2) {
           break;
@@ -316,7 +343,7 @@ class IM15NativeSerialManager {
     if (logger != null) {
       logger.logRecvBytes(Uint8List.fromList(buffer), 'Full Response Packet');
     }
-    
+
     print('[IM15NativeSerialManager] Read response packet (${buffer.length} bytes)');
     return Uint8List.fromList(buffer);
   }
