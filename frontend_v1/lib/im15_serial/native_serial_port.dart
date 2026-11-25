@@ -1,5 +1,6 @@
 import 'dart:ffi' as ffi;
 import 'dart:typed_data';
+
 import 'package:ffi/ffi.dart';
 
 // Termios constants for Linux
@@ -13,6 +14,7 @@ const int O_NONBLOCK = 0x0800;
 // Baud rate constants
 const int B9600 = 0x0000D;
 const int B115200 = 0x01002;
+const int CBAUD = 0x100F;
 
 // Control flags
 const int CSIZE = 0x00030;
@@ -83,31 +85,25 @@ typedef IoctlDart = int Function(
   ffi.Pointer<ffi.Void> argp,
 );
 
-// Termios structure (simplified for ARM64)
+// Linux ARM64 kernel termios layout used by TCGETS and TCSETS.
 base class Termios extends ffi.Struct {
   @ffi.Uint32()
   external int c_iflag;
-  
+
   @ffi.Uint32()
   external int c_oflag;
-  
+
   @ffi.Uint32()
   external int c_cflag;
-  
+
   @ffi.Uint32()
   external int c_lflag;
-  
+
   @ffi.Uint8()
   external int c_line;
-  
-  @ffi.Array(32)
+
+  @ffi.Array(19)
   external ffi.Array<ffi.Uint8> c_cc;
-  
-  @ffi.Uint32()
-  external int c_ispeed;
-  
-  @ffi.Uint32()
-  external int c_ospeed;
 }
 
 class NativeSerialPort {
@@ -117,20 +113,20 @@ class NativeSerialPort {
   late ReadDart _read;
   late WriteDart _write;
   late IoctlDart _ioctl;
-  
+
   int? _fd;
   final String portPath;
-  
+
   NativeSerialPort(this.portPath) {
     _libc = ffi.DynamicLibrary.open('libc.so.6');
-    
+
     _open = _libc.lookupFunction<OpenNative, OpenDart>('open');
     _close = _libc.lookupFunction<CloseNative, CloseDart>('close');
     _read = _libc.lookupFunction<ReadNative, ReadDart>('read');
     _write = _libc.lookupFunction<WriteNative, WriteDart>('write');
     _ioctl = _libc.lookupFunction<IoctlNative, IoctlDart>('ioctl');
   }
-  
+
   bool open({
     int baudRate = 9600,
     int dataBits = 8,
@@ -139,87 +135,85 @@ class NativeSerialPort {
   }) {
     try {
       print('[NativeSerial] Opening port: $portPath');
-      
+
       // Open the serial port
       final pathPtr = portPath.toNativeUtf8();
       _fd = _open(pathPtr, O_RDWR | O_NOCTTY | O_NONBLOCK);
       malloc.free(pathPtr);
-      
+
       if (_fd! < 0) {
         print('[NativeSerial] Failed to open port, fd: $_fd');
         return false;
       }
-      
+
       print('[NativeSerial] Port opened, fd: $_fd');
-      
-      // Get current termios settings
+
       final termiosPtr = malloc<Termios>();
-      int result = _ioctl(_fd!, TCGETS, termiosPtr.cast());
-      
-      if (result < 0) {
-        print('[NativeSerial] Failed to get termios settings');
-        _close(_fd!);
-        _fd = null;
+      try {
+        final current = _ioctl(_fd!, TCGETS, termiosPtr.cast());
+        if (current < 0) {
+          print('[NativeSerial] Failed to get termios settings');
+          close();
+          return false;
+        }
+
+        final termios = termiosPtr.ref;
+        termios.c_iflag &= ~(IGNPAR | ICRNL | IXON);
+        termios.c_oflag &= ~OPOST;
+        termios.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+
+        termios.c_cflag &= ~CSIZE;
+        termios.c_cflag |= CS8 | CREAD | CLOCAL;
+
+        if (stopBits == 2) {
+          termios.c_cflag |= CSTOPB;
+        } else {
+          termios.c_cflag &= ~CSTOPB;
+        }
+
+        if (parity == 0) {
+          termios.c_cflag &= ~PARENB;
+        } else if (parity == 1) {
+          termios.c_cflag |= PARENB | PARODD;
+        } else if (parity == 2) {
+          termios.c_cflag |= PARENB;
+          termios.c_cflag &= ~PARODD;
+        }
+
+        final speed = baudRate == 115200 ? B115200 : B9600;
+        termios.c_cflag = (termios.c_cflag & ~CBAUD) | speed;
+
+        // The port uses non-blocking I/O.
+        termios.c_cc[5] = 0; // VTIME
+        termios.c_cc[6] = 0; // VMIN
+
+        final applied = _ioctl(_fd!, TCSETS, termiosPtr.cast());
+        if (applied < 0) {
+          print('[NativeSerial] Failed to set termios settings');
+          close();
+          return false;
+        }
+
+        final readBack = _ioctl(_fd!, TCGETS, termiosPtr.cast());
+        if (readBack == 0) {
+          final flags = termiosPtr.ref.c_cflag;
+          print(
+            '[NativeSerial] requestedParity=$parity '
+            'baudMatches=${(flags & CBAUD) == speed} '
+            'parenb=${(flags & PARENB) != 0} '
+            'parodd=${(flags & PARODD) != 0} '
+            'eightDataBits=${(flags & CSIZE) == CS8} '
+            'twoStopBits=${(flags & CSTOPB) != 0}',
+          );
+        } else {
+          print('[NativeSerial] Failed to read back serial settings');
+        }
+      } finally {
         malloc.free(termiosPtr);
-        return false;
       }
-      
-      final termios = termiosPtr.ref;
-      
-      // Configure termios for raw mode
-      termios.c_iflag &= ~(IGNPAR | ICRNL | IXON);
-      termios.c_oflag &= ~OPOST;
-      termios.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
-      
-      // Set control flags
-      termios.c_cflag &= ~CSIZE;
-      termios.c_cflag |= CS8;  // 8 data bits
-      termios.c_cflag |= CREAD | CLOCAL;  // Enable receiver, ignore modem control
-      
-      // Set stop bits
-      if (stopBits == 2) {
-        termios.c_cflag |= CSTOPB;
-      } else {
-        termios.c_cflag &= ~CSTOPB;
-      }
-      
-      // Set parity
-      if (parity == 0) {
-        termios.c_cflag &= ~PARENB;  // No parity
-      } else if (parity == 1) {
-        termios.c_cflag |= PARENB | PARODD;  // Odd parity
-      } else if (parity == 2) {
-        termios.c_cflag |= PARENB;  // Even parity
-        termios.c_cflag &= ~PARODD;
-      }
-      
-      // Set baud rate
-      final speed = baudRate == 115200 ? B115200 : B9600;
-      termios.c_ispeed = speed;
-      termios.c_ospeed = speed;
-      
-      // Set minimum characters and timeout
-      // With O_NONBLOCK set on the fd, VTIME/VMIN are not used by the
-      // kernel for blocking behavior, but we set them to 0 anyway so the
-      // port behaves consistently as a pure non-blocking, poll-immediately
-      // read (returns instantly with whatever is available, or nothing).
-      termios.c_cc[5] = 0;  // VTIME = 0 (index 5 is VTIME)
-      termios.c_cc[6] = 0;  // VMIN = 0 (index 6 is VMIN)
-      
-      // Apply settings
-      result = _ioctl(_fd!, TCSETS, termiosPtr.cast());
-      malloc.free(termiosPtr);
-      
-      if (result < 0) {
-        print('[NativeSerial] Failed to set termios settings');
-        _close(_fd!);
-        _fd = null;
-        return false;
-      }
-      
+
       print('[NativeSerial] Port configured successfully');
       return true;
-      
     } catch (e) {
       print('[NativeSerial] Exception during open: $e');
       if (_fd != null && _fd! >= 0) {
@@ -229,45 +223,45 @@ class NativeSerialPort {
       return false;
     }
   }
-  
+
   int write(Uint8List data) {
     if (_fd == null || _fd! < 0) {
       throw StateError('Port not open');
     }
-    
+
     final bufPtr = malloc<ffi.Uint8>(data.length);
     for (int i = 0; i < data.length; i++) {
       bufPtr[i] = data[i];
     }
-    
+
     final written = _write(_fd!, bufPtr, data.length);
     malloc.free(bufPtr);
-    
+
     return written;
   }
-  
+
   Uint8List? read(int maxBytes, {int timeoutMs = 1000}) {
     if (_fd == null || _fd! < 0) {
       throw StateError('Port not open');
     }
-    
+
     final bufPtr = malloc<ffi.Uint8>(maxBytes);
     final bytesRead = _read(_fd!, bufPtr, maxBytes);
-    
+
     if (bytesRead <= 0) {
       malloc.free(bufPtr);
       return null;
     }
-    
+
     final result = Uint8List(bytesRead);
     for (int i = 0; i < bytesRead; i++) {
       result[i] = bufPtr[i];
     }
-    
+
     malloc.free(bufPtr);
     return result;
   }
-  
+
   void close() {
     if (_fd != null && _fd! >= 0) {
       print('[NativeSerial] Closing port fd: $_fd');
@@ -275,6 +269,6 @@ class NativeSerialPort {
       _fd = null;
     }
   }
-  
+
   bool get isOpen => _fd != null && _fd! >= 0;
 }
